@@ -17,4 +17,5 @@ fi
 if [ "$#" -gt 0 ]; then
     shift
 fi
+echo $@
 eval "nice -n ${MAYAN_WORKER_NICE_LEVEL} ${MAYAN_PYTHON_BIN_DIR}celery -A mayan worker -Ofair -l ERROR -Q ${MAYAN_QUEUE_LIST} --without-gossip --without-heartbeat ${@}"
