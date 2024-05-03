@@ -58,6 +58,7 @@ RUN set -x \
   sudo \
   supervisor \
   tesseract-ocr \
+  procps \
   # Remove make and build dependencies.
   && apt-get remove --purge --yes \
   make \
