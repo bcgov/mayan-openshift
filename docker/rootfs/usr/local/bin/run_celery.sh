@@ -4,4 +4,4 @@
 # -A can be located before the command while --app cannot.
 
 echo "${MAYAN_PYTHON_BIN_DIR}celery -A mayan $@"
-${MAYAN_PYTHON_BIN_DIR}celery -A mayan $@
+exec ${MAYAN_PYTHON_BIN_DIR}celery -A mayan $@

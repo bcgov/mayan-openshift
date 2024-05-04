@@ -17,4 +17,4 @@ fi
 if [ "$#" -gt 0 ]; then
     shift
 fi
-nice -n 0 ${MAYAN_PYTHON_BIN_DIR}celery -A mayan worker -Ofair -l ERROR -Q ${MAYAN_QUEUE_LIST} --without-gossip --without-heartbeat ${@}
+exec nice -n 0 ${MAYAN_PYTHON_BIN_DIR}celery -A mayan worker -Ofair -l ERROR -Q ${MAYAN_QUEUE_LIST} --without-gossip --without-heartbeat ${@}
