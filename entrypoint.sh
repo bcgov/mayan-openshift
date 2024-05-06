@@ -229,7 +229,7 @@ run_command)
     ;;
 
 run_frontend)
-    /usr/local/bin/run_frontend.sh
+    exec /usr/local/bin/run_frontend.sh
     ;;
 
 run_initialsetup)
@@ -252,7 +252,7 @@ run_tests)
 
 run_worker)
     shift
-    /usr/local/bin/run_worker.sh "${@}"
+    exec  /usr/local/bin/run_worker.sh "${@}"
     ;;
 
 *)
