@@ -44,7 +44,7 @@ urlpatterns_tags = [
         view=TagCreateView.as_view()
     ),
     url(
-        regex=r'^tags/(?P<tag_id>\d+)/delete/$', name='tag_delete_single',
+        regex=r'^tags/(?P<tag_id>\d+)/delete/$', name='tag_single_delete',
         view=TagDeleteView.as_view()
     ),
     url(
@@ -56,7 +56,7 @@ urlpatterns_tags = [
         view=TagDocumentListView.as_view()
     ),
     url(
-        regex=r'^tags/multiple/delete/$', name='tag_delete_multiple',
+        regex=r'^tags/multiple/delete/$', name='tag_multiple_delete',
         view=TagDeleteView.as_view()
     )
 ]
@@ -86,5 +86,5 @@ api_urls = [
     url(
         regex=r'^documents/(?P<document_id>[0-9]+)/tags/remove/$',
         name='document-tag-remove', view=APIDocumentTagRemoveView.as_view()
-    ),
+    )
 ]

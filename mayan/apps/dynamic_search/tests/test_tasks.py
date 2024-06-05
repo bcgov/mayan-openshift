@@ -15,18 +15,18 @@ class SearchTaskTestCase(SearchTaskTestMixin, SearchTestMixin, BaseTestCase):
 
     def _do_search(self, search_terms):
         return self.search_backend.search(
-            search_model=self.test_model_search,
+            search_model=self._test_model_search,
             query={
                 'test_field': search_terms
             }, user=self._test_case_user
         )
 
     def _setup_test_model_search(self):
-        self.test_model_search = SearchModel(
+        self._test_model_search = SearchModel(
             app_label=self.TestModel._meta.app_label,
             model_name=self.TestModel._meta.model_name,
         )
-        self.test_model_search.add_model_field(field='test_field')
+        self._test_model_search.add_model_field(field='test_field')
 
     def setUp(self):
         super().setUp()
@@ -35,28 +35,28 @@ class SearchTaskTestCase(SearchTaskTestMixin, SearchTestMixin, BaseTestCase):
         backend = SearchBackend.get_instance()
         backend.reset()
 
-    def test_task_index_search_model(self):
+    def test_task_index_instances(self):
         queryset = self._do_search(
-            search_terms=self.test_objects[0].test_field
+            search_terms=self._test_objects[0].test_field
         )
-        self.assertFalse(self.test_objects[0] in queryset)
+        self.assertFalse(self._test_objects[0] in queryset)
 
-        self._execute_task_index_search_model()
+        self._execute_task_index_instances()
 
         queryset = self._do_search(
-            search_terms=self.test_objects[0].test_field
+            search_terms=self._test_objects[0].test_field
         )
-        self.assertTrue(self.test_objects[0] in queryset)
+        self.assertTrue(self._test_objects[0] in queryset)
 
     def test_task_reindex_backend(self):
         queryset = self._do_search(
-            search_terms=self.test_objects[0].test_field
+            search_terms=self._test_objects[0].test_field
         )
-        self.assertFalse(self.test_objects[0] in queryset)
+        self.assertFalse(self._test_objects[0] in queryset)
 
         self._execute_task_reindex_backend()
 
         queryset = self._do_search(
-            search_terms=self.test_objects[0].test_field
+            search_terms=self._test_objects[0].test_field
         )
-        self.assertTrue(self.test_objects[0] in queryset)
+        self.assertTrue(self._test_objects[0] in queryset)

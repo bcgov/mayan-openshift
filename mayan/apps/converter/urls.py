@@ -4,9 +4,12 @@ from .api_views import (
     APIAppImageErrorImageView, APIAssetListView, APIAssetDetailView,
     APIAssetImageView, APIContentObjectImageView
 )
-from .views import (
+from .views.asset_views import (
     AssetCreateView, AssetDeleteView, AssetDetailView, AssetEditView,
-    AssetListView, TransformationCreateView, TransformationDeleteView,
+    AssetListView
+)
+from .views.transformation_views import (
+    TransformationCreateView, TransformationDeleteView,
     TransformationEditView, TransformationListView, TransformationSelectView
 )
 
@@ -34,7 +37,7 @@ urlpatterns_assets = [
     url(
         regex=r'^assets/(?P<asset_id>\d+)/edit/$', name='asset_edit',
         view=AssetEditView.as_view()
-    ),
+    )
 ]
 
 urlpatterns_transformations = [
@@ -57,7 +60,7 @@ urlpatterns_transformations = [
     url(
         regex=r'^layers/(?P<layer_name>[-_\w]+)/transformations/(?P<transformation_id>\d+)/edit/$',
         name='transformation_edit', view=TransformationEditView.as_view()
-    ),
+    )
 ]
 
 urlpatterns = []
@@ -84,7 +87,7 @@ api_urls_assets = [
     url(
         regex=r'^objects/(?P<app_label>[-\w]+)/(?P<model_name>[-\w]+)/(?P<object_id>\d+)/image/$',
         name='object-image', view=APIContentObjectImageView.as_view()
-    ),
+    )
 ]
 
 api_urls = []

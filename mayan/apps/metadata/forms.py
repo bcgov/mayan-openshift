@@ -5,7 +5,7 @@ from django.utils.text import format_lazy
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.templating.fields import TemplateField
-from mayan.apps.views.forms import RelationshipForm
+from mayan.apps.views.forms import ModelForm, RelationshipForm
 
 from .classes import MetadataLookup, MetadataParser, MetadataValidator
 from .models import MetadataType
@@ -55,7 +55,7 @@ class DocumentMetadataForm(forms.Form):
 
             field_metadata_type_label = self.metadata_type.label or self.metadata_type.name
 
-            self.fields['metadata_type_name'].initial = '%s%s' % (
+            self.fields['metadata_type_name'].initial = '{}{}'.format(
                 field_metadata_type_label, required_string
             )
 
@@ -172,7 +172,27 @@ DocumentMetadataRemoveFormSet = formset_factory(
 )
 
 
-class MetadataTypeForm(forms.ModelForm):
+class MetadataTypeForm(ModelForm):
+    fieldsets = (
+        (
+            _('Basic'), {
+                'fields': ('name', 'label'),
+            }
+        ), (
+            _('Values'), {
+                'fields': ('default', 'lookup'),
+            }
+        ), (
+            _('Validation'), {
+                'fields': ('validation', 'validation_arguments'),
+            }
+        ), (
+            _('Parsing'), {
+                'fields': ('parser', 'parser_arguments'),
+            }
+        ),
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['default'] = TemplateField(

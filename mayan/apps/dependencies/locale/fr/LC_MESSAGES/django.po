@@ -4,25 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Yves Dubois <ydubois@gmail.com>, 2022
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2022
-# Roberto Rosario, 2022
 # Christophe CHAUVET <christophe.chauvet@gmail.com>, 2022
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2022
+# Yves Dubois <ydubois@gmail.com>, 2022
+# Roberto Rosario, 2022
 # Frédéric Sheedy <sheedf@gmail.com>, 2022
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 20:28+0000\n"
-"PO-Revision-Date: 2022-02-03 10:12+0000\n"
+"POT-Creation-Date: 2022-08-21 06:40+0000\n"
+"PO-Revision-Date: 2022-07-27 05:34+0000\n"
 "Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2022\n"
 "Language-Team: French (https://www.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: apps.py:24 links.py:38 permissions.py:5
 msgid "Dependencies"
@@ -74,7 +74,7 @@ msgstr "App"
 
 #: classes.py:215 classes.py:840
 msgid "Environments"
-msgstr ""
+msgstr "Environnements"
 
 #: classes.py:308
 msgid "Need to specify at least one: app_label or module."
@@ -249,6 +249,17 @@ msgstr "Documentation"
 
 #: environments.py:37
 msgid ""
+"Environment used to specify direct documentation depedencies to workaround "
+"unpinned or immutable depedency bugs in third party libraries. End users can"
+" ignore missing dependencies under this environment."
+msgstr ""
+
+#: environments.py:41
+msgid "Documentation (override)"
+msgstr ""
+
+#: environments.py:45
+msgid ""
 "Normal environment for end users. A missing dependency under this "
 "environment will result in issues and errors during normal use."
 msgstr ""
@@ -256,11 +267,11 @@ msgstr ""
 "dans cet environnement entraînera des problèmes et des erreurs lors d'une "
 "utilisation normale."
 
-#: environments.py:39
+#: environments.py:47
 msgid "Production"
 msgstr "Production"
 
-#: environments.py:43
+#: environments.py:51
 msgid ""
 "Environment used running the test suit to verify the functionality of the "
 "code. Dependencies in this environment are not needed for normal production "
@@ -270,11 +281,11 @@ msgstr ""
 "la fonctionnalité du code. Les dépendances dans cet environnement ne sont "
 "pas nécessaires pour une utilisation normale en production."
 
-#: environments.py:46
+#: environments.py:54
 msgid "Testing"
 msgstr "Test"
 
-#: links.py:14 views.py:18
+#: links.py:14 views.py:24
 msgid "Check for updates"
 msgstr "Vérifier les mises à jour"
 
@@ -294,17 +305,17 @@ msgstr "Détails"
 msgid "Dependencies licenses"
 msgstr "Licences des dépendances"
 
-#: management/commands/checkdependencies.py:13
+#: management/commands/dependencies_check.py:13
 msgid "Outputs the dependencies as a comma delimited values list."
 msgstr "Génère une liste des dépendances séparées par des virgules."
 
-#: management/commands/generaterequirements.py:14
+#: management/commands/dependencies_generate_requirements.py:14
 msgid ""
 "Comma separated names of dependencies to exclude from the list generated."
 msgstr ""
 "Noms de dépendances à exclure de la liste générée, séparés par des virgules."
 
-#: management/commands/generaterequirements.py:20
+#: management/commands/dependencies_generate_requirements.py:20
 msgid ""
 "Comma separated names of dependencies to show in the list while excluding "
 "every other one."
@@ -312,11 +323,11 @@ msgstr ""
 "Noms de dépendances à afficher dans la liste en excluant les autres, séparés"
 " par des virgules."
 
-#: management/commands/installdependencies.py:13
+#: management/commands/dependencies_install.py:13
 msgid "Process a specific app."
 msgstr "Déclencher l'exécution d'une application spécifique."
 
-#: management/commands/installdependencies.py:17
+#: management/commands/dependencies_install.py:17
 msgid "Force installation even if already installed."
 msgstr "Forcer l'installation même s'il est déjà installé."
 
@@ -324,30 +335,30 @@ msgstr "Forcer l'installation même s'il est déjà installé."
 msgid "View dependencies"
 msgstr "Voir les dépendances"
 
-#: views.py:32
+#: views.py:39
 #, python-format
 msgid "Entries for dependency group: %s"
 msgstr "Entrées pour le groupe de dépendance: %s"
 
-#: views.py:45 views.py:90
+#: views.py:52 views.py:99
 #, python-format
 msgid "Group %s not found."
 msgstr "Groupe %s introuvable."
 
-#: views.py:58
+#: views.py:66
 msgid "Dependency groups"
 msgstr "Groupes de dépendance"
 
-#: views.py:78
+#: views.py:87
 #, python-format
 msgid "Dependency group and entry: %(group)s, %(entry)s"
 msgstr "Groupe de dépendance et entrée: %(group)s, %(entry)s"
 
-#: views.py:102
+#: views.py:111
 #, python-format
 msgid "Entry %s not found."
 msgstr "Entrée %s introuvable."
 
-#: views.py:120
+#: views.py:130
 msgid "Other packages licenses"
 msgstr "Licences des bibliothèques tierces"

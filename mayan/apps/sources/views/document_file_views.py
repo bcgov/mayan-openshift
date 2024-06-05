@@ -6,13 +6,15 @@ from django.urls import reverse
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-from mayan.apps.documents.literals import DOCUMENT_FILE_ACTION_PAGES_NEW
+from mayan.apps.acls.models import AccessControlList
+from mayan.apps.documents.document_file_actions import DocumentFileActionUseNewPages
 from mayan.apps.documents.models.document_models import Document
 from mayan.apps.documents.models.document_file_models import DocumentFile
 from mayan.apps.documents.permissions import permission_document_file_new
 from mayan.apps.views.mixins import ExternalObjectViewMixin
 
 from ..forms import NewDocumentFileForm
+from ..icons import icon_document_file_upload
 from ..models import Source
 
 from .base import UploadBaseView
@@ -29,6 +31,7 @@ class DocumentFileUploadInteractiveView(
     external_object_permission = permission_document_file_new
     external_object_pk_url_kwarg = 'document_id'
     object_permission = permission_document_file_new
+    view_icon = icon_document_file_upload
 
     def dispatch(self, request, *args, **kwargs):
         self.subtemplates_list = []
@@ -103,11 +106,16 @@ class DocumentFileUploadInteractiveView(
         )
 
     def get_active_tab_links(self):
+        sources = AccessControlList.objects.restrict_queryset(
+            permission=permission_document_file_new,
+            queryset=Source.objects.interactive().filter(enabled=True),
+            user=self.request.user
+        )
         return [
             UploadBaseView.get_tab_link_for_source(
                 source=source, document=self.external_object
             )
-            for source in Source.objects.interactive().filter(enabled=True)
+            for source in sources
         ]
 
     def get_context_data(self, **kwargs):
@@ -145,4 +153,4 @@ class DocumentFileUploadInteractiveView(
         }
 
     def get_initial__document_form(self):
-        return {'action': DOCUMENT_FILE_ACTION_PAGES_NEW}
+        return {'action': DocumentFileActionUseNewPages.backend_id}
