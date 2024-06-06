@@ -1,5 +1,4 @@
 from django.apps import apps
-from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 
 from ..classes import ErrorLog
@@ -52,12 +51,8 @@ class ErrorLogPartitionEntryAPIViewTestMixin:
 
 class ErrorLogPartitionEntryTestMixin:
     def _create_test_error_log_object(self):
-        self.test_model = get_user_model()
         app_config = apps.get_app_config(app_label='logging')
         self.error_log = ErrorLog(app_config=app_config)
-        self.error_log.register_model(
-            model=self.test_model, register_permission=True
-        )
 
         self._create_test_user()
         self._test_object = self._test_user

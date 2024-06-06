@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2022
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:33+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2022\n"
-"Language-Team: Bulgarian (https://www.transifex.com/rosarior/teams/13584/bg/)\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
+"Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,19 +24,27 @@ msgstr ""
 msgid "Databases"
 msgstr "Бази данни"
 
-#: classes.py:199
+#: class_mixins.py:34
+msgid "The object will be executed, depending on the condition return value."
+msgstr ""
+
+#: class_mixins.py:37
+msgid "Has a condition?"
+msgstr "Има ли условие?"
+
+#: classes.py:82
 msgid "Model fields"
 msgstr "Полета на модела"
 
-#: classes.py:242
+#: classes.py:130
 msgid "Model related fields"
 msgstr "Свързани с модела полета"
 
-#: classes.py:247
+#: classes.py:135
 msgid "Model properties"
 msgstr "Свойства на модела"
 
-#: classes.py:252
+#: classes.py:140
 msgid "Model reverse fields"
 msgstr "Обратни полета на модела"
 
@@ -48,31 +56,7 @@ msgstr ""
 "Вашата база данни е настроена да използва SQLite. SQLite трябва да се "
 "използва само за разработка и тестване, а не за производство."
 
-#: model_mixins.py:24
-msgid "The dotted Python path to the backend class."
-msgstr "Пунктиран Python път към бекенд клас."
-
-#: model_mixins.py:25
-msgid "Backend path"
-msgstr "Път към бекенда"
-
-#: model_mixins.py:29
-msgid "JSON encoded data for the backend class."
-msgstr "JSON кодирани данни за бекенд класа."
-
-#: model_mixins.py:30
-msgid "Backend data"
-msgstr "Данни за бекенда"
-
-#: model_mixins.py:78
-msgid "Backend"
-msgstr "Бекенд"
-
-#: model_mixins.py:79
-msgid "The backend class for this entry."
-msgstr "Бекенд клас за този запис."
-
-#: model_mixins.py:101
+#: model_mixins.py:39
 msgid ""
 "The condition that will determine if this object is executed or not. "
 "Conditions that do not return any value, that return the Python logical "
@@ -80,17 +64,9 @@ msgid ""
 "value is considered to be the logical true."
 msgstr ""
 
-#: model_mixins.py:106
+#: model_mixins.py:47
 msgid "Condition"
 msgstr "Условие"
-
-#: model_mixins.py:127
-msgid "The object will be executed, depending on the condition return value."
-msgstr ""
-
-#: model_mixins.py:130
-msgid "Has a condition?"
-msgstr "Има ли условие?"
 
 #: templates/databases/app/viewport.html:11
 msgid "Warning"

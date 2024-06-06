@@ -4,8 +4,8 @@ from shutil import copyfileobj
 import subprocess
 
 from django.apps import apps
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.converter.classes import ConverterBase
 from mayan.apps.converter.literals import CONVERTER_OFFICE_FILE_MIMETYPES
@@ -25,30 +25,38 @@ class Parser:
 
     @classmethod
     def parse_document_file_page(cls, document_file_page):
-        for parser_class in cls._registry.get(document_file_page.document_file.mimetype, ()):
+        parser_classes = cls._registry.get(
+            document_file_page.document_file.mimetype, ()
+        )
+
+        for parser_class in parser_classes:
             try:
                 parser = parser_class()
-                parser.process_document_file_page(document_file_page)
+                parser.process_document_file_page(
+                    document_file_page=document_file_page
+                )
             except ParserError:
-                # If parser raises error, try next parser in the list
-                pass
+                """If parser raises error, try next parser in the list."""
             else:
-                # If parser was successfull there is no need to try
-                # others in the list for this mimetype
+                # If parser was successful there is no need to try
+                # others in the list for this mimetype.
                 return
 
     @classmethod
     def parse_document_file(cls, document_file):
-        for parser_class in cls._registry.get(document_file.mimetype, ()):
+        parser_classes = cls._registry.get(
+            document_file.mimetype, ()
+        )
+
+        for parser_class in parser_classes:
             try:
                 parser = parser_class()
                 parser.process_document_file(document_file)
             except ParserError:
-                # If parser raises error, try next parser in the list
-                pass
+                """If parser raises error, try next parser in the list."""
             else:
-                # If parser was successfull there is no need to try
-                # others in the list for this mimetype
+                # If parser was successful there is no need to try
+                # others in the list for this mimetype.
                 return
 
     @classmethod
@@ -66,11 +74,14 @@ class Parser:
         logger.debug('document file: %d', document_file.pk)
 
         for document_file_page in document_file.pages.all():
-            self.process_document_file_page(document_file_page=document_file_page)
+            self.process_document_file_page(
+                document_file_page=document_file_page
+            )
 
     def process_document_file_page(self, document_file_page):
         DocumentFilePageContent = apps.get_model(
-            app_label='document_parsing', model_name='DocumentFilePageContent'
+            app_label='document_parsing',
+            model_name='DocumentFilePageContent'
         )
 
         logger.info(
@@ -81,7 +92,8 @@ class Parser:
         with document_file_page.document_file.open() as file_object:
             try:
                 parsed_content = self.execute(
-                    file_object=file_object, page_number=document_file_page.page_number
+                    file_object=file_object,
+                    page_number=document_file_page.page_number
                 )
 
                 DocumentFilePageContent.objects.update_or_create(
@@ -91,7 +103,7 @@ class Parser:
                 )
 
             except Exception as exception:
-                error_message = _('Exception parsing page; %s') % exception
+                error_message = _(message='Exception parsing page; %s') % exception
                 logger.error(error_message, exc_info=True)
                 raise ParserError(error_message)
             finally:
@@ -117,7 +129,7 @@ class PopplerParser(Parser):
         self.pdftotext_path = setting_pdftotext_path.value
         if not os.path.exists(self.pdftotext_path):
             error_message = _(
-                'Cannot find pdftotext executable at: %s'
+                message='Cannot find pdftotext executable at: %s'
             ) % self.pdftotext_path
             logger.error(error_message)
             raise ParserError(error_message)
@@ -134,9 +146,13 @@ class PopplerParser(Parser):
             command = []
             command.append(self.pdftotext_path)
             command.append('-f')
-            command.append(str(page_number))
+            command.append(
+                str(page_number)
+            )
             command.append('-l')
-            command.append(str(page_number))
+            command.append(
+                str(page_number)
+            )
             command.append(temporary_file_object.name)
             command.append('-')
 
@@ -146,7 +162,9 @@ class PopplerParser(Parser):
             )
             return_code = proc.wait()
             if return_code != 0:
-                logger.error(proc.stderr.readline())
+                logger.error(
+                    proc.stderr.readline()
+                )
 
                 raise ParserError
 
@@ -157,9 +175,11 @@ class PopplerParser(Parser):
                 return ''
 
             if output[-3:] == b'\x0a\x0a\x0c':
-                return force_text(s=output[:-3])
+                return force_str(
+                    s=output[:-3]
+                )
 
-            return force_text(s=output)
+            return force_str(s=output)
 
 
 class OfficePopplerParser(PopplerParser):

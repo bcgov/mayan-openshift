@@ -3,6 +3,8 @@ import tempfile
 
 from django.conf import settings
 
+COMMAND_NAME_STORAGE_PROCESS = 'storage_process'
+
 DEFAULT_STORAGE_BACKEND = 'django.core.files.storage.FileSystemStorage'
 DEFAULT_STORAGE_DOWNLOAD_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DEFAULT_STORAGE_DOWNLOAD_FILE_STORAGE_ARGUMENTS = {
@@ -16,6 +18,7 @@ DEFAULT_STORAGE_TEMPORARY_DIRECTORY = tempfile.gettempdir()
 DEFAULT_DOWNLOAD_FILE_EXPIRATION_INTERVAL = 60 * 24 * 2  # 2 days
 DEFAULT_SHARED_UPLOADED_FILE_EXPIRATION_INTERVAL = 60 * 60 * 24 * 7  # 7 days
 
+MIME_TYPE_EML = ('message/rfc822', 'text/plain')
 MSG_MIME_TYPES = (
     'application/vnd.ms-outlook', 'application/vnd.ms-office',
     'application/x-ole-storage'

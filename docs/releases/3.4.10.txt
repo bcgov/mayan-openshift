@@ -128,7 +128,7 @@ Upgrading from Mayan EDMS 3.2.x or earlier
 
    .. code-block:: bash
 
-       sudo -u |DEFAULT_OS_USERNAME| |MAYAN_PIP_BIN| install psycopg2==|PYTHON_PSYCOPG2_VERSION| redis==|PYTHON_REDIS_VERSION|
+       sudo -u |DEFAULT_OS_USERNAME| |MAYAN_PIP_BIN| install psycopg2==|PYTHON_PSYCOPG_VERSION| redis==|PYTHON_REDIS_VERSION|
 
    .. note::
 
@@ -254,7 +254,7 @@ Backward incompatible changes
 Issues closed
 -------------
 
-- :gitlab-issue:`830` 3.4.9: Tumbnail displaymode, actions dissapear under the window when to low
+- :gitlab-issue:`830` 3.4.9: Thumbnail displaymode, actions disappear under the window when to low
 - :gitlab-issue:`834` Docker entrypoint.sh fails if UID already exists
 - :gitlab-issue:`835` Upgrade some libraries for docker-compose pass safety check
 - :gitlab-issue:`838` Unable to change the file cache size

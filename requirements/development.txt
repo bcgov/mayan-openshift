@@ -1,10 +1,7 @@
-devpi-server==6.5.0
-django-debug-toolbar==3.2.4
-django-extensions==3.1.5
-django-rosetta==0.9.8
-django-silk==4.3.0
-flake8==4.0.1
-ipython==7.32.0
+devpi-server==6.10.0
+django-debug-toolbar==4.3.0
+django-extensions==3.2.3
+django-silk==5.1.0
+ipython==8.22.2
 readme==0.7.1
-safety==1.10.3
-transifex-client==0.14.4
+safety==3.2.0

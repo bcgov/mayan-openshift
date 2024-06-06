@@ -1,5 +1,6 @@
 import json
 import re
+
 import yaml
 
 try:
@@ -11,7 +12,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.utils.deconstruct import deconstructible
 from django.utils.functional import SimpleLazyObject
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 def _lazy_re_compile(regex, flags=0):
@@ -37,8 +38,8 @@ class JSONValidator:
             json.loads(s=value)
         except ValueError:
             raise ValidationError(
-                _('Enter a valid JSON value.'),
-                code='invalid'
+                code='invalid',
+                message=_(message='Enter a valid JSON value.')
             )
 
     def __eq__(self, other):
@@ -61,8 +62,8 @@ class YAMLValidator:
             yaml.load(stream=value, Loader=SafeLoader)
         except yaml.error.YAMLError:
             raise ValidationError(
-                _('Enter a valid YAML value.'),
-                code='invalid'
+                code='invalid',
+                message=_(message='Enter a valid YAML value.')
             )
 
     def __eq__(self, other):
@@ -74,7 +75,7 @@ class YAMLValidator:
         return not (self == other)
 
 
-internal_name_re = _lazy_re_compile(r'^[a-zA-Z0-9_]+\Z')
+internal_name_re = _lazy_re_compile(regex=r'^[a-zA-Z0-9_]+\Z')
 validate_internal_name = RegexValidator(
     internal_name_re, _(
         "Enter a valid 'internal name' consisting of letters, numbers, and "

@@ -1,11 +1,12 @@
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from actstream.models import Action
 
 from mayan.apps.databases.classes import QuerysetParametersSerializer
+from mayan.apps.organizations.utils import get_organization_installation_url
 from mayan.apps.views.generics import ConfirmView
-from mayan.apps.views.mixins import ExternalContentTypeObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalContentTypeObjectViewMixin
 
 from ..icons import (
     icon_event_list_export, icon_object_event_list_export,
@@ -14,7 +15,7 @@ from ..icons import (
 from ..permissions import permission_events_export
 from ..tasks import task_event_queryset_export
 
-from .mixins import VerbEventViewMixin
+from .view_mixins import VerbEventViewMixin
 
 
 class EventExportBaseView(ConfirmView):
@@ -24,8 +25,9 @@ class EventExportBaseView(ConfirmView):
     def get_extra_context(self):
         return {
             'message': _(
-                'The process will be performed in the background. '
-                'The exported events will be available in the downloads area.'
+                message='The process will be performed in the background. '
+                'The exported events will be available in the downloads '
+                'area.'
             )
         }
 
@@ -37,14 +39,17 @@ class EventExportBaseView(ConfirmView):
         task_event_queryset_export.apply_async(
             kwargs={
                 'decomposed_queryset': decomposed_queryset,
+                'organization_installation_url': get_organization_installation_url(
+                    request=self.request
+                ),
                 'user_id': self.request.user.pk
             }
         )
 
         messages.success(
-            request=self.request, message=_(
-                'Event list export task queued successfully.'
-            )
+            message=_(
+                message='Event list export task queued successfully.'
+            ), request=self.request
         )
 
 
@@ -56,15 +61,13 @@ class EventListExportView(EventExportBaseView):
         context = super().get_extra_context()
         context.update(
             {
-                'title': _('Export events')
+                'title': _(message='Export events')
             }
         )
         return context
 
     def get_queryset_parameters(self):
-        return {
-            '_method_name': 'all'
-        }
+        return {'_method_name': 'all'}
 
 
 class ObjectEventExportView(
@@ -77,15 +80,15 @@ class ObjectEventExportView(
         context.update(
             {
                 'object': self.external_object,
-                'title': _('Export events of: %s') % self.external_object
+                'title': _(
+                    message='Export events of: %s'
+                ) % self.external_object
             }
         )
         return context
 
     def get_queryset_parameters(self):
-        return {
-            '_method_name': 'any', 'obj': self.external_object
-        }
+        return {'_method_name': 'any', 'obj': self.external_object}
 
 
 class VerbEventExportView(VerbEventViewMixin, EventExportBaseView):
@@ -96,13 +99,11 @@ class VerbEventExportView(VerbEventViewMixin, EventExportBaseView):
         context.update(
             {
                 'title': _(
-                    'Export events of type: %s'
+                    message='Export events of type: %s'
                 ) % self.event_type
             }
         )
         return context
 
     def get_queryset_parameters(self):
-        return {
-            '_method_name': 'filter', 'verb': self.event_type.id
-        }
+        return {'_method_name': 'filter', 'verb': self.event_type.id}

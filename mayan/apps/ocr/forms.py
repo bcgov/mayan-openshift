@@ -1,8 +1,7 @@
 from django import forms
-from django.utils.encoding import force_text
 from django.utils.html import conditional_escape
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.utils.translation import gettext_lazy as _, gettext
 
 from mayan.apps.views.widgets import TextAreaDiv
 
@@ -11,7 +10,7 @@ from .models import DocumentVersionPageOCRContent
 
 class DocumentVersionPageOCRContentDetailForm(forms.Form):
     contents = forms.CharField(
-        label=_('Contents'),
+        label=_(message='Contents'),
         widget=TextAreaDiv(
             attrs={
                 'class': 'full-height',
@@ -33,14 +32,16 @@ class DocumentVersionPageOCRContentDetailForm(forms.Form):
             Not critical, just ignore and display empty content.
             """
         else:
-            content = conditional_escape(force_text(s=page_content))
+            content = conditional_escape(
+                str(page_content)
+            )
 
-        self.fields['contents'].initial = mark_safe(content)
+        self.fields['contents'].initial = mark_safe(s=content)
 
 
 class DocumentVersionPageOCRContentEditForm(forms.ModelForm):
     content = forms.CharField(
-        label=_('Contents'),
+        label=_(message='Contents'),
         widget=forms.widgets.Textarea(
             attrs={
                 'class': 'full-height',
@@ -60,7 +61,7 @@ class DocumentVersionOCRContentForm(forms.Form):
     single textarea widget
     """
     contents = forms.CharField(
-        label=_('Contents'),
+        label=_(message='Contents'),
         widget=TextAreaDiv(
             attrs={
                 'class': 'full-height',
@@ -87,13 +88,19 @@ class DocumentVersionOCRContentForm(forms.Form):
                 Not critical, just ignore and proceed to next page.
                 """
             else:
-                content.append(conditional_escape(force_text(s=page_content)))
+                content.append(
+                    conditional_escape(
+                        text=str(page_content)
+                    )
+                )
                 content.append(
                     '\n\n\n<hr/><div class="document-page-content-divider">- %s -</div><hr/>\n\n\n' % (
-                        ugettext(
+                        gettext(
                             'Page %(page_number)d'
                         ) % {'page_number': page.page_number}
                     )
                 )
 
-        self.fields['contents'].initial = mark_safe(''.join(content))
+        self.fields['contents'].initial = mark_safe(
+            s=''.join(content)
+        )

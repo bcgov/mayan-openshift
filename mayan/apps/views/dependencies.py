@@ -1,4 +1,10 @@
-from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.classes import (
+    JavaScriptDependency, PythonDependency
+)
+
+JavaScriptDependency(
+    module=__name__, name='dropzone', version_string='=5.9.3'
+)
 
 PythonDependency(
     module=__name__, name='django-formtools', version_string='==2.3'
@@ -7,7 +13,7 @@ PythonDependency(
     module=__name__, name='django-stronghold', version_string='==0.4.0'
 )
 PythonDependency(
-    copyright_text='''
+    legal_text='''
         Copyright (c) 2011-2015 Mikhail Korobov
 
         Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,7 +34,7 @@ PythonDependency(
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
     ''', module=__name__, name='django-widget-tweaks',
-    version_string='==1.4.12'
+    version_string='==1.5.0'
 )
 PythonDependency(
     module=__name__, name='furl', version_string='==2.1.3'

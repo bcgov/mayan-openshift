@@ -37,3 +37,5 @@ docs/_templates/layout.html
 docs/_templates/footer.html
 gitlab-ci-volume/
 .DS_Store
+config-local.env
+MANIFEST.in

@@ -36,14 +36,6 @@ I found a bug
 For bugs, open an issue at |SOURCE_CODE_ISSUES|.
 
 
-I found a security issue
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-Open an issue at |SOURCE_CODE_ISSUES| and mark it as
-Confidential. Allow us at least 48 hours to find and release a fix
-for the issue before submitting it to the CVE database.
-
-
 I want to join the development team
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -158,15 +150,6 @@ been expanding its feature set and provide some functionality from other
 system types.
 
 
-Can I use Mayan EDMS for things other than documents?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Yes. With the exception of the image previewer, every aspect of Mayan is
-file format agnostic. This means the your can upload video and music files
-and still use tagging, indexing, workflows, and digital signatures on those
-files.
-
-
 Technical
 =========
 
@@ -198,17 +181,6 @@ This is a community contributed file. Use the Python settings file method to
 use this file.
 
 
-Operating systems
------------------
-
-How to install Mayan EDMS in Windows operating systems?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Mayan EDMS doesn't run natively on Windows. The best way is to use a virtual
-machine product, install Ubuntu or Debian, and proceed with the standard
-deployment instructions or use Docker inside a GNU/Linux virtual machine.
-
-
 Python
 ------
 
@@ -224,8 +196,31 @@ dependencies coming into conflict causing Mayan to stop working for no
 apparent reason.
 
 
-Does Mayan EDMS work with Python 3?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Security
+========
 
-Yes, version 3.3 ships with Python 3.7 support. Support for Python 2 will
-be removed in version 4.0.
+
+I found a security issue
+------------------------
+
+Open an issue at |SOURCE_CODE_ISSUES| and mark it as
+Confidential. Allow us at least 48 hours to find and release a fix
+for the issue before submitting it to the CVE database.
+
+
+I want to contact the team directly to report a security issue
+--------------------------------------------------------------
+
+The contact method is via email info@mayan-edms.com. Send the complete
+procedure to recreate the security issue.
+
+
+Are security bounties available?
+--------------------------------
+
+As a free and open source project, bounties or prices for security
+issues are not available.
+
+Blackmail, extortion, or paid registrations as requirement for security
+issue disclosure will be reported to the pertinent managing or legal
+authorities.

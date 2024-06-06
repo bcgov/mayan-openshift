@@ -13,7 +13,9 @@ from ..permissions import permission_acl_edit, permission_acl_view
 
 class ACLAPIViewTestMixin:
     def _request_test_acl_create_api_view(self):
-        pk_list = list(AccessControlList.objects.values_list('pk', flat=True))
+        pk_list = list(
+            AccessControlList.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             viewname='rest_api:accesscontrollist-list',
@@ -94,7 +96,7 @@ class ACLAPIViewTestMixin:
         return self.get(
             viewname='rest_api:class-permission-list', kwargs={
                 'app_label': self._test_object_content_type.app_label,
-                'model_name': self._test_object_content_type.model,
+                'model_name': self._test_object_content_type.model
             }
         )
 
@@ -189,7 +191,9 @@ class AccessControlListViewTestMixin:
         )
 
     def _request_test_acl_create_post_view(self):
-        pk_list = list(AccessControlList.objects.values_list('pk', flat=True))
+        pk_list = list(
+            AccessControlList.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             viewname='acls:acl_create',
@@ -229,7 +233,7 @@ class AccessControlListViewTestMixin:
     def _request_test_acl_permission_add_view(self):
         return self.post(
             viewname='acls:acl_permissions', kwargs={
-                'acl_id': self._test_acl.pk,
+                'acl_id': self._test_acl.pk
             }, data={
                 'available-submit': 'true',
                 'available-selection': self._test_permission.stored_permission.pk
@@ -239,7 +243,7 @@ class AccessControlListViewTestMixin:
     def _request_test_acl_permission_remove_view(self):
         return self.post(
             viewname='acls:acl_permissions', kwargs={
-                'acl_id': self._test_acl.pk,
+                'acl_id': self._test_acl.pk
             }, data={
                 'added-submit': 'true',
                 'added-selection': self._test_permission.stored_permission.pk

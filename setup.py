@@ -47,7 +47,11 @@ def find_packages(directory):
             if os.path.basename(dirpath).startswith('.'):
                 continue
             if '__init__.py' in filenames:
-                packages.append('.'.join(fullsplit(dirpath)))
+                packages.append(
+                    '.'.join(
+                        fullsplit(dirpath)
+                    )
+                )
             elif filenames:
                 data_files.append(
                     [
@@ -59,55 +63,63 @@ def find_packages(directory):
 
     return packages
 
+
 install_requires = """
-django==3.2.14
-CairoSVG==2.5.2
-Pillow==9.2.0
-PyPDF2==1.28.4
-PyYAML==6.0
+django==4.2.13
+CairoSVG==2.7.1
+Pillow==10.3.0
+PyYAML==6.0.1
 Whoosh==2.7.4
-bleach==4.1.0
-celery==5.2.3
-django-activity-stream==1.4.0
-django-auth-ldap==4.0.0
-django-celery-beat==2.2.1
-django-cors-headers==3.10.0
+bleach==6.1.0
+boto3==1.33.7
+celery==5.3.6
+dateparser==1.2.0
+django-activity-stream==2.0.0
+django-auth-ldap==4.6.0
+django-celery-beat==2.6.0
+django-cors-headers==4.3.1
 django-formtools==2.3
 django-mathfilters==1.0.0
-django-model-utils==4.2.0
-django-mptt==0.13.4
+django-model-utils==4.4.0
+django-mptt==0.16.0
 django-qsstats-magic==1.1.0
-django-solo==2.0.0
+django-solo==2.2.0
+django-storages==1.14.3
 django-stronghold==0.4.0
-django-widget-tweaks==1.4.12
-djangorestframework==3.13.1
+django-widget-tweaks==1.5.0
+djangorestframework==3.14.0
 djangorestframework-recursive==0.1.2
-drf-yasg==1.20.0
-elasticsearch==7.17.1
-elasticsearch-dsl==7.4.0
-extract-msg==0.34.3
-flanker==0.9.11
+drf-yasg==1.21.7
+elasticsearch==7.17.9
+elasticsearch-dsl==7.4.1
+extract-msg==0.48.5
 flex==6.14.1
 furl==2.1.3
 fusepy==3.0.1
-gevent==21.12.0
-graphviz==0.17
-gunicorn==20.1.0
-jsonschema==4.4.0
-node-semver==0.8.1
-pycountry==22.3.5
-pycryptodome==3.10.4
-pyotp==2.6.0
-python-dateutil==2.8.2
-python-magic==0.4.26
-python_gnupg==0.4.8
-pytz==2022.1
-qrcode==7.3.1
-requests==2.27.1
-sentry-sdk==1.5.8
-sh==1.14.2
-swagger-spec-validator==2.7.4
-whitenoise==6.0.0
+gevent==24.2.1
+google-cloud-storage==2.16.0
+graphviz==0.20.3
+greenlet==3.0.3
+gunicorn==22.0.0
+importlib-metadata==7.1.0
+jsonschema==4.21.1
+mozilla-django-oidc==4.0.1
+node-semver==0.9.0
+pycountry==24.6.1
+pycryptodome==3.20.0
+pyotp==2.9.0
+pypdf==4.2.0
+python-dateutil==2.9.0.post0
+python-magic==0.4.27
+python_gnupg==0.5.2
+pytz==2024.1
+qrcode==7.4.2
+requests==2.32.3
+sentry-sdk==1.45.0
+setuptools==69.5.1
+sh==2.0.7
+swagger-spec-validator==3.0.3
+whitenoise==6.6.0
 """.split()
 
 with open(file='README.rst') as file_object:
@@ -126,21 +138,20 @@ setup(
         'Intended Audience :: Education',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
-        'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Natural Language :: English',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
-        'Topic :: Communications :: File Sharing',
+        'Topic :: Communications :: File Sharing'
     ],
     description=mayan.__description__,
     include_package_data=True,
     install_requires=install_requires,
-    license='Apache 2.0',
+    license='GPL 2.0',
     long_description=readme + '\n\n' + history,
     name=PACKAGE_NAME,
     packages=find_packages(PACKAGE_DIR),
@@ -152,9 +163,9 @@ setup(
         'Source Code': 'https://gitlab.com/mayan-edms/mayan-edms',
         'Support': 'https://www.mayan-edms.com/support/'
     },
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
+    python_requires='>=3.9',
     scripts=['mayan/bin/mayan-edms.py'],
     url=mayan.__website__,
     version=mayan.__version__,
-    zip_safe=False,
+    zip_safe=False
 )

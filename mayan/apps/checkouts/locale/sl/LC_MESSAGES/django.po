@@ -4,44 +4,44 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2022
-# Jože Detečnik <joze.detecnik@3tav.si>, 2022
+# Roberto Rosario, 2024
+# Jože Detečnik <joze.detecnik@3tav.si>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:33+0000\n"
-"Last-Translator: Jože Detečnik <joze.detecnik@3tav.si>, 2022\n"
-"Language-Team: Slovenian (https://www.transifex.com/rosarior/teams/13584/sl/)\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Jože Detečnik <joze.detecnik@3tav.si>, 2024\n"
+"Language-Team: Slovenian (https://app.transifex.com/rosarior/teams/13584/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
-#: apps.py:41 events.py:5 links.py:33
+#: apps.py:41 events.py:6 links.py:32
 msgid "Checkouts"
 msgstr "Odjave"
 
-#: dashboard_widgets.py:14 views.py:183
+#: dashboard_widgets.py:14 views.py:185
 msgid "Checked out documents"
 msgstr ""
 
-#: events.py:8
+#: events.py:10
 msgid "Document automatically checked in"
 msgstr "Dokument je avtomatsko prijavljen"
 
-#: events.py:12
+#: events.py:14
 msgid "Document checked in"
 msgstr "Dokument prijavljen"
 
-#: events.py:15
+#: events.py:17
 msgid "Document checked out"
 msgstr "Dokument prijavljen"
 
-#: events.py:18
+#: events.py:20
 msgid "Document forcefully checked in"
 msgstr "Dokumentu je vsiljena prijava"
 
@@ -57,7 +57,7 @@ msgstr "Dokument je že odjavljen"
 msgid "Document status"
 msgstr ""
 
-#: forms.py:37 models.py:47 models.py:127
+#: forms.py:37 model_mixins.py:9 models.py:47 serializers.py:22
 msgid "User"
 msgstr ""
 
@@ -81,23 +81,23 @@ msgstr "Da"
 msgid "No"
 msgstr "Ne"
 
-#: links.py:40
+#: links.py:39
 msgid "Check out document"
 msgstr "Odjavi dokument"
 
-#: links.py:44
+#: links.py:43
 msgid "Check out"
 msgstr ""
 
-#: links.py:51
+#: links.py:48
 msgid "Check in document"
 msgstr "Prijavi dokument"
 
-#: links.py:55
+#: links.py:53
 msgid "Check in"
 msgstr ""
 
-#: links.py:61
+#: links.py:59
 msgid "Check in/out"
 msgstr "Prijava / Odjava"
 
@@ -109,7 +109,15 @@ msgstr "Odjavljen"
 msgid "Checked in/available"
 msgstr "Prijavljen / na voljo"
 
-#: models.py:34
+#: model_mixins.py:14
+msgid "Checkout time and date"
+msgstr ""
+
+#: model_mixins.py:19
+msgid "Checkout expiration"
+msgstr ""
+
+#: models.py:34 serializers.py:19
 msgid "Document"
 msgstr "Dokument"
 
@@ -125,47 +133,39 @@ msgstr ""
 msgid "Check out expiration date and time"
 msgstr ""
 
-#: models.py:52
+#: models.py:51
 msgid "Do not allow new file of this document to be uploaded."
 msgstr ""
 
-#: models.py:54
+#: models.py:52
 msgid "Block new file upload"
 msgstr ""
 
-#: models.py:62 permissions.py:5
+#: models.py:60 permissions.py:6
 msgid "Document checkout"
 msgstr ""
 
-#: models.py:63
+#: models.py:61
 msgid "Document checkouts"
 msgstr ""
 
-#: models.py:71
+#: models.py:70
 msgid "Check out expiration date and time must be in the future."
 msgstr ""
 
-#: models.py:132
-msgid "Checkout time and date"
-msgstr ""
-
-#: models.py:137
-msgid "Checkout expiration"
-msgstr ""
-
-#: permissions.py:8
+#: permissions.py:10
 msgid "Check in documents"
 msgstr ""
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Forcefully check in documents"
 msgstr ""
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Check out documents"
 msgstr ""
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "Check out details view"
 msgstr "Oglejte podrobnosti"
 
@@ -177,9 +177,17 @@ msgstr "Redni ogledi"
 msgid "Check expired checkouts"
 msgstr "Preverite potekle oglede"
 
-#: serializers.py:39
+#: serializers.py:28
+msgid "URL"
+msgstr ""
+
+#: serializers.py:46
 msgid "Primary key of the document to be checked out."
 msgstr "Primarni ključ dokumenta, ki ga je treba pregledati."
+
+#: serializers.py:47
+msgid "Document ID"
+msgstr ""
 
 #: views.py:28
 #, python-format
@@ -188,32 +196,32 @@ msgstr ""
 
 #: views.py:32
 #, python-format
-msgid "Document \"%(object)s\" checked in successfully."
+msgid "%(count)d documents checked in successfully."
 msgstr ""
 
 #: views.py:35
 #, python-format
-msgid "%(count)d document checked in successfully."
+msgid "Document \"%(object)s\" checked in successfully."
 msgstr ""
 
 #: views.py:38
 #, python-format
-msgid "%(count)d documents checked in successfully."
+msgid "%(count)d document checked in successfully."
 msgstr ""
 
 #: views.py:40
 #, python-format
-msgid "Check in document \"%(object)s\"."
+msgid "Check in %(count)d documents."
 msgstr ""
 
 #: views.py:41
 #, python-format
-msgid "Check in %(count)d document."
+msgid "Check in document \"%(object)s\"."
 msgstr ""
 
 #: views.py:42
 #, python-format
-msgid "Check in %(count)d documents."
+msgid "Check in %(count)d document."
 msgstr ""
 
 #: views.py:95
@@ -223,32 +231,32 @@ msgstr ""
 
 #: views.py:102
 #, python-format
-msgid "Document \"%(object)s\" checked out successfully."
+msgid "%(count)d documents checked out successfully."
 msgstr ""
 
 #: views.py:105
 #, python-format
-msgid "%(count)d document checked out successfully."
+msgid "Document \"%(object)s\" checked out successfully."
 msgstr ""
 
 #: views.py:108
 #, python-format
-msgid "%(count)d documents checked out successfully."
+msgid "%(count)d document checked out successfully."
 msgstr ""
 
 #: views.py:110
 #, python-format
-msgid "Checkout document \"%(object)s\"."
+msgid "Checkout %(count)d documents."
 msgstr ""
 
 #: views.py:111
 #, python-format
-msgid "Checkout %(count)d document."
+msgid "Checkout document \"%(object)s\"."
 msgstr ""
 
 #: views.py:112
 #, python-format
-msgid "Checkout %(count)d documents."
+msgid "Checkout %(count)d document."
 msgstr ""
 
 #: views.py:160
@@ -256,16 +264,16 @@ msgstr ""
 msgid "Check out details for document: %s"
 msgstr ""
 
-#: views.py:179
+#: views.py:181
 msgid ""
 "Checking out a document, blocks certain operations for a predetermined "
 "amount of time."
 msgstr ""
 
-#: views.py:182
+#: views.py:184
 msgid "No documents have been checked out"
 msgstr ""
 
-#: widgets.py:23
+#: widgets.py:20
 msgid "Amount"
 msgstr "Količina"

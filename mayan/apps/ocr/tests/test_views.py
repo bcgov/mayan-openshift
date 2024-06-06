@@ -1,21 +1,24 @@
+from django.utils.encoding import force_bytes
+
 from mayan.apps.documents.tests.base import GenericDocumentViewTestCase
 
 from ..events import (
     event_ocr_document_version_content_deleted,
+    event_ocr_document_version_finished,
     event_ocr_document_version_page_content_edited,
-    event_ocr_document_version_submitted, event_ocr_document_version_finished
+    event_ocr_document_version_submitted
 )
 from ..models import DocumentVersionPageOCRContent
 from ..permissions import (
+    permission_document_type_ocr_setup, permission_document_version_ocr,
     permission_document_version_ocr_content_edit,
-    permission_document_version_ocr_content_view,
-    permission_document_version_ocr, permission_document_type_ocr_setup
+    permission_document_version_ocr_content_view
 )
 
 from .literals import TEST_DOCUMENT_VERSION_OCR_CONTENT
 from .mixins import (
-    DocumentVersionOCRTestMixin, DocumentVersionOCRViewTestMixin,
-    DocumentVersionPageOCRViewTestMixin, DocumentTypeOCRViewTestMixin
+    DocumentTypeOCRViewTestMixin, DocumentVersionOCRTestMixin,
+    DocumentVersionOCRViewTestMixin, DocumentVersionPageOCRViewTestMixin
 )
 
 
@@ -126,8 +129,7 @@ class DocumentTypeOCRViewTestCase(
 
 
 class DocumentVersionOCRViewTestCase(
-    DocumentVersionOCRTestMixin, DocumentVersionOCRViewTestMixin,
-    GenericDocumentViewTestCase
+    DocumentVersionOCRViewTestMixin, GenericDocumentViewTestCase
 ):
     def test_document_verions_ocr_content_single_delete_view_no_permission(self):
         self._create_test_document_version_ocr_content()
@@ -323,7 +325,9 @@ class DocumentVersionOCRViewTestCase(
         self.assertEqual(response.status_code, 404)
 
         self.assertEqual(
-            ''.join(self._test_document_version.ocr_content()), ''
+            ''.join(
+                self._test_document_version.ocr_content()
+            ), ''
         )
 
         events = self._get_test_events()
@@ -392,7 +396,9 @@ class DocumentVersionOCRViewTestCase(
         self.assertEqual(response.status_code, 404)
 
         self.assertEqual(
-            ''.join(self._test_document_version.ocr_content()), ''
+            ''.join(
+                self._test_document_version.ocr_content()
+            ), ''
         )
 
         events = self._get_test_events()
@@ -481,8 +487,10 @@ class DocumentVersionOCRViewTestCase(
         self.assertEqual(response.status_code, 200)
 
         self.assert_download_response(
-            response=response, content=''.join(
-                self._test_document.ocr_content()
+            response=response, content=force_bytes(
+                s=''.join(
+                    self._test_document.ocr_content()
+                )
             )
         )
 

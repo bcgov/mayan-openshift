@@ -4,25 +4,25 @@
 # 
 # Translators:
 # Translators:
-# Marwan Rahhal <Marwanr@sssit.net>, 2022
-# Roberto Rosario, 2022
-# Mohammed ALDOUB <voulnet@gmail.com>, 2022
+# Mohammed ALDOUB <voulnet@gmail.com>, 2024
+# Ali <alimahwer@yahoo.com>, 2024
+# Marwan Rahhal <Marwanr@sssit.net>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Mohammed ALDOUB <voulnet@gmail.com>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/rosarior/teams/13584/ar/)\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2024\n"
+"Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: apps.py:36 events.py:6 permissions.py:6 settings.py:10
+#: apps.py:35 events.py:6 permissions.py:6 settings.py:11
 msgid "Authentication"
 msgstr "مصادقة الحساب"
 
@@ -42,39 +42,39 @@ msgstr "الدخول الى النظام"
 msgid "User logged out"
 msgstr "الخروج من النظام"
 
-#: forms.py:31
+#: forms.py:34
 msgid "Remember me"
 msgstr "تذكرني"
 
-#: forms.py:77
+#: forms.py:81
 msgid "Permanent"
 msgstr "بشكل دائم"
 
-#: forms.py:78
+#: forms.py:82
 msgid "If selected, disables ending impersonation."
 msgstr "الغاء التفويض للمحدد"
 
-#: forms.py:89
+#: forms.py:93
 msgid "User"
 msgstr "مستخدم"
 
-#: links.py:35
+#: links.py:37
 msgid "Logout"
 msgstr "خروج"
 
-#: links.py:40
+#: links.py:42
 msgid "Change password"
 msgstr "تغير كلمة المرور"
 
-#: links.py:45 views/impersonation_views.py:52
+#: links.py:47 views/impersonation_views.py:56
 msgid "Impersonate user"
 msgstr "تفويض المستخدم"
 
-#: links.py:50
+#: links.py:52
 msgid "Impersonate"
-msgstr ""
+msgstr "انتحال شخصية شخص آخر"
 
-#: links.py:55 links.py:60
+#: links.py:57 links.py:62
 msgid "Set password"
 msgstr "ادخال كلمة المرور"
 
@@ -82,19 +82,19 @@ msgstr "ادخال كلمة المرور"
 msgid "Impersonate users"
 msgstr "تفويض مستخدم آخر"
 
-#: settings.py:15
+#: settings.py:17
 msgid ""
 "Remove the \"Forgot your password?\" link on the login form used to trigger "
 "the password reset."
 msgstr "ازالة الرابط / اعادة تعين كلمة المرور"
 
-#: settings.py:23
+#: settings.py:25
 msgid "Dotted path to the backend used to process user authentication."
-msgstr ""
+msgstr "المسار المنقط إلى الواجهة الخلفية المستخدم لمعالجة مصادقة المستخدم."
 
-#: settings.py:29
+#: settings.py:31
 msgid "Arguments for the AUTHENTICATION_BACKEND."
-msgstr ""
+msgstr "بارامترات AUTHENTICATION_BACKEND."
 
 #: templates/authentication/app/viewport.html:13
 #, python-format
@@ -103,6 +103,9 @@ msgid ""
 "                Impersonating user \"%(user)s\".\n"
 "            "
 msgstr ""
+"\n"
+"                انتحال شخصية المستخدم \"%(user)s\".\n"
+"            "
 
 #: templates/authentication/app/viewport.html:16
 msgid "Click here when finished"
@@ -112,21 +115,25 @@ msgstr "يرجى الضغط حتى الانتهاء"
 msgid "Login"
 msgstr "الدخول الى النظام"
 
-#: templates/authentication/login.html:21
-msgid "Sign in"
-msgstr "تسجيل الدخول "
-
-#: templates/authentication/login.html:57
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 msgid "Save"
 msgstr "حفظ"
 
-#: templates/authentication/login.html:57
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 #: templates/authentication/password_reset_confirm.html:29
 #: templates/authentication/password_reset_form.html:29
 msgid "Submit"
 msgstr "اعتماد"
 
-#: templates/authentication/login.html:67
+#: templates/authentication/login.html:79
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: templates/authentication/login.html:106
 msgid "Forgot your password?"
 msgstr "هل نسيت كلمة المرور"
 
@@ -151,63 +158,75 @@ msgstr "صفحة تسجيل الدخول الى النظام"
 msgid "Password reset email sent!"
 msgstr "تم اعادة تعيني كلمة المرور ! تم ارسال الايميل "
 
-#: views/authentication_views.py:155
+#: views/authentication_views.py:162
 msgid "Next"
 msgstr "Next"
 
-#: views/authentication_views.py:161
+#: views/authentication_views.py:168
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "الخطوة %(step)d من %(total_steps)d: %(step_label)s"
 
-#: views/authentication_views.py:223
+#: views/authentication_views.py:192
+msgid "Sign in"
+msgstr "تسجيل الدخول "
+
+#: views/authentication_views.py:242
 msgid "Your password has been successfully changed."
 msgstr "تم تغيير كلمة المرور الخاصة بك بنجاح."
 
-#: views/authentication_views.py:230
+#: views/authentication_views.py:253
 msgid "Current user password change"
 msgstr "تغيير كلمة السر للمستخدم الحالي"
 
-#: views/authentication_views.py:239
+#: views/authentication_views.py:265
 msgid "Changing the password is not allowed for this account."
 msgstr "لا يمكن تغير كلمة المرور للمستخدم"
 
-#: views/authentication_views.py:311
+#: views/authentication_views.py:366
 #, python-format
 msgid "Password change request performed on %(count)d user"
 msgstr "تم تغير كلمة المرور بانجاز %(count)d "
 
-#: views/authentication_views.py:314
+#: views/authentication_views.py:369
 #, python-format
 msgid "Password change request performed on %(count)d users"
 msgstr "تم تغير كلمة المرور بانجاز %(count)d "
 
-#: views/authentication_views.py:323
+#: views/authentication_views.py:386
+msgid ""
+"Changing the password of staff or super user accounts via the user interface"
+" is not allowed. Use administration tools to perform this operation."
+msgstr ""
+"لا يُسمح بتغيير كلمة مرور الموظفين أو حسابات المستخدمين المتميزين عبر واجهة "
+"المستخدم. استخدم أدوات الإدارة لتنفيذ هذه العملية."
+
+#: views/authentication_views.py:400
 msgid "Change user password"
 msgid_plural "Change users passwords"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "تغيير كلمة مرور المستخدم"
+msgstr[1] "تغيير كلمة مرور المستخدم"
+msgstr[2] "تغيير كلمتيْ مرور المستخدِمَيْن"
+msgstr[3] "تغيير كلمات مرور المستخدمين"
+msgstr[4] "تغيير كلمات مرور المستخدمين"
+msgstr[5] "تغيير كلمات مرور المستخدمين"
 
-#: views/authentication_views.py:334
+#: views/authentication_views.py:411
 #, python-format
 msgid "Change password for user: %s"
 msgstr "تغير كلمة المرور للمستخدم : %s"
 
-#: views/authentication_views.py:356
+#: views/authentication_views.py:435
 #, python-format
 msgid "Successful password reset for user: %s."
 msgstr "تم إعادة تعين كلمة المرور : %s."
 
-#: views/authentication_views.py:362
+#: views/authentication_views.py:441
 #, python-format
-msgid "Error reseting password for user \"%(user)s\": %(error)s"
-msgstr "خطأ أثناء إعادة تعيين كلمة المرور للمستخدم \"%(user)s\": %(error)s"
+msgid "Error resetting password for user \"%(user)s\": %(error)s"
+msgstr ""
 
-#: views/impersonation_views.py:81
+#: views/impersonation_views.py:87
 #, python-format
 msgid "Impersonate user: %s"
-msgstr ""
+msgstr "انتحال شخصية المستخدم: %s"

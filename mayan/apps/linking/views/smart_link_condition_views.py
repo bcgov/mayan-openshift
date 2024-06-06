@@ -2,13 +2,13 @@ import logging
 
 from django.template import RequestContext
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.views.generics import (
     SingleObjectCreateView, SingleObjectDeleteView, SingleObjectEditView,
     SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from ..forms import SmartLinkConditionForm
 from ..icons import (
@@ -23,7 +23,9 @@ from ..permissions import permission_smart_link_edit
 logger = logging.getLogger(name=__name__)
 
 
-class SmartLinkConditionListView(ExternalObjectViewMixin, SingleObjectListView):
+class SmartLinkConditionListView(
+    ExternalObjectViewMixin, SingleObjectListView
+):
     external_object_class = SmartLink
     external_object_permission = permission_smart_link_edit
     external_object_pk_url_kwarg = 'smart_link_id'
@@ -36,22 +38,22 @@ class SmartLinkConditionListView(ExternalObjectViewMixin, SingleObjectListView):
             'no_results_icon': icon_smart_link_condition,
             'no_results_main_link': link_smart_link_condition_create.resolve(
                 context=RequestContext(
-                    request=self.request, dict_={
+                    dict_={
                         'object': self.external_object
-                    }
+                    }, request=self.request
                 )
             ),
             'no_results_text': _(
-                'Conditions are small logic units that when combined '
+                message='Conditions are small logic units that when combined '
                 'define how the smart link will behave.'
             ),
             'no_results_title': _(
-                'There are no conditions for this smart link'
+                message='There are no conditions for this smart link'
             ),
             'object': self.external_object,
             'title': _(
-                'Conditions for smart link: %s'
-            ) % self.external_object,
+                message='Conditions for smart link: %s'
+            ) % self.external_object
         }
 
     def get_source_queryset(self):
@@ -70,9 +72,9 @@ class SmartLinkConditionCreateView(
     def get_extra_context(self):
         return {
             'title': _(
-                'Add new conditions to smart link: "%s"'
+                message='Add new conditions to smart link: "%s"'
             ) % self.external_object,
-            'object': self.external_object,
+            'object': self.external_object
         }
 
     def get_instance_extra_data(self):
@@ -83,9 +85,9 @@ class SmartLinkConditionCreateView(
 
     def get_post_action_redirect(self):
         return reverse(
-            viewname='linking:smart_link_condition_list', kwargs={
+            kwargs={
                 'smart_link_id': self.external_object.pk
-            }
+            }, viewname='linking:smart_link_condition_list'
         )
 
     def get_queryset(self):
@@ -104,8 +106,8 @@ class SmartLinkConditionDeleteView(SingleObjectDeleteView):
             'navigation_object_list': ('object', 'condition'),
             'object': self.object.smart_link,
             'title': _(
-                'Delete smart link condition: "%s"?'
-            ) % self.object,
+                message='Delete smart link condition: "%s"?'
+            ) % self.object
         }
 
     def get_instance_extra_data(self):
@@ -113,9 +115,9 @@ class SmartLinkConditionDeleteView(SingleObjectDeleteView):
 
     def get_post_action_redirect(self):
         return reverse(
-            viewname='linking:smart_link_condition_list', kwargs={
+            kwargs={
                 'smart_link_id': self.object.smart_link.pk
-            }
+            }, viewname='linking:smart_link_condition_list'
         )
 
 
@@ -131,7 +133,7 @@ class SmartLinkConditionEditView(SingleObjectEditView):
             'condition': self.object,
             'navigation_object_list': ('object', 'condition'),
             'object': self.object.smart_link,
-            'title': _('Edit smart link condition'),
+            'title': _(message='Edit smart link condition')
         }
 
     def get_instance_extra_data(self):
@@ -139,7 +141,7 @@ class SmartLinkConditionEditView(SingleObjectEditView):
 
     def get_post_action_redirect(self):
         return reverse(
-            viewname='linking:smart_link_condition_list', kwargs={
+            kwargs={
                 'smart_link_id': self.object.smart_link.pk
-            }
+            }, viewname='linking:smart_link_condition_list'
         )

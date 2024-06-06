@@ -1,102 +1,76 @@
 from pathlib import Path
-import uuid
 
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
+from django.conf import settings
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.databases.model_mixins import ExtraDataModelMixin
-from mayan.apps.events.classes import EventManagerMethodAfter, EventManagerSave
 from mayan.apps.events.decorators import method_event
-from mayan.apps.permissions.models import StoredPermission
+from mayan.apps.events.event_managers import (
+    EventManagerMethodAfter, EventManagerSave
+)
 
 from .classes import DefinedStorageLazy
-from .events import (
-    event_download_file_created, event_download_file_deleted,
-    event_download_file_downloaded
-)
+from .events import event_download_file_created, event_download_file_deleted
 from .literals import (
     STORAGE_NAME_DOWNLOAD_FILE, STORAGE_NAME_SHARED_UPLOADED_FILE
 )
 from .managers import DownloadFileManager, SharedUploadedFileManager
-from .model_mixins import DatabaseFileModelMixin
+from .model_mixins import (
+    DatabaseFileModelMixin, DownloadFileBusinessLogicMixin
+)
+from .utils import download_file_upload_to, shared_uploaded_file_upload_to
 
 
-def download_file_upload_to(instance, filename):
-    return 'download-file-{}'.format(uuid.uuid4().hex)
-
-
-def upload_to(instance, filename):
-    return 'shared-file-{}'.format(uuid.uuid4().hex)
-
-
-class DownloadFile(DatabaseFileModelMixin, ExtraDataModelMixin, models.Model):
+class DownloadFile(
+    DatabaseFileModelMixin, DownloadFileBusinessLogicMixin,
+    ExtraDataModelMixin, models.Model
+):
     """
-    Keep a database link to a stored file. Used for generates files meant
+    Keep a database link to a stored file. Used for generated files meant
     to be downloaded at a later time.
     """
+    _ordering_fields = ('filename', 'datetime', 'label')
+
     file = models.FileField(
         storage=DefinedStorageLazy(
             name=STORAGE_NAME_DOWNLOAD_FILE
-        ), upload_to=download_file_upload_to, verbose_name=_('File')
-    )
-    content_type = models.ForeignKey(
-        blank=True, null=True, on_delete=models.CASCADE, to=ContentType
-    )
-    object_id = models.PositiveIntegerField(blank=True, null=True)
-    content_object = GenericForeignKey(
-        ct_field='content_type', fk_field='object_id'
+        ), upload_to=download_file_upload_to, verbose_name=_(message='File')
     )
     label = models.CharField(
-        db_index=True, max_length=192, verbose_name=_('Label')
+        db_index=True, max_length=192, verbose_name=_(message='Label')
     )
-    permission = models.ForeignKey(
-        blank=True, null=True, on_delete=models.CASCADE,
-        to=StoredPermission, verbose_name=_('Permission')
+    user = models.ForeignKey(
+        editable=False, on_delete=models.CASCADE,
+        related_name='download_files', to=settings.AUTH_USER_MODEL,
+        verbose_name=_(message='User')
     )
 
     objects = DownloadFileManager()
 
     class Meta:
         ordering = ('-datetime',)
-        verbose_name = _('Download file')
-        verbose_name_plural = _('Download files')
+        verbose_name = _(message='Download file')
+        verbose_name_plural = _(message='Download files')
 
     def __str__(self):
-        if self.content_object:
-            return str(self.content_object)
-        else:
-            return self.filename or self.label
+        # Ensure the returned value is not a promise.
+        return str(self.filename or self.label)
 
     @method_event(
         event_manager_class=EventManagerMethodAfter,
-        event=event_download_file_deleted,
-        target='content_object'
+        event=event_download_file_deleted
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
 
     def get_absolute_url(self):
-        if self.content_object:
-            return self.content_object.get_absolute_url()
-
-    def get_absolute_api_url(self):
-        if self.content_object:
-            return self.content_object.get_absolute_api_url()
-
-    @method_event(
-        event_manager_class=EventManagerMethodAfter,
-        event=event_download_file_downloaded,
-        target='self'
-    )
-    def get_download_file_object(self):
-        return self.open(mode='rb')
+        return reverse(viewname='storage:download_file_list')
 
     @method_event(
         event_manager_class=EventManagerSave,
         created={
-            'action_object': 'content_object',
             'event': event_download_file_created,
             'target': 'self'
         }
@@ -110,20 +84,23 @@ class SharedUploadedFile(DatabaseFileModelMixin, models.Model):
     Keep a database link to a stored file. Used to share files between code
     that runs out of process.
     """
+
     file = models.FileField(
         storage=DefinedStorageLazy(
             name=STORAGE_NAME_SHARED_UPLOADED_FILE
-        ), upload_to=upload_to, verbose_name=_('File')
+        ), upload_to=shared_uploaded_file_upload_to, verbose_name=_(
+            message='File'
+        )
     )
     filename = models.CharField(
-        blank=True, max_length=255, verbose_name=_('Filename')
+        blank=True, max_length=255, verbose_name=_(message='Filename')
     )
 
     objects = SharedUploadedFileManager()
 
     class Meta:
-        verbose_name = _('Shared uploaded file')
-        verbose_name_plural = _('Shared uploaded files')
+        verbose_name = _(message='Shared uploaded file')
+        verbose_name_plural = _(message='Shared uploaded files')
 
     def __str__(self):
         return self.filename

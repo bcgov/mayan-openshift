@@ -3,11 +3,13 @@ import pyotp
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 import mayan
 from mayan.apps.authentication.forms import AuthenticationFormBase
-from mayan.apps.authentication.literals import SESSION_MULTI_FACTOR_USER_ID_KEY
+from mayan.apps.authentication.literals import (
+    SESSION_MULTI_FACTOR_USER_ID_KEY
+)
 from mayan.apps.converter.fields import QRCodeImageField
 from mayan.apps.views.forms import DetailForm
 
@@ -17,12 +19,12 @@ from .models import UserOTPData
 class AuthenticationFormTOTP(AuthenticationFormBase):
     error_messages = {
         'invalid_token': _(
-            'Token is either invalid or expired.'
+            message='Token is either invalid or expired.'
         )
     }
 
     token = forms.CharField(
-        label=_('TOTP token'), widget=forms.TextInput(
+        label=_(message='TOTP token'), widget=forms.TextInput(
             attrs={
                 'autocomplete': 'one-time-code', 'autofocus': True,
                 'inputmode': 'numeric'
@@ -54,7 +56,9 @@ class AuthenticationFormTOTP(AuthenticationFormBase):
             return False
 
     def clean(self):
-        user_id = self.request.session.get(SESSION_MULTI_FACTOR_USER_ID_KEY, None)
+        user_id = self.request.session.get(
+            SESSION_MULTI_FACTOR_USER_ID_KEY, None
+        )
 
         if user_id:
             user = get_user_model().objects.get(pk=user_id)
@@ -65,8 +69,8 @@ class AuthenticationFormTOTP(AuthenticationFormBase):
             )
             if self.user_cache is None:
                 raise forms.ValidationError(
-                    self.error_messages['invalid_token'],
                     code='invalid_token',
+                    message=self.error_messages['invalid_token']
                 )
 
         return self.cleaned_data
@@ -81,8 +85,8 @@ class FormUserOTPDataDetail(DetailForm):
 
         extra_fields = (
             {
-                'label': _('OTP enabled?'),
-                'func': lambda instance: _('Yes') if otp_enabled else _('No')
+                'label': _(message='OTP enabled?'),
+                'func': lambda instance: _(message='Yes') if otp_enabled else _(message='No')
             },
         )
 
@@ -99,23 +103,23 @@ class FormUserOTPDataEdit(forms.Form):
     secret = forms.CharField(
         disabled=True,
         help_text=_(
-            'Scan the QR code or enter the secret in your authentication '
+            message='Scan the QR code or enter the secret in your authentication '
             'device. Do not share this secret, treat it like a password.'
-        ), label=_('Secret'), required=False, widget=forms.TextInput(
+        ), label=_(message='Secret'), required=False, widget=forms.TextInput(
             attrs={'readonly': 'readonly'}
         )
     )
     signed_secret = forms.CharField(
-        label=_('Secret'), required=False, widget=forms.HiddenInput(
+        label=_(message='Secret'), required=False, widget=forms.HiddenInput(
             attrs={'readonly': 'readonly'}
         )
     )
     token = forms.CharField(
         help_text=_(
-            'Enter the corresponding token to validate that the secret '
+            message='Enter the corresponding token to validate that the secret '
             'was saved correct.'
         ),
-        label=_('Token'), widget=forms.TextInput(
+        label=_(message='Token'), widget=forms.TextInput(
             attrs={
                 'autocomplete': 'one-time-code', 'autofocus': True,
                 'inputmode': 'numeric'
@@ -132,7 +136,7 @@ class FormUserOTPDataEdit(forms.Form):
         if secret:
             topt = pyotp.totp.TOTP(s=secret)
             url = topt.provisioning_uri(
-                name=user.email, issuer_name=mayan.__title__
+                issuer_name=mayan.__title__, name=user.email
             )
 
             self.fields['qr_code'].initial = url
@@ -149,8 +153,10 @@ class FormUserOTPDataEdit(forms.Form):
 
         if token.strip() != totp.now():
             raise ValidationError(
-                _('Token is incorrect for the specified secret.'),
-                code='token_invalid'
+                code='token_invalid',
+                message=_(
+                    message='Token is incorrect for the specified secret.'
+                )
             )
 
         return token

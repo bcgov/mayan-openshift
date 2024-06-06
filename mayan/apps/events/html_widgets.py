@@ -1,7 +1,7 @@
 from django.apps import apps
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.templating.classes import Template
 
@@ -20,7 +20,7 @@ def widget_event_actor_link(context, attribute=None):
         entry = getattr(entry, attribute)
 
     if entry.actor == entry.target:
-        label = _('System')
+        label = _(message='System')
         url = None
     else:
         label = entry.actor
@@ -37,7 +37,9 @@ def widget_event_actor_link(context, attribute=None):
     if url:
         return Template(
             template_string='<a href="{{ url }}">{{ label }}</a>'
-        ).render(context={'label': entry.actor, 'url': url})
+        ).render(
+            context={'label': entry.actor, 'url': url}
+        )
     else:
         return label
 
@@ -54,9 +56,10 @@ def widget_event_type_link(context, attribute=None):
         event_type_label = TEXT_UNKNOWN_EVENT_ID % entry.verb
 
     return mark_safe(
-        '<a href="{url}">{label}</a>'.format(
+        s='<a href="{url}">{label}</a>'.format(
             url=reverse(
-                viewname='events:verb_event_list', kwargs={'verb': entry.verb}
+                viewname='events:verb_event_list',
+                kwargs={'verb': entry.verb}
             ), label=event_type_label
         )
     )

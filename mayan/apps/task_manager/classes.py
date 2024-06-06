@@ -3,8 +3,8 @@ import logging
 from kombu import Exchange, Queue
 
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.encoding import force_text
 from django.utils.module_loading import import_string
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
 from mayan.apps.common.exceptions import NonUniqueError
@@ -27,15 +27,15 @@ class TaskType:
         return cls._registry[name]
 
     def __init__(self, dotted_path, label, name=None, schedule=None):
-        self.name = name or dotted_path.split('.')[-1]
-        self.label = label
         self.dotted_path = dotted_path
+        self.label = label
+        self.name = name or dotted_path.split('.')[-1]
         self.schedule = schedule
         self.__class__._registry[name] = self
         self.validate()
 
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
     def validate(self):
         try:
@@ -54,7 +54,7 @@ class Task:
         self.kwargs = kwargs
 
     def __str__(self):
-        return force_text(s=self.task_type)
+        return str(self.task_type)
 
 
 class CeleryQueue(AppsModuleLoaderMixin):
@@ -73,16 +73,14 @@ class CeleryQueue(AppsModuleLoaderMixin):
         return cls._registry[queue_name]
 
     @classmethod
-    def load_modules(cls):
-        super().load_modules()
+    def post_load_modules(cls):
         CeleryQueue.update_celery()
 
         for task_name, task in celery_app.tasks.items():
             if not task_name.startswith('celery') and task_name not in cls._registry_task_types:
                 raise ImproperlyConfigured(
-                    'Task `{}` is not properly configured.'.format(
-                        task_name
-                    )
+                    'Task `{}` is not properly configured and/or missing '
+                    'from the queue definition.'.format(task_name)
                 )
 
     @classmethod
@@ -90,10 +88,12 @@ class CeleryQueue(AppsModuleLoaderMixin):
         for instance in cls.all():
             instance._update_celery()
 
-    def __init__(self, name, label, worker, default_queue=False, transient=False):
-        self.name = name
-        self.label = label
+    def __init__(
+        self, name, label, worker, default_queue=False, transient=False
+    ):
         self.default_queue = default_queue
+        self.label = label
+        self.name = name
         self.transient = transient
         self.task_types = []
         self.worker = worker
@@ -107,11 +107,11 @@ class CeleryQueue(AppsModuleLoaderMixin):
         worker._queues.append(self)
 
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
     def _update_celery(self):
         kwargs = {
-            'name': self.name, 'exchange': Exchange(self.name),
+            'exchange': Exchange(self.name), 'name': self.name,
             'routing_key': self.name
         }
 
@@ -138,8 +138,8 @@ class CeleryQueue(AppsModuleLoaderMixin):
                 celery_app.conf.beat_schedule.update(
                     {
                         task_type.name: {
-                            'task': task_type.dotted_path,
-                            'schedule': task_type.schedule
+                            'schedule': task_type.schedule,
+                            'task': task_type.dotted_path
                         }
                     }
                 )
@@ -167,7 +167,7 @@ class CeleryQueue(AppsModuleLoaderMixin):
             celery_app.conf.task_default_queue = None
 
         for task_type in self.task_types:
-            celery_app.conf.task_routes.pop(task_type.dotted_path)
+            celery_app.conf.task_routes.pop(task_type.dotted_path, None)
 
             if task_type.schedule:
                 celery_app.conf.beat_schedule.pop(task_type.name)
@@ -178,32 +178,52 @@ class CeleryQueue(AppsModuleLoaderMixin):
 
         del self
 
+    def get_task_type_count(self):
+        return len(self.task_types)
+
+    get_task_type_count.short_description = _(message='Task type count')
+
 
 class Worker:
     _registry = {}
 
     @classmethod
     def all(cls):
-        return cls._registry.values()
+        return sorted(
+            cls._registry.values(), key=lambda instance: instance.name
+        )
 
     @classmethod
     def get(cls, name):
         return cls._registry[name]
 
     def __init__(
-        self, name, maximum_memory_per_child=None,
+        self, name, description=None, maximum_memory_per_child=None,
         maximum_tasks_per_child=None, concurrency=None, label=None,
         nice_level=0
     ):
         self.concurrency = concurrency or WORKER_DEFAULT_CONCURRENCY
-        self.name = name
-        self.label = label
+        self.description = description
+        self._label = label
         self.maximum_memory_per_child = maximum_memory_per_child
         self.maximum_tasks_per_child = maximum_tasks_per_child
+        self.name = name
         self.nice_level = nice_level
         self._queues = []
         self.__class__._registry[name] = self
 
     @property
+    def label(self):
+        return self._label or self.name
+
+    @property
     def queues(self):
         return sorted(self._queues, key=lambda queue: queue.name)
+
+    def get_queue_count(self):
+        return len(self.queues)
+
+    get_queue_count.short_description = _(message='Queue count')
+
+    def __str__(self):
+        return self.label

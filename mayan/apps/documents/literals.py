@@ -1,17 +1,17 @@
 import os
 
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.literals import TIME_DELTA_UNIT_DAYS
 
 CHECK_DELETE_PERIOD_INTERVAL = 60
 CHECK_TRASH_PERIOD_INTERVAL = 60
 
-DELETE_STALE_STUBS_INTERVAL = 60 * 10  # 10 minutes
 DEFAULT_DELETE_PERIOD = 30
 DEFAULT_DELETE_TIME_UNIT = TIME_DELTA_UNIT_DAYS
-DEFAULT_DOCUMENT_TYPE_LABEL = _('Default')
+DEFAULT_DOCUMENT_FILE_ACTION_NAME = 'replace'
+DEFAULT_DOCUMENT_TYPE_LABEL = _(message='Default')
 
 # Old defaults (<4.0), used for the setting migrations.
 DEFAULT_DOCUMENTS_STORAGE_BACKEND = 'django.core.files.storage.FileSystemStorage'
@@ -70,39 +70,35 @@ DEFAULT_LANGUAGE_CODES = (
     'ibo', 'aze', 'awa', 'gan', 'ceb', 'nld', 'kur', 'hbs', 'mlg', 'skr',
     'ctg', 'zha', 'tuk', 'asm', 'mad', 'som', 'mwr', 'mag', 'bgc', 'hun',
     'hne', 'dcc', 'aka', 'kaz', 'syl', 'zul', 'ces', 'kin', 'hat', 'que',
-    'swe', 'hmn', 'sna', 'mos', 'xho', 'bel'
+    'swe', 'hmn', 'sna', 'mos', 'xho', 'bel', 'heb'
 )
-DEFAULT_STUB_EXPIRATION_INTERVAL = 60 * 60 * 24  # 24 hours
+DEFAULT_DOCUMENT_STUB_EXPIRATION_INTERVAL = 60 * 60 * 24  # 24 hours
 
-DOCUMENT_VERSION_EXPORT_MESSAGE_BODY = _(
-    'Document version "%(document_version)s" has been '
-    'exported and is available for download using the '
-    'link: %(download_url)s or from '
-    'the downloads area (%(download_list_url)s).'
-)
-DOCUMENT_VERSION_EXPORT_MESSAGE_SUBJECT = _('Document version exported.')
-DOCUMENT_VERSION_EXPORT_MIMETYPE = 'application/pdf'
+DOCUMENT_FILE_PAGE_CREATE_BATCH_SIZE = 100
+DOCUMENT_VERSION_PAGE_CREATE_BATCH_SIZE = 100
 
-IMAGE_ERROR_NO_ACTIVE_VERSION = 'document_no_active_version'
-IMAGE_ERROR_NO_VERSION_PAGES = 'document_no_version_pages'
-IMAGE_ERROR_FILE_PAGE_TRANSFORMATION_ERROR = 'document_file_page_transformation_error'
-IMAGE_ERROR_VERSION_PAGE_TRANSFORMATION_ERROR = 'document_version_page_transformation_error'
+ERROR_LOG_DOMAIN_NAME = 'documents'
+
+IMAGE_ERROR_DOCUMENT_FILE_HAS_NO_PAGES = 'document_file_has_no_pages'
+IMAGE_ERROR_DOCUMENT_FILE_PAGE_TRANSFORMATION_ERROR = 'document_file_page_transformation_error'
+IMAGE_ERROR_DOCUMENT_VERSION_ACTIVE_MISSING = 'document_no_active_version'
+IMAGE_ERROR_DOCUMENT_VERSION_HAS_NO_PAGES = 'document_no_version_pages'
+IMAGE_ERROR_DOCUMENT_VERSION_PAGE_TRANSFORMATION_ERROR = 'document_version_page_transformation_error'
+
+INTERVAL_TASK_STUBS_DELETION = 60 * 10  # 10 minutes
 
 MONTH_NAMES = (
-    _('January'), _('February'), _('March'), _('April'), _('May'),
-    _('June'), _('July'), _('August'), _('September'), _('October'),
-    _('November'), _('December')
+    _(message='January'), _(message='February'), _(message='March'), _(message='April'), _(message='May'),
+    _(message='June'), _(message='July'), _(message='August'), _(message='September'), _(message='October'),
+    _(message='November'), _(message='December')
 )
 
 PAGE_RANGE_ALL = 'all'
 PAGE_RANGE_RANGE = 'range'
 PAGE_RANGE_CHOICES = (
-    (PAGE_RANGE_ALL, _('All pages')), (PAGE_RANGE_RANGE, _('Page range'))
+    (PAGE_RANGE_ALL, _(message='All pages')), (PAGE_RANGE_RANGE, _(message='Page range'))
 )
 
 STORAGE_NAME_DOCUMENT_FILE_PAGE_IMAGE_CACHE = 'documents__documentfilepageimagecache'
 STORAGE_NAME_DOCUMENT_FILES = 'documents__documentfiles'
 STORAGE_NAME_DOCUMENT_VERSION_PAGE_IMAGE_CACHE = 'documents__documentversionpageimagecache'
-
-UPDATE_PAGE_COUNT_RETRY_DELAY = 10
-UPLOAD_NEW_VERSION_RETRY_DELAY = 10

@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.db.models.signals import post_save, pre_delete
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
@@ -16,17 +16,15 @@ from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
 
-from .events import (
-    event_tag_attached, event_tag_edited, event_tag_removed
-)
+from .column_widgets import DocumentTagWidget
+from .events import event_tag_attached, event_tag_edited, event_tag_removed
 from .handlers import handler_index_document, handler_tag_pre_delete
-from .html_widgets import DocumentTagWidget
 from .links import (
-    link_document_tag_list, link_document_multiple_tag_multiple_attach,
-    link_document_multiple_tag_multiple_remove,
-    link_document_tag_multiple_remove, link_document_tag_multiple_attach,
-    link_tag_create, link_tag_single_delete, link_tag_multiple_delete,
-    link_tag_edit, link_tag_list, link_tag_document_list
+    link_document_multiple_tag_multiple_attach,
+    link_document_multiple_tag_multiple_remove, link_document_tag_list,
+    link_document_tag_multiple_attach, link_document_tag_multiple_remove,
+    link_tag_create, link_tag_document_list, link_tag_edit, link_tag_list,
+    link_tag_multiple_delete, link_tag_single_delete
 )
 from .menus import menu_tags
 from .methods import method_document_get_tags
@@ -43,7 +41,7 @@ class TagsApp(MayanAppConfig):
     has_static_media = True
     has_tests = True
     name = 'mayan.apps.tags'
-    verbose_name = _('Tags')
+    verbose_name = _(message='Tags')
 
     def ready(self):
         super().ready()
@@ -61,7 +59,8 @@ class TagsApp(MayanAppConfig):
             app_label='documents', model_name='DocumentVersionSearchResult'
         )
         DocumentVersionPageSearchResult = apps.get_model(
-            app_label='documents', model_name='DocumentVersionPageSearchResult'
+            app_label='documents',
+            model_name='DocumentVersionPageSearchResult'
         )
 
         DocumentTag = self.get_model(model_name='DocumentTag')
@@ -72,7 +71,9 @@ class TagsApp(MayanAppConfig):
             serializer_class='mayan.apps.tags.serializers.TagSerializer'
         )
 
-        Document.add_to_class(name='get_tags', value=method_document_get_tags)
+        Document.add_to_class(
+            name='get_tags', value=method_document_get_tags
+        )
 
         EventModelRegistry.register(model=Tag)
 
@@ -80,8 +81,8 @@ class TagsApp(MayanAppConfig):
             model=Tag, bind_link=True, register_permission=True
         ).add_fields(
             field_names=(
-                'label', 'color', 'documents',
-            ),
+                'label', 'color', 'documents'
+            )
         )
 
         ModelEventType.register(
@@ -127,24 +128,24 @@ class TagsApp(MayanAppConfig):
         # Document
 
         SourceColumn(
-            label=_('Tags'), source=Document, widget=DocumentTagWidget
+            label=_(message='Tags'), source=Document, widget=DocumentTagWidget
         )
 
         SourceColumn(
-            attribute='document', label=_('Tags'),
+            attribute='document', label=_(message='Tags'),
             source=DocumentFileSearchResult, widget=DocumentTagWidget
         )
         SourceColumn(
-            attribute='document_file__document', label=_('Tags'),
+            attribute='document_file__document', label=_(message='Tags'),
             source=DocumentFilePageSearchResult, widget=DocumentTagWidget
         )
 
         SourceColumn(
-            attribute='document', label=_('Tags'),
+            attribute='document', label=_(message='Tags'),
             source=DocumentVersionSearchResult, widget=DocumentTagWidget
         )
         SourceColumn(
-            attribute='document_version__document', label=_('Tags'),
+            attribute='document_version__document', label=_(message='Tags'),
             source=DocumentVersionPageSearchResult, widget=DocumentTagWidget
         )
 
@@ -165,7 +166,7 @@ class TagsApp(MayanAppConfig):
         source_column_tag_document_count = SourceColumn(
             func=lambda context: context['object'].get_document_count(
                 user=context['request'].user
-            ), include_label=True, label=_('Documents'), source=Tag
+            ), include_label=True, label=_(message='Documents'), source=Tag
         )
         source_column_tag_document_count.add_exclude(source=DocumentTag)
 

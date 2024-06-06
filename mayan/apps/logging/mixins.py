@@ -5,8 +5,9 @@ from django import apps
 from django.utils.log import DEFAULT_LOGGING
 
 from .settings import (
-    setting_logging_enable, setting_logging_handlers,
-    setting_logging_level, setting_logging_log_file_path,
+    setting_logging_disable_color_formatter, setting_logging_enable,
+    setting_logging_handlers, setting_logging_level,
+    setting_logging_log_file_path
 )
 
 logger = logging.getLogger(name=__name__)
@@ -19,28 +20,32 @@ class LoggingAppConfigMixin:
         if setting_logging_enable.value:
             logging_configuration = DEFAULT_LOGGING.copy()
 
-            logging_configuration.update(
-                {
-                    'version': 1,
-                    'disable_existing_loggers': False,
-                    'formatters': {
-                        'mayan_intermediate': {
-                            '()': 'mayan.apps.logging.formatters.ColorFormatter',
-                            'format': '%(name)s <%(process)d> [%(levelname)s] "%(funcName)s() line %(lineno)d %(message)s"',
-                        },
-                        'mayan_logfile': {
-                            'format': '%(asctime)s %(name)s <%(process)d> [%(levelname)s] "%(funcName)s() line %(lineno)d %(message)s"'
-                        },
+            mayan_loggin_configuration = {
+                'version': 1,
+                'disable_existing_loggers': False,
+                'formatters': {
+                    'mayan_intermediate': {
+                        'format': '%(name)s <%(process)d> [%(levelname)s] "%(funcName)s() line %(lineno)d %(message)s"'
                     },
-                    'handlers': {
-                        'console': {
-                            'class': 'logging.StreamHandler',
-                            'formatter': 'mayan_intermediate',
-                            'level': 'DEBUG',
-                        },
+                    'mayan_logfile': {
+                        'format': '%(asctime)s %(name)s <%(process)d> [%(levelname)s] "%(funcName)s() line %(lineno)d %(message)s"'
+                    }
+                },
+                'handlers': {
+                    'console': {
+                        'class': 'logging.StreamHandler',
+                        'formatter': 'mayan_intermediate',
+                        'level': 'DEBUG'
                     }
                 }
-            )
+            }
+
+            if not setting_logging_disable_color_formatter.value:
+                mayan_loggin_configuration['formatters'][
+                    'mayan_intermediate'
+                ]['()'] = 'mayan.apps.logging.formatters.ColorFormatter'
+
+            logging_configuration.update(mayan_loggin_configuration)
 
             # Convert to list to it mutable
             handlers = list(setting_logging_handlers.value)
@@ -59,7 +64,7 @@ class LoggingAppConfigMixin:
                         'class': 'logging.handlers.RotatingFileHandler',
                         'filename': setting_logging_log_file_path.value,
                         'formatter': 'mayan_logfile',
-                        'maxBytes': 65535,
+                        'maxBytes': 65535
                     }
 
             loggers = {}
@@ -73,7 +78,7 @@ class LoggingAppConfigMixin:
                 loggers[project_app.name] = {
                     'handlers': handlers,
                     'propagate': True,
-                    'level': setting_logging_level.value,
+                    'level': setting_logging_level.value
                 }
 
             logging_configuration['loggers'] = loggers

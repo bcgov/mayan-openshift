@@ -2,15 +2,15 @@ import logging
 
 from django.template import RequestContext
 from django.urls import reverse
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.permissions.models import Role
 from mayan.apps.views.generics import (
     AddRemoveView, SingleObjectCreateView, SingleObjectDeleteView,
     SingleObjectListView
 )
-from mayan.apps.views.mixins import (
+from mayan.apps.views.view_mixins import (
     ContentTypeViewMixin, ExternalObjectViewMixin
 )
 
@@ -41,9 +41,11 @@ class ACLCreateView(
 
     def get_error_message_duplicate(self):
         return _(
-            'An ACL for "%(object)s" using role "%(role)s" already exists. '
+            message='An ACL for "%(object)s" using role "%(role)s" already exists. '
             'Edit that ACL entry instead.'
-        ) % {'object': self.get_external_object(), 'role': self.object.role}
+        ) % {
+            'object': self.get_external_object(), 'role': self.object.role
+        }
 
     def get_external_object_queryset(self):
         # Here we get a queryset the object model for which an ACL will be
@@ -54,7 +56,7 @@ class ACLCreateView(
         return {
             'object': self.external_object,
             'title': _(
-                'New access control lists for: %s'
+                message='New access control lists for: %s'
             ) % self.external_object
         }
 
@@ -68,7 +70,7 @@ class ACLCreateView(
 
         return {
             'field_name': 'role',
-            'label': _('Role'),
+            'label': _(message='Role'),
             'queryset': Role.objects.exclude(pk__in=roles),
             'widget_attributes': {'class': 'select2'},
             'user': self.request.user
@@ -98,21 +100,19 @@ class ACLDeleteView(SingleObjectDeleteView):
             'acl': self.object,
             'navigation_object_list': ('object', 'acl'),
             'object': self.object.content_object,
-            'title': _('Delete ACL: %s') % self.object,
+            'title': _(message='Delete ACL: %s') % self.object
         }
 
     def get_instance_extra_data(self):
-        return {
-            '_event_actor': self.request.user
-        }
+        return {'_event_actor': self.request.user}
 
     def get_post_action_redirect(self):
         return reverse(
-            viewname='acls:acl_list', kwargs={
+            kwargs={
                 'app_label': self.object.content_type.app_label,
                 'model_name': self.object.content_type.model,
                 'object_id': self.object.object_id
-            }
+            }, viewname='acls:acl_list'
         )
 
 
@@ -144,18 +144,18 @@ class ACLListView(
                 )
             ),
             'no_results_title': _(
-                'There are no ACLs for this object'
+                message='There are no ACLs for this object'
             ),
             'no_results_text': _(
-                'ACL stands for Access Control List and is a precise method '
-                'to control user access to objects in the system. ACLs '
-                'allow granting a permission to a role but only for a '
+                message='ACL stands for Access Control List and is a precise '
+                'method to control user access to objects in the system. '
+                'ACLs allow granting a permission to a role but only for a '
                 'specific object or set of objects.'
             ),
             'object': self.external_object,
             'title': _(
-                'Access control lists for: %s' % self.external_object
-            ),
+                message='Access control lists for: %s' % self.external_object
+            )
         }
 
     def get_source_queryset(self):
@@ -163,42 +163,45 @@ class ACLListView(
 
 
 class ACLPermissionAddRemoveView(AddRemoveView):
+    list_added_title = _(message='Granted permissions')
+    list_available_title = _(message='Available permissions')
     main_object_method_add_name = 'permissions_add'
     main_object_method_remove_name = 'permissions_remove'
     main_object_model = AccessControlList
     main_object_permission = permission_acl_edit
     main_object_pk_url_kwarg = 'acl_id'
-    list_added_title = _('Granted permissions')
-    list_available_title = _('Available permissions')
     related_field = 'permissions'
     view_icon = icon_acl_permissions
 
     def generate_choices(self, queryset):
         namespaces_dictionary = {}
 
-        # Sort permissions by their translatable label
+        # Sort permissions by their translatable label.
         object_list = sorted(
             queryset,
             key=lambda permission: permission.volatile_permission.label
         )
 
-        # Group permissions by namespace
+        # Group permissions by namespace.
         for permission in object_list:
             namespaces_dictionary.setdefault(
-                permission.volatile_permission.namespace.label,
-                []
+                permission.volatile_permission.namespace.label, []
             )
             namespaces_dictionary[
                 permission.volatile_permission.namespace.label
             ].append(
-                (permission.pk, force_text(s=permission))
+                (
+                    permission.pk, force_str(s=permission)
+                )
             )
 
-        # Sort permissions by their translatable namespace label
-        return sorted(namespaces_dictionary.items())
+        # Sort permissions by their translatable namespace label.
+        return sorted(
+            namespaces_dictionary.items()
+        )
 
     def get_actions_extra_kwargs(self):
-        return {'_event_actor': self.request.user}
+        return {'user': self.request.user}
 
     def get_disabled_choices(self):
         """
@@ -214,19 +217,22 @@ class ACLPermissionAddRemoveView(AddRemoveView):
             'acl': self.main_object,
             'object': self.main_object.content_object,
             'navigation_object_list': ('object', 'acl'),
-            'title': _('Role "%(role)s" permission\'s for "%(object)s".') % {
-                'role': self.main_object.role,
+            'title': _(
+                message='Role "%(role)s" permission\'s for "%(object)s".'
+            ) % {
                 'object': self.main_object.content_object,
+                'role': self.main_object.role
             }
         }
 
     def get_list_added_help_text(self):
         if self.main_object.get_inherited_permissions():
             return _(
-                'Disabled permissions are inherited from a parent object or '
-                'directly granted to the role and can\'t be removed from this '
-                'view. Inherited permissions need to be removed from the '
-                'parent object\'s ACL or from them role via the Setup menu.'
+                message='Disabled permissions are inherited from a parent '
+                'object or directly granted to the role and can\'t be '
+                'removed from this view. Inherited permissions need to be '
+                'removed from the parent object\'s ACL or from them role via '
+                'the Setup menu.'
             )
         else:
             return super().get_list_added_help_text()
@@ -237,8 +243,8 @@ class ACLPermissionAddRemoveView(AddRemoveView):
         hold for this object's parents via another ACL. .distinct() is added
         in case the permission was added to the ACL and then added to a
         parent ACL's and thus inherited and would appear twice. If
-        order to remove the double permission from the ACL it would need to be
-        remove from the parent first to enable the choice in the form,
+        order to remove the double permission from the ACL it would need to
+        be remove from the parent first to enable the choice in the form,
         remove it from the ACL and then re-add it to the parent ACL.
         """
         queryset_acl = super().get_list_added_queryset()
@@ -262,16 +268,12 @@ class GlobalACLListView(SingleObjectListView):
         return {
             'hide_object': True,
             'no_results_icon': icon_acl_list,
-            'no_results_title': _(
-                'There are no ACLs'
-            ),
+            'no_results_title': _(message='There are no ACLs'),
             'no_results_text': _(
-                'ACL stands for Access Control List and is a precise method '
-                'to control user access to objects in the system. ACLs '
-                'allow granting a permission to a role but only for a '
+                message='ACL stands for Access Control List and is a precise '
+                'method to control user access to objects in the system. '
+                'ACLs allow granting a permission to a role but only for a '
                 'specific object or set of objects.'
             ),
-            'title': _(
-                'Global access control lists'
-            ),
+            'title': _(message='Global access control lists')
         }

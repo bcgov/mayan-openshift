@@ -2,16 +2,17 @@ import logging
 
 from django.template import RequestContext
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.models import AccessControlList
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
+from mayan.apps.documents.permissions import permission_document_view
 from mayan.apps.documents.views.document_views import DocumentListView
 from mayan.apps.views.generics import (
     MultipleObjectFormActionView, SingleObjectCreateView,
     SingleObjectDeleteView, SingleObjectEditView, SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from .forms import CabinetListForm
 from .icons import (
@@ -21,13 +22,13 @@ from .icons import (
     icon_document_cabinet_remove
 )
 from .links import (
-    link_document_cabinet_add, link_cabinet_child_add, link_cabinet_create
+    link_cabinet_child_add, link_cabinet_create, link_document_cabinet_add
 )
 from .models import Cabinet
 from .permissions import (
     permission_cabinet_add_document, permission_cabinet_create,
     permission_cabinet_delete, permission_cabinet_edit,
-    permission_cabinet_view, permission_cabinet_remove_document
+    permission_cabinet_remove_document, permission_cabinet_view
 )
 from .widgets import jstree_data
 
@@ -43,7 +44,7 @@ class CabinetCreateView(SingleObjectCreateView):
 
     def get_extra_context(self):
         return {
-            'title': _('Create cabinet'),
+            'title': _(message='Create cabinet')
         }
 
     def get_instance_extra_data(self):
@@ -53,14 +54,14 @@ class CabinetCreateView(SingleObjectCreateView):
 class CabinetChildAddView(ExternalObjectViewMixin, SingleObjectCreateView):
     fields = ('label',)
     external_object_class = Cabinet
-    external_object_permission = permission_cabinet_edit
+    external_object_permission = permission_cabinet_create
     external_object_pk_url_kwarg = 'cabinet_id'
     view_icon = icon_cabinet_child_add
 
     def get_extra_context(self):
         return {
             'title': _(
-                'Add new level to: %s'
+                message='Add new level to: %s'
             ) % self.external_object.get_full_path(),
             'object': self.external_object
         }
@@ -85,7 +86,7 @@ class CabinetDeleteView(SingleObjectDeleteView):
     def get_extra_context(self):
         return {
             'object': self.object,
-            'title': _('Delete the cabinet: %s?') % self.object,
+            'title': _(message='Delete the cabinet: %s?') % self.object
         }
 
 
@@ -98,7 +99,7 @@ class CabinetDetailView(ExternalObjectViewMixin, DocumentListView):
 
     def get_document_queryset(self):
         return self.external_object.get_documents(
-            user=self.request.user
+            permission=permission_document_view, user=self.request.user
         )
 
     def get_extra_context(self, **kwargs):
@@ -118,21 +119,21 @@ class CabinetDetailView(ExternalObjectViewMixin, DocumentListView):
                 'no_results_icon': icon_cabinet,
                 'no_results_main_link': link_cabinet_child_add.resolve(
                     context=RequestContext(
-                        request=self.request, dict_={
+                        dict_={
                             'object': self.external_object
-                        }
+                        }, request=self.request
                     )
                 ),
                 'no_results_text': _(
-                    'Cabinet levels can contain documents or other '
+                    message='Cabinet levels can contain documents or other '
                     'cabinet sub levels. To add documents to a cabinet, '
                     'select the cabinet view of a document view.'
                 ),
-                'no_results_title': _('This cabinet level is empty'),
+                'no_results_title': _(message='This cabinet level is empty'),
                 'object': self.external_object,
                 'title': _(
-                    'Details of cabinet: %s'
-                ) % self.external_object.get_full_path(),
+                    message='Details of cabinet: %s'
+                ) % self.external_object.get_full_path()
             }
         )
 
@@ -150,7 +151,7 @@ class CabinetEditView(SingleObjectEditView):
     def get_extra_context(self):
         return {
             'object': self.object,
-            'title': _('Edit cabinet: %s') % self.object,
+            'title': _(message='Edit cabinet: %s') % self.object
         }
 
     def get_instance_extra_data(self):
@@ -165,17 +166,17 @@ class CabinetListView(SingleObjectListView):
         return {
             'hide_link': True,
             'hide_object': True,
-            'title': _('Cabinets'),
+            'title': _(message='Cabinets'),
             'no_results_icon': icon_cabinet,
             'no_results_main_link': link_cabinet_create.resolve(
                 context=RequestContext(request=self.request)
             ),
             'no_results_text': _(
-                'Cabinets are a multi-level method to organize '
+                message='Cabinets are a multi-level method to organize '
                 'documents. Each cabinet can contain documents as '
                 'well as other sub level cabinets.'
             ),
-            'no_results_title': _('No cabinets available'),
+            'no_results_title': _(message='No cabinets available')
         }
 
     def get_source_queryset(self):
@@ -188,17 +189,17 @@ class DocumentCabinetAddView(MultipleObjectFormActionView):
     pk_url_kwarg = 'document_id'
     source_queryset = Document.valid.all()
     success_message_single = _(
-        'Document "%(object)s" added to cabinets successfully.'
+        message='Document "%(object)s" added to cabinets successfully.'
     )
     success_message_singular = _(
-        '%(count)d document added to cabinets successfully.'
+        message='%(count)d document added to cabinets successfully.'
     )
     success_message_plural = _(
-        '%(count)d documents added to cabinets successfully.'
+        message='%(count)d documents added to cabinets successfully.'
     )
-    title_single = _('Add document "%(object)s" to cabinets.')
-    title_singular = _('Add %(count)d document to cabinets.')
-    title_plural = _('Add %(count)d documents to cabinets.')
+    title_plural = _(message='Add %(count)d documents to cabinets.')
+    title_single = _(message='Add document "%(object)s" to cabinets.')
+    title_singular = _(message='Add %(count)d document to cabinets.')
     view_icon = icon_document_cabinet_add
 
     def get_extra_context(self):
@@ -207,7 +208,7 @@ class DocumentCabinetAddView(MultipleObjectFormActionView):
         if self.object_list.count() == 1:
             context.update(
                 {
-                    'object': self.object_list.first(),
+                    'object': self.object_list.first()
                 }
             )
 
@@ -216,7 +217,7 @@ class DocumentCabinetAddView(MultipleObjectFormActionView):
     def get_form_extra_kwargs(self):
         kwargs = {
             'help_text': _(
-                'Cabinets to which the selected documents will be added.'
+                message='Cabinets to which the selected documents will be added.'
             ),
             'permission': permission_cabinet_add_document,
             'queryset': Cabinet.objects.all(),
@@ -237,12 +238,11 @@ class DocumentCabinetAddView(MultipleObjectFormActionView):
     def object_action(self, form, instance):
         for cabinet in form.cleaned_data['cabinets']:
             AccessControlList.objects.check_access(
-                obj=cabinet, permissions=(permission_cabinet_add_document,),
+                obj=cabinet, permission=permission_cabinet_add_document,
                 user=self.request.user
             )
 
-            cabinet._event_actor = self.request.user
-            cabinet.document_add(document=instance)
+            cabinet.document_add(document=instance, user=self.request.user)
 
 
 class DocumentCabinetListView(ExternalObjectViewMixin, CabinetListView):
@@ -257,21 +257,21 @@ class DocumentCabinetListView(ExternalObjectViewMixin, CabinetListView):
             'no_results_icon': icon_cabinet,
             'no_results_main_link': link_document_cabinet_add.resolve(
                 context=RequestContext(
-                    request=self.request, dict_={
+                    dict_={
                         'object': self.external_object
-                    }
+                    }, request=self.request
                 )
             ),
             'no_results_text': _(
-                'Documents can be added to many cabinets.'
+                message='Documents can be added to many cabinets.'
             ),
             'no_results_title': _(
-                'This document is not in any cabinet'
+                message='This document is not in any cabinet'
             ),
             'object': self.external_object,
             'title': _(
-                'Cabinets containing document: %s'
-            ) % self.external_object,
+                message='Cabinets containing document: %s'
+            ) % self.external_object
         }
 
     def get_source_queryset(self):
@@ -286,17 +286,17 @@ class DocumentCabinetRemoveView(MultipleObjectFormActionView):
     pk_url_kwarg = 'document_id'
     source_queryset = Document.valid.all()
     success_message_single = _(
-        'Document "%(object)s" removed from cabinets successfully.'
+        message='Document "%(object)s" removed from cabinets successfully.'
     )
     success_message_singular = _(
-        '%(count)d document removed from cabinets successfully.'
+        message='%(count)d document removed from cabinets successfully.'
     )
     success_message_plural = _(
-        '%(count)d documents removed from cabinets successfully.'
+        message='%(count)d documents removed from cabinets successfully.'
     )
-    title_single = _('Remove document "%(object)s" from cabinets.')
-    title_singular = _('Remove %(count)d document from cabinets.')
-    title_plural = _('Remove %(count)d documents from cabinets.')
+    title_plural = _(message='Remove %(count)d documents from cabinets.')
+    title_single = _(message='Remove document "%(object)s" from cabinets.')
+    title_singular = _(message='Remove %(count)d document from cabinets.')
     view_icon = icon_document_cabinet_remove
 
     def get_extra_context(self):
@@ -305,7 +305,7 @@ class DocumentCabinetRemoveView(MultipleObjectFormActionView):
         if self.object_list.count() == 1:
             context.update(
                 {
-                    'object': self.object_list.first(),
+                    'object': self.object_list.first()
                 }
             )
 
@@ -314,7 +314,7 @@ class DocumentCabinetRemoveView(MultipleObjectFormActionView):
     def get_form_extra_kwargs(self):
         kwargs = {
             'help_text': _(
-                'Cabinets from which the selected documents will be removed.'
+                message='Cabinets from which the selected documents will be removed.'
             ),
             'permission': permission_cabinet_remove_document,
             'queryset': Cabinet.objects.all(),
@@ -333,9 +333,10 @@ class DocumentCabinetRemoveView(MultipleObjectFormActionView):
     def object_action(self, form, instance):
         for cabinet in form.cleaned_data['cabinets']:
             AccessControlList.objects.check_access(
-                obj=cabinet, permissions=(permission_cabinet_remove_document,),
+                obj=cabinet, permission=permission_cabinet_remove_document,
                 user=self.request.user
             )
 
-            cabinet._event_actor = self.request.user
-            cabinet.document_remove(document=instance)
+            cabinet.document_remove(
+                document=instance, user=self.request.user
+            )

@@ -1,3 +1,5 @@
+from django.utils.translation import gettext_lazy as _
+
 from actstream.models import Action
 from rest_framework.reverse import reverse
 
@@ -11,13 +13,18 @@ from .models import Notification, StoredEventType
 
 
 class EventTypeNamespaceSerializer(serializers.Serializer):
-    label = serializers.CharField()
-    name = serializers.CharField()
-    url = serializers.SerializerMethodField()
-
     event_types_url = serializers.HyperlinkedIdentityField(
         lookup_field='name',
-        view_name='rest_api:event-type-namespace-event-type-list',
+        view_name='rest_api:event-type-namespace-event-type-list'
+    )
+    label = serializers.CharField(
+        label=_(message='Label')
+    )
+    name = serializers.CharField(
+        label=_(message='Name')
+    )
+    url = serializers.SerializerMethodField(
+        label=_(message='URL')
     )
 
     def get_url(self, instance):
@@ -29,10 +36,18 @@ class EventTypeNamespaceSerializer(serializers.Serializer):
 
 
 class EventTypeSerializer(serializers.Serializer):
-    label = serializers.CharField()
-    name = serializers.CharField()
-    id = serializers.CharField()
-    event_type_namespace_url = serializers.SerializerMethodField()
+    event_type_namespace_url = serializers.SerializerMethodField(
+        label=_(message='Event type namespace URL')
+    )
+    id = serializers.CharField(
+        label=_(message='ID')
+    )
+    label = serializers.CharField(
+        label=_(message='Label')
+    )
+    name = serializers.CharField(
+        label=_(message='Name')
+    )
 
     def get_event_type_namespace_url(self, instance):
         return reverse(
@@ -53,11 +68,21 @@ class EventTypeSerializer(serializers.Serializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-    actor = DynamicSerializerField(read_only=True)
-    actor_content_type = ContentTypeSerializer(read_only=True)
-    target = DynamicSerializerField(read_only=True)
-    target_content_type = ContentTypeSerializer(read_only=True)
-    verb = EventTypeSerializer(read_only=True)
+    actor = DynamicSerializerField(
+        label=_(message='Actor'), read_only=True
+    )
+    actor_content_type = ContentTypeSerializer(
+        label=_(message='Actor content type'), read_only=True
+    )
+    target = DynamicSerializerField(
+        label=_(message='Target'), read_only=True
+    )
+    target_content_type = ContentTypeSerializer(
+        label=_(message='Target content type'), read_only=True
+    )
+    verb = EventTypeSerializer(
+        label=_(message='Verb'), read_only=True
+    )
 
     class Meta:
         exclude = (
@@ -70,11 +95,22 @@ class EventSerializer(serializers.ModelSerializer):
         )
 
 
-class NotificationSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    action = EventSerializer(read_only=True)
+class NotificationSerializer(serializers.HyperlinkedModelSerializer):
+    action = EventSerializer(
+        label=_(message='Action'), read_only=True
+    )
+    user = UserSerializer(
+        label=_(message='User'), read_only=True
+    )
 
     class Meta:
-        fields = ('action', 'read', 'user')
+        extra_kwargs = {
+            'url': {
+                'label': _(message='URL'),
+                'lookup_url_kwarg': 'notification_id',
+                'view_name': 'rest_api:notification-detail'
+            }
+        }
+        fields = ('action', 'read', 'url', 'user')
         model = Notification
-        read_only_fields = ('action', 'user')
+        read_only_fields = ('action', 'url', 'user')

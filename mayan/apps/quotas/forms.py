@@ -2,7 +2,7 @@ import json
 
 from django import forms
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.views.forms import DynamicModelForm
 
@@ -12,8 +12,8 @@ from .models import Quota
 
 class QuotaBackendSelectionForm(forms.Form):
     backend = forms.ChoiceField(
-        choices=(), label=_('Backend'), help_text=_(
-            'The quota driver for this entry.'
+        choices=(), label=_(message='Backend'), help_text=_(
+            message='The quota driver for this entry.'
         )
     )
 
@@ -29,10 +29,12 @@ class QuotaDynamicForm(DynamicModelForm):
         widgets = {'backend_data': forms.widgets.HiddenInput}
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', {})
+        self.user = kwargs.pop(
+            'user', {}
+        )
         result = super().__init__(*args, **kwargs)
 
-        # Handle filtered queryset fields
+        # Handle filtered queryset fields.
         for field in self.fields:
             if hasattr(self.fields[field], 'reload'):
                 self.fields[field].user = self.user
@@ -55,13 +57,15 @@ class QuotaDynamicForm(DynamicModelForm):
                 field_name, field_data.get('default', None)
             )
 
-            # Reduce models to a pk
+            # Reduce models to a pk.
             if isinstance(field_data, models.Model):
                 field_data = field_data.pk
 
-            # Reduce querysets to a list
+            # Reduce querysets to a list.
             if isinstance(field_data, models.query.QuerySet):
-                field_data = list(field_data.values_list('pk', flat=True))
+                field_data = list(
+                    field_data.values_list('pk', flat=True)
+                )
 
             backend_data[field_name] = field_data
 

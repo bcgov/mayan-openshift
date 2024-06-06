@@ -1,9 +1,10 @@
 from actstream.models import Action, any_stream
 
 from mayan.apps.acls.classes import ModelPermission
+from mayan.apps.testing.tests.mixins import TestMixinObjectCreationTrack
 
 from ..classes import (
-    EventModelRegistry, EventTypeNamespace, EventType, ModelEventType
+    EventModelRegistry, EventType, EventTypeNamespace, ModelEventType
 )
 from ..models import Notification, ObjectEventSubscription
 from ..permissions import permission_events_view
@@ -74,17 +75,25 @@ class EventObjectTestMixin:
         )
 
 
-class EventTestMixin:
+class EventTestMixin(TestMixinObjectCreationTrack):
+    _test_object_model = Action
+    _test_object_name = '_test_event'
+
     def setUp(self):
         super().setUp()
-        self._test_events = []
+        self._test_event_list = []
 
     def _create_test_event(self, action_object=None, actor=None, target=None):
-        self._test_event = self._test_event_type.commit(
+        self._test_object_track()
+
+        self._test_event_type.commit(
             action_object=action_object, actor=actor or self._test_case_user,
             target=target
         )
-        self._test_events.append(self._test_event)
+
+        self._test_object_set()
+
+        self._test_event_list.append(self._test_event)
 
 
 class EventTestCaseMixin:
@@ -99,7 +108,36 @@ class EventTestCaseMixin:
         return Action.objects.all().order_by('timestamp')
 
 
-class EventTypeNamespaceAPITestMixin:
+class EventTypeTestMixin:
+    def setUp(self):
+        super().setUp()
+        self._test_event_type_list = []
+
+    def _create_test_event_type(self):
+        total_test_event_type_count = len(self._test_event_type_list)
+        test_namespace_label = '{}_{}'.format(
+            TEST_EVENT_TYPE_NAMESPACE_LABEL, total_test_event_type_count
+        )
+        test_namespace_name = '{}_{}'.format(
+            TEST_EVENT_TYPE_NAMESPACE_NAME, total_test_event_type_count
+        )
+        test_event_label = '{}_{}'.format(
+            TEST_EVENT_TYPE_LABEL, total_test_event_type_count
+        )
+        test_event_name = '{}_{}'.format(
+            TEST_EVENT_TYPE_NAME, total_test_event_type_count
+        )
+
+        self._test_event_type_namespace = EventTypeNamespace(
+            label=test_namespace_label, name=test_namespace_name
+        )
+        self._test_event_type = self._test_event_type_namespace.add_event_type(
+            label=test_event_label, name=test_event_name
+        )
+        self._test_event_type_list.append(self._test_event_type)
+
+
+class EventTypeNamespaceAPITestMixin(EventTypeTestMixin):
     def _request_test_event_type_list_api_view(self):
         return self.get(viewname='rest_api:event-type-list')
 
@@ -115,36 +153,7 @@ class EventTypeNamespaceAPITestMixin:
         )
 
 
-class EventTypeTestMixin:
-    def setUp(self):
-        super().setUp()
-        self._test_event_types = []
-
-    def _create_test_event_type(self):
-        total_test_event_types = len(self._test_event_types)
-        test_namespace_label = '{}_{}'.format(
-            TEST_EVENT_TYPE_NAMESPACE_LABEL, total_test_event_types
-        )
-        test_namespace_name = '{}_{}'.format(
-            TEST_EVENT_TYPE_NAMESPACE_NAME, total_test_event_types
-        )
-        test_event_label = '{}_{}'.format(
-            TEST_EVENT_TYPE_LABEL, total_test_event_types
-        )
-        test_event_name = '{}_{}'.format(
-            TEST_EVENT_TYPE_NAME, total_test_event_types
-        )
-
-        self._test_event_type_namespace = EventTypeNamespace(
-            label=test_namespace_label, name=test_namespace_name
-        )
-        self._test_event_type = self._test_event_type_namespace.add_event_type(
-            label=test_event_label, name=test_event_name
-        )
-        self._test_event_types.append(self._test_event_type)
-
-
-class EventViewTestMixin:
+class EventViewTestMixin(EventTestMixin):
     def _request_test_verb_event_list_view(self):
         return self.get(
             viewname='events:verb_event_list', kwargs={
@@ -161,7 +170,7 @@ class EventViewTestMixin:
         )
 
 
-class NotificationTestMixin:
+class NotificationTestMixin(EventTestMixin):
     def _create_test_notification(self):
         action = any_stream(obj=self._test_object).first()
 
@@ -170,7 +179,33 @@ class NotificationTestMixin:
         )
 
 
-class NotificationViewTestMixin:
+class NotificationAPIViewTestMixin(NotificationTestMixin):
+    def _request_test_notification_detail_api_view(self):
+        return self.get(
+            viewname='rest_api:notification-detail',
+            kwargs={'notification_id': self._test_notification.pk}
+        )
+
+    def _request_test_notification_edit_api_view(
+        self, extra_data=None, verb='patch'
+    ):
+        data = {'read': True}
+
+        if extra_data:
+            data.update(extra_data)
+
+        verb_method = getattr(self, verb)
+
+        return verb_method(
+            data=data, kwargs={'notification_id': self._test_notification.pk},
+            viewname='rest_api:notification-detail'
+        )
+
+    def _request_test_notification_list_api_view(self):
+        return self.get(viewname='rest_api:notification-list')
+
+
+class NotificationViewTestMixin(NotificationTestMixin):
     def _request_test_notification_list_view(self):
         return self.get(viewname='events:user_notifications_list')
 

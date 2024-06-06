@@ -2,11 +2,12 @@ import hashlib
 import logging
 
 from PIL import Image, ImageColor, ImageFilter
+import qrcode
 
 from django import forms
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 from django.utils.text import format_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.views.forms import Form
 from mayan.apps.views.http import URL
@@ -17,7 +18,7 @@ from .transformation_mixins import (
     AssetTransformationMixin,
     ImagePasteCoordinatesAbsoluteTransformationMixin,
     ImagePasteCoordinatesPercentTransformationMixin,
-    ImageWatermarkPercentTransformationMixin,
+    ImagePasteTransformationMixin, ImageWatermarkPercentTransformationMixin,
     TransformationDrawRectangleMixin
 )
 
@@ -26,7 +27,7 @@ logger = logging.getLogger(name=__name__)
 
 class BaseTransformationType(type):
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
 
 class BaseTransformation(metaclass=BaseTransformationType):
@@ -34,10 +35,11 @@ class BaseTransformation(metaclass=BaseTransformationType):
     Transformation can modify the appearance of the document's page preview.
     Some transformation available are: Rotate, zoom, resize and crop.
     """
-    arguments = ()
-    name = 'base_transformation'
     _layer_transformations = {}
     _registry = {}
+    arguments = ()
+    name = 'base_transformation'
+    template_name = None
 
     @staticmethod
     def combine(transformations):
@@ -45,7 +47,9 @@ class BaseTransformation(metaclass=BaseTransformationType):
 
         for transformation in transformations or ():
             try:
-                result.update(transformation.cache_hash())
+                result.update(
+                    transformation.cache_hash()
+                )
             except Exception as exception:
                 logger.error(
                     'Unable to compute hash for transformation: %s; %s',
@@ -59,7 +63,9 @@ class BaseTransformation(metaclass=BaseTransformationType):
         result = URL()
 
         for index, transformation in enumerate(transformation_instance_list):
-            result.args['transformation_{}_name'.format(index)] = transformation.name
+            result.args[
+                'transformation_{}_name'.format(index)
+            ] = transformation.name
 
             for argument in transformation.arguments:
                 value = getattr(transformation, argument)
@@ -91,15 +97,25 @@ class BaseTransformation(metaclass=BaseTransformationType):
     def get_label(cls):
         arguments = cls.get_arguments()
         if arguments:
-            return format_lazy('{}: {}', cls.label, ', '.join(arguments))
+            return format_lazy(
+                '{}: {}', cls.label, ', '.join(arguments)
+            )
         else:
             return cls.label
+
+    @classmethod
+    def get_template_name(cls):
+        return cls.template_name
 
     @classmethod
     def get_transformation_choices(cls, group_by_layer=False, layer=None):
         if layer:
             transformation_list = [
-                (transformation.name, transformation) for transformation in cls._layer_transformations.get(layer, ())
+                (
+                    transformation.name, transformation
+                ) for transformation in cls._layer_transformations.get(
+                    layer, ()
+                )
             ]
         else:
             transformation_list = cls._registry.items()
@@ -113,49 +129,74 @@ class BaseTransformation(metaclass=BaseTransformationType):
             for layer, transformations in cls._layer_transformations.items():
                 for transformation in transformations:
                     if transformation in flat_transformation_list:
-                        layer_transformation_choices.setdefault(layer, [])
+                        layer_transformation_choices.setdefault(
+                            layer, []
+                        )
                         layer_transformation_choices[layer].append(
-                            (transformation.name, transformation.get_label())
+                            (
+                                transformation.name,
+                                transformation.get_label()
+                            )
                         )
 
                 # Sort the transformation for each layer group.
-                layer_transformation_choices[layer].sort(key=lambda x: x[1])
+                layer_transformation_choices[layer].sort(
+                    key=lambda x: x[1]
+                )
 
             result = [
-                (layer.label, transformations) for layer, transformations in layer_transformation_choices.items()
+                (
+                    layer.label, transformations
+                ) for layer, transformations in layer_transformation_choices.items()
             ]
 
             # Finally sort by transformation layer group.
-            return sorted(result, key=lambda x: x[0])
+            return sorted(
+                result, key=lambda x: x[0]
+            )
         else:
             return sorted(
-                (name, klass.get_label()) for name, klass in transformation_list
+                (
+                    name, klass.get_label()
+                ) for name, klass in transformation_list
             )
 
     @classmethod
     def register(cls, layer, transformation):
         cls._registry[transformation.name] = transformation
-        cls._layer_transformations.setdefault(layer, set())
+        cls._layer_transformations.setdefault(
+            layer, set()
+        )
         cls._layer_transformations[layer].add(transformation)
 
     def __init__(self, **kwargs):
         self.kwargs = {}
         for argument_name in self.__class__.get_arguments():
-            setattr(self, argument_name, kwargs.get(argument_name))
+            setattr(
+                self, argument_name, kwargs.get(argument_name)
+            )
             self.kwargs[argument_name] = kwargs.get(argument_name)
 
     def _update_hash(self):
-        result = hashlib.sha256(force_bytes(s=self.name))
+        result = hashlib.sha256(
+            string=force_bytes(s=self.name)
+        )
 
         # Sort arguments for guaranteed repeatability.
         for key, value in sorted(self.kwargs.items()):
-            result.update(force_bytes(s=key))
-            result.update(force_bytes(s=value))
+            result.update(
+                force_bytes(s=key)
+            )
+            result.update(
+                force_bytes(s=value)
+            )
 
         return result
 
     def cache_hash(self):
-        return force_bytes(s=self._update_hash().hexdigest())
+        return force_bytes(
+            s=self._update_hash().hexdigest()
+        )
 
     def execute_on(self, image):
         self.image = image
@@ -166,7 +207,7 @@ class TransformationAssetPaste(
     ImagePasteCoordinatesAbsoluteTransformationMixin,
     AssetTransformationMixin, BaseTransformation
 ):
-    label = _('Paste an asset (absolute coordinates)')
+    label = _(message='Paste an asset (absolute coordinates)')
     name = 'paste_asset'
 
 
@@ -174,7 +215,7 @@ class TransformationAssetPastePercent(
     ImagePasteCoordinatesPercentTransformationMixin,
     AssetTransformationMixin, BaseTransformation
 ):
-    label = _('Paste an asset (percents coordinates)')
+    label = _(message='Paste an asset (percent coordinates)')
     name = 'paste_asset_percent'
 
 
@@ -182,31 +223,33 @@ class TransformationAssetWatermark(
     ImageWatermarkPercentTransformationMixin, AssetTransformationMixin,
     BaseTransformation
 ):
-    label = _('Paste an asset as watermark')
+    label = _(message='Paste an asset as watermark')
     name = 'paste_asset_watermark'
 
 
 class TransformationCrop(BaseTransformation):
     arguments = ('left', 'top', 'right', 'bottom',)
-    label = _('Crop')
+    label = _(message='Crop')
     name = 'crop'
 
     class Form(Form):
         left = forms.IntegerField(
-            help_text=_('Number of pixels to remove from the left.'),
-            label=_('Left'), required=False
+            help_text=_(message='Number of pixels to remove from the left.'),
+            label=_(message='Left'), required=False
         )
         top = forms.IntegerField(
-            help_text=_('Number of pixels to remove from the top.'),
-            label=_('Top'), required=False
+            help_text=_(message='Number of pixels to remove from the top.'),
+            label=_(message='Top'), required=False
         )
         right = forms.IntegerField(
-            help_text=_('Number of pixels to remove from the right.'),
-            label=_('Right'), required=False
+            help_text=_(
+                message='Number of pixels to remove from the right.'
+            ), label=_(message='Right'), required=False
         )
         bottom = forms.IntegerField(
-            help_text=_('Number of pixels to remove from the bottom.'),
-            label=_('Bottom'), required=False
+            help_text=_(
+                message='Number of pixels to remove from the bottom.'
+            ), label=_(message='Bottom'), required=False
         )
 
     def execute_on(self, *args, **kwargs):
@@ -276,7 +319,9 @@ class TransformationCrop(BaseTransformation):
             bottom
         )
 
-        return self.image.crop(box=(left, top, right, bottom))
+        return self.image.crop(
+            box=(left, top, right, bottom)
+        )
 
 
 class TransformationDrawRectangle(
@@ -286,25 +331,25 @@ class TransformationDrawRectangle(
         'left', 'top', 'right', 'bottom', 'fillcolor', 'fill_transparency',
         'outlinecolor', 'outlinewidth'
     )
-    label = _('Draw rectangle')
+    label = _(message='Draw rectangle')
     name = 'draw_rectangle'
 
     class Form(TransformationDrawRectangleMixin.Form):
         left = forms.IntegerField(
-            help_text=_('Left side location in pixels.'), label=_('Left'),
-            required=False
+            help_text=_(message='Left side location in pixels.'),
+            label=_(message='Left'), required=False
         )
         top = forms.IntegerField(
-            help_text=_('Top side location in pixels.'), label=_('Top'),
-            required=False
+            help_text=_(message='Top side location in pixels.'),
+            label=_(message='Top'), required=False
         )
         right = forms.IntegerField(
-            help_text=_('Right side location in pixels.'), label=_('Right'),
-            required=False
+            help_text=_(message='Right side location in pixels.'),
+            label=_(message='Right'), required=False
         )
         bottom = forms.IntegerField(
-            help_text=_('Bottom side location in pixels.'),
-            label=_('Bottom'), required=False
+            help_text=_(message='Bottom side location in pixels.'),
+            label=_(message='Bottom'), required=False
         )
 
     def execute_on(self, *args, **kwargs):
@@ -384,25 +429,25 @@ class TransformationDrawRectanglePercent(
         'left', 'top', 'right', 'bottom', 'fillcolor', 'fill_transparency',
         'outlinecolor', 'outlinewidth'
     )
-    label = _('Draw rectangle (percents coordinates)')
+    label = _(message='Draw rectangle (percent coordinates)')
     name = 'draw_rectangle_percent'
 
     class Form(TransformationDrawRectangleMixin.Form):
         left = forms.FloatField(
-            help_text=_('Left side location in percent.'),
-            label=_('Left'), required=False
+            help_text=_(message='Left side location in percent.'),
+            label=_(message='Left'), required=False
         )
         top = forms.FloatField(
-            help_text=_('Top side location in percent.'),
-            label=_('Top'), required=False
+            help_text=_(message='Top side location in percent.'),
+            label=_(message='Top'), required=False
         )
         right = forms.FloatField(
-            help_text=_('Right side location in percent.'),
-            label=_('Right'), required=False
+            help_text=_(message='Right side location in percent.'),
+            label=_(message='Right'), required=False
         )
         bottom = forms.FloatField(
-            help_text=_('Bottom side location in percent.'),
-            label=_('Bottom'), required=False
+            help_text=_(message='Bottom side location in percent.'),
+            label=_(message='Bottom'), required=False
         )
 
     def execute_on(self, *args, **kwargs):
@@ -467,8 +512,12 @@ class TransformationDrawRectanglePercent(
         # that can crop from the right and bottom borders without
         # having to know the real dimensions of an image.
 
-        right = self.image.size[0] - (right / 100.0 * self.image.size[0])
-        bottom = self.image.size[1] - (bottom / 100.0 * self.image.size[1])
+        right = self.image.size[0] - (
+            right / 100.0 * self.image.size[0]
+        )
+        bottom = self.image.size[1] - (
+            bottom / 100.0 * self.image.size[1]
+        )
 
         self.bottom = bottom
         self.left = left
@@ -480,7 +529,7 @@ class TransformationDrawRectanglePercent(
 
 class TransformationFlip(BaseTransformation):
     arguments = ()
-    label = _('Flip')
+    label = _(message='Flip')
     name = 'flip'
 
     def execute_on(self, *args, **kwargs):
@@ -491,12 +540,12 @@ class TransformationFlip(BaseTransformation):
 
 class TransformationGaussianBlur(BaseTransformation):
     arguments = ('radius',)
-    label = _('Gaussian blur')
+    label = _(message='Gaussian blur')
     name = 'gaussianblur'
 
     class Form(Form):
         radius = forms.IntegerField(
-            initial=2, label=_('Radius'), required=True
+            initial=2, label=_(message='Radius'), required=True
         )
 
     def execute_on(self, *args, **kwargs):
@@ -508,7 +557,7 @@ class TransformationGaussianBlur(BaseTransformation):
 
 
 class TransformationLineArt(BaseTransformation):
-    label = _('Line art')
+    label = _(message='Line art')
     name = 'lineart'
 
     def execute_on(self, *args, **kwargs):
@@ -522,7 +571,7 @@ class TransformationLineArt(BaseTransformation):
 
 class TransformationMirror(BaseTransformation):
     arguments = ()
-    label = _('Mirror')
+    label = _(message='Mirror')
     name = 'mirror'
 
     def execute_on(self, *args, **kwargs):
@@ -531,28 +580,68 @@ class TransformationMirror(BaseTransformation):
         return self.image.transpose(method=Image.FLIP_LEFT_RIGHT)
 
 
+class TransformationQRCodePercent(
+    ImagePasteCoordinatesPercentTransformationMixin,
+    BaseTransformation
+):
+    label = _(message='Draw a QRCode (percent coordinates)')
+    name = 'qr_code_percent'
+
+    @classmethod
+    def get_arguments(cls):
+        arguments = super().get_arguments() + ('code_value',)
+        return arguments
+
+    class Form(ImagePasteCoordinatesPercentTransformationMixin.Form):
+        code_value = forms.CharField(
+            help_text=_(message='Value to encode in the QRCode.'),
+            label=_(message='Code value'), required=True
+        )
+
+    def _update_hash(self):
+        result = super(ImagePasteTransformationMixin, self)._update_hash()
+        bytes_code_value = force_bytes(s=self.code_value)
+        result.update(bytes_code_value)
+
+        return result
+
+    def get_image(self):
+        qrcode_instance = qrcode.QRCode()
+        qrcode_instance.add_data(data=self.code_value)
+        qrcode_instance.make(fit=True)
+
+        qrcode_image = qrcode_instance.make_image()
+
+        image = qrcode_image.get_image()
+        image = image.convert(mode='RGB')
+
+        return image
+
+
 class TransformationResize(BaseTransformation):
     arguments = ('width', 'height')
-    label = _('Resize')
+    label = _(message='Resize')
     name = 'resize'
 
     class Form(Form):
         width = forms.IntegerField(
             help_text=_(
-                'New width in pixels.'
-            ), label=_('Width'), required=True
+                message='New width in pixels.'
+            ), label=_(message='Width'), required=True
         )
         height = forms.IntegerField(
             help_text=_(
-                'New height in pixels.'
-            ), label=_('Height'), required=False
+                message='New height in pixels.'
+            ), label=_(message='Height'), required=False
         )
 
     def execute_on(self, *args, **kwargs):
         super().execute_on(*args, **kwargs)
 
         width = int(self.width)
-        height = int(self.height or (1.0 * width / self.aspect))
+        height = int(
+            self.height or (1.0 * width / self.aspect)
+        )
 
         factor = 1
         while self.image.size[0] / factor > 2 * width and self.image.size[1] * 2 / factor > 2 * height:
@@ -563,31 +652,33 @@ class TransformationResize(BaseTransformation):
                 size=(
                     self.image.size[0] / factor,
                     self.image.size[1] / factor
-                ), resample=Image.NEAREST
+                ), resample=Image.Resampling.NEAREST
             )
 
-        # Resize the image with best quality algorithm ANTIALIAS.
-        self.image.thumbnail(size=(width, height), resample=Image.ANTIALIAS)
+        self.image.thumbnail(
+            size=(width, height), resample=Image.Resampling.LANCZOS
+        )
 
         return self.image
 
 
 class TransformationRotate(BaseTransformation):
     arguments = ('degrees', 'fillcolor')
-    label = _('Rotate')
+    label = _(message='Rotate')
     name = 'rotate'
 
     class Form(Form):
         degrees = forms.IntegerField(
             help_text=_(
-                'Number of degrees to rotate the image counter clockwise '
+                message='Number of degrees to rotate the image counter clockwise '
                 'around its center.'
-            ), label=_('Degrees'), required=True
+            ), label=_(message='Degrees'), required=True
         )
         fillcolor = forms.CharField(
             help_text=_(
-                'Color to be used for area outside of the rotated image.'
-            ), label=_('Fill color'), required=False, widget=ColorWidget()
+                message='Color to be used for area outside of the rotated image.'
+            ), label=_(message='Fill color'), required=False,
+            widget=ColorWidget()
         )
 
     def execute_on(self, *args, **kwargs):
@@ -609,15 +700,15 @@ class TransformationRotate(BaseTransformation):
             fillcolor = None
 
         return self.image.rotate(
-            angle=360 - self.degrees, resample=Image.BICUBIC, expand=True,
-            fillcolor=fillcolor
+            angle=360 - self.degrees, expand=True, fillcolor=fillcolor,
+            resample=Image.Resampling.BICUBIC
         )
 
 
 class TransformationRotate90(TransformationRotate):
     arguments = ()
     degrees = 90
-    label = _('Rotate 90 degrees')
+    label = _(message='Rotate 90 degrees')
     name = 'rotate90'
 
     def __init__(self, **kwargs):
@@ -628,7 +719,7 @@ class TransformationRotate90(TransformationRotate):
 class TransformationRotate180(TransformationRotate):
     arguments = ()
     degrees = 180
-    label = _('Rotate 180 degrees')
+    label = _(message='Rotate 180 degrees')
     name = 'rotate180'
 
     def __init__(self, **kwargs):
@@ -639,7 +730,7 @@ class TransformationRotate180(TransformationRotate):
 class TransformationRotate270(TransformationRotate):
     arguments = ()
     degrees = 270
-    label = _('Rotate 270 degrees')
+    label = _(message='Rotate 270 degrees')
     name = 'rotate270'
 
     def __init__(self, **kwargs):
@@ -649,22 +740,22 @@ class TransformationRotate270(TransformationRotate):
 
 class TransformationUnsharpMask(BaseTransformation):
     arguments = ('radius', 'percent', 'threshold')
-    label = _('Unsharp masking')
+    label = _(message='Unsharp masking')
     name = 'unsharpmask'
 
     class Form(Form):
         radius = forms.IntegerField(
-            initial=2, help_text=_('The blur radius in pixels.'),
-            label=_('Radius'), required=True
+            initial=2, help_text=_(message='The blur radius in pixels.'),
+            label=_(message='Radius'), required=True
         )
         percent = forms.FloatField(
-            initial=150, help_text=_('Unsharp strength in percent.'),
-            label=_('Percent'), required=True
+            initial=150, help_text=_(message='Unsharp strength in percent.'),
+            label=_(message='Percent'), required=True
         )
         threshold = forms.IntegerField(
             initial=3, help_text=_(
-                'Minimum brightness change that will be sharpened.'
-            ), label=_('Tthreshold'), required=True
+                message='Minimum brightness change that will be sharpened.'
+            ), label=_(message='Tthreshold'), required=True
         )
 
     def execute_on(self, *args, **kwargs):
@@ -680,13 +771,13 @@ class TransformationUnsharpMask(BaseTransformation):
 
 class TransformationZoom(BaseTransformation):
     arguments = ('percent',)
-    label = _('Zoom')
+    label = _(message='Zoom')
     name = 'zoom'
 
     class Form(Form):
         percent = forms.FloatField(
-            help_text=_('Zoom level in percent.'),
-            label=_('Percent'), required=True
+            help_text=_(message='Zoom level in percent.'),
+            label=_(message='Percent'), required=True
         )
 
     def execute_on(self, *args, **kwargs):
@@ -708,9 +799,11 @@ class TransformationZoom(BaseTransformation):
             height = 1
 
         return self.image.resize(
-            size=(width, height), resample=Image.ANTIALIAS
+            size=(width, height), resample=Image.Resampling.LANCZOS
         )
 
+
+# Decorations
 
 BaseTransformation.register(
     layer=layer_decorations, transformation=TransformationAssetPaste
@@ -722,15 +815,21 @@ BaseTransformation.register(
     layer=layer_decorations, transformation=TransformationAssetWatermark
 )
 BaseTransformation.register(
-    layer=layer_saved_transformations, transformation=TransformationCrop
-)
-BaseTransformation.register(
     layer=layer_decorations,
     transformation=TransformationDrawRectangle
 )
 BaseTransformation.register(
     layer=layer_decorations,
     transformation=TransformationDrawRectanglePercent
+)
+BaseTransformation.register(
+    layer=layer_decorations, transformation=TransformationQRCodePercent
+)
+
+# Saved transformations
+
+BaseTransformation.register(
+    layer=layer_saved_transformations, transformation=TransformationCrop
 )
 BaseTransformation.register(
     layer=layer_saved_transformations, transformation=TransformationFlip

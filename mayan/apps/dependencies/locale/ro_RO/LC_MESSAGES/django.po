@@ -4,26 +4,26 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Stefaniu Criste <gupi@hangar.ro>, 2022
-# Badea Gabriel <gcbadea@gmail.com>, 2022
-# Roberto Rosario, 2022
-# Harald Ersch, 2022
+# Stefaniu Criste <gupi@hangar.ro>, 2024
+# Roberto Rosario, 2024
+# Badea Gabriel <gcbadea@gmail.com>, 2024
+# Harald Ersch, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:34+0000\n"
-"Last-Translator: Harald Ersch, 2022\n"
-"Language-Team: Romanian (Romania) (https://www.transifex.com/rosarior/teams/13584/ro_RO/)\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Harald Ersch, 2024\n"
+"Language-Team: Romanian (Romania) (https://app.transifex.com/rosarior/teams/13584/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: apps.py:24 links.py:38 permissions.py:5
+#: apps.py:24 links.py:38 permissions.py:6
 msgid "Dependencies"
 msgstr "Dependenţe"
 
@@ -39,11 +39,11 @@ msgstr "Nume intern"
 msgid "Description"
 msgstr "Descriere"
 
-#: apps.py:45 classes.py:214
+#: apps.py:45 classes.py:218
 msgid "Type"
 msgstr "Tip"
 
-#: apps.py:49 classes.py:216
+#: apps.py:49 classes.py:221
 msgid "Other data"
 msgstr "Alte date"
 
@@ -51,7 +51,7 @@ msgstr "Alte date"
 msgid "Declared by"
 msgstr "Declarată de"
 
-#: apps.py:57 classes.py:214
+#: apps.py:57 classes.py:219
 msgid "Version"
 msgstr "Versiune"
 
@@ -59,73 +59,73 @@ msgstr "Versiune"
 msgid "Environment"
 msgstr "Ambianță"
 
-#: apps.py:64 classes.py:216
+#: apps.py:64 classes.py:221
 msgid "Check"
 msgstr "Verificare"
 
-#: classes.py:214
+#: classes.py:218
 msgid "Name"
 msgstr "Nume"
 
-#: classes.py:215
+#: classes.py:219
 msgid "App"
 msgstr "App"
 
-#: classes.py:215 classes.py:840
+#: classes.py:220 classes.py:966
 msgid "Environments"
 msgstr "Ambianțe"
 
-#: classes.py:308
+#: classes.py:331
 msgid "Need to specify at least one: app_label or module."
 msgstr "Trebuie să specificați cel puțin una: app_label sau modul."
 
-#: classes.py:313
+#: classes.py:336
 #, python-format
 msgid "Dependency \"%s\" already registered."
 msgstr "Dependența \"%s\" deja înregistrată."
 
-#: classes.py:339
+#: classes.py:387
 #, python-format
 msgid "Installing package: %s... "
 msgstr "Instalarea pachetului: %s ..."
 
-#: classes.py:344
+#: classes.py:394
 msgid "Already installed."
 msgstr "Deja instalat."
 
-#: classes.py:347 classes.py:352 classes.py:356
+#: classes.py:399 classes.py:406 classes.py:412
 msgid "Complete."
 msgstr "Complet."
 
-#: classes.py:382
+#: classes.py:439
 msgid "Installed and correct version"
 msgstr "Versiunea instalată și corectă"
 
-#: classes.py:384
+#: classes.py:441
 msgid "Missing or incorrect version"
 msgstr "Versiune lipsă sau incorectă"
 
-#: classes.py:419
+#: classes.py:478
 msgid "None"
 msgstr "Nici unul"
 
-#: classes.py:428
+#: classes.py:487
 msgid "Not specified"
 msgstr "Nespecificat"
 
-#: classes.py:431
+#: classes.py:490
 msgid "Patching files... "
 msgstr "Patching fișiere ..."
 
-#: classes.py:459
+#: classes.py:518
 msgid "Executables that are called directly by the code."
 msgstr "Executabile care sunt apelate direct de cod."
 
-#: classes.py:461
+#: classes.py:520
 msgid "Binary"
 msgstr "Binar"
 
-#: classes.py:478
+#: classes.py:537
 msgid ""
 "JavaScript libraries downloaded the from NPM registry and used for front-end"
 " functionality."
@@ -133,51 +133,51 @@ msgstr ""
 "Bibliotecile JavaScript descărcate din registrul NPM și folosite la "
 "funcționalitatea front-end."
 
-#: classes.py:481
+#: classes.py:540
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: classes.py:511 classes.py:752
+#: classes.py:572 classes.py:869
 msgid "Downloading... "
 msgstr "Se descarcă..."
 
-#: classes.py:514
+#: classes.py:577
 msgid "Verifying... "
 msgstr "Se verifică ..."
 
-#: classes.py:517 classes.py:755
+#: classes.py:582 classes.py:874
 msgid "Extracting... "
 msgstr "Se extrage ..."
 
-#: classes.py:694
+#: classes.py:795
 msgid "Python packages downloaded from PyPI."
 msgstr "Pachetele Python descărcate de la PyPI."
 
-#: classes.py:696
+#: classes.py:797
 msgid "Python"
 msgstr "Python"
 
-#: classes.py:733
+#: classes.py:849
 msgid "Fonts downloaded from fonts.googleapis.com."
 msgstr "Fonturi descărcate de la fonts.googleapis.com."
 
-#: classes.py:735
+#: classes.py:851
 msgid "Google font"
 msgstr "Font Google"
 
-#: classes.py:821
+#: classes.py:947
 msgid "Declared in app"
 msgstr "Declarate în aplicație"
 
-#: classes.py:822
+#: classes.py:948
 msgid "Show dependencies by the app that declared them."
 msgstr "Afișați dependențele după aplicația care le-a declarat."
 
-#: classes.py:826
+#: classes.py:952
 msgid "Class"
 msgstr "Clasă"
 
-#: classes.py:827
+#: classes.py:953
 msgid ""
 "Show the different classes of dependencies. Classes are usually divided by "
 "language or the file types of the dependency."
@@ -185,11 +185,11 @@ msgstr ""
 "Arătați diferitele clase de dependențe. Clasele sunt de obicei împărțite în "
 "funcție de limbă sau de tipurile de fișiere ale dependenței."
 
-#: classes.py:832
+#: classes.py:958
 msgid "State"
 msgstr "Stare"
 
-#: classes.py:833
+#: classes.py:959
 msgid ""
 "Show the different states of the dependencies. True means that the "
 "dependencies is installed and is of a correct version. False means the "
@@ -199,7 +199,7 @@ msgstr ""
 "sunt instalate și că au o versiune corectă. Fals înseamnă că lipsesc "
 "dependențele sau există o versiune incorectă."
 
-#: classes.py:841
+#: classes.py:967
 msgid ""
 "Dependencies required for an environment might not be required for another. "
 "Example environments: Production, Development."
@@ -207,7 +207,7 @@ msgstr ""
 "Este posibil ca dependențele necesare pentru un mediu să nu fie necesare "
 "pentru altul. Exemplu de medii: producție, dezvoltare."
 
-#: environments.py:18
+#: environments.py:17
 msgid ""
 "Environment used for building distributable packages of the software. End "
 "users can ignore missing dependencies under this environment."
@@ -215,11 +215,11 @@ msgstr ""
 "Mediul utilizat pentru a construi pachete distribuite ale software-ului. "
 "Utilizatorii finali pot ignora dependențele care lipsesc în acest mediu."
 
-#: environments.py:21
+#: environments.py:20
 msgid "Build"
 msgstr "Build"
 
-#: environments.py:25
+#: environments.py:24
 msgid ""
 "Environment used for developers to make code changes. End users can ignore "
 "missing dependencies under this environment."
@@ -227,11 +227,11 @@ msgstr ""
 "Mediul fost folosit de dezvoltatori pentru a face schimbări de cod. "
 "Utilizatorii finali pot ignora dependențele care lipsesc în acest mediu."
 
-#: environments.py:27
+#: environments.py:26
 msgid "Development"
 msgstr "Dezvoltare"
 
-#: environments.py:31
+#: environments.py:30
 msgid ""
 "Environment used for building the documentation. End users can ignore "
 "missing dependencies under this environment."
@@ -239,22 +239,22 @@ msgstr ""
 "Mediu folosit pentru construirea documentației. Utilizatorii finali pot "
 "ignora dependențele lipsă din acest mediu."
 
-#: environments.py:33
+#: environments.py:32
 msgid "Documentation"
 msgstr "Documentație"
 
-#: environments.py:37
+#: environments.py:36
 msgid ""
-"Environment used to specify direct documentation depedencies to workaround "
-"unpinned or immutable depedency bugs in third party libraries. End users can"
-" ignore missing dependencies under this environment."
+"Environment used to specify direct documentation dependencies to workaround "
+"unpinned or immutable dependency bugs in third party libraries. End users "
+"can ignore missing dependencies under this environment."
 msgstr ""
-"Mediu utilizat pentru a specifica dependențe directe ale documentației "
-"pentru a rezolva erorile de dependență nefixate sau imuabile din "
-"bibliotecile terțelor părți. Utilizatorii finali pot ignora dependențele "
-"lipsă în acest mediu."
+"Mediu folosit pentru a specifica dependențe directe ale documentației pentru"
+" a rezolva erorile de dependență nefixate sau imuabile din bibliotecile "
+"terțe părți. Utilizatorii finali pot ignora dependențele lipsă în acest "
+"mediu."
 
-#: environments.py:41
+#: environments.py:40
 msgid "Documentation (override)"
 msgstr "Documentație (înlocuire)"
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "Testing"
 msgstr "Testare"
 
-#: links.py:14 views.py:24
+#: links.py:14 views.py:36
 msgid "Check for updates"
 msgstr "Verifică pentru actualizări"
 
@@ -303,6 +303,38 @@ msgstr "Detalii"
 #: links.py:33
 msgid "Dependencies licenses"
 msgstr "Licențe de dependență"
+
+#: literals.py:10
+#, python-format
+msgid ""
+"Your version (%(version_local)s), is more recent than the published version "
+"(%(version_server)s)."
+msgstr ""
+"Versiunea dvs. ( %(version_local)s ) este mai recentă decât versiunea "
+"publicată ( %(version_server)s )."
+
+#: literals.py:14
+#, python-format
+msgid ""
+"The version you are using (%(version_local)s) is outdated. The latest "
+"version is %(version_server)s."
+msgstr ""
+"Versiunea pe care o utilizați ( %(version_local)s ) este învechită. Cea mai "
+"recentă versiune este %(version_server)s ."
+
+#: literals.py:18
+msgid "It is not possible to determine the latest version available."
+msgstr "Nu este posibil să se determine cea mai recentă versiune disponibilă."
+
+#: literals.py:21
+#, python-format
+msgid ""
+"Unexpected error trying to determine the latest version available. Make sure"
+" your installation has a connection to the internet; %(exception)s"
+msgstr ""
+"Eroare neașteptată la încercarea de a determina cea mai recentă versiune "
+"disponibilă. Asigurați-vă că instalația dvs. are o conexiune la internet; "
+"%(exception)s"
 
 #: management/commands/dependencies_check.py:13
 msgid "Outputs the dependencies as a comma delimited values list."
@@ -331,34 +363,47 @@ msgstr "Procesați o aplicație specifică."
 msgid "Force installation even if already installed."
 msgstr "Forțați instalarea chiar dacă este instalat deja."
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "View dependencies"
 msgstr "Vizualizați dependențele"
 
-#: views.py:39
+#: views.py:27
+msgid "This process only checks the Python component of Mayan EDMS."
+msgstr "Acest proces verifică doar componenta Python a Mayan EDMS."
+
+#: views.py:31
+msgid ""
+"It does not verify versions of other components like packaging or deployment"
+" technologies, such as container or virtual machine images."
+msgstr ""
+"Nu verifică versiunile altor componente, cum ar fi tehnologiile de ambalare "
+"sau de implementare, cum ar fi imaginile containerului sau ale mașinilor "
+"virtuale."
+
+#: views.py:51
 #, python-format
 msgid "Entries for dependency group: %s"
 msgstr "Intrările pentru grupul de dependență: %s"
 
-#: views.py:52 views.py:99
+#: views.py:65 views.py:114
 #, python-format
 msgid "Group %s not found."
 msgstr "Grupul %s nu a fost găsit."
 
-#: views.py:66
+#: views.py:79
 msgid "Dependency groups"
 msgstr "Grupuri de dependență"
 
-#: views.py:87
+#: views.py:101
 #, python-format
 msgid "Dependency group and entry: %(group)s, %(entry)s"
 msgstr "Grupul de dependență și intrările  aferente: %(group)s, %(entry)s"
 
-#: views.py:111
+#: views.py:126
 #, python-format
 msgid "Entry %s not found."
 msgstr "Intrarea %s nu a fost găsită."
 
-#: views.py:130
+#: views.py:145
 msgid "Other packages licenses"
 msgstr "Licențe pentru alte pachete"

@@ -4,18 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2022
-# Roberto Rosario, 2022
-# Frédéric Sheedy <sheedf@gmail.com>, 2022
+# Roberto Rosario, 2024
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2024
+# Frédéric Sheedy <sheedf@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2022\n"
-"Language-Team: French (https://www.transifex.com/rosarior/teams/13584/fr/)\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2024\n"
+"Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,27 +34,27 @@ msgstr "OTP désactivé"
 msgid "OTP enabled"
 msgstr "OTP activé"
 
-#: forms.py:20
+#: forms.py:22
 msgid "Token is either invalid or expired."
 msgstr "Le jeton n'est pas valide ou a expiré."
 
-#: forms.py:25
+#: forms.py:27
 msgid "TOTP token"
 msgstr "Jeton TOTP"
 
-#: forms.py:84
+#: forms.py:88
 msgid "OTP enabled?"
 msgstr "OTP activé?"
 
-#: forms.py:85
+#: forms.py:89
 msgid "Yes"
 msgstr "Oui"
 
-#: forms.py:85
+#: forms.py:89
 msgid "No"
 msgstr "Non"
 
-#: forms.py:102
+#: forms.py:106
 msgid ""
 "Scan the QR code or enter the secret in your authentication device. Do not "
 "share this secret, treat it like a password."
@@ -63,22 +63,22 @@ msgstr ""
 "d'authentification. Ne partagez pas ce secret, traitez-le comme un mot de "
 "passe."
 
-#: forms.py:104 forms.py:109
+#: forms.py:108 forms.py:113
 msgid "Secret"
 msgstr "Secret"
 
-#: forms.py:115
+#: forms.py:119
 msgid ""
 "Enter the corresponding token to validate that the secret was saved correct."
 msgstr ""
 "Entrez le jeton correspondant pour valider que le secret a été enregistré "
 "correctement."
 
-#: forms.py:118
+#: forms.py:122
 msgid "Token"
 msgstr "Jeton"
 
-#: forms.py:152
+#: forms.py:158
 msgid "Token is incorrect for the specified secret."
 msgstr "Le jeton est incorrect pour le secret spécifié."
 
@@ -124,19 +124,19 @@ msgstr "Désactiver le masque jetable pour l'utilisateur: %s"
 msgid "OTP disable successfully."
 msgstr "OTP désactivé avec succès."
 
-#: views.py:78
+#: views.py:80
 msgid "OTP is already enabled."
 msgstr "OTP est déjà activé."
 
-#: views.py:94
+#: views.py:97
 msgid "OTP enabled successfully."
 msgstr "OTP activé avec succès."
 
-#: views.py:103
+#: views.py:107
 #, python-format
 msgid "Enable one time pad for user: %s"
 msgstr "Activer le masque jetable pour l'utilisateur: %s"
 
-#: views.py:115
+#: views.py:119
 msgid "OTP secret validation error."
 msgstr "Erreur de validation du secret OTP."

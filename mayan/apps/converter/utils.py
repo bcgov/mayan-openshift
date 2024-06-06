@@ -1,3 +1,7 @@
+import uuid
+
+from django.core.files.base import File
+
 from .literals import TRANSFORMATION_MARKER, TRANSFORMATION_SEPARATOR
 from .transformations import BaseTransformation
 
@@ -20,13 +24,15 @@ class IndexedDictionary:
                 elif key == 'arguments':
                     for argument_key, argument_value in value.items():
                         result_key = '{}{}{}{}{}{}'.format(
-                            marker, str(index), separator, 'argument', '__', argument_key
+                            marker, str(index), separator,
+                            'argument', '__', argument_key
                         )
 
                         result[result_key] = argument_value
 
         return cls(
-            dictionary=result, klass=klass, marker=marker, separator=separator
+            dictionary=result, klass=klass, marker=marker,
+            separator=separator
         )
 
     def __init__(
@@ -52,16 +58,24 @@ class IndexedDictionary:
                 if part == 'name':
                     key = 'name'
 
-                    result_dictionary.setdefault(index, {})
-                    result_dictionary[index].update({key: value})
+                    result_dictionary.setdefault(
+                        index, {}
+                    )
+                    result_dictionary[index].update(
+                        {key: value}
+                    )
 
                 elif part.startswith('argument'):
                     _, key = part.split('__')
 
                     result_dictionary.setdefault(
                         index, {}
-                    ).setdefault('arguments', {})
-                    result_dictionary[index]['arguments'].update({key: value})
+                    ).setdefault(
+                        'arguments', {}
+                    )
+                    result_dictionary[index]['arguments'].update(
+                        {key: value}
+                    )
 
         return result_dictionary
 
@@ -72,7 +86,9 @@ class IndexedDictionary:
         sorted_keys = sorted(result_dictionary)
 
         for key in sorted_keys:
-            result_dictionary_list.append(result_dictionary[key])
+            result_dictionary_list.append(
+                result_dictionary[key]
+            )
 
         return result_dictionary_list
 
@@ -86,7 +102,30 @@ class IndexedDictionary:
             entry = result_dictionary[key]
 
             result_list.append(
-                self.klass.get(name=entry['name'])(**entry['arguments'])
+                self.klass.get(
+                    name=entry['name']
+                )(
+                    **entry['arguments']
+                )
             )
 
         return result_list
+
+
+def factory_file_generator(image_object):
+    def file_generator():
+        with image_object.open() as file_object:
+            while True:
+                chunk = file_object.read(File.DEFAULT_CHUNK_SIZE)
+                if not chunk:
+                    break
+                else:
+                    yield chunk
+
+    return file_generator
+
+
+def model_upload_to(instance, filename):
+    return 'converter-asset-{}'.format(
+        uuid.uuid4().hex
+    )

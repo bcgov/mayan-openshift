@@ -1,7 +1,7 @@
 import logging
 
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.documents.models.document_models import Document
 from mayan.apps.documents.permissions import (
@@ -9,7 +9,7 @@ from mayan.apps.documents.permissions import (
 )
 from mayan.apps.documents.views.document_views import DocumentListView
 from mayan.apps.views.generics import ConfirmView
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from .icons import (
     icon_document_duplicates_list, icon_duplicated_document_list,
@@ -33,16 +33,16 @@ class DocumentDuplicatesListView(ExternalObjectViewMixin, DocumentListView):
             {
                 'no_results_icon': icon_duplicated_document_list,
                 'no_results_text': _(
-                    'Only exact copies of this document will be shown in the '
+                    message='Only exact copies of this document will be shown in the '
                     'this list.'
                 ),
                 'no_results_title': _(
-                    'There are no duplicates for this document'
+                    message='There are no duplicates for this document'
                 ),
                 'object': self.external_object,
                 'title': _(
-                    'Duplicates for document: %s'
-                ) % self.external_object,
+                    message='Duplicates for document: %s'
+                ) % self.external_object
             }
         )
         return context
@@ -67,16 +67,16 @@ class DuplicatedDocumentListView(DocumentListView):
             {
                 'no_results_icon': icon_duplicated_document_list,
                 'no_results_text': _(
-                    'Duplicates are documents that are composed of the exact '
+                    message='Duplicates are documents that are composed of the exact '
                     'same file, down to the last byte. Files that have the '
                     'same text or OCR but are not identical or were saved '
                     'using a different file format will not appear as '
                     'duplicates.'
                 ),
                 'no_results_title': _(
-                    'There are no duplicated documents'
+                    message='There are no duplicated documents'
                 ),
-                'title': _('Duplicated documents')
+                'title': _(message='Duplicated documents')
             }
         )
         return context
@@ -84,7 +84,7 @@ class DuplicatedDocumentListView(DocumentListView):
 
 class ScanDuplicatedDocuments(ConfirmView):
     extra_context = {
-        'title': _('Scan for duplicated documents?')
+        'title': _(message='Scan for duplicated documents?')
     }
     view_permission = permission_document_tools
     view_icon = icon_duplicated_document_scan
@@ -92,6 +92,6 @@ class ScanDuplicatedDocuments(ConfirmView):
     def view_action(self):
         task_duplicates_scan_all.apply_async()
         messages.success(
-            message=_('Duplicated document scan queued successfully.'),
+            message=_(message='Duplicated document scan queued successfully.'),
             request=self.request
         )

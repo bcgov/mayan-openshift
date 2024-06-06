@@ -1,7 +1,7 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.serializers import ContentTypeSerializer
-from mayan.apps.permissions import Permission
+from mayan.apps.permissions.classes import Permission
 from mayan.apps.permissions.serializers import RoleSerializer
 from mayan.apps.rest_api import serializers
 from mayan.apps.rest_api.relations import (
@@ -12,92 +12,94 @@ from .models import AccessControlList
 
 
 class ACLSerializer(serializers.ModelSerializer):
-    content_type = ContentTypeSerializer(read_only=True)
+    content_type = ContentTypeSerializer(
+        label=_(message='Content type'), read_only=True
+    )
     permissions_add_url = MultiKwargHyperlinkedIdentityField(
-        view_name='rest_api:accesscontrollist-permission-add',
-        view_kwargs=(
+        label=_(message='Permissions add URL'), view_kwargs=(
             {
                 'lookup_field': 'content_type.app_label',
-                'lookup_url_kwarg': 'app_label',
+                'lookup_url_kwarg': 'app_label'
             },
             {
                 'lookup_field': 'content_type.model',
-                'lookup_url_kwarg': 'model_name',
+                'lookup_url_kwarg': 'model_name'
             },
             {
                 'lookup_field': 'object_id',
-                'lookup_url_kwarg': 'object_id',
+                'lookup_url_kwarg': 'object_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'acl_id',
+                'lookup_url_kwarg': 'acl_id'
             }
-        ),
+        ), view_name='rest_api:accesscontrollist-permission-add'
     )
     permissions_remove_url = MultiKwargHyperlinkedIdentityField(
-        view_name='rest_api:accesscontrollist-permission-remove',
-        view_kwargs=(
+        label=_(message='Permissions remove URL'), view_kwargs=(
             {
                 'lookup_field': 'content_type.app_label',
-                'lookup_url_kwarg': 'app_label',
+                'lookup_url_kwarg': 'app_label'
             },
             {
                 'lookup_field': 'content_type.model',
-                'lookup_url_kwarg': 'model_name',
+                'lookup_url_kwarg': 'model_name'
             },
             {
                 'lookup_field': 'object_id',
-                'lookup_url_kwarg': 'object_id',
+                'lookup_url_kwarg': 'object_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'acl_id',
+                'lookup_url_kwarg': 'acl_id'
             }
-        ),
+        ), view_name='rest_api:accesscontrollist-permission-remove'
     )
     permissions_url = MultiKwargHyperlinkedIdentityField(
-        view_name='rest_api:accesscontrollist-permission-list',
-        view_kwargs=(
+        label=_(message='Permissions URL'), view_kwargs=(
             {
                 'lookup_field': 'content_type.app_label',
-                'lookup_url_kwarg': 'app_label',
+                'lookup_url_kwarg': 'app_label'
             },
             {
                 'lookup_field': 'content_type.model',
-                'lookup_url_kwarg': 'model_name',
+                'lookup_url_kwarg': 'model_name'
             },
             {
                 'lookup_field': 'object_id',
-                'lookup_url_kwarg': 'object_id',
+                'lookup_url_kwarg': 'object_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'acl_id',
+                'lookup_url_kwarg': 'acl_id'
             }
-        ),
+        ), view_name='rest_api:accesscontrollist-permission-list'
     )
-    role = RoleSerializer(read_only=True)
-    role_id = serializers.IntegerField(write_only=True)
+    role = RoleSerializer(
+        label=_(message='Role'), read_only=True
+    )
+    role_id = serializers.IntegerField(
+        label=_(message='Role ID'), write_only=True
+    )
     url = MultiKwargHyperlinkedIdentityField(
-        view_name='rest_api:accesscontrollist-detail',
-        view_kwargs=(
+        label=_(message='URL'), view_kwargs=(
             {
                 'lookup_field': 'content_type.app_label',
-                'lookup_url_kwarg': 'app_label',
+                'lookup_url_kwarg': 'app_label'
             },
             {
                 'lookup_field': 'content_type.model',
-                'lookup_url_kwarg': 'model_name',
+                'lookup_url_kwarg': 'model_name'
             },
             {
                 'lookup_field': 'object_id',
-                'lookup_url_kwarg': 'object_id',
+                'lookup_url_kwarg': 'object_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'acl_id',
+                'lookup_url_kwarg': 'acl_id'
             }
-        ),
+        ), view_name='rest_api:accesscontrollist-detail'
     )
 
     class Meta:
@@ -113,13 +115,13 @@ class ACLSerializer(serializers.ModelSerializer):
 
 class ACLPermissionAddSerializer(serializers.Serializer):
     permission = FilteredPrimaryKeyRelatedField(
-        help_text=_('Primary key of the permission to add to the ACL.'),
-        source_queryset=Permission.all()
+        help_text=_(message='Primary key of the permission to add to the ACL.'),
+        label=_(message='Permission ID'), source_queryset=Permission.all()
     )
 
 
 class ACLPermissionRemoveSerializer(serializers.Serializer):
     permission = FilteredPrimaryKeyRelatedField(
-        help_text=_('Primary key of the permission to remove from the ACL.'),
-        source_queryset=Permission.all()
+        help_text=_(message='Primary key of the permission to remove from the ACL.'),
+        label=_(message='Permission ID'), source_queryset=Permission.all()
     )

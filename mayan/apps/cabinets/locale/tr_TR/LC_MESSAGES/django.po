@@ -4,58 +4,69 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# abc Def <hdogan1974@gmail.com>, 2022
-# serhatcan77 <serhat_can@yahoo.com>, 2022
+# abc Def <hdogan1974@gmail.com>, 2024
+# Emine Öztürk <oemine075@gmail.com>, 2024
+# Bedreddin Şahbaz, 2024
+# serhatcan77 <serhat_can@yahoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:33+0000\n"
-"Last-Translator: serhatcan77 <serhat_can@yahoo.com>, 2022\n"
-"Language-Team: Turkish (Turkey) (https://www.transifex.com/rosarior/teams/13584/tr_TR/)\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: serhatcan77 <serhat_can@yahoo.com>, 2024\n"
+"Language-Team: Turkish (Turkey) (https://app.transifex.com/rosarior/teams/13584/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: apps.py:54 apps.py:161 apps.py:165 apps.py:169 apps.py:173 apps.py:177
-#: events.py:5 forms.py:14 links.py:30 menus.py:14 models.py:50 models.py:174
-#: permissions.py:5 search.py:61 views.py:168 workflow_actions.py:20
+#: apps.py:53 apps.py:173 apps.py:177 apps.py:182 apps.py:187 apps.py:192
+#: events.py:6 forms.py:14 links.py:30 menus.py:14 models.py:54 models.py:160
+#: permissions.py:6 search.py:54 views.py:169 workflow_actions.py:39
+#: workflow_actions.py:53
 msgid "Cabinets"
 msgstr "Dolaplar"
 
-#: events.py:9
+#: apps.py:164 models.py:43
+msgid "Documents"
+msgstr "Belgeler"
+
+#: events.py:11
 msgid "Cabinet created"
-msgstr ""
+msgstr "Dolap Oluşturuldu"
 
-#: events.py:12
+#: events.py:14
+msgid "Cabinet deleted"
+msgstr "Dolap Silindi"
+
+#: events.py:17
 msgid "Cabinet edited"
-msgstr ""
+msgstr "Dolap Düzenlendi"
 
-#: events.py:15
+#: events.py:20
 msgid "Document added to cabinet"
-msgstr ""
+msgstr "Belge dolaba eklendi"
 
-#: events.py:18
+#: events.py:23
 msgid "Document removed from cabinet"
-msgstr ""
+msgstr "Belge dolaptan çıkartıldı"
 
-#: links.py:36 links.py:48 workflow_actions.py:72
+#: links.py:36 links.py:48 workflow_actions.py:75
 msgid "Remove from cabinets"
 msgstr "Dolaplardan Çıkar"
 
-#: links.py:40 links.py:44 workflow_actions.py:29
+#: links.py:41 links.py:44 workflow_actions.py:21
 msgid "Add to cabinets"
 msgstr "Dolaplara Ekle"
 
 #: links.py:59
 msgid "Add new level"
-msgstr ""
+msgstr "Yeni seviye ekle"
 
-#: links.py:64 views.py:46
+#: links.py:64 views.py:47
 msgid "Create cabinet"
 msgstr "Dolap Oluştur"
 
@@ -69,255 +80,296 @@ msgstr "Düzenle"
 
 #: links.py:81
 msgid "All"
-msgstr "Herşey"
+msgstr "Hepsi"
 
 #: links.py:85
 msgid "Details"
 msgstr "Ayrıntılar"
 
-#: methods.py:20
+#: methods.py:21
 msgid "Return a list of cabinets containing the document."
-msgstr ""
+msgstr "Belgeyi içeren dolapların bir listesini döndür."
 
-#: methods.py:22
+#: methods.py:23
 msgid "get_cabinets()"
-msgstr ""
+msgstr "get_cabinets()"
 
-#: models.py:34
+#: model_mixins.py:64
+msgid "The path to the cabinet including all ancestors."
+msgstr "Tüm atalar dahil dolap yolu."
+
+#: model_mixins.py:66 serializers.py:32
+msgid "Full path"
+msgstr "Tam yol"
+
+#: models.py:35 serializers.py:41
+msgid "Parent"
+msgstr "Ana"
+
+#: models.py:38
 msgid "A short text used to identify the cabinet."
-msgstr ""
+msgstr "Dolabı tanımlamak için kullanılan kısa bir metin."
 
-#: models.py:35
+#: models.py:39
 msgid "Label"
 msgstr "Etiket"
 
-#: models.py:39
-msgid "Documents"
-msgstr "Belgeler"
-
-#: models.py:49 models.py:148 models.py:173 workflow_actions.py:64
+#: models.py:53 models.py:135 models.py:159
 msgid "Cabinet"
 msgstr "Dolap"
 
-#: models.py:115
-msgid "The path to the cabinet including all ancestors."
-msgstr ""
-
-#: models.py:117
-msgid "Full path"
-msgstr ""
-
-#: models.py:149
+#: models.py:134
 msgid "Parent and Label"
 msgstr "Ana ve Etiket"
 
-#: models.py:156
+#: models.py:142
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
+msgstr "%(model_name)s ile bu %(field_labels)s zaten var."
 
-#: models.py:185
+#: models.py:171
 msgid "Document cabinet"
-msgstr "Belge dolabı"
+msgstr "Belge Dolabı"
 
-#: models.py:186 search.py:68 search.py:75 search.py:82 search.py:89
+#: models.py:172
 msgid "Document cabinets"
-msgstr "Belge dolapları"
+msgstr "Belge Dolapları"
 
-#: permissions.py:10
+#: permissions.py:12
 msgid "Add documents to cabinets"
 msgstr "Dolaplara belge ekle"
 
-#: permissions.py:13
+#: permissions.py:15
 msgid "Create cabinets"
-msgstr "Dolap oluştur"
+msgstr "Dolaplar Oluştur"
 
-#: permissions.py:16
+#: permissions.py:18
 msgid "Delete cabinets"
-msgstr ""
+msgstr "Dolapları Sil"
 
-#: permissions.py:19
+#: permissions.py:21
 msgid "Edit cabinets"
 msgstr "Dolapları düzenle"
 
-#: permissions.py:22
+#: permissions.py:24
 msgid "Remove documents from cabinets"
 msgstr "Dolaplardan belgeleri çıkar"
 
-#: permissions.py:25
+#: permissions.py:27
 msgid "View cabinets"
-msgstr ""
+msgstr "Dolapları Görüntüle"
 
-#: search.py:36
+#: search.py:25
 msgid "Document type"
 msgstr "Belge Türü"
 
-#: search.py:39
+#: search.py:28
 msgid "Document label"
-msgstr "Belge etiketi"
+msgstr "Belge Etiketi"
 
-#: search.py:42
+#: search.py:31
 msgid "Document description"
-msgstr ""
+msgstr "Belge Açıklaması"
 
-#: search.py:45
+#: search.py:34
 msgid "Document UUID"
-msgstr ""
+msgstr "Belge UUID"
 
-#: search.py:52
+#: search.py:40
 msgid "Document file checksum"
+msgstr "Belge dosyası checksum'ı"
+
+#: search.py:43
+msgid "Document file MIME type"
+msgstr "Belge dosyası MIME türü"
+
+#: search.py:50
+msgid "The database ID of the cabinet."
 msgstr ""
 
-#: search.py:55
-msgid "Document file MIME type"
+#: search.py:51
+msgid "Cabinet ID"
 msgstr ""
 
 #: serializers.py:18
 msgid "List of children cabinets."
 msgstr "Alt dolapların listesi."
 
-#: serializers.py:22
+#: serializers.py:19
+msgid "Children"
+msgstr "Çocuk"
+
+#: serializers.py:23
 msgid ""
 "URL of the API endpoint showing the list documents inside this cabinet."
 msgstr ""
+"Bu kabinin içindeki liste belgelerini gösteren API uç noktasının URL'si."
 
-#: serializers.py:29
+#: serializers.py:25
+msgid "Documents URL"
+msgstr "Belge URL'si"
+
+#: serializers.py:30
 msgid "The name of this cabinet level appended to the names of its ancestors."
-msgstr ""
+msgstr "Bu dolap seviyesinin adı, atalarının adlarına eklenmiştir."
+
+#: serializers.py:35
+msgid "Parents URL"
+msgstr "Ana URL"
+
+#: serializers.py:51
+msgid "URL"
+msgstr "URL"
+
+#: serializers.py:84
+msgid "Primary key of the document to add to the cabinet."
+msgstr "Kabine eklenecek belgenin birincil anahtarı."
+
+#: serializers.py:85 serializers.py:95
+msgid "Document ID"
+msgstr "Belge ID"
+
+#: serializers.py:94
+msgid "Primary key of the document to remove from the cabinet."
+msgstr "Kabineden çıkarılacak belgenin birincil anahtarı."
 
 #: templates/cabinets/cabinet_details.html:17
 msgid "Navigation:"
-msgstr ""
+msgstr "Navigasyon:"
 
-#: views.py:63
+#: views.py:64
 #, python-format
 msgid "Add new level to: %s"
 msgstr "Yeni seviye ekleyin: %s"
 
-#: views.py:88
+#: views.py:89
 #, python-format
 msgid "Delete the cabinet: %s?"
-msgstr ""
+msgstr "Dolabı sil: %s?"
 
-#: views.py:127
+#: views.py:128
 msgid ""
 "Cabinet levels can contain documents or other cabinet sub levels. To add "
 "documents to a cabinet, select the cabinet view of a document view."
 msgstr ""
+"Dolap seviyeleri, belgeleri veya diğer dolap alt seviyelerini içerebilir. "
+"Bir dolaba belge eklemek için, bir belge görünümünün dolap görünümünü seçin."
 
-#: views.py:131
+#: views.py:132
 msgid "This cabinet level is empty"
-msgstr ""
+msgstr "Bu dolabın seviyesi boş"
 
-#: views.py:134
+#: views.py:135
 #, python-format
 msgid "Details of cabinet: %s"
-msgstr ""
+msgstr "Dolap detayları: %s"
 
-#: views.py:153
+#: views.py:154
 #, python-format
 msgid "Edit cabinet: %s"
-msgstr ""
+msgstr "Dolabı düzenle: %s"
 
-#: views.py:174
+#: views.py:175
 msgid ""
 "Cabinets are a multi-level method to organize documents. Each cabinet can "
 "contain documents as well as other sub level cabinets."
 msgstr ""
+"Dolaplar, belgeleri düzenlemek için çok seviyeli bir yöntemdir. Her bir "
+"dolap, diğer alt seviye dolapların yanı sıra belgeleri de içerebilir."
 
-#: views.py:178
+#: views.py:179
 msgid "No cabinets available"
-msgstr ""
+msgstr "Dolap yok"
 
-#: views.py:191
+#: views.py:192
 #, python-format
 msgid "Document \"%(object)s\" added to cabinets successfully."
-msgstr ""
+msgstr "\"%(object)s\" belgesi dolaba/dolaplara başarıyla eklendi."
 
-#: views.py:194
+#: views.py:195
 #, python-format
 msgid "%(count)d document added to cabinets successfully."
-msgstr ""
+msgstr "%(count)d belgesi dolaba/dolaplara başarıyla eklendi."
 
-#: views.py:197
+#: views.py:198
 #, python-format
 msgid "%(count)d documents added to cabinets successfully."
-msgstr ""
-
-#: views.py:199
-#, python-format
-msgid "Add document \"%(object)s\" to cabinets."
-msgstr ""
+msgstr "%(count)d belgeleri dolaba/dolaplara başarıyla eklendi."
 
 #: views.py:200
 #, python-format
-msgid "Add %(count)d document to cabinets."
-msgstr ""
+msgid "Add %(count)d documents to cabinets."
+msgstr "Dolaba/Dolaplara %(count)d belgeleri ekle."
 
 #: views.py:201
 #, python-format
-msgid "Add %(count)d documents to cabinets."
-msgstr ""
+msgid "Add document \"%(object)s\" to cabinets."
+msgstr "Dolaba/Dolaplara \"%(object)s\" belgesini ekle."
 
-#: views.py:219
+#: views.py:202
+#, python-format
+msgid "Add %(count)d document to cabinets."
+msgstr "%(count)d belgesini dolaba/dolaplara ekle."
+
+#: views.py:220
 msgid "Cabinets to which the selected documents will be added."
 msgstr "Seçilen dokümanlar dolaplara eklenecek."
 
 #: views.py:266
 msgid "Documents can be added to many cabinets."
-msgstr ""
+msgstr "Belgeler birden çok dolaba eklenebilir."
 
 #: views.py:269
 msgid "This document is not in any cabinet"
-msgstr ""
+msgstr "Bu belge herhangi bir dolapta değil"
 
 #: views.py:273
 #, python-format
 msgid "Cabinets containing document: %s"
-msgstr ""
+msgstr "Belgeyi içeren dolaplar: %s"
 
 #: views.py:289
 #, python-format
 msgid "Document \"%(object)s\" removed from cabinets successfully."
-msgstr ""
+msgstr "\"%(object)s\" belgesi dolap/dolaplardan başarıyla kaldırıldı."
 
 #: views.py:292
 #, python-format
 msgid "%(count)d document removed from cabinets successfully."
-msgstr ""
+msgstr "%(count)d belgesi dolap/dolaplardan başarıyla kaldırıldı."
 
 #: views.py:295
 #, python-format
 msgid "%(count)d documents removed from cabinets successfully."
-msgstr ""
+msgstr "%(count)d belgeleri dolap/dolaplardan başarıyla kaldırıldı."
 
 #: views.py:297
 #, python-format
-msgid "Remove document \"%(object)s\" from cabinets."
-msgstr ""
+msgid "Remove %(count)d documents from cabinets."
+msgstr "%(count)d belgelerini dolap/dolaplardan çıkart."
 
 #: views.py:298
 #, python-format
-msgid "Remove %(count)d document from cabinets."
-msgstr ""
+msgid "Remove document \"%(object)s\" from cabinets."
+msgstr "\"%(object)s\" belgesini dolap/dolaplardan çıkart."
 
 #: views.py:299
 #, python-format
-msgid "Remove %(count)d documents from cabinets."
-msgstr ""
+msgid "Remove %(count)d document from cabinets."
+msgstr "%(count)d belgesini dolap/dolaplardan çıkart."
 
 #: views.py:317
 msgid "Cabinets from which the selected documents will be removed."
 msgstr "Seçilen belgelerin çıkarılacağı dolaplar."
 
-#: wizard_steps.py:15
+#: wizard_steps.py:20
 msgid "Select cabinets"
-msgstr ""
+msgstr "Dolap/Dolapları seç"
 
-#: wizard_steps.py:29 workflow_actions.py:23
+#: wizard_steps.py:80 workflow_actions.py:33
 msgid "Cabinets to which the document will be added."
-msgstr ""
+msgstr "Belgenin ekleneceği dolap/dolaplar."
 
-#: workflow_actions.py:67
-msgid "Cabinets from which the document will be removed."
+#: workflow_actions.py:83
+msgid "Cabinets from which the document will be removed"
 msgstr ""

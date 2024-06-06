@@ -1,3 +1,5 @@
+import logging
+
 from django.apps import apps
 from django.test import TestCase, TransactionTestCase, tag
 
@@ -7,7 +9,7 @@ from mayan.apps.acls.tests.mixins import ACLTestCaseMixin
 from mayan.apps.converter.tests.mixins import LayerTestCaseMixin
 from mayan.apps.events.tests.mixins import EventTestCaseMixin
 from mayan.apps.permissions.tests.mixins import PermissionTestCaseMixin
-from mayan.apps.smart_settings.tests.mixins import SmartSettingsTestCaseMixin
+from mayan.apps.smart_settings.tests.mixins import SettingTestMixin
 from mayan.apps.user_management.tests.mixins import UserTestMixin
 
 from ..literals import EXCLUDE_TEST_TAG
@@ -18,8 +20,7 @@ from .mixins import (
     DescriptorLeakCheckTestCaseMixin, DownloadTestCaseMixin,
     ModelTestCaseMixin, OpenFileCheckTestCaseMixin,
     RandomPrimaryKeyModelMonkeyPatchMixin, SilenceLoggerTestCaseMixin,
-    TempfileCheckTestCasekMixin, TestModelTestCaseMixin,
-    TestViewTestCaseMixin
+    TempfileCheckTestCasekMixin, TestModelTestCaseMixin, TestViewTestCaseMixin
 )
 
 
@@ -29,7 +30,7 @@ class BaseTestCaseMixin(
     RandomPrimaryKeyModelMonkeyPatchMixin, ACLTestCaseMixin,
     ModelTestCaseMixin, OpenFileCheckTestCaseMixin,
     DescriptorLeakCheckTestCaseMixin, PermissionTestCaseMixin,
-    SmartSettingsTestCaseMixin, TempfileCheckTestCasekMixin, UserTestMixin,
+    SettingTestMixin, TempfileCheckTestCasekMixin, UserTestMixin,
     TestModelTestCaseMixin
 ):
     """
@@ -49,6 +50,15 @@ class BaseTestCase(BaseTestCaseMixin, TestCase):
     """
     All the project test mixin on top of Django test case class.
     """
+    def setUp(self):
+        super().setUp()
+        self._logger_root_handlers_old = logging.root.handlers.copy()
+
+    def tearDown(self):
+        for handler in logging.root.handlers:
+            if handler not in self._logger_root_handlers_old:
+                logging.root.handlers.remove(handler)
+        super().tearDown()
 
 
 class BaseTransactionTestCase(BaseTestCaseMixin, TransactionTestCase):
@@ -79,7 +89,7 @@ class GenericTransactionViewTestCase(
     """
 
 
-@tag(EXCLUDE_TEST_TAG,)
+@tag(EXCLUDE_TEST_TAG)
 class MayanMigratorTestCase(MigratorTestCase):
     def tearDown(self):
         ContentType = apps.get_model(

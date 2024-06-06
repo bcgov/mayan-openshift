@@ -1,4 +1,4 @@
-from mayan.apps.dynamic_search.tests.mixins import SearchTestMixin
+from mayan.apps.dynamic_search.tests.mixins.base import SearchTestMixin
 from mayan.apps.testing.tests.base import BaseTestCase
 
 from ..permissions import permission_message_view
@@ -10,20 +10,12 @@ from .mixins import MessageTestMixin
 class MessageSearchTestCase(
     MessageTestMixin, SearchTestMixin, BaseTestCase
 ):
-    def setUp(self):
-        super().setUp()
-        self._create_test_message()
-
-    def _do_test_search(self, query):
-        return self.search_backend.search(
-            search_model=search_model_message, query=query,
-            user=self._test_case_user
-        )
+    _test_search_model = search_model_message
 
     def test_search_model_message_body_no_permission(self):
         self._clear_events()
 
-        queryset = self._do_test_search(
+        saved_resultset, queryset = self._do_test_search(
             query={'body': self._test_message.body}
         )
         self.assertTrue(self._test_message not in queryset)
@@ -38,7 +30,7 @@ class MessageSearchTestCase(
 
         self._clear_events()
 
-        queryset = self._do_test_search(
+        saved_resultset, queryset = self._do_test_search(
             query={'body': self._test_message.body}
         )
         self.assertTrue(self._test_message in queryset)
@@ -49,8 +41,12 @@ class MessageSearchTestCase(
     def test_search_model_message_date_year_no_permission(self):
         self._clear_events()
 
-        queryset = self._do_test_search(
-            query={'date_time': self._test_message.date_time.year}
+        saved_resultset, queryset = self._do_test_search(
+            query={
+                'date_time': '>{}'.format(
+                    self._test_message.date_time.year - 1
+                )
+            }
         )
         self.assertTrue(self._test_message not in queryset)
 
@@ -64,8 +60,12 @@ class MessageSearchTestCase(
 
         self._clear_events()
 
-        queryset = self._do_test_search(
-            query={'date_time': self._test_message.date_time.year}
+        saved_resultset, queryset = self._do_test_search(
+            query={
+                'date_time': '>{}'.format(
+                    self._test_message.date_time.year - 1
+                )
+            }
         )
         self.assertTrue(self._test_message in queryset)
 
@@ -75,7 +75,7 @@ class MessageSearchTestCase(
     def test_search_model_message_subject_no_permission(self):
         self._clear_events()
 
-        queryset = self._do_test_search(
+        saved_resultset, queryset = self._do_test_search(
             query={'subject': self._test_message.subject}
         )
         self.assertTrue(self._test_message not in queryset)
@@ -90,7 +90,7 @@ class MessageSearchTestCase(
 
         self._clear_events()
 
-        queryset = self._do_test_search(
+        saved_resultset, queryset = self._do_test_search(
             query={'subject': self._test_message.subject}
         )
         self.assertTrue(self._test_message in queryset)

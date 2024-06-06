@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
@@ -7,7 +7,7 @@ from mayan.apps.common.menus import (
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
-from mayan.apps.views.html_widgets import ObjectLinkWidget
+from mayan.apps.views.column_widgets import ObjectLinkWidget
 
 from .classes import ModelPermission
 from .events import event_acl_deleted, event_acl_edited
@@ -23,7 +23,7 @@ class ACLsApp(MayanAppConfig):
     has_rest_api = True
     has_tests = True
     name = 'mayan.apps.acls'
-    verbose_name = _('ACLs')
+    verbose_name = _(message='ACLs')
 
     def ready(self):
         super().ready()
@@ -59,12 +59,17 @@ class ACLsApp(MayanAppConfig):
             attribute='content_object',
             is_identifier=True,
             help_text=_(
-                'Object for which the access is granted. When sorting '
+                message='Object for which the access is granted. When sorting '
                 'objects, only the type is used and not the actual label of '
                 'the object.'
-            ), include_label=True, is_sortable=True, label=_('Object'),
+            ), include_label=True, is_sortable=True, label=_(message='Object'),
             sort_field='content_type', source=GlobalAccessControlListProxy,
             widget=ObjectLinkWidget
+        )
+
+        SourceColumn(
+            attribute='get_permission_count', include_label=True,
+            source=AccessControlList
         )
 
         menu_list_facet.bind_links(

@@ -1,5 +1,6 @@
 #!/bin/sh
 
+export MAYAN_WORKER_LOG_LEVEL=${MAYAN_WORKER_LOG_LEVEL:-ERROR}
 export MAYAN_WORKER_NAME=${MAYAN_WORKER_NAME:-$1}
 export MAYAN_WORKER_NICE_LEVEL=${MAYAN_WORKER_NICE_LEVEL:-0}
 
@@ -8,7 +9,7 @@ if [ ! "${MAYAN_QUEUE_LIST}" ]; then
         echo "Must specify either MAYAN_QUEUE_LIST or MAYAN_WORKER_NAME."
         exit 1
     else
-        MAYAN_QUEUE_LIST=`${MAYAN_PYTHON_BIN_DIR}mayan-edms.py platformtemplate worker_queues`
+        MAYAN_QUEUE_LIST=`${MAYAN_PYTHON_BIN_DIR}mayan-edms.py platform_template worker_queues`
     fi
 fi
 

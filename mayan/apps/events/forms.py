@@ -1,24 +1,28 @@
 from django import forms
 from django.forms.formsets import formset_factory
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .models import EventSubscription, ObjectEventSubscription
 
 
 class EventTypeUserRelationshipForm(forms.Form):
     namespace = forms.CharField(
-        label=_('Namespace'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        label=_(message='Namespace'), required=False,
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     label = forms.CharField(
-        label=_('Label'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        label=_(message='Label'), required=False,
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     subscription = forms.ChoiceField(
-        label=_('Subscription'),
+        label=_(message='Subscription'),
         widget=forms.RadioSelect(), choices=(
-            ('none', _('No')),
-            ('subscribed', _('Subscribed')),
+            ('none', _(message='No')),
+            ('subscribed', _(message='Subscribed'))
         )
     )
 
@@ -64,18 +68,22 @@ EventTypeUserRelationshipFormSet = formset_factory(
 
 class ObjectEventTypeUserRelationshipForm(forms.Form):
     namespace = forms.CharField(
-        label=_('Namespace'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        label=_(message='Namespace'), required=False,
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     label = forms.CharField(
-        label=_('Label'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        label=_(message='Label'), required=False,
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     subscription = forms.ChoiceField(
-        label=_('Subscription'),
+        label=_(message='Subscription'),
         widget=forms.RadioSelect(), choices=(
-            ('none', _('No')),
-            ('subscribed', _('Subscribed')),
+            ('none', _(message='No')),
+            ('subscribed', _(message='Subscribed'))
         )
     )
 

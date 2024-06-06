@@ -4,26 +4,27 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2022
-# Giovanni Tricarico <gtricarico92@gmail.com>, 2022
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2022
-# Roberto Rosario, 2022
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2024
+# Roberto Rosario, 2024
+# Giovanni Tricarico <gtricarico92@gmail.com>, 2024
+# Daniele Bortoluzzi <daniele@elkos.it>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:38+0000\n"
-"Last-Translator: Roberto Rosario, 2022\n"
-"Language-Team: Italian (https://www.transifex.com/rosarior/teams/13584/it/)\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Daniele Bortoluzzi <daniele@elkos.it>, 2024\n"
+"Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:41 events.py:6 links.py:34 models.py:83 permissions.py:6
+#: apps.py:41 events.py:6 links.py:34 models.py:71 permissions.py:6
 #: settings.py:13
 msgid "Signature captures"
 msgstr ""
@@ -42,7 +43,7 @@ msgstr ""
 
 #: forms.py:27
 msgid "Asset preview image"
-msgstr ""
+msgstr "Anteprima della risorsa"
 
 #: forms.py:27
 msgid "Preview"
@@ -60,63 +61,63 @@ msgstr "Cancella"
 msgid "Edit"
 msgstr "Modifica"
 
-#: models.py:39
+#: model_mixins.py:89
+msgid "Creation date and time"
+msgstr ""
+
+#: models.py:27
 msgid "Document"
 msgstr "Documento"
 
-#: models.py:43
+#: models.py:31
 msgid "Data representing the handwritten signature."
 msgstr ""
 
-#: models.py:44
+#: models.py:32
 msgid "Signature capture data"
 msgstr ""
 
-#: models.py:48
+#: models.py:36
 msgid "Vector representation of the handwritten signature."
 msgstr ""
 
-#: models.py:49
+#: models.py:37
 msgid "SVG signature capture data"
 msgstr ""
 
-#: models.py:52
+#: models.py:40
 msgid "Print version of the captured signature."
 msgstr ""
 
-#: models.py:53
+#: models.py:41
 msgid "Text"
 msgstr "Testo"
 
-#: models.py:57
+#: models.py:45
 msgid "User"
 msgstr "Utente"
 
-#: models.py:61
+#: models.py:49
 msgid "Date and time created"
 msgstr ""
 
-#: models.py:65
+#: models.py:53
 msgid "Date and time edited"
 msgstr ""
 
-#: models.py:69
+#: models.py:57
 msgid ""
 "This value will be used when referencing this signature capture in "
 "relationship to the document. Can only contain letters, numbers, and "
 "underscores."
 msgstr ""
 
-#: models.py:73 transformations.py:40
+#: models.py:61 transformations.py:40
 msgid "Internal name"
 msgstr "Nome interno"
 
-#: models.py:82
+#: models.py:70
 msgid "Signature capture"
-msgstr ""
-
-#: models.py:167
-msgid "Creation date and time"
 msgstr ""
 
 #: permissions.py:10
@@ -135,41 +136,53 @@ msgstr ""
 msgid "View signature captures"
 msgstr ""
 
-#: search.py:12
+#: search.py:11
 msgid "Signature capture text"
 msgstr ""
 
-#: search.py:16
+#: search.py:15
 msgid "Signature capture user first name"
 msgstr ""
 
-#: search.py:20
+#: search.py:19
 msgid "Signature capture user last name"
 msgstr ""
 
-#: search.py:24
+#: search.py:23
 msgid "Signature capture user username"
 msgstr ""
 
-#: search.py:35
+#: search.py:34
 msgid "Document type label"
 msgstr "Etichetta del tipo di documento"
 
-#: search.py:38
+#: search.py:37
 msgid "Document label"
 msgstr "Etichetta del documento"
 
-#: search.py:42
+#: search.py:41
 msgid "User first name"
 msgstr ""
 
-#: search.py:45
+#: search.py:44
 msgid "User last name"
 msgstr ""
 
-#: search.py:48
+#: search.py:47
 msgid "User username"
 msgstr ""
+
+#: serializers.py:11
+msgid "Document URL"
+msgstr ""
+
+#: serializers.py:15
+msgid "Image URL"
+msgstr ""
+
+#: serializers.py:27
+msgid "URL"
+msgstr "URL"
 
 #: settings.py:21
 msgid ""
@@ -179,25 +192,25 @@ msgid ""
 "bytes."
 msgstr ""
 
-#: settings.py:29
+#: settings.py:30
 msgid ""
 "Path to the Storage subclass to use when storing the cached signature "
 "capture files."
 msgstr ""
 
-#: settings.py:37
+#: settings.py:38
 msgid ""
 "Arguments to pass to the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND."
 msgstr ""
 
-#: storages.py:15
+#: storages.py:14
 msgid ""
 "Unable to initialize the converter signature capture cachestorage. Check the"
 " settings {} and {} for formatting errors."
 msgstr ""
 
-#: storages.py:21
+#: storages.py:20
 msgid "Signature captures cache"
 msgstr ""
 
@@ -218,32 +231,32 @@ msgstr ""
 msgid "Create signature capture for document: %s"
 msgstr ""
 
-#: views.py:78
+#: views.py:75
 #, python-format
 msgid "Delete signature capture: %s"
 msgstr ""
 
-#: views.py:100
+#: views.py:97
 #, python-format
 msgid "Details of: %s"
 msgstr ""
 
-#: views.py:116
+#: views.py:113
 #, python-format
 msgid "Edit document signature capture: %s"
 msgstr ""
 
-#: views.py:144
+#: views.py:140
 msgid ""
 "Signature captures are electronic versions of a persons's handwritten "
 "signature."
 msgstr ""
 
-#: views.py:147
+#: views.py:143
 msgid "Document has no signature captures"
 msgstr ""
 
-#: views.py:150
+#: views.py:146
 #, python-format
 msgid "Signature captures for document: %s"
 msgstr ""

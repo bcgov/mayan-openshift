@@ -4,24 +4,24 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Jože Detečnik <joze.detecnik@3tav.si>, 2022
-# Roberto Rosario, 2022
+# Jože Detečnik <joze.detecnik@3tav.si>, 2024
+# Roberto Rosario, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:33+0000\n"
-"Last-Translator: Roberto Rosario, 2022\n"
-"Language-Team: Slovenian (https://www.transifex.com/rosarior/teams/13584/sl/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Roberto Rosario, 2024\n"
+"Language-Team: Slovenian (https://app.transifex.com/rosarior/teams/13584/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
-#: apps.py:18 links.py:9 views.py:12
+#: apps.py:18 links.py:12 views.py:12
 msgid "Dashboards"
 msgstr "Nadzorne plošče"
 
@@ -37,7 +37,7 @@ msgstr "Oznaka"
 msgid "Administrator dashboard"
 msgstr "Skrbnik nadzorne plošče"
 
-#: links.py:14
+#: links.py:9
 msgid "Details"
 msgstr "Podrobnosti"
 
@@ -46,6 +46,6 @@ msgstr "Podrobnosti"
 msgid "View details"
 msgstr "Ogled podrobnosti"
 
-#: views.py:30
+#: views.py:32
 msgid "Dashboard detail"
 msgstr "Podrobnosti nadzorne plošče"

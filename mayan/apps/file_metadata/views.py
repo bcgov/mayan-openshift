@@ -2,24 +2,27 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import gettext_lazy as _, ngettext
 
-from mayan.apps.documents.forms.document_type_forms import DocumentTypeFilteredSelectForm
-from mayan.apps.documents.models.document_models import Document
+from mayan.apps.documents.forms.document_type_forms import (
+    DocumentTypeFilteredSelectForm
+)
 from mayan.apps.documents.models.document_file_models import DocumentFile
+from mayan.apps.documents.models.document_models import Document
 from mayan.apps.documents.models.document_type_models import DocumentType
 from mayan.apps.views.generics import (
     FormView, MultipleObjectConfirmActionView, SingleObjectEditView,
     SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
+from .classes import FileMetadataDriver
 from .icons import (
     icon_document_file_metadata_single_submit,
     icon_document_type_file_metadata_settings,
     icon_document_type_file_metadata_submit, icon_file_metadata,
-    icon_file_metadata_driver_list, icon_file_metadata_driver_attribute_list
+    icon_document_file_metadata_driver_list,
+    icon_file_metadata_driver_attribute_list, icon_file_metadata_driver_list
 )
 from .links import link_document_file_metadata_single_submit
 from .models import DocumentFileDriverEntry
@@ -29,13 +32,13 @@ from .permissions import (
 )
 
 
-class DocumentFileDriverListView(
+class DocumentFileMetadataDriverListView(
     ExternalObjectViewMixin, SingleObjectListView
 ):
     external_object_permission = permission_file_metadata_view
     external_object_pk_url_kwarg = 'document_file_id'
     external_object_queryset = DocumentFile.valid.all()
-    view_icon = icon_file_metadata_driver_list
+    view_icon = icon_document_file_metadata_driver_list
 
     def get_extra_context(self):
         return {
@@ -49,7 +52,7 @@ class DocumentFileDriverListView(
                 )
             ),
             'no_results_text': _(
-                'File metadata are the attributes of the document\'s file. '
+                message='File metadata are the attributes of the document\'s file. '
                 'They can range from camera information used to take a photo '
                 'to the author that created a file. File metadata are set '
                 'when the document\'s file was first created. File metadata '
@@ -57,18 +60,18 @@ class DocumentFileDriverListView(
                 'same as the document metadata, which are user defined and '
                 'reside in the database.'
             ),
-            'no_results_title': _('No file metadata available.'),
+            'no_results_title': _(message='No file metadata available.'),
             'object': self.external_object,
             'title': _(
-                'File metadata drivers for: %s'
-            ) % self.external_object,
+                message='File metadata drivers for: %s'
+            ) % self.external_object
         }
 
     def get_source_queryset(self):
         return self.external_object.file_metadata_drivers.all()
 
 
-class DocumentFileDriverAttributeListView(
+class DocumentFileMetadataDriverAttributeListView(
     ExternalObjectViewMixin, SingleObjectListView
 ):
     external_object_permission = permission_file_metadata_view
@@ -87,41 +90,41 @@ class DocumentFileDriverAttributeListView(
                 )
             ),
             'no_results_text': _(
-                'This could mean that the file metadata detection has not '
+                message='This could mean that the file metadata detection has not '
                 'completed or that the driver does not support '
                 'any metadata field for the file type of this document.'
             ),
             'no_results_title': _(
-                'No file metadata available for this driver.'
+                message='No file metadata available for this driver.'
             ),
             'object': self.external_object.document_file,
             'title': _(
-                'File metadata attributes for: %(document_file)s with driver: %(driver)s'
+                message='File metadata attributes for: %(document_file)s with driver: %(driver)s'
             ) % {
                 'document_file': self.external_object.document_file,
                 'driver': self.external_object.driver
-            },
+            }
         }
 
     def get_external_object_queryset(self):
-        document_file_queryset = DocumentFile.valid.all()
+        queryset_document_files = DocumentFile.valid.all()
         return DocumentFileDriverEntry.objects.filter(
-            document_file_id__in=document_file_queryset.values('pk')
+            document_file_id__in=queryset_document_files.values('pk')
         )
 
     def get_source_queryset(self):
         return self.external_object.entries.all()
 
 
-class DocumentFileSubmitView(MultipleObjectConfirmActionView):
+class DocumentFileMetadataSubmitView(MultipleObjectConfirmActionView):
     object_permission = permission_file_metadata_submit
     pk_url_kwarg = 'document_file_id'
     source_queryset = DocumentFile.valid.all()
-    success_message_singular = _(
-        '%(count)d document file submitted to the file metadata queue.'
-    )
     success_message_plural = _(
-        '%(count)d documents files submitted to the file metadata queue.'
+        message='%(count)d documents files submitted to the file metadata queue.'
+    )
+    success_message_singular = _(
+        message='%(count)d document file submitted to the file metadata queue.'
     )
     view_icon = icon_document_file_metadata_single_submit
 
@@ -129,7 +132,7 @@ class DocumentFileSubmitView(MultipleObjectConfirmActionView):
         queryset = self.object_list
 
         result = {
-            'title': ungettext(
+            'title': ngettext(
                 singular='Submit the selected document file to the file metadata queue?',
                 plural='Submit the selected documents files to the file metadata queue?',
                 number=queryset.count()
@@ -142,7 +145,7 @@ class DocumentFileSubmitView(MultipleObjectConfirmActionView):
         return result
 
     def object_action(self, form, instance):
-        instance.submit_for_file_metadata_processing(_user=self.request.user)
+        instance.submit_for_file_metadata_processing(user=self.request.user)
 
 
 class DocumentTypeFileMetadataSettingsEditView(
@@ -161,7 +164,7 @@ class DocumentTypeFileMetadataSettingsEditView(
         return {
             'object': self.external_object,
             'title': _(
-                'Edit file metadata settings for document type: %s'
+                message='Edit file metadata settings for document type: %s'
             ) % self.external_object
         }
 
@@ -172,7 +175,7 @@ class DocumentTypeFileMetadataSettingsEditView(
 class DocumentTypeFileMetadataSubmitView(FormView):
     extra_context = {
         'title': _(
-            'Submit all documents of a type for file metadata processing.'
+            message='Submit all documents of a type for file metadata processing.'
         )
     }
     form_class = DocumentTypeFilteredSelectForm
@@ -187,23 +190,50 @@ class DocumentTypeFileMetadataSubmitView(FormView):
         }
 
     def form_valid(self, form):
-        document_queryset = Document.valid.all()
+        queryset_documents = Document.valid.all()
 
         count = 0
         for document_type in form.cleaned_data['document_type']:
-            for document in document_type.documents.filter(pk__in=document_queryset.values('pk')):
+            for document in document_type.documents.filter(pk__in=queryset_documents.values('pk')):
                 document.submit_for_file_metadata_processing(
-                    _user=self.request.user
+                    user=self.request.user
                 )
                 count += 1
 
         messages.success(
             message=_(
-                '%(count)d documents added to the file metadata processing '
+                message='%(count)d documents added to the file metadata processing '
                 'queue.'
             ) % {
-                'count': count,
+                'count': count
             }, request=self.request
         )
 
-        return HttpResponseRedirect(redirect_to=self.get_success_url())
+        return HttpResponseRedirect(
+            redirect_to=self.get_success_url()
+        )
+
+
+class FileMetadataDriverListView(SingleObjectListView):
+    view_icon = icon_file_metadata_driver_list
+    view_permission = permission_file_metadata_view
+
+    def get_extra_context(self):
+        return {
+            'hide_object': True,
+            'no_results_icon': icon_file_metadata,
+            'no_results_text': _(
+                message='File metadata drivers extract embedded information '
+                'from document files. File metadata drivers are configure '
+                'in code only.'
+            ),
+            'no_results_title': _(
+                message='No file metadata drivers available.'
+            ),
+            'title': _(
+                message='File metadata drivers'
+            )
+        }
+
+    def get_source_queryset(self):
+        return FileMetadataDriver.collection.get_all(sorted=True)

@@ -1,27 +1,30 @@
 from django.apps import apps
+from django.db.models import Count
 from django.utils import timezone
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 import qsstats
 
 from mayan.apps.mayan_statistics.classes import (
-    StatisticLineChart, StatisticNamespace
+    StatisticNamespace, StatisticTypeDoughnutChart, StatisticTypeLineChart
 )
 
-from .permissions import permission_document_view
-
 from .literals import MONTH_NAMES
+from .permissions import permission_document_view
 
 
 def get_month_name(month_number):
-    return force_text(s=MONTH_NAMES[month_number - 1])
+    return str(
+        MONTH_NAMES[month_number - 1]
+    )
 
 
 def new_documents_per_month():
     Document = apps.get_model(app_label='documents', model_name='Document')
 
-    qss = qsstats.QuerySetStats(Document.valid.all(), 'datetime_created')
+    qss = qsstats.QuerySetStats(
+        Document.valid.all(), 'datetime_created'
+    )
 
     now = timezone.now().date()
     start = timezone.datetime(year=now.year, month=1, day=1).date()
@@ -29,8 +32,9 @@ def new_documents_per_month():
     return {
         'series': {
             'Documents': map(
-                lambda x: {get_month_name(month_number=x[0].month): x[1]},
-                qss.time_series(start=start, end=now, interval='months')
+                lambda x: {
+                    get_month_name(month_number=x[0].month): x[1]
+                }, qss.time_series(start=start, end=now, interval='months')
             )
         }
     }
@@ -51,8 +55,9 @@ def new_document_pages_per_month():
     return {
         'series': {
             'Pages': map(
-                lambda x: {get_month_name(month_number=x[0].month): x[1]},
-                qss.time_series(start=start, end=now, interval='months')
+                lambda x: {
+                    get_month_name(month_number=x[0].month): x[1]
+                }, qss.time_series(start=start, end=now, interval='months')
             )
         }
     }
@@ -91,8 +96,9 @@ def new_document_files_per_month():
     return {
         'series': {
             'Files': map(
-                lambda x: {get_month_name(month_number=x[0].month): x[1]},
-                qss.time_series(start=start, end=now, interval='months')
+                lambda x: {
+                    get_month_name(month_number=x[0].month): x[1]
+                }, qss.time_series(start=start, end=now, interval='months')
             )
         }
     }
@@ -196,7 +202,8 @@ def total_document_page_per_month():
     )
 
     qss = qsstats.QuerySetStats(
-        DocumentFilePage.valid.all(), 'document_file__document__datetime_created'
+        DocumentFilePage.valid.all(),
+        'document_file__document__datetime_created'
     )
     now = timezone.now()
 
@@ -227,46 +234,117 @@ def total_document_page_per_month():
     }
 
 
-namespace = StatisticNamespace(slug='documents', label=_('Documents'))
+def statistic_document_count_per_document_type():
+    DocumentType = apps.get_model(
+        app_label='documents', model_name='DocumentType'
+    )
+
+    return {
+        'series': {
+            'document_types': tuple(
+                DocumentType.objects.annotate(
+                    value=Count('documents')
+                ).values('label', 'value')
+            )
+        }
+    }
+
+
+def statistic_document_file_count_per_document_type():
+    DocumentType = apps.get_model(
+        app_label='documents', model_name='DocumentType'
+    )
+
+    return {
+        'series': {
+            'document_types': tuple(
+                DocumentType.objects.annotate(
+                    value=Count('documents__files')
+                ).values('label', 'value')
+            )
+        }
+    }
+
+
+def statistic_document_file_page_count_per_document_type():
+    DocumentType = apps.get_model(
+        app_label='documents', model_name='DocumentType'
+    )
+
+    return {
+        'series': {
+            'document_types': tuple(
+                DocumentType.objects.annotate(
+                    value=Count('documents__files__file_pages')
+                ).values('label', 'value')
+            )
+        }
+    }
+
+
+namespace = StatisticNamespace(
+    slug='documents', label=_(message='Documents')
+)
 namespace.add_statistic(
-    klass=StatisticLineChart,
+    klass=StatisticTypeLineChart,
     slug='new-documents-per-month',
-    label=_('New documents per month'),
+    label=_(message='New documents per month'),
     func=new_documents_per_month,
     minute='0'
 )
 namespace.add_statistic(
-    klass=StatisticLineChart,
+    klass=StatisticTypeLineChart,
     slug='new-document-files-per-month',
-    label=_('New document files per month'),
+    label=_(message='New document files per month'),
     func=new_document_files_per_month,
     minute='0'
 )
 namespace.add_statistic(
-    klass=StatisticLineChart,
+    klass=StatisticTypeLineChart,
     slug='new-document-pages-per-month',
-    label=_('New document pages per month'),
+    label=_(message='New document pages per month'),
     func=new_document_pages_per_month,
     minute='0'
 )
 namespace.add_statistic(
-    klass=StatisticLineChart,
+    klass=StatisticTypeLineChart,
     slug='total-documents-at-each-month',
-    label=_('Total documents at each month'),
+    label=_(message='Total documents at each month'),
     func=total_document_per_month,
     minute='0'
 )
 namespace.add_statistic(
-    klass=StatisticLineChart,
+    klass=StatisticTypeLineChart,
     slug='total-document-files-at-each-month',
-    label=_('Total document files at each month'),
+    label=_(message='Total document files at each month'),
     func=total_document_file_per_month,
     minute='0'
 )
 namespace.add_statistic(
-    klass=StatisticLineChart,
+    klass=StatisticTypeLineChart,
     slug='total-document-pages-at-each-month',
-    label=_('Total document pages at each month'),
+    label=_(message='Total document pages at each month'),
     func=total_document_page_per_month,
+    minute='0'
+)
+namespace.add_statistic(
+    klass=StatisticTypeDoughnutChart,
+    slug='document-count-per-document-type',
+    label=_(message='Total documents per document type'),
+    func=statistic_document_count_per_document_type,
+    minute='0'
+)
+namespace.add_statistic(
+    klass=StatisticTypeDoughnutChart,
+    slug='document-file-count-per-document-type',
+    label=_(message='Total document files per document type'),
+    func=statistic_document_file_count_per_document_type,
+    minute='0'
+)
+namespace.add_statistic(
+    klass=StatisticTypeDoughnutChart,
+    slug='document-file-page-count-per-document-type',
+    label=_(message='Total document file pages per document type'),
+    func=statistic_document_file_page_count_per_document_type,
     minute='0'
 )

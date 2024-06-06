@@ -4,154 +4,160 @@
 # 
 # Translators:
 # Translators:
-# serhatcan77 <serhat_can@yahoo.com>, 2022
+# abc Def <hdogan1974@gmail.com>, 2024
+# Bedreddin Şahbaz, 2024
+# serhatcan77 <serhat_can@yahoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: serhatcan77 <serhat_can@yahoo.com>, 2022\n"
-"Language-Team: Turkish (Turkey) (https://www.transifex.com/rosarior/teams/13584/tr_TR/)\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: serhatcan77 <serhat_can@yahoo.com>, 2024\n"
+"Language-Team: Turkish (Turkey) (https://app.transifex.com/rosarior/teams/13584/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr_TR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: apps.py:36 events.py:5 links.py:40 models.py:43 permissions.py:6
-#: templates/announcements/announcements.html:8 views.py:126
+#: apps.py:39 events.py:6 links.py:37 links.py:46 models.py:48
+#: permissions.py:6 templates/announcements/announcements.html:8 views.py:121
 msgid "Announcements"
-msgstr ""
+msgstr "Duyurular"
 
-#: apps.py:78 apps.py:82
+#: apps.py:81 apps.py:85
 msgid "None"
 msgstr "Yok"
 
-#: events.py:8
+#: events.py:10
 msgid "Announcement created"
-msgstr ""
+msgstr "Duyuru oluşturuldu"
 
-#: events.py:11
+#: events.py:13
 msgid "Announcement edited"
-msgstr ""
+msgstr "Duyuru düzenlendi"
 
 #: links.py:17 views.py:34
 msgid "Create announcement"
-msgstr ""
+msgstr "Duyuru oluştur"
 
-#: links.py:20 links.py:26
+#: links.py:22 links.py:28
 msgid "Delete"
 msgstr "Sil"
 
-#: links.py:31
+#: links.py:33
 msgid "Edit"
 msgstr "Düzenle"
 
-#: models.py:19
+#: models.py:22
 msgid "Short description of this announcement."
-msgstr ""
+msgstr "Duyurunun kısa açıklaması."
 
-#: models.py:20
+#: models.py:23
 msgid "Label"
 msgstr "Etiket"
 
-#: models.py:23
-msgid "The actual text to be displayed."
-msgstr ""
-
-#: models.py:24
-msgid "Text"
-msgstr ""
-
 #: models.py:26
+msgid "The actual text to be displayed."
+msgstr "Görüntülenecek metin."
+
+#: models.py:27
+msgid "Text"
+msgstr "Metin"
+
+#: models.py:30
 msgid "Enabled"
 msgstr "Etkin"
 
-#: models.py:29
-msgid "Date and time after which this announcement will be displayed."
-msgstr ""
-
-#: models.py:30
-msgid "Start date time"
-msgstr ""
-
 #: models.py:34
-msgid "Date and time until when this announcement is to be displayed."
-msgstr ""
+msgid "Date and time after which this announcement will be displayed."
+msgstr "Bu duyurunun gösterilemeye başlayacağı tarih saat."
 
 #: models.py:35
-msgid "End date time"
-msgstr ""
+msgid "Start date time"
+msgstr "Başlangıç tarihi saat"
 
-#: models.py:42
+#: models.py:39
+msgid "Date and time until when this announcement is to be displayed."
+msgstr "Bu duyurunun gösterilemesinin bitirileceği tarih ve saat."
+
+#: models.py:40
+msgid "End date time"
+msgstr "Bitiş tarihi saat"
+
+#: models.py:47
 msgid "Announcement"
-msgstr ""
+msgstr "Duyuru"
 
 #: permissions.py:10
 msgid "Create announcements"
-msgstr ""
+msgstr "Duyurları oluştur"
 
 #: permissions.py:13
 msgid "Delete announcements"
-msgstr ""
+msgstr "Duyuruları sil"
 
 #: permissions.py:16
 msgid "Edit announcements"
-msgstr ""
+msgstr "Duyuruları düzenle"
 
 #: permissions.py:19
 msgid "View announcements"
-msgstr ""
+msgstr "Duyuruları görüntüle"
 
-#: views.py:45
+#: serializers.py:12
+msgid "URL"
+msgstr "URL"
+
+#: views.py:43
 #, python-format
 msgid "Error deleting announcement \"%(instance)s\"; %(exception)s"
-msgstr ""
+msgstr "\"%(instance)s\" duyurusu silinirken hata oluştu; %(exception)s"
 
-#: views.py:54
+#: views.py:52
+#, python-format
+msgid "%(count)d announcements deleted successfully."
+msgstr "%(count)d duyuruları başarıyla silindi."
+
+#: views.py:55
 #, python-format
 msgid "Announcement \"%(object)s\" deleted successfully."
-msgstr ""
+msgstr "\"%(object)s\" duyurusu başarıyla silindi."
 
-#: views.py:57
+#: views.py:58
 #, python-format
 msgid "%(count)d announcement deleted successfully."
-msgstr ""
+msgstr "%(count)d duyurusu başarıyla silindi."
 
 #: views.py:60
 #, python-format
-msgid "%(count)d announcements deleted successfully."
-msgstr ""
+msgid "Delete the %(count)d selected announcements."
+msgstr "%(count)d seçili duyuruları sil."
+
+#: views.py:61
+#, python-format
+msgid "Delete announcement: %(object)s."
+msgstr "Duyuruyu sil: %(object)s."
 
 #: views.py:62
 #, python-format
-msgid "Delete announcement: %(object)s."
-msgstr ""
-
-#: views.py:63
-#, python-format
 msgid "Delete the %(count)d selected announcement."
-msgstr ""
+msgstr "%(count)d seçilen duyuruyu sil."
 
-#: views.py:64
-#, python-format
-msgid "Delete the %(count)d selected announcements."
-msgstr ""
-
-#: views.py:98
+#: views.py:94
 #, python-format
 msgid "Edit announcement: %s"
-msgstr ""
+msgstr "Duyuruyu düzenle: %s"
 
-#: views.py:121
+#: views.py:115
 msgid ""
 "Announcements are displayed in the login view. You can use announcements to "
-"convery information about your organzation, announcements or usage "
+"convey information about your organization, announcements or usage "
 "guidelines for your users."
 msgstr ""
 
-#: views.py:125
+#: views.py:120
 msgid "No announcements available"
-msgstr ""
+msgstr "Duyuru yok"

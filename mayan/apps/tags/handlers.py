@@ -1,6 +1,8 @@
 import logging
 
-from mayan.apps.document_indexing.tasks import task_index_instance_document_add
+from mayan.apps.document_indexing.tasks import (
+    task_index_instance_document_add
+)
 
 logger = logging.getLogger(name=__name__)
 
@@ -18,4 +20,4 @@ def handler_tag_pre_delete(sender, **kwargs):
         # Remove each of the documents from the tag.
         # Trigger the remove event for each document so they can be
         # reindexed.
-        kwargs['instance'].remove_from(document=document)
+        kwargs['instance']._remove_from(document=document)

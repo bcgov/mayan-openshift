@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
+"POT-Creation-Date: 2024-06-04 06:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,27 +17,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:28 events.py:5
+#: apps.py:28 events.py:6 settings.py:9
 msgid "Locales"
 msgstr ""
 
-#: events.py:8
+#: dependencies.py:10
+msgid "Transifex Client"
+msgstr ""
+
+#: events.py:10
 msgid "User locale profile edited"
 msgstr ""
 
-#: links.py:18
+#: links.py:14
 msgid "Locale profile"
 msgstr ""
 
-#: links.py:25
+#: links.py:19
 msgid "Edit locale profile"
 msgstr ""
 
-#: models.py:21
+#: models.py:20
 msgid "User"
 msgstr ""
 
-#: models.py:25
+#: models.py:24
 msgid "Timezone"
 msgstr ""
 
@@ -53,16 +57,25 @@ msgstr ""
 msgid "User locale profiles"
 msgstr ""
 
-#: models.py:39
+#: models.py:38 models.py:39
 msgid "None"
 msgstr ""
 
-#: views.py:40
+#: settings.py:15
+msgid ""
+"Default profile language for new user accounts. Must be in ISO639-3 format."
+msgstr ""
+
+#: settings.py:22
+msgid "Default profile timezone for new user accounts."
+msgstr ""
+
+#: views.py:52
 #, python-format
 msgid "Locale profile for user: %s"
 msgstr ""
 
-#: views.py:87
+#: views.py:86
 #, python-format
 msgid "Edit locale profile for user: %s"
 msgstr ""

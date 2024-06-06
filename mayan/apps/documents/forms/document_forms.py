@@ -2,7 +2,7 @@ import logging
 import os
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.views.forms import DetailForm
 
@@ -10,7 +10,6 @@ from ..models.document_models import Document
 from ..settings import setting_language
 from ..utils import get_language, get_language_choices
 
-__all__ = ('DocumentForm', 'DocumentPropertiesForm',)
 logger = logging.getLogger(name=__name__)
 
 
@@ -32,17 +31,19 @@ class DocumentForm(forms.ModelForm):
         if self.instance and self.instance.pk:
             document_type = self.instance.document_type
         else:
-            self.initial.update({'language': setting_language.value})
+            self.initial.update(
+                {'language': setting_language.value}
+            )
 
-        filenames_queryset = document_type.filenames.filter(enabled=True)
+        queryset_filenames = document_type.filenames.filter(enabled=True)
 
-        if filenames_queryset:
+        if queryset_filenames:
             self.fields[
                 'document_type_available_filenames'
             ] = forms.ModelChoiceField(
-                queryset=filenames_queryset,
+                queryset=queryset_filenames,
                 required=False,
-                label=_('Quick document rename'),
+                label=_(message='Quick document rename'),
                 widget=forms.Select(
                     attrs={
                         'class': 'select2'
@@ -50,9 +51,9 @@ class DocumentForm(forms.ModelForm):
                 )
             )
             self.fields['preserve_extension'] = forms.BooleanField(
-                label=_('Preserve extension'), required=False,
+                label=_(message='Preserve extension'), required=False,
                 help_text=_(
-                    'Takes the file extension and moves it to the end of the '
+                    message='Takes the file extension and moves it to the end of the '
                     'filename allowing operating systems that rely on file '
                     'extensions to open document correctly.'
                 )
@@ -101,17 +102,19 @@ class DocumentPropertiesForm(DetailForm):
 
         extra_fields = [
             {
-                'label': _('Date created'),
+                'label': _(message='Date created'),
                 'field': 'datetime_created',
                 'widget': forms.widgets.DateTimeInput
             },
-            {'label': _('UUID'), 'field': 'uuid'},
             {
-                'label': _('Language'),
+                'label': _(message='UUID'), 'field': 'uuid'
+            },
+            {
+                'label': _(message='Language'),
                 'func': lambda x: get_language(
                     language_code=document.language
                 )
-            },
+            }
         ]
 
         kwargs['extra_fields'] = extra_fields

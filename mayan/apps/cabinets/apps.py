@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.db.models.signals import post_save, pre_delete
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
@@ -16,26 +16,25 @@ from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
 
+from .column_widgets import DocumentCabinetWidget
 from .events import (
-    event_cabinet_edited, event_cabinet_document_added,
-    event_cabinet_document_removed
+    event_cabinet_deleted, event_cabinet_document_added,
+    event_cabinet_document_removed, event_cabinet_edited
 )
 from .handlers import handler_cabinet_pre_delete, handler_index_document
-from .html_widgets import DocumentCabinetWidget
 from .links import (
-    link_cabinet_list, link_document_cabinet_list,
-    link_document_cabinet_remove, link_document_cabinet_add,
-    link_document_multiple_cabinet_add, link_cabinet_child_add,
-    link_cabinet_create, link_cabinet_delete, link_cabinet_edit,
-    link_cabinet_view, link_custom_acl_list,
-    link_multiple_document_cabinet_remove
+    link_cabinet_child_add, link_cabinet_create, link_cabinet_delete,
+    link_cabinet_edit, link_cabinet_list, link_cabinet_view,
+    link_custom_acl_list, link_document_cabinet_add,
+    link_document_cabinet_list, link_document_cabinet_remove,
+    link_document_multiple_cabinet_add, link_multiple_document_cabinet_remove
 )
 from .menus import menu_cabinets
 from .methods import method_document_get_cabinets
 from .permissions import (
-    permission_cabinet_add_document, permission_cabinet_delete,
-    permission_cabinet_edit, permission_cabinet_remove_document,
-    permission_cabinet_view
+    permission_cabinet_add_document, permission_cabinet_create,
+    permission_cabinet_delete, permission_cabinet_edit,
+    permission_cabinet_remove_document, permission_cabinet_view
 )
 
 
@@ -51,13 +50,15 @@ class CabinetsApp(MayanAppConfig):
         'cabinets/node_modules/jstree/jstree.jquery.json',
         'cabinets/node_modules/jstree/src/*',
     )
-    verbose_name = _('Cabinets')
+    verbose_name = _(message='Cabinets')
 
     def ready(self):
         super().ready()
 
         Cabinet = self.get_model(model_name='Cabinet')
-        CabinetSearchResult = self.get_model(model_name='CabinetSearchResult')
+        CabinetSearchResult = self.get_model(
+            model_name='CabinetSearchResult'
+        )
         Document = apps.get_model(
             app_label='documents', model_name='Document'
         )
@@ -72,7 +73,8 @@ class CabinetsApp(MayanAppConfig):
             app_label='documents', model_name='DocumentVersionSearchResult'
         )
         DocumentVersionPageSearchResult = apps.get_model(
-            app_label='documents', model_name='DocumentVersionPageSearchResult'
+            app_label='documents',
+            model_name='DocumentVersionPageSearchResult'
         )
 
         # Add explicit order_by as DocumentCabinet ordering Meta option has no
@@ -108,8 +110,8 @@ class CabinetsApp(MayanAppConfig):
 
         ModelEventType.register(
             model=Cabinet, event_types=(
-                event_cabinet_edited, event_cabinet_document_added,
-                event_cabinet_document_removed
+                event_cabinet_deleted, event_cabinet_edited,
+                event_cabinet_document_added, event_cabinet_document_removed
             )
         )
         ModelEventType.register(
@@ -119,23 +121,26 @@ class CabinetsApp(MayanAppConfig):
         )
 
         ModelPermission.register(
+            model=Cabinet, permissions=(
+                permission_acl_edit, permission_acl_view,
+                permission_cabinet_create, permission_cabinet_delete,
+                permission_cabinet_edit, permission_cabinet_view,
+                permission_cabinet_add_document,
+                permission_cabinet_remove_document
+            ), bind_link=False
+        )
+
+        ModelPermission.register(
             model=Document, permissions=(
                 permission_cabinet_add_document,
                 permission_cabinet_remove_document, permission_cabinet_view
             )
         )
 
-        ModelPermission.register(
-            model=Cabinet, permissions=(
-                permission_acl_edit, permission_acl_view,
-                permission_cabinet_delete, permission_cabinet_edit,
-                permission_cabinet_view, permission_cabinet_add_document,
-                permission_cabinet_remove_document
-            ), bind_link=False
-        )
-
         model_query_fields_document = ModelQueryFields(model=Document)
-        model_query_fields_document.add_prefetch_related_field(field_name='cabinets')
+        model_query_fields_document.add_prefetch_related_field(
+            field_name='cabinets'
+        )
 
         def get_root_filter():
             return {
@@ -154,28 +159,38 @@ class CabinetsApp(MayanAppConfig):
         )
 
         SourceColumn(
+            func=lambda context: context['object'].get_descendants_document_count(
+                user=context['request'].user
+            ), include_label=True, label=_(message='Documents'),
+            source=Cabinet
+        )
+
+        SourceColumn(
             attribute='get_full_path', source=CabinetSearchResult
         )
 
         SourceColumn(
-            label=_('Cabinets'), order=1, source=Document,
+            label=_(message='Cabinets'), order=1, source=Document,
             widget=DocumentCabinetWidget
         )
         SourceColumn(
-            attribute='document', label=_('Cabinets'), order=1,
+            attribute='document', label=_(message='Cabinets'), order=1,
             source=DocumentFileSearchResult, widget=DocumentCabinetWidget
         )
         SourceColumn(
-            attribute='document_file__document', label=_('Cabinets'), order=1,
-            source=DocumentFilePageSearchResult, widget=DocumentCabinetWidget
+            attribute='document_file__document', label=_(
+                message='Cabinets'
+            ), order=1, source=DocumentFilePageSearchResult,
+            widget=DocumentCabinetWidget
         )
         SourceColumn(
-            attribute='document', label=_('Cabinets'), order=1,
+            attribute='document', label=_(message='Cabinets'), order=1,
             source=DocumentVersionSearchResult, widget=DocumentCabinetWidget
         )
         SourceColumn(
-            attribute='document_version__document', label=_('Cabinets'),
-            order=1, source=DocumentVersionPageSearchResult,
+            attribute='document_version__document', label=_(
+                message='Cabinets'
+            ), order=1, source=DocumentVersionPageSearchResult,
             widget=DocumentCabinetWidget
         )
 
@@ -206,12 +221,14 @@ class CabinetsApp(MayanAppConfig):
         menu_object.bind_links(
             exclude=(DocumentCabinet,),
             links=(
-                link_cabinet_delete, link_cabinet_edit, link_cabinet_child_add
+                link_cabinet_delete, link_cabinet_edit,
+                link_cabinet_child_add
             ), sources=(Cabinet,)
         )
         menu_object.unbind_links(
             links=(
-                link_cabinet_delete, link_cabinet_edit, link_cabinet_child_add
+                link_cabinet_delete, link_cabinet_edit,
+                link_cabinet_child_add
             ), sources=(DocumentCabinet,)
         )
         menu_secondary.bind_links(

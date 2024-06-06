@@ -1,25 +1,28 @@
+from django.utils.translation import gettext_lazy as _
+
 from rest_framework import serializers as rest_framework_serializers
 from rest_framework.fields import (  # NOQA
     BooleanField, CharField, ChoiceField, DateField, DateTimeField,
     DecimalField, DictField, DurationField, EmailField, Field, FileField,
-    FilePathField, FloatField, HiddenField, HStoreField, IPAddressField,
-    ImageField, IntegerField, JSONField, ListField, ModelField,
-    MultipleChoiceField, NullBooleanField, ReadOnlyField, RegexField,
-    SerializerMethodField, SlugField, TimeField, URLField, UUIDField
+    FilePathField, FloatField, HiddenField, HStoreField, ImageField,
+    IntegerField, IPAddressField, JSONField, ListField, ModelField,
+    MultipleChoiceField, ReadOnlyField, RegexField, SerializerMethodField,
+    SlugField, TimeField, URLField, UUIDField
 )
+from rest_framework.relations import (  # NOQA
+    HyperlinkedIdentityField, HyperlinkedRelatedField, ManyRelatedField,
+    PrimaryKeyRelatedField, RelatedField, SlugRelatedField, StringRelatedField
+)
+from rest_framework.reverse import reverse
 from rest_framework.serializers import (
     HyperlinkedModelSerializer as RESTFrameworkHyperlinkedModelSerializer,
     ModelSerializer as RESTFrameworkModelSerializer
 )
-from rest_framework.relations import (  # NOQA
-    HyperlinkedIdentityField, HyperlinkedRelatedField, ManyRelatedField,
-    PrimaryKeyRelatedField, RelatedField, SlugRelatedField,
-    StringRelatedField
-)
-from rest_framework.reverse import reverse
 
 from .classes import BatchRequestCollection
-from .serializer_mixins import CreateOnlyFieldSerializerMixin, DynamicFieldListSerializerMixin
+from .serializer_mixins import (
+    CreateOnlyFieldSerializerMixin, DynamicFieldListSerializerMixin
+)
 
 
 class Serializer(
@@ -29,19 +32,31 @@ class Serializer(
 
 
 class BatchAPIRequestResponseSerializer(Serializer):
-    content = CharField(read_only=True)
-    data = JSONField(read_only=True)
-    headers = DictField(read_only=True)
-    name = CharField(read_only=True)
-    status_code = IntegerField(read_only=True)
+    content = CharField(
+        label=_(message='Content'), read_only=True
+    )
+    data = JSONField(
+        label=_(message='Data'), read_only=True
+    )
+    headers = DictField(
+        label=_(message='Headers'), read_only=True
+    )
+    name = CharField(
+        label=_(message='Name'), read_only=True
+    )
+    status_code = IntegerField(
+        label=_(message='Status code'), read_only=True
+    )
     requests = JSONField(
-        style={'base_template': 'textarea.html'},
+        label=_(message='Requests'), style={'base_template': 'textarea.html'},
         write_only=True
     )
 
     def validate(self, data):
         try:
-            BatchRequestCollection(request_list=data['requests'])
+            BatchRequestCollection(
+                request_list=data['requests']
+            )
         except Exception as exception:
             raise rest_framework_serializers.ValidationError(
                 'Error validating requests; {}'.format(exception)
@@ -55,8 +70,12 @@ class BlankSerializer(Serializer):
 
 
 class EndpointSerializer(Serializer):
-    label = CharField(read_only=True)
-    url = SerializerMethodField()
+    label = CharField(
+        label=_(message='Label'), read_only=True
+    )
+    url = SerializerMethodField(
+        label=_(message='URL')
+    )
 
     def get_url(self, instance):
         if instance.viewname:
@@ -82,14 +101,36 @@ class ModelSerializer(
 
 
 class ProjectInformationSerializer(Serializer):
-    __title__ = CharField(read_only=True)
-    __version__ = CharField(read_only=True)
-    __build__ = CharField(read_only=True)
-    __build_string__ = CharField(read_only=True)
-    __django_version__ = CharField(read_only=True)
-    __author__ = CharField(read_only=True)
-    __author_email__ = CharField(read_only=True)
-    __description__ = CharField(read_only=True)
-    __license__ = CharField(read_only=True)
-    __copyright__ = CharField(read_only=True)
-    __website__ = CharField(read_only=True)
+    __author__ = CharField(
+        label=_(message='Author'), read_only=True
+    )
+    __author_email__ = CharField(
+        label=_(message='Author email'), read_only=True
+    )
+    __build__ = CharField(
+        label=_(message='Build'), read_only=True
+    )
+    __build_string__ = CharField(
+        label=_(message='Build string'), read_only=True
+    )
+    __copyright__ = CharField(
+        label=_(message='Copyright'), read_only=True
+    )
+    __description__ = CharField(
+        label=_(message='Description'), read_only=True
+    )
+    __django_version__ = CharField(
+        label=_(message='Django version'), read_only=True
+    )
+    __license__ = CharField(
+        label=_(message='License'), read_only=True
+    )
+    __title__ = CharField(
+        label=_(message='Title'), read_only=True
+    )
+    __version__ = CharField(
+        label=_(message='Version'), read_only=True
+    )
+    __website__ = CharField(
+        label=_(message='Website'), read_only=True
+    )

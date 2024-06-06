@@ -3,12 +3,12 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.template import TemplateSyntaxError
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
 from mayan.apps.views.generics import FormView
 from mayan.apps.views.http import URL
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from .classes import Template
 from .forms import DocumentTemplateSandboxForm
@@ -25,19 +25,25 @@ class DocumentTemplateSandboxView(ExternalObjectViewMixin, FormView):
 
     def form_valid(self, form):
         path = reverse(
-            viewname='templating:document_template_sandbox',
-            kwargs={'document_id': self.external_object.pk}
+            kwargs={'document_id': self.external_object.pk},
+            viewname='templating:document_template_sandbox'
         )
         url = URL(
-            path=path, query={'template': form.cleaned_data['template']}
+            path=path, query={
+                'template': form.cleaned_data['template']
+            }
         )
 
-        return HttpResponseRedirect(redirect_to=url.to_string())
+        return HttpResponseRedirect(
+            redirect_to=url.to_string()
+        )
 
     def get_extra_context(self):
         return {
             'object': self.external_object,
-            'title': _('Template sandbox for: %s') % self.external_object
+            'title': _(
+                message='Template sandbox for: %s'
+            ) % self.external_object
         }
 
     def get_form_extra_kwargs(self):
@@ -58,12 +64,8 @@ class DocumentTemplateSandboxView(ExternalObjectViewMixin, FormView):
         except exception_list as exception:
             result = ''
             error_message = _(
-                'Template error; %(exception)s'
-            ) % {
-                'exception': exception
-            }
-            messages.error(request=self.request, message=error_message)
+                message='Template error; %(exception)s'
+            ) % {'exception': exception}
+            messages.error(message=error_message, request=self.request)
 
-        return {
-            'template': template_string, 'result': result
-        }
+        return {'result': result, 'template': template_string}

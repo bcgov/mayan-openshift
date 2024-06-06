@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.user_management.querysets import get_user_queryset
 from mayan.apps.views.forms import FilteredSelectionForm
@@ -13,7 +13,9 @@ class AuthenticationFormBase(forms.Form):
     _label = None
     PASSWORD_FIELD = 'username'
 
-    def __init__(self, data, files, prefix, initial, request=None, wizard=None):
+    def __init__(
+        self, data, files, prefix, initial, request=None, wizard=None
+    ):
         self.request = request
         self.user_cache = None
         self.wizard = wizard
@@ -28,7 +30,9 @@ class AuthenticationFormBase(forms.Form):
 
 class AuthenticationFormMixinRememberMe(forms.Form):
     _form_field_name_remember_me = 'remember_me'
-    remember_me = forms.BooleanField(label=_('Remember me'), required=False)
+    remember_me = forms.BooleanField(
+        label=_(message='Remember me'), required=False
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -74,8 +78,8 @@ class UserImpersonationOptionsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['permanent'] = forms.BooleanField(
-            label=_('Permanent'), help_text=_(
-                'If selected, disables ending impersonation.'
+            label=_(message='Permanent'), help_text=_(
+                message='If selected, disables ending impersonation.'
             ), required=False
         )
 
@@ -86,7 +90,7 @@ class UserImpersonationSelectionForm(
     class Meta:
         allow_multiple = False
         field_name = 'user_to_impersonate'
-        label = _('User')
+        label = _(message='User')
         queryset = get_user_queryset().none()
         permission = permission_users_impersonate
         required = True
@@ -94,6 +98,10 @@ class UserImpersonationSelectionForm(
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        queryset = get_user_queryset().exclude(pk=kwargs['user'].pk)
+        queryset = get_user_queryset().exclude(
+            pk=kwargs['user'].pk
+        )
         self.fields['user_to_impersonate'].queryset = queryset
-        self.order_fields(field_order=('user_to_impersonate', 'permanent'))
+        self.order_fields(
+            field_order=('user_to_impersonate', 'permanent')
+        )

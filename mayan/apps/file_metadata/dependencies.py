@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.dependencies.classes import BinaryDependency
 
@@ -9,7 +9,7 @@ exiftool.read_settings()
 
 BinaryDependency(
     help_text=_(
-        'Library and program to read and write meta information in '
+        message='Library and program to read and write meta information in '
         'multimedia files.'
     ), module=__name__, name='exiftool', path=exiftool.exiftool_path
 )

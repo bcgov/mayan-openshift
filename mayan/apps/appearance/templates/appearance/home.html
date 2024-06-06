@@ -8,7 +8,7 @@
 {% load navigation_tags %}
 {% load smart_settings_tags %}
 
-{% block title %}{% include 'appearance/partials/form_title.html' with non_html_title=True %}{% endblock %}
+{% block title %}{% include 'appearance/partials/title.html' with non_html_title=True %}{% endblock %}
 
 {% block javascript %}
     <script>
@@ -42,8 +42,6 @@
             {% endif %}
         </div>
     </div>
-
-    {% include 'dynamic_search/search_box.html' %}
 
     {% smart_setting "COMMON_HOME_VIEW_DASHBOARD_NAME" as home_view_dashboard_name %}
 

@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.rest_api import serializers
 from mayan.apps.rest_api.relations import FilteredPrimaryKeyRelatedField
@@ -13,23 +13,24 @@ from .querysets import get_user_queryset
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     users_url = serializers.HyperlinkedIdentityField(
         help_text=_(
-            'URL of the API endpoint showing the list users of this '
+            message='URL of the API endpoint showing the list users of this '
             'group.'
-        ), lookup_url_kwarg='group_id',
+        ), label=_(message='Users URL'), lookup_url_kwarg='group_id',
         view_name='rest_api:group-user-list'
     )
     users_add_url = serializers.HyperlinkedIdentityField(
-        lookup_url_kwarg='group_id',
+        label=_(message='Users add URL'), lookup_url_kwarg='group_id',
         view_name='rest_api:group-user-add'
     )
     users_remove_url = serializers.HyperlinkedIdentityField(
-        lookup_url_kwarg='group_id',
+        label=_(message='Users remove URL'), lookup_url_kwarg='group_id',
         view_name='rest_api:group-user-remove'
     )
 
     class Meta:
         extra_kwargs = {
             'url': {
+                'label': _(message='URL'),
                 'lookup_url_kwarg': 'group_id',
                 'view_name': 'rest_api:group-detail'
             }
@@ -44,8 +45,8 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class GroupUserAddSerializer(serializers.Serializer):
     user = FilteredPrimaryKeyRelatedField(
         help_text=_(
-            'Primary key of the user to add to the group.'
-        ), source_permission=permission_user_edit,
+            message='Primary key of the user to add to the group.'
+        ), label=_(message='User ID'), source_permission=permission_user_edit,
         source_queryset=get_user_queryset()
     )
 
@@ -53,8 +54,8 @@ class GroupUserAddSerializer(serializers.Serializer):
 class GroupUserRemoveSerializer(serializers.Serializer):
     user = FilteredPrimaryKeyRelatedField(
         help_text=_(
-            'Primary key of the user to remove from the group.'
-        ), source_permission=permission_user_edit,
+            message='Primary key of the user to remove from the group.'
+        ), label=_(message='User ID'), source_permission=permission_user_edit,
         source_queryset=get_user_queryset()
     )
 
@@ -62,18 +63,21 @@ class GroupUserRemoveSerializer(serializers.Serializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     groups_url = serializers.HyperlinkedIdentityField(
         help_text=_(
-            'URL of the API endpoint showing the list groups this '
+            message='URL of the API endpoint showing the list groups this '
             'user belongs to.'
-        ), lookup_url_kwarg='user_id',
+        ), label=_(message='Groups URL'), lookup_url_kwarg='user_id',
         view_name='rest_api:user-group-list'
     )
     password = serializers.CharField(
-        required=False, style={'input_type': 'password'}, write_only=True
+        label=_(message='Password'), required=False, style={
+            'input_type': 'password'
+        }, write_only=True
     )
 
     class Meta:
         extra_kwargs = {
             'url': {
+                'label': _(message='URL'),
                 'lookup_url_kwarg': 'user_id',
                 'view_name': 'rest_api:user-detail'
             }
@@ -100,7 +104,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def update(self, instance, validated_data):
         if 'password' in validated_data:
-            instance.set_password(raw_password=validated_data['password'])
+            instance.set_password(
+                raw_password=validated_data['password']
+            )
             validated_data.pop('password')
 
         return super().update(
@@ -109,6 +115,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate(self, data):
         if 'password' in data:
-            validate_password(data['password'], self.instance)
+            validate_password(
+                password=data['password'], user=self.instance
+            )
 
         return data

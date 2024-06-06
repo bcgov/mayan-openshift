@@ -4,27 +4,36 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Thanh Long Hoàng <hoangthanhlong@gmail.com>, 2022
+# Thanh Long Hoàng <hoangthanhlong@gmail.com>, 2024
+# Thuong Lu, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:36+0000\n"
-"Last-Translator: Thanh Long Hoàng <hoangthanhlong@gmail.com>, 2022\n"
-"Language-Team: Vietnamese (https://www.transifex.com/rosarior/teams/13584/vi/)\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Thuong Lu, 2024\n"
+"Language-Team: Vietnamese (https://app.transifex.com/rosarior/teams/13584/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:23 events.py:5 permissions.py:5 settings.py:10
+#: apps.py:24 events.py:6 permissions.py:6 settings.py:12
 msgid "Logging"
 msgstr ""
 
-#: events.py:8
+#: apps.py:40
+msgid "System"
+msgstr ""
+
+#: apps.py:64
+msgid "Domain"
+msgstr ""
+
+#: events.py:10
 msgid "Error log deleted"
 msgstr ""
 
@@ -44,72 +53,96 @@ msgstr ""
 msgid "Clear errors"
 msgstr ""
 
-#: models.py:16 models.py:44
-msgid "Internal name"
+#: model_mixins.py:11
+#, python-format
+msgid "Unknown domain name: %s"
 msgstr ""
 
-#: models.py:21 models.py:41
-msgid "Error log"
-msgstr ""
+#: model_mixins.py:18
+msgid "Object"
+msgstr "Chủ đề"
 
-#: models.py:22
-msgid "Error logs"
-msgstr ""
-
-#: models.py:31
+#: model_mixins.py:26
 msgid "App label"
 msgstr ""
 
-#: models.py:58 models.py:68
+#: models.py:21 models.py:41
+msgid "Internal name"
+msgstr ""
+
+#: models.py:26 models.py:38
+msgid "Error log"
+msgstr ""
+
+#: models.py:27
+msgid "Error logs"
+msgstr ""
+
+#: models.py:55 models.py:69
 msgid "Error log partition"
 msgstr ""
 
-#: models.py:59
+#: models.py:56
 msgid "Error log partitions"
 msgstr ""
 
-#: models.py:71
+#: models.py:73
 msgid "Date and time"
 msgstr ""
 
-#: models.py:73
-msgid "Text"
-msgstr ""
-
-#: models.py:80
-msgid "Error log partition entry"
+#: models.py:78
+msgid "Domain name"
 msgstr ""
 
 #: models.py:81
+msgid "Text"
+msgstr ""
+
+#: models.py:89
+msgid "Error log partition entry"
+msgstr ""
+
+#: models.py:90
 msgid "Error log partition entries"
 msgstr ""
 
-#: models.py:97
-msgid "Object"
-msgstr ""
-
-#: permissions.py:8
+#: permissions.py:10
 msgid "Delete error log"
 msgstr ""
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "View error log"
 msgstr ""
 
-#: settings.py:14
+#: serializers.py:12
+msgid "Content type"
+msgstr ""
+
+#: serializers.py:16
+msgid "Object ID"
+msgstr ""
+
+#: serializers.py:19
+msgid "URL"
+msgstr ""
+
+#: settings.py:18
+msgid "Disable logging message ANSI color codes."
+msgstr ""
+
+#: settings.py:24
 msgid "Automatically enable logging to all apps."
 msgstr ""
 
-#: settings.py:19
-msgid ""
-"List of handlers to which logging messages will be sent. Options are: {}"
+#: settings.py:30
+msgid "List of handlers to which logging messages will be sent."
 msgstr ""
 
-#: settings.py:25
+#: settings.py:35
 msgid "Level for the logging system."
 msgstr ""
 
-#: settings.py:31
+#: settings.py:41
 msgid "Path to the logfile that will track errors during production."
 msgstr ""
 
@@ -119,7 +152,7 @@ msgid ""
 "good thing."
 msgstr ""
 
-#: views.py:34 views.py:101
+#: views.py:34 views.py:99
 msgid "There are no error log entries"
 msgstr ""
 
@@ -137,13 +170,13 @@ msgstr ""
 msgid "Delete error log entry: %s"
 msgstr ""
 
-#: views.py:97
+#: views.py:95
 msgid ""
 "This view displays the error log of an object. An empty list is a good "
 "thing."
 msgstr ""
 
-#: views.py:104
+#: views.py:103
 #, python-format
 msgid "Error log entries for: %s"
 msgstr ""

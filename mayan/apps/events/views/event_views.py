@@ -1,16 +1,16 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from actstream.models import Action, any_stream
 
 from mayan.apps.views.generics import SingleObjectListView
-from mayan.apps.views.mixins import ExternalContentTypeObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalContentTypeObjectViewMixin
 
 from ..icons import (
     icon_event_list, icon_object_event_list, icon_verb_event_list
 )
 from ..permissions import permission_events_view
 
-from .mixins import VerbEventViewMixin
+from .view_mixins import VerbEventViewMixin
 
 
 class EventListBaseView(SingleObjectListView):
@@ -22,11 +22,11 @@ class EventListBaseView(SingleObjectListView):
             'hide_object': True,
             'no_results_icon': icon_event_list,
             'no_results_text': _(
-                'Events track actions that have been performed on, to, '
+                message='Events track actions that have been performed on, to, '
                 'or with objects.'
             ),
-            'no_results_title': _('There are no events'),
-            'title': _('Events')
+            'no_results_title': _(message='There are no events'),
+            'title': _(message='Events')
         }
 
 
@@ -46,9 +46,9 @@ class ObjectEventListView(
         context = super().get_extra_context()
         context.update(
             {
-                'no_results_title': _('There are no events for this object'),
+                'no_results_title': _(message='There are no events for this object'),
                 'object': self.external_object,
-                'title': _('Events for: %s') % self.external_object
+                'title': _(message='Events for: %s') % self.external_object
             }
         )
         return context
@@ -64,9 +64,9 @@ class VerbEventListView(VerbEventViewMixin, EventListBaseView):
         context = super().get_extra_context()
         context.update(
             {
-                'no_results_title': _('There are no events of this type'),
+                'no_results_title': _(message='There are no events of this type'),
                 'title': _(
-                    'Events of type: %s'
+                    message='Events of type: %s'
                 ) % self.event_type
             }
         )

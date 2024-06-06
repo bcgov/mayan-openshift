@@ -10,7 +10,9 @@ class CreateOnlyFieldSerializerMixin:
             # Remove the create only fields if the view is anything other
             # than a create view.
             self._excluded_fields.update(
-                getattr(self.Meta, 'create_only_fields', ())
+                getattr(
+                    self.Meta, 'create_only_fields', ()
+                )
             )
 
     def is_create_view(self):
@@ -39,12 +41,16 @@ class DynamicFieldListSerializerMixin:
 
         for field_exclude in fields_exclude:
             parts = field_exclude.split(DEFAULT_DYNAMIC_FIELD_SEPARATOR)
-            matched_exclude.append(parts[-1])
+            matched_exclude.append(
+                parts[-1]
+            )
 
         for field_only in fields_only:
             parts = field_only.split(DEFAULT_DYNAMIC_FIELD_SEPARATOR)
             if parts[0]:
-                matched_only.append(parts[0])
+                matched_only.append(
+                    parts[0]
+                )
 
         self.update_excluded_fields(
             fields_exclude=matched_exclude, fields_only=matched_only
@@ -88,7 +94,9 @@ class DynamicFieldListSerializerMixin:
         fields = super().get_fields()
 
         # Copy keys to avoid modifying them in the loop.
-        field_names = list(fields.keys())
+        field_names = list(
+            fields.keys()
+        )
 
         for field in field_names:
             if field in self._excluded_fields:
@@ -114,13 +122,19 @@ class DynamicFieldListSerializerMixin:
         return result
 
     def update_excluded_fields(self, fields_exclude=None, fields_only=None):
-        fields_exclude = set(fields_exclude or ())
-        fields_only = set(fields_only or ())
+        fields_exclude = set(
+            fields_exclude or ()
+        )
+        fields_only = set(
+            fields_only or ()
+        )
 
         self._excluded_fields.update(fields_exclude)
 
         if fields_only:
-            serializer_fields = set(super().get_fields())
+            serializer_fields = set(
+                super().get_fields()
+            )
 
             self._excluded_fields.update(
                 serializer_fields - fields_only

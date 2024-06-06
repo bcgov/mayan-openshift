@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError as DjangoValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework.exceptions import ValidationError
 
@@ -13,57 +13,55 @@ from ..models.workflow_state_escalation_models import WorkflowStateEscalation
 
 class WorkflowTemplateStateEscalationSerializer(serializers.HyperlinkedModelSerializer):
     url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='URL'), view_kwargs=(
             {
                 'lookup_field': 'state__workflow_id',
-                'lookup_url_kwarg': 'workflow_template_id',
+                'lookup_url_kwarg': 'workflow_template_id'
             },
             {
                 'lookup_field': 'state_id',
-                'lookup_url_kwarg': 'workflow_template_state_id',
+                'lookup_url_kwarg': 'workflow_template_state_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'workflow_template_state_escalation_id',
+                'lookup_url_kwarg': 'workflow_template_state_escalation_id'
             }
-        ),
-        view_name='rest_api:workflow-template-state-escalation-detail'
+        ), view_name='rest_api:workflow-template-state-escalation-detail'
     )
     workflow_template_state_id = serializers.IntegerField(
-        read_only=True, source='state_id'
+        label=_(message='Workflow template state ID'), read_only=True,
+        source='state_id'
     )
     workflow_template_state_url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='Workflow template state URL'), view_kwargs=(
             {
                 'lookup_field': 'state__workflow_id',
-                'lookup_url_kwarg': 'workflow_template_id',
+                'lookup_url_kwarg': 'workflow_template_id'
             },
             {
                 'lookup_field': 'state_id',
-                'lookup_url_kwarg': 'workflow_template_state_id',
+                'lookup_url_kwarg': 'workflow_template_state_id'
             }
-        ),
-        view_name='rest_api:workflow-template-state-detail'
+        ), view_name='rest_api:workflow-template-state-detail'
     )
     workflow_template_transition_id = FilteredPrimaryKeyRelatedField(
         help_text=_(
-            'Primary key of the workflow template transition to be added.'
-        ), label=_('Workflow template transition ID'),
+            message='Primary key of the workflow template transition to be added.'
+        ), label=_(message='Workflow template transition ID'),
         source='transition_id',
         source_queryset_method='get_workflow_template_transition_queryset'
     )
     workflow_template_transition_url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='Workflow template transition URL'), view_kwargs=(
             {
                 'lookup_field': 'transition__workflow_id',
-                'lookup_url_kwarg': 'workflow_template_id',
+                'lookup_url_kwarg': 'workflow_template_id'
             },
             {
                 'lookup_field': 'transition_id',
-                'lookup_url_kwarg': 'workflow_template_transition_id',
+                'lookup_url_kwarg': 'workflow_template_transition_id'
             }
-        ),
-        view_name='rest_api:workflow-template-transition-detail'
+        ), view_name='rest_api:workflow-template-transition-detail'
     )
 
     class Meta:
@@ -90,7 +88,9 @@ class WorkflowTemplateStateEscalationSerializer(serializers.HyperlinkedModelSeri
         )
 
     def get_workflow_template_transition_queryset(self):
-        return self.context['workflow_template'].transitions.all()
+        return self.context['workflow_template'].transitions.filter(
+            origin_state=self.context['workflow_template_state']
+        )
 
     def update(self, instance, validated_data):
         if 'transition_id' in validated_data:
@@ -114,6 +114,6 @@ class WorkflowTemplateStateEscalationSerializer(serializers.HyperlinkedModelSeri
         try:
             instance.full_clean()
         except DjangoValidationError as exception:
-            raise ValidationError(exception)
+            raise ValidationError(detail=exception)
 
         return attrs

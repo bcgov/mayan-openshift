@@ -1,829 +1,261 @@
-from unittest import skip
+from unittest import mock, skip
 
-from django.db import models
-
-from mayan.apps.documents.permissions import permission_document_view
-from mayan.apps.documents.search import search_model_document
-from mayan.apps.documents.tests.mixins.document_mixins import DocumentTestMixin
+from mayan.apps.documents.tests.mixins.document_mixins import (
+    DocumentTestMixin
+)
+from mayan.apps.tags.tests.mixins import TagTestMixin
 from mayan.apps.testing.tests.base import BaseTestCase
 
-from ..classes import SearchModel
-from ..literals import QUERY_PARAMETER_ANY_FIELD
+from ..exceptions import DynamicSearchBackendException
+from ..search_query_types import QueryTypeExact
 
-from .mixins import SearchTestMixin
+from .mixins.backend_mixins import BackendSearchTestMixin
+from .mixins.backend_query_type_mixins import (
+    BackendFieldTypeQueryTypeTestCaseMixin
+)
+from .mixins.backend_search_field_mixins import (
+    BackendSearchFieldTestCaseMixin
+)
+from .mixins.base import SearchTestMixin, TestSearchObjectSimpleTestMixin
 
 
-class CommonBackendFunctionalityTestCaseMixin(SearchTestMixin):
-    def _create_test_instances(self):
-        self._test_object_grandparent = self.TestModelGrandParent.objects.create(
-            label='grandparent'
-        )
-        self._test_object_parent = self.TestModelParent.objects.create(
-            parent=self._test_object_grandparent,
-            label='parent'
-        )
-        self._test_object_grandchild = self.TestModelGrandChild.objects.create(
-            parent=self._test_object_parent,
-            label='grandchild'
-        )
-        self._test_object_grandchild_proxy = self.TestModelGrandChildProxy.objects.first()
+class DjangoSearchBackendSearchFieldTestCase(
+    BackendSearchFieldTestCaseMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.django.DjangoSearchBackend'
 
-        self._test_object_attribute = self.TestModelAttribute.objects.create(
-            label='attribute'
-        )
-        self._test_object_grandchild.attributes.add(self._test_object_attribute)
 
-    def _create_test_models(self):
-        self.TestModelAttribute = self._create_test_model(
-            fields={
-                'label': models.CharField(
-                    max_length=32
-                )
-            }, model_name='TestModelAttribute'
-        )
-        self.TestModelGrandParent = self._create_test_model(
-            fields={
-                'label': models.CharField(
-                    max_length=32
-                )
-            }, model_name='TestModelGrandParent'
-        )
-        self.TestModelParent = self._create_test_model(
-            fields={
-                'parent': models.ForeignKey(
-                    on_delete=models.CASCADE, related_name='children',
-                    to='TestModelGrandParent',
-                ),
-                'label': models.CharField(
-                    max_length=32
-                )
-            }, model_name='TestModelParent'
-        )
-        self.TestModelGrandChild = self._create_test_model(
-            fields={
-                'parent': models.ForeignKey(
-                    on_delete=models.CASCADE, related_name='children',
-                    to='TestModelParent',
-                ),
-                'attributes': models.ManyToManyField(
-                    related_name='children', to='TestModelAttribute',
-                ),
-                'label': models.CharField(
-                    max_length=32
-                )
-            }, model_name='TestModelGrandChild'
-        )
-        self.TestModelGrandChildProxy = self._create_test_model(
-            base_class=self.TestModelGrandChild,
-            model_name='TestModelGrandChildProxy',
-            options={
-                'proxy': True
-            }
-        )
+class DjangoSearchBackendFieldTypeQueryTypeTestCase(
+    BackendFieldTypeQueryTypeTestCaseMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.django.DjangoSearchBackend'
 
-    def _setup_test_model_search(self):
-        self._test_search_grandparent = SearchModel(
-            app_label=self.TestModelGrandParent._meta.app_label,
-            model_name=self.TestModelGrandParent._meta.model_name
-        )
+    @skip(reason='Backend does not support the feature.')
+    def test_search_field_type_char_search_exact_accent(self):
+        """
+        This backend does not require indexing which is required
+        for this feature to work.
+        """
 
-        self._test_search_grandparent.add_model_field(field='label')
-        self._test_search_grandparent.add_model_field(
-            field='children__label'
-        )
-        self._test_search_grandparent.add_model_field(
-            field='children__children__label'
-        )
-        self._test_search_grandparent.add_model_field(
-            field='children__children__attributes__label'
-        )
+    @skip(reason='Backend does not support the feature.')
+    def test_search_field_type_char_search_fuzzy(self):
+        """
+        This query type is emulated and does not return the same results
+        as backends support this natively.
+        """
 
-        self._test_search_grandchild = SearchModel(
-            app_label=self.TestModelGrandChild._meta.app_label,
-            model_name=self.TestModelGrandChild._meta.model_name
-        )
-        self._test_search_grandchild.add_model_field(
-            field='label'
-        )
-        self._test_search_grandchild.add_model_field(
-            field='attributes__label'
-        )
-        self._test_search_grandchild.add_proxy_model(
-            app_label=self.TestModelAttribute._meta.app_label,
-            model_name='TestModelGrandChildProxy'
-        )
+    @skip(reason='Backend does not support the feature.')
+    def test_search_field_type_text_search_fuzzy(self):
+        """
+        This query type is emulated and does not return the same results
+        as backends support this natively.
+        """
 
-        self._test_search_attribute = SearchModel(
-            app_label=self.TestModelAttribute._meta.app_label,
-            model_name=self.TestModelAttribute._meta.model_name
+
+@skip(reason='Skip until a Mock ElasticSearch server class is added.')
+class ElasticSearchBackendIndexingTestCase(
+    BackendSearchTestMixin, TestSearchObjectSimpleTestMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.elasticsearch.ElasticSearchBackend'
+
+    def test_search_without_indexes(self):
+        self._test_search_backend.tear_down()
+
+        with self.assertRaises(expected_exception=DynamicSearchBackendException):
+            self._do_backend_search(
+                field_name='char',
+                query_type=QueryTypeExact,
+                value=self._test_object.char,
+                _skip_refresh=True,
+            )
+
+
+@skip(reason='Skip until a Mock ElasticSearch server class is added.')
+class ElasticSearchBackendSearchFieldTestCase(
+    BackendSearchFieldTestCaseMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.elasticsearch.ElasticSearchBackend'
+
+
+@skip(reason='Skip until a Mock ElasticSearch server class is added.')
+class ElasticSearchBackendFieldTypeQueryTypeTestCase(
+    BackendFieldTypeQueryTypeTestCaseMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.elasticsearch.ElasticSearchBackend'
+
+
+class WhooshSearchBackendSearchFieldTestCase(
+    BackendSearchFieldTestCaseMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.whoosh.WhooshSearchBackend'
+
+
+class WhooshSearchBackendFieldTypeQueryTypeTestCase(
+    BackendFieldTypeQueryTypeTestCaseMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.whoosh.WhooshSearchBackend'
+
+
+class WhooshSearchBackendSpecificTestCase(
+    BackendSearchTestMixin, TestSearchObjectSimpleTestMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.whoosh.WhooshSearchBackend'
+
+    def test_whoosh_datetime_search_raw_parsed_date_human_today(self):
+        generator = self._do_backend_search(
+            field_name='datetime',
+            is_raw_value=True,
+            query_type=QueryTypeExact,
+            value='today'
         )
-        self._test_search_grandchild.add_model_field(
-            field='label'
+        id_list = tuple(generator)
+
+        self.assertEqual(
+            len(id_list), 1
         )
-        self._test_search_attribute.add_model_field(
-            field='children__label'
+        self.assertTrue(self._test_object.id in id_list)
+
+    def test_whoosh_datetime_search_raw_parsed_date_human_range(self):
+        generator = self._do_backend_search(
+            field_name='datetime',
+            is_raw_value=True,
+            query_type=QueryTypeExact,
+            value='[\'last tuesday\' to \'next friday\']'
         )
+        id_list = tuple(generator)
+
+        self.assertEqual(
+            len(id_list), 1
+        )
+        self.assertTrue(self._test_object.id in id_list)
+
+    def test_whoosh_datetime_search_raw_parsed_date_numeric_range(self):
+        generator = self._do_backend_search(
+            field_name='datetime',
+            is_raw_value=True,
+            query_type=QueryTypeExact,
+            value='[\'{}\' to \'{}\']'.format(
+                self._test_object.datetime.year - 1,
+                self._test_object.datetime.year + 1
+            )
+        )
+        id_list = tuple(generator)
+
+        self.assertEqual(
+            len(id_list), 1
+        )
+        self.assertTrue(self._test_object.id in id_list)
+
+    def test_whoosh_integer_search_raw_parsed_numeric_range(self):
+        generator = self._do_backend_search(
+            field_name='integer',
+            is_raw_value=True,
+            query_type=QueryTypeExact,
+            value='[\'{}\' to \'{}\']'.format(
+                self._test_object.integer - 1,
+                self._test_object.integer + 1
+            )
+        )
+        id_list = tuple(generator)
+
+        self.assertEqual(
+            len(id_list), 1
+        )
+        self.assertTrue(self._test_object.id in id_list)
+
+
+class SearchUpdatePropagationTestCase(
+    DocumentTestMixin, SearchTestMixin, TagTestMixin, BaseTestCase
+):
+    _test_search_backend_path = 'mayan.apps.dynamic_search.tests.backends.DummySearchBackend'
+    auto_upload_test_document = False
 
     def setUp(self):
         super().setUp()
-        self._create_test_instances()
 
-    # Direct object.
+        self._create_test_document_stub()
+        self._create_test_document_stub()
+        self._create_test_document_stub()
+        self._create_test_tag()
 
-    def test_object_field_search(self):
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'label': self._test_object_grandparent.label
-            }, user=self._test_case_user
+    @mock.patch(target='mayan.apps.dynamic_search.tests.backends.DummySearchBackend.index_instance')
+    def test_m2m_add_propagation(self, mocked_index_instance):
+        self._test_tag._attach_to(
+            document=self._test_document_list[0]
         )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-    def test_object_field_update_search(self):
-        old_label = self._test_object_grandparent.label
-        self._test_object_grandparent.label = 'edited'
-        self._test_object_grandparent.save()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'label': self._test_object_grandparent.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'label': '"{}"'.format(old_label)
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    def test_object_field_delete_search(self):
-        self._test_object_grandparent.delete()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'label': self._test_object_grandparent.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    # Direct object many to many.
-
-    def test_object_many_to_many_search(self):
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild in queryset)
-
-    def test_object_many_to_many_delete_search(self):
-        self._test_object_attribute.delete()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild not in queryset)
-
-    def test_object_many_to_many_updated_search(self):
-        old_label_value = self._test_object_attribute.label
-        self._test_object_attribute.label = 'edited'
-        self._test_object_attribute.save()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'attributes__label': old_label_value
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild not in queryset)
-
-    def test_object_many_to_many_remove_search(self):
-        self._test_object_grandchild.attributes.remove(self._test_object_attribute)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild not in queryset)
-
-    def test_object_reverse_many_to_many_search(self):
-        queryset = self.search_backend.search(
-            search_model=self._test_search_attribute,
-            query={
-                'children__label': self._test_object_grandchild.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_attribute in queryset)
-
-    def test_object_reverse_many_to_many_parent_delete_search(self):
-        self._test_object_grandchild.delete()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_attribute,
-            query={
-                'children__label': self._test_object_grandchild.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_attribute not in queryset)
-
-    # Related object
-
-    def test_object_related_search(self):
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__label': self._test_object_parent.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-    def test_object_related_delete_search(self):
-        self._test_object_parent.delete()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__label': self._test_object_parent.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    def test_object_related_update_search(self):
-        old_label_value = self._test_object_parent.label
-        self._test_object_parent.label = 'edited'
-        self._test_object_parent.save()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__label': self._test_object_parent.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__label': old_label_value
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    def test_object_related_multiple_level_search(self):
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__label': self._test_object_grandchild.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-    def test_object_related_multiple_level_delete_search(self):
-        self._test_object_grandchild.delete()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__label': self._test_object_grandchild.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    def test_object_related_multiple_level_update_search(self):
-        old_label_value = self._test_object_grandchild.label
-        self._test_object_grandchild.label = 'edited'
-        self._test_object_grandchild.save()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__label': self._test_object_grandchild.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__label': old_label_value
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    # Related with many to many
-
-    def test_object_related_multiple_level_many_to_many_search(self):
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-    def test_object_related_multiple_level_many_to_many_delete_search(self):
-        self._test_object_attribute.delete()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    def test_object_related_multiple_level_many_to_many_updated_search(self):
-        old_label_value = self._test_object_attribute.label
-        self._test_object_attribute.label = 'edited'
-        self._test_object_attribute.save()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__attributes__label': old_label_value
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    def test_object_related_multiple_level_many_to_many_remove_search(self):
-        self._test_object_grandchild.attributes.remove(self._test_object_attribute)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandparent,
-            query={
-                'children__children__attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandparent not in queryset)
-
-    # Proxies
-
-    def test_proxy_object_field_update_search(self):
-        old_label = self._test_object_grandchild_proxy.label
-        self._test_object_grandchild_proxy.label = 'edited'
-        self._test_object_grandchild_proxy.save()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'label': self._test_object_grandchild_proxy.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'label': '"{}"'.format(old_label)
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild not in queryset)
-
-    def test_proxy_object_delete_search(self):
-        self._test_object_grandchild_proxy.delete()
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'label': self._test_object_grandchild.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild not in queryset)
-
-    def test_proxy_object_many_to_many_remove_search(self):
-        self._test_object_grandchild_proxy.attributes.remove(
-            self._test_object_attribute
+        self.assertEqual(mocked_index_instance.call_count, 2)
+        self.assertEqual(
+            mocked_index_instance.call_args_list[0].kwargs['instance'],
+            self._test_document_list[0]
         )
-
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'attributes__label': self._test_object_attribute.label
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild not in queryset)
-
-    def test_undefined_search_field(self):
-        queryset = self.search_backend.search(
-            search_model=self._test_search_grandchild,
-            query={
-                'invalid': 'invalid'
-            }, user=self._test_case_user
-        )
-
-        self.assertTrue(self._test_object_grandchild not in queryset)
-
-
-class DjangoSearchBackendDocumentSearchTestCase(
-    CommonBackendFunctionalityTestCaseMixin, DocumentTestMixin,
-    BaseTestCase
-):
-    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.django.DjangoSearchBackend'
-    auto_upload_test_document = False
-
-    def test_meta_only(self):
-        self._upload_test_document(label='first_doc')
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'OR first'},
-            user=self._test_case_user
-        )
-
-        self.assertEqual(queryset.count(), 1)
-
-    def test_simple_or_search(self):
-        self._upload_test_document(label='first_doc')
-        self.grant_access(
-            obj=self._test_documents[0], permission=permission_document_view
-        )
-        self._upload_test_document(label='second_doc')
-        self.grant_access(
-            obj=self._test_documents[1], permission=permission_document_view
-        )
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'first OR second'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 2)
-        self.assertTrue(self._test_documents[0] in queryset)
-        self.assertTrue(self._test_documents[1] in queryset)
-
-    def test_advanced_or_search(self):
-        self._upload_test_document(label='first_doc')
-        self.grant_access(
-            obj=self._test_documents[0], permission=permission_document_view
-        )
-
-        self._upload_test_document(label='second_doc')
-        self.grant_access(
-            obj=self._test_documents[1], permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': 'first OR second'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 2)
-        self.assertTrue(self._test_documents[0] in queryset)
-        self.assertTrue(self._test_documents[1] in queryset)
-
-    def test_simple_and_search(self):
-        self._upload_test_document(label='second_doc')
-
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'non_valid second'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 0)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'second non_valid'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 0)
-
-    def test_simple_negated_search(self):
-        self._upload_test_document(label='second_doc')
-
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: '-non_valid second'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 1)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': '-second'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 0)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': '-second -Mayan'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 0)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': '-second OR -Mayan'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 1)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': '-non_valid -second'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 0)
-
-    def test_search_with_dashed_content(self):
-        self._upload_test_document(label='second-document')
-
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': '-second-document'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 0)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': '-"second-document"'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 0)
-
-
-@skip('Skip until a Mock ElasticSearch server class is added.')
-class ElasticSearchBackendDocumentSearchTestCase(
-    CommonBackendFunctionalityTestCaseMixin, DocumentTestMixin,
-    BaseTestCase
-):
-    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.elasticsearch.ElasticSearchBackend'
-    auto_upload_test_document = False
-
-    def test_simple_search_model_document(self):
-        self._create_test_document_stub(label='first_doc')
-
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'first*'}, user=self._test_case_user
-        )
-
-        self.assertEqual(queryset.count(), 1)
-        self.assertTrue(self._test_document in queryset)
-
-    def test_hyphenated_value(self):
-        self._create_test_document_stub(label='P01208-06')
-        self._create_test_document_stub(label='P00025-06')
-        self._create_test_document_stub(label='P00934-06')
-
-        self.grant_access(
-            obj=self._test_documents[0], permission=permission_document_view
-        )
-        self.grant_access(
-            obj=self._test_documents[1], permission=permission_document_view
-        )
-        self.grant_access(
-            obj=self._test_documents[2], permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'q': 'P01208*'}, user=self._test_case_user
-        )
-
-        self.assertEqual(queryset.count(), 1)
-        self.assertTrue(self._test_documents[0] in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'q': 'P01208'}, user=self._test_case_user
-        )
-
-        self.assertEqual(queryset.count(), 0)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'q': '*06'}, user=self._test_case_user
-        )
-
-        self.assertEqual(queryset.count(), 3)
-        self.assertTrue(self._test_documents[0] in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'q': 'P00025-06'}, user=self._test_case_user
-        )
-
-        self.assertEqual(queryset.count(), 1)
-        self.assertTrue(self._test_documents[1] in queryset)
-
-    def test_hyphenated_value_mixed(self):
-        self._create_test_document_stub(label='first-doc word')
-        self._create_test_document_stub(label='second-doc word')
-        self._create_test_document_stub(label='third-doc word')
-
-        self.grant_access(
-            obj=self._test_documents[0], permission=permission_document_view
-        )
-        self.grant_access(
-            obj=self._test_documents[1], permission=permission_document_view
-        )
-        self.grant_access(
-            obj=self._test_documents[2], permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'first*'},
-            user=self._test_case_user
+        self.assertEqual(
+            mocked_index_instance.call_args_list[1].kwargs['instance'],
+            self._test_tag_list[0]
         )
 
-        self.assertEqual(queryset.count(), 1)
-        self.assertTrue(self._test_documents[0] in queryset)
+        mocked_index_instance.reset_mock()
 
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'q': 'first-doc'}, user=self._test_case_user
+        self._test_tag._attach_to(
+            document=self._test_document_list[1]
         )
-
-        self.assertEqual(queryset.count(), 1)
-        self.assertTrue(self._test_documents[0] in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'q': 'second-doc'}, user=self._test_case_user
+        self.assertEqual(mocked_index_instance.call_count, 2)
+        self.assertEqual(
+            mocked_index_instance.call_args_list[0].kwargs['instance'],
+            self._test_document_list[1]
         )
-
-        self.assertEqual(queryset.count(), 1)
-        self.assertTrue(self._test_documents[1] in queryset)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'q': 'word'}, user=self._test_case_user
+        self.assertEqual(
+            mocked_index_instance.call_args_list[1].kwargs['instance'],
+            self._test_tag_list[0]
         )
-
-        self.assertEqual(queryset.count(), 3)
-        self.assertTrue(self._test_documents[0] in queryset)
-        self.assertTrue(self._test_documents[1] in queryset)
-
 
-class WhooshSearchBackendDocumentSearchTestCase(
-    CommonBackendFunctionalityTestCaseMixin, DocumentTestMixin,
-    BaseTestCase
-):
-    _test_search_backend_path = 'mayan.apps.dynamic_search.backends.whoosh.WhooshSearchBackend'
-    auto_upload_test_document = False
+        mocked_index_instance.reset_mock()
 
-    def test_simple_search(self):
-        self._upload_test_document(label='first_doc')
-
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
-        )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'first*'},
-            user=self._test_case_user
+        self._test_tag._attach_to(
+            document=self._test_document_list[2]
         )
-
-        self.assertEqual(queryset.count(), 1)
-        self.assertTrue(self._test_document in queryset)
-
-    def test_meta_only(self):
-        self._upload_test_document(label='first_doc')
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
+        self.assertEqual(mocked_index_instance.call_count, 2)
+        self.assertEqual(
+            mocked_index_instance.call_args_list[0].kwargs['instance'],
+            self._test_document_list[2]
         )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'OR first*'},
-            user=self._test_case_user
+        self.assertEqual(
+            mocked_index_instance.call_args_list[1].kwargs['instance'],
+            self._test_tag_list[0]
         )
 
-        self.assertEqual(queryset.count(), 1)
+        mocked_index_instance.reset_mock()
 
-    def test_simple_or_search(self):
-        self._upload_test_document(label='first_doc')
-        self.grant_access(
-            obj=self._test_documents[0], permission=permission_document_view
+        self._test_tag.label = 'edited'
+        self._test_tag.save()
+        self.assertEqual(mocked_index_instance.call_count, 4)
+        self.assertEqual(
+            mocked_index_instance.call_args_list[0].kwargs['instance'],
+            self._test_document_list[0]
         )
-        self._upload_test_document(label='second_doc')
-        self.grant_access(
-            obj=self._test_documents[1], permission=permission_document_view
+        self.assertEqual(
+            mocked_index_instance.call_args_list[1].kwargs['instance'],
+            self._test_document_list[1]
         )
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'first* OR second*'},
-            user=self._test_case_user
+        self.assertEqual(
+            mocked_index_instance.call_args_list[2].kwargs['instance'],
+            self._test_document_list[2]
         )
-        self.assertEqual(queryset.count(), 2)
-        self.assertTrue(self._test_documents[0] in queryset)
-        self.assertTrue(self._test_documents[1] in queryset)
-
-    def test_advanced_or_search(self):
-        self._upload_test_document(label='first_doc')
-        self.grant_access(
-            obj=self._test_documents[0], permission=permission_document_view
-        )
-
-        self._upload_test_document(label='second_doc')
-        self.grant_access(
-            obj=self._test_documents[1], permission=permission_document_view
+        self.assertEqual(
+            mocked_index_instance.call_args_list[3].kwargs['instance'],
+            self._test_tag_list[0]
         )
 
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={'label': 'first* OR second*'},
-            user=self._test_case_user
-        )
-        self.assertEqual(queryset.count(), 2)
-        self.assertTrue(self._test_documents[0] in queryset)
-        self.assertTrue(self._test_documents[1] in queryset)
-
-    def test_simple_and_search(self):
-        self._upload_test_document(label='second_doc')
+        mocked_index_instance.reset_mock()
 
-        self.grant_access(
-            obj=self._test_document, permission=permission_document_view
+        self._test_tag._remove_from(
+            document=self._test_document_list[0]
         )
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'non_valid AND second*'},
-            user=self._test_case_user
+        self.assertEqual(mocked_index_instance.call_count, 2)
+        self.assertEqual(
+            mocked_index_instance.call_args_list[0].kwargs['instance'],
+            self._test_document_list[0]
         )
-        self.assertEqual(queryset.count(), 0)
-
-        queryset = self.search_backend.search(
-            search_model=search_model_document,
-            query={QUERY_PARAMETER_ANY_FIELD: 'second* AND non_valid'},
-            user=self._test_case_user
+        self.assertEqual(
+            mocked_index_instance.call_args_list[1].kwargs['instance'],
+            self._test_tag_list[0]
         )
-        self.assertEqual(queryset.count(), 0)

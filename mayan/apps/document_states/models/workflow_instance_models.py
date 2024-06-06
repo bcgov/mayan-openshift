@@ -1,51 +1,49 @@
-import datetime
-import json
-import logging
-
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.acls.models import AccessControlList
 from mayan.apps.databases.model_mixins import ExtraDataModelMixin
-from mayan.apps.documents.models import Document
-from mayan.apps.events.classes import EventManagerSave
+from mayan.apps.documents.models.document_models import Document
 from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import EventManagerSave
 
 from ..events import (
     event_workflow_instance_created, event_workflow_instance_transitioned
 )
 from ..managers import ValidWorkflowInstanceManager
-from ..permissions import permission_workflow_instance_transition
 
-from .workflow_models import Workflow
-from .workflow_transition_models import (
-    WorkflowTransition, WorkflowTransitionField
+from .workflow_instance_model_mixins import (
+    WorkflowInstanceBusinessLogicMixin,
+    WorkflowInstanceLogEntryBusinessLogicMixin
 )
+from .workflow_models import Workflow
+from .workflow_transition_field_models import WorkflowTransitionField
 
 __all__ = ('WorkflowInstance', 'WorkflowInstanceLogEntry')
-logger = logging.getLogger(name=__name__)
 
 
-class WorkflowInstance(ExtraDataModelMixin, models.Model):
+class WorkflowInstance(
+    ExtraDataModelMixin, WorkflowInstanceBusinessLogicMixin, models.Model
+):
+    _ordering_fields = ('datetime',)
+
     workflow = models.ForeignKey(
         on_delete=models.CASCADE, related_name='instances', to=Workflow,
-        verbose_name=_('Workflow')
+        verbose_name=_(message='Workflow')
     )
     datetime = models.DateTimeField(
         auto_now_add=True, db_index=True, help_text=_(
             'Workflow instance creation date time.'
-        ), verbose_name=_('Datetime')
+        ), verbose_name=_(message='Datetime')
     )
     document = models.ForeignKey(
         on_delete=models.CASCADE, related_name='workflows', to=Document,
-        verbose_name=_('Document')
+        verbose_name=_(message='Document')
     )
     context = models.TextField(
-        blank=True, verbose_name=_('Context')
+        blank=True, verbose_name=_(message='Context')
     )
 
     objects = models.Manager()
@@ -54,61 +52,11 @@ class WorkflowInstance(ExtraDataModelMixin, models.Model):
     class Meta:
         ordering = ('workflow',)
         unique_together = ('document', 'workflow')
-        verbose_name = _('Workflow instance')
-        verbose_name_plural = _('Workflow instances')
+        verbose_name = _(message='Workflow instance')
+        verbose_name_plural = _(message='Workflow instances')
 
     def __str__(self):
         return str(self.workflow)
-
-    def check_escalation(self):
-        current_state = self.get_current_state()
-
-        for escalation in current_state.escalations.filter(enabled=True):
-            timedelta = datetime.timedelta(
-                **{
-                    escalation.unit: escalation.amount
-                }
-            )
-
-            if now() > self.get_last_log_entry_datetime() + timedelta:
-                condition_context = {'workflow_instance': self}
-
-                if escalation.evaluate_condition(context=condition_context):
-                    self.do_transition(
-                        transition=escalation.transition,
-                        comment=escalation.get_comment()
-                    )
-
-    def do_transition(
-        self, transition, comment=None, extra_data=None, user=None
-    ):
-        try:
-            if transition in self.get_transition_choices(_user=user).all():
-                if extra_data:
-                    context = self.loads()
-                    context.update(extra_data)
-                    self.dumps(context=context)
-
-                workflow_instance_log_entry = WorkflowInstanceLogEntry(
-                    comment=comment or '',
-                    extra_data=json.dumps(obj=extra_data or {}),
-                    transition=transition, user=user,
-                    workflow_instance=self
-                )
-                workflow_instance_log_entry._event_actor = user
-                workflow_instance_log_entry.save()
-                return workflow_instance_log_entry
-        except AttributeError:
-            # No initial state has been set for this workflow.
-            if settings.DEBUG:
-                raise
-
-    def dumps(self, context):
-        """
-        Serialize the context data.
-        """
-        self.context = json.dumps(obj=context)
-        self.save()
 
     def get_absolute_url(self):
         return reverse(
@@ -116,89 +64,6 @@ class WorkflowInstance(ExtraDataModelMixin, models.Model):
                 'workflow_instance_id': self.pk
             }
         )
-
-    def get_context(self):
-        # Keep the document instance in the workflow instance fresh when
-        # there are cascade state actions, where a second state action is
-        # triggered by the events generated by a first state action.
-        self.document.refresh_from_db()
-        context = {
-            'document': self.document, 'workflow': self.workflow,
-            'workflow_instance': self
-        }
-        context['workflow_instance_context'] = self.loads()
-        return context
-
-    def get_current_state(self):
-        """
-        Actual State - The current state of the workflow. If there are
-        multiple states available, for example: registered, approved,
-        archived; this field will tell at the current state where the
-        document is right now.
-        """
-        last_transition = self.get_last_transition()
-        if last_transition:
-            return last_transition.destination_state
-        else:
-            return self.workflow.get_initial_state()
-
-    def get_last_log_entry(self):
-        return self.log_entries.order_by('datetime').last()
-
-    def get_last_log_entry_datetime(self):
-        last_log_entry = self.get_last_log_entry()
-        if last_log_entry:
-            return last_log_entry.datetime
-        else:
-            return self.datetime
-
-    def get_last_transition(self):
-        """
-        Last Transition - The last transition used by the last user to put
-        the document in the actual state.
-        """
-        last_log_entry = self.get_last_log_entry()
-        if last_log_entry:
-            return last_log_entry.transition
-
-    def get_runtime_context(self):
-        """
-        Alias of self.load() to get just the runtime context of the instance
-        for ease of use in the condition template.
-        """
-        return self.loads()
-
-    def get_transition_choices(self, _user=None):
-        current_state = self.get_current_state()
-
-        if current_state:
-            queryset = current_state.origin_transitions.all()
-
-            if _user:
-                queryset = AccessControlList.objects.restrict_queryset(
-                    permission=permission_workflow_instance_transition,
-                    queryset=queryset, user=_user
-                )
-
-            # Remove the transitions with a false return value.
-            for entry in queryset:
-                if not entry.evaluate_condition(workflow_instance=self):
-                    queryset = queryset.exclude(id=entry.pk)
-
-            return queryset
-        else:
-            """
-            This happens when a workflow has no initial state and a document
-            whose document type has this workflow is created. We return an
-            empty transition queryset.
-            """
-            return WorkflowTransition.objects.none()
-
-    def loads(self):
-        """
-        Deserialize the context data.
-        """
-        return json.loads(s=self.context or '{}')
 
     @method_event(
         event_manager_class=EventManagerSave,
@@ -212,7 +77,9 @@ class WorkflowInstance(ExtraDataModelMixin, models.Model):
         super().save(*args, **kwargs)
 
 
-class WorkflowInstanceLogEntry(models.Model):
+class WorkflowInstanceLogEntry(
+    WorkflowInstanceLogEntryBusinessLogicMixin, models.Model
+):
     """
     Fields:
     * user - The user who last transitioned the document from a state to the
@@ -220,92 +87,81 @@ class WorkflowInstanceLogEntry(models.Model):
     * datetime - Date Time - The date and time when the last user transitioned
     the document state to the Actual state.
     """
+    _ordering_fields = ('comment', 'datetime')
+
     workflow_instance = models.ForeignKey(
         on_delete=models.CASCADE, related_name='log_entries',
-        to=WorkflowInstance, verbose_name=_('Workflow instance')
+        to=WorkflowInstance, verbose_name=_(message='Workflow instance')
     )
     datetime = models.DateTimeField(
-        auto_now_add=True, db_index=True, verbose_name=_('Datetime')
+        auto_now_add=True, db_index=True, verbose_name=_(message='Datetime')
     )
     transition = models.ForeignKey(
         on_delete=models.CASCADE, to='WorkflowTransition',
-        verbose_name=_('Transition')
+        verbose_name=_(message='Transition')
     )
     user = models.ForeignKey(
         blank=True, null=True, on_delete=models.CASCADE,
-        to=settings.AUTH_USER_MODEL, verbose_name=_('User')
+        to=settings.AUTH_USER_MODEL, verbose_name=_(message='User')
     )
-    comment = models.TextField(blank=True, verbose_name=_('Comment'))
-    extra_data = models.TextField(blank=True, verbose_name=_('Extra data'))
+    comment = models.TextField(
+        blank=True, verbose_name=_(message='Comment')
+    )
+    extra_data = models.TextField(
+        blank=True, verbose_name=_(message='Extra data')
+    )
 
     class Meta:
         ordering = ('datetime',)
-        verbose_name = _('Workflow instance log entry')
-        verbose_name_plural = _('Workflow instance log entries')
+        verbose_name = _(message='Workflow instance log entry')
+        verbose_name_plural = _(message='Workflow instance log entries')
 
     def __str__(self):
         return str(self.transition)
 
     def clean(self):
-        if self.transition not in self.workflow_instance.get_transition_choices(_user=self.user):
-            raise ValidationError(_('Not a valid transition choice.'))
+        queryset = self.workflow_instance.get_transition_choices(
+            user=self.user
+        )
+        if not queryset.filter(pk=self.transition.pk).exists():
+            raise ValidationError(
+                message=_(message='Not a valid transition choice.')
+            )
 
-    def get_extra_data(self):
-        result = {}
-        for key, value in self.loads().items():
+        extra_data = self.loads()
+
+        for field_name, value in extra_data.items():
             try:
-                field = self.transition.fields.get(name=key)
+                field = self.transition.fields.get(name=field_name)
             except WorkflowTransitionField.DoesNotExist:
                 """
-                There is a reference for a field that does not exist or
-                has been deleted.
+                Allow extra data keys that do not match to a know field
+                to allow backward compatibility. This may change in the
+                future.
+                Possible deprecation.
                 """
             else:
-                result[field.label] = value
+                field.validate_value(value=value, workflow_instance=self)
 
-        return result
-
-    def loads(self):
-        """
-        Deserialize the context data.
-        """
-        return json.loads(s=self.extra_data or '{}')
-
-    @method_event(
-        event_manager_class=EventManagerSave,
-        created={
-            'action_object': 'workflow_instance.document',
-            'event': event_workflow_instance_transitioned,
-            'target': 'workflow_instance'
-        }
-    )
     def save(self, *args, **kwargs):
         result = super().save(*args, **kwargs)
-        context = self.workflow_instance.get_context()
-        context.update(
-            {
-                'entry_log': self
-            }
+
+        actor = getattr(self, '_event_actor', None)
+        event_workflow_instance_transitioned.commit(
+            action_object=self.workflow_instance.document, actor=actor,
+            target=self.workflow_instance
         )
 
-        for action in self.transition.origin_state.exit_actions.filter(enabled=True):
-            context.update(
-                {
-                    'action': action,
-                }
-            )
-            action.execute(
-                context=context, workflow_instance=self.workflow_instance
-            )
+        context = self.workflow_instance.get_context()
+        context.update(
+            {'entry_log': self}
+        )
 
-        for action in self.transition.destination_state.entry_actions.filter(enabled=True):
-            context.update(
-                {
-                    'action': action,
-                }
-            )
-            action.execute(
-                context=context, workflow_instance=self.workflow_instance
-            )
+        self.transition.origin_state.do_active_unset(
+            workflow_instance=self.workflow_instance
+        )
+        self.transition.destination_state.do_active_set(
+            workflow_instance=self.workflow_instance
+        )
 
         return result

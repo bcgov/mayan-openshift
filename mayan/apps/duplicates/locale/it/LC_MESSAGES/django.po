@@ -4,26 +4,26 @@
 # 
 # Translators:
 # Translators:
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2022
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2022
-# Roberto Rosario, 2022
-# Daniele Bortoluzzi <daniele@elkos.it>, 2022
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
+# Roberto Rosario, 2024
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2024
+# Daniele Bortoluzzi <daniele@elkos.it>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:35+0000\n"
-"Last-Translator: Daniele Bortoluzzi <daniele@elkos.it>, 2022\n"
-"Language-Team: Italian (https://www.transifex.com/rosarior/teams/13584/it/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Daniele Bortoluzzi <daniele@elkos.it>, 2024\n"
+"Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:28 apps.py:54 links.py:14 queues.py:9
+#: apps.py:28 apps.py:54 links.py:14 queues.py:7
 msgid "Duplicates"
 msgstr "Duplicati"
 
@@ -31,7 +31,7 @@ msgstr "Duplicati"
 msgid "Duplicate backend"
 msgstr ""
 
-#: classes.py:90
+#: classes.py:89
 msgid "Null backend"
 msgstr "Backend nullo"
 
@@ -43,39 +43,43 @@ msgstr ""
 msgid "Exact document label"
 msgstr ""
 
-#: links.py:18 models.py:41 views.py:79
+#: links.py:18 models.py:39 views.py:79
 msgid "Duplicated documents"
 msgstr "Documenti duplicati"
 
-#: links.py:24 queues.py:23
+#: links.py:24 queues.py:24
 msgid "Duplicated document scan"
 msgstr "Documento scansionato duplicato"
 
-#: models.py:23 models.py:33
+#: models.py:19 models.py:31
 msgid "Stored duplicate backend"
 msgstr ""
 
-#: models.py:24
+#: models.py:20
 msgid "Stored duplicate backends"
 msgstr ""
 
-#: models.py:37
+#: models.py:35
 msgid "Document"
 msgstr "Documento"
 
-#: models.py:49
+#: models.py:47
 msgid "Duplicated backend entry"
 msgstr ""
 
-#: models.py:50
+#: models.py:48
 msgid "Duplicated backend entries"
 msgstr ""
 
-#: queues.py:14
+#: queues.py:10
+msgid "Duplicates slow"
+msgstr ""
+
+#: queues.py:15
 msgid "Clean empty duplicate lists"
 msgstr "Pulisci le liste dei duplicati vuote"
 
-#: queues.py:18
+#: queues.py:19
 msgid "Scan document duplicates"
 msgstr "Cerca duplicati del documento"
 

@@ -2,7 +2,7 @@ import base64
 import io
 
 from django import forms
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 
 class Base64ImageWidget(forms.widgets.Widget):
@@ -13,10 +13,12 @@ class Base64ImageWidget(forms.widgets.Widget):
             return None
         else:
             with io.BytesIO() as output:
-                value.save(output, format='PNG')
+                value.save(format='PNG', stream=output)
                 image = output.getvalue()
                 url = 'data:image/png;charset=utf-8;base64,{}'.format(
-                    force_text(base64.b64encode(image))
+                    force_str(
+                        s=base64.b64encode(s=image)
+                    )
                 )
 
                 return url

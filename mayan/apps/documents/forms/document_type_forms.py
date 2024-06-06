@@ -1,15 +1,10 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.views.forms import FilteredSelectionForm
 
 from ..classes import BaseDocumentFilenameGenerator
 from ..models import DocumentType, DocumentTypeFilename
-
-__all__ = (
-    'DocumentTypeFilenameGeneratorForm', 'DocumentTypeFilteredSelectForm',
-    'DocumentTypeFilenameForm_create'
-)
 
 
 class DocumentTypeFilenameGeneratorForm(forms.ModelForm):
@@ -44,7 +39,7 @@ class DocumentTypeFilenameForm_create(forms.ModelForm):
 class DocumentTypeFilteredSelectForm(FilteredSelectionForm):
     class Meta:
         field_name = 'document_type'
-        label = _('Document type')
+        label = _(message='Document type')
         queryset = DocumentType.objects.all()
         required = True
         widget_attributes = {'class': 'select2', 'size': 10}

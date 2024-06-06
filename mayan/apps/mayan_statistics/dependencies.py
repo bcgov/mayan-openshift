@@ -4,11 +4,11 @@ from mayan.apps.dependencies.classes import (
 
 JavaScriptDependency(
     module=__name__, name='chart.js', static_folder='statistics',
-    version_string='=2.8.0'
+    version_string='=3.9.1'
 )
 
 PythonDependency(
-    copyright_text='''
+    legal_text='''
         Copyright (c) 2010, Matt Croydon, Mikhail Korobov
         All rights reserved.
 
@@ -33,5 +33,6 @@ PythonDependency(
         ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django-qsstats-magic', version_string='==1.1.0'
+    ''', module=__name__, name='django-qsstats-magic',
+    version_string='==1.1.0'
 )

@@ -2,10 +2,12 @@ from distutils import util
 from functools import reduce
 import itertools
 import logging
+import shlex
 import types
 
 from django.core.exceptions import FieldDoesNotExist
 from django.db.models.constants import LOOKUP_SEP
+from django.utils.text import slugify
 
 from .compatibility import Iterable
 from .exceptions import ResolverError, ResolverPipelineError
@@ -100,7 +102,7 @@ class ResolverList(Resolver):
         for item in self.obj:
             result.append(
                 self.klass.resolve(
-                    attribute=self.attribute, obj=item, kwargs=self.kwargs,
+                    attribute=self.attribute, kwargs=self.kwargs, obj=item,
                     resolver_extra_kwargs=self.resolver_extra_kwargs
                 )
             )
@@ -115,7 +117,9 @@ class ResolverPipelineObjectAttribute:
     )
 
     @classmethod
-    def resolve(cls, attribute, obj, resolver_extra_kwargs=None, kwargs=None):
+    def resolve(
+        cls, attribute, obj, resolver_extra_kwargs=None, kwargs=None
+    ):
         kwargs = kwargs or {}
         resolver_extra_kwargs = resolver_extra_kwargs or {}
 
@@ -129,8 +133,9 @@ class ResolverPipelineObjectAttribute:
             for resolver in cls.resolver_list:
                 try:
                     result = resolver(
-                        attribute=attribute, obj=result, kwargs=kwargs,
-                        klass=cls, resolver_extra_kwargs=resolver_extra_kwargs
+                        attribute=attribute, klass=cls, kwargs=kwargs,
+                        obj=result,
+                        resolver_extra_kwargs=resolver_extra_kwargs
                     ).resolve()
                 except ResolverError:
                     """Expected, try the next resolver in the list."""
@@ -149,8 +154,12 @@ class ResolverRelatedManager(Resolver):
     exceptions = (AttributeError, FieldDoesNotExist)
 
     def _resolve(self):
-        model = self.resolver_extra_kwargs.get('model', {})
-        exclude = self.resolver_extra_kwargs.get('exclude', {})
+        model = self.resolver_extra_kwargs.get(
+            'model', {}
+        )
+        exclude = self.resolver_extra_kwargs.get(
+            'exclude', {}
+        )
 
         field = self.obj._meta.get_field(field_name=self.attribute)
 
@@ -196,10 +205,12 @@ class ResolverPipelineModelAttribute(ResolverPipelineObjectAttribute):
     )
 
     @classmethod
-    def resolve(cls, attribute, obj, resolver_extra_kwargs=None, kwargs=None):
+    def resolve(
+        cls, attribute, obj, kwargs=None, resolver_extra_kwargs=None
+    ):
         attribute = attribute.replace(LOOKUP_SEP, '.')
         return super().resolve(
-            attribute=attribute, obj=obj, kwargs=kwargs,
+            attribute=attribute, kwargs=kwargs, obj=obj,
             resolver_extra_kwargs=resolver_extra_kwargs
         )
 
@@ -210,6 +221,40 @@ def any_to_bool(value):
             util.strtobool(val=value)
         )
     return value
+
+
+def comma_splitter(string):
+    splitter = shlex.shlex(string, posix=True)
+    splitter.whitespace = ','
+    splitter.whitespace_split = True
+    splitter.commenters = ''
+    return [
+        str(e) for e in splitter
+    ]
+
+
+def convert_to_internal_name(value):
+    slug = slugify(value=value)
+    slug = slug.replace('-', '_')
+    return slug
+
+
+def deduplicate_dictionary_values(dictionary):
+    result = {}
+
+    for key, value in dictionary.items():
+        value_test = value
+
+        count = 1
+        while True:
+            if value_test in result.values():
+                value_test = '{}_{}'.format(value, count)
+                count += 1
+            else:
+                result[key] = value_test
+                break
+
+    return result
 
 
 def flatten_list(value):
@@ -226,6 +271,21 @@ def flatten_list(value):
                     yield ''
 
 
+def flatten_map(dictionary, result, prefix=None, separator='_'):
+    if prefix:
+        prefix_base = '{}{}'.format(prefix, separator)
+    else:
+        prefix_base = ''
+
+    for key, value in dictionary.items():
+        prefix_string = '{}{}'.format(prefix_base, key)
+
+        if isinstance(value, dict):
+            flatten_map(dictionary=value, prefix=prefix_string, result=result)
+        else:
+            result[prefix_string] = value
+
+
 def get_class_full_name(klass):
     return '{klass.__module__}.{klass.__qualname__}'.format(klass=klass)
 
@@ -239,7 +299,7 @@ def get_related_field(model, related_field_name):
         local_field_name = related_field_name
         remaining_field_path = None
 
-    related_field = model._meta.get_field(local_field_name)
+    related_field = model._meta.get_field(field_name=local_field_name)
 
     if remaining_field_path:
         return get_related_field(
@@ -255,7 +315,9 @@ def group_iterator(iterable, group_size=None):
 
     if group_size > 1:
         while True:
-            chunk = tuple(itertools.islice(iterable, group_size))
+            chunk = tuple(
+                itertools.islice(iterable, group_size)
+            )
             if not chunk:
                 break
             yield chunk
@@ -269,8 +331,12 @@ def parse_range(range_string):
 
         if '-' in part:
             part_range = part.split('-')
-            start = int(part_range[0].strip())
-            stop = int(part_range[1].strip())
+            start = int(
+                part_range[0].strip()
+            )
+            stop = int(
+                part_range[1].strip()
+            )
 
             if stop > start:
                 step = 1
@@ -307,7 +373,9 @@ def resolve_attribute(attribute, obj, kwargs=None):
             try:
                 # If there are dots in the attribute name, traverse them
                 # to the final attribute
-                result = reduce(getattr, attribute.split('.'), obj)
+                result = reduce(
+                    getattr, attribute.split('.'), obj
+                )
                 try:
                     # Try it as a method
                     return result(**kwargs)
@@ -319,7 +387,7 @@ def resolve_attribute(attribute, obj, kwargs=None):
                 if LOOKUP_SEP in attribute:
                     attribute_replaced = attribute.replace(LOOKUP_SEP, '.')
                     return resolve_attribute(
-                        obj=obj, attribute=attribute_replaced, kwargs=kwargs
+                        attribute=attribute_replaced, kwargs=kwargs, obj=obj
                     )
                 else:
                     raise
@@ -333,7 +401,9 @@ def return_attrib(obj, attrib, arguments=None):
     ) or isinstance(obj, dict):
         return obj[attrib]
     else:
-        result = reduce(getattr, attrib.split('.'), obj)
+        result = reduce(
+            getattr, attrib.split('.'), obj
+        )
         if isinstance(result, types.MethodType):
             if arguments:
                 return result(**arguments)
@@ -349,4 +419,6 @@ def return_related(instance, related_field):
     meant for related models. Support multiple levels of relationship
     using double underscore.
     """
-    return reduce(getattr, related_field.split(LOOKUP_SEP), instance)
+    return reduce(
+        getattr, related_field.split(LOOKUP_SEP), instance
+    )

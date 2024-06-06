@@ -1,20 +1,19 @@
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ungettext
+from django.utils.translation import gettext_lazy as _, ngettext
 
 from mayan.apps.views.generics import (
     ConfirmView, MultipleObjectConfirmActionView, SingleObjectDetailView,
     SingleObjectListView
 )
-from mayan.apps.views.mixins import (
+from mayan.apps.views.view_mixins import (
     ContentTypeViewMixin, ExternalObjectViewMixin
 )
 
+from .forms import CacheDetailForm, CachePartitionDetailForm
 from .icons import (
     icon_cache_detail, icon_cache_list, icon_cache_partition_detail,
     icon_cache_partition_purge, icon_cache_purge
 )
-from .forms import CacheDetailForm, CachePartitionDetailForm
 from .models import Cache, CachePartition
 from .permissions import (
     permission_cache_partition_purge, permission_cache_purge,
@@ -26,19 +25,6 @@ from .tasks import task_cache_partition_purge, task_cache_purge
 
 class CacheDetailView(SingleObjectDetailView):
     form_class = CacheDetailForm
-    form_extra_kwargs = {
-        'extra_fields': [
-            {
-                'field': 'label'
-            },
-            {
-                'field': 'get_maximum_size_display'
-            },
-            {
-                'field': 'get_total_size_display'
-            }
-        ]
-    }
     model = Cache
     object_permission = permission_cache_view
     pk_url_kwarg = 'cache_id'
@@ -47,7 +33,7 @@ class CacheDetailView(SingleObjectDetailView):
     def get_extra_context(self):
         return {
             'object': self.object,
-            'title': _('Details of cache: %s') % self.object,
+            'title': _(message='Details of cache: %s') % self.object
         }
 
 
@@ -59,7 +45,7 @@ class CacheListView(SingleObjectListView):
     def get_extra_context(self):
         return {
             'hide_object': True,
-            'title': _('File caches list')
+            'title': _(message='File caches list')
         }
 
 
@@ -80,7 +66,7 @@ class CachePartitionDetailView(SingleObjectDetailView):
     def get_extra_context(self):
         return {
             'object': self.object,
-            'title': _('Details cache: %s') % self.object,
+            'title': _(message='Details of cache partition: %s') % self.object
         }
 
 
@@ -97,7 +83,9 @@ class CachePartitionPurgeView(
     def get_extra_context(self):
         return {
             'object': self.external_object,
-            'title': _('Purge cache partitions of "%s"?') % self.external_object
+            'title': _(
+                message='Purge cache partitions of "%s"?'
+            ) % self.external_object
         }
 
     def view_action(self, form=None):
@@ -113,7 +101,7 @@ class CachePartitionPurgeView(
 
         messages.success(
             message=_(
-                'Object cache partitions submitted for purging.'
+                message='Object cache partitions submitted for purging.'
             ), request=self.request
         )
 
@@ -122,15 +110,19 @@ class CachePurgeView(MultipleObjectConfirmActionView):
     model = Cache
     object_permission = permission_cache_purge
     pk_url_kwarg = 'cache_id'
-    success_message_singular = _('%(count)d cache submitted for purging.')
-    success_message_plural = _('%(count)d caches submitted for purging.')
+    success_message_plural = _(
+        message='%(count)d caches submitted for purging.'
+    )
+    success_message_singular = _(
+        message='%(count)d cache submitted for purging.'
+    )
     view_icon = icon_cache_purge
 
     def get_extra_context(self):
         queryset = self.object_list
 
         result = {
-            'title': ungettext(
+            'title': ngettext(
                 singular='Submit the selected cache for purging?',
                 plural='Submit the selected caches for purging?',
                 number=queryset.count()

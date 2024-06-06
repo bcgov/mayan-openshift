@@ -4,16 +4,17 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.urls import reverse
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.django_gpg.exceptions import NeedPassphrase, PassphraseError
 from mayan.apps.documents.models.document_file_models import DocumentFile
+from mayan.apps.storage.views.download_views import ViewSingleObjectDownload
 from mayan.apps.views.generics import (
     ConfirmView, FormView, SingleObjectCreateView, SingleObjectDeleteView,
-    SingleObjectDetailView, SingleObjectDownloadView, SingleObjectListView
+    SingleObjectDetailView, SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from .forms import (
     DocumentFileSignatureCreateForm, DocumentFileSignatureDetailForm
@@ -42,11 +43,10 @@ from .permissions import (
     permission_document_file_signature_download,
     permission_document_file_signature_upload,
     permission_document_file_signature_verify,
-    permission_document_file_signature_view,
+    permission_document_file_signature_view
 )
 from .tasks import (
-    task_refresh_signature_information,
-    task_verify_missing_embedded_signature
+    task_refresh_signature_information, task_verify_missing_embedded_signature
 )
 
 logger = logging.getLogger(name=__name__)
@@ -67,38 +67,38 @@ class DocumentFileDetachedSignatureCreateView(
 
         try:
             DetachedSignature.objects.sign_document_file(
-                document_file=self.external_object,
-                key=key, passphrase=passphrase, user=self.request.user
+                document_file=self.external_object, key=key,
+                passphrase=passphrase, user=self.request.user
             )
         except NeedPassphrase:
             messages.error(
-                message=_('Passphrase is needed to unlock this key.'),
+                message=_(message='Passphrase is needed to unlock this key.'),
                 request=self.request
             )
             return HttpResponseRedirect(
                 redirect_to=reverse(
-                    viewname='signatures:document_file_signature_detached_create',
                     kwargs={
                         'document_file_id': self.external_object.pk
-                    }
+                    },
+                    viewname='signatures:document_file_signature_detached_create'
                 )
             )
         except PassphraseError:
             messages.error(
-                message=_('Passphrase is incorrect.'),
+                message=_(message='Passphrase is incorrect.'),
                 request=self.request
             )
             return HttpResponseRedirect(
                 redirect_to=reverse(
-                    viewname='signatures:document_file_signature_detached_create',
                     kwargs={
                         'document_file_id': self.external_object.pk
-                    }
+                    },
+                    viewname='signatures:document_file_signature_detached_create'
                 )
             )
         else:
             messages.success(
-                message=_('Document file signed successfully.'),
+                message=_(message='Document file signed successfully.'),
                 request=self.request
             )
 
@@ -108,8 +108,8 @@ class DocumentFileDetachedSignatureCreateView(
         return {
             'object': self.external_object,
             'title': _(
-                'Sign document file "%s" with a detached signature'
-            ) % self.external_object,
+                message='Sign document file "%s" with a detached signature'
+            ) % self.external_object
         }
 
     def get_form_extra_kwargs(self):
@@ -117,8 +117,8 @@ class DocumentFileDetachedSignatureCreateView(
 
     def get_post_action_redirect(self):
         return reverse(
-            viewname='signatures:document_file_signature_list',
-            kwargs={'document_file_id': self.external_object.pk}
+            kwargs={'document_file_id': self.external_object.pk},
+            viewname='signatures:document_file_signature_list'
         )
 
 
@@ -142,40 +142,40 @@ class DocumentFileEmbeddedSignatureCreateView(
             )
         except NeedPassphrase:
             messages.error(
-                message=_('Passphrase is needed to unlock this key.'),
+                message=_(message='Passphrase is needed to unlock this key.'),
                 request=self.request
             )
             return HttpResponseRedirect(
                 redirect_to=reverse(
-                    viewname='signatures:document_file_signature_embedded_create',
                     kwargs={
                         'document_file_id': self.external_object.pk
-                    }
+                    },
+                    viewname='signatures:document_file_signature_embedded_create'
                 )
             )
         except PassphraseError:
             messages.error(
-                message=_('Passphrase is incorrect.'),
+                message=_(message='Passphrase is incorrect.'),
                 request=self.request
             )
             return HttpResponseRedirect(
                 redirect_to=reverse(
-                    viewname='signatures:document_file_signature_embedded_create',
                     kwargs={
                         'document_file_id': self.external_object.pk
-                    }
+                    },
+                    viewname='signatures:document_file_signature_embedded_create'
                 )
             )
         else:
             messages.success(
-                message=_('Document file signed successfully.'),
+                message=_(message='Document file signed successfully.'),
                 request=self.request
             )
 
             return HttpResponseRedirect(
                 redirect_to=reverse(
-                    viewname='signatures:document_file_signature_list',
-                    kwargs={'document_file_id': signature.document_file.pk}
+                    kwargs={'document_file_id': signature.document_file.pk},
+                    viewname='signatures:document_file_signature_list'
                 )
             )
 
@@ -185,8 +185,8 @@ class DocumentFileEmbeddedSignatureCreateView(
         return {
             'object': self.external_object,
             'title': _(
-                'Sign document file "%s" with a embedded signature'
-            ) % self.external_object,
+                message='Sign document file "%s" with a embedded signature'
+            ) % self.external_object
         }
 
     def get_form_extra_kwargs(self):
@@ -202,26 +202,26 @@ class DocumentFileDetachedSignatureDeleteView(SingleObjectDeleteView):
         return {
             'object': self.object.document_file,
             'signature': self.object,
-            'title': _('Delete detached signature: %s') % self.object
+            'title': _(message='Delete detached signature: %s') % self.object
         }
 
     def get_post_action_redirect(self):
         return reverse(
-            viewname='signatures:document_file_signature_list',
             kwargs={
                 'document_file_id': self.object.document_file.pk
-            }
+            },
+            viewname='signatures:document_file_signature_list'
         )
 
     def get_source_queryset(self):
-        document_file_queryset = DocumentFile.valid.all()
+        queryset_document_files = DocumentFile.valid.all()
 
         return DetachedSignature.objects.filter(
-            document_file_id__in=document_file_queryset.values('pk')
+            document_file_id__in=queryset_document_files.values('pk')
         )
 
 
-class DocumentFileDetachedSignatureDownloadView(SingleObjectDownloadView):
+class DocumentFileDetachedSignatureDownloadView(ViewSingleObjectDownload):
     object_permission = permission_document_file_signature_download
     pk_url_kwarg = 'signature_id'
     view_icon = icon_document_file_signature_detached_download
@@ -230,13 +230,13 @@ class DocumentFileDetachedSignatureDownloadView(SingleObjectDownloadView):
         return self.object.signature_file
 
     def get_download_filename(self):
-        return force_text(s=self.object)
+        return force_str(s=self.object)
 
     def get_source_queryset(self):
-        document_file_queryset = DocumentFile.valid.all()
+        queryset_document_files = DocumentFile.valid.all()
 
         return DetachedSignature.objects.filter(
-            document_file_id__in=document_file_queryset.values('pk')
+            document_file_id__in=queryset_document_files.values('pk')
         )
 
 
@@ -254,8 +254,8 @@ class DocumentFileDetachedSignatureUploadView(
         return {
             'object': self.external_object,
             'title': _(
-                'Upload detached signature for document file: %s'
-            ) % self.external_object,
+                message='Upload detached signature for document file: %s'
+            ) % self.external_object
         }
 
     def get_instance_extra_data(self):
@@ -266,9 +266,9 @@ class DocumentFileDetachedSignatureUploadView(
 
     def get_post_action_redirect(self):
         return reverse(
-            viewname='signatures:document_file_signature_list', kwargs={
+            kwargs={
                 'document_file_id': self.external_object.pk
-            }
+            }, viewname='signatures:document_file_signature_list'
         )
 
 
@@ -284,15 +284,15 @@ class DocumentFileSignatureDetailView(SingleObjectDetailView):
             'object': self.object.document_file,
             'signature': self.object,
             'title': _(
-                'Details for signature: %s'
-            ) % self.object,
+                message='Details for signature: %s'
+            ) % self.object
         }
 
     def get_source_queryset(self):
-        document_file_queryset = DocumentFile.valid.all()
+        queryset_document_files = DocumentFile.valid.all()
 
         return SignatureBaseModel.objects.select_subclasses().filter(
-            document_file_id__in=document_file_queryset.values('pk')
+            document_file_id__in=queryset_document_files.values('pk')
         )
 
 
@@ -309,7 +309,7 @@ class DocumentFileSignatureListView(
             'hide_object': True,
             'no_results_icon': icon_document_file_signature_list,
             'no_results_text': _(
-                'Signatures help provide authorship evidence and tamper '
+                message='Signatures help provide authorship evidence and tamper '
                 'detection. They are very secure and hard to '
                 'forge. A signature can be embedded as part of the document '
                 'itself or uploaded as a separate file.'
@@ -317,33 +317,33 @@ class DocumentFileSignatureListView(
             'no_results_secondary_links': [
                 link_document_file_signature_detached_create.resolve(
                     RequestContext(
-                        request=self.request, dict_={
+                        dict_={
                             'object': self.external_object
-                        }
+                        }, request=self.request
                     )
                 ),
                 link_document_file_signature_embedded_create.resolve(
                     RequestContext(
-                        request=self.request, dict_={
+                        dict_={
                             'object': self.external_object
-                        }
+                        }, request=self.request
                     )
                 ),
                 link_document_file_signature_detached_upload.resolve(
                     RequestContext(
-                        request=self.request, dict_={
+                        dict_={
                             'object': self.external_object
-                        }
+                        }, request=self.request
                     )
-                ),
+                )
             ],
             'no_results_title': _(
-                'There are no signatures for this document file.'
+                message='There are no signatures for this document file.'
             ),
             'object': self.external_object,
             'title': _(
-                'Signatures for document file: %s'
-            ) % self.external_object,
+                message='Signatures for document file: %s'
+            ) % self.external_object
         }
 
     def get_source_queryset(self):
@@ -353,9 +353,9 @@ class DocumentFileSignatureListView(
 class AllDocumentSignatureRefreshView(ConfirmView):
     extra_context = {
         'message': _(
-            'On large databases this operation may take some time '
+            message='On large databases this operation may take some time '
             'to execute.'
-        ), 'title': _('Refresh all signatures information?'),
+        ), 'title': _(message='Refresh all signatures information?')
     }
     view_icon = icon_document_file_all_signature_refresh
     view_permission = permission_document_file_signature_verify
@@ -366,17 +366,18 @@ class AllDocumentSignatureRefreshView(ConfirmView):
     def view_action(self):
         task_refresh_signature_information.apply_async()
         messages.success(
-            message=_('Signature information refresh queued successfully.'),
-            request=self.request
+            message=_(
+                message='Signature information refresh queued successfully.'
+            ), request=self.request
         )
 
 
 class AllDocumentSignatureVerifyView(ConfirmView):
     extra_context = {
         'message': _(
-            'On large databases this operation may take some time to '
+            message='On large databases this operation may take some time to '
             'execute.'
-        ), 'title': _('Verify all document for signatures?'),
+        ), 'title': _(message='Verify all document for signatures?')
     }
     view_icon = icon_document_file_all_signature_verify
     view_permission = permission_document_file_signature_verify
@@ -387,6 +388,6 @@ class AllDocumentSignatureVerifyView(ConfirmView):
     def view_action(self):
         task_verify_missing_embedded_signature.apply_async()
         messages.success(
-            message=_('Signature verification queued successfully.'),
+            message=_(message='Signature verification queued successfully.'),
             request=self.request
         )

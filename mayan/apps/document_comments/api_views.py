@@ -1,4 +1,4 @@
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
 from mayan.apps.rest_api import generics
 from mayan.apps.rest_api.api_view_mixins import ExternalObjectAPIViewMixin
 
@@ -18,22 +18,21 @@ class APICommentListView(
     """
     external_object_queryset = Document.valid.all()
     external_object_pk_url_kwarg = 'document_id'
-    mayan_external_object_permissions = {
-        'GET': (permission_document_comment_view,),
-        'POST': (permission_document_comment_create,)
+    mayan_external_object_permission_map = {
+        'GET': permission_document_comment_view,
+        'POST': permission_document_comment_create
     }
-    ordering_fields = ('id', 'submit_date')
     serializer_class = CommentSerializer
-
-    def get_queryset(self):
-        return self.external_object.comments.all()
 
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'user': self.request.user,
-            'document': self.external_object
+            'document': self.get_external_object(),
+            'user': self.request.user
         }
+
+    def get_source_queryset(self):
+        return self.get_external_object().comments.all()
 
 
 class APICommentView(
@@ -45,20 +44,20 @@ class APICommentView(
     """
     external_object_queryset = Document.valid.all()
     external_object_pk_url_kwarg = 'document_id'
-    mayan_external_object_permissions = {
-        'DELETE': (permission_document_comment_delete,),
-        'GET': (permission_document_comment_view,),
-        'PATCH': (permission_document_comment_edit,),
-        'PUT': (permission_document_comment_edit,),
+    mayan_external_object_permission_map = {
+        'DELETE': permission_document_comment_delete,
+        'GET': permission_document_comment_view,
+        'PATCH': permission_document_comment_edit,
+        'PUT': permission_document_comment_edit
     }
     lookup_url_kwarg = 'comment_id'
     serializer_class = CommentSerializer
 
-    def get_queryset(self):
-        return self.external_object.comments.all()
-
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'document': self.external_object
+            'document': self.get_external_object()
         }
+
+    def get_source_queryset(self):
+        return self.get_external_object().comments.all()

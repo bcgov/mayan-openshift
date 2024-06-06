@@ -5,10 +5,10 @@ from django.db import models
 from django.utils.timezone import now
 
 from mayan.apps.acls.models import AccessControlList
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
 
 from .exceptions import DocumentNotCheckedOut
-from .literals import STATE_CHECKED_OUT, STATE_CHECKED_IN
+from .literals import STATE_CHECKED_IN, STATE_CHECKED_OUT
 from .permissions import (
     permission_document_check_in, permission_document_check_in_override
 )
@@ -39,7 +39,6 @@ class DocumentCheckoutBusinessLogicManager(models.Manager):
                 user=user
             )
 
-        if user:
             for checkout in user_document_checkouts | others_document_checkouts:
                 checkout._event_actor = user
                 checkout._event_keep_attributes = ('_event_actor',)
@@ -54,7 +53,9 @@ class DocumentCheckoutManager(models.Manager):
         for document in self.expired_check_outs():
             document.check_in()
 
-    def check_out_document(self, document, expiration_datetime, user, block_new_file=True):
+    def check_out_document(
+        self, document, expiration_datetime, user, block_new_file=True
+    ):
         return self.create(
             block_new_file=block_new_file, document=document,
             expiration_datetime=expiration_datetime, user=user
@@ -96,7 +97,9 @@ class DocumentCheckoutManager(models.Manager):
 
     def get_by_natural_key(self, document_natural_key):
         try:
-            document = Document.objects.get_by_natural_key(document_natural_key)
+            document = Document.objects.get_by_natural_key(
+                document_natural_key
+            )
         except Document.DoesNotExist:
             raise self.model.DoesNotExist
 

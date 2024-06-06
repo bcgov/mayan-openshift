@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 def method_document_get_tags(self, permission, user):
@@ -9,12 +9,13 @@ def method_document_get_tags(self, permission, user):
     DocumentTag = apps.get_model(app_label='tags', model_name='DocumentTag')
 
     return AccessControlList.objects.restrict_queryset(
-        permission=permission,
-        queryset=DocumentTag.objects.filter(documents=self), user=user
+        permission=permission, queryset=DocumentTag.objects.filter(
+            documents=self
+        ), user=user
     )
 
 
 method_document_get_tags.help_text = _(
-    'Return the tags attached to the document.'
+    message='Return the tags attached to the document.'
 )
-method_document_get_tags.short_description = _('get_tags()')
+method_document_get_tags.short_description = _(message='get_tags()')

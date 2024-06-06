@@ -32,7 +32,7 @@ class LayerTransformationManager(models.Manager):
 
         transformations = self.filter(
             enabled=True, object_layer__content_type=content_type,
-            object_layer__object_id=obj.pk, object_layer__enabled=True
+            object_layer__enabled=True, object_layer__object_id=obj.pk
         )
 
         if maximum_layer_order is not None:
@@ -54,29 +54,37 @@ class LayerTransformationManager(models.Manager):
                 This was a class defined but later erased. Ignore it.
                 """
             else:
-                access_permission = layer_class.permissions.get(
+                access_permission = layer_class.permission_map.get(
                     'access', None
                 )
                 if access_permission:
                     try:
                         AccessControlList.objects.check_access(
-                            obj=obj, permissions=(access_permission,), user=user
+                            obj=obj, permission=access_permission,
+                            user=user
                         )
                     except PermissionDenied:
-                        access_layers = access_layers.exclude(pk=stored_layer.pk)
+                        access_layers = access_layers.exclude(
+                            pk=stored_layer.pk
+                        )
 
         for stored_layer in exclude_layers:
-            exclude_permission = stored_layer.get_layer().permissions.get(
+            layer = stored_layer.get_layer()
+            exclude_permission = layer.permission_map.get(
                 'exclude', None
             )
             if exclude_permission:
                 try:
                     AccessControlList.objects.check_access(
-                        obj=obj, permissions=(exclude_permission,), user=user
+                        obj=obj, permission=exclude_permission, user=user
                     )
                 except PermissionDenied:
-                    exclude_layers = exclude_layers.exclude(pk=stored_layer.pk)
-                    access_layers |= StoredLayer.objects.filter(pk=stored_layer.pk)
+                    exclude_layers = exclude_layers.exclude(
+                        pk=stored_layer.pk
+                    )
+                    access_layers |= StoredLayer.objects.filter(
+                        pk=stored_layer.pk
+                    )
 
         if only_stored_layer:
             transformations = transformations.filter(
@@ -99,9 +107,10 @@ class LayerTransformationManager(models.Manager):
                         transformation.name
                     )
                 except KeyError:
-                    # Non existant transformation, but we don't raise an error
+                    # Non existent transformation, but we don't raise an
+                    # error.
                     logger.error(
-                        'Non existant transformation: %s for %s',
+                        'Non existent transformation: %s for %s',
                         transformation.name, obj
                     )
                 else:
@@ -110,7 +119,7 @@ class LayerTransformationManager(models.Manager):
                         # return an empty dictionary as ** doesn't allow None
                         if transformation.arguments:
                             kwargs = yaml_load(
-                                stream=transformation.arguments,
+                                stream=transformation.arguments
                             )
                         else:
                             kwargs = {}

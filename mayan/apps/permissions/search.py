@@ -1,6 +1,6 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.dynamic_search.classes import SearchModel
+from mayan.apps.dynamic_search.search_models import SearchModel
 
 from .permissions import permission_role_view
 
@@ -11,9 +11,9 @@ role_search = SearchModel(
 )
 
 role_search.add_model_field(
-    field='label', label=_('Label')
+    field='label', label=_(message='Label')
 )
 
 role_search.add_model_field(
-    field='groups__name', label=_('Group name')
+    field='groups__name', label=_(message='Group name')
 )

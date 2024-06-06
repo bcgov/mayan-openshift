@@ -4,31 +4,23 @@ import logging
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.utils.encoding import force_text
 from django.utils.timezone import now
 
 from mayan.apps.databases.classes import ModelQueryFields
 
 from .settings import (
     setting_favorite_count, setting_recently_accessed_document_count,
-    setting_recently_created_document_count, setting_stub_expiration_interval
+    setting_recently_created_document_count
 )
 
 logger = logging.getLogger(name=__name__)
 
 
 class DocumentManager(models.Manager):
-    def delete_stubs(self):
-        stale_stub_documents = self.filter(
-            is_stub=True, datetime_created__lt=now() - timedelta(
-                seconds=setting_stub_expiration_interval.value
-            )
-        )
-        for stale_stub_document in stale_stub_documents:
-            stale_stub_document.delete(to_trash=False)
-
     def get_by_natural_key(self, uuid):
-        return self.get(uuid=force_text(s=uuid))
+        return self.get(
+            uuid=str(uuid)
+        )
 
 
 class DocumentFileManager(models.Manager):
@@ -37,7 +29,9 @@ class DocumentFileManager(models.Manager):
             app_label='documents', model_name='Document'
         )
         try:
-            document = Document.objects.get_by_natural_key(*document_natural_key)
+            document = Document.objects.get_by_natural_key(
+                *document_natural_key
+            )
         except Document.DoesNotExist:
             raise self.model.DoesNotExist
 
@@ -50,7 +44,9 @@ class DocumentFilePageManager(models.Manager):
             app_label='documents', model_name='DocumentFile'
         )
         try:
-            document_file = DocumentFile.objects.get_by_natural_key(*document_file_natural_key)
+            document_file = DocumentFile.objects.get_by_natural_key(
+                *document_file_natural_key
+            )
         except DocumentFile.DoesNotExist:
             raise self.model.DoesNotExist
 
@@ -63,62 +59,98 @@ class DocumentTypeManager(models.Manager):
     def check_delete_periods(self):
         logger.info(msg='Executing')
 
-        for document_type in self.all():
+        queryset_document_types_with_deletion_setup = self.filter(
+            delete_time_period__isnull=False, delete_time_unit__isnull=False
+        ).only('id')
+
+        for document_type in queryset_document_types_with_deletion_setup:
             logger.info(
-                'Checking deletion period of document type: %s', document_type
+                'Checking deletion period of document type: %s',
+                document_type
             )
-            if document_type.delete_time_period and document_type.delete_time_unit:
-                delta = timedelta(
-                    **{
-                        document_type.delete_time_unit: document_type.delete_time_period
-                    }
-                )
+            delta = timedelta(
+                **{
+                    document_type.delete_time_unit: document_type.delete_time_period
+                }
+            )
+            logger.info(
+                'Document type: %s, has a deletion period delta of: %s',
+                document_type, delta
+            )
+
+            queryset_documents_to_delete = document_type.documents.filter(
+                trashed_date_time__lt=now() - delta
+            ).only('id')
+
+            for document in queryset_documents_to_delete:
                 logger.info(
-                    'Document type: %s, has a deletion period delta of: %s',
-                    document_type, delta
+                    'Document "%s" with id: %d, trashed on: %s, exceeded '
+                    'delete period', document, document.pk,
+                    document.trashed_date_time
                 )
-                for document in document_type.trashed_documents.filter(trashed_date_time__lt=now() - delta):
-                    logger.info(
-                        'Document "%s" with id: %d, trashed on: %s, exceeded '
-                        'delete period', document, document.pk,
-                        document.trashed_date_time
-                    )
-                    document.delete()
-            else:
-                logger.info(
-                    'Document type: %s, has a no retention delta', document_type
-                )
+                document.delete()
 
         logger.info(msg='Finished')
 
     def check_trash_periods(self):
         logger.info(msg='Executing')
 
-        for document_type in self.all():
+        queryset_document_types_with_trashed_setup = self.filter(
+            trash_time_period__isnull=False, trash_time_unit__isnull=False
+        ).only('id')
+
+        for document_type in queryset_document_types_with_trashed_setup:
             logger.info(
                 'Checking trash period of document type: %s', document_type
             )
-            if document_type.trash_time_period and document_type.trash_time_unit:
-                delta = timedelta(
-                    **{
-                        document_type.trash_time_unit: document_type.trash_time_period
-                    }
-                )
+
+            delta = timedelta(
+                **{
+                    document_type.trash_time_unit: document_type.trash_time_period
+                }
+            )
+            logger.info(
+                'Document type: %s, has a trash period delta of: %s',
+                document_type, delta
+            )
+
+            queryset_documents_to_trash = document_type.documents.filter(
+                datetime_created__lt=now() - delta
+            ).only('id')
+
+            for document in queryset_documents_to_trash:
                 logger.info(
-                    'Document type: %s, has a trash period delta of: %s',
-                    document_type, delta
+                    'Document "%s" with id: %d, added on: %s, exceeded '
+                    'trash period.', document, document.pk,
+                    document.datetime_created
                 )
-                for document in document_type.documents.filter(datetime_created__lt=now() - delta):
-                    logger.info(
-                        'Document "%s" with id: %d, added on: %s, exceeded '
-                        'trash period', document, document.pk,
-                        document.datetime_created
-                    )
-                    document.delete()
-            else:
-                logger.info(
-                    'Document type: %s, has a no retention delta', document_type
-                )
+                document.delete()
+
+        logger.info(msg='Finished')
+
+    def document_stubs_delete(self):
+        logger.info(msg='Executing')
+
+        for document_type in self.filter(document_stub_pruning_enabled=True):
+            logger.info(
+                'Checking expired document stubs of document type: %s',
+                document_type
+            )
+
+            delta = timedelta(
+                seconds=document_type.document_stub_expiration_interval
+            )
+
+            queryset_stale_stub_documents = document_type.documents.filter(
+                is_stub=True, datetime_created__lt=now() - delta
+            ).only('id')
+
+            logger.debug(
+                'Deleting %d document stubs', queryset_stale_stub_documents.count()
+            )
+
+            for stale_stub_document in queryset_stale_stub_documents:
+                stale_stub_document.delete(to_trash=False)
 
         logger.info(msg='Finished')
 
@@ -233,10 +265,12 @@ class ValidFavoriteDocumentManager(models.Manager):
 
         # Delete old (by date) favorites in excess of the values of
         # setting_favorite_count.
-        favorites_to_delete = self.filter(user=user).values('pk').order_by(
-            '-datetime_added'
-        )[setting_favorite_count.value:]
-        self.filter(pk__in=favorites_to_delete).delete()
+        queryset_favorites_to_delete = self.filter(
+            user=user
+        ).only('id').values('pk').order_by('-datetime_added')[
+            setting_favorite_count.value:
+        ]
+        self.filter(pk__in=queryset_favorites_to_delete).delete()
 
         return favorite_document
 
@@ -275,15 +309,18 @@ class ValidRecentlyAccessedDocumentManager(models.Manager):
             if not created:
                 # Document already in the recent list, just save to force
                 # accessed date and time update.
-                new_recent.save(update_fields=('datetime_accessed',))
+                new_recent.save(
+                    update_fields=('datetime_accessed',)
+                )
 
-            recent_to_delete = self.filter(user=user).values_list(
-                'pk', flat=True
-            )[
+            queryset_recent_to_delete = self.filter(
+                user=user
+            ).only('id').values('pk')[
                 setting_recently_accessed_document_count.value:
             ]
 
-            self.filter(pk__in=list(recent_to_delete)).delete()
+            self.filter(pk__in=queryset_recent_to_delete).delete()
+
         return new_recent
 
     def get_for_user(self, user):
@@ -299,9 +336,7 @@ class ValidRecentlyAccessedDocumentManager(models.Manager):
             return RecentlyAccessedDocumentProxy.objects.none()
 
     def get_queryset(self):
-        return super().get_queryset().filter(
-            document__in_trash=False
-        )
+        return super().get_queryset().filter(document__in_trash=False)
 
 
 class ValidRecentlyCreatedDocumentManager(models.Manager):
@@ -310,12 +345,16 @@ class ValidRecentlyCreatedDocumentManager(models.Manager):
             app_label='documents', model_name='Document'
         )
 
-        queryset = ModelQueryFields.get(
+        queryset_valid = ModelQueryFields.get(
             model=Document
         ).get_queryset(manager_name='valid')
 
-        return super().get_queryset().filter(
-            pk__in=queryset.order_by('-datetime_created')[
-                :setting_recently_created_document_count.value
-            ].values('pk')
+        queryset_recent = queryset_valid.order_by('-datetime_created')[
+            :setting_recently_created_document_count.value
+        ].only('id').values('pk')
+
+        queryset_final = super().get_queryset().filter(
+            pk__in=queryset_recent
         ).order_by('-datetime_created')
+
+        return queryset_final

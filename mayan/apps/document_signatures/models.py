@@ -1,21 +1,19 @@
 import logging
-import uuid
 
 from django.db import models
 from django.urls import reverse
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from model_utils.managers import InheritanceManager
 
 from mayan.apps.databases.model_mixins import ExtraDataModelMixin
 from mayan.apps.django_gpg.exceptions import VerificationError
 from mayan.apps.django_gpg.models import Key
-from mayan.apps.documents.models import DocumentFile
-from mayan.apps.events.classes import (
+from mayan.apps.documents.models.document_file_models import DocumentFile
+from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import (
     EventManagerMethodAfter, EventManagerSave
 )
-from mayan.apps.events.decorators import method_event
 from mayan.apps.storage.classes import DefinedStorageLazy
 
 from .events import (
@@ -23,15 +21,13 @@ from .events import (
 )
 from .literals import STORAGE_NAME_DOCUMENT_SIGNATURES_DETACHED_SIGNATURE
 from .managers import DetachedSignatureManager, EmbeddedSignatureManager
+from .model_mixins import SignatureBaseModelBusinessLogicMixin
+from .utils import upload_to
 
 logger = logging.getLogger(name=__name__)
 
 
-def upload_to(*args, **kwargs):
-    return force_text(s=uuid.uuid4())
-
-
-class SignatureBaseModel(models.Model):
+class SignatureBaseModel(SignatureBaseModelBusinessLogicMixin, models.Model):
     """
     Fields:
     * key_id - Key Identifier - This is what identifies uniquely a key. Not
@@ -43,133 +39,67 @@ class SignatureBaseModel(models.Model):
     """
     document_file = models.ForeignKey(
         editable=False, on_delete=models.CASCADE, related_name='signatures',
-        to=DocumentFile, verbose_name=_('Document file')
+        to=DocumentFile, verbose_name=_(message='Document file')
     )
     # Basic fields
     date_time = models.DateTimeField(
         blank=True, editable=False, null=True, verbose_name=_(
-            'Date and time signed'
+            message='Date and time signed'
         )
     )
     key_id = models.CharField(
-        help_text=_('ID of the key that will be used to sign the document.'),
-        max_length=40, verbose_name=_('Key ID')
+        help_text=_(
+            message='ID of the key that will be used to sign the document.'
+        ), max_length=40, verbose_name=_(message='Key ID')
     )
     # With proper key
     signature_id = models.CharField(
         blank=True, editable=False, null=True, max_length=64,
-        verbose_name=_('Signature ID')
+        verbose_name=_(message='Signature ID')
     )
     public_key_fingerprint = models.CharField(
         blank=True, editable=False, null=True, max_length=40,
-        verbose_name=_('Public key fingerprint')
+        verbose_name=_(message='Public key fingerprint')
     )
 
     objects = InheritanceManager()
 
     class Meta:
         ordering = ('pk',)
-        verbose_name = _('Document file signature')
-        verbose_name_plural = _('Document file signatures')
+        verbose_name = _(message='Document file signature')
+        verbose_name_plural = _(message='Document file signatures')
 
     def __str__(self):
-        return self.signature_id or '{} - {}'.format(self.date_time, self.key_id)
+        return self.signature_id or '{} - {}'.format(
+            self.date_time, self.key_id
+        )
 
     def get_absolute_url(self):
         return reverse(
-            viewname='signatures:document_file_signature_detail',
-            kwargs={'signature_id': self.pk}
+            kwargs={'signature_id': self.pk},
+            viewname='signatures:document_file_signature_detail'
         )
-
-    def get_key_id(self):
-        if self.public_key_fingerprint:
-            return self.public_key_fingerprint[-16:]
-        else:
-            return self.key_id
-
-    def get_signature_type_display(self):
-        if self.is_detached:
-            return _('Detached')
-        else:
-            return _('Embedded')
-
-    @property
-    def is_detached(self):
-        return hasattr(self, 'signature_file')
-
-    @property
-    def is_embedded(self):
-        return not hasattr(self, 'signature_file')
-
-    @property
-    def key(self):
-        try:
-            return Key.objects.get(
-                fingerprint=self.public_key_fingerprint
-            )
-        except Key.DoesNotExist:
-            return None
-
-    @property
-    def key_algorithm(self):
-        key = self.key
-
-        if key:
-            return key.algorithm
-
-    @property
-    def key_creation_date(self):
-        key = self.key
-
-        if key:
-            return key.creation_date
-
-    @property
-    def key_expiration_date(self):
-        key = self.key
-
-        if key:
-            return key.expiration_date
-
-    @property
-    def key_length(self):
-        key = self.key
-
-        if key:
-            return key.length
-
-    @property
-    def key_type(self):
-        key = self.key
-
-        if key:
-            return key.get_key_type_display()
-
-    @property
-    def key_user_id(self):
-        key = self.key
-
-        if key:
-            return key.user_id
 
 
 class DetachedSignature(ExtraDataModelMixin, SignatureBaseModel):
     signature_file = models.FileField(
         blank=True, help_text=_(
-            'Signature file previously generated.'
+            message='Signature file previously generated.'
         ), null=True, storage=DefinedStorageLazy(
             name=STORAGE_NAME_DOCUMENT_SIGNATURES_DETACHED_SIGNATURE
-        ), upload_to=upload_to, verbose_name=_('Signature file')
+        ), upload_to=upload_to, verbose_name=_(message='Signature file')
     )
 
     objects = DetachedSignatureManager()
 
     class Meta:
-        verbose_name = _('Document file detached signature')
-        verbose_name_plural = _('Document file detached signatures')
+        verbose_name = _(message='Document file detached signature')
+        verbose_name_plural = _(message='Document file detached signatures')
 
     def __str__(self):
-        return '{}-{}'.format(self.document_file, _('signature'))
+        return '{}-{}'.format(
+            self.document_file, _(message='signature')
+        )
 
     @method_event(
         event_manager_class=EventManagerMethodAfter,
@@ -189,7 +119,7 @@ class DetachedSignature(ExtraDataModelMixin, SignatureBaseModel):
             'action_object': 'self',
             'event': event_detached_signature_uploaded,
             'target': 'document_file'
-        },
+        }
     )
     def save(self, *args, **kwargs):
         with self.document_file.open() as file_object:
@@ -219,8 +149,8 @@ class EmbeddedSignature(SignatureBaseModel):
     objects = EmbeddedSignatureManager()
 
     class Meta:
-        verbose_name = _('Document file embedded signature')
-        verbose_name_plural = _('Document file embedded signatures')
+        verbose_name = _(message='Document file embedded signature')
+        verbose_name_plural = _(message='Document file embedded signatures')
 
     def save(self, *args, **kwargs):
         logger.debug(msg='checking for embedded signature')

@@ -4,34 +4,30 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2022
-# Badea Gabriel <gcbadea@gmail.com>, 2022
-# Stefaniu Criste <gupi@hangar.ro>, 2022
-# Harald Ersch, 2022
+# Badea Gabriel <gcbadea@gmail.com>, 2024
+# Roberto Rosario, 2024
+# Stefaniu Criste <gupi@hangar.ro>, 2024
+# Harald Ersch, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:38+0000\n"
-"Last-Translator: Harald Ersch, 2022\n"
-"Language-Team: Romanian (Romania) (https://www.transifex.com/rosarior/teams/13584/ro_RO/)\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"Last-Translator: Harald Ersch, 2024\n"
+"Language-Team: Romanian (Romania) (https://app.transifex.com/rosarior/teams/13584/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: apps.py:23 settings.py:14
+#: apps.py:30 permissions.py:6 queues.py:13 settings.py:15
 msgid "Storage"
 msgstr "Stocare"
 
-#: apps.py:56
-msgid "Source object"
-msgstr "Obiect sursă"
-
-#: classes.py:86 classes.py:107
+#: classes.py:88 classes.py:109
 #, python-format
 msgid ""
 "Unable to initialize storage: %(name)s. Check the storage backend dotted "
@@ -40,7 +36,7 @@ msgstr ""
 "Imposibil de inițializat stocarea: %(name)s. Verificați calea punctată și "
 "argumentele backend de stocare."
 
-#: events.py:6 links.py:19 models.py:64 storages.py:22
+#: events.py:6 links.py:20 models.py:55 storages.py:22
 msgid "Download files"
 msgstr "Descărcați fișiere"
 
@@ -91,59 +87,87 @@ msgstr ""
 msgid "Name of the storage to process."
 msgstr "Denumirea stocării de procesat."
 
-#: model_mixins.py:13 models.py:119
+#: model_mixins.py:67 models.py:96
 msgid "Filename"
 msgstr "Nume fişier"
 
-#: model_mixins.py:16
+#: model_mixins.py:70
 msgid "Date time"
 msgstr "Data și ora"
 
-#: model_mixins.py:70
+#: model_mixins.py:91
 msgid "Unnamed file"
 msgstr "Fișier fără nume"
 
-#: models.py:42 models.py:116
+#: model_mixins.py:103
+msgid "Size"
+msgstr "mărime"
+
+#: model_mixins.py:110 models.py:47 serializers.py:15
+msgid "User"
+msgstr "Utilizator"
+
+#: models.py:39 models.py:92
 msgid "File"
 msgstr "Fișier"
 
-#: models.py:52
+#: models.py:42
 msgid "Label"
 msgstr "Conținut etichetă"
 
-#: models.py:56
-msgid "Permission"
-msgstr "Permisiune"
-
-#: models.py:63
+#: models.py:54
 msgid "Download file"
 msgstr "Descărcare fișier"
 
-#: models.py:125
+#: models.py:102
 msgid "Shared uploaded file"
 msgstr "Fișier încărcat în comun"
 
-#: models.py:126 storages.py:36
+#: models.py:103 storages.py:36
 msgid "Shared uploaded files"
 msgstr "Fișiere încărcate în comun"
 
-#: queues.py:13
+#: permissions.py:10
+msgid "Delete user files"
+msgstr "Ștergeți fișierele utilizator"
+
+#: permissions.py:13
+msgid "Download user files"
+msgstr "Descărcați fișierele utilizator"
+
+#: permissions.py:16
+msgid "View user files"
+msgstr "Vizualizați fișierele utilizator"
+
+#: queues.py:16
 msgid "Storage periodic"
 msgstr "Depozitare periodică"
 
-#: queues.py:19
+#: queues.py:22
+msgid "Delete a shared upload"
+msgstr "Ștergeți o încărcare partajată"
+
+#: queues.py:27
 msgid "Delete stale uploads"
 msgstr "Ștergeți încărcările învechite"
 
-#: queues.py:26
+#: queues.py:34
 msgid "Delete stale download files"
 msgstr "Ștergeți fișierele de descărcare învechite"
 
-#: settings.py:19
+#: serializers.py:11
+msgid "Download URL"
+msgstr "Adresa URL a descărcării"
+
+#: serializers.py:21
+msgid "URL"
+msgstr "URL"
+
+#: settings.py:21
 msgid "Time in seconds, after which download files will be deleted."
 msgstr "Timp în secunde, după care fișierele descărcate vor fi șterse."
 
-#: settings.py:25
+#: settings.py:27
 msgid ""
 "A storage backend that all workers can use to generate and hold files for "
 "download."
@@ -151,13 +175,13 @@ msgstr ""
 "Un backend de stocare pe care toți lucrătorii îl pot folosi pentru a genera "
 "și păstra fișiere pentru descărcare."
 
-#: settings.py:36
+#: settings.py:38
 msgid "A storage backend that all workers can use to share files."
 msgstr ""
 "Un backend de stocare pe care toți lucrătorii îl pot folosi pentru "
 "partajarea fișierelor."
 
-#: settings.py:46
+#: settings.py:48
 msgid ""
 "Temporary directory used site wide to store thumbnails, previews and "
 "temporary files."
@@ -165,7 +189,7 @@ msgstr ""
 "Directorul temporar a folosit în server pentru a stoca miniaturi, "
 "previzualizări și fișiere temporare."
 
-#: settings.py:53
+#: settings.py:55
 msgid "Time in seconds, after which temporary uploaded files will be deleted."
 msgstr ""
 "Timp în secunde, după care fișierele temporare încărcate vor fi șterse."
@@ -186,7 +210,7 @@ msgstr ""
 "Imposibil de inițializat stocarea fișierului încărcat partajat. Verificați "
 "setările {} și {} pentru erori de formatare."
 
-#: views.py:60
+#: views/download_file_views.py:69
 msgid ""
 "Download files are created as a results of a an external process like an "
 "export. Download files are retained over a span of time and then removed "
@@ -196,10 +220,10 @@ msgstr ""
 "ar fi un export. Fișierele de descărcare sunt păstrate pe o perioadă de timp"
 " și apoi eliminate automat."
 
-#: views.py:64
+#: views/download_file_views.py:73
 msgid "There are no files to download."
 msgstr "Nu există fișiere de descărcat."
 
-#: views.py:65
+#: views/download_file_views.py:74
 msgid "Downloads"
 msgstr "Descărcări"

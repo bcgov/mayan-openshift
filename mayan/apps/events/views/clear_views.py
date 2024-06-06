@@ -1,11 +1,11 @@
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from actstream.models import Action
 
 from mayan.apps.databases.classes import QuerysetParametersSerializer
 from mayan.apps.views.generics import ConfirmView
-from mayan.apps.views.mixins import ExternalContentTypeObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalContentTypeObjectViewMixin
 
 from ..icons import (
     icon_event_list_clear, icon_object_event_list_clear,
@@ -14,7 +14,7 @@ from ..icons import (
 from ..permissions import permission_events_clear
 from ..tasks import task_event_queryset_clear
 
-from .mixins import VerbEventViewMixin
+from .view_mixins import VerbEventViewMixin
 
 
 class EventClearBaseView(ConfirmView):
@@ -24,8 +24,8 @@ class EventClearBaseView(ConfirmView):
     def get_extra_context(self):
         return {
             'message': _(
-                'This action is not reversible. The process will be performed '
-                'in the background. '
+                message='This action is not reversible. The process will be '
+                'performed in the background. '
             )
         }
 
@@ -42,14 +42,16 @@ class EventClearBaseView(ConfirmView):
             'user_id': self.request.user.pk
         }
 
-        task_kwargs.update(self.get_task_extra_kwargs())
+        task_kwargs.update(
+            self.get_task_extra_kwargs()
+        )
 
         task_event_queryset_clear.apply_async(kwargs=task_kwargs)
 
         messages.success(
-            request=self.request, message=_(
-                'Event list clear task queued successfully.'
-            )
+            message=_(
+                message='Event list clear task queued successfully.'
+            ), request=self.request
         )
 
 
@@ -60,15 +62,13 @@ class EventListClearView(EventClearBaseView):
         context = super().get_extra_context()
         context.update(
             {
-                'title': _('Clear events'),
+                'title': _(message='Clear events')
             }
         )
         return context
 
     def get_queryset_parameters(self):
-        return {
-            '_method_name': 'all'
-        }
+        return {'_method_name': 'all'}
 
 
 class ObjectEventClearView(
@@ -81,15 +81,15 @@ class ObjectEventClearView(
         context.update(
             {
                 'object': self.external_object,
-                'title': _('Clear events of: %s') % self.external_object,
+                'title': _(
+                    message='Clear events of: %s'
+                ) % self.external_object
             }
         )
         return context
 
     def get_queryset_parameters(self):
-        return {
-            '_method_name': 'any', 'obj': self.external_object
-        }
+        return {'_method_name': 'any', 'obj': self.external_object}
 
     def get_task_extra_kwargs(self):
         return {
@@ -106,13 +106,11 @@ class VerbEventClearView(VerbEventViewMixin, EventClearBaseView):
         context.update(
             {
                 'title': _(
-                    'Clear events of type: %s'
+                    message='Clear events of type: %s'
                 ) % self.event_type
             }
         )
         return context
 
     def get_queryset_parameters(self):
-        return {
-            '_method_name': 'filter', 'verb': self.event_type.id
-        }
+        return {'_method_name': 'filter', 'verb': self.event_type.id}

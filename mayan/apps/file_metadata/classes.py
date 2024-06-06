@@ -1,100 +1,215 @@
 import logging
 
 from django.apps import apps
+from django.db.utils import OperationalError, ProgrammingError
+from django.utils.functional import classproperty
 
-from mayan.apps.common.classes import PropertyHelper
+from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
+from mayan.apps.common.utils import (
+    convert_to_internal_name, deduplicate_dictionary_values,
+    get_class_full_name
+)
 
-from .events import event_file_metadata_document_file_finished
-from .exceptions import FileMetadataDriverError
+from .exceptions import FileMetadataError
 
 logger = logging.getLogger(name=__name__)
 
 
-class FileMetadataHelper(PropertyHelper):
-    @staticmethod
-    @property
-    def constructor(*args, **kwargs):
-        return FileMetadataHelper(*args, **kwargs)
+class FileMetadataDriverCollection:
+    _driver_enabled_list = []
+    _driver_to_mime_type_dict = {}
+    _mime_type_to_driver_dict = {}
 
-    def get_result(self, name):
-        result = self.instance.get_file_metadata(dotted_name=name)
+    @classmethod
+    def do_driver_disable(cls, driver):
+        if driver in cls._driver_to_mime_type_dict:
+            cls._driver_enabled_list.remove(driver)
+
+    @classmethod
+    def do_driver_disable_all(cls):
+        cls._driver_enabled_list = []
+
+    @classmethod
+    def do_driver_enable(cls, driver):
+        if driver in cls._driver_to_mime_type_dict:
+            if driver not in cls._driver_enabled_list:
+                cls._driver_enabled_list.append(driver)
+
+    @classmethod
+    def do_driver_register(cls, klass):
+        if klass in cls._driver_to_mime_type_dict:
+            raise FileMetadataError(
+                'Driver "{}" is already registered.'.format(klass)
+            )
+
+        cls._driver_to_mime_type_dict[klass] = klass.mime_type_list
+
+        for mime_type in klass.mime_type_list:
+            cls._mime_type_to_driver_dict.setdefault(
+                mime_type, []
+            ).append(klass)
+
+        klass.dotted_path = get_class_full_name(klass=klass)
+
+        cls.do_driver_enable(driver=klass)
+
+    @classmethod
+    def get_all(cls, sorted=False):
+        result = set()
+        for mime_type, drivers in cls._mime_type_to_driver_dict.items():
+            result.update(
+                list(drivers)
+            )
+
+        result = list(result)
+
+        if sorted:
+            result.sort(key=lambda driver: driver.label)
+
+        return result
+
+    @classmethod
+    def get_driver_for_mime_type(cls, mime_type):
+        driver_class_list = cls._mime_type_to_driver_dict.get(
+            mime_type, ()
+        )
+        # Add wildcard drivers, drivers meant to be executed for all MIME
+        # types.
+        driver_class_list += tuple(
+            cls._mime_type_to_driver_dict.get(
+                '*', ()
+            )
+        )
+
+        result = [
+            driver_class for driver_class in driver_class_list if driver_class in cls._driver_enabled_list
+        ]
+
         return result
 
 
-class FileMetadataDriver:
-    _registry = {}
+class FileMetadataDriverMetaclass(type):
+    def __new__(mcs, name, bases, attrs):
+        new_class = super().__new__(
+            mcs, name, bases, attrs
+        )
+
+        if not new_class.__module__ == __name__:
+            FileMetadataDriverCollection.do_driver_register(klass=new_class)
+
+        return new_class
+
+
+class FileMetadataDriver(
+    AppsModuleLoaderMixin, metaclass=FileMetadataDriverMetaclass
+):
+    _loader_module_name = 'drivers'
+    description = ''
+    internal_name = None
+    label = None
+    mime_type_list = ()
+
+    @classproperty
+    def collection(cls):
+        if cls != FileMetadataDriver:
+            raise AttributeError(
+                'This method is only available to the parent class.'
+            )
+        return FileMetadataDriverCollection
 
     @classmethod
-    def process_document_file(cls, document_file, user=None):
-        # Get list of drivers for the document's MIME type
-        driver_classes = cls._registry.get(document_file.mimetype, ())
-        # Add wilcard drivers, drivers meant to be executed for all MIME
-        # types.
-        driver_classes = driver_classes + tuple(cls._registry.get('*', ()))
-
-        for driver_class in driver_classes:
-            try:
-                driver = driver_class()
-
-                driver.initialize()
-
-                driver.process(document_file=document_file)
-
-                event_file_metadata_document_file_finished.commit(
-                    action_object=document_file.document, actor=user,
-                    target=document_file
-                )
-
-            except FileMetadataDriverError:
-                """If driver raises error, try next in the list."""
-            else:
-                # If driver was successful there is no need to try
-                # others in the list for this mimetype.
-                return
+    def do_model_instance_populate(cls):
+        StoredDriver = apps.get_model(
+            app_label='file_metadata', model_name='StoredDriver'
+        )
+        model_instance, created = StoredDriver.objects.get_or_create(
+            driver_path=cls.dotted_path, defaults={
+                'internal_name': cls.internal_name
+            }
+        )
+        cls.model_instance = model_instance
 
     @classmethod
-    def register(cls, mimetypes):
-        for mimetype in mimetypes:
-            cls._registry.setdefault(mimetype, []).append(cls)
+    def get_mime_type_list_display(cls):
+        return ', '.join(cls.mime_type_list)
 
-    def get_driver_path(self):
-        return '.'.join([self.__module__, self.__class__.__name__])
-
-    def initialize(self):
+    @classmethod
+    def post_load_modules(cls):
         StoredDriver = apps.get_model(
             app_label='file_metadata', model_name='StoredDriver'
         )
 
-        driver_path = self.get_driver_path()
+        try:
+            """
+            Check is the table is ready.
+            If not, this will log an error similar to this:
+            2023-12-12 09:12:46.985 UTC [79] ERROR:  relation "file_metadata_storeddriver" does not exist at character 22
+            2023-12-12 09:12:46.985 UTC [79] STATEMENT:  SELECT 1 AS "a" FROM "file_metadata_storeddriver" LIMIT 1
+            This error is expected and should be ignored.
+            """
+            StoredDriver.objects.exists()
+        except (OperationalError, ProgrammingError):
+            """
+            This error is expected when trying to initialize the
+            stored permissions during the initial creation of the
+            database. Can be safely ignored under that situation.
+            """
+        else:
+            for driver in cls.collection.get_all():
+                driver.do_model_instance_populate()
 
-        self.driver_model, created = StoredDriver.objects.get_or_create(
-            driver_path=driver_path, defaults={
-                'internal_name': self.internal_name
-            }
-        )
+    def __init__(self, auto_initialize=True, **kwargs):
+        self.auto_initialize = auto_initialize
+
+    def initialize(self):
+        """
+        Driver specific initialization code.
+        """
 
     def process(self, document_file):
-        logger.info(
-            'Starting processing document file: %s', document_file
+        logger.info('Starting processing document file: %s', document_file)
+
+        FileMetadataEntry = apps.get_model(
+            app_label='file_metadata', model_name='FileMetadataEntry'
         )
 
-        self.driver_model.driver_entries.filter(
-            document_file=document_file
-        ).delete()
+        file_metadata_dictionary = self._process(document_file=document_file) or {}
 
-        document_file_driver_entry = self.driver_model.driver_entries.create(
-            document_file=document_file
-        )
-
-        results = self._process(document_file=document_file) or {}
-
-        for key, value in results.items():
-            document_file_driver_entry.entries.create(
-                key=key, value=value
+        internal_name_dictionary = {}
+        for key in file_metadata_dictionary.keys():
+            internal_name_dictionary[key] = convert_to_internal_name(
+                value=key
             )
+
+        internal_name_dictionary_deduplicated = deduplicate_dictionary_values(
+            dictionary=internal_name_dictionary
+        )
+
+        queryset_document_file_metadata = self.model_instance.driver_entries.filter(
+            document_file=document_file
+        )
+        queryset_document_file_metadata.delete()
+
+        document_file_driver_entry = self.model_instance.driver_entries.create(
+            document_file=document_file
+        )
+
+        coroutine = FileMetadataEntry.objects.create_bulk()
+        next(coroutine)
+
+        for key, value in file_metadata_dictionary.items():
+            internal_name = internal_name_dictionary_deduplicated[key]
+            coroutine.send(
+                {
+                    'document_file_driver_entry': document_file_driver_entry,
+                    'internal_name': internal_name, 'key': key, 'value': value
+                }
+            )
+
+        coroutine.close()
 
     def _process(self, document_file):
         raise NotImplementedError(
-            'Your %s class has not defined the required '
-            '_process() method.' % self.__class__.__name__
+            'Your %s class has not defined the required _process() '
+            'method.' % self.__class__.__name__
         )

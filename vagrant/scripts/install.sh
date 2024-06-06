@@ -49,7 +49,7 @@ echo -e "7. Install Mayan EDMS from PyPI \n"
 sudo -E -u mayan ${BINARY_PIP} install ${MAYAN_VERSION}
 
 echo -e "8. Install the Python client for PostgreSQL and Redis \n"
-sudo -E -u mayan ${BINARY_PIP} install psycopg2==${PYTHON_PSYCOPG2_VERSION} redis==${PYTHON_REDIS_VERSION}
+sudo -E -u mayan ${BINARY_PIP} install psycopg==${PYTHON_PSYCOPG_VERSION} redis==${PYTHON_REDIS_VERSION}
 
 echo -e "9. Create the database for the installation \n"
 sudo -u postgres psql -c "CREATE USER ${DEFAULT_DATABASE_USER} WITH password '${DEFAULT_DATABASE_PASSWORD}';"
@@ -70,10 +70,10 @@ MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'${
 MAYAN_LOCK_MANAGER_BACKEND="mayan.apps.lock_manager.backends.redis_lock.RedisLock" \
 MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS="{'redis_url':'redis://:${DEFAULT_REDIS_PASSWORD}@${REDIS_HOST}:6379/2'}" \
 DEFAULT_DIRECTORY_MEDIA_ROOT="${DEFAULT_DIRECTORY_MEDIA_ROOT}" \
-${BINARY_MAYAN} initialsetup
+${BINARY_MAYAN} common_initial_setup
 
 echo -e "12. Create the Supervisord file at /etc/supervisor/conf.d/mayan-edms.conf \n"
-sudo -u mayan DEFAULT_DIRECTORY_MEDIA_ROOT="${DEFAULT_DIRECTORY_MEDIA_ROOT}" ${DEFAULT_DIRECTORY_INSTALLATION}bin/mayan-edms.py platformtemplate supervisord | sudo sh -c "cat > /etc/supervisor/conf.d/mayan-edms.conf"
+sudo -u mayan DEFAULT_DIRECTORY_MEDIA_ROOT="${DEFAULT_DIRECTORY_MEDIA_ROOT}" ${DEFAULT_DIRECTORY_INSTALLATION}bin/mayan-edms.py platform_template supervisord | sudo sh -c "cat > /etc/supervisor/conf.d/mayan-edms.conf"
 
 echo -e "13. Enable and restart the services \n"
 sudo systemctl enable supervisor

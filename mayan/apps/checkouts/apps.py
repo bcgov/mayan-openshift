@@ -1,13 +1,13 @@
 from django.apps import apps
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.common.apps import MayanAppConfig
-from mayan.apps.databases.classes import ModelQueryFields
 from mayan.apps.common.menus import (
     menu_list_facet, menu_main, menu_multi_item, menu_secondary
 )
 from mayan.apps.dashboards.dashboards import dashboard_administrator
+from mayan.apps.databases.classes import ModelQueryFields
 from mayan.apps.events.classes import ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
 
@@ -38,7 +38,7 @@ class CheckoutsApp(MayanAppConfig):
     has_rest_api = True
     has_tests = True
     name = 'mayan.apps.checkouts'
-    verbose_name = _('Checkouts')
+    verbose_name = _(message='Checkouts')
 
     def ready(self):
         super().ready()
@@ -70,7 +70,8 @@ class CheckoutsApp(MayanAppConfig):
         ModelEventType.register(
             model=Document, event_types=(
                 event_document_auto_checked_in, event_document_checked_in,
-                event_document_checked_out, event_document_forcefully_checked_in
+                event_document_checked_out,
+                event_document_forcefully_checked_in
             )
         )
 
@@ -87,7 +88,9 @@ class CheckoutsApp(MayanAppConfig):
         )
 
         model_query_fields_document = ModelQueryFields(model=Document)
-        model_query_fields_document.add_select_related_field(field_name='documentcheckout')
+        model_query_fields_document.add_select_related_field(
+            field_name='documentcheckout'
+        )
 
         SourceColumn(
             attribute='get_user_display', include_label=True, order=99,
@@ -98,8 +101,8 @@ class CheckoutsApp(MayanAppConfig):
             source=CheckedOutDocument
         )
         SourceColumn(
-            attribute='get_checkout_expiration', include_label=True, order=99,
-            source=CheckedOutDocument
+            attribute='get_checkout_expiration', include_label=True,
+            order=99, source=CheckedOutDocument
         )
 
         dashboard_administrator.add_widget(
@@ -109,7 +112,9 @@ class CheckoutsApp(MayanAppConfig):
         menu_list_facet.bind_links(
             links=(link_check_out_info,), sources=(Document,)
         )
-        menu_main.bind_links(links=(link_check_out_list,), position=40)
+        menu_main.bind_links(
+            links=(link_check_out_list,), position=40
+        )
         menu_multi_item.bind_links(
             links=(
                 link_check_in_document_multiple,

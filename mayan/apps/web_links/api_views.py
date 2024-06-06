@@ -6,12 +6,13 @@ from mayan.apps.documents.serializers.document_type_serializers import (
 )
 from mayan.apps.rest_api import generics
 from mayan.apps.rest_api.api_view_mixins import ExternalObjectAPIViewMixin
+from mayan.apps.rest_api.serializers import BlankSerializer
 
 from .models import ResolvedWebLink, WebLink
 from .permissions import (
     permission_web_link_create, permission_web_link_delete,
-    permission_web_link_edit, permission_web_link_view,
-    permission_web_link_instance_view
+    permission_web_link_edit, permission_web_link_instance_view,
+    permission_web_link_view
 )
 from .serializers import (
     ResolvedWebLinkSerializer, WebLinkDocumentTypeAddSerializer,
@@ -27,13 +28,17 @@ class APIResolvedWebLinkListView(
     """
     external_object_queryset = Document.valid.all()
     external_object_pk_url_kwarg = 'document_id'
-    mayan_external_object_permissions = {'GET': (permission_web_link_instance_view,)}
-    mayan_object_permissions = {'GET': (permission_web_link_instance_view,)}
+    mayan_external_object_permission_map = {
+        'GET': permission_web_link_instance_view
+    }
+    mayan_object_permission_map = {
+        'GET': permission_web_link_instance_view
+    }
     serializer_class = ResolvedWebLinkSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return ResolvedWebLink.objects.get_for(
-            document=self.external_object, user=self.request.user
+            document=self.get_external_object(), user=self.request.user
         )
 
 
@@ -46,13 +51,17 @@ class APIResolvedWebLinkView(
     external_object_queryset = Document.valid.all()
     external_object_pk_url_kwarg = 'document_id'
     lookup_url_kwarg = 'resolved_web_link_id'
-    mayan_external_object_permissions = {'GET': (permission_web_link_instance_view,)}
-    mayan_object_permissions = {'GET': (permission_web_link_instance_view,)}
+    mayan_external_object_permission_map = {
+        'GET': permission_web_link_instance_view
+    }
+    mayan_object_permission_map = {
+        'GET': permission_web_link_instance_view
+    }
     serializer_class = ResolvedWebLinkSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return ResolvedWebLink.objects.get_for(
-            document=self.external_object, user=self.request.user
+            document=self.get_external_object(), user=self.request.user
         )
 
 
@@ -65,17 +74,22 @@ class APIResolvedWebLinkNavigateView(
     external_object_queryset = Document.valid.all()
     external_object_pk_url_kwarg = 'document_id'
     lookup_url_kwarg = 'resolved_web_link_id'
-    mayan_external_object_permissions = {'GET': (permission_web_link_instance_view,)}
-    mayan_object_permissions = {'GET': (permission_web_link_instance_view,)}
+    mayan_external_object_permission_map = {
+        'GET': permission_web_link_instance_view
+    }
+    mayan_object_permission_map = {
+        'GET': permission_web_link_instance_view
+    }
+    serializer_class = BlankSerializer
+
+    def get_source_queryset(self):
+        return ResolvedWebLink.objects.get_for(
+            document=self.get_external_object(), user=self.request.user
+        )
 
     def retrieve(self, request, *args, **kwargs):
         return self.get_object().get_redirect(
-            document=self.external_object, user=self.request.user
-        )
-
-    def get_queryset(self):
-        return ResolvedWebLink.objects.get_for(
-            document=self.external_object, user=self.request.user
+            document=self.get_external_object(), user=self.request.user
         )
 
 
@@ -84,16 +98,17 @@ class APIWebLinkListView(generics.ListCreateAPIView):
     get: Returns a list of all the web links.
     post: Create a new web link.
     """
-    mayan_object_permissions = {'GET': (permission_web_link_view,)}
-    mayan_view_permissions = {'POST': (permission_web_link_create,)}
-    ordering_fields = ('enabled', 'id', 'label')
-    queryset = WebLink.objects.all()
+    mayan_object_permission_map = {
+        'GET': permission_web_link_view
+    }
+    mayan_view_permission_map = {
+        'POST': permission_web_link_create
+    }
     serializer_class = WebLinkSerializer
+    source_queryset = WebLink.objects.all()
 
     def get_instance_extra_data(self):
-        return {
-            '_event_actor': self.request.user
-        }
+        return {'_event_actor': self.request.user}
 
 
 class APIWebLinkView(generics.RetrieveUpdateDestroyAPIView):
@@ -104,19 +119,17 @@ class APIWebLinkView(generics.RetrieveUpdateDestroyAPIView):
     put: Edit the selected web link.
     """
     lookup_url_kwarg = 'web_link_id'
-    mayan_object_permissions = {
-        'DELETE': (permission_web_link_delete,),
-        'GET': (permission_web_link_view,),
-        'PATCH': (permission_web_link_edit,),
-        'PUT': (permission_web_link_edit,)
+    mayan_object_permission_map = {
+        'DELETE': permission_web_link_delete,
+        'GET': permission_web_link_view,
+        'PATCH': permission_web_link_edit,
+        'PUT': permission_web_link_edit
     }
-    queryset = WebLink.objects.all()
     serializer_class = WebLinkSerializer
+    source_queryset = WebLink.objects.all()
 
     def get_instance_extra_data(self):
-        return {
-            '_event_actor': self.request.user
-        }
+        return {'_event_actor': self.request.user}
 
 
 class APIWebLinkDocumentTypeAddView(generics.ObjectActionAPIView):
@@ -124,17 +137,17 @@ class APIWebLinkDocumentTypeAddView(generics.ObjectActionAPIView):
     post: Add a document type to a web link.
     """
     lookup_url_kwarg = 'web_link_id'
-    mayan_object_permissions = {
-        'POST': (permission_web_link_edit,)
+    mayan_object_permission_map = {
+        'POST': permission_web_link_edit
     }
     serializer_class = WebLinkDocumentTypeAddSerializer
-    queryset = WebLink.objects.all()
+    source_queryset = WebLink.objects.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         document_type = serializer.validated_data['document_type']
-        self.object._event_actor = self.request.user
-        self.object.document_types_add(
-            queryset=DocumentType.objects.filter(pk=document_type.pk)
+        obj.document_types_add(
+            queryset=DocumentType.objects.filter(pk=document_type.pk),
+            user=self.request.user
         )
 
 
@@ -146,12 +159,16 @@ class APIWebLinkDocumentTypeListView(
     """
     external_object_class = WebLink
     external_object_pk_url_kwarg = 'web_link_id'
-    mayan_external_object_permissions = {'GET': (permission_web_link_view,)}
-    mayan_object_permissions = {'GET': (permission_document_type_view,)}
+    mayan_external_object_permission_map = {
+        'GET': permission_web_link_view
+    }
+    mayan_object_permission_map = {
+        'GET': permission_document_type_view
+    }
     serializer_class = DocumentTypeSerializer
 
-    def get_queryset(self):
-        return self.external_object.document_types.all()
+    def get_source_queryset(self):
+        return self.get_external_object().document_types.all()
 
 
 class APIWebLinkDocumentTypeRemoveView(generics.ObjectActionAPIView):
@@ -159,15 +176,15 @@ class APIWebLinkDocumentTypeRemoveView(generics.ObjectActionAPIView):
     post: Remove a document type from a web link.
     """
     lookup_url_kwarg = 'web_link_id'
-    mayan_object_permissions = {
-        'POST': (permission_web_link_edit,)
+    mayan_object_permission_map = {
+        'POST': permission_web_link_edit
     }
     serializer_class = WebLinkDocumentTypeRemoveSerializer
-    queryset = WebLink.objects.all()
+    source_queryset = WebLink.objects.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         document_type = serializer.validated_data['document_type']
-        self.object._event_actor = self.request.user
-        self.object.document_types_remove(
-            queryset=DocumentType.objects.filter(pk=document_type.pk)
+        obj.document_types_remove(
+            queryset=DocumentType.objects.filter(pk=document_type.pk),
+            user=self.request.user
         )

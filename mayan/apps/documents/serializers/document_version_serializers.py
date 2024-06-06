@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.serializers import ContentTypeSerializer
 from mayan.apps.rest_api import serializers
@@ -11,18 +11,20 @@ from ..models.document_version_page_models import DocumentVersionPage
 
 class DocumentVersionModificationSerializer(serializers.Serializer):
     id = serializers.CharField(
-        label=_('ID'), read_only=True, source='backend_class_path'
+        label=_(message='ID'), read_only=True, source='backend_class_path'
     )
-    label = serializers.CharField(label=_('Label'), read_only=True)
+    label = serializers.CharField(
+        label=_(message='Label'), read_only=True
+    )
     description = serializers.CharField(
-        label=_('Description'), read_only=True
+        label=_(message='Description'), read_only=True
     )
 
 
 class DocumentVersionModificationExecuteSerializer(serializers.Serializer):
     backend_id = serializers.ChoiceField(
-        choices=(), label=_('Backend ID'), help_text=_(
-            'Primary key of the modification backend to execute.'
+        choices=(), label=_(message='Backend ID'), help_text=_(
+            message='Primary key of the modification backend to execute.'
         )
     )
 
@@ -32,57 +34,56 @@ class DocumentVersionModificationExecuteSerializer(serializers.Serializer):
 
 
 class DocumentVersionPageSerializer(serializers.HyperlinkedModelSerializer):
-    content_type = ContentTypeSerializer(read_only=True)
+    content_type = ContentTypeSerializer(
+        label=_(message='Content type'), read_only=True
+    )
     content_type_id = serializers.IntegerField(
-        help_text=_('Content type ID of the source object for the page.'),
+        help_text=_(message='Content type ID of the source object for the page.'),
         write_only=True
     )
     document_version_url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='Document version URL'), view_kwargs=(
             {
                 'lookup_field': 'document_version.document.pk',
-                'lookup_url_kwarg': 'document_id',
+                'lookup_url_kwarg': 'document_id'
             },
             {
                 'lookup_field': 'document_version_id',
-                'lookup_url_kwarg': 'document_version_id',
+                'lookup_url_kwarg': 'document_version_id'
             }
-        ),
-        view_name='rest_api:documentversion-detail'
+        ), view_name='rest_api:documentversion-detail'
     )
     image_url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='Image URL'), view_kwargs=(
             {
                 'lookup_field': 'document_version.document.pk',
-                'lookup_url_kwarg': 'document_id',
+                'lookup_url_kwarg': 'document_id'
             },
             {
                 'lookup_field': 'document_version_id',
-                'lookup_url_kwarg': 'document_version_id',
+                'lookup_url_kwarg': 'document_version_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'document_version_page_id',
+                'lookup_url_kwarg': 'document_version_page_id'
             }
-        ),
-        view_name='rest_api:documentversionpage-image'
+        ), view_name='rest_api:documentversionpage-image'
     )
     url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='URL'), view_kwargs=(
             {
                 'lookup_field': 'document_version.document.pk',
-                'lookup_url_kwarg': 'document_id',
+                'lookup_url_kwarg': 'document_id'
             },
             {
                 'lookup_field': 'document_version_id',
-                'lookup_url_kwarg': 'document_version_id',
+                'lookup_url_kwarg': 'document_version_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'document_version_page_id',
+                'lookup_url_kwarg': 'document_version_page_id'
             }
-        ),
-        view_name='rest_api:documentversionpage-detail'
+        ), view_name='rest_api:documentversionpage-detail'
     )
 
     class Meta:
@@ -100,49 +101,47 @@ class DocumentVersionPageSerializer(serializers.HyperlinkedModelSerializer):
 
 class DocumentVersionSerializer(serializers.HyperlinkedModelSerializer):
     document_url = serializers.HyperlinkedIdentityField(
-        lookup_field='document_id',
-        lookup_url_kwarg='document_id',
-        view_name='rest_api:document-detail'
+        label=_(message='Document URL'), lookup_field='document_id',
+        lookup_url_kwarg='document_id', view_name='rest_api:document-detail'
     )
     export_url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='Export URL'), view_kwargs=(
             {
                 'lookup_field': 'document_id',
-                'lookup_url_kwarg': 'document_id',
+                'lookup_url_kwarg': 'document_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'document_version_id',
-            },
-        ),
-        view_name='rest_api:documentversion-export'
+                'lookup_url_kwarg': 'document_version_id'
+            }
+        ), view_name='rest_api:documentversion-export'
     )
     page_list_url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='Page list URL'), view_kwargs=(
             {
                 'lookup_field': 'document_id',
-                'lookup_url_kwarg': 'document_id',
+                'lookup_url_kwarg': 'document_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'document_version_id',
-            },
-        ),
-        view_name='rest_api:documentversionpage-list'
+                'lookup_url_kwarg': 'document_version_id'
+            }
+        ), view_name='rest_api:documentversionpage-list'
     )
-    pages_first = DocumentVersionPageSerializer(many=False, read_only=True)
+    pages_first = DocumentVersionPageSerializer(
+        label=_(message='Pages first'), many=False, read_only=True
+    )
     url = MultiKwargHyperlinkedIdentityField(
-        view_kwargs=(
+        label=_(message='URL'), view_kwargs=(
             {
                 'lookup_field': 'document_id',
-                'lookup_url_kwarg': 'document_id',
+                'lookup_url_kwarg': 'document_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'document_version_id',
-            },
-        ),
-        view_name='rest_api:documentversion-detail'
+                'lookup_url_kwarg': 'document_version_id'
+            }
+        ), view_name='rest_api:documentversion-detail'
     )
 
     class Meta:
