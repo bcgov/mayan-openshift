@@ -5,7 +5,7 @@
 #              Mayan EDMS.
 ####
 
-FROM debian:11.3-slim as base_image
+FROM debian:11.4-slim as base_image
 
 LABEL maintainer="Roberto Rosario roberto.rosario@mayan-edms.com"
 
@@ -30,6 +30,7 @@ RUN set -x \
   && apt-get install --no-install-recommends --yes \
   ca-certificates \
   exiftool \
+  file \
   fonts-arphic-uming \
   fonts-arphic-ukai \
   fonts-unfonts-core \
@@ -165,7 +166,7 @@ RUN set -a \
   && pip install --no-cache-dir dist/mayan_edms-*.whl \
   # Install the static content.
   && mayan-edms.py installdependencies \
-  && MAYAN_STATIC_ROOT=${PROJECT_INSTALL_DIR}static mayan-edms.py preparestatic --link --noinput
+  && mayan-edms.py appearance_prepare_static --link --noinput
 
 COPY --chown=mayan:mayan requirements/testing-base.txt "${PROJECT_INSTALL_DIR}"
 
