@@ -5,9 +5,20 @@
 #              Mayan EDMS.
 ####
 
-FROM debian:11.4-slim as base_image
+FROM debian:12.5-slim as base_image
 
+LABEL io.artifacthub.package.keywords="Python,Django,document management,OCR,PDF"
+LABEL io.artifacthub.package.readme-url="https://gitlab.com/mayan-edms/mayan-edms/-/raw/master/README.md"
 LABEL maintainer="Roberto Rosario roberto.rosario@mayan-edms.com"
+LABEL org.opencontainers.image.authors="Roberto Rosario roberto.rosario@mayan-edms.com, https://forum.mayan-edms.com"
+LABEL org.opencontainers.image.base.name="{{ DOCKER_LINUX_IMAGE_VERSION }}"
+LABEL org.opencontainers.image.description="Free Open Source Electronic Document Management System"
+LABEL org.opencontainers.image.documentation="https://docs.mayan-edms.com/chapters/docker/index.html"
+LABEL org.opencontainers.image.licenses="GPL-2.0-only"
+LABEL org.opencontainers.image.source="https://gitlab.com/mayan-edms/mayan-edms/-/blob/master/mayan/apps/platform/templates/platform/docker/dockerfile.tmpl"
+LABEL org.opencontainers.image.url="https://hub.docker.com/r/mayanedms/mayanedms"
+LABEL org.opencontainers.image.vendor="Roberto Rosario"
+LABEL org.opencontainers.image.title="Mayan EDMS"
 
 COPY config.env /config.env
 
@@ -20,7 +31,8 @@ ENV MAYAN_MEDIA_ROOT=/var/lib/mayan \
 
 # Debian package caching.
 ARG APT_PROXY
-RUN set -x \
+RUN --mount=type=cache,target=/var/cache/apt \
+  set -x \
   && if [ "${APT_PROXY}" ]; \
   then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy \
   ; fi \
@@ -29,32 +41,27 @@ RUN set -x \
   apt-get update \
   && apt-get install --no-install-recommends --yes \
   ca-certificates \
-  exiftool \
+  clamav \
   file \
   fonts-arphic-uming \
   fonts-arphic-ukai \
   fonts-unfonts-core \
   fuse \
   ghostscript \
-  git-core \
-  gpgv \
+  git \
   gnupg1 \
   graphviz \
   libarchive-zip-perl \
+  libfile-mimeinfo-perl \
+  libimage-exiftool-perl \
+  libmariadb3 \
+  libpq5 \
   libreoffice-calc-nogui \
   libreoffice-draw-nogui \
   libreoffice-impress-nogui \
   libreoffice-math-nogui \
   libreoffice-writer-nogui \
-  libfile-mimeinfo-perl \
-  libfuse2 \
-  libldap-2.4-2 \
-  libmagic1 \
-  libmariadb3 \
-  libpq5 \
-  libsasl2-2 \
   poppler-utils \
-  python3-distutils \
   sane-utils \
   sudo \
   supervisor \
@@ -62,7 +69,6 @@ RUN set -x \
   procps \
   # Remove make and build dependencies.
   && apt-get remove --purge --yes \
-  make \
   libproxy-tools \
   libreoffice-avmedia-backend-vlc \
   libvlc-bin \
@@ -73,18 +79,20 @@ RUN set -x \
   libgstreamer-plugins-base1.0-0 \
   && apt-get autoremove --purge --yes \
   # Add mayan user.
-  && adduser mayan --disabled-password --disabled-login --no-create-home --gecos "" \
+  && adduser mayan --disabled-password --no-create-home --gecos "" \
   # Pillow can't find zlib or libjpeg on aarch64 (ODROID C2).
   && if [ "$(uname -m)" = "aarch64" ]; then \
-  ln -s /usr/lib/aarch64-linux-gnu/libz.so /usr/lib/ \
-  && ln -s /usr/lib/aarch64-linux-gnu/libjpeg.so /usr/lib/ \
+  ln --symbolic /usr/lib/aarch64-linux-gnu/libz.so /usr/lib/ \
+  && ln --symbolic /usr/lib/aarch64-linux-gnu/libjpeg.so /usr/lib/ \
   ; fi \
   # Pillow can't find zlib or libjpeg on armv7l (ODROID HC1).
   && if [ "$(uname -m)" = "armv7l" ]; then \
-  ln -s /usr/lib/arm-linux-gnueabihf/libz.so /usr/lib/ \
-  && ln -s /usr/lib/arm-linux-gnueabihf/libjpeg.so /usr/lib/ \
+  ln --symbolic /usr/lib/arm-linux-gnueabihf/libz.so /usr/lib/ \
+  && ln --symbolic /usr/lib/arm-linux-gnueabihf/libjpeg.so /usr/lib/ \
   ; fi \
-  && sed -i 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf
+  && sed -i 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf \
+  # Update ClamAV database.
+  && /usr/bin/freshclam
 
 ####
 # builder_image - This image builds the Python package and is discarded afterwards
@@ -107,7 +115,7 @@ COPY --chown=mayan:0 requirements /src/requirements
 COPY --chown=mayan:0 \
   HISTORY.rst \
   LICENSE \
-  MANIFEST.in \
+  MANIFEST-PRODUCTION.in \
   README.md \
   README.rst \
   setup.py \
@@ -116,7 +124,8 @@ COPY --chown=mayan:0 \
 COPY --chown=mayan:0 mayan /src/mayan
 
 # Install development packages needed to build the Python packages.
-RUN DEBIAN_FRONTEND=noninteractive \
+RUN --mount=type=cache,target=/var/cache/apt \
+  DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends --yes \
   default-libmysqlclient-dev \
   g++ \
@@ -129,15 +138,14 @@ RUN DEBIAN_FRONTEND=noninteractive \
   libsasl2-dev \
   libssl-dev \
   libtiff-dev \
-  make \
   python3-dev \
   python3-venv \
   zlib1g-dev \
-  && mkdir -p "${PROJECT_INSTALL_DIR}" \
-  && chown -R mayan:0 "${PROJECT_INSTALL_DIR}" \
-  && fix_permissions() { while [ $# -gt 0 ] ; do chgrp -R 0 "$1" && chmod -R g=u "$1"; shift; done } \
+  && mkdir --parents "${PROJECT_INSTALL_DIR}" \
+  && chown --recursive mayan:0 "${PROJECT_INSTALL_DIR}" \
+  && fix_permissions() { while [ $# -gt 0 ] ; do chgrp --recursive 0 "$1" && chmod -R g=u "$1"; shift; done } \
   && fix_permissions /opt/mayan-edms \
-  && chown -R mayan:0 /src
+  && chown --recursive mayan:0 /src
 
 USER mayan
 
@@ -160,13 +168,15 @@ RUN set -a \
   # Install the Python packages needed to build Mayan EDMS.
   && pip install --no-cache-dir --requirement /src/requirements/build.txt \
   # Build Mayan EDMS.
+  && cp MANIFEST-PRODUCTION.in MANIFEST.in \
   && python3 setup.py sdist \
-  && pip wheel --no-index --no-deps --wheel-dir dist dist/mayan-edms-*.tar.gz \
+  && pip wheel --no-deps --no-index --wheel-dir dist dist/mayan-edms-*.tar.gz \
   # Install the built Mayan EDMS package.
   && pip install --no-cache-dir dist/mayan_edms-*.whl \
   # Install the static content.
-  && mayan-edms.py installdependencies \
-  && mayan-edms.py appearance_prepare_static --link --noinput
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py dependencies_install \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py appearance_prepare_static --link --noinput
+
 
 COPY --chown=mayan:mayan requirements/testing-base.txt "${PROJECT_INSTALL_DIR}"
 
@@ -184,7 +194,7 @@ COPY docker/rootfs /
 
 VOLUME ["/var/lib/mayan"]
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 EXPOSE 8000
 CMD ["run_all"]
@@ -192,15 +202,15 @@ CMD ["run_all"]
 RUN set -a \
   && . /config.env \
   && set +a \
-  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platformtemplate docker_entrypoint > /usr/local/bin/entrypoint.sh \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platform_template docker_entrypoint > /usr/local/bin/entrypoint.sh \
   && chown mayan:mayan /usr/local/bin/entrypoint.sh \
   && chmod +x /usr/local/bin/entrypoint.sh \
-  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platformtemplate docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platform_template docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
   && apt-get clean autoclean \
   && apt-get autoremove --purge --yes \
   && rm -rf /var/lib/apt/lists/* \
   && rm -f /var/cache/apt/archives/*.deb \
-  # Remove temporary files owned by root from the platformtemplate step.
+  # Remove temporary files owned by root from the platform_template step.
   && rm -f /tmp/* \
   # Keep displaying log messages to stdout
   && find /var/log -type f | while read f; do echo -ne '' > $f; done \
