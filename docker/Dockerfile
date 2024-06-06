@@ -143,7 +143,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
   zlib1g-dev \
   && mkdir --parents "${PROJECT_INSTALL_DIR}" \
   && chown --recursive mayan:0 "${PROJECT_INSTALL_DIR}" \
-  && fix_permissions() { while [ $# -gt 0 ] ; do chgrp --recursive 0 "$1" && chmod -R g=u "$1"; shift; done } \
+  && fix_permissions() { while [ $# -gt 0 ] ; do chgrp --recursive 0 "$1" && chmod --recursive g=u "$1"; shift; done } \
   && fix_permissions /opt/mayan-edms \
   && chown --recursive mayan:0 /src
 
@@ -158,7 +158,7 @@ RUN set -a \
   pip==${PYTHON_PIP_VERSION} \
   amqp==${PYTHON_AMQP_VERSION} \
   mysqlclient==${PYTHON_MYSQL_VERSION} \
-  psycopg2==${PYTHON_PSYCOPG2_VERSION} \
+  psycopg==${PYTHON_PSYCOPG_VERSION} \
   redis==${PYTHON_REDIS_VERSION} \
   # psutil is needed by ARM builds otherwise gevent and gunicorn fail to start.
   && UNAME=`uname -m` && if [ "${UNAME#*arm}" != ${UNAME} ]; then \
@@ -208,14 +208,14 @@ RUN set -a \
   && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platform_template docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
   && apt-get clean autoclean \
   && apt-get autoremove --purge --yes \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -f /var/cache/apt/archives/*.deb \
+  && rm --force --recursive /var/lib/apt/lists/* \
+  && rm --force /var/cache/apt/archives/*.deb \
   # Remove temporary files owned by root from the platform_template step.
-  && rm -f /tmp/* \
+  && rm --force /tmp/* \
   # Keep displaying log messages to stdout
   && find /var/log -type f | while read f; do echo -ne '' > $f; done \
   # Delete Debian package proxy used for the base image.
-  && rm -f /etc/apt/apt.conf.d/01proxy
+  && rm --force /etc/apt/apt.conf.d/01proxy
 
 FROM final_image as test_image
 
@@ -228,7 +228,7 @@ COPY entrypoint.sh /usr/local/bin/
 COPY supervisord.conf /etc/supervisor/
 
 RUN mkdir -p /var/lib/mayan \
-  && fix_permissions() { while [ $# -gt 0 ] ; do chgrp -R 0 "$1" && chmod -R g=u "$1"; shift; done } \
+  && fix_permissions() { while [ $# -gt 0 ] ; do chgrp --recursive 0 "$1" && chmod --recursive g=u "$1"; shift; done } \
   && fix_permissions /var/lib/mayan \
   && fix_permissions /var/run \
   && fix_permissions /var/log/supervisor \
