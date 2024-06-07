@@ -5,9 +5,20 @@
 #              Mayan EDMS.
 ####
 
-FROM debian:11.4-slim as base_image
+FROM debian:11.9-slim as base_image
 
+LABEL io.artifacthub.package.keywords="Python,Django,document management,OCR,PDF"
+LABEL io.artifacthub.package.readme-url="https://gitlab.com/mayan-edms/mayan-edms/-/raw/master/README.md"
 LABEL maintainer="Roberto Rosario roberto.rosario@mayan-edms.com"
+LABEL org.opencontainers.image.authors="Roberto Rosario roberto.rosario@mayan-edms.com, https://forum.mayan-edms.com"
+LABEL org.opencontainers.image.base.name="{{ DOCKER_LINUX_IMAGE_VERSION }}"
+LABEL org.opencontainers.image.description="Free Open Source Electronic Document Management System"
+LABEL org.opencontainers.image.documentation="https://docs.mayan-edms.com/chapters/docker/index.html"
+LABEL org.opencontainers.image.licenses="GPL-2.0-only"
+LABEL org.opencontainers.image.source="https://gitlab.com/mayan-edms/mayan-edms/-/blob/master/mayan/apps/platform/templates/platform/docker/dockerfile.tmpl"
+LABEL org.opencontainers.image.url="https://hub.docker.com/r/mayanedms/mayanedms"
+LABEL org.opencontainers.image.vendor="Roberto Rosario"
+LABEL org.opencontainers.image.title="Mayan EDMS"
 
 COPY config.env /config.env
 
@@ -29,14 +40,14 @@ RUN set -x \
   apt-get update \
   && apt-get install --no-install-recommends --yes \
   ca-certificates \
-  exiftool \
+  clamav \
   file \
   fonts-arphic-uming \
   fonts-arphic-ukai \
   fonts-unfonts-core \
   fuse \
   ghostscript \
-  git-core \
+  git \
   gpgv \
   gnupg1 \
   graphviz \
@@ -54,7 +65,6 @@ RUN set -x \
   libpq5 \
   libsasl2-2 \
   poppler-utils \
-  python3-distutils \
   sane-utils \
   sudo \
   supervisor \
@@ -116,7 +126,8 @@ COPY --chown=mayan:0 \
 COPY --chown=mayan:0 mayan /src/mayan
 
 # Install development packages needed to build the Python packages.
-RUN DEBIAN_FRONTEND=noninteractive \
+RUN --mount=type=cache,target=/var/cache/apt \
+  DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends --yes \
   default-libmysqlclient-dev \
   g++ \
@@ -150,7 +161,7 @@ RUN set -a \
   pip==${PYTHON_PIP_VERSION} \
   amqp==${PYTHON_AMQP_VERSION} \
   mysqlclient==${PYTHON_MYSQL_VERSION} \
-  psycopg2==${PYTHON_PSYCOPG2_VERSION} \
+  psycopg==${PYTHON_PSYCOPG_VERSION} \
   redis==${PYTHON_REDIS_VERSION} \
   # psutil is needed by ARM builds otherwise gevent and gunicorn fail to start.
   && UNAME=`uname -m` && if [ "${UNAME#*arm}" != ${UNAME} ]; then \
@@ -165,8 +176,8 @@ RUN set -a \
   # Install the built Mayan EDMS package.
   && pip install --no-cache-dir dist/mayan_edms-*.whl \
   # Install the static content.
-  && mayan-edms.py installdependencies \
-  && mayan-edms.py appearance_prepare_static --link --noinput
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py dependencies_install \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py appearance_prepare_static --link --noinput
 
 COPY --chown=mayan:mayan requirements/testing-base.txt "${PROJECT_INSTALL_DIR}"
 
@@ -184,7 +195,7 @@ COPY docker/rootfs /
 
 VOLUME ["/var/lib/mayan"]
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 EXPOSE 8000
 CMD ["run_all"]
@@ -192,15 +203,15 @@ CMD ["run_all"]
 RUN set -a \
   && . /config.env \
   && set +a \
-  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platformtemplate docker_entrypoint > /usr/local/bin/entrypoint.sh \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platform_template docker_entrypoint > /usr/local/bin/entrypoint.sh \
   && chown mayan:mayan /usr/local/bin/entrypoint.sh \
   && chmod +x /usr/local/bin/entrypoint.sh \
-  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platformtemplate docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platform_template docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
   && apt-get clean autoclean \
   && apt-get autoremove --purge --yes \
   && rm -rf /var/lib/apt/lists/* \
   && rm -f /var/cache/apt/archives/*.deb \
-  # Remove temporary files owned by root from the platformtemplate step.
+  # Remove temporary files owned by root from the platform_template step.
   && rm -f /tmp/* \
   # Keep displaying log messages to stdout
   && find /var/log -type f | while read f; do echo -ne '' > $f; done \
