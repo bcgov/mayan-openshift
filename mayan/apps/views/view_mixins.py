@@ -2,11 +2,11 @@ from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.query import QuerySet
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404
 from django.http.response import FileResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import ungettext, ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _, ngettext
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin
 
@@ -15,7 +15,7 @@ from mayan.apps.acls.models import AccessControlList
 from mayan.apps.common.settings import setting_home_view
 from mayan.apps.databases.utils import check_queryset
 from mayan.apps.mime_types.classes import MIMETypeBackend
-from mayan.apps.permissions import Permission
+from mayan.apps.permissions.classes import Permission
 
 from .exceptions import ActionError
 from .forms import DynamicForm, FormMixinFieldsets
@@ -50,24 +50,14 @@ class ContentTypeViewMixin:
 
 class ExtraDataDeleteViewMixin:
     """
-    Mixin to populate the extra data needed for delete views
+    Mixin to populate the extra data needed for delete views.
     """
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-
+    def form_valid(self, form):
         if hasattr(self, 'get_instance_extra_data'):
             for key, value in self.get_instance_extra_data().items():
                 setattr(self.object, key, value)
 
-        success_url = self.get_success_url()
-        if hasattr(self, 'get_delete_extra_data'):
-            self.object.delete(
-                **self.get_delete_extra_data()
-            )
-        else:
-            self.object.delete()
-
-        return HttpResponseRedirect(redirect_to=success_url)
+        return super().form_valid(form=form)
 
 
 class DownloadViewMixin:
@@ -221,7 +211,8 @@ class ExternalContentTypeObjectViewMixin(
     ContentTypeViewMixin, ExternalObjectViewMixin
 ):
     """
-    Mixin to retrieve an external object by content type from the URL pattern.
+    Mixin to retrieve an external object by content type from the URL
+    pattern.
     """
     external_object_pk_url_kwarg = 'object_id'
 
@@ -251,7 +242,7 @@ class ExtraContextViewMixin:
 
 class FormExtraKwargsViewMixin:
     """
-    Mixin that allows a view to pass extra keyword arguments to forms
+    Mixin that allows a view to pass extra keyword arguments to forms.
     """
     form_extra_kwargs = {}
 
@@ -382,7 +373,7 @@ class MultipleObjectViewMixin(SingleObjectMixin):
         self.view_mode_multiple = False
 
         # Use a custom queryset if provided; this is required for subclasses
-        # like DateDetailView
+        # like DateDetailView.
         if queryset is None:
             queryset = self.get_queryset()
 
@@ -423,7 +414,7 @@ class MultipleObjectViewMixin(SingleObjectMixin):
             return queryset
         except queryset.model.DoesNotExist:
             raise Http404(
-                _('No %(verbose_name)s found matching the query') %
+                _(message='No %(verbose_name)s found matching the query') %
                 {'verbose_name': queryset.model._meta.verbose_name}
             )
         else:
@@ -433,7 +424,7 @@ class MultipleObjectViewMixin(SingleObjectMixin):
     def get_pk_list(self):
         # Accept pk_list even on POST request to allowing direct requests
         # to the view bypassing the initial GET request to submit the form.
-        # Example: when the view is called from a test or a custom UI
+        # Example: when the view is called from a test or a custom UI.
         result = self.request.GET.get(
             self.pk_list_key, self.request.POST.get(self.pk_list_key)
         )
@@ -446,18 +437,22 @@ class MultipleObjectViewMixin(SingleObjectMixin):
 
 class ObjectActionViewMixin:
     """
-    Mixin that performs a user action to a queryset
+    Mixin that performs a user action on a queryset.
     """
     error_message = _(
         'Unable to perform operation on object %(instance)s; %(exception)s.'
     )
     post_object_action_url = None
-    success_message_plural = _('Operation performed on %(count)d objects.')
-    success_message_single = _('Operation performed on %(object)s.')
-    success_message_singular = _('Operation performed on %(count)d object.')
-    title_plural = _('Perform operation on %(count)d objects.')
-    title_single = _('Perform operation on %(object)s.')
-    title_singular = _('Perform operation on %(count)d object.')
+    success_message_plural = _(
+        message='Operation performed on %(count)d objects.'
+    )
+    success_message_single = _(message='Operation performed on %(object)s.')
+    success_message_singular = _(
+        message='Operation performed on %(count)d object.'
+    )
+    title_plural = _(message='Perform operation on %(count)d objects.')
+    title_single = _(message='Perform operation on %(object)s.')
+    title_singular = _(message='Perform operation on %(count)d object.')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -467,7 +462,7 @@ class ObjectActionViewMixin:
             if self.view_mode_single:
                 title = self.title_single % {'object': self.object}
             elif self.view_mode_multiple:
-                title = ungettext(
+                title = ngettext(
                     singular=self.title_singular,
                     plural=self.title_plural,
                     number=self.object_list.count()
@@ -487,7 +482,7 @@ class ObjectActionViewMixin:
             return self.success_message_single % {'object': self.object}
 
         if self.view_mode_multiple:
-            return ungettext(
+            return ngettext(
                 singular=self.success_message_singular,
                 plural=self.success_message_plural,
                 number=count
@@ -496,7 +491,7 @@ class ObjectActionViewMixin:
             }
 
     def object_action(self, instance, form=None):
-        # User supplied method
+        # User supplied method.
         raise NotImplementedError
 
     def view_action(self, form=None):
@@ -521,8 +516,8 @@ class ObjectActionViewMixin:
             request=self.request
         )
 
-        # Allow get_post_object_action_url to override the redirect URL with a
-        # calculated URL after all objects are processed.
+        # Allow `get_post_object_action_url` to override the redirect URL
+        # with a calculated URL after all objects are processed.
         success_url = self.get_post_object_action_url()
         if success_url:
             self.success_url = success_url
@@ -542,7 +537,7 @@ class ObjectNameViewMixin:
             try:
                 object_name = view_object._meta.verbose_name
             except AttributeError:
-                object_name = _('Object')
+                object_name = _(message='Object')
 
         return object_name
 
@@ -697,9 +692,8 @@ class ViewPermissionCheckViewMixin:
     def dispatch(self, request, *args, **kwargs):
         view_permission = self.get_view_permission()
         if view_permission:
-            Permission.check_user_permissions(
-                permissions=(view_permission,),
-                user=self.request.user
+            Permission.check_user_permission(
+                permission=view_permission, user=self.request.user
             )
 
         return super().dispatch(request, *args, **kwargs)

@@ -8,7 +8,7 @@ from mayan.apps.common.serialization import yaml_load
 from mayan.apps.templating.classes import Template
 
 from .literals import (
-    CONFIGURATION_FILENAME, CONFIGURATION_LAST_GOOD_FILENAME
+    CONFIGURATION_FILENAME, CONFIGURATION_FILENAME_LAST_GOOD
 )
 
 
@@ -334,7 +334,7 @@ SettingNamespaceSingleton.register_setting(
 
 SettingNamespaceSingleton.register_setting(
     klass=MediaBootstrapSetting, kwargs={
-        'critical': True, 'path_parts': (CONFIGURATION_LAST_GOOD_FILENAME,)
+        'critical': True, 'path_parts': (CONFIGURATION_FILENAME_LAST_GOOD,)
     }, name='CONFIGURATION_LAST_GOOD_FILEPATH'
 )
 SettingNamespaceSingleton.register_setting(
@@ -359,6 +359,27 @@ SettingNamespaceSingleton.register_setting(
 )
 SettingNamespaceSingleton.register_setting(
     klass=BaseSetting, name='AUTHENTICATION_BACKENDS'
+)
+SettingNamespaceSingleton.register_setting(
+    klass=BaseSetting,
+    kwargs={
+        'has_default': True,
+        'default_value': False
+    }, name='CSRF_COOKIE_SECURE'
+)
+SettingNamespaceSingleton.register_setting(
+    klass=BaseSetting,
+    kwargs={
+        'has_default': True,
+        'default_value': []
+    }, name='CSRF_TRUSTED_ORIGINS'
+)
+SettingNamespaceSingleton.register_setting(
+    klass=BaseSetting,
+    kwargs={
+        'has_default': True,
+        'default_value': False
+    }, name='CSRF_USE_SESSIONS'
 )
 SettingNamespaceSingleton.register_setting(
     name='DATA_UPLOAD_MAX_MEMORY_SIZE', klass=BaseSetting,
@@ -442,7 +463,10 @@ SettingNamespaceSingleton.register_setting(
     klass=BaseSetting, name='STATIC_URL'
 )
 SettingNamespaceSingleton.register_setting(
-    klass=BaseSetting, name='STATICFILES_STORAGE'
+    klass=BaseSetting, name='STORAGES',
+    kwargs={
+        'has_default': True, 'default_value': {}
+    }
 )
 SettingNamespaceSingleton.register_setting(
     klass=BaseSetting, name='TIME_ZONE'

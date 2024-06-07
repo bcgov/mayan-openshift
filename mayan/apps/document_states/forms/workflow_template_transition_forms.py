@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.formsets import formset_factory
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.templating.fields import ModelTemplateField
 
@@ -36,22 +36,22 @@ class WorkflowTransitionForm(forms.ModelForm):
 
 class WorkflowTransitionTriggerEventRelationshipForm(forms.Form):
     namespace = forms.CharField(
-        label=_('Namespace'), required=False,
+        label=_(message='Namespace'), required=False,
         widget=forms.TextInput(
             attrs={'readonly': 'readonly'}
         )
     )
     label = forms.CharField(
-        label=_('Label'), required=False,
+        label=_(message='Label'), required=False,
         widget=forms.TextInput(
             attrs={'readonly': 'readonly'}
         )
     )
     relationship = forms.ChoiceField(
         choices=(
-            ('no', _('No')),
-            ('yes', _('Yes')),
-        ), label=_('Enabled'), widget=forms.RadioSelect()
+            ('no', _(message='No')),
+            ('yes', _(message='Yes')),
+        ), label=_(message='Enabled'), widget=forms.RadioSelect()
     )
 
     def __init__(self, *args, **kwargs):

@@ -4,20 +4,20 @@
 # 
 # Translators:
 # Translators:
-# Nurgül Özkan <nurgulozkan@hotmail.com>, 2023
-# Emine Öztürk <oemine075@gmail.com>, 2023
-# Bedreddin Şahbaz, 2023
-# abc Def <hdogan1974@gmail.com>, 2023
-# emreunal <bywant@gmail.com>, 2023
-# serhatcan77 <serhat_can@yahoo.com>, 2023
+# Nurgül Özkan <nurgulozkan@hotmail.com>, 2024
+# Emine Öztürk <oemine075@gmail.com>, 2024
+# abc Def <hdogan1974@gmail.com>, 2024
+# emreunal <bywant@gmail.com>, 2024
+# Bedreddin Şahbaz, 2024
+# serhatcan77 <serhat_can@yahoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: serhatcan77 <serhat_can@yahoo.com>, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: serhatcan77 <serhat_can@yahoo.com>, 2024\n"
 "Language-Team: Turkish (Turkey) (https://app.transifex.com/rosarior/teams/13584/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,46 +43,46 @@ msgstr ""
 "Yüklenen her belgeye bir belge türü atanmalıdır; bu, Mayan EDMS'in belgeleri"
 " sınıflandırmasının temel şeklidir."
 
-#: apps.py:401
+#: apps.py:395
 msgid "File comments"
 msgstr ""
 
-#: apps.py:405
+#: apps.py:399
 msgid "File encodings"
 msgstr ""
 
-#: apps.py:409
+#: apps.py:403
 msgid "File MIME types"
 msgstr ""
 
-#: apps.py:413
+#: apps.py:407
 msgid "File timestamps"
 msgstr ""
 
-#: apps.py:418 links/document_file_page_links.py:77
+#: apps.py:412 links/document_file_page_links.py:77
 #: models/document_file_models.py:106 models/document_file_page_models.py:26
 #: search.py:49
 msgid "Document file"
 msgstr "Belge dosyası"
 
-#: apps.py:422 models/document_file_page_models.py:30
+#: apps.py:416 models/document_file_page_models.py:30
 #: models/document_version_page_models.py:40
 msgid "Page number"
 msgstr "Sayfa numarası"
 
-#: apps.py:427
+#: apps.py:421
 msgid "Return the latest file of the document."
 msgstr ""
 
-#: apps.py:428
+#: apps.py:422
 msgid "Latest file"
 msgstr ""
 
-#: apps.py:431
+#: apps.py:426
 msgid "Return the document instance."
 msgstr ""
 
-#: apps.py:432 links/document_file_links.py:71
+#: apps.py:427 links/document_file_links.py:71
 #: links/document_file_page_links.py:71 links/document_version_links.py:73
 #: links/document_version_page_links.py:90 models/document_file_models.py:57
 #: models/document_models.py:115 models/document_version_models.py:28
@@ -93,15 +93,15 @@ msgstr ""
 msgid "Document"
 msgstr "Belge"
 
-#: apps.py:560 apps.py:612 apps.py:641 apps.py:675 apps.py:700
+#: apps.py:558 apps.py:612 apps.py:641 apps.py:676 apps.py:701
 msgid "Thumbnail"
 msgstr "Küçük Resim"
 
-#: apps.py:566
+#: apps.py:564
 msgid "Type"
 msgstr "Tür"
 
-#: apps.py:570 apps.py:617 apps.py:680 forms/document_file_forms.py:89
+#: apps.py:569 apps.py:617 apps.py:681 forms/document_file_forms.py:89
 #: links/document_file_page_links.py:120
 #: links/document_version_page_links.py:50
 msgid "Pages"
@@ -669,11 +669,11 @@ msgid "All pages"
 msgstr ""
 
 #: models/document_file_model_mixins.py:299
-#: models/document_file_page_model_mixins.py:236
-#: models/document_model_mixins.py:174 models/document_models.py:67
+#: models/document_file_page_model_mixins.py:244
+#: models/document_model_mixins.py:176 models/document_models.py:67
 #: models/document_type_models.py:41 models/document_type_models.py:153
-#: models/document_version_model_mixins.py:124
-#: models/document_version_page_model_mixins.py:282
+#: models/document_version_model_mixins.py:128
+#: models/document_version_page_model_mixins.py:290
 #: serializers/document_serializers.py:22
 #: serializers/document_version_serializers.py:17
 msgid "Label"
@@ -724,7 +724,7 @@ msgstr ""
 msgid "Document files"
 msgstr ""
 
-#: models/document_file_page_model_mixins.py:230
+#: models/document_file_page_model_mixins.py:238
 #, python-format
 msgid "%(document_file)s - page %(page_num)d of %(total_pages)d"
 msgstr ""
@@ -734,7 +734,7 @@ msgstr ""
 msgid "Document file page"
 msgstr ""
 
-#: models/document_model_mixins.py:172
+#: models/document_model_mixins.py:173
 #, python-format
 msgid "Document stub, id: %d"
 msgstr "Belge koçanı, kimliği: %d"
@@ -916,7 +916,7 @@ msgstr "Aktif"
 msgid "Document versions"
 msgstr ""
 
-#: models/document_version_page_model_mixins.py:276
+#: models/document_version_page_model_mixins.py:284
 #, python-format
 msgid "%(document_version)s page %(page_number)d of %(total_pages)d"
 msgstr ""
@@ -1538,17 +1538,17 @@ msgid "Pages of document file: %s"
 msgstr ""
 
 #: views/document_file_page_views.py:144
-#: views/document_version_page_views.py:311
+#: views/document_version_page_views.py:315
 msgid "There are no more pages in this document"
 msgstr "Bu belgede başka sayfa yok"
 
 #: views/document_file_page_views.py:160
-#: views/document_version_page_views.py:327
+#: views/document_version_page_views.py:331
 msgid "You are already at the first page of this document"
 msgstr "Zaten bu belgenin ilk sayfasındasın"
 
 #: views/document_file_page_views.py:195
-#: views/document_version_page_views.py:366
+#: views/document_version_page_views.py:370
 #, python-format
 msgid "Image of: %s"
 msgstr ""
@@ -1790,39 +1790,39 @@ msgid ""
 "sequential page numbering, use the page remap action instead."
 msgstr ""
 
-#: views/document_version_page_views.py:61
+#: views/document_version_page_views.py:62
 #, python-format
 msgid "Delete document version page %s ?"
 msgstr ""
 
-#: views/document_version_page_views.py:100
+#: views/document_version_page_views.py:102
 msgid ""
 "Document version pages are links to actual content pages. Create them using "
 "the page remap actions or the version modification action."
 msgstr ""
 
-#: views/document_version_page_views.py:104
+#: views/document_version_page_views.py:107
 msgid "No document version pages available"
 msgstr ""
 
-#: views/document_version_page_views.py:107
+#: views/document_version_page_views.py:111
 #, python-format
 msgid "Pages of document version: %s"
 msgstr ""
 
-#: views/document_version_page_views.py:159
+#: views/document_version_page_views.py:163
 msgid "None"
 msgstr "Yok"
 
-#: views/document_version_page_views.py:186
+#: views/document_version_page_views.py:190
 msgid "There are no sources available to remap for this document version."
 msgstr ""
 
-#: views/document_version_page_views.py:189
+#: views/document_version_page_views.py:193
 msgid "No page sources available"
 msgstr ""
 
-#: views/document_version_page_views.py:192
+#: views/document_version_page_views.py:196
 #, python-format
 msgid "Remap pages of document version: %s"
 msgstr ""

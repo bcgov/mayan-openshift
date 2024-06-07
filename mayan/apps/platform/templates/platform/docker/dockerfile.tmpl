@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.authors="Roberto Rosario roberto.rosario@mayan-ed
 LABEL org.opencontainers.image.base.name="{{ DOCKER_LINUX_IMAGE_VERSION }}"
 LABEL org.opencontainers.image.description="Free Open Source Electronic Document Management System"
 LABEL org.opencontainers.image.documentation="https://docs.mayan-edms.com/chapters/docker/index.html"
-LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.licenses="GPL-2.0-only"
 LABEL org.opencontainers.image.source="https://gitlab.com/mayan-edms/mayan-edms/-/blob/master/mayan/apps/platform/templates/platform/docker/dockerfile.tmpl"
 LABEL org.opencontainers.image.url="https://hub.docker.com/r/mayanedms/mayanedms"
 LABEL org.opencontainers.image.vendor="Roberto Rosario"
@@ -42,6 +42,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     apt-get update \
     && apt-get install --no-install-recommends --yes \
     ca-certificates \
+    clamav \
     file \
     fonts-arphic-uming \
     fonts-arphic-ukai \
@@ -90,7 +91,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
     ln --symbolic /usr/lib/arm-linux-gnueabihf/libz.so /usr/lib/ \
     && ln --symbolic /usr/lib/arm-linux-gnueabihf/libjpeg.so /usr/lib/ \
     ; fi \
-    && sed --in-place 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf
+    && sed --in-place 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf \
+    # Update ClamAV database.
+    && /usr/bin/freshclam
 
 ####
 # builder_image - This image builds the Python package and is discarded afterwards
@@ -157,7 +160,7 @@ RUN set -a \
     pip==${PYTHON_PIP_VERSION} \
     amqp==${PYTHON_AMQP_VERSION} \
     mysqlclient==${PYTHON_MYSQL_VERSION} \
-    psycopg2==${PYTHON_PSYCOPG2_VERSION} \
+    psycopg==${PYTHON_PSYCOPG_VERSION} \
     redis==${PYTHON_REDIS_VERSION} \
     # psutil is needed by ARM builds otherwise gevent and gunicorn fail to start.
     && UNAME=`uname -m` && if [ "${UNAME#*arm}" != ${UNAME} ]; then \

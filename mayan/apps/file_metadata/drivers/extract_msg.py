@@ -2,7 +2,7 @@ import logging
 
 import extract_msg
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.storage.literals import MSG_MIME_TYPES
 
@@ -12,8 +12,13 @@ logger = logging.getLogger(__name__)
 
 
 class ExtractMSGToolDriver(FileMetadataDriver):
-    label = _('Extract msg')
+    description = _(
+        'Extracts information from emails saved in Microsoft Outlook\'s '
+        '.msg files.'
+    )
+    label = _(message='Extract msg')
     internal_name = 'extract_msg'
+    mime_type_list = list(MSG_MIME_TYPES)
 
     def _process(self, document_file):
         message = extract_msg.Message(
@@ -36,8 +41,3 @@ class ExtractMSGToolDriver(FileMetadataDriver):
         logger.debug('message file metadata: %s', result)
 
         return result
-
-
-ExtractMSGToolDriver.register(
-    mimetypes=list(MSG_MIME_TYPES)
-)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
+"POT-Creation-Date: 2024-02-06 20:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,11 +26,11 @@ msgstr ""
 msgid "none"
 msgstr ""
 
-#: classes.py:163
+#: classes.py:161
 msgid "Does not apply"
 msgstr ""
 
-#: classes.py:167 classes.py:171
+#: classes.py:165 classes.py:169
 msgid "Null backend"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 #: mixins.py:108
 msgid ""
 "Apply the quota to all users in the system, excluding admins and staff. "
-"Enabling this option, the quota will ignore the indiviual user and group "
+"Enabling this option, the quota will ignore the individual user and group "
 "selection."
 msgstr ""
 

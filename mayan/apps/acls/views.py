@@ -2,8 +2,8 @@ import logging
 
 from django.template import RequestContext
 from django.urls import reverse
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.permissions.models import Role
 from mayan.apps.views.generics import (
@@ -70,7 +70,7 @@ class ACLCreateView(
 
         return {
             'field_name': 'role',
-            'label': _('Role'),
+            'label': _(message='Role'),
             'queryset': Role.objects.exclude(pk__in=roles),
             'widget_attributes': {'class': 'select2'},
             'user': self.request.user
@@ -100,7 +100,7 @@ class ACLDeleteView(SingleObjectDeleteView):
             'acl': self.object,
             'navigation_object_list': ('object', 'acl'),
             'object': self.object.content_object,
-            'title': _('Delete ACL: %s') % self.object
+            'title': _(message='Delete ACL: %s') % self.object
         }
 
     def get_instance_extra_data(self):
@@ -165,8 +165,8 @@ class ACLListView(
 
 
 class ACLPermissionAddRemoveView(AddRemoveView):
-    list_added_title = _('Granted permissions')
-    list_available_title = _('Available permissions')
+    list_added_title = _(message='Granted permissions')
+    list_available_title = _(message='Available permissions')
     main_object_method_add_name = 'permissions_add'
     main_object_method_remove_name = 'permissions_remove'
     main_object_model = AccessControlList
@@ -178,13 +178,13 @@ class ACLPermissionAddRemoveView(AddRemoveView):
     def generate_choices(self, queryset):
         namespaces_dictionary = {}
 
-        # Sort permissions by their translatable label
+        # Sort permissions by their translatable label.
         object_list = sorted(
             queryset,
             key=lambda permission: permission.volatile_permission.label
         )
 
-        # Group permissions by namespace
+        # Group permissions by namespace.
         for permission in object_list:
             namespaces_dictionary.setdefault(
                 permission.volatile_permission.namespace.label, []
@@ -193,7 +193,7 @@ class ACLPermissionAddRemoveView(AddRemoveView):
                 permission.volatile_permission.namespace.label
             ].append(
                 (
-                    permission.pk, force_text(s=permission)
+                    permission.pk, force_str(s=permission)
                 )
             )
 
@@ -219,7 +219,9 @@ class ACLPermissionAddRemoveView(AddRemoveView):
             'acl': self.main_object,
             'object': self.main_object.content_object,
             'navigation_object_list': ('object', 'acl'),
-            'title': _('Role "%(role)s" permission\'s for "%(object)s".') % {
+            'title': _(
+                message='Role "%(role)s" permission\'s for "%(object)s".'
+            ) % {
                 'object': self.main_object.content_object,
                 'role': self.main_object.role
             }
@@ -243,8 +245,8 @@ class ACLPermissionAddRemoveView(AddRemoveView):
         hold for this object's parents via another ACL. .distinct() is added
         in case the permission was added to the ACL and then added to a
         parent ACL's and thus inherited and would appear twice. If
-        order to remove the double permission from the ACL it would need to be
-        remove from the parent first to enable the choice in the form,
+        order to remove the double permission from the ACL it would need to
+        be remove from the parent first to enable the choice in the form,
         remove it from the ACL and then re-add it to the parent ACL.
         """
         queryset_acl = super().get_list_added_queryset()

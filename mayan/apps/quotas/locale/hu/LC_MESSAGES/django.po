@@ -4,15 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2023
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-02-06 20:31+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -30,11 +30,11 @@ msgstr "Kvóták"
 msgid "none"
 msgstr "nincs"
 
-#: classes.py:163
+#: classes.py:161
 msgid "Does not apply"
-msgstr "Nem vonatkozik"
+msgstr "Nincs alkalmazva"
 
-#: classes.py:167 classes.py:171
+#: classes.py:165 classes.py:169
 msgid "Null backend"
 msgstr "Null háttérrendszer"
 
@@ -114,12 +114,12 @@ msgstr "Minden felhasználó"
 #: mixins.py:108
 msgid ""
 "Apply the quota to all users in the system, excluding admins and staff. "
-"Enabling this option, the quota will ignore the indiviual user and group "
+"Enabling this option, the quota will ignore the individual user and group "
 "selection."
 msgstr ""
-"Alkalmazza a kvótát a rendszer összes felhasználójára, kivéve az adminokat "
-"és a személyzetet. Ha engedélyezi ezt az opciót, a kvóta figyelmen kívül "
-"hagyja az egyes felhasználók és csoportok kiválasztását."
+"Alkalmazza a kvótát a rendszer összes felhasználójára, kivéve az "
+"adminisztrátorokat és a személyzetet. Ha engedélyezi ezt az opciót, a kvóta "
+"figyelmen kívül hagyja az egyéni felhasználó és csoport kiválasztását."
 
 #: mixins.py:115
 msgid "Users"
@@ -164,11 +164,11 @@ msgstr "Háttérrendszerbeli adatok"
 
 #: models.py:24
 msgid "Allow quick disable or enable of the quota."
-msgstr "A kvóta gyors letiltásának vagy engedélyezésének engedélyezése."
+msgstr "A kvóta gyors letiltása vagy engedélyezése."
 
 #: models.py:25
 msgid "Enabled"
-msgstr "Engedélyezve"
+msgstr "Engedélyezett"
 
 #: models.py:30
 msgid "Quota"

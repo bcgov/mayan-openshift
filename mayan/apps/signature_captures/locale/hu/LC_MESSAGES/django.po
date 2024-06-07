@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Dezső József <dejo60@gmail.com>, 2023
-# molnars <szabolcs.molnar@gmail.com>, 2023
+# Dezső József <dejo60@gmail.com>, 2024
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -109,7 +109,7 @@ msgid ""
 "relationship to the document. Can only contain letters, numbers, and "
 "underscores."
 msgstr ""
-"Ezt az értéket használja a rendszer, amikor erre az aláírás rögzítésére "
+"Ezt az értéket használja a rendszer, amikor erre az aláírás-rögzítésre "
 "hivatkozik a dokumentummal kapcsolatban. Csak betűket, számokat és "
 "aláhúzásjeleket tartalmazhat."
 
@@ -123,7 +123,7 @@ msgstr "Aláíráskép"
 
 #: permissions.py:10
 msgid "Create signature captures"
-msgstr "Aláírásképek létrehozása"
+msgstr "Aláíráskép létrehozása"
 
 #: permissions.py:14
 msgid "Delete signature captures"
@@ -131,7 +131,7 @@ msgstr "Aláírásképek törlése"
 
 #: permissions.py:18
 msgid "Edit signature captures"
-msgstr "Aláírás rögzítések szerkesztése"
+msgstr "Aláírásképek szerkesztése"
 
 #: permissions.py:22
 msgid "View signature captures"
@@ -171,7 +171,7 @@ msgstr "Felhasználó vezetékneve"
 
 #: search.py:47
 msgid "User username"
-msgstr "Felhasználói felhasználónév"
+msgstr "Felhasználó felhasználóneve"
 
 #: serializers.py:11
 msgid "Document URL"
@@ -209,7 +209,7 @@ msgid ""
 "Arguments to pass to the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND."
 msgstr ""
-"Argumentumokt a következőhöz: "
+"Argumentumok a következőhöz: "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND."
 
 #: storages.py:14

@@ -2,7 +2,7 @@ import yaml
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.serialization import yaml_load
 
@@ -12,22 +12,26 @@ class SettingForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.setting = self.initial['setting']
 
-        if self.setting.choices:
+        choices = self.setting.get_value_choices()
+
+        if choices:
             self.fields['value'] = forms.ChoiceField(
                 choices=list(
-                    zip(self.setting.choices, self.setting.choices)
-                ), required=True
+                    zip(choices, choices)
+                ), required=True, widget=forms.widgets.Select(
+                    attrs={'class': 'select2'}
+                )
             )
         else:
             self.fields['value'] = forms.CharField(
                 required=False, widget=forms.widgets.Textarea()
             )
 
-        self.fields['value'].label = _('Value')
+        self.fields['value'].label = _(message='Value')
         self.fields['value'].help_text = self.setting.help_text or _(
             'Enter the new setting value.'
         )
-        self.fields['value'].initial = self.setting.serialized_value
+        self.fields['value'].initial = self.setting.get_value_current()
 
     def clean(self):
         try:
@@ -41,6 +45,6 @@ class SettingForm(forms.Form):
                 ) % self.cleaned_data['value']
             )
         else:
-            self.setting.validate(
+            self.setting.do_value_raw_validate(
                 raw_value=self.cleaned_data['value']
             )

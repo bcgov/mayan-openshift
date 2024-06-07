@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mptt.exceptions import InvalidMove
 from rest_framework.exceptions import ValidationError
@@ -17,10 +17,10 @@ from .models import (
 
 class IndexInstanceSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField(
-        label=_('URL'), read_only=True
+        label=_(message='URL'), read_only=True
     )
     nodes_url = serializers.SerializerMethodField(
-        label=_('Nodes URL'), read_only=True
+        label=_(message='Nodes URL'), read_only=True
     )
 
     class Meta:
@@ -45,19 +45,19 @@ class IndexInstanceSerializer(serializers.ModelSerializer):
 
 class IndexInstanceNodeSerializer(serializers.ModelSerializer):
     children_url = serializers.SerializerMethodField(
-        label=_('Children URL'), read_only=True
+        label=_(message='Children URL'), read_only=True
     )
     documents_url = serializers.SerializerMethodField(
-        label=_('Documents URL'), read_only=True
+        label=_(message='Documents URL'), read_only=True
     )
     index_url = serializers.SerializerMethodField(
-        label=_('Index URL'), read_only=True
+        label=_(message='Index URL'), read_only=True
     )
     parent_url = serializers.SerializerMethodField(
-        label=_('Parent URL'), read_only=True
+        label=_(message='Parent URL'), read_only=True
     )
     url = serializers.SerializerMethodField(
-        label=_('URL'), read_only=True
+        label=_(message='URL'), read_only=True
     )
 
     class Meta:
@@ -114,16 +114,16 @@ class IndexInstanceNodeSerializer(serializers.ModelSerializer):
 
 class IndexTemplateNodeSerializer(serializers.ModelSerializer):
     children = RecursiveField(
-        label=_('Children'), many=True, read_only=True
+        label=_(message='Children'), many=True, read_only=True
     )
     index_url = serializers.SerializerMethodField(
-        label=_('Index URL'), read_only=True
+        label=_(message='Index URL'), read_only=True
     )
     parent_url = serializers.SerializerMethodField(
-        label=_('Parent URL'), read_only=True
+        label=_(message='Parent URL'), read_only=True
     )
     url = serializers.SerializerMethodField(
-        label=_('URL'), read_only=True
+        label=_(message='URL'), read_only=True
     )
 
     # DEPRECATION: Version 5.0, remove 'parent' from GET fields as this
@@ -172,19 +172,19 @@ class IndexTemplateNodeSerializer(serializers.ModelSerializer):
 
 class IndexTemplateNodeWriteSerializer(serializers.ModelSerializer):
     children = RecursiveField(
-        label=_('Children'), many=True, read_only=True
+        label=_(message='Children'), many=True, read_only=True
     )
     index_url = serializers.SerializerMethodField(
-        label=_('Index URL'), read_only=True
+        label=_(message='Index URL'), read_only=True
     )
     parent = FilteredPrimaryKeyRelatedField(
-        label=_('Parent')
+        label=_(message='Parent')
     )
     parent_url = serializers.SerializerMethodField(
-        label=_('Parent URL'), read_only=True
+        label=_(message='Parent URL'), read_only=True
     )
     url = serializers.SerializerMethodField(
-        label=_('URL'), read_only=True
+        label=_(message='URL'), read_only=True
     )
 
     class Meta:
@@ -246,7 +246,7 @@ class IndexTemplateSerializer(serializers.HyperlinkedModelSerializer):
         help_text=_(
             'URL of the API endpoint showing the list document types '
             'associated with this index template.'
-        ), label=_('Document types URL'),
+        ), label=_(message='Document types URL'),
         lookup_url_kwarg='index_template_id',
         view_name='rest_api:indextemplate-documenttype-list'
     )
@@ -254,7 +254,7 @@ class IndexTemplateSerializer(serializers.HyperlinkedModelSerializer):
         help_text=_(
             'URL of the API endpoint to add document types '
             'to this index template.'
-        ), label=_('Document types add URL'),
+        ), label=_(message='Document types add URL'),
         lookup_url_kwarg='index_template_id',
         view_name='rest_api:indextemplate-documenttype-add'
     )
@@ -262,33 +262,33 @@ class IndexTemplateSerializer(serializers.HyperlinkedModelSerializer):
         help_text=_(
             'URL of the API endpoint to remove document types '
             'from this index template.'
-        ), label=_('Document types remove URL'),
+        ), label=_(message='Document types remove URL'),
         lookup_url_kwarg='index_template_id',
         view_name='rest_api:indextemplate-documenttype-remove'
     )
     index_template_root_node_id = serializers.PrimaryKeyRelatedField(
-        label=_('Index template root node ID'),
+        label=_(message='Index template root node ID'),
         source='index_template_root_node', read_only=True
     )
     nodes_url = serializers.SerializerMethodField(
-        label=_('Nodes URL'), read_only=True
+        label=_(message='Nodes URL'), read_only=True
     )
     rebuild_url = serializers.HyperlinkedIdentityField(
-        label=_('Rebuild URL'), lookup_url_kwarg='index_template_id',
+        label=_(message='Rebuild URL'), lookup_url_kwarg='index_template_id',
         view_name='rest_api:indextemplate-rebuild',
     )
     reset_url = serializers.HyperlinkedIdentityField(
-        label=_('Reset URL'), lookup_url_kwarg='index_template_id',
+        label=_(message='Reset URL'), lookup_url_kwarg='index_template_id',
         view_name='rest_api:indextemplate-reset',
     )
     url = serializers.SerializerMethodField(
-        label=_('URL'), read_only=True
+        label=_(message='URL'), read_only=True
     )
 
     class Meta:
         extra_kwargs = {
             'document_types': {
-                'label': _('Document types'),
+                'label': _(message='Document types'),
                 'lookup_url_kwarg': 'document_type_id',
                 'view_name': 'rest_api:documenttype-detail'
             }
@@ -325,7 +325,7 @@ class DocumentTypeAddSerializer(serializers.Serializer):
     document_type = FilteredPrimaryKeyRelatedField(
         help_text=_(
             'Primary key of the document type to add to the index template.'
-        ), label=_('Document type ID'), source_model=DocumentType,
+        ), label=_(message='Document type ID'), source_model=DocumentType,
         source_permission=permission_document_type_edit
     )
 
@@ -334,6 +334,6 @@ class DocumentTypeRemoveSerializer(serializers.Serializer):
     document_type = FilteredPrimaryKeyRelatedField(
         help_text=_(
             'Primary key of the document type to remove from the index template.'
-        ), label=_('Document type ID'), source_model=DocumentType,
+        ), label=_(message='Document type ID'), source_model=DocumentType,
         source_permission=permission_document_type_edit
     )

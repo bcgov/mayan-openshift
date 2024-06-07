@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2023
+# Roberto Rosario, 2024
 # José Manuel Caínzos <josem.cainzos@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: José Manuel Caínzos <josem.cainzos@gmail.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/rosarior/teams/13584/es/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:32 events.py:11 links.py:52 links.py:93 permissions.py:6
-#: settings.py:7 views/event_views.py:29
+#: apps.py:32 events.py:11 links.py:53 links.py:94 permissions.py:6
+#: settings.py:8 views/event_views.py:29
 msgid "Events"
 msgstr "Eventos"
 
@@ -66,15 +66,15 @@ msgstr "Objeto"
 msgid "Event type"
 msgstr "Tipo de evento"
 
-#: classes.py:90
+#: classes.py:91
 msgid "Event list export to CSV"
 msgstr "Exportación de la lista de eventos a CSV"
 
-#: classes.py:121
+#: classes.py:122
 msgid "Events exported."
 msgstr "Eventos exportados."
 
-#: classes.py:123
+#: classes.py:124
 #, python-format
 msgid ""
 "The event list has been exported and is available for download using the "
@@ -108,31 +108,31 @@ msgstr "Suscrito"
 msgid "System"
 msgstr "Sistema"
 
-#: links.py:55 links.py:100 views/clear_views.py:65
+#: links.py:56 links.py:101 views/clear_views.py:65
 msgid "Clear events"
 msgstr "Mis eventos"
 
-#: links.py:59 links.py:107 views/export_views.py:64
+#: links.py:60 links.py:108 views/export_views.py:64
 msgid "Export events"
 msgstr "Exportar eventos"
 
-#: links.py:65 models.py:53 views/subscription_views.py:54
+#: links.py:66 models.py:53 views/subscription_views.py:54
 msgid "Event subscriptions"
 msgstr "Suscripciones de eventos"
 
-#: links.py:71 models.py:113 views/subscription_views.py:169
+#: links.py:72 models.py:113 views/subscription_views.py:169
 msgid "Object event subscriptions"
 msgstr "Suscripciones a eventos de objetos"
 
-#: links.py:83
+#: links.py:84
 msgid "Mark as seen"
 msgstr "Marcar como visto"
 
-#: links.py:87
+#: links.py:88
 msgid "Mark all as seen"
 msgstr "Marcar todos como vistos"
 
-#: links.py:114
+#: links.py:115
 msgid "Subscriptions"
 msgstr "Suscripciones"
 
@@ -209,7 +209,7 @@ msgstr "Someter un evento"
 msgid "Clear event querysets"
 msgstr "Exportar conjuntos de consultas de eventos"
 
-#: queues.py:25
+#: queues.py:26
 msgid "Export event querysets"
 msgstr "Exportar conjuntos de consultas de eventos"
 
@@ -237,7 +237,7 @@ msgstr "Tipo de contenido del objetivo"
 msgid "Verb"
 msgstr "Verbo"
 
-#: settings.py:13
+#: settings.py:15
 msgid ""
 "Disables asynchronous events mode. All events will be committed in the same "
 "process that triggers them. This was the behavior prior to version 4.5."

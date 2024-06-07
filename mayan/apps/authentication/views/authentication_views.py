@@ -7,7 +7,7 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.views import (
     LoginView, LogoutView, PasswordChangeDoneView, PasswordChangeView,
     PasswordResetCompleteView, PasswordResetConfirmView,
-    PasswordResetDoneView, PasswordResetView, SuccessURLAllowedHostsMixin
+    PasswordResetDoneView, PasswordResetView, RedirectURLMixin
 )
 from django.core.exceptions import PermissionDenied
 from django.forms import formsets
@@ -15,7 +15,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, resolve_url
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import classonlymethod, method_decorator
-from django.utils.translation import ugettext_lazy as _, ungettext
+from django.utils.translation import gettext_lazy as _, ngettext
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
@@ -37,20 +37,19 @@ from mayan.apps.views.view_mixins import ViewIconMixin
 
 from ..classes import AuthenticationBackend
 from ..forms import AuthenticationFormBase
-from ..icons import icon_password_change
+from ..icons import icon_login, icon_password_change
 from ..literals import SESSION_MULTI_FACTOR_USER_ID_KEY
 from ..settings import setting_disable_password_reset
 
 
-class MultiFactorAuthenticationView(
-    SuccessURLAllowedHostsMixin, SessionWizardView
-):
+class MultiFactorAuthenticationView(RedirectURLMixin, SessionWizardView):
     redirect_field_name = REDIRECT_FIELD_NAME
     template_name = 'authentication/login.html'
 
     # Login view methods.
-    get_success_url = LoginView.get_success_url
+    get_default_redirect_url = LoginView.get_default_redirect_url
     get_redirect_url = LoginView.get_redirect_url
+    get_success_url = LoginView.get_success_url
 
     @staticmethod
     def condition_dict(self):
@@ -158,13 +157,14 @@ class MultiFactorAuthenticationView(
         if self.storage.current_step == self.steps.last:
             context['submit_label'] = None
         else:
-            context['submit_label'] = _('Next')
+            context['submit_label'] = _(message='Next')
 
         context.update(
             {
                 'form_css_classes': 'form-hotkey-double-click',
                 'step_title': _(
-                    'Step %(step)d of %(total_steps)d: %(step_label)s'
+                    message='Step %(step)d of %(total_steps)d: '
+                    '%(step_label)s'
                 ) % {
                     'step': self.steps.step1,
                     'step_label': wizard_step._label,
@@ -185,7 +185,9 @@ class MultiFactorAuthenticationView(
 
 class MayanLoginView(StrongholdPublicMixin, LoginView):
     extra_context = {
-        'appearance_type': 'plain'
+        'appearance_type': 'plain',
+        'submit_icon': icon_login,
+        'submit_label': _('Sign in')
     }
     redirect_authenticated_user = True
     template_name = 'authentication/login.html'
@@ -234,7 +236,9 @@ class MayanLogoutView(LogoutView):
 class MayanPasswordChangeDoneView(PasswordChangeDoneView):
     def dispatch(self, *args, **kwargs):
         messages.success(
-            message=_('Your password has been successfully changed.'),
+            message=_(
+                message='Your password has been successfully changed.'
+            ),
             request=self.request
         )
         return redirect(
@@ -244,19 +248,20 @@ class MayanPasswordChangeDoneView(PasswordChangeDoneView):
 
 class MayanPasswordChangeView(ViewIconMixin, PasswordChangeView):
     extra_context = {
-        'title': _('Current user password change')
+        'title': _(message='Current user password change')
     }
     success_url = reverse_lazy(
         viewname='authentication:password_change_done'
     )
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
     view_icon = icon_password_change
 
     def dispatch(self, *args, **kwargs):
         if self.request.user.user_options.block_password_change:
             messages.error(
                 message=_(
-                    'Changing the password is not allowed for this account.'
+                    message='Changing the password is not allowed for '
+                    'this account.'
                 ), request=self.request
             )
             return HttpResponseRedirect(
@@ -354,10 +359,10 @@ class UserSetPasswordView(MultipleObjectFormActionView):
     pk_url_kwarg = 'user_id'
     source_queryset = get_user_queryset()
     success_message = _(
-        'Password change request performed on %(count)d user'
+        message='Password change request performed on %(count)d user'
     )
     success_message_plural = _(
-        'Password change request performed on %(count)d users'
+        message='Password change request performed on %(count)d users'
     )
     view_icon = icon_password_change
 
@@ -374,7 +379,7 @@ class UserSetPasswordView(MultipleObjectFormActionView):
         if queryset_staff_users.exists() or queryset_super_users.exists():
             messages.warning(
                 message=_(
-                    'Changing the password of staff or super user '
+                    message='Changing the password of staff or super user '
                     'accounts via the user interface is not allowed. '
                     'Use administration tools to perform this '
                     'operation.'
@@ -387,7 +392,7 @@ class UserSetPasswordView(MultipleObjectFormActionView):
         queryset = self.object_list
 
         result = {
-            'title': ungettext(
+            'title': ngettext(
                 singular='Change user password',
                 plural='Change users passwords',
                 number=queryset.count()
@@ -399,7 +404,7 @@ class UserSetPasswordView(MultipleObjectFormActionView):
                 {
                     'object': queryset.first(),
                     'title': _(
-                        'Change password for user: %s'
+                        message='Change password for user: %s'
                     ) % queryset.first()
                 }
             )
@@ -423,13 +428,14 @@ class UserSetPasswordView(MultipleObjectFormActionView):
             instance.save()
             messages.success(
                 message=_(
-                    'Successful password reset for user: %s.'
+                    message='Successful password reset for user: %s.'
                 ) % instance, request=self.request
             )
         except Exception as exception:
             messages.error(
                 message=_(
-                    'Error resetting password for user "%(user)s": %(error)s'
+                    message='Error resetting password for user '
+                    '"%(user)s": %(error)s'
                 ) % {
                     'error': exception, 'user': instance
                 }, request=self.request

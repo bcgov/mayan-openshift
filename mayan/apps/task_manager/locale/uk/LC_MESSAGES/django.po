@@ -4,15 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2023
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-04-23 04:57+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/rosarior/teams/13584/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +25,11 @@ msgstr ""
 msgid "Task manager"
 msgstr "Менеджер завдань"
 
-#: apps.py:114 apps.py:139 apps.py:177
+#: apps.py:114 apps.py:139 apps.py:182
 msgid "Label"
 msgstr "Мітка"
 
-#: apps.py:118 apps.py:142 apps.py:181
+#: apps.py:118 apps.py:142 apps.py:186
 msgid "Name"
 msgstr "Ім'я"
 
@@ -55,35 +55,35 @@ msgstr "Перехідний?"
 msgid "Dotted path"
 msgstr "Пунктирний шлях"
 
-#: apps.py:148
+#: apps.py:149
 msgid "Schedule"
 msgstr "Розклад"
 
-#: apps.py:152
+#: apps.py:155
 msgid "Type"
 msgstr "Тип"
 
-#: apps.py:157
+#: apps.py:160
 msgid "Start time"
 msgstr "Час початку"
 
-#: apps.py:161
+#: apps.py:164
 msgid "Host"
 msgstr "Хост"
 
-#: apps.py:165
+#: apps.py:168
 msgid "Arguments"
 msgstr "Аргументи"
 
-#: apps.py:169
+#: apps.py:172
 msgid "Keyword arguments"
 msgstr "Аргументи ключового слова"
 
-#: apps.py:173
+#: apps.py:177
 msgid "Worker process ID"
 msgstr "ID робочого процесу"
 
-#: apps.py:185
+#: apps.py:190
 msgid ""
 "Maximum amount of resident memory a worker can execute before it's replaced "
 "by a new process."
@@ -91,11 +91,11 @@ msgstr ""
 "Максимальна кількість оперативної пам'яті, яку працівник може виконувати, "
 "перш ніж його замінять новим процесом."
 
-#: apps.py:187
+#: apps.py:192
 msgid "Maximum memory per child"
 msgstr "Максимальний обсяг пам'яті на одну дитину"
 
-#: apps.py:191
+#: apps.py:196
 msgid ""
 "Maximum number of tasks a worker can execute before it's replaced by a new "
 "process."
@@ -103,11 +103,11 @@ msgstr ""
 "Максимальна кількість завдань, яку працівник може виконати, перш ніж його "
 "замінять новим процесом."
 
-#: apps.py:193
+#: apps.py:198
 msgid "Maximum tasks per child"
 msgstr "Максимальна кількість завдань на одного дитину."
 
-#: apps.py:197
+#: apps.py:202
 msgid ""
 "The number of worker processes/threads to launch. Defaults to the number of "
 "CPUs available on the machine."
@@ -115,11 +115,11 @@ msgstr ""
 "Кількість робочих процесів / потоків для запуску. За замовчуванням "
 "відповідає кількості доступних процесорів на машині."
 
-#: apps.py:199
+#: apps.py:204
 msgid "Concurrency"
 msgstr "Паралелізм"
 
-#: apps.py:203
+#: apps.py:208
 msgid ""
 "The nice value determines the priority of the process. A higher value lowers"
 " the priority. The default value is 0."
@@ -127,15 +127,15 @@ msgstr ""
 "Значення nice визначає пріоритет процесу. Вище значення знижує пріоритет. "
 "Значення за замовчуванням - 0."
 
-#: apps.py:206
+#: apps.py:211
 msgid "Nice level"
 msgstr "Nice рівень"
 
-#: classes.py:185
+#: classes.py:184
 msgid "Task type count"
 msgstr "Підрахунок типу завдання"
 
-#: classes.py:227
+#: classes.py:226
 msgid "Queue count"
 msgstr "Підрахунок черги"
 
@@ -226,14 +226,14 @@ msgstr "Черги для робітника: %s"
 msgid "Worker: %s, not found"
 msgstr "Робітник: %s, не знайдено"
 
-#: workers.py:18
+#: workers.py:20
 msgid "Low latency high volume tasks"
 msgstr "Низька латентність великого обсягу завдань"
 
-#: workers.py:25 workers.py:32
+#: workers.py:28 workers.py:35
 msgid "Medium latency tasks"
 msgstr "Завдання із середньою латентністю"
 
-#: workers.py:39 workers.py:46
+#: workers.py:42 workers.py:50
 msgid "Low latency, long lived tasks"
 msgstr "Низька латентність, тривалі завдання"

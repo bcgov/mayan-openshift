@@ -4,15 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Csaba Tarjányi, 2023
+# Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Csaba Tarjányi, 2023\n"
+"POT-Creation-Date: 2024-02-07 11:57+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,27 +24,31 @@ msgstr ""
 msgid "Platform"
 msgstr "Platform"
 
-#: classes.py:227
+#: classes.py:241
 msgid "Template for entrypoint.sh file inside a Docker image."
 msgstr "Sablon az enterpoint.sh fájlhoz egy Docker-képben."
 
-#: classes.py:242
-msgid "Template that generates a Dockerfile file."
-msgstr "Dockerfile fájlt létrehozó sablon."
+#: classes.py:256
+msgid "Template that generates the Docker Compose file."
+msgstr "Sablon, amely létrehozza a Docker Compose fájlt."
 
-#: classes.py:257
+#: classes.py:416
 msgid "Template for Supervisord inside a Docker image."
 msgstr "Sablon a Supervisord számára egy Docker-képen belül."
 
-#: classes.py:275
+#: classes.py:434
+msgid "Template that generates a Dockerfile file."
+msgstr "Dockerfile-fájlt létrehozó sablon."
+
+#: classes.py:449
 msgid "Template that generates a GitLab CI config file."
 msgstr "GitLab CI konfigurációs fájlt létrehozó sablon."
 
-#: classes.py:419
+#: classes.py:598
 msgid "Template for Supervisord."
 msgstr "Sablon a Supervisord számára."
 
-#: classes.py:493
+#: classes.py:672
 msgid "Template showing the queues of a worker."
 msgstr "Egy worker sorait bemutató sablon."
 

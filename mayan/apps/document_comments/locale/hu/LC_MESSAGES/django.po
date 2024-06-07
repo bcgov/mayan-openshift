@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2023
-# Dezső József <dejo60@gmail.com>, 2023
+# Dezső József <dejo60@gmail.com>, 2024
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr "Hozzászólás"
 
 #: permissions.py:10
 msgid "Create new comments"
-msgstr "Új hozzászólás"
+msgstr "Új hozzászólások létrehozása"
 
 #: permissions.py:13
 msgid "Delete comments"

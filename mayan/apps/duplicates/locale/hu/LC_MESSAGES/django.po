@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2023
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +35,11 @@ msgstr "Null háttérrendszer"
 
 #: duplicate_backends.py:9
 msgid "Exact document file checksum"
-msgstr "Pontos dokumentumfájl ellenőrző összeg"
+msgstr "Egyező dokumentumfájl ellenőrző összeg"
 
 #: duplicate_backends.py:32
 msgid "Exact document label"
-msgstr "Pontos dokumentumcímke"
+msgstr "Egyező dokumentumcímke"
 
 #: links.py:18 models.py:39 views.py:79
 msgid "Duplicated documents"
@@ -47,7 +47,7 @@ msgstr "Duplikált dokumentumok"
 
 #: links.py:24 queues.py:24
 msgid "Duplicated document scan"
-msgstr "Duplikált dokumentum szkennelések"
+msgstr "Duplikált dokumentum szkennelés"
 
 #: models.py:19 models.py:31
 msgid "Stored duplicate backend"

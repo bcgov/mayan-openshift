@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Ovadia Ovadia, 2024\n"
 "Language-Team: Hebrew (Israel) (https://app.transifex.com/rosarior/teams/13584/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -116,7 +116,7 @@ msgstr ""
 msgid "Rebuild indexes"
 msgstr ""
 
-#: links.py:69 views/index_template_views.py:454
+#: links.py:69 views/index_template_views.py:453
 msgid "Reset indexes"
 msgstr "איפוס אינדקסים"
 
@@ -311,7 +311,7 @@ msgstr "מחיקת תבניות אינדקס"
 msgid "View index templates"
 msgstr "הצגת תבניות אינדקס"
 
-#: permissions.py:25 views/index_template_views.py:416
+#: permissions.py:25 views/index_template_views.py:415
 msgid "Rebuild index templates"
 msgstr ""
 
@@ -457,17 +457,17 @@ msgstr ""
 msgid "Contents for index: %s"
 msgstr ""
 
-#: views/index_instance_views.py:143
+#: views/index_instance_views.py:142
 msgid ""
 "Assign the document type of this document to an index to have it appear in "
 "instances of those indexes organization units. "
 msgstr ""
 
-#: views/index_instance_views.py:148
+#: views/index_instance_views.py:147
 msgid "This document is not in any index"
 msgstr ""
 
-#: views/index_instance_views.py:152
+#: views/index_instance_views.py:151
 #, python-format
 msgid "Indexes nodes containing document: %s"
 msgstr "צמתי אינדקסים המכילים מסמך: %s"
@@ -563,31 +563,31 @@ msgstr ""
 msgid "Tree template nodes for index: %s"
 msgstr "צמתי תבנית עץ היררכיה לאינדקס: %s"
 
-#: views/index_template_views.py:314
+#: views/index_template_views.py:313
 #, python-format
 msgid "Create child node of: %s"
 msgstr "יצירת צומת בן של: %s"
 
-#: views/index_template_views.py:341
+#: views/index_template_views.py:340
 #, python-format
 msgid "Delete the index template node: %s?"
 msgstr ""
 
-#: views/index_template_views.py:366
+#: views/index_template_views.py:365
 #, python-format
 msgid "Edit the index template node: %s"
 msgstr "עריכת צומת תבנית האינדקס: %s"
 
-#: views/index_template_views.py:387
+#: views/index_template_views.py:386
 #, python-format
 msgid "Rebuild index template: %s"
 msgstr "בנייה מחדש של תבנית אינדקס: %s"
 
-#: views/index_template_views.py:409
+#: views/index_template_views.py:408
 msgid "Index template queued for rebuild."
 msgstr "בנייה מחדש של תבנית אינדקס נוספה לתור המשימות."
 
-#: views/index_template_views.py:433
+#: views/index_template_views.py:432
 #, python-format
 msgid "%(count)d index template queued for rebuild."
 msgid_plural "%(count)d index templates queued for rebuild."
@@ -595,7 +595,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: views/index_template_views.py:467
+#: views/index_template_views.py:466
 #, python-format
 msgid "%(count)d index reset."
 msgid_plural "%(count)d indexes reset."
@@ -603,6 +603,6 @@ msgstr[0] "איפוס אינדקס %(count)d."
 msgstr[1] "איפוס האינדקסים %(count)d."
 msgstr[2] "בוצע איפוס ל-%(count)d אינדקסים."
 
-#: views/index_template_views.py:480
+#: views/index_template_views.py:479
 msgid "Index templates for which their instances will be deleted."
 msgstr ""

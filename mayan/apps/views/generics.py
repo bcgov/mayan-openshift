@@ -6,7 +6,7 @@ from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     FormView as DjangoFormView, DetailView, TemplateView
 )
@@ -44,7 +44,7 @@ class MultiFormView(DjangoFormView):
     form_extra_kwargs = None
     prefix = None
     prefixes = {}
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
 
     def _create_form(self, form_name, klass):
         form_kwargs = self.get_form_kwargs(form_name=form_name)
@@ -318,38 +318,38 @@ class AddRemoveView(
             {
                 'subtemplates_list': [
                     {
-                        'name': 'appearance/generic_form_subtemplate.html',
+                        'name': 'appearance/partials/form/single.html',
                         'column_class': 'col-xs-12 col-sm-6 col-md-6 col-lg-6',
                         'context': {
                             'extra_buttons': [
                                 {
                                     'icon': icon_add_all,
-                                    'label': _('Add all'),
+                                    'label': _(message='Add all'),
                                     'name': 'add_all'
                                 }
                             ],
                             'form': self.forms['form_available'],
                             'hide_labels': True,
                             'submit_icon': icon_assign_remove_add,
-                            'submit_label': _('Add'),
+                            'submit_label': _(message='Add'),
                             'title': self.list_available_title or ' '
                         }
                     },
                     {
-                        'name': 'appearance/generic_form_subtemplate.html',
+                        'name': 'appearance/partials/form/single.html',
                         'column_class': 'col-xs-12 col-sm-6 col-md-6 col-lg-6',
                         'context': {
                             'extra_buttons': [
                                 {
                                     'icon': icon_remove_all,
-                                    'label': _('Remove all'),
+                                    'label': _(message='Remove all'),
                                     'name': 'remove_all'
                                 }
                             ],
                             'form': self.forms['form_added'],
                             'hide_labels': True,
                             'submit_icon': icon_assign_remove_remove,
-                            'submit_label': _('Remove'),
+                            'submit_label': _(message='Remove'),
                             'title': self.list_added_title or ' '
                         }
                     }
@@ -438,7 +438,7 @@ class ConfirmView(
     """
     View that will execute an view action upon user Yes/No confirmation.
     """
-    template_name = 'appearance/generic_confirm.html'
+    template_name = 'appearance/confirm.html'
 
     def get_context_data(self, **kwargs):
         context = {
@@ -467,7 +467,7 @@ class FormView(
     providing extra context, extra keyword arguments for the forms, and
     customizable redirection.
     """
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
 
 
 class DynamicFormView(
@@ -484,7 +484,7 @@ class MultipleObjectFormActionView(
     This view will present a form and upon receiving a POST request
     will perform an action on an object or queryset.
     """
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
 
     def __init__(self, *args, **kwargs):
         result = super().__init__(*args, **kwargs)
@@ -529,7 +529,7 @@ class MultipleObjectConfirmActionView(
     confirmation.
     """
 
-    template_name = 'appearance/generic_confirm.html'
+    template_name = 'appearance/confirm.html'
 
     def __init__(self, *args, **kwargs):
         result = super().__init__(*args, **kwargs)
@@ -585,7 +585,7 @@ class RelationshipView(FormView):
                 raise
         else:
             messages.success(
-                message=_('Relationships updated successfully'),
+                message=_(message='Relationships updated successfully'),
                 request=self.request
             )
 
@@ -625,7 +625,7 @@ class SingleObjectCreateView(
     ModelFormFieldsetsViewMixin, ViewIconMixin, CreateView
 ):
     error_message_duplicate = None
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
 
     def form_valid(self, form):
         # This overrides the original Django form_valid method.
@@ -667,7 +667,7 @@ class SingleObjectCreateView(
                 context = self.get_context_data()
 
                 messages.error(
-                    message=_('%(object)s not created, error: %(error)s') % {
+                    message=_(message='%(object)s not created, error: %(error)s') % {
                         'error': exception,
                         'object': self.get_object_name(context=context)
                     }, request=self.request
@@ -697,7 +697,7 @@ class SingleObjectDeleteView(
     ViewPermissionCheckViewMixin, RestrictedQuerysetViewMixin,
     ExtraContextViewMixin, RedirectionViewMixin, ViewIconMixin, DeleteView
 ):
-    template_name = 'appearance/generic_confirm.html'
+    template_name = 'appearance/confirm.html'
 
     def __init__(self, *args, **kwargs):
         result = super().__init__(*args, **kwargs)
@@ -713,13 +713,12 @@ class SingleObjectDeleteView(
 
         return result
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
+    def form_valid(self, form):
         context = self.get_context_data()
         object_name = self.get_object_name(context=context)
 
         try:
-            result = super().delete(request, *args, **kwargs)
+            result = super().form_valid(form=form)
         except Exception as exception:
             messages.error(
                 message=_(
@@ -762,7 +761,7 @@ class SingleObjectDetailView(
     ExtraContextViewMixin, ModelFormFieldsetsViewMixin, ViewIconMixin,
     DetailView
 ):
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
 
     def __init__(self, *args, **kwargs):
         result = super().__init__(*args, **kwargs)
@@ -881,7 +880,7 @@ class SingleObjectEditView(
     FormExtraKwargsViewMixin, RedirectionViewMixin,
     ModelFormFieldsetsViewMixin, ViewIconMixin, UpdateView
 ):
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
 
     def form_valid(self, form):
         # This overrides the original Django form_valid method.
@@ -955,7 +954,7 @@ class SingleObjectListView(
     """
     A view that will generate a list of instances from a queryset.
     """
-    template_name = 'appearance/generic_list.html'
+    template_name = 'appearance/list.html'
 
     def __init__(self, *args, **kwargs):
         result = super().__init__(*args, **kwargs)
@@ -985,12 +984,12 @@ class SingleObjectListView(
 
 
 class MultipleObjectDeleteView(MultipleObjectConfirmActionView):
-    success_message_plural = _('%(count)d objects deleted successfully.')
-    success_message_single = _('"%(object)s" deleted successfully.')
-    success_message_singular = _('%(count)d object deleted successfully.')
-    title_plural = _('Delete %(count)d objects.')
-    title_single = _('Delete "%(object)s".')
-    title_singular = _('Delete %(count)d object.')
+    success_message_plural = _(message='%(count)d objects deleted successfully.')
+    success_message_single = _(message='"%(object)s" deleted successfully.')
+    success_message_singular = _(message='%(count)d object deleted successfully.')
+    title_plural = _(message='Delete %(count)d objects.')
+    title_single = _(message='Delete "%(object)s".')
+    title_singular = _(message='Delete %(count)d object.')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -1014,9 +1013,4 @@ class MultipleObjectDeleteView(MultipleObjectConfirmActionView):
             for key, value in self.get_instance_extra_data().items():
                 setattr(instance, key, value)
 
-        if hasattr(self, 'get_delete_extra_data'):
-            instance.delete(
-                **self.get_delete_extra_data()
-            )
-        else:
-            instance.delete()
+        instance.delete()

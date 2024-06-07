@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
@@ -15,8 +15,8 @@ from .classes import KeyStub
 from .events import event_key_downloaded
 from .links import (
     link_key_delete, link_key_detail, link_key_download, link_key_query,
-    link_key_receive, link_key_setup, link_key_upload, link_private_key_list,
-    link_public_key_list
+    link_key_receive, link_key_setup, link_key_upload,
+    link_private_key_list, link_public_key_list
 )
 from .permissions import (
     permission_key_delete, permission_key_download, permission_key_sign,
@@ -30,7 +30,7 @@ class DjangoGPGApp(MayanAppConfig):
     has_rest_api = True
     has_tests = True
     name = 'mayan.apps.django_gpg'
-    verbose_name = _('Django GPG')
+    verbose_name = _(message='Django GPG')
 
     def ready(self):
         super().ready()
@@ -52,36 +52,36 @@ class DjangoGPGApp(MayanAppConfig):
         )
 
         SourceColumn(
-            attribute='key_id', is_identifier=True, label=_('Key ID'),
+            attribute='key_id', is_identifier=True, label=_(message='Key ID'),
             source=Key
         )
         SourceColumn(attribute='user_id', include_label=True, source=Key)
 
         SourceColumn(
-            attribute='key_id', include_label=True, label=_('Key ID'),
+            attribute='key_id', include_label=True, label=_(message='Key ID'),
             source=KeyStub
         )
         SourceColumn(
-            attribute='key_type', include_label=True, label=_('Type'),
+            attribute='key_type', include_label=True, label=_(message='Type'),
             source=KeyStub
         )
         SourceColumn(
-            attribute='date', include_label=True, label=_('Creation date'),
+            attribute='date', include_label=True, label=_(message='Creation date'),
             source=KeyStub
         )
         SourceColumn(
             func=lambda context: context['object'].expires or _(
                 'No expiration'
-            ), include_label=True, label=_('Expiration date'),
+            ), include_label=True, label=_(message='Expiration date'),
             source=KeyStub
         )
         SourceColumn(
-            attribute='length', include_label=True, label=_('Length'),
+            attribute='length', include_label=True, label=_(message='Length'),
             source=KeyStub
         )
         SourceColumn(
             func=lambda context: ', '.join(context['object'].user_id),
-            include_label=True, label=_('User ID'), source=KeyStub
+            include_label=True, label=_(message='User ID'), source=KeyStub
         )
 
         menu_list_facet.bind_links(

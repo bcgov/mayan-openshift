@@ -205,7 +205,9 @@ class DocumentCheckoutViewTestCase(
 
         self.assertEqual(events[0].action_object, None)
         self.assertEqual(events[0].actor, self._test_case_user)
-        self.assertEqual(events[0].target, self._test_documents[0])
+        self.assertEqual(
+            events[0].target, self._test_documents[0]
+        )
         self.assertEqual(events[0].verb, event_document_checked_in.id)
 
     def test_document_multiple_check_in_post_view_with_access(self):
@@ -245,12 +247,16 @@ class DocumentCheckoutViewTestCase(
 
         self.assertEqual(events[0].action_object, None)
         self.assertEqual(events[0].actor, self._test_case_user)
-        self.assertEqual(events[0].target, self._test_documents[0])
+        self.assertEqual(
+            events[0].target, self._test_documents[0]
+        )
         self.assertEqual(events[0].verb, event_document_checked_in.id)
 
         self.assertEqual(events[1].action_object, None)
         self.assertEqual(events[1].actor, self._test_case_user)
-        self.assertEqual(events[1].target, self._test_documents[1])
+        self.assertEqual(
+            events[1].target, self._test_documents[1]
+        )
         self.assertEqual(events[1].verb, event_document_checked_in.id)
 
     def test_document_check_out_get_view_no_permission(self):
@@ -426,7 +432,9 @@ class DocumentCheckoutViewTestCase(
 
         self.assertEqual(events[0].action_object, None)
         self.assertEqual(events[0].actor, self._test_case_user)
-        self.assertEqual(events[0].target, self._test_documents[0])
+        self.assertEqual(
+            events[0].target, self._test_documents[0]
+        )
         self.assertEqual(events[0].verb, event_document_checked_out.id)
 
     def test_document_multiple_check_out_post_view_with_access(self):
@@ -467,12 +475,16 @@ class DocumentCheckoutViewTestCase(
 
         self.assertEqual(events[0].action_object, None)
         self.assertEqual(events[0].actor, self._test_case_user)
-        self.assertEqual(events[0].target, self._test_documents[0])
+        self.assertEqual(
+            events[0].target, self._test_documents[0]
+        )
         self.assertEqual(events[0].verb, event_document_checked_out.id)
 
         self.assertEqual(events[1].action_object, None)
         self.assertEqual(events[1].actor, self._test_case_user)
-        self.assertEqual(events[1].target, self._test_documents[1])
+        self.assertEqual(
+            events[1].target, self._test_documents[1]
+        )
         self.assertEqual(events[1].verb, event_document_checked_out.id)
 
     def test_document_check_out_detail_view_no_permission(self):

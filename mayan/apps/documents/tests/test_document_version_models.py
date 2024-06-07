@@ -60,7 +60,7 @@ class DocumentFileActionTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         self.assertEqual(events[0].action_object, self._test_document)
         self.assertEqual(events[0].actor, self._test_case_user)
@@ -85,6 +85,11 @@ class DocumentFileActionTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, self._test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, self._test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
     def test_version_new_version_keep_pages(self):
         test_document_file_count = self._test_document.files.count()
@@ -182,7 +187,7 @@ class DocumentFileActionTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         self.assertEqual(events[0].action_object, self._test_document)
         self.assertEqual(events[0].actor, self._test_case_user)
@@ -220,6 +225,11 @@ class DocumentFileActionTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, self._test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, self._test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
 
 class DocumentVersionTestCase(

@@ -4,21 +4,21 @@
 # 
 # Translators:
 # Translators:
-# mizhgan <i@mizhgan.ru>, 2023
-# Oleg Sizov <olegsm35@gmail.com>, 2023
-# Panasoft, 2023
-# Ilya Pavlov <spirkaa@gmail.com>, 2023
-# Sergey Glita <gsv70@mail.ru>, 2023
-# lilo.panic, 2023
-# Андрей Ткачёв, 2023
+# Panasoft, 2024
+# Oleg Sizov <olegsm35@gmail.com>, 2024
+# mizhgan <i@mizhgan.ru>, 2024
+# Андрей Ткачёв, 2024
+# Sergey Glita <gsv70@mail.ru>, 2024
+# lilo.panic, 2024
+# Ilya Pavlov <spirkaa@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Андрей Ткачёв, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Ilya Pavlov <spirkaa@gmail.com>, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/rosarior/teams/13584/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -267,108 +267,92 @@ msgstr ""
 "Откройте заявку с помощью системы <a href=\"%(issue_url)s\">отслеживания "
 "проблем</a> ."
 
-#: templates/appearance/about.html:9
+#: templates/appearance/about.html:10
 msgid "About"
 msgstr "О программе"
 
-#: templates/appearance/about.html:67
+#: templates/appearance/about.html:39
 msgid "Version"
 msgstr "Версия"
 
-#: templates/appearance/about.html:69
+#: templates/appearance/about.html:41
 #, python-format
-msgid "Build number: %(build_number)s"
-msgstr "Сборка: %(build_number)s"
+msgid "Build number: %(project_build_number)s"
+msgstr ""
 
-#: templates/appearance/about.html:82
+#: templates/appearance/about.html:48
 msgid "Released under the license:"
 msgstr "Выпущено под лицензией:"
 
-#: templates/appearance/about.html:88
+#: templates/appearance/about.html:57
 #, python-format
 msgid ""
-"\n"
-"                The complete list of changes is available via the <a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">Release notes %(icon_documentation)s</a> or the short version <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\">Changelog %(icon_documentation)s</a>.\n"
-"            "
+"To get the latest news subscribe to the <a class=\"new_window\" "
+"href=\"%(link_mailing_list_url)s\"> Mailing list</a>."
 msgstr ""
-"\n"
-"Полный список изменений доступен в <a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">примечаниях к выпуску %(icon_documentation)s</a> или в краткой версии <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\">журнала изменений %(icon_documentation)s</a> ."
 
-#: templates/appearance/about.html:94
+#: templates/appearance/about.html:66
 #, python-format
 msgid ""
-"\n"
-"                For questions check the <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">Documentation %(icon_documentation)s</a>.\n"
-"            "
+"For articles, tutorials, troubleshooting, subscribe to the <a "
+"class=\"new_window\" href=\"%(link_knowledge_base_url)s\"> Knowledge "
+"base</a>."
 msgstr ""
-"\n"
-"По вопросам <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">обращайтесь к документации %(icon_documentation)s</a> ."
 
-#: templates/appearance/about.html:100
+#: templates/appearance/about.html:75
 #, python-format
 msgid ""
-"\n"
-"                If you found a bug or have a feature idea, visit the <a class=\"new_window\" href=\"https://forum.mayan-edms.com\">Forum %(icon_forum)s</a> or open a ticket in the <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">Source code repository %(icon_source_code)s</a>.\n"
-"            "
+"Need professional help? Check out the <a class=\"new_window\" "
+"href=\"%(link_support_url)s\"> Support</a> offerings."
 msgstr ""
-"\n"
-"Если вы обнаружили ошибку или у вас есть идея, посетите <a class=\"new_window\" href=\"https://forum.mayan-edms.com\">форум %(icon_forum)s</a> или откройте <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">заявку в репозитории исходного кода %(icon_source_code)s</a> ."
 
-#: templates/appearance/base.html:73
-msgid "Object"
-msgstr "Объект"
+#: templates/appearance/about.html:84
+#, python-format
+msgid ""
+"For discussions visit the <a class=\"new_window\" "
+"href=\"%(link_forum_url)s\">Community forum</a>."
+msgstr ""
 
-#: templates/appearance/generic_confirm.html:13
+#: templates/appearance/about.html:93
+#, python-format
+msgid ""
+"The complete list of changes is available via the <a class=\"new_window\" "
+"href=\"%(link_release_notes_url)s\">Release notes</a>."
+msgstr ""
+
+#: templates/appearance/about.html:102
+#, python-format
+msgid ""
+"For questions check the <a class=\"new_window\" "
+"href=\"%(link_documentation_url)s\">Documentation</a>."
+msgstr ""
+
+#: templates/appearance/about.html:111
+#, python-format
+msgid ""
+"If you found a bug or have a feature idea open a ticket in the <a "
+"class=\"new_window\" href=\"%(link_source_code_url)s\">Source code "
+"repository</a>."
+msgstr ""
+
+#: templates/appearance/about.html:117
+#, python-format
+msgid ""
+"%(project_title)s is Free and Open Source software, which is provided as-is "
+"with no warranty."
+msgstr ""
+
+#: templates/appearance/confirm.html:13
 msgid "Are you sure?"
 msgstr "Вы уверены?"
 
-#: templates/appearance/generic_confirm.html:37
+#: templates/appearance/confirm.html:37
 msgid "Yes"
 msgstr "Да"
 
-#: templates/appearance/generic_confirm.html:47
+#: templates/appearance/confirm.html:47
 msgid "No"
 msgstr "Нет"
-
-#: templates/appearance/generic_form_subtemplate.html:50
-#: templates/appearance/generic_multiform_subtemplate.html:37
-#: templates/appearance/partials/form_field.html:10
-#: templates/appearance/partials/form_field.html:16
-msgid "required"
-msgstr "требуется"
-
-#: templates/appearance/generic_form_subtemplate.html:85
-#: templates/appearance/generic_form_subtemplate.html:95
-#: templates/appearance/generic_form_subtemplate.html:109
-#: templates/appearance/generic_multiform_subtemplate.html:62
-msgid "Save"
-msgstr "Сохранить"
-
-#: templates/appearance/generic_form_subtemplate.html:85
-#: templates/appearance/generic_form_subtemplate.html:95
-#: templates/appearance/generic_form_subtemplate.html:109
-#: templates/appearance/generic_multiform_subtemplate.html:62
-msgid "Submit"
-msgstr "Отправить"
-
-#: templates/appearance/generic_form_subtemplate.html:99
-#: templates/appearance/generic_multiform_subtemplate.html:66
-msgid "Cancel"
-msgstr "Отменить"
-
-#: templates/appearance/generic_list_subtemplate.html:35
-msgid "Identifier"
-msgstr "Идентификатор"
-
-#: templates/appearance/generic_list_subtemplate.html:85
-#: templates/appearance/partials/list_object_facet_links_column.html:8
-#: templates/appearance/partials/list_object_facet_links_column.html:39
-msgid "Views"
-msgstr "Представления"
-
-#: templates/appearance/generic_list_subtemplate.html:91
-msgid "Actions"
-msgstr "Действия"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -380,15 +364,43 @@ msgstr ""
 "Прежде чем вы сможете полноценно использовать Mayan EDMS, вам потребуется "
 "следующее:"
 
-#: templates/appearance/menus/menu_topbar.html:11
+#: templates/appearance/menus/topbar.html:11
 msgid "Toggle navigation"
 msgstr "Переключение навигации"
 
-#: templates/appearance/partials/form_title.html:10
-msgid "Open main menu"
-msgstr "Открыть главное меню"
+#: templates/appearance/partials/form/field.html:10
+#: templates/appearance/partials/form/field.html:16
+#: templates/appearance/partials/form/multiple.html:37
+#: templates/appearance/partials/form/single.html:50
+msgid "required"
+msgstr "требуется"
 
-#: templates/appearance/partials/list_header.html:11
+#: templates/appearance/partials/form/multiple.html:62
+#: templates/appearance/partials/form/single.html:85
+#: templates/appearance/partials/form/single.html:95
+#: templates/appearance/partials/form/single.html:109
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/appearance/partials/form/multiple.html:62
+#: templates/appearance/partials/form/single.html:85
+#: templates/appearance/partials/form/single.html:95
+#: templates/appearance/partials/form/single.html:109
+msgid "Submit"
+msgstr "Отправить"
+
+#: templates/appearance/partials/form/multiple.html:66
+#: templates/appearance/partials/form/single.html:99
+msgid "Cancel"
+msgstr "Отменить"
+
+#: templates/appearance/partials/list/column_object_facet_links.html:8
+#: templates/appearance/partials/list/column_object_facet_links.html:39
+#: templates/appearance/partials/list/table/head/row_cell_links.html:8
+msgid "Views"
+msgstr "Представления"
+
+#: templates/appearance/partials/list/header.html:11
 #, python-format
 msgid ""
 "Total (%(start)s - %(end)s out of %(total)s) (Page %(page_number)s of "
@@ -397,48 +409,64 @@ msgstr ""
 "Всего (%(start)s - %(end)s из %(total)s) (Страница %(page_number)s из "
 "%(total_pages)s)"
 
-#: templates/appearance/partials/list_header.html:13
-#: templates/appearance/partials/list_header.html:16
+#: templates/appearance/partials/list/header.html:13
+#: templates/appearance/partials/list/header.html:16
 #, python-format
 msgid "Total: %(total)s"
 msgstr "Всего: %(total)s"
 
-#: templates/appearance/partials/list_toolbar.html:14
+#: templates/appearance/partials/list/no_results.html:18
+msgid "No results"
+msgstr "Нет результатов"
+
+#: templates/appearance/partials/list/pagination.html:12
+#: templates/appearance/partials/list/pagination.html:14
+msgid "Previous page"
+msgstr "Предыдущая страница"
+
+#: templates/appearance/partials/list/pagination.html:30
+#: templates/appearance/partials/list/pagination.html:32
+msgid "Next page"
+msgstr "Следующая страница"
+
+#: templates/appearance/partials/list/table/head/row_cell_identifier.html:6
+msgid "Identifier"
+msgstr "Идентификатор"
+
+#: templates/appearance/partials/list/table/head/row_cell_links.html:14
+msgid "Actions"
+msgstr "Действия"
+
+#: templates/appearance/partials/list/toolbar.html:14
 msgid "Select/Deselect all"
 msgstr "Выбрать все / отменить выбор"
 
-#: templates/appearance/partials/list_toolbar.html:18
+#: templates/appearance/partials/list/toolbar.html:18
 msgid "Toggle list display mode"
 msgstr "Переключить режим отображения"
 
-#: templates/appearance/partials/list_toolbar.html:31
+#: templates/appearance/partials/list/toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr ""
 "Выберите элементы для массовых действий. Чтобы отметить сразу несколько, "
 "нажмите Shift + клик."
 
-#: templates/appearance/partials/list_toolbar.html:36
+#: templates/appearance/partials/list/toolbar.html:36
 msgid "Bulk actions"
 msgstr "Массовые действия"
 
-#: templates/appearance/partials/list_toolbar.html:38
+#: templates/appearance/partials/list/toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "Переключение выпадающего списка"
 
-#: templates/appearance/partials/no_results.html:18
-msgid "No results"
-msgstr "Нет результатов"
+#: templates/appearance/partials/sidebar.html:17
+msgid "Object"
+msgstr "Объект"
 
-#: templates/appearance/partials/pagination.html:12
-#: templates/appearance/partials/pagination.html:14
-msgid "Previous page"
-msgstr "Предыдущая страница"
-
-#: templates/appearance/partials/pagination.html:30
-#: templates/appearance/partials/pagination.html:32
-msgid "Next page"
-msgstr "Следующая страница"
+#: templates/appearance/partials/title.html:10
+msgid "Open main menu"
+msgstr "Открыть главное меню"
 
 #: templates/appearance/root.html:51
 msgid "Close"
@@ -475,12 +503,12 @@ msgstr "Темы позволяют изменять внешний вид бе�
 msgid "There are no themes"
 msgstr "Нет тем"
 
-#: views.py:124
+#: views.py:125
 #, python-format
 msgid "Theme settings for user: %s"
 msgstr "Настройки темы для пользователя: %s"
 
-#: views.py:146
+#: views.py:148
 #, python-format
 msgid "Edit theme settings for user: %s"
 msgstr "Редактировать настройки темы для пользователя: %s"

@@ -24,12 +24,10 @@ class APIDocumentIndexInstanceNodeListView(
     """
     external_object_pk_url_kwarg = 'document_id'
     external_object_queryset = Document.valid.all()
-    mayan_external_object_permissions = {
-        'GET': (permission_index_instance_view,)
+    mayan_external_object_permission_map = {
+        'GET': permission_index_instance_view
     }
-    mayan_object_permissions = {
-        'GET': (permission_index_instance_view,)
-    }
+    mayan_object_permission_map = {'GET': permission_index_instance_view}
     serializer_class = IndexInstanceNodeSerializer
 
     def get_source_queryset(self):
@@ -41,9 +39,7 @@ class APIIndexInstanceDetailView(generics.RetrieveAPIView):
     get: Returns the details of the selected index instance.
     """
     lookup_url_kwarg = 'index_instance_id'
-    mayan_object_permissions = {
-        'GET': (permission_index_instance_view,)
-    }
+    mayan_object_permission_map = {'GET': permission_index_instance_view}
     serializer_class = IndexInstanceSerializer
     source_queryset = IndexInstance.objects.all()
 
@@ -52,9 +48,7 @@ class APIIndexInstanceListView(generics.ListAPIView):
     """
     get: Returns a list of all the indexes instances.
     """
-    mayan_object_permissions = {
-        'GET': (permission_index_instance_view,)
-    }
+    mayan_object_permission_map = {'GET': permission_index_instance_view}
     serializer_class = IndexInstanceSerializer
     source_queryset = IndexInstance.objects.all()
 
@@ -109,9 +103,7 @@ class APIIndexInstanceNodeDocumentListView(
     get: Returns a list of all the documents contained by a particular
     index instance node.
     """
-    mayan_object_permissions = {
-        'GET': (permission_document_view,)
-    }
+    mayan_object_permission_map = {'GET': permission_document_view}
     serializer_class = DocumentSerializer
 
     def get_node(self):

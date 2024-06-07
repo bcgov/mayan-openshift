@@ -4,18 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2023
-# 295005be79b88987cac803400975dbae_87f6b64 <412e4e8df9c702a35ac89972be5f12ff_27148>, 2023
-# Pavlin Koldamov <pkoldamov@gmail.com>, 2023
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2023
+# Roberto Rosario, 2024
+# 295005be79b88987cac803400975dbae_87f6b64 <412e4e8df9c702a35ac89972be5f12ff_27148>, 2024
+# Pavlin Koldamov <pkoldamov@gmail.com>, 2024
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,17 +59,17 @@ msgstr "Файлови кешове"
 msgid "Purge cache"
 msgstr "Прочистване на кеша"
 
-#: model_mixins.py:45
+#: model_mixins.py:39
+msgid "Unknown"
+msgstr "Неизвестен"
+
+#: model_mixins.py:57
 msgid "Size at which the cache will start deleting old entries."
 msgstr "Размер, при който кешът ще започне да изтрива стари записи."
 
-#: model_mixins.py:47 models.py:28
+#: model_mixins.py:59 models.py:31
 msgid "Maximum size"
 msgstr "Максимален размер"
-
-#: model_mixins.py:56
-msgid "Unknown"
-msgstr "Неизвестен"
 
 #: model_mixins.py:70
 msgid "Partition count"
@@ -79,23 +79,23 @@ msgstr ""
 msgid "Total cached objects."
 msgstr ""
 
-#: model_mixins.py:77
+#: model_mixins.py:78
 msgid "Partition file count"
 msgstr ""
 
-#: model_mixins.py:78
+#: model_mixins.py:80
 msgid "Total cached files."
 msgstr ""
 
-#: model_mixins.py:104 model_mixins.py:312
+#: model_mixins.py:113 model_mixins.py:324
 msgid "Current size"
 msgstr "Текущ размер"
 
-#: model_mixins.py:105
+#: model_mixins.py:115
 msgid "Current size of the cache."
 msgstr "Текущ размер на кеша."
 
-#: model_mixins.py:314
+#: model_mixins.py:326
 msgid "Current size of the cache partition."
 msgstr "Текущ размер на кешовия дял."
 
@@ -103,55 +103,55 @@ msgstr "Текущ размер на кешовия дял."
 msgid "Internal name of the defined storage for this cache."
 msgstr "Вътрешно име на определеното хранилище за този кеш."
 
-#: models.py:22
+#: models.py:23
 msgid "Defined storage name"
 msgstr "Име на определено хранилище"
 
-#: models.py:25
+#: models.py:28
 msgid "Maximum size of the cache in bytes."
 msgstr "Максимален размер на кеша в байтове."
 
-#: models.py:33 models.py:73
+#: models.py:36 models.py:76
 msgid "Cache"
 msgstr "Кеш"
 
-#: models.py:34
+#: models.py:37
 msgid "Caches"
 msgstr "Кешове"
 
-#: models.py:76
+#: models.py:79
 msgid "Name"
 msgstr "Име"
 
-#: models.py:81 models.py:104
+#: models.py:84 models.py:107
 msgid "Cache partition"
 msgstr "Раздел на кеша"
 
-#: models.py:82
+#: models.py:85
 msgid "Cache partitions"
 msgstr "Раздели на кеша"
 
-#: models.py:107
+#: models.py:110
 msgid "Date time"
 msgstr "Дата час"
 
-#: models.py:110
+#: models.py:113
 msgid "Filename"
 msgstr "Име на файл"
 
-#: models.py:113
+#: models.py:116
 msgid "File size"
 msgstr "Размер на файла"
 
-#: models.py:117
+#: models.py:120
 msgid "Times this cache partition file has been accessed."
 msgstr "Брой на достъпвания до този файл с дялове на кеша."
 
-#: models.py:124
+#: models.py:127
 msgid "Cache partition file"
 msgstr "Файл за раздели на кеша"
 
-#: models.py:125
+#: models.py:128
 msgid "Cache partition files"
 msgstr "Файлове с раздели на кешове"
 
@@ -214,17 +214,17 @@ msgstr "Да се прочистят ли кешовите дялове на &qu
 msgid "Object cache partitions submitted for purging."
 msgstr "Кешови дялове за обекта са изпратени за прочистване."
 
-#: views.py:126
+#: views.py:127
 #, python-format
 msgid "%(count)d caches submitted for purging."
 msgstr ""
 
-#: views.py:127
+#: views.py:130
 #, python-format
 msgid "%(count)d cache submitted for purging."
 msgstr ""
 
-#: views.py:135
+#: views.py:139
 msgid "Submit the selected cache for purging?"
 msgid_plural "Submit the selected caches for purging?"
 msgstr[0] "Изпратете избрания кеш за прочистване?"

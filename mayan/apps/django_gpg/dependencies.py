@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.dependencies.classes import (
     BinaryDependency, PythonDependency
@@ -38,5 +38,5 @@ PythonDependency(
         LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
         OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
         ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='python_gnupg', version_string='==0.4.8'
+    ''', module=__name__, name='python_gnupg', version_string='==0.4.9'
 )

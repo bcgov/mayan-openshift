@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Yaman Sanobar <yman.snober@gmail.com>, 2023
-# Marwan Rahhal <Marwanr@sssit.net>, 2023
+# Yaman Sanobar <yman.snober@gmail.com>, 2024
+# Marwan Rahhal <Marwanr@sssit.net>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2023\n"
+"POT-Creation-Date: 2024-02-06 20:31+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,11 +30,11 @@ msgstr "المحددات"
 msgid "none"
 msgstr "لاشيء"
 
-#: classes.py:163
+#: classes.py:161
 msgid "Does not apply"
 msgstr "لم يتم التطبيق"
 
-#: classes.py:167 classes.py:171
+#: classes.py:165 classes.py:169
 msgid "Null backend"
 msgstr "خلفية فارغة"
 
@@ -112,11 +112,9 @@ msgstr "جميع المستخدمين"
 #: mixins.py:108
 msgid ""
 "Apply the quota to all users in the system, excluding admins and staff. "
-"Enabling this option, the quota will ignore the indiviual user and group "
+"Enabling this option, the quota will ignore the individual user and group "
 "selection."
 msgstr ""
-"تطبيق المحددات على جميع المستخدمين في النظام ، باستثناء المسؤولين والموظفين "
-"، عند تفعيل هذا الخيار ، سيتم تجاهل اسم المستخدم و المجموعة"
 
 #: mixins.py:115
 msgid "Users"

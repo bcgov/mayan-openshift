@@ -4,7 +4,7 @@ from furl import furl
 
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.converter.classes import ConverterBase
 from mayan.apps.converter.exceptions import AppImageError
@@ -44,7 +44,9 @@ class DocumentVersionPageBusinessLogicMixin:
             'transformations cache filename: %s', combined_cache_filename
         )
 
-        content_object_lock_name = self.content_object.get_lock_name(user=user)
+        content_object_lock_name = self.content_object.get_lock_name(
+            user=user
+        )
         try:
             content_object_lock = LockingBackend.get_backend().acquire_lock(
                 name=content_object_lock_name,
@@ -226,12 +228,13 @@ class DocumentVersionPageBusinessLogicMixin:
                 )
 
                 with content_object_cache_file.open() as file_object:
-                    converter = ConverterBase.get_converter_class()(
+                    converter_class = ConverterBase.get_converter_class()
+                    converter_instance = converter_class(
                         file_object=file_object
                     )
-                    converter.seek_page(page_number=0)
+                    converter_instance.seek_page(page_number=0)
 
-                    page_image = converter.get_page()
+                    page_image = converter_instance.get_page()
 
                     # Since open "wb+" doesn't create versions, create it
                     # explicitly.
@@ -242,9 +245,11 @@ class DocumentVersionPageBusinessLogicMixin:
 
                     # Apply runtime transformations.
                     for transformation in transformation_instance_list or ():
-                        converter.transform(transformation=transformation)
+                        converter_instance.transform(
+                            transformation=transformation
+                        )
 
-                    return converter.get_page()
+                    return converter_instance.get_page()
             except Exception as exception:
                 # Cleanup in case of error.
                 logger.error(
@@ -257,19 +262,22 @@ class DocumentVersionPageBusinessLogicMixin:
             logger.debug('Page cache version "%s" found', cache_filename)
 
             with cache_file.open() as file_object:
-                converter = ConverterBase.get_converter_class()(
+                converter_class = ConverterBase.get_converter_class()
+                converter_instance = converter_class(
                     file_object=file_object
                 )
 
-                converter.seek_page(page_number=0)
+                converter_instance.seek_page(page_number=0)
 
                 # This code is also repeated below to allow using a context
                 # manager with cache_version.open and close it automatically.
                 # Apply runtime transformations.
                 for transformation in transformation_instance_list or ():
-                    converter.transform(transformation=transformation)
+                    converter_instance.transform(
+                        transformation=transformation
+                    )
 
-                return converter.get_page()
+                return converter_instance.get_page()
 
     def get_label(self):
         return _(
@@ -279,7 +287,7 @@ class DocumentVersionPageBusinessLogicMixin:
             'page_number': self.page_number,
             'total_pages': self.get_pages_last_number() or 1
         }
-    get_label.short_description = _('Label')
+    get_label.short_description = _(message='Label')
 
     def get_lock_name(
         self, _combined_cache_filename=None, maximum_layer_order=None,

@@ -39,7 +39,6 @@ class DocumentCheckoutBusinessLogicManager(models.Manager):
                 user=user
             )
 
-        if user:
             for checkout in user_document_checkouts | others_document_checkouts:
                 checkout._event_actor = user
                 checkout._event_keep_attributes = ('_event_actor',)

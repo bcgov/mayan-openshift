@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.navigation.classes import Link
 
@@ -12,25 +12,25 @@ from .permissions import (
 )
 
 link_signature_capture_create = Link(
-    args='object.pk', icon=icon_signature_capture_create, permissions=(
-        permission_signature_capture_create,
-    ), text=_('Create new signature capture'),
+    args='object.pk', icon=icon_signature_capture_create,
+    permission=permission_signature_capture_create,
+    text=_(message='Create new signature capture'),
     view='signature_captures:signature_capture_create'
 )
 link_signature_capture_delete = Link(
     args='object.pk', icon=icon_signature_capture_single_delete,
-    permissions=(permission_signature_capture_delete,), tags='dangerous',
-    text=_('Delete'),
+    permission=permission_signature_capture_delete, tags='dangerous',
+    text=_(message='Delete'),
     view='signature_captures:signature_capture_delete'
 )
 link_signature_capture_edit = Link(
     args='object.id', icon=icon_signature_capture_edit,
-    permissions=(permission_signature_capture_edit,), text=_('Edit'),
+    permission=permission_signature_capture_edit, text=_(message='Edit'),
     view='signature_captures:signature_capture_edit'
 )
 link_signature_capture_list = Link(
     args='resolved_object.pk', icon=icon_signature_capture_list,
-    permissions=(permission_signature_capture_view,), text=_(
+    permission=permission_signature_capture_view, text=_(
         'Signature captures'
     ), view='signature_captures:signature_capture_list'
 )

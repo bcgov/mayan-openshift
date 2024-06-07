@@ -225,14 +225,13 @@ class IndexInstanceTestCase(IndexTemplateTestMixin, GenericDocumentTestCase):
             set(
                 IndexInstanceNode.objects.values_list('value', flat=True)
             ), {
-                '', str(
+                '',
+                str(
                     self._test_documents[1].uuid
-                ),
-                self._test_documents[1].label,
+                ), self._test_documents[1].label,
                 str(
                     self._test_documents[0].uuid
-                ),
-                self._test_documents[0].label
+                ), self._test_documents[0].label
             }
         )
 
@@ -366,10 +365,8 @@ class IndexInstanceTestCase(IndexTemplateTestMixin, GenericDocumentTestCase):
 
         # Check that document is in instance node.
         instance_node = IndexInstanceNode.objects.get(value='0001')
-        self.assertQuerysetEqual(
-            instance_node.documents.all(), [
-                repr(self._test_document)
-            ]
+        self.assertQuerySetEqual(
+            qs=instance_node.documents.all(), values=(self._test_document,)
         )
 
 

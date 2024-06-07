@@ -3,7 +3,7 @@ import logging
 
 from django.apps import apps
 from django.utils.text import format_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
 
@@ -60,7 +60,7 @@ class QuotaBackend(QuotaBackendBase, metaclass=QuotaBackendMetaclass):
             list(
                 map(str, queryset)
             )
-        ) or _('none')
+        ) or _(message='none')
 
     @staticmethod
     def connect_signals():
@@ -130,9 +130,7 @@ class QuotaBackend(QuotaBackendBase, metaclass=QuotaBackendMetaclass):
         return cls.widgets
 
     @classmethod
-    def load_modules(cls):
-        super().load_modules()
-
+    def post_load_modules(cls):
         for backend in QuotaBackend.get_all():
             backend._initialize()
 
@@ -160,12 +158,12 @@ class QuotaBackend(QuotaBackendBase, metaclass=QuotaBackendMetaclass):
             raise QuotaExceeded(self.error_message)
 
     def usage(self):
-        return _('Does not apply')
+        return _(message='Does not apply')
 
 
 class NullBackend(QuotaBackend):
-    label = _('Null backend')
+    label = _(message='Null backend')
     signal = None
 
     def display(self):
-        return _('Null backend')
+        return _(message='Null backend')

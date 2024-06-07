@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
@@ -39,7 +39,7 @@ class AppearanceApp(MayanAppConfig):
         'MAINTAIN*', 'README*', '*.less', '*.md', '*.nupkg', '*.nuspec',
         '*.scss*', '*.sh', '*tests*', 'bower*', 'composer.json*',
         'demo*', 'grunt*', 'gulp*', 'install', 'less', 'package.json*',
-        'package-lock*', 'test', 'tests', 'variable*',
+        'package-lock*', 'test', 'tests', 'variable*', '*.xcf',
         'appearance/node_modules/@fancyapps/fancybox/docs/*',
         'appearance/node_modules/@fancyapps/fancybox/src/*',
         'appearance/node_modules/@fortawesome/fontawesome-free/svgs/*',
@@ -55,7 +55,7 @@ class AppearanceApp(MayanAppConfig):
         'appearance/node_modules/toastr/toastr-icon.png',
         'appearance/node_modules/toastr/nuget/*'
     )
-    verbose_name = _('Appearance')
+    verbose_name = _(message='Appearance')
 
     def ready(self):
         super().ready()

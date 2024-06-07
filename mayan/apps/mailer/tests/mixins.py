@@ -1,48 +1,50 @@
 import json
 
-from django.utils.module_loading import import_string
+from django.core.files.base import ContentFile
 
 from mayan.apps.credentials.tests.mixins import StoredCredentialPasswordUsernameTestMixin
+from mayan.apps.events.classes import EventModelRegistry
 from mayan.apps.testing.tests.mixins import TestMixinObjectCreationTrack
 
+from ..classes import ModelMailingActionAttachment, ModelMailingActionLink
 from ..models import UserMailer
 
 from .literals import (
-    TEST_EMAIL_ADDRESS, TEST_EMAIL_FROM_ADDRESS, MAILER_BACKEND_TEST_PATH,
-    TEST_USER_MAILER_LABEL
+    TEST_EMAIL_ADDRESS, TEST_EMAIL_FROM_ADDRESS,
+    TEST_MAILING_OBJECT_CONTENT, TEST_MAILING_OBJECT_MIME_TYPE,
+    TEST_MAILING_PROFILE_BACKEND_PATH, TEST_MAILING_PROFILE_LABEL,
+    TEST_MAILING_PROFILE_LABEL_EDITED
 )
 
 
-class MailerTestMixin(
+class MailingProfileTestMixin(
     StoredCredentialPasswordUsernameTestMixin, TestMixinObjectCreationTrack
 ):
-    _test_mailer_backend_path = MAILER_BACKEND_TEST_PATH
+    _test_mailing_profile_auto_create = False
+    _test_mailing_profile_backend_path = TEST_MAILING_PROFILE_BACKEND_PATH
     _test_object_model = UserMailer
-    _test_object_name = '_test_user_mailer'
+    _test_object_name = '_test_mailing_profile'
 
     def setUp(self):
         super().setUp()
-        self._test_mailer_backend_class = self._get_test_mailer_backend_class()
 
-    def _get_test_mailer_backend_class(self):
-        return import_string(dotted_path=self._test_mailer_backend_path)
+        if self._test_mailing_profile_auto_create:
+            self._create_test_mailing_profile()
 
-    def _create_test_user_mailer(self, extra_backend_data=None):
+    def _create_test_mailing_profile(self, extra_backend_data=None):
         backend_data = {'from': TEST_EMAIL_FROM_ADDRESS}
 
         if extra_backend_data:
             backend_data.update(**extra_backend_data)
 
-        self._test_user_mailer = UserMailer.objects.create(
-            default=True,
-            enabled=True,
-            label=TEST_USER_MAILER_LABEL,
-            backend_path=self._test_mailer_backend_class.backend_id,
+        self._test_mailing_profile = UserMailer.objects.create(
+            default=True, enabled=True, label=TEST_MAILING_PROFILE_LABEL,
+            backend_path=self._test_mailing_profile_backend_path,
             backend_data=json.dumps(obj=backend_data)
         )
 
 
-class DocumentMailerViewTestMixin(MailerTestMixin):
+class DocumentMailingProfileViewTestMixin(MailingProfileTestMixin):
     def _request_test_document_link_send_single_view(self):
         return self.post(
             viewname='mailer:send_document_link_single', kwargs={
@@ -51,7 +53,7 @@ class DocumentMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
+                'mailing_profile': self._test_mailing_profile.pk
             },
         )
 
@@ -63,12 +65,12 @@ class DocumentMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
-            },
+                'mailing_profile': self._test_mailing_profile.pk
+            }
         )
 
 
-class DocumentFileMailerViewTestMixin(MailerTestMixin):
+class DocumentFileMailingProfileViewTestMixin(MailingProfileTestMixin):
     def _request_test_document_file_link_send_single_view(self):
         return self.post(
             viewname='mailer:send_document_file_link_single', kwargs={
@@ -77,7 +79,7 @@ class DocumentFileMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
+                'mailing_profile': self._test_mailing_profile.pk
             }
         )
 
@@ -89,7 +91,7 @@ class DocumentFileMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
+                'mailing_profile': self._test_mailing_profile.pk
             }
         )
 
@@ -101,7 +103,7 @@ class DocumentFileMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
+                'mailing_profile': self._test_mailing_profile.pk
             }
         )
 
@@ -113,12 +115,12 @@ class DocumentFileMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
+                'mailing_profile': self._test_mailing_profile.pk
             }
         )
 
 
-class DocumentVersionMailerViewTestMixin(MailerTestMixin):
+class DocumentVersionMailingProfileViewTestMixin(MailingProfileTestMixin):
     def _request_test_document_version_link_send_single_view(self):
         return self.post(
             viewname='mailer:send_document_version_link_single', kwargs={
@@ -127,8 +129,8 @@ class DocumentVersionMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
-            },
+                'mailing_profile': self._test_mailing_profile.pk
+            }
         )
 
     def _request_test_document_version_link_send_multiple_view(self):
@@ -139,8 +141,8 @@ class DocumentVersionMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
-            },
+                'mailing_profile': self._test_mailing_profile.pk
+            }
         )
 
     def _request_test_document_version_attachment_send_single_view(self):
@@ -152,7 +154,7 @@ class DocumentVersionMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
+                'mailing_profile': self._test_mailing_profile.pk
             }
         )
 
@@ -165,22 +167,80 @@ class DocumentVersionMailerViewTestMixin(MailerTestMixin):
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS
                 ),
-                'user_mailer': self._test_user_mailer.pk
+                'mailing_profile': self._test_mailing_profile.pk
             }
         )
 
 
-class MailerViewTestMixin(MailerTestMixin):
-    def _request_test_user_mailer_create_view(self):
+def _test_content_function(obj):
+    return ContentFile(content=TEST_MAILING_OBJECT_CONTENT)
+
+
+def _test_mime_type_function(obj):
+    return TEST_MAILING_OBJECT_MIME_TYPE
+
+
+class MailObjectSendAPIViewTestMixin(MailingProfileTestMixin):
+    _test_model_mailing_content_function_dotted_path = 'mayan.apps.mailer.tests.mixins._test_content_function'
+    _test_model_mailing_mime_type_function_dotted_path = 'mayan.apps.mailer.tests.mixins._test_mime_type_function'
+    _test_model_mailing_permission_attachment = None
+    _test_model_mailing_permission_link = None
+
+    def setUp(self):
+        super().setUp()
+
+        if self.auto_create_test_object:
+            EventModelRegistry.register(model=self.TestModel)
+
+            self.TestModel.add_to_class(
+                name='get_absolute_url', value=lambda self: None
+            )
+
+            if self._test_model_mailing_permission_attachment:
+                ModelMailingActionAttachment(
+                    content_function_dotted_path=self._test_model_mailing_content_function_dotted_path,
+                    manager_name='objects',
+                    mime_type_function_dotted_path=self._test_model_mailing_mime_type_function_dotted_path,
+                    model=self.TestModel,
+                    permission=self._test_model_mailing_permission_attachment
+                )
+
+            if self._test_model_mailing_permission_link:
+                ModelMailingActionLink(
+                    manager_name='objects',
+                    model=self.TestModel,
+                    permission=self._test_model_mailing_permission_link
+                )
+
+    def _request_object_mail_attachment_api_view(self):
+        return self.post(
+            viewname='rest_api:object-mailing-action-attachment',
+            kwargs=self._test_object_view_kwargs,
+            data={
+                'mailing_profile': self._test_mailing_profile.pk,
+                'recipient': TEST_EMAIL_ADDRESS
+            }
+        )
+
+    def _request_object_mail_link_api_view(self):
+        return self.post(
+            viewname='rest_api:object-mailing-action-link',
+            kwargs=self._test_object_view_kwargs,
+            data={
+                'mailing_profile': self._test_mailing_profile.pk,
+                'recipient': TEST_EMAIL_ADDRESS
+            }
+        )
+
+
+class MailingProfileAPIViewTestMixin(MailingProfileTestMixin):
+    def _request_test_mailing_profile_create_api_view(self):
         self._test_object_track()
 
         response = self.post(
-            viewname='mailer:user_mailer_create', kwargs={
-                'backend_path': self._test_mailer_backend_class.backend_id
-            }, data={
-                'default': True,
-                'enabled': True,
-                'label': TEST_USER_MAILER_LABEL
+            viewname='rest_api:mailing_profile-list', data={
+                'backend_path': TEST_MAILING_PROFILE_BACKEND_PATH,
+                'label': TEST_MAILING_PROFILE_LABEL
             }
         )
 
@@ -188,38 +248,89 @@ class MailerViewTestMixin(MailerTestMixin):
 
         return response
 
-    def _request_test_user_mailer_delete_view(self):
-        return self.post(
-            viewname='mailer:user_mailer_delete', kwargs={
-                'mailer_id': self._test_user_mailer.pk
-            }
+    def _request_test_mailing_profile_delete_api_view(self):
+        return self.delete(
+            viewname='rest_api:mailing_profile-detail',
+            kwargs={'mailing_profile_id': self._test_mailing_profile.pk}
         )
 
-    def _request_test_user_mailer_edit_view(self):
-        return self.post(
-            viewname='mailer:user_mailer_edit', kwargs={
-                'mailer_id': self._test_user_mailer.pk
+    def _request_test_mailing_profile_detail_api_view(self):
+        return self.get(
+            viewname='rest_api:mailing_profile-detail',
+            kwargs={'mailing_profile_id': self._test_mailing_profile.pk}
+        )
+
+    def _request_test_mailing_profile_edit_api_view(
+        self, extra_data=None, verb='patch'
+    ):
+        data = {
+            'backend_path': TEST_MAILING_PROFILE_BACKEND_PATH,
+            'label': TEST_MAILING_PROFILE_LABEL_EDITED
+        }
+
+        if extra_data:
+            data.update(extra_data)
+
+        return getattr(self, verb)(
+            viewname='rest_api:mailing_profile-detail',
+            kwargs={'mailing_profile_id': self._test_mailing_profile.pk},
+            data=data
+        )
+
+    def _request_test_mailing_profile_list_api_view(self):
+        return self.get(viewname='rest_api:mailing_profile-list')
+
+
+class MailingProfileViewTestMixin(MailingProfileTestMixin):
+    def _request_test_mailing_profile_create_view(self):
+        self._test_object_track()
+
+        response = self.post(
+            viewname='mailer:mailing_profile_create', kwargs={
+                'backend_path': TEST_MAILING_PROFILE_BACKEND_PATH
             }, data={
-                'label': '{}_edited'.format(TEST_USER_MAILER_LABEL)
+                'default': True,
+                'enabled': True,
+                'label': TEST_MAILING_PROFILE_LABEL
             }
         )
 
-    def _request_test_user_mailer_list_view(self):
-        return self.get(
-            viewname='mailer:user_mailer_list'
-        )
+        self._test_object_set()
 
-    def _request_test_user_mailer_log_entry_view(self):
-        return self.get(
-            viewname='mailer:user_mailer_log', kwargs={
-                'mailer_id': self._test_user_mailer.pk
-            }
-        )
+        return response
 
-    def _request_test_user_mailer_test_view(self):
+    def _request_test_mailing_profile_delete_view(self):
         return self.post(
-            viewname='mailer:user_mailer_test', kwargs={
-                'mailer_id': self._test_user_mailer.pk
+            viewname='mailer:mailing_profile_delete', kwargs={
+                'mailing_profile_id': self._test_mailing_profile.pk
+            }
+        )
+
+    def _request_test_mailing_profile_edit_view(self):
+        return self.post(
+            viewname='mailer:mailing_profile_edit', kwargs={
+                'mailing_profile_id': self._test_mailing_profile.pk
+            }, data={
+                'label': '{}_edited'.format(TEST_MAILING_PROFILE_LABEL)
+            }
+        )
+
+    def _request_test_mailing_profile_list_view(self):
+        return self.get(
+            viewname='mailer:mailing_profile_list'
+        )
+
+    def _request_test_mailing_profile_log_entry_view(self):
+        return self.get(
+            viewname='mailer:mailing_profile_log', kwargs={
+                'mailing_profile_id': self._test_mailing_profile.pk
+            }
+        )
+
+    def _request_test_mailing_profile_test_view(self):
+        return self.post(
+            viewname='mailer:mailing_profile_test', kwargs={
+                'mailing_profile_id': self._test_mailing_profile.pk
             }, data={
                 'email': getattr(
                     self, '_test_email_address', TEST_EMAIL_ADDRESS

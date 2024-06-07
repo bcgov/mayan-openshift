@@ -4,27 +4,27 @@
 # 
 # Translators:
 # Translators:
-# Renata Oliveira <renatabels@gmail.com>, 2023
-# Jadson Ribeiro <jadsonbr@outlook.com.br>, 2023
-# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2023
-# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2023
-# Roberto Rosario, 2023
-# Emerson Soares <on.emersonsoares@gmail.com>, 2023
-# Rogerio Falcone <rogerio@falconeit.com.br>, 2023
-# Aline Freitas <aline@alinefreitas.com.br>, 2023
-# Paulo Loureiro, 2023
-# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2023
-# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2023
-# Vítor Figueiró <vfigueiro@gmail.com>, 2023
-# Márcia Ferreira, 2023
+# Renata Oliveira <renatabels@gmail.com>, 2024
+# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2024
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2024
+# Vítor Figueiró <vfigueiro@gmail.com>, 2024
+# Roberto Rosario, 2024
+# Jadson Ribeiro <jadsonbr@outlook.com.br>, 2024
+# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2024
+# Emerson Soares <on.emersonsoares@gmail.com>, 2024
+# Aline Freitas <aline@alinefreitas.com.br>, 2024
+# Márcia Ferreira, 2024
+# Paulo Loureiro, 2024
+# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2024
+# Rogerio Falcone <rogerio@falconeit.com.br>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Márcia Ferreira, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Rogerio Falcone <rogerio@falconeit.com.br>, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/rosarior/teams/13584/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,46 +50,46 @@ msgstr ""
 "A cada documento carregado deve ser atribuído um tipo de documento. Esta é "
 "forma básica pela qual o Mayan EDMS categoriza os documentos."
 
-#: apps.py:401
+#: apps.py:395
 msgid "File comments"
 msgstr "Arquivar comentários"
 
-#: apps.py:405
+#: apps.py:399
 msgid "File encodings"
 msgstr "Arquivar codificações"
 
-#: apps.py:409
+#: apps.py:403
 msgid "File MIME types"
 msgstr "Arquivar tipos de MIME"
 
-#: apps.py:413
+#: apps.py:407
 msgid "File timestamps"
 msgstr "Arquivar carimbos de data e hora"
 
-#: apps.py:418 links/document_file_page_links.py:77
+#: apps.py:412 links/document_file_page_links.py:77
 #: models/document_file_models.py:106 models/document_file_page_models.py:26
 #: search.py:49
 msgid "Document file"
 msgstr "Arquivo do documento"
 
-#: apps.py:422 models/document_file_page_models.py:30
+#: apps.py:416 models/document_file_page_models.py:30
 #: models/document_version_page_models.py:40
 msgid "Page number"
 msgstr "Número da página"
 
-#: apps.py:427
+#: apps.py:421
 msgid "Return the latest file of the document."
 msgstr "Devolver o último ficheiro do documento. "
 
-#: apps.py:428
+#: apps.py:422
 msgid "Latest file"
 msgstr "Último ficheiro"
 
-#: apps.py:431
+#: apps.py:426
 msgid "Return the document instance."
 msgstr "Retornar a instância do documento."
 
-#: apps.py:432 links/document_file_links.py:71
+#: apps.py:427 links/document_file_links.py:71
 #: links/document_file_page_links.py:71 links/document_version_links.py:73
 #: links/document_version_page_links.py:90 models/document_file_models.py:57
 #: models/document_models.py:115 models/document_version_models.py:28
@@ -100,15 +100,15 @@ msgstr "Retornar a instância do documento."
 msgid "Document"
 msgstr "Documento"
 
-#: apps.py:560 apps.py:612 apps.py:641 apps.py:675 apps.py:700
+#: apps.py:558 apps.py:612 apps.py:641 apps.py:676 apps.py:701
 msgid "Thumbnail"
 msgstr "Miniatura"
 
-#: apps.py:566
+#: apps.py:564
 msgid "Type"
 msgstr "Tipo"
 
-#: apps.py:570 apps.py:617 apps.py:680 forms/document_file_forms.py:89
+#: apps.py:569 apps.py:617 apps.py:681 forms/document_file_forms.py:89
 #: links/document_file_page_links.py:120
 #: links/document_version_page_links.py:50
 msgid "Pages"
@@ -687,11 +687,11 @@ msgid "All pages"
 msgstr "Todas as páginas"
 
 #: models/document_file_model_mixins.py:299
-#: models/document_file_page_model_mixins.py:236
-#: models/document_model_mixins.py:174 models/document_models.py:67
+#: models/document_file_page_model_mixins.py:244
+#: models/document_model_mixins.py:176 models/document_models.py:67
 #: models/document_type_models.py:41 models/document_type_models.py:153
-#: models/document_version_model_mixins.py:124
-#: models/document_version_page_model_mixins.py:282
+#: models/document_version_model_mixins.py:128
+#: models/document_version_page_model_mixins.py:290
 #: serializers/document_serializers.py:22
 #: serializers/document_version_serializers.py:17
 msgid "Label"
@@ -748,7 +748,7 @@ msgstr ""
 msgid "Document files"
 msgstr "Ficheiros de documento"
 
-#: models/document_file_page_model_mixins.py:230
+#: models/document_file_page_model_mixins.py:238
 #, python-format
 msgid "%(document_file)s - page %(page_num)d of %(total_pages)d"
 msgstr "%(document_file)s - página %(page_num)d de %(total_pages)d"
@@ -758,7 +758,7 @@ msgstr "%(document_file)s - página %(page_num)d de %(total_pages)d"
 msgid "Document file page"
 msgstr "Página do ficheiro."
 
-#: models/document_model_mixins.py:172
+#: models/document_model_mixins.py:173
 #, python-format
 msgid "Document stub, id: %d"
 msgstr "Rascunho de documento, id: %d"
@@ -949,7 +949,7 @@ msgstr "Ativo"
 msgid "Document versions"
 msgstr "Versões de documento"
 
-#: models/document_version_page_model_mixins.py:276
+#: models/document_version_page_model_mixins.py:284
 #, python-format
 msgid "%(document_version)s page %(page_number)d of %(total_pages)d"
 msgstr "%(document_version)spágina %(page_number)dde %(total_pages)d"
@@ -1602,17 +1602,17 @@ msgid "Pages of document file: %s"
 msgstr "Páginas do ficheiro do documento: %s"
 
 #: views/document_file_page_views.py:144
-#: views/document_version_page_views.py:311
+#: views/document_version_page_views.py:315
 msgid "There are no more pages in this document"
 msgstr "Não há mais páginas neste documento"
 
 #: views/document_file_page_views.py:160
-#: views/document_version_page_views.py:327
+#: views/document_version_page_views.py:331
 msgid "You are already at the first page of this document"
 msgstr "Já está na primeira página deste documento"
 
 #: views/document_file_page_views.py:195
-#: views/document_version_page_views.py:366
+#: views/document_version_page_views.py:370
 #, python-format
 msgid "Image of: %s"
 msgstr "Imagem de: %s"
@@ -1887,40 +1887,40 @@ msgstr ""
 "O número desta página será omitido. Se quiser uma numeração de página "
 "sequencial, utilize preferencialmente a ação de remapeamento da página."
 
-#: views/document_version_page_views.py:61
+#: views/document_version_page_views.py:62
 #, python-format
 msgid "Delete document version page %s ?"
 msgstr "Eliminar a página da versão do documento %s?"
 
-#: views/document_version_page_views.py:100
+#: views/document_version_page_views.py:102
 msgid ""
 "Document version pages are links to actual content pages. Create them using "
 "the page remap actions or the version modification action."
 msgstr ""
 
-#: views/document_version_page_views.py:104
+#: views/document_version_page_views.py:107
 msgid "No document version pages available"
 msgstr "Não existem páginas de versão de documento disponíveis. "
 
-#: views/document_version_page_views.py:107
+#: views/document_version_page_views.py:111
 #, python-format
 msgid "Pages of document version: %s"
 msgstr "Páginas de versão de documento: %s"
 
-#: views/document_version_page_views.py:159
+#: views/document_version_page_views.py:163
 msgid "None"
 msgstr "Nenhum"
 
-#: views/document_version_page_views.py:186
+#: views/document_version_page_views.py:190
 msgid "There are no sources available to remap for this document version."
 msgstr ""
 "Não existem fontes disponíveis para remapear para esta versão do documento"
 
-#: views/document_version_page_views.py:189
+#: views/document_version_page_views.py:193
 msgid "No page sources available"
 msgstr "não há fontes de página disponível. "
 
-#: views/document_version_page_views.py:192
+#: views/document_version_page_views.py:196
 #, python-format
 msgid "Remap pages of document version: %s"
 msgstr "Remapear páginas da versão do documento: %s"

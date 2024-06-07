@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Enri Mullai <enri_mullai@albnet.net>, 2023
-# Erjon Sulaj <erjon1282@gmail.com>, 2023
+# Enri Mullai <enri_mullai@albnet.net>, 2024
+# Erjon Sulaj <erjon1282@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Erjon Sulaj <erjon1282@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Erjon Sulaj <erjon1282@gmail.com>, 2024\n"
 "Language-Team: Albanian (https://app.transifex.com/rosarior/teams/13584/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: apps.py:49 classes.py:220
+#: apps.py:49 classes.py:221
 msgid "Other data"
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "Declared by"
 msgstr ""
 
-#: apps.py:57 classes.py:218
+#: apps.py:57 classes.py:219
 msgid "Version"
 msgstr "Versioni"
 
@@ -57,7 +57,7 @@ msgstr "Versioni"
 msgid "Environment"
 msgstr ""
 
-#: apps.py:64 classes.py:220
+#: apps.py:64 classes.py:221
 msgid "Check"
 msgstr ""
 
@@ -69,128 +69,128 @@ msgstr ""
 msgid "App"
 msgstr ""
 
-#: classes.py:219 classes.py:962
+#: classes.py:220 classes.py:963
 msgid "Environments"
 msgstr ""
 
-#: classes.py:330
+#: classes.py:331
 msgid "Need to specify at least one: app_label or module."
 msgstr ""
 
-#: classes.py:335
+#: classes.py:336
 #, python-format
 msgid "Dependency \"%s\" already registered."
 msgstr ""
 
-#: classes.py:386
+#: classes.py:387
 #, python-format
 msgid "Installing package: %s... "
 msgstr ""
 
-#: classes.py:393
+#: classes.py:394
 msgid "Already installed."
 msgstr ""
 
-#: classes.py:398 classes.py:405 classes.py:411
+#: classes.py:399 classes.py:406 classes.py:412
 msgid "Complete."
 msgstr ""
 
-#: classes.py:438
+#: classes.py:439
 msgid "Installed and correct version"
 msgstr ""
 
-#: classes.py:440
+#: classes.py:441
 msgid "Missing or incorrect version"
 msgstr ""
 
-#: classes.py:477
+#: classes.py:478
 msgid "None"
 msgstr "Asnjë"
 
-#: classes.py:486
+#: classes.py:487
 msgid "Not specified"
 msgstr ""
 
-#: classes.py:489
+#: classes.py:490
 msgid "Patching files... "
 msgstr ""
 
-#: classes.py:517
+#: classes.py:518
 msgid "Executables that are called directly by the code."
 msgstr ""
 
-#: classes.py:519
+#: classes.py:520
 msgid "Binary"
 msgstr ""
 
-#: classes.py:536
+#: classes.py:537
 msgid ""
 "JavaScript libraries downloaded the from NPM registry and used for front-end"
 " functionality."
 msgstr ""
 
-#: classes.py:539
+#: classes.py:540
 msgid "JavaScript"
 msgstr ""
 
-#: classes.py:571 classes.py:865
+#: classes.py:572 classes.py:866
 msgid "Downloading... "
 msgstr ""
 
-#: classes.py:576
+#: classes.py:577
 msgid "Verifying... "
 msgstr ""
 
-#: classes.py:581 classes.py:870
+#: classes.py:582 classes.py:871
 msgid "Extracting... "
 msgstr ""
 
-#: classes.py:791
+#: classes.py:792
 msgid "Python packages downloaded from PyPI."
 msgstr ""
 
-#: classes.py:793
+#: classes.py:794
 msgid "Python"
 msgstr ""
 
-#: classes.py:845
+#: classes.py:846
 msgid "Fonts downloaded from fonts.googleapis.com."
 msgstr ""
 
-#: classes.py:847
+#: classes.py:848
 msgid "Google font"
 msgstr ""
 
-#: classes.py:943
+#: classes.py:944
 msgid "Declared in app"
 msgstr ""
 
-#: classes.py:944
+#: classes.py:945
 msgid "Show dependencies by the app that declared them."
 msgstr ""
 
-#: classes.py:948
+#: classes.py:949
 msgid "Class"
 msgstr ""
 
-#: classes.py:949
+#: classes.py:950
 msgid ""
 "Show the different classes of dependencies. Classes are usually divided by "
 "language or the file types of the dependency."
 msgstr ""
 
-#: classes.py:954
+#: classes.py:955
 msgid "State"
 msgstr ""
 
-#: classes.py:955
+#: classes.py:956
 msgid ""
 "Show the different states of the dependencies. True means that the "
 "dependencies is installed and is of a correct version. False means the "
 "dependencies is missing or an incorrect version is present."
 msgstr ""
 
-#: classes.py:963
+#: classes.py:964
 msgid ""
 "Dependencies required for an environment might not be required for another. "
 "Example environments: Production, Development."
@@ -237,24 +237,24 @@ msgstr ""
 msgid "Documentation (override)"
 msgstr ""
 
-#: environments.py:44
+#: environments.py:45
 msgid ""
 "Normal environment for end users. A missing dependency under this "
 "environment will result in issues and errors during normal use."
 msgstr ""
 
-#: environments.py:46
+#: environments.py:47
 msgid "Production"
 msgstr ""
 
-#: environments.py:50
+#: environments.py:51
 msgid ""
 "Environment used running the test suit to verify the functionality of the "
 "code. Dependencies in this environment are not needed for normal production "
 "usage."
 msgstr ""
 
-#: environments.py:53
+#: environments.py:54
 msgid "Testing"
 msgstr ""
 

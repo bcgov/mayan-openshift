@@ -6,7 +6,7 @@ from furl import furl
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from actstream import action
 
@@ -22,7 +22,8 @@ from .literals import (
     EVENT_EVENTS_EXPORTED_NAME, EVENT_TYPE_NAMESPACE_NAME
 )
 from .permissions import (
-    permission_events_clear, permission_events_export, permission_events_view
+    permission_events_clear, permission_events_export,
+    permission_events_view
 )
 from .settings import setting_disable_asynchronous_mode
 
@@ -87,7 +88,7 @@ class ActionExporter:
 
         download_file = DownloadFile(
             filename=DEFAULT_EVENT_LIST_EXPORT_FILENAME,
-            label=_('Event list export to CSV'), user=user
+            label=_(message='Event list export to CSV'), user=user
         )
         download_file._event_actor = user
         download_file.save()
@@ -118,7 +119,7 @@ class ActionExporter:
             Message.objects.create(
                 sender_object=download_file,
                 user=user,
-                subject=_('Events exported.'),
+                subject=_(message='Events exported.'),
                 body=_(
                     'The event list has been exported and is available '
                     'for download using the link: %(download_url)s or from '

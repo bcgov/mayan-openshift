@@ -4,16 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2023
-# Csaba Tarjányi, 2023
+# Dezső József <dejo60@gmail.com>, 2024
+# molnars <szabolcs.molnar@gmail.com>, 2024
+# Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Csaba Tarjányi, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,19 +56,19 @@ msgstr "Fájl gyorsítótárak"
 
 #: links.py:33 links.py:39 links.py:43
 msgid "Purge cache"
-msgstr "Gyorsítótár ürítése"
+msgstr "Gyorsítótár törlése"
 
-#: model_mixins.py:45
+#: model_mixins.py:39
+msgid "Unknown"
+msgstr "Ismeretlen"
+
+#: model_mixins.py:57
 msgid "Size at which the cache will start deleting old entries."
 msgstr "Méret, amelynél a gyorsítótár elkezdi törölni a régi bejegyzéseket."
 
-#: model_mixins.py:47 models.py:28
+#: model_mixins.py:59 models.py:31
 msgid "Maximum size"
 msgstr "Maximális méret"
-
-#: model_mixins.py:56
-msgid "Unknown"
-msgstr "Ismeretlen"
 
 #: model_mixins.py:70
 msgid "Partition count"
@@ -77,23 +78,23 @@ msgstr "Partíciók száma"
 msgid "Total cached objects."
 msgstr "Összes gyorsítótárazott objektum."
 
-#: model_mixins.py:77
+#: model_mixins.py:78
 msgid "Partition file count"
 msgstr "Partíció fájlok száma"
 
-#: model_mixins.py:78
+#: model_mixins.py:80
 msgid "Total cached files."
 msgstr "Összes gyorsítótárazott fájl."
 
-#: model_mixins.py:104 model_mixins.py:312
+#: model_mixins.py:113 model_mixins.py:324
 msgid "Current size"
 msgstr "Jelenlegi méret"
 
-#: model_mixins.py:105
+#: model_mixins.py:115
 msgid "Current size of the cache."
 msgstr "A gyorsítótár jelenlegi mérete."
 
-#: model_mixins.py:314
+#: model_mixins.py:326
 msgid "Current size of the cache partition."
 msgstr "A gyorsítótár-partíció jelenlegi mérete."
 
@@ -101,55 +102,55 @@ msgstr "A gyorsítótár-partíció jelenlegi mérete."
 msgid "Internal name of the defined storage for this cache."
 msgstr "A gyorsítótár meghatározott tárhelyének belső neve."
 
-#: models.py:22
+#: models.py:23
 msgid "Defined storage name"
 msgstr "Meghatározott tárhelynév"
 
-#: models.py:25
+#: models.py:28
 msgid "Maximum size of the cache in bytes."
 msgstr "A gyorsítótár maximális mérete bájtban."
 
-#: models.py:33 models.py:73
+#: models.py:36 models.py:76
 msgid "Cache"
 msgstr "Gyorsítótár"
 
-#: models.py:34
+#: models.py:37
 msgid "Caches"
 msgstr "Gyorsítótárak"
 
-#: models.py:76
+#: models.py:79
 msgid "Name"
 msgstr "Név"
 
-#: models.py:81 models.py:104
+#: models.py:84 models.py:107
 msgid "Cache partition"
 msgstr "Gyorsítótár-partíció"
 
-#: models.py:82
+#: models.py:85
 msgid "Cache partitions"
 msgstr "Gyorsítótár-partíciók"
 
-#: models.py:107
+#: models.py:110
 msgid "Date time"
 msgstr "Dátum idő"
 
-#: models.py:110
-msgid "Filename"
-msgstr "Fájl név"
-
 #: models.py:113
-msgid "File size"
-msgstr "Fájl méret"
+msgid "Filename"
+msgstr "Fájlnév"
 
-#: models.py:117
+#: models.py:116
+msgid "File size"
+msgstr "Fájl mérete"
+
+#: models.py:120
 msgid "Times this cache partition file has been accessed."
 msgstr "A gyorsítótár partíciós fájljának elérési ideje."
 
-#: models.py:124
+#: models.py:127
 msgid "Cache partition file"
 msgstr "A gyorsítótár partíciós fájlja"
 
-#: models.py:125
+#: models.py:128
 msgid "Cache partition files"
 msgstr "Gyorsítótár partíciós fájlok"
 
@@ -163,7 +164,7 @@ msgstr "Fájl-gyorsítótár ürítése"
 
 #: permissions.py:17
 msgid "View a file cache"
-msgstr "Fájl-gyorsítótár megtekintése"
+msgstr "Fájlgyorsítótár megtekintése"
 
 #: queues.py:10
 msgid "File caching slow"
@@ -203,7 +204,7 @@ msgstr "Fájl gyorsítótárak listája"
 #: views.py:82
 #, python-format
 msgid "Details of cache partition: %s"
-msgstr "A gyorsítótár-partíció részletei: %s"
+msgstr "A gyorsítótár partíció részletei: %s"
 
 #: views.py:100
 #, python-format
@@ -214,17 +215,17 @@ msgstr "Kiüríti a \"%s\" gyorsítótár-partícióit?"
 msgid "Object cache partitions submitted for purging."
 msgstr "Az objektum-gyorsítótár partíciók elküldve törlésre."
 
-#: views.py:126
+#: views.py:127
 #, python-format
 msgid "%(count)d caches submitted for purging."
 msgstr "%(count)d gyorsítótár tisztításra küldve."
 
-#: views.py:127
+#: views.py:130
 #, python-format
 msgid "%(count)d cache submitted for purging."
 msgstr "%(count)d gyorsítótár tisztításra küldve."
 
-#: views.py:135
+#: views.py:139
 msgid "Submit the selected cache for purging?"
 msgid_plural "Submit the selected caches for purging?"
 msgstr[0] "Elküldi a kiválasztott gyorsítótárat tisztításra?"

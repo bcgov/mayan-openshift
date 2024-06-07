@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2023
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2023
-# Daniele Bortoluzzi <daniele@elkos.it>, 2023
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2023
+# Daniele Bortoluzzi <daniele@elkos.it>, 2024
+# Roberto Rosario, 2024
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Marco Camplese <marco.camplese.mc@gmail.com>, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:36 events.py:6 permissions.py:6 settings.py:11
+#: apps.py:35 events.py:6 permissions.py:6 settings.py:11
 msgid "Authentication"
 msgstr "Autenticazione"
 
@@ -115,29 +115,25 @@ msgstr "Clicca qui quando hai finito"
 msgid "Login"
 msgstr "Login"
 
-#: templates/authentication/login.html:21
-msgid "Sign in"
-msgstr "Accedi"
-
-#: templates/authentication/login.html:62
-#: templates/authentication/login.html:72
-#: templates/authentication/login.html:86
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 msgid "Save"
 msgstr "Salva"
 
-#: templates/authentication/login.html:62
-#: templates/authentication/login.html:72
-#: templates/authentication/login.html:86
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 #: templates/authentication/password_reset_confirm.html:29
 #: templates/authentication/password_reset_form.html:29
 msgid "Submit"
 msgstr "Invia"
 
-#: templates/authentication/login.html:76
+#: templates/authentication/login.html:79
 msgid "Cancel"
 msgstr "Annullare"
 
-#: templates/authentication/login.html:98
+#: templates/authentication/login.html:106
 msgid "Forgot your password?"
 msgstr "Dimenticato la password?"
 
@@ -163,61 +159,65 @@ msgstr "Pagina di login"
 msgid "Password reset email sent!"
 msgstr "Email per la reimpostazione della password inviata!"
 
-#: views/authentication_views.py:161
+#: views/authentication_views.py:160
 msgid "Next"
 msgstr "Successivo"
 
-#: views/authentication_views.py:167
+#: views/authentication_views.py:166
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "Passaggio %(step)d di %(total_steps)d: %(step_label)s"
 
-#: views/authentication_views.py:237
+#: views/authentication_views.py:190
+msgid "Sign in"
+msgstr "Accedi"
+
+#: views/authentication_views.py:240
 msgid "Your password has been successfully changed."
 msgstr "La tua password è stata cambiata con successo"
 
-#: views/authentication_views.py:247
+#: views/authentication_views.py:251
 msgid "Current user password change"
 msgstr "Modifica della password dell'utente corrente"
 
-#: views/authentication_views.py:259
+#: views/authentication_views.py:263
 msgid "Changing the password is not allowed for this account."
 msgstr "Il cambio password non è consentito per questo account."
 
-#: views/authentication_views.py:357
+#: views/authentication_views.py:362
 #, python-format
 msgid "Password change request performed on %(count)d user"
 msgstr "Effettuato il cambio password richiesto per %(count)d utente"
 
-#: views/authentication_views.py:360
+#: views/authentication_views.py:365
 #, python-format
 msgid "Password change request performed on %(count)d users"
 msgstr "Effettuato il cambio password richiesto per %(count)d utenti"
 
-#: views/authentication_views.py:377
+#: views/authentication_views.py:382
 msgid ""
 "Changing the password of staff or super user accounts via the user interface"
 " is not allowed. Use administration tools to perform this operation."
 msgstr ""
 
-#: views/authentication_views.py:391
+#: views/authentication_views.py:396
 msgid "Change user password"
 msgid_plural "Change users passwords"
 msgstr[0] "Cambia le password degli utenti"
 msgstr[1] "Cambia le password degli utenti"
 msgstr[2] "Cambia le password degli utenti"
 
-#: views/authentication_views.py:402
+#: views/authentication_views.py:407
 #, python-format
 msgid "Change password for user: %s"
 msgstr "Cambia la password dell'utente: %s"
 
-#: views/authentication_views.py:426
+#: views/authentication_views.py:431
 #, python-format
 msgid "Successful password reset for user: %s."
 msgstr "Effettuato reset della password per l'utente: %s."
 
-#: views/authentication_views.py:432
+#: views/authentication_views.py:437
 #, python-format
 msgid "Error resetting password for user \"%(user)s\": %(error)s"
 msgstr ""

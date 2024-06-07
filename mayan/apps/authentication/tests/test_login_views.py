@@ -1,11 +1,12 @@
+from urllib.parse import unquote_plus
+
 from furl import furl
 
 from django.conf import settings
 from django.test import override_settings
 from django.urls import reverse
-from django.utils.http import urlunquote_plus
 
-from mayan.apps.smart_settings.classes import SettingNamespace
+from mayan.apps.smart_settings.settings import setting_cluster
 from mayan.apps.testing.tests.base import GenericViewTestCase
 from mayan.apps.user_management.events import event_user_edited
 
@@ -23,8 +24,8 @@ class LoginTestCase(LoginViewTestMixin, GenericViewTestCase):
     Test that users can login via the supported authentication methods.
     """
     authenticated_url = reverse(viewname='common:home')
-    authentication_url = urlunquote_plus(
-        furl(
+    authentication_url = unquote_plus(
+        string=furl(
             path=reverse(settings.LOGIN_URL), args={
                 'next': authenticated_url
             }
@@ -35,7 +36,7 @@ class LoginTestCase(LoginViewTestMixin, GenericViewTestCase):
 
     def setUp(self):
         super().setUp()
-        SettingNamespace.invalidate_cache_all()
+        setting_cluster.do_cache_invalidate()
 
     def test_non_authenticated_request(self):
         self._clear_events()

@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2023
-# Roberto Rosario, 2023
-# bwakkie <bwakkie@gmail.com>, 2023
+# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2024
+# bwakkie <bwakkie@gmail.com>, 2024
+# Roberto Rosario, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: bwakkie <bwakkie@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Roberto Rosario, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/rosarior/teams/13584/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,46 +40,46 @@ msgstr ""
 "Ieder geüpload document krijgt een documenttype toegewezen, dit is de manier"
 " waarop MAYAN EDMS documenten indeelt."
 
-#: apps.py:401
+#: apps.py:395
 msgid "File comments"
 msgstr "Bestandsopmerkingen"
 
-#: apps.py:405
+#: apps.py:399
 msgid "File encodings"
 msgstr "Bestandscoderingen"
 
-#: apps.py:409
+#: apps.py:403
 msgid "File MIME types"
 msgstr "MIME-typen van bestanden"
 
-#: apps.py:413
+#: apps.py:407
 msgid "File timestamps"
 msgstr "Tijdstempels bestand"
 
-#: apps.py:418 links/document_file_page_links.py:77
+#: apps.py:412 links/document_file_page_links.py:77
 #: models/document_file_models.py:106 models/document_file_page_models.py:26
 #: search.py:49
 msgid "Document file"
 msgstr "Document bestand"
 
-#: apps.py:422 models/document_file_page_models.py:30
+#: apps.py:416 models/document_file_page_models.py:30
 #: models/document_version_page_models.py:40
 msgid "Page number"
 msgstr "Paginanummer"
 
-#: apps.py:427
+#: apps.py:421
 msgid "Return the latest file of the document."
 msgstr "Retourneer het laatste bestand van het document."
 
-#: apps.py:428
+#: apps.py:422
 msgid "Latest file"
 msgstr "Laatste bestand"
 
-#: apps.py:431
+#: apps.py:426
 msgid "Return the document instance."
 msgstr "Retourneer de documentinstantie."
 
-#: apps.py:432 links/document_file_links.py:71
+#: apps.py:427 links/document_file_links.py:71
 #: links/document_file_page_links.py:71 links/document_version_links.py:73
 #: links/document_version_page_links.py:90 models/document_file_models.py:57
 #: models/document_models.py:115 models/document_version_models.py:28
@@ -90,15 +90,15 @@ msgstr "Retourneer de documentinstantie."
 msgid "Document"
 msgstr "Document"
 
-#: apps.py:560 apps.py:612 apps.py:641 apps.py:675 apps.py:700
+#: apps.py:558 apps.py:612 apps.py:641 apps.py:676 apps.py:701
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
-#: apps.py:566
+#: apps.py:564
 msgid "Type"
 msgstr "Type"
 
-#: apps.py:570 apps.py:617 apps.py:680 forms/document_file_forms.py:89
+#: apps.py:569 apps.py:617 apps.py:681 forms/document_file_forms.py:89
 #: links/document_file_page_links.py:120
 #: links/document_version_page_links.py:50
 msgid "Pages"
@@ -680,11 +680,11 @@ msgid "All pages"
 msgstr "Alle pagina's"
 
 #: models/document_file_model_mixins.py:299
-#: models/document_file_page_model_mixins.py:236
-#: models/document_model_mixins.py:174 models/document_models.py:67
+#: models/document_file_page_model_mixins.py:244
+#: models/document_model_mixins.py:176 models/document_models.py:67
 #: models/document_type_models.py:41 models/document_type_models.py:153
-#: models/document_version_model_mixins.py:124
-#: models/document_version_page_model_mixins.py:282
+#: models/document_version_model_mixins.py:128
+#: models/document_version_page_model_mixins.py:290
 #: serializers/document_serializers.py:22
 #: serializers/document_version_serializers.py:17
 msgid "Label"
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Document files"
 msgstr "Documentbestanden"
 
-#: models/document_file_page_model_mixins.py:230
+#: models/document_file_page_model_mixins.py:238
 #, python-format
 msgid "%(document_file)s - page %(page_num)d of %(total_pages)d"
 msgstr "%(document_file)s - pagina %(page_num)d van %(total_pages)d"
@@ -750,7 +750,7 @@ msgstr "%(document_file)s - pagina %(page_num)d van %(total_pages)d"
 msgid "Document file page"
 msgstr "Documentbestandspagina"
 
-#: models/document_model_mixins.py:172
+#: models/document_model_mixins.py:173
 #, python-format
 msgid "Document stub, id: %d"
 msgstr "Document stub, id: %d"
@@ -946,7 +946,7 @@ msgstr "Actief"
 msgid "Document versions"
 msgstr "Documentversies"
 
-#: models/document_version_page_model_mixins.py:276
+#: models/document_version_page_model_mixins.py:284
 #, python-format
 msgid "%(document_version)s page %(page_number)d of %(total_pages)d"
 msgstr "%(document_version)s pagina %(page_number)d of %(total_pages)d"
@@ -1592,17 +1592,17 @@ msgid "Pages of document file: %s"
 msgstr "Pagina's van documentbestand: %s"
 
 #: views/document_file_page_views.py:144
-#: views/document_version_page_views.py:311
+#: views/document_version_page_views.py:315
 msgid "There are no more pages in this document"
 msgstr "Er zijn verder geen pagina's meer in dit document"
 
 #: views/document_file_page_views.py:160
-#: views/document_version_page_views.py:327
+#: views/document_version_page_views.py:331
 msgid "You are already at the first page of this document"
 msgstr "U bent al op de eerste pagina van dit document"
 
 #: views/document_file_page_views.py:195
-#: views/document_version_page_views.py:366
+#: views/document_version_page_views.py:370
 #, python-format
 msgid "Image of: %s"
 msgstr "Afbeelding van: %s"
@@ -1868,41 +1868,41 @@ msgstr ""
 "paginanummering wilt bereiken, gebruikt u in plaats daarvan de actie pagina "
 "opnieuw toewijzen."
 
-#: views/document_version_page_views.py:61
+#: views/document_version_page_views.py:62
 #, python-format
 msgid "Delete document version page %s ?"
 msgstr "Documentversiepagina %s verwijderen?"
 
-#: views/document_version_page_views.py:100
+#: views/document_version_page_views.py:102
 msgid ""
 "Document version pages are links to actual content pages. Create them using "
 "the page remap actions or the version modification action."
 msgstr ""
 
-#: views/document_version_page_views.py:104
+#: views/document_version_page_views.py:107
 msgid "No document version pages available"
 msgstr "Geen documentversiepagina's beschikbaar"
 
-#: views/document_version_page_views.py:107
+#: views/document_version_page_views.py:111
 #, python-format
 msgid "Pages of document version: %s"
 msgstr "Pagina's van documentversie: %s"
 
-#: views/document_version_page_views.py:159
+#: views/document_version_page_views.py:163
 msgid "None"
 msgstr "Geen"
 
-#: views/document_version_page_views.py:186
+#: views/document_version_page_views.py:190
 msgid "There are no sources available to remap for this document version."
 msgstr ""
 "Er zijn geen bronnen beschikbaar om opnieuw toe te wijzen voor deze "
 "documentversie."
 
-#: views/document_version_page_views.py:189
+#: views/document_version_page_views.py:193
 msgid "No page sources available"
 msgstr "Geen paginabronnen beschikbaar"
 
-#: views/document_version_page_views.py:192
+#: views/document_version_page_views.py:196
 #, python-format
 msgid "Remap pages of document version: %s"
 msgstr "Pagina&#39;s van documentversie opnieuw toewijzen: %s"

@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Dezső József <dejo60@gmail.com>, 2023
-# molnars <szabolcs.molnar@gmail.com>, 2023
-# Csaba Tarjányi, 2023
+# Dezső József <dejo60@gmail.com>, 2024
+# molnars <szabolcs.molnar@gmail.com>, 2024
+# Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Csaba Tarjányi, 2023\n"
+"POT-Creation-Date: 2024-06-03 22:29+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,73 +24,73 @@ msgstr ""
 
 #: apps.py:61 events.py:6 permissions.py:6
 msgid "User management"
-msgstr "Felhasználókezelés"
+msgstr "Felhasználó kezelés"
 
 #: apps.py:76 search.py:10
 msgid "Group"
 msgstr "Csoport"
 
-#: apps.py:77 apps.py:108 links.py:53 links.py:67 links.py:96 search.py:34
+#: apps.py:77 apps.py:113 links.py:55 links.py:69 links.py:98 search.py:34
 #: views/group_views.py:111
 msgid "Groups"
 msgstr "Csoportok"
 
-#: apps.py:78 search.py:16
+#: apps.py:79 search.py:16
 msgid "Name"
 msgstr "Név"
 
-#: apps.py:100 models.py:20 search.py:22
+#: apps.py:102 models.py:20 search.py:22
 msgid "User"
 msgstr "Felhasználó"
 
-#: apps.py:101 apps.py:223 links.py:58 links.py:99 links.py:111
+#: apps.py:103 apps.py:230 links.py:60 links.py:101 links.py:113
 #: views/user_views.py:170
 msgid "Users"
 msgstr "Felhasználók"
 
-#: apps.py:104 search.py:31
+#: apps.py:107 search.py:31
 msgid "Email"
 msgstr "Email"
 
-#: apps.py:107 search.py:28
+#: apps.py:111 search.py:28
 msgid "First name"
 msgstr "Keresztnév"
 
-#: apps.py:111
+#: apps.py:117
 msgid "Is active?"
 msgstr "Aktív?"
 
-#: apps.py:114
+#: apps.py:120
 msgid "Is super user?"
 msgstr "Szuper felhasználó?"
 
-#: apps.py:117 search.py:37
+#: apps.py:123 search.py:37
 msgid "Last name"
 msgstr "Vezetéknév"
 
-#: apps.py:120 serializers.py:72
+#: apps.py:126 serializers.py:72
 msgid "Password"
 msgstr "Jelszó"
 
-#: apps.py:123 search.py:40
+#: apps.py:129 search.py:40
 msgid "Username"
 msgstr "Felhasználónév"
 
-#: apps.py:126
+#: apps.py:132
 msgid "Last login"
 msgstr "Utolsó bejelentkezés"
 
-#: apps.py:152
+#: apps.py:158
 msgid "Has usable password?"
 msgstr "Van használható jelszó?"
 
-#: apps.py:159
+#: apps.py:165
 msgid "All the groups."
-msgstr "Az összes csoport."
+msgstr "Minden csoport."
 
-#: apps.py:163
+#: apps.py:169
 msgid "All the users."
-msgstr "Az összes felhasználó."
+msgstr "Minden felhasználó."
 
 #: dashboard_widgets.py:14
 msgid "Total users"
@@ -122,33 +122,33 @@ msgstr "Felhasználó szerkesztve"
 
 #: events.py:25
 msgid "User logged in"
-msgstr "Felhasználó bejelentkezett"
+msgstr "Felhasználó bejelentkezve"
 
 #: events.py:28
 msgid "User logged out"
-msgstr "Felhasználó kijelentkezett"
+msgstr "Felhasználó kijelentkezve"
 
-#: links.py:28
+#: links.py:30
 msgid "User details"
-msgstr "Felhasználói adatok"
+msgstr "A felhasználó adatai"
 
-#: links.py:36 views/group_views.py:25
+#: links.py:38 views/group_views.py:25
 msgid "Create new group"
 msgstr "Új csoport létrehozása"
 
-#: links.py:41 links.py:44 links.py:81 links.py:85
+#: links.py:43 links.py:46 links.py:83 links.py:87
 msgid "Delete"
 msgstr "Törlés"
 
-#: links.py:49 links.py:90
+#: links.py:51 links.py:92
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: links.py:75 views/user_views.py:32
+#: links.py:77 views/user_views.py:32
 msgid "Create new user"
 msgstr "Új felhasználó létrehozása"
 
-#: links.py:104
+#: links.py:106
 msgid "User options"
 msgstr "Felhasználói beállítások"
 
@@ -174,7 +174,7 @@ msgstr "Felhasználói beállítások"
 
 #: models.py:32
 msgid "Users settings"
-msgstr "Felhasználói beállítások"
+msgstr "Felhasználók beállításai"
 
 #: permissions.py:10
 msgid "Create new groups"
@@ -215,15 +215,15 @@ msgstr ""
 
 #: serializers.py:18
 msgid "Users URL"
-msgstr "Felhasználói URL"
+msgstr "Felhasználók URL"
 
 #: serializers.py:22
 msgid "Users add URL"
-msgstr "A felhasználók hozzáadása URL"
+msgstr "Felhasználók hozzáadása URL"
 
 #: serializers.py:26
 msgid "Users remove URL"
-msgstr "A felhasználók eltávolítása URL"
+msgstr "Felhasználók eltávolítása URL"
 
 #: serializers.py:33 serializers.py:80
 msgid "URL"
@@ -249,11 +249,11 @@ msgstr ""
 
 #: serializers.py:68
 msgid "Groups URL"
-msgstr "Csoportok URL-je"
+msgstr "Csoportok URL"
 
 #: utils.py:26
 msgid "Anonymous"
-msgstr "Névtelen"
+msgstr "Névtelen felhasználó"
 
 #: views/group_views.py:40
 #, python-format
@@ -278,7 +278,7 @@ msgstr "%(count)d csoport sikeresen törölve."
 #: views/group_views.py:50
 #, python-format
 msgid "Delete the %(count)d selected groups."
-msgstr "A %(count)d kiválasztott csoport törlése."
+msgstr "%(count)d kiválasztott csoport törlése."
 
 #: views/group_views.py:51
 #, python-format
@@ -288,7 +288,7 @@ msgstr "Csoport törlése: %(object)s ."
 #: views/group_views.py:52
 #, python-format
 msgid "Delete the %(count)d selected group."
-msgstr "A %(count)d kiválasztott csoport törlése."
+msgstr "%(count)d kiválasztott csoport törlése."
 
 #: views/group_views.py:66
 #, python-format
@@ -308,7 +308,7 @@ msgid ""
 msgstr ""
 "A felhasználói csoportok szervezeti egységek. Ezeknek tükrözniük kell a "
 "szervezet szervezeti egységeit. A csoportok nem használhatók hozzáférés-"
-"szabályozásra. Használjon szerepeket engedélyekhez és hozzáférés-"
+"szabályozásra. Használjon szerepköröket engedélyekhez és hozzáférés-"
 "szabályozáshoz, adjon hozzá csoportokat."
 
 #: views/group_views.py:110
@@ -351,7 +351,7 @@ msgstr "%(count)d felhasználó sikeresen törölve."
 #: views/user_views.py:64
 #, python-format
 msgid "Delete the %(count)d selected users."
-msgstr "A %(count)d kiválasztott felhasználó törlése."
+msgstr "%(count)d kiválasztott felhasználó törlése."
 
 #: views/user_views.py:65
 #, python-format
@@ -361,7 +361,7 @@ msgstr "Felhasználó törlése: %(object)s ."
 #: views/user_views.py:66
 #, python-format
 msgid "Delete the %(count)d selected user."
-msgstr "A %(count)d kiválasztott felhasználó törlése."
+msgstr "%(count)d kiválasztott felhasználó törlése."
 
 #: views/user_views.py:73
 msgid ""

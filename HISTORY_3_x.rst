@@ -222,7 +222,7 @@
 3.5.2 (2020-10-26)
 ==================
 - Allow JavaScript from Django REST framework to be served.
-  Needed for the browseable API UI.
+  Needed for the browsable API UI.
 - Merges and fixes from 3.4 series.
 
 3.5.1 (2020-10-11)
@@ -2304,7 +2304,7 @@
 - The document quick label selection field now uses a select2 widget.
 - Include querystring when force reload of a bare template view.
 - Speed up document image fade in reveal.
-- Use reseteable timer to ensure more document panels heights are matched.
+- Use resettable timer to ensure more document panels heights are matched.
 - Rewrote Mayan's JavaScript suite MayanApp into ECMAScript2015.
 - Remove use is ``waitForJQuery``.
 - Remove code statistics from the documentation.
@@ -2448,7 +2448,7 @@
 - Chart updates: Show last update date and time in list view and details
   view. Change color scheme to match rest of project. Increase size of
   data points. Improve responsive settings. Redirect to the current view
-  after queueing.
+  after queuing.
 - Split document type retention policies into it own view.
 
 3.0.3 (2018-08-17)

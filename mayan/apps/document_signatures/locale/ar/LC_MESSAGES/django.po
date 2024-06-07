@@ -4,19 +4,19 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2023
-# Mohammed ALDOUB <voulnet@gmail.com>, 2023
-# WM Shinkada <shinkadawasim@gmail.com>, 2023
-# Yaman Sanobar <yman.snober@gmail.com>, 2023
-# Marwan Rahhal <Marwanr@sssit.net>, 2023
+# Roberto Rosario, 2024
+# Mohammed ALDOUB <voulnet@gmail.com>, 2024
+# Yaman Sanobar <yman.snober@gmail.com>, 2024
+# Marwan Rahhal <Marwanr@sssit.net>, 2024
+# WM Shinkada <shinkadawasim@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: WM Shinkada <shinkadawasim@gmail.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -365,7 +365,7 @@ msgstr ""
 msgid "Signatures for document file: %s"
 msgstr ""
 
-#: views.py:356 views.py:377
+#: views.py:356 views.py:378
 msgid "On large databases this operation may take some time to execute."
 msgstr "يرجى الإنتظار ، قد تستغرق عملية الحفظ وقت أطول"
 
@@ -373,15 +373,15 @@ msgstr "يرجى الإنتظار ، قد تستغرق عملية الحفظ و�
 msgid "Refresh all signatures information?"
 msgstr ""
 
-#: views.py:369
+#: views.py:370
 msgid "Signature information refresh queued successfully."
 msgstr ""
 
-#: views.py:379
+#: views.py:380
 msgid "Verify all document for signatures?"
 msgstr "تحقق من كل وثيقة للتوقيعات؟"
 
-#: views.py:390
+#: views.py:391
 msgid "Signature verification queued successfully."
 msgstr "تم وضع التحقق من التوقيع في قائمة الانتظار بنجاح."
 

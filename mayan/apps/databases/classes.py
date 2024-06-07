@@ -3,8 +3,8 @@ import logging
 from django.apps import apps
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(name=__name__)
 
@@ -75,11 +75,11 @@ class ModelAttribute:
                 self.name if show_name else self.label, self.description
             )
         else:
-            return force_text(s=self.name if show_name else self.label)
+            return force_str(s=self.name if show_name else self.label)
 
 
 class ModelField(ModelAttribute):
-    class_label = _('Model fields')
+    class_label = _(message='Model fields')
     class_name = 'field'
 
     def __init__(self, *args, **kwargs):
@@ -127,17 +127,17 @@ class ModelField(ModelAttribute):
 
 
 class ModelFieldRelated(ModelField):
-    class_label = _('Model related fields')
+    class_label = _(message='Model related fields')
     class_name = 'related_field'
 
 
 class ModelProperty(ModelAttribute):
-    class_label = _('Model properties')
+    class_label = _(message='Model properties')
     class_name = 'property'
 
 
 class ModelReverseField(ModelField):
-    class_label = _('Model reverse fields')
+    class_label = _(message='Model reverse fields')
     class_name = 'reverse_field'
 
     def __init__(self, *args, **kwargs):
@@ -182,7 +182,8 @@ class ModelQueryFields:
     def add_select_related_field(self, field_name):
         if field_name in self.select_related_fields:
             raise ImproperlyConfigured(
-                '"{}" model already has a "{}" query select related field.'.format(
+                '"{}" model already has a "{}" query select '
+                'related field.'.format(
                     self.model, field_name
                 )
             )
@@ -191,7 +192,8 @@ class ModelQueryFields:
     def add_prefetch_related_field(self, field_name):
         if field_name in self.prefetch_related_fields:
             raise ImproperlyConfigured(
-                '"{}" model already has a "{}" query prefetch related field.'.format(
+                '"{}" model already has a "{}" query prefetch '
+                'related field.'.format(
                     self.model, field_name
                 )
             )
@@ -271,11 +273,11 @@ class QuerysetParametersSerializer:
 
         kwargs = {}
 
-        parameters = decomposed_queryset.get(
+        parameter_list = decomposed_queryset.get(
             'kwargs', ()
         )
 
-        for parameter in parameters:
+        for parameter in parameter_list:
             if 'content_type_id' in parameter:
                 content_type = ContentType.objects.get(
                     pk=parameter['content_type_id']
@@ -290,9 +292,10 @@ class QuerysetParametersSerializer:
                 parameter['name']
             ] = value
 
-        return getattr(
+        queryset_method = getattr(
             queryset, decomposed_queryset['method_name']
-        )(**kwargs)
+        )
+        return queryset_method(**kwargs)
 
 
 ModelAttribute.register(klass=ModelProperty)

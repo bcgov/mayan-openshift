@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.template import RequestContext
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _, ungettext
+from django.utils.translation import gettext_lazy as _, ngettext
 
 from mayan.apps.converter.layers import layer_saved_transformations
 from mayan.apps.converter.permissions import (
@@ -63,9 +63,9 @@ class DocumentFileDeleteView(MultipleObjectDeleteView):
     success_message_plural = _(
         '%(count)d document files deletions queued successfully.'
     )
-    title_single = _('Delete document file: %(object)s.')
-    title_singular = _('Delete the %(count)d selected document file.')
-    title_plural = _('Delete the %(count)d selected document files.')
+    title_single = _(message='Delete document file: %(object)s.')
+    title_singular = _(message='Delete the %(count)d selected document file.')
+    title_plural = _(message='Delete the %(count)d selected document files.')
     view_icon = icon_document_file_delete
 
     def get_extra_context(self):
@@ -111,7 +111,7 @@ class DocumentFileEditView(SingleObjectEditView):
 
     def get_extra_context(self):
         return {
-            'title': _('Edit document file: %s') % self.object
+            'title': _(message='Edit document file: %s') % self.object
         }
 
     def get_instance_extra_data(self):
@@ -143,7 +143,7 @@ class DocumentFileIntrospectView(MultipleObjectConfirmActionView):
         queryset = self.object_list
 
         result = {
-            'title': ungettext(
+            'title': ngettext(
                 singular='Introspect the selected document file?',
                 plural='Introspect the selected document files?',
                 number=queryset.count()
@@ -194,7 +194,7 @@ class DocumentFileListView(ExternalObjectViewMixin, SingleObjectListView):
                 'document. Their contents needs to be mapped to a version '
                 'before it can be used.'
             ),
-            'no_results_title': _('No files available')
+            'no_results_title': _(message='No files available')
         }
 
         if document:
@@ -219,7 +219,7 @@ class DocumentFileListView(ExternalObjectViewMixin, SingleObjectListView):
             'list_as_items': True,
             'object': document,
             'table_cell_container_classes': 'td-container-thumbnail',
-            'title': _('Files of document: %s') % document
+            'title': _(message='Files of document: %s') % document
         }
         context.update(
             DocumentFileListView.get_no_results_context(
@@ -255,7 +255,7 @@ class DocumentFilePreviewView(SingleObjectDetailView):
         return {
             'hide_labels': True,
             'object': self.object,
-            'title': _('Preview of document file: %s') % self.object
+            'title': _(message='Preview of document file: %s') % self.object
         }
 
     def get_form_extra_kwargs(self):
@@ -315,7 +315,7 @@ class DocumentFilePropertiesView(SingleObjectDetailView):
         return {
             'document_file': self.object,
             'object': self.object,
-            'title': _('Properties of document file: %s') % self.object
+            'title': _(message='Properties of document file: %s') % self.object
         }
 
 
@@ -333,7 +333,7 @@ class DocumentFileTransformationsClearView(MultipleObjectConfirmActionView):
 
     def get_extra_context(self):
         result = {
-            'title': ungettext(
+            'title': ngettext(
                 singular='Clear all the page transformations for the selected document file?',
                 plural='Clear all the page transformations for the selected document files?',
                 number=self.object_list.count()
@@ -408,7 +408,7 @@ class DocumentFileTransformationsCloneView(ExternalObjectViewMixin, FormView):
                 )
         else:
             messages.success(
-                message=_('Transformations cloned successfully.'),
+                message=_(message='Transformations cloned successfully.'),
                 request=self.request
             )
 

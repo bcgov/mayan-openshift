@@ -3,18 +3,18 @@ import sys
 import traceback
 
 from django import apps
-from django.conf.urls import include, url
 from django.contrib import admin
+from django.urls import include, re_path
 from django.utils.module_loading import import_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.organizations.settings import setting_organization_url_base_path
 from mayan.apps.templating.classes import AJAXTemplate
 
 from .handlers import handler_pre_initial_setup, handler_pre_upgrade
 from .links import (
-    link_about, link_book, link_knowledge_base, link_license, link_setup,
-    link_store, link_support, link_tools
+    link_about, link_knowledge_base, link_license, link_separator_information,
+    link_setup, link_support, link_tools
 )
 from .menus import menu_about, menu_topbar, menu_user
 from .settings import setting_home_view
@@ -80,8 +80,8 @@ class MayanAppConfig(apps.AppConfig):
                 app_namespace = self.name
 
             mayan_urlpatterns += (
-                url(
-                    regex=r'^{}'.format(top_url), view=include(
+                re_path(
+                    route=r'^{}'.format(top_url), view=include(
                         (app_urlpatterns, app_namespace)
                     )
                 ),
@@ -107,8 +107,8 @@ class MayanAppConfig(apps.AppConfig):
                 raise exception
         else:
             mayan_urlpatterns += (
-                url(
-                    regex=r'^{}'.format(top_url), view=include(
+                re_path(
+                    route=r'^{}'.format(top_url), view=include(
                         passthru_urlpatterns
                     )
                 ),
@@ -128,7 +128,7 @@ class CommonApp(MayanAppConfig):
     static_media_ignore_patterns = (
         'mptt/*',
     )
-    verbose_name = _('Common')
+    verbose_name = _(message='Common')
 
     def ready(self):
         super().ready()
@@ -136,18 +136,18 @@ class CommonApp(MayanAppConfig):
         admin.autodiscover()
 
         AJAXTemplate(
-            name='menu_main', template_name='appearance/menus/menu_main.html'
+            name='menu_main', template_name='appearance/menus/main.html'
         )
         AJAXTemplate(
             context={'home_view': setting_home_view.value},
             name='menu_topbar',
-            template_name='appearance/menus/menu_topbar.html'
+            template_name='appearance/menus/topbar.html'
         )
 
         menu_about.bind_links(
             links=(
-                link_tools, link_setup, link_about, link_knowledge_base,
-                link_book, link_store, link_support, link_license
+                link_tools, link_setup, link_separator_information,
+                link_knowledge_base, link_support, link_about, link_license
             )
         )
 

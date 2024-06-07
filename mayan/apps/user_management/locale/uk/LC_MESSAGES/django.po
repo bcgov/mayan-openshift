@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# olenchenko <olenchenko@gmail.com>, 2023
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2023
+# olenchenko <olenchenko@gmail.com>, 2024
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-06-03 22:29+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/rosarior/teams/13584/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -30,65 +30,65 @@ msgstr "Керування користувачами"
 msgid "Group"
 msgstr "Група"
 
-#: apps.py:77 apps.py:108 links.py:53 links.py:67 links.py:96 search.py:34
+#: apps.py:77 apps.py:113 links.py:55 links.py:69 links.py:98 search.py:34
 #: views/group_views.py:111
 msgid "Groups"
 msgstr "Групи"
 
-#: apps.py:78 search.py:16
+#: apps.py:79 search.py:16
 msgid "Name"
 msgstr "Ім'я"
 
-#: apps.py:100 models.py:20 search.py:22
+#: apps.py:102 models.py:20 search.py:22
 msgid "User"
 msgstr "Користувач"
 
-#: apps.py:101 apps.py:223 links.py:58 links.py:99 links.py:111
+#: apps.py:103 apps.py:230 links.py:60 links.py:101 links.py:113
 #: views/user_views.py:170
 msgid "Users"
 msgstr "Користувачі"
 
-#: apps.py:104 search.py:31
+#: apps.py:107 search.py:31
 msgid "Email"
 msgstr "Електронна адреса"
 
-#: apps.py:107 search.py:28
+#: apps.py:111 search.py:28
 msgid "First name"
 msgstr "Ім'я"
 
-#: apps.py:111
+#: apps.py:117
 msgid "Is active?"
 msgstr "Чи активний?"
 
-#: apps.py:114
+#: apps.py:120
 msgid "Is super user?"
 msgstr "Супер користувач?"
 
-#: apps.py:117 search.py:37
+#: apps.py:123 search.py:37
 msgid "Last name"
 msgstr "Прізвище"
 
-#: apps.py:120 serializers.py:72
+#: apps.py:126 serializers.py:72
 msgid "Password"
 msgstr "Пароль"
 
-#: apps.py:123 search.py:40
+#: apps.py:129 search.py:40
 msgid "Username"
 msgstr "Ім'я користувача"
 
-#: apps.py:126
+#: apps.py:132
 msgid "Last login"
 msgstr "Останній вхід"
 
-#: apps.py:152
+#: apps.py:158
 msgid "Has usable password?"
 msgstr "Чи має придатний пароль?"
 
-#: apps.py:159
+#: apps.py:165
 msgid "All the groups."
 msgstr "Усі групи."
 
-#: apps.py:163
+#: apps.py:169
 msgid "All the users."
 msgstr "Усі користувачі."
 
@@ -128,27 +128,27 @@ msgstr "Користувач увійшов в систему"
 msgid "User logged out"
 msgstr "Користувач вийшов із системи"
 
-#: links.py:28
+#: links.py:30
 msgid "User details"
 msgstr "Інформація про користувача"
 
-#: links.py:36 views/group_views.py:25
+#: links.py:38 views/group_views.py:25
 msgid "Create new group"
 msgstr "Створити нову групу"
 
-#: links.py:41 links.py:44 links.py:81 links.py:85
+#: links.py:43 links.py:46 links.py:83 links.py:87
 msgid "Delete"
 msgstr "Видалити"
 
-#: links.py:49 links.py:90
+#: links.py:51 links.py:92
 msgid "Edit"
 msgstr "Редагувати"
 
-#: links.py:75 views/user_views.py:32
+#: links.py:77 views/user_views.py:32
 msgid "Create new user"
 msgstr "Створити нового користувача"
 
-#: links.py:104
+#: links.py:106
 msgid "User options"
 msgstr "Параметри користувача"
 
@@ -214,7 +214,7 @@ msgstr "URL API-точки доступу, яка показує список к
 
 #: serializers.py:18
 msgid "Users URL"
-msgstr "URL користувачів"
+msgstr "URL-адреса користувачів"
 
 #: serializers.py:22
 msgid "Users add URL"

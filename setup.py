@@ -65,61 +65,61 @@ def find_packages(directory):
 
 
 install_requires = """
-django==3.2.25
+django==4.2.13
 CairoSVG==2.7.1
-Pillow==10.2.0
+Pillow==10.3.0
 PyYAML==6.0.1
 Whoosh==2.7.4
-bleach==6.0.0
-boto3==1.28.16
-celery==5.3.1
+bleach==6.1.0
+boto3==1.33.7
+celery==5.3.6
 dateparser==1.2.0
-django-activity-stream==1.4.0
-django-auth-ldap==4.4.0
-django-celery-beat==2.3.0
-django-cors-headers==4.2.0
+django-activity-stream==2.0.0
+django-auth-ldap==4.6.0
+django-celery-beat==2.5.0
+django-cors-headers==4.3.1
 django-formtools==2.3
 django-mathfilters==1.0.0
 django-model-utils==4.3.1
-django-mptt==0.14.0
+django-mptt==0.16.0
 django-qsstats-magic==1.1.0
-django-solo==2.0.0
-django-storages==1.13.2
+django-solo==2.2.0
+django-storages==1.14.2
 django-stronghold==0.4.0
-django-widget-tweaks==1.4.12
+django-widget-tweaks==1.5.0
 djangorestframework==3.14.0
 djangorestframework-recursive==0.1.2
 drf-yasg==1.21.7
 elasticsearch==7.17.9
 elasticsearch-dsl==7.4.1
-extract-msg==0.47.0
+extract-msg==0.48.5
 flanker==0.9.11
 flex==6.14.1
 furl==2.1.3
 fusepy==3.0.1
-gevent==22.10.2
-graphviz==0.17
-greenlet==2.0.2
+gevent==23.9.1
+graphviz==0.20.3
+greenlet==3.0.3
 gunicorn==21.2.0
-importlib-metadata==6.8.0
-jsonschema==4.18.0
-mozilla-django-oidc==2.0.0
-node-semver==0.8.1
-pycountry==22.3.5
+importlib-metadata==7.0.2
+jsonschema==4.21.1
+mozilla-django-oidc==3.0.0
+node-semver==0.9.0
+pycountry==24.6.1
 pycryptodome==3.20.0
-pyotp==2.6.0
+pyotp==2.9.0
 pypdf==3.17.4
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
 python-magic==0.4.27
-python_gnupg==0.4.8
+python_gnupg==0.4.9
 pytz==2024.1
-qrcode==7.3.1
+qrcode==7.4.2
 requests==2.31.0
-sentry-sdk==1.40.0
-setuptools==69.1.1
-sh==2.0.4
+sentry-sdk==1.40.6
+setuptools==69.5.1
+sh==2.0.7
 swagger-spec-validator==3.0.3
-whitenoise==6.5.0
+whitenoise==6.6.0
 """.split()
 
 with open(file='README.rst') as file_object:
@@ -138,7 +138,7 @@ setup(
         'Intended Audience :: Education',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
-        'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Natural Language :: English',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
@@ -151,7 +151,7 @@ setup(
     description=mayan.__description__,
     include_package_data=True,
     install_requires=install_requires,
-    license='Apache 2.0',
+    license='GPL 2.0',
     long_description=readme + '\n\n' + history,
     name=PACKAGE_NAME,
     packages=find_packages(PACKAGE_DIR),

@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2023
-# molnars <szabolcs.molnar@gmail.com>, 2023
-# Dezső József <dejo60@gmail.com>, 2023
+# Roberto Rosario, 2024
+# Dezső József <dejo60@gmail.com>, 2024
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-04-23 04:57+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -175,19 +175,19 @@ msgstr "Források beállítása"
 msgid "View document file source metadata"
 msgstr "Dokumentumfájl forrás metaadatainak megtekintése"
 
-#: permissions.py:18
+#: permissions.py:19
 msgid "Create new document sources"
-msgstr "Új dokumentum források létrehozása"
+msgstr "Új dokumentumforrások létrehozása"
 
-#: permissions.py:21
+#: permissions.py:22
 msgid "Delete document sources"
-msgstr "Dokumentum források törlése"
+msgstr "Dokumentumforrások törlése"
 
-#: permissions.py:24
+#: permissions.py:25
 msgid "Edit document sources"
 msgstr "Dokumentum források szerkesztése"
 
-#: permissions.py:27
+#: permissions.py:28
 msgid "View existing document sources"
 msgstr "Létező dokumentum források megtekintése"
 
@@ -195,11 +195,11 @@ msgstr "Létező dokumentum források megtekintése"
 msgid "Sources periodic"
 msgstr "Időszakos források"
 
-#: queues.py:17
+#: queues.py:18
 msgid "Handle source backend action background task"
 msgstr "Forrás-háttérművelet háttérrendszer kezelése"
 
-#: queues.py:21
+#: queues.py:22
 msgid "Check interval source"
 msgstr "Időszakos forrás ellenőrzése"
 
@@ -318,7 +318,7 @@ msgstr "Felhasználó, aki az eseményekben szereplőként fog szerepelni."
 
 #: source_backend_actions/mixins/arguments.py:79
 msgid "ID of the user that will feature as the actor in the events."
-msgstr "Az események szereplőjeként fellépő felhasználó azonosítója."
+msgstr "Az események szereplőjeként szereplő felhasználó azonosítója."
 
 #: source_backends/base.py:101
 msgid "General"
@@ -373,8 +373,8 @@ msgid ""
 "There are no enabled sources that support this operation. Create a new one "
 "or enable and existing one."
 msgstr ""
-"Nincsenek olyan engedélyezett források, amelyek támogatják ezt a műveletet. "
-"Hozzon létre egy újat, vagy engedélyezze és egy meglévőt."
+"Nincs olyan engedélyezett forrás, amely támogatja ezt művelet . Hozzon létre"
+" egy újat, vagy engedélyezze és egy meglévőt."
 
 #: views/document_file_views.py:43
 msgid ""
@@ -424,7 +424,7 @@ msgstr "Beküldés"
 #: views/document_views.py:53
 #, python-format
 msgid "Error processing source document upload; %(exception)s"
-msgstr "Hiba a forrásdokumentum feltöltése feldolgozása során; %(exception)s"
+msgstr "Hiba a forrásdokumentum feltöltés feldolgozása során; %(exception)s"
 
 #: views/document_views.py:74
 msgid "New document queued for upload and will be available shortly."
@@ -434,7 +434,7 @@ msgstr "Az új dokumentum feltöltésre vár, és hamarosan elérhető lesz."
 #, python-format
 msgid "Upload a document of type \"%(document_type)s\" from source: %(source)s"
 msgstr ""
-"Töltsön fel egy \"%(document_type)s\" típusú dokumentumot a %(source)s "
+"Egy \"%(document_type)s\" típusú dokumentumo feltöltése a %(source)s "
 "forrásból"
 
 #: views/source_views.py:76
@@ -453,7 +453,7 @@ msgstr "A forrásművelet sikeresen végrehajtva."
 
 #: views/source_views.py:179
 msgid "New source backend selection"
-msgstr "Új forrás háttérrendszer kiválasztás"
+msgstr "Új forrás háttérrendszer választás"
 
 #: views/source_views.py:207
 #, python-format
@@ -463,7 +463,7 @@ msgstr "\"%s\" forrás létrehozása"
 #: views/source_views.py:235
 #, python-format
 msgid "Delete the source: %s?"
-msgstr "Törölje a forrást: %s ?"
+msgstr "Forrás törlése: %s ?"
 
 #: views/source_views.py:251
 #, python-format
@@ -532,7 +532,7 @@ msgstr ""
 #: wizards.py:85
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
-msgstr "%(total_steps)d lépés a%(step)d-ből: %(step_label)s"
+msgstr "%(total_steps)d lépés a %(step)d-ből: %(step_label)s"
 
 #: wizards.py:91
 msgid "Document upload wizard"

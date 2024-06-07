@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2023
-# Haim Shaposhnik <haim.shaposhnik@gmail.com>, 2023
-# Ovadia Ovadia, 2023
+# Roberto Rosario, 2024
+# Haim Shaposhnik <haim.shaposhnik@gmail.com>, 2024
+# Ovadia Ovadia, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:04+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Ovadia Ovadia, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Ovadia Ovadia, 2024\n"
 "Language-Team: Hebrew (Israel) (https://app.transifex.com/rosarior/teams/13584/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,12 +74,12 @@ msgstr "הרשאות"
 msgid "Global ACLs"
 msgstr "רשימות בקרת גישה (ACL) כלליות"
 
-#: managers.py:274
+#: managers.py:276
 #, python-format
 msgid "Object \"%s\" is not a model and cannot be checked for access."
 msgstr "רכיב  \"%s\" אינו מודל ואי אפשר לסמן אותו לגישה."
 
-#: managers.py:294
+#: managers.py:293
 #, python-format
 msgid "Insufficient access for: %s"
 msgstr "גישה לא מספיקה עבור: %s"
@@ -176,7 +176,7 @@ msgstr "מחיקת רשימת בקרת גישה (ACL) %s"
 msgid "There are no ACLs for this object"
 msgstr "אין רשימות בקרת גישה (ACL) לרכיב זה"
 
-#: views.py:152 views.py:275
+#: views.py:152 views.py:277
 msgid ""
 "ACL stands for Access Control List and is a precise method to control user "
 "access to objects in the system. ACLs allow granting a permission to a role "
@@ -199,12 +199,12 @@ msgstr "הרשאות ניתנו"
 msgid "Available permissions"
 msgstr "הרשאות זמינות "
 
-#: views.py:222
+#: views.py:223
 #, python-format
 msgid "Role \"%(role)s\" permission's for \"%(object)s\"."
 msgstr "הרשאות תפקיד %(role)s לרכיב %(object)s "
 
-#: views.py:231
+#: views.py:233
 msgid ""
 "Disabled permissions are inherited from a parent object or directly granted "
 "to the role and can't be removed from this view. Inherited permissions need "
@@ -215,11 +215,11 @@ msgstr ""
 "להסיר אותן מתצוגה זו. הרשאות בירושה ניתנות להסרה מרשימת בקרת הגישה של הרכיב "
 "או מהתפקיד בעזרת תפריט \"הגדרות\"."
 
-#: views.py:272
+#: views.py:274
 msgid "There are no ACLs"
 msgstr "אין רשימות בקרת גישה (ACL)"
 
-#: views.py:281
+#: views.py:283
 msgid "Global access control lists"
 msgstr "רשימות בקרת גישה (ACL) כלליות"
 

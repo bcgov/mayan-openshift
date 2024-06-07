@@ -7,7 +7,7 @@ from django.db.models import F, Sum
 from django.template.defaultfilters import filesizeformat
 from django.utils.functional import cached_property
 from django.utils.text import format_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.events.decorators import method_event
 from mayan.apps.events.event_managers import EventManagerMethodAfter
@@ -29,6 +29,18 @@ logger = logging.getLogger(name=__name__)
 
 
 class CacheBusinessLogicMixin:
+    def get_defined_storage(self):
+        try:
+            defined_storage_class = DefinedStorage.get(
+                name=self.defined_storage_name
+            )
+        except KeyError:
+            defined_storage_class = DefinedStorage(
+                dotted_path='', label=_('Unknown'), name='unknown'
+            )
+
+        return defined_storage_class
+
     def get_files(self):
         CachePartitionFile = apps.get_model(
             app_label='file_caching', model_name='CachePartitionFile'
@@ -44,19 +56,7 @@ class CacheBusinessLogicMixin:
     get_maximum_size_display.help_text = _(
         'Size at which the cache will start deleting old entries.'
     )
-    get_maximum_size_display.short_description = _('Maximum size')
-
-    def get_defined_storage(self):
-        try:
-            defined_storage_class = DefinedStorage.get(
-                name=self.defined_storage_name
-            )
-        except KeyError:
-            defined_storage_class = DefinedStorage(
-                dotted_path='', label=_('Unknown'), name='unknown'
-            )
-
-        return defined_storage_class
+    get_maximum_size_display.short_description = _(message='Maximum size')
 
     def get_partition_count(self):
         CachePartition = apps.get_model(
@@ -67,15 +67,24 @@ class CacheBusinessLogicMixin:
 
         return queryset_cache_partitions.count()
 
-    get_partition_count.short_description = _('Partition count')
-    get_partition_count.help_text = _('Total cached objects.')
+    get_partition_count.short_description = _(message='Partition count')
+    get_partition_count.help_text = _(message='Total cached objects.')
 
     def get_partition_file_count(self):
         queryset_files = self.get_files()
         return queryset_files.count()
 
-    get_partition_file_count.short_description = _('Partition file count')
-    get_partition_file_count.help_text = _('Total cached files.')
+    get_partition_file_count.short_description = _(
+        message='Partition file count'
+    )
+    get_partition_file_count.help_text = _(message='Total cached files.')
+
+    def get_queryset_files_for_eviction(self):
+        queryset_cache_partition_files_sorted = self.get_files().order_by(
+            'hits', 'datetime'
+        )
+
+        return queryset_cache_partition_files_sorted
 
     def get_total_size(self):
         """
@@ -101,8 +110,10 @@ class CacheBusinessLogicMixin:
             '{} ({:0.1f}%)', size_humanized, size_percent
         )
 
-    get_total_size_display.short_description = _('Current size')
-    get_total_size_display.help_text = _('Current size of the cache.')
+    get_total_size_display.short_description = _(message='Current size')
+    get_total_size_display.help_text = _(
+        message='Current size of the cache.'
+    )
 
     @cached_property
     def label(self):
@@ -122,18 +133,17 @@ class CacheBusinessLogicMixin:
             app_label='file_caching', model_name='CachePartitionFile'
         )
 
-        while self.get_total_size() >= self.maximum_size:
-            queryset_cache_partition_file = self.get_files().order_by(
-                'hits', 'datetime'
-            )
+        get_queryset_eviction = self.get_queryset_files_for_eviction()
 
+        while self.get_total_size() >= self.maximum_size:
             try:
-                cache_partition_file = queryset_cache_partition_file[
+                cache_partition_file = get_queryset_eviction[
                     file_index
                 ]
             except IndexError:
                 # Attempted to get a file beyond what the queryset provided.
                 file_index = 0
+                get_queryset_eviction = self.get_queryset_files_for_eviction()
             else:
                 try:
                     cache_partition_file.delete()
@@ -195,8 +205,8 @@ class CacheBusinessLogicMixin:
                         'Unable to purge partition ID: %d; %s',
                         partition.pk, exception
                     )
-                    # Don't raise exceptions to allow the loop to continue and
-                    # avoid a single exception from stopping the purge.
+                    # Don't raise exceptions to allow the loop to continue
+                    # and avoid a single exception from stopping the purge.
 
     @cached_property
     def storage(self):
@@ -251,7 +261,9 @@ class CachePartitionBusinessLogicMixin:
 
                 try:
                     partition_file = self.files.create(filename=filename)
-                    yield partition_file._open_for_writing(_acquire_lock=False)
+                    yield partition_file._open_for_writing(
+                        _acquire_lock=False
+                    )
                 except Exception as exception:
                     logger.error(
                         'Unexpected exception while trying to save new '
@@ -309,7 +321,7 @@ class CachePartitionBusinessLogicMixin:
             bytes_=self.get_total_size()
         )
 
-    get_total_size_display.short_description = _('Current size')
+    get_total_size_display.short_description = _(message='Current size')
     get_total_size_display.help_text = _(
         'Current size of the cache partition.'
     )

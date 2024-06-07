@@ -97,7 +97,7 @@ File caching
 
 The maximum size of the file caches was increased. The file cache model now
 uses a BigIntegerField instance for the size and supports up to
-9223372036854775807 bytes or 8,192 PetaBytes per cache entry.
+9223372036854775807 bytes or 8,192 Petabytes per cache entry.
 
 A column showing the percentage of usage of each cache entry was added.
 
@@ -174,7 +174,7 @@ allows compressing files transparently regardless of the final type storage
 Similar to the compression stage, an encryption stage was added. This
 encryption stage uses AES and can transparently encrypt any storage stream (
 document files, preview images, cached files). With this encryption stage
-Mayan EDMS can now provide ecnryption-at-a-rest regardless of the final
+Mayan EDMS can now provide encryption-at-a-rest regardless of the final
 storage medium.
 
 
@@ -311,7 +311,7 @@ Upgrading from Mayan EDMS 3.2.x or earlier
 
    .. code-block:: bash
 
-       sudo -u |DEFAULT_OS_USERNAME| |MAYAN_PIP_BIN| install psycopg2==|PYTHON_PSYCOPG2_VERSION| redis==|PYTHON_REDIS_VERSION|
+       sudo -u |DEFAULT_OS_USERNAME| |MAYAN_PIP_BIN| install psycopg2==|PYTHON_PSYCOPG_VERSION| redis==|PYTHON_REDIS_VERSION|
 
    .. note::
 

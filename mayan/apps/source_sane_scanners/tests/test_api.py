@@ -7,7 +7,7 @@ from mayan.apps.documents.document_file_actions import (
 from mayan.apps.documents.events import (
     event_document_created, event_document_file_created,
     event_document_file_edited, event_document_version_created,
-    event_document_version_page_created
+    event_document_version_edited, event_document_version_page_created
 )
 from mayan.apps.documents.models.document_models import Document
 from mayan.apps.documents.permissions import (
@@ -222,7 +222,7 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -250,6 +250,11 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
     def test_basic_with_full_access_trashed_document(self):
         self._test_source_create()
@@ -341,7 +346,7 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -369,6 +374,11 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
     def test_document_file_action_append(self):
         self._test_source_create()
@@ -414,7 +424,7 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -450,6 +460,11 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_document_file_action_keep(self):
         self._test_source_create()
@@ -549,7 +564,7 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -577,6 +592,11 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
     def test_filename(self):
         self._test_source_create()
@@ -626,7 +646,7 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -654,6 +674,11 @@ class SANEScannerSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
 
 class SANEScannerSourceBackendActionDocumentUploadAPIViewTestCase(
@@ -758,7 +783,7 @@ class SANEScannerSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -791,6 +816,11 @@ class SANEScannerSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_label(self):
         self._test_source_create()
@@ -826,7 +856,7 @@ class SANEScannerSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -859,6 +889,11 @@ class SANEScannerSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_language(self):
         self._test_source_create()
@@ -894,7 +929,7 @@ class SANEScannerSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -927,3 +962,8 @@ class SANEScannerSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)

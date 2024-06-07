@@ -1,5 +1,5 @@
 from django.apps import apps
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .permissions import permission_credential_use
 
@@ -24,7 +24,7 @@ class BackendMixinCredentials:
                         'source_model': StoredCredential,
                         'permission': permission_credential_use
                     },
-                    'label': _('Credential'),
+                    'label': _(message='Credential'),
                     'required': True
                 }
             }
@@ -38,7 +38,7 @@ class BackendMixinCredentials:
 
         fieldsets += (
             (
-                _('Authentication'), {
+                _(message='Authentication'), {
                     'fields': (
                         'stored_credential_id',
                     )
@@ -56,9 +56,10 @@ class BackendMixinCredentials:
         stored_credential_id = self.kwargs.get('stored_credential_id')
 
         if stored_credential_id:
-            return StoredCredential.objects.get(
+            stored_credential = StoredCredential.objects.get(
                 pk=stored_credential_id
-            ).get_backend_data()
+            )
+            return stored_credential.get_backend_data()
 
 
 class BackendMixinCredentialsOptional(BackendMixinCredentials):

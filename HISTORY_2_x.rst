@@ -11,10 +11,9 @@
 - Fix new mailer creation view. GitLab issue #431.
   Thanks to Robert Schöftner (@robert.schoeftner) for the
   report and the solution.
-- Consolidate inItial document created event and the first document
-  properties edited events. Preserve the user that initially creates the
-  document. GitLab issue #433. Thanks to Jesaja Everling (@jeverling) for
-  the report.
+- Consolidate initial document created event and the first document properties
+  edited events. Preserve the user that initially creates the document. GitLab
+  issue #433. Thanks to Jesaja Everling (@jeverling) for the report.
 - Sort the list of root cabinets. Thanks to Thomas Plotkowiak
   for the request.
 - Sort the list of a document's cabinets.
@@ -105,8 +104,8 @@
 - Improve tag widget customization by moving the markup to its own template.
 - Fix document page widget appearance in the document page list view.
 - Make document version order deterministic.
-- Allow total page number introspection of encrypted PDF with non ASCII
-  user properties. GitLab issue #411.
+- Allow total page number introspection of encrypted PDF with non ASCII user
+  properties. GitLab issue #411.
 - Oracle database compatibility update in the cabinets app. GitHub #258.
 
 2.6.1 (2017-07-18)

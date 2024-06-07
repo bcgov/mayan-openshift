@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# olenchenko <olenchenko@gmail.com>, 2023
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2023
+# olenchenko <olenchenko@gmail.com>, 2024
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/rosarior/teams/13584/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,16 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: apps.py:53 apps.py:163 apps.py:167 apps.py:171 apps.py:175 apps.py:179
+#: apps.py:53 apps.py:173 apps.py:177 apps.py:182 apps.py:187 apps.py:192
 #: events.py:6 forms.py:14 links.py:30 menus.py:14 models.py:52 models.py:159
 #: permissions.py:6 search.py:48 views.py:169 workflow_actions.py:39
 #: workflow_actions.py:53
 msgid "Cabinets"
 msgstr "Кабінети"
+
+#: apps.py:164 models.py:41
+msgid "Documents"
+msgstr "Документи"
 
 #: events.py:11
 msgid "Cabinet created"
@@ -89,11 +93,11 @@ msgstr "Повернути список кабінетів, що містять 
 msgid "get_cabinets()"
 msgstr "get_cabinets()"
 
-#: model_mixins.py:50
+#: model_mixins.py:64
 msgid "The path to the cabinet including all ancestors."
 msgstr "Шлях до кабінету, включаючи всіх предків."
 
-#: model_mixins.py:52 serializers.py:32
+#: model_mixins.py:66 serializers.py:32
 msgid "Full path"
 msgstr "Повний шлях"
 
@@ -108,10 +112,6 @@ msgstr "Короткий текст, який використовується �
 #: models.py:37
 msgid "Label"
 msgstr "Мітка"
-
-#: models.py:41
-msgid "Documents"
-msgstr "Документи"
 
 #: models.py:51 models.py:133 models.py:158
 msgid "Cabinet"

@@ -4,15 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Dezső József <dejo60@gmail.com>, 2023
+# molnars <szabolcs.molnar@gmail.com>, 2024
+# Dezső József <dejo60@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +22,9 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:36 events.py:6 permissions.py:6 settings.py:11
+#: apps.py:35 events.py:6 permissions.py:6 settings.py:11
 msgid "Authentication"
-msgstr "Hitelesítés"
+msgstr "Bejelentkeztetés"
 
 #: events.py:10
 msgid "User impersonation ended"
@@ -86,14 +87,14 @@ msgid ""
 "Remove the \"Forgot your password?\" link on the login form used to trigger "
 "the password reset."
 msgstr ""
-"Az \"Elfelejtette a jelszavát?\" link eltávolítása a bejelentkezési űrlapon,"
-" amely a jelszó visszaállításához használható."
+"Távolítsa el az \"Elfelejtette a jelszavát?\" linket a bejelentkezési "
+"űrlapról, amely a jelszó visszaállítására használatos."
 
 #: settings.py:25
 msgid "Dotted path to the backend used to process user authentication."
 msgstr ""
-"A felhasználói hitelesítés feldolgozásához használt háttérrendszer pontozott"
-" elérési útja."
+"Pontozott elérési út a felhasználói hitelesítés feldolgozásához használt "
+"háttérrendszerhez."
 
 #: settings.py:31
 msgid "Arguments for the AUTHENTICATION_BACKEND."
@@ -116,31 +117,27 @@ msgstr "Kattintson ide, ha végzett"
 
 #: templates/authentication/login.html:10
 msgid "Login"
-msgstr "Belépés"
-
-#: templates/authentication/login.html:21
-msgid "Sign in"
 msgstr "Bejelentkezés"
 
-#: templates/authentication/login.html:62
-#: templates/authentication/login.html:72
-#: templates/authentication/login.html:86
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 msgid "Save"
 msgstr "Mentés"
 
-#: templates/authentication/login.html:62
-#: templates/authentication/login.html:72
-#: templates/authentication/login.html:86
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 #: templates/authentication/password_reset_confirm.html:29
 #: templates/authentication/password_reset_form.html:29
 msgid "Submit"
 msgstr "Beküldés"
 
-#: templates/authentication/login.html:76
+#: templates/authentication/login.html:79
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: templates/authentication/login.html:98
+#: templates/authentication/login.html:106
 msgid "Forgot your password?"
 msgstr "Elfelejtette a jelszavát?"
 
@@ -167,38 +164,42 @@ msgstr "Bejelentkezési oldal"
 msgid "Password reset email sent!"
 msgstr "Jelszó-visszaállítási email elküldve!"
 
-#: views/authentication_views.py:161
+#: views/authentication_views.py:160
 msgid "Next"
 msgstr "Következő"
 
-#: views/authentication_views.py:167
+#: views/authentication_views.py:166
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
-msgstr "%(total_steps)d lépés a%(step)d-ből: %(step_label)s"
+msgstr "%(total_steps)d lépés a %(step)d-ből: %(step_label)s"
 
-#: views/authentication_views.py:237
+#: views/authentication_views.py:190
+msgid "Sign in"
+msgstr "Bejelentkezés"
+
+#: views/authentication_views.py:240
 msgid "Your password has been successfully changed."
 msgstr "Jelszava sikeresen megváltozott."
 
-#: views/authentication_views.py:247
+#: views/authentication_views.py:251
 msgid "Current user password change"
 msgstr "Jelenlegi felhasználói jelszó módosítása"
 
-#: views/authentication_views.py:259
+#: views/authentication_views.py:263
 msgid "Changing the password is not allowed for this account."
 msgstr "A jelszó módosítása nem engedélyezett ennél a fióknál."
 
-#: views/authentication_views.py:357
+#: views/authentication_views.py:362
 #, python-format
 msgid "Password change request performed on %(count)d user"
 msgstr "Jelszómódosítási kérés végrehajtva a %(count)d felhasználón"
 
-#: views/authentication_views.py:360
+#: views/authentication_views.py:365
 #, python-format
 msgid "Password change request performed on %(count)d users"
-msgstr "Jelszómódosítási kérés végrehajtva %(count)d felhasználókon"
+msgstr "Jelszómódosítási kérés végrehajtva a %(count)d felhasználókon"
 
-#: views/authentication_views.py:377
+#: views/authentication_views.py:382
 msgid ""
 "Changing the password of staff or super user accounts via the user interface"
 " is not allowed. Use administration tools to perform this operation."
@@ -207,23 +208,23 @@ msgstr ""
 "felhasználói felületen keresztül nem megengedett. A művelet végrehajtásához "
 "használjon adminisztrációs eszközöket."
 
-#: views/authentication_views.py:391
+#: views/authentication_views.py:396
 msgid "Change user password"
 msgid_plural "Change users passwords"
 msgstr[0] "Felhasználói jelszó módosítása"
 msgstr[1] "Felhasználói jelszavak módosítása"
 
-#: views/authentication_views.py:402
+#: views/authentication_views.py:407
 #, python-format
 msgid "Change password for user: %s"
 msgstr "A felhasználó jelszavának módosítása: %s"
 
-#: views/authentication_views.py:426
+#: views/authentication_views.py:431
 #, python-format
 msgid "Successful password reset for user: %s."
 msgstr "Sikeres jelszó-visszaállítás a következő felhasználóhoz: %s ."
 
-#: views/authentication_views.py:432
+#: views/authentication_views.py:437
 #, python-format
 msgid "Error resetting password for user \"%(user)s\": %(error)s"
 msgstr ""

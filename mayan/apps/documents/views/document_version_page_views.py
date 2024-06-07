@@ -5,7 +5,7 @@ from furl import furl
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 
 from mayan.apps.common.settings import setting_home_view
@@ -58,7 +58,9 @@ class DocumentVersionPageDeleteView(SingleObjectDeleteView):
                 'page remap action instead.'
             ),
             'object': self.object,
-            'title': _('Delete document version page %s ?') % self.object
+            'title': _(
+                message='Delete document version page %s ?'
+            ) % self.object
         }
 
     def get_instance_extra_data(self):
@@ -101,7 +103,9 @@ class DocumentVersionPageListView(
                 'Create them using the page remap actions or the version '
                 'modification action.'
             ),
-            'no_results_title': _('No document version pages available'),
+            'no_results_title': _(
+                message='No document version pages available'
+            ),
             'object': self.external_object,
             'title': _(
                 'Pages of document version: %s'
@@ -156,7 +160,7 @@ class DocumentVersionPageListRemapView(ExternalObjectViewMixin, FormView):
     def get_form_extra_kwargs(self):
         target_page_number_choices = [
             (
-                0, _('None')
+                0, _(message='None')
             )
         ]
 
@@ -186,7 +190,7 @@ class DocumentVersionPageListRemapView(ExternalObjectViewMixin, FormView):
                 'There are no sources available to remap for this document '
                 'version.'
             ),
-            'no_results_title': _('No page sources available'),
+            'no_results_title': _(message='No page sources available'),
             'object': self.external_object,
             'title': _(
                 'Remap pages of document version: %s'
@@ -334,7 +338,7 @@ class DocumentVersionPageView(ExternalObjectViewMixin, SimpleView):
     external_object_permission = permission_document_version_view
     external_object_pk_url_kwarg = 'document_version_page_id'
     external_object_queryset = DocumentVersionPage.valid.all()
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
     view_icon = icon_document_version_page_detail
 
     def get_extra_context(self):
@@ -363,7 +367,7 @@ class DocumentVersionPageView(ExternalObjectViewMixin, SimpleView):
             transformation_instance_list=transformation_instance_list
         )
 
-        base_title = _('Image of: %s') % self.external_object
+        base_title = _(message='Image of: %s') % self.external_object
 
         if zoom != DEFAULT_ZOOM_LEVEL:
             zoom_text = '({}%)'.format(zoom)

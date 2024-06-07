@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2023
-# molnars <szabolcs.molnar@gmail.com>, 2023
-# Csaba Tarjányi, 2023
+# Roberto Rosario, 2024
+# molnars <szabolcs.molnar@gmail.com>, 2024
+# Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Csaba Tarjányi, 2023\n"
+"POT-Creation-Date: 2024-02-07 11:57+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,7 @@ msgstr "Keresési logika"
 #: forms.py:72 templates/dynamic_search/search_box.html:43
 #: templates/dynamic_search/search_box_toolbar.html:25
 msgid "Search terms"
-msgstr "keresési feltételek"
+msgstr "Keresési feltételek"
 
 #: links.py:20
 msgid "Basic search"
@@ -52,7 +52,7 @@ msgstr "Egyszerű keresés"
 #: links.py:24 templates/dynamic_search/search_box.html:49
 #: templates/dynamic_search/search_box_toolbar.html:33
 msgid "Advanced search"
-msgstr "Részletes keresés"
+msgstr "Kiterjesztett keresés"
 
 #: links.py:28
 msgid "Search again"
@@ -78,7 +78,7 @@ msgstr "Keresés"
 
 #: permissions.py:10
 msgid "Execute search tools"
-msgstr "Hajtsa végre a keresőeszközöket"
+msgstr "Keresőeszközök végrehajtása"
 
 #: queues.py:10
 msgid "Search slow"
@@ -115,9 +115,9 @@ msgid ""
 "multiple scopes are used. Narrow down the search criteria or increase the "
 "value of the results limit setting."
 msgstr ""
-"A keresési eredmények túllépik a korlát beállítását. Előfordulhat, hogy az "
-"eredmények nem megbízhatóak, ha több hatókört használnak. Szűkítse a "
-"keresési feltételeket, vagy növelje a találati korlát beállításának értékét."
+"A keresési eredmények túllépik a korlátot. Előfordulhat, hogy az eredmények "
+"nem megbízhatóak, ha több hatókört használnak. Szűkítse a keresési "
+"feltételeket, vagy növelje a találati korlát beállításának értékét."
 
 #: scoped_queries.py:367
 #, python-format
@@ -144,11 +144,11 @@ msgstr "Minden tartalom"
 
 #: search_query_types.py:169
 msgid "Exact"
-msgstr "Pontos"
+msgstr "Egyező"
 
 #: search_query_types.py:175
 msgid "Fuzzy"
-msgstr "Laza"
+msgstr "Közelítő"
 
 #: search_query_types.py:181
 msgid "Greater than"
@@ -221,7 +221,7 @@ msgstr ""
 
 #: settings.py:37
 msgid "The search operator to use when none is specified."
-msgstr "Ha nincs megadva, akkor használandó keresési operátor."
+msgstr "A keresési operátor, amelyet akkor használ, ha nincs semmi megadva."
 
 #: settings.py:44
 msgid ""
@@ -258,47 +258,47 @@ msgstr "Szűrési kifejezések"
 msgid "Advanced"
 msgstr "Haladó"
 
-#: value_transformations.py:37
+#: value_transformations.py:38
 msgid "Replace accents"
 msgstr "Cserélje ki az ékezeteket"
 
-#: value_transformations.py:49
+#: value_transformations.py:50
 msgid "@ sign replace"
 msgstr "@ jel csere"
 
-#: value_transformations.py:59
+#: value_transformations.py:60
 msgid "Case fold"
 msgstr "Kisbetűssé alakítás"
 
-#: value_transformations.py:69 value_transformations.py:79
+#: value_transformations.py:70 value_transformations.py:80
 msgid "Hyphen replace"
 msgstr "Kötőjel csere"
 
-#: value_transformations.py:89
+#: value_transformations.py:90
 msgid "To boolean"
 msgstr "Logikai érték"
 
-#: value_transformations.py:102
+#: value_transformations.py:105
 msgid "To date time"
 msgstr "Dátum és idő"
 
-#: value_transformations.py:124
+#: value_transformations.py:132
 msgid "Date time ISO format"
 msgstr "Dátum és idő ISO formátum"
 
-#: value_transformations.py:134
+#: value_transformations.py:146
 msgid "Date time simple format"
 msgstr "Dátum és idő egyszerű formátum"
 
-#: value_transformations.py:144
+#: value_transformations.py:158
 msgid "Date time timestamp format"
 msgstr "Dátum, idő, időbélyeg formátuma"
 
-#: value_transformations.py:158
+#: value_transformations.py:174
 msgid "To integer"
 msgstr "Egész szám"
 
-#: value_transformations.py:168
+#: value_transformations.py:184
 msgid "To string"
 msgstr "Karakterlánc"
 

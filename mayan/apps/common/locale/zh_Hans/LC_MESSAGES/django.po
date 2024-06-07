@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Translators:
-# yan songwei <yansw@vip.163.com>, 2023
-# Ford Guo <agile.guo@gmail.com>, 2023
-# Roberto Rosario, 2023
-# Leon Chu, 2023
+# yan songwei <yansw@vip.163.com>, 2024
+# Ford Guo <agile.guo@gmail.com>, 2024
+# Leon Chu, 2024
+# Roberto Rosario, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Leon Chu, 2023\n"
+"POT-Creation-Date: 2024-06-03 22:27+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Roberto Rosario, 2024\n"
 "Language-Team: Chinese Simplified (https://app.transifex.com/rosarior/teams/13584/zh-Hans/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,51 +43,59 @@ msgstr "含有自動完成之命令列環境"
 msgid "Checks proper formatting of the README file."
 msgstr "檢查適當的README檔案格式"
 
-#: links.py:34
+#: links.py:36
 msgid "About this"
 msgstr "关于这个"
 
-#: links.py:37
+#: links.py:39
 msgid "Get the book"
 msgstr "獲得說明"
 
-#: links.py:42
+#: links.py:44
 msgid "Documentation"
 msgstr "文档"
 
-#: links.py:45
+#: links.py:47
 msgid "Forum"
 msgstr "论坛"
 
-#: links.py:50
+#: links.py:52
 msgid "Knowledge base"
 msgstr ""
 
-#: links.py:53 views.py:55
+#: links.py:55 views.py:55
 msgid "License"
 msgstr "许可"
 
 #: links.py:58
+msgid "Mailing list"
+msgstr ""
+
+#: links.py:64
 msgid "Copy"
 msgstr "副本"
 
-#: links.py:62
+#: links.py:69
+msgid "Release notes"
+msgstr ""
+
+#: links.py:73
 msgid "Setup"
 msgstr "设置"
 
-#: links.py:65
+#: links.py:76
 msgid "Source code"
 msgstr "源代码"
 
-#: links.py:69
+#: links.py:80
 msgid "Online store"
 msgstr "線上商店"
 
-#: links.py:73
-msgid "Get support"
-msgstr "取得協助"
+#: links.py:84
+msgid "Support"
+msgstr "支持"
 
-#: links.py:77 views.py:136
+#: links.py:88 views.py:136
 msgid "Tools"
 msgstr "工具"
 

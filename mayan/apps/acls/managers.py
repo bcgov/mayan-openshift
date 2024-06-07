@@ -8,12 +8,12 @@ from django.core.exceptions import PermissionDenied
 from django.db import models
 from django.db.models import CharField, Q, Value
 from django.db.models.functions import Cast, Concat
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 
 from mayan.apps.common.utils import (
     get_related_field, resolve_attribute, return_related
 )
-from mayan.apps.permissions import Permission
+from mayan.apps.permissions.classes import Permission
 from mayan.apps.permissions.models import StoredPermission
 
 from .classes import ModelPermission
@@ -74,7 +74,7 @@ class AccessControlListManager(models.Manager):
                         recursive_related_reference
                     )
 
-                queryset_content_type_object_ids = queryset.annotate(
+                queryset_content_type_object_id = queryset.annotate(
                     ct_fk_combination=Concat(
                         '{}{}'.format(
                             recursive_related_reference,
@@ -85,26 +85,26 @@ class AccessControlListManager(models.Manager):
                             related_field.fk_field
                         ), output_field=CharField()
                     )
-                ).values('ct_fk_combination')
+                ).only('ct_fk_combination').values('ct_fk_combination')
 
-                acl_filter = self.annotate(
+                queryset_acl_filter = self.annotate(
                     ct_fk_combination=Concat(
                         'content_type', Value('-'), 'object_id',
                         output_field=CharField()
                     )
                 ).filter(
                     permissions=stored_permission, role__groups__user=user,
-                    ct_fk_combination__in=queryset_content_type_object_ids
+                    ct_fk_combination__in=queryset_content_type_object_id
                 )
 
                 if fk_field_cast:
-                    clean_acl_filter = acl_filter.annotate(
+                    clean_acl_filter = queryset_acl_filter.annotate(
                         clean_object_id=Cast(
                             'object_id', output_field=fk_field_cast()
                         )
                     ).values_list('clean_object_id')
                 else:
-                    clean_acl_filter = acl_filter.values('object_id')
+                    clean_acl_filter = queryset_acl_filter.values('object_id')
 
                 field_lookup = '{}{}__in'.format(
                     recursive_related_reference, related_field.fk_field
@@ -121,17 +121,17 @@ class AccessControlListManager(models.Manager):
                     model=related_field.related_model
                 )
                 field_lookup = '{}_id__in'.format(related_field_name)
-                acl_filter = self.filter(
+                queryset_acl_filter = self.filter(
                     content_type=content_type, permissions=stored_permission,
                     role__groups__user=user
                 ).values('object_id')
                 # Don't add empty filters otherwise the default AND operator
                 # of the Q object will return an empty queryset when reduced
                 # and filter out objects that should be in the final queryset.
-                if acl_filter:
+                if queryset_acl_filter.exists():
                     result.append(
                         Q(
-                            **{field_lookup: acl_filter}
+                            **{field_lookup: queryset_acl_filter}
                         )
                     )
 
@@ -176,13 +176,13 @@ class AccessControlListManager(models.Manager):
                 model=queryset.model
             )
             field_lookup = 'id__in'
-            acl_filter = self.filter(
+            queryset_acl_filter = self.filter(
                 content_type=content_type, permissions=stored_permission,
                 role__groups__user=user
             ).values('object_id')
             result.append(
                 Q(
-                    **{field_lookup: acl_filter}
+                    **{field_lookup: queryset_acl_filter}
                 )
             )
 
@@ -234,20 +234,20 @@ class AccessControlListManager(models.Manager):
                 content_type = ContentType.objects.get_for_model(
                     model=queryset.model
                 )
-                acl_filter = self.filter(
+                queryset_acl_filter = self.filter(
                     content_type=content_type, permissions=stored_permission,
                     role__groups__user=user
                 ).values('object_id')
 
                 # Obtain a queryset of filtered, authorized model instances.
-                queryset_acls = queryset.model._meta.default_manager.filter(
-                    id__in=acl_filter
+                queryset_acl = queryset.model._meta.default_manager.filter(
+                    id__in=queryset_acl_filter
                 ).filter(
                     **function_results['acl_filter']
                 )
 
                 if 'acl_values' in function_results:
-                    queryset_acls = queryset_acls.values(
+                    queryset_acl = queryset_acl.values(
                         *function_results['acl_values']
                     )
 
@@ -255,13 +255,15 @@ class AccessControlListManager(models.Manager):
                 # reference.
                 result.append(
                     Q(
-                        **{function_results['field_lookup']: queryset_acls}
+                        **{
+                            function_results['field_lookup']: queryset_acl
+                        }
                     )
                 )
 
         return result
 
-    def check_access(self, obj, permissions, user):
+    def check_access(self, obj, permission, user):
         # Allow specific managers for models that have more than one
         # for example the Document model when checking for access for a
         # trashed document.
@@ -270,9 +272,9 @@ class AccessControlListManager(models.Manager):
 
         if not meta:
             logger.debug(
-                ugettext(
-                    'Object "%s" is not a model and cannot be checked for '
-                    'access.'
+                gettext(
+                    message='Object "%s" is not a model and cannot be '
+                    'checked for access.'
                 ) % str(obj)
             )
             return True
@@ -280,18 +282,15 @@ class AccessControlListManager(models.Manager):
             manager = ModelPermission.get_manager(model=obj._meta.model)
             queryset_source = manager.all()
 
-        queryset_restricted = manager.none()
-        for permission in permissions:
-            # Default relationship between permissions is OR.
-            queryset_restricted = queryset_restricted | self.restrict_queryset(
-                permission=permission, queryset=queryset_source, user=user
-            )
+        queryset_restricted = self.restrict_queryset(
+            permission=permission, queryset=queryset_source, user=user
+        )
 
         if queryset_restricted.filter(pk=obj.pk).exists():
             return True
         else:
             raise PermissionDenied(
-                ugettext(message='Insufficient access for: %s') % str(obj)
+                gettext(message='Insufficient access for: %s') % str(obj)
             )
 
     def restrict_queryset(self, permission, queryset, user):
@@ -300,8 +299,8 @@ class AccessControlListManager(models.Manager):
 
         # Check directly granted permission via a role.
         try:
-            Permission.check_user_permissions(
-                permissions=(permission,), user=user
+            Permission.check_user_permission(
+                permission=permission, user=user
             )
         except PermissionDenied:
             acl_filters = self._get_acl_filters(
@@ -324,17 +323,21 @@ class AccessControlListManager(models.Manager):
 
     def get_inherited_permissions(self, obj, role):
         # Get permission inherited from a related object's ACLs.
-        queryset = self._get_inherited_object_permissions(obj=obj, role=role)
+        queryset_permissions_inherited = self._get_inherited_object_permissions(
+            obj=obj, role=role
+        )
 
-        # Get permission granted to the role
-        queryset = queryset | role.permissions.all()
+        # Get permission granted to the role.
+        queryset_permission_total = (
+            queryset_permissions_inherited | role.permissions.all()
+        ).only('id').values('pk')
 
         # Filter the permissions to the ones that apply to the model.
-        queryset = ModelPermission.get_for_instance(
+        queryset_final = ModelPermission.get_for_instance(
             instance=obj
-        ).filter(pk__in=queryset)
+        ).filter(pk__in=queryset_permission_total)
 
-        return queryset
+        return queryset_final
 
     def _get_inherited_object_permissions(self, obj, role):
         queryset = StoredPermission.objects.none()

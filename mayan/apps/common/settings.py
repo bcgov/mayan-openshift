@@ -1,6 +1,6 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.smart_settings.classes import SettingNamespace
+from mayan.apps.smart_settings.settings import setting_cluster
 
 from .literals import (
     DEFAULT_COMMON_COLLAPSE_LIST_MENU_LIST_FACET,
@@ -11,11 +11,11 @@ from .literals import (
     DEFAULT_COMMON_PROJECT_TITLE
 )
 
-namespace = SettingNamespace(
-    label=_('Common'), name='common', version='0002'
+setting_namespace = setting_cluster.do_namespace_add(
+    label=_(message='Common'), name='common', version='0002'
 )
 
-setting_collapse_list_menu_list_facet = namespace.add_setting(
+setting_collapse_list_menu_list_facet = setting_namespace.do_setting_add(
     choices=('false', 'true'),
     default=DEFAULT_COMMON_COLLAPSE_LIST_MENU_LIST_FACET,
     global_name='COMMON_COLLAPSE_LIST_MENU_LIST_FACET',
@@ -24,7 +24,7 @@ setting_collapse_list_menu_list_facet = namespace.add_setting(
         'menu instead of individual buttons.'
     )
 )
-setting_collapse_list_menu_object = namespace.add_setting(
+setting_collapse_list_menu_object = setting_namespace.do_setting_add(
     choices=('false', 'true'),
     default=DEFAULT_COMMON_COLLAPSE_LIST_MENU_OBJECT,
     global_name='COMMON_COLLAPSE_LIST_MENU_OBJECT',
@@ -33,7 +33,7 @@ setting_collapse_list_menu_object = namespace.add_setting(
         'instead of individual buttons.'
     )
 )
-setting_disable_local_storage = namespace.add_setting(
+setting_disable_local_storage = setting_namespace.do_setting_add(
     choices=('false', 'true'),
     default=DEFAULT_COMMON_DISABLE_LOCAL_STORAGE,
     global_name='COMMON_DISABLE_LOCAL_STORAGE', help_text=_(
@@ -42,7 +42,7 @@ setting_disable_local_storage = namespace.add_setting(
         'storage backend settings to use alternate persistence.'
     )
 )
-setting_disabled_apps = namespace.add_setting(
+setting_disabled_apps = setting_namespace.do_setting_add(
     default=DEFAULT_COMMON_DISABLED_APPS,
     global_name='COMMON_DISABLED_APPS', help_text=_(
         'A list of strings designating all applications that are to be '
@@ -52,7 +52,7 @@ setting_disabled_apps = namespace.add_setting(
         'application. Example: [\'app_1\', \'app_2\']'
     )
 )
-setting_extra_apps = namespace.add_setting(
+setting_extra_apps = setting_namespace.do_setting_add(
     default=DEFAULT_COMMON_EXTRA_APPS, global_name='COMMON_EXTRA_APPS',
     help_text=_(
         'A list of strings designating all applications that are installed '
@@ -63,7 +63,7 @@ setting_extra_apps = namespace.add_setting(
         'Example: [\'app_1\', \'app_2\']'
     )
 )
-setting_extra_apps_pre = namespace.add_setting(
+setting_extra_apps_pre = setting_namespace.do_setting_add(
     default=DEFAULT_COMMON_EXTRA_APPS_PRE,
     global_name='COMMON_EXTRA_APPS_PRE',
     help_text=_(
@@ -75,7 +75,7 @@ setting_extra_apps_pre = namespace.add_setting(
         'Example: [\'app_1\', \'app_2\']'
     )
 )
-setting_home_view = namespace.add_setting(
+setting_home_view = setting_namespace.do_setting_add(
     default=DEFAULT_COMMON_HOME_VIEW, global_name='COMMON_HOME_VIEW',
     help_text=_(
         'Name of the view attached to the brand anchor in the main menu. '
@@ -83,14 +83,14 @@ setting_home_view = namespace.add_setting(
         'log in.'
     )
 )
-setting_home_view_dashboard = namespace.add_setting(
+setting_home_view_dashboard = setting_namespace.do_setting_add(
     default=DEFAULT_COMMON_HOME_VIEW_DASHBOARD_NAME,
     global_name='COMMON_HOME_VIEW_DASHBOARD_NAME',
     help_text=_(
         'Name of the dashboard to display in the home view.'
     )
 )
-setting_project_title = namespace.add_setting(
+setting_project_title = setting_namespace.do_setting_add(
     default=DEFAULT_COMMON_PROJECT_TITLE, global_name='COMMON_PROJECT_TITLE',
-    help_text=_('Sets the project\'s name.')
+    help_text=_(message='Sets the project\'s name.')
 )

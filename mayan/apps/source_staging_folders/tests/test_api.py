@@ -10,7 +10,7 @@ from mayan.apps.documents.document_file_actions import (
 from mayan.apps.documents.events import (
     event_document_created, event_document_file_created,
     event_document_file_edited, event_document_version_created,
-    event_document_version_page_created
+    event_document_version_edited, event_document_version_page_created
 )
 from mayan.apps.documents.models.document_models import Document
 from mayan.apps.documents.permissions import (
@@ -279,7 +279,7 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -307,6 +307,11 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
     def test_basic_with_full_access_trashed_document(self):
         self._test_source_create()
@@ -422,7 +427,7 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -450,6 +455,11 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
     def test_document_file_action_append(self):
         self._test_source_create()
@@ -507,7 +517,7 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -543,6 +553,11 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_document_file_action_keep(self):
         self._test_source_create()
@@ -666,7 +681,7 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -694,6 +709,11 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
     def test_filename(self):
         self._test_source_create()
@@ -755,7 +775,7 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 4)
+        self.assertEqual(events.count(), 5)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -783,6 +803,11 @@ class StagingFolderSourceBackendActionDocumentFileUploadAPIViewTestCase(
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[4].action_object, test_document)
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, test_document_version)
+        self.assertEqual(events[4].verb, event_document_version_edited.id)
 
 
 class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
@@ -935,7 +960,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -968,6 +993,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_compressed_always(self):
         self._test_source_create(
@@ -1008,7 +1038,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 11)
+        self.assertEqual(events.count(), 13)
 
         test_documents = Document.objects.all()
 
@@ -1043,47 +1073,57 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
             events[4].verb, event_document_version_page_created.id
         )
 
-        self.assertEqual(events[5].action_object, self._test_document_type)
+        self.assertEqual(events[5].action_object, test_documents[0])
         self.assertEqual(events[5].actor, self._test_case_user)
-        self.assertEqual(events[5].target, test_documents[1])
-        self.assertEqual(events[5].verb, event_document_created.id)
+        self.assertEqual(events[5].target, test_documents[0].version_active)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
-        self.assertEqual(events[6].action_object, test_documents[1])
+        self.assertEqual(events[6].action_object, self._test_document_type)
         self.assertEqual(events[6].actor, self._test_case_user)
-        self.assertEqual(events[6].target, test_documents[1].file_latest)
-        self.assertEqual(events[6].verb, event_document_file_created.id)
+        self.assertEqual(events[6].target, test_documents[1])
+        self.assertEqual(events[6].verb, event_document_created.id)
 
         self.assertEqual(events[7].action_object, test_documents[1])
         self.assertEqual(events[7].actor, self._test_case_user)
         self.assertEqual(events[7].target, test_documents[1].file_latest)
-        self.assertEqual(events[7].verb, event_document_file_edited.id)
+        self.assertEqual(events[7].verb, event_document_file_created.id)
 
         self.assertEqual(events[8].action_object, test_documents[1])
         self.assertEqual(events[8].actor, self._test_case_user)
-        self.assertEqual(events[8].target, test_documents[1].version_active)
-        self.assertEqual(events[8].verb, event_document_version_created.id)
+        self.assertEqual(events[8].target, test_documents[1].file_latest)
+        self.assertEqual(events[8].verb, event_document_file_edited.id)
 
-        self.assertEqual(
-            events[9].action_object, test_documents[1].version_active
-        )
+        self.assertEqual(events[9].action_object, test_documents[1])
         self.assertEqual(events[9].actor, self._test_case_user)
-        self.assertEqual(
-            events[9].target, test_documents[1].version_active.pages.first()
-        )
-        self.assertEqual(
-            events[9].verb, event_document_version_page_created.id
-        )
+        self.assertEqual(events[9].target, test_documents[1].version_active)
+        self.assertEqual(events[9].verb, event_document_version_created.id)
 
         self.assertEqual(
             events[10].action_object, test_documents[1].version_active
         )
         self.assertEqual(events[10].actor, self._test_case_user)
         self.assertEqual(
-            events[10].target, test_documents[1].version_active.pages.last()
+            events[10].target, test_documents[1].version_active.pages.first()
         )
         self.assertEqual(
             events[10].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(
+            events[11].action_object, test_documents[1].version_active
+        )
+        self.assertEqual(events[11].actor, self._test_case_user)
+        self.assertEqual(
+            events[11].target, test_documents[1].version_active.pages.last()
+        )
+        self.assertEqual(
+            events[11].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[12].action_object, test_documents[1])
+        self.assertEqual(events[12].actor, self._test_case_user)
+        self.assertEqual(events[12].target, test_documents[1].version_active)
+        self.assertEqual(events[12].verb, event_document_version_edited.id)
 
     def test_compressed_ask_false(self):
         self._silence_logger(name='mayan.apps.converter.backends')
@@ -1126,7 +1166,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 4)
 
         test_documents = Document.objects.all()
 
@@ -1144,6 +1184,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(events[2].actor, self._test_case_user)
         self.assertEqual(events[2].target, test_documents[0].version_active)
         self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(events[3].action_object, test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, test_documents[0].version_active)
+        self.assertEqual(events[3].verb, event_document_version_edited.id)
 
     def test_compressed_ask_true(self):
         self._test_source_create(
@@ -1184,7 +1229,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 11)
+        self.assertEqual(events.count(), 13)
 
         test_documents = Document.objects.all()
 
@@ -1219,47 +1264,57 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
             events[4].verb, event_document_version_page_created.id
         )
 
-        self.assertEqual(events[5].action_object, self._test_document_type)
+        self.assertEqual(events[5].action_object, test_documents[0])
         self.assertEqual(events[5].actor, self._test_case_user)
-        self.assertEqual(events[5].target, test_documents[1])
-        self.assertEqual(events[5].verb, event_document_created.id)
+        self.assertEqual(events[5].target, test_documents[0].version_active)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
-        self.assertEqual(events[6].action_object, test_documents[1])
+        self.assertEqual(events[6].action_object, self._test_document_type)
         self.assertEqual(events[6].actor, self._test_case_user)
-        self.assertEqual(events[6].target, test_documents[1].file_latest)
-        self.assertEqual(events[6].verb, event_document_file_created.id)
+        self.assertEqual(events[6].target, test_documents[1])
+        self.assertEqual(events[6].verb, event_document_created.id)
 
         self.assertEqual(events[7].action_object, test_documents[1])
         self.assertEqual(events[7].actor, self._test_case_user)
         self.assertEqual(events[7].target, test_documents[1].file_latest)
-        self.assertEqual(events[7].verb, event_document_file_edited.id)
+        self.assertEqual(events[7].verb, event_document_file_created.id)
 
         self.assertEqual(events[8].action_object, test_documents[1])
         self.assertEqual(events[8].actor, self._test_case_user)
-        self.assertEqual(events[8].target, test_documents[1].version_active)
-        self.assertEqual(events[8].verb, event_document_version_created.id)
+        self.assertEqual(events[8].target, test_documents[1].file_latest)
+        self.assertEqual(events[8].verb, event_document_file_edited.id)
 
-        self.assertEqual(
-            events[9].action_object, test_documents[1].version_active
-        )
+        self.assertEqual(events[9].action_object, test_documents[1])
         self.assertEqual(events[9].actor, self._test_case_user)
-        self.assertEqual(
-            events[9].target, test_documents[1].version_active.pages.first()
-        )
-        self.assertEqual(
-            events[9].verb, event_document_version_page_created.id
-        )
+        self.assertEqual(events[9].target, test_documents[1].version_active)
+        self.assertEqual(events[9].verb, event_document_version_created.id)
 
         self.assertEqual(
             events[10].action_object, test_documents[1].version_active
         )
         self.assertEqual(events[10].actor, self._test_case_user)
         self.assertEqual(
-            events[10].target, test_documents[1].version_active.pages.last()
+            events[10].target, test_documents[1].version_active.pages.first()
         )
         self.assertEqual(
             events[10].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(
+            events[11].action_object, test_documents[1].version_active
+        )
+        self.assertEqual(events[11].actor, self._test_case_user)
+        self.assertEqual(
+            events[11].target, test_documents[1].version_active.pages.last()
+        )
+        self.assertEqual(
+            events[11].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[12].action_object, test_documents[1])
+        self.assertEqual(events[12].actor, self._test_case_user)
+        self.assertEqual(events[12].target, test_documents[1].version_active)
+        self.assertEqual(events[12].verb, event_document_version_edited.id)
 
     def test_compressed_never(self):
         self._silence_logger(name='mayan.apps.converter.backends')
@@ -1302,7 +1357,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 4)
 
         test_documents = Document.objects.all()
 
@@ -1320,6 +1375,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(events[2].actor, self._test_case_user)
         self.assertEqual(events[2].target, test_documents[0].version_active)
         self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(events[3].action_object, test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, test_documents[0].version_active)
+        self.assertEqual(events[3].verb, event_document_version_edited.id)
 
     def test_delete_after_upload_false(self):
         self._test_source_create(
@@ -1364,7 +1424,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -1397,6 +1457,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_delete_after_upload_true(self):
         self._test_source_create(
@@ -1441,7 +1506,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -1474,6 +1539,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_description(self):
         self._test_source_create()
@@ -1521,7 +1591,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -1554,6 +1624,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_label(self):
         self._test_source_create()
@@ -1601,7 +1676,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -1634,6 +1709,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_language(self):
         self._test_source_create()
@@ -1681,7 +1761,7 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -1714,6 +1794,11 @@ class StagingFolderSourceBackendActionDocumentUploadAPIViewTestCase(
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
 
 class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase(
@@ -1875,7 +1960,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -1908,6 +1993,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_compressed_always(self):
         self._silence_logger(name='mayan.apps.converter.backends')
@@ -1953,7 +2043,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 4)
 
         test_documents = Document.objects.all()
 
@@ -1971,6 +2061,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(events[2].actor, self._test_case_user)
         self.assertEqual(events[2].target, test_documents[0].version_active)
         self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(events[3].action_object, test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, test_documents[0].version_active)
+        self.assertEqual(events[3].verb, event_document_version_edited.id)
 
     def test_compressed_ask_false(self):
         self._silence_logger(name='mayan.apps.converter.backends')
@@ -2016,7 +2111,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 4)
 
         test_documents = Document.objects.all()
 
@@ -2034,6 +2129,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(events[2].actor, self._test_case_user)
         self.assertEqual(events[2].target, test_documents[0].version_active)
         self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(events[3].action_object, test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, test_documents[0].version_active)
+        self.assertEqual(events[3].verb, event_document_version_edited.id)
 
     def test_compressed_ask_true(self):
         self._silence_logger(name='mayan.apps.converter.backends')
@@ -2079,7 +2179,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 4)
 
         test_documents = Document.objects.all()
 
@@ -2097,6 +2197,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(events[2].actor, self._test_case_user)
         self.assertEqual(events[2].target, test_documents[0].version_active)
         self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(events[3].action_object, test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, test_documents[0].version_active)
+        self.assertEqual(events[3].verb, event_document_version_edited.id)
 
     def test_compressed_never(self):
         self._silence_logger(name='mayan.apps.converter.backends')
@@ -2142,7 +2247,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 4)
 
         test_documents = Document.objects.all()
 
@@ -2160,6 +2265,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(events[2].actor, self._test_case_user)
         self.assertEqual(events[2].target, test_documents[0].version_active)
         self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(events[3].action_object, test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, test_documents[0].version_active)
+        self.assertEqual(events[3].verb, event_document_version_edited.id)
 
     def test_delete_after_upload_false(self):
         self._test_source_create(
@@ -2207,7 +2317,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -2240,6 +2350,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_delete_after_upload_true(self):
         self._test_source_create(
@@ -2287,7 +2402,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -2320,6 +2435,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_description(self):
         self._test_source_create()
@@ -2368,7 +2488,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -2401,6 +2521,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_label(self):
         self._test_source_create()
@@ -2449,7 +2574,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -2482,6 +2607,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
     def test_language(self):
         self._test_source_create()
@@ -2530,7 +2660,7 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 5)
+        self.assertEqual(events.count(), 6)
 
         test_document = Document.objects.first()
         test_document_file = test_document.file_latest
@@ -2563,6 +2693,11 @@ class StagingFolderSourceBackendActionDocumentUploadImmediateModeAPIViewTestCase
         self.assertEqual(
             events[4].verb, event_document_version_page_created.id
         )
+
+        self.assertEqual(events[5].action_object, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
+        self.assertEqual(events[5].target, test_document_version)
+        self.assertEqual(events[5].verb, event_document_version_edited.id)
 
 
 class StagingFolderSourceBackendActionFileDeleteAPIViewTestCase(

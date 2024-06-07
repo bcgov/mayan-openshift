@@ -173,8 +173,8 @@ Other Changes
 - Make the task manager translatable.
 - Add Turkish to the list of processes languages.
 - Use Toastr library for screen messages.
-- Reduce verbosity of some debug messages in the ``MayanAppConfig``,
-  settings and, mailing discovery.
+- Reduce verbosity of some debug messages in the ``MayanAppConfig``, settings
+  and, mailing discovery.
 - Make sure lookup selection widgets also trigger the metadata update
   checkbox on change.
 - Usability improvements on small displays.

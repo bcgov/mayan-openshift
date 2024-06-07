@@ -20,7 +20,7 @@ Visual changes
 Several patches to change and improve the user interface landed on this release.
 The first, by Macrobb Simpson @Macrobb, makes the content area width, match
 window area. This means that on almost all device screen sizes the content area
-will be almost fullscreen. Another path from Macrobb Simpson, improves the
+will be almost full screen. Another path from Macrobb Simpson, improves the
 visual appearance of the document metadata widget. The other big change is the
 new list item view template which lists documents in an column, row layout.
 With this layout document thumbnails are more clearly visible, much more

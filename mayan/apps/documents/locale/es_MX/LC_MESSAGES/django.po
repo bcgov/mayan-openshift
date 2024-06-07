@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2023
+# Roberto Rosario, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Roberto Rosario, 2023\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Roberto Rosario, 2024\n"
 "Language-Team: Spanish (Mexico) (https://app.transifex.com/rosarior/teams/13584/es_MX/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,46 +38,46 @@ msgstr ""
 "Cada documento cargado debe tener asignado un tipo de documento, es la forma"
 " básica en que Mayan EDMS clasifica los documentos."
 
-#: apps.py:401
+#: apps.py:395
 msgid "File comments"
 msgstr "Comentarios de archivo"
 
-#: apps.py:405
+#: apps.py:399
 msgid "File encodings"
 msgstr "Codificaciones del archivo"
 
-#: apps.py:409
+#: apps.py:403
 msgid "File MIME types"
 msgstr "Tipos MIME de archivos "
 
-#: apps.py:413
+#: apps.py:407
 msgid "File timestamps"
 msgstr "Marcas de tiempo del archivo"
 
-#: apps.py:418 links/document_file_page_links.py:77
+#: apps.py:412 links/document_file_page_links.py:77
 #: models/document_file_models.py:106 models/document_file_page_models.py:26
 #: search.py:49
 msgid "Document file"
 msgstr "Archivo de documento"
 
-#: apps.py:422 models/document_file_page_models.py:30
+#: apps.py:416 models/document_file_page_models.py:30
 #: models/document_version_page_models.py:40
 msgid "Page number"
 msgstr "Número de página"
 
-#: apps.py:427
+#: apps.py:421
 msgid "Return the latest file of the document."
 msgstr "Devuelve el último archivo del documento."
 
-#: apps.py:428
+#: apps.py:422
 msgid "Latest file"
 msgstr "Último archivo"
 
-#: apps.py:431
+#: apps.py:426
 msgid "Return the document instance."
 msgstr "Devuelve la instancia del documento."
 
-#: apps.py:432 links/document_file_links.py:71
+#: apps.py:427 links/document_file_links.py:71
 #: links/document_file_page_links.py:71 links/document_version_links.py:73
 #: links/document_version_page_links.py:90 models/document_file_models.py:57
 #: models/document_models.py:115 models/document_version_models.py:28
@@ -88,15 +88,15 @@ msgstr "Devuelve la instancia del documento."
 msgid "Document"
 msgstr "Documento"
 
-#: apps.py:560 apps.py:612 apps.py:641 apps.py:675 apps.py:700
+#: apps.py:558 apps.py:612 apps.py:641 apps.py:676 apps.py:701
 msgid "Thumbnail"
 msgstr "Foto miniatura"
 
-#: apps.py:566
+#: apps.py:564
 msgid "Type"
 msgstr "Tipo"
 
-#: apps.py:570 apps.py:617 apps.py:680 forms/document_file_forms.py:89
+#: apps.py:569 apps.py:617 apps.py:681 forms/document_file_forms.py:89
 #: links/document_file_page_links.py:120
 #: links/document_version_page_links.py:50
 msgid "Pages"
@@ -678,11 +678,11 @@ msgid "All pages"
 msgstr "Todas las páginas"
 
 #: models/document_file_model_mixins.py:299
-#: models/document_file_page_model_mixins.py:236
-#: models/document_model_mixins.py:174 models/document_models.py:67
+#: models/document_file_page_model_mixins.py:244
+#: models/document_model_mixins.py:176 models/document_models.py:67
 #: models/document_type_models.py:41 models/document_type_models.py:153
-#: models/document_version_model_mixins.py:124
-#: models/document_version_page_model_mixins.py:282
+#: models/document_version_model_mixins.py:128
+#: models/document_version_page_model_mixins.py:290
 #: serializers/document_serializers.py:22
 #: serializers/document_version_serializers.py:17
 msgid "Label"
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Document files"
 msgstr "Archivos de documentos"
 
-#: models/document_file_page_model_mixins.py:230
+#: models/document_file_page_model_mixins.py:238
 #, python-format
 msgid "%(document_file)s - page %(page_num)d of %(total_pages)d"
 msgstr "%(document_file)s - página %(page_num)d de %(total_pages)d"
@@ -750,7 +750,7 @@ msgstr "%(document_file)s - página %(page_num)d de %(total_pages)d"
 msgid "Document file page"
 msgstr "Página de archivo de documento"
 
-#: models/document_model_mixins.py:172
+#: models/document_model_mixins.py:173
 #, python-format
 msgid "Document stub, id: %d"
 msgstr "Recibo de documento, id: %d"
@@ -952,7 +952,7 @@ msgstr "Activo"
 msgid "Document versions"
 msgstr "Versiones de documentos"
 
-#: models/document_version_page_model_mixins.py:276
+#: models/document_version_page_model_mixins.py:284
 #, python-format
 msgid "%(document_version)s page %(page_number)d of %(total_pages)d"
 msgstr "%(document_version)s página %(page_number)d de %(total_pages)d"
@@ -1613,17 +1613,17 @@ msgid "Pages of document file: %s"
 msgstr "Páginas del archivo del documento: %s"
 
 #: views/document_file_page_views.py:144
-#: views/document_version_page_views.py:311
+#: views/document_version_page_views.py:315
 msgid "There are no more pages in this document"
 msgstr "No hay más páginas en este documento"
 
 #: views/document_file_page_views.py:160
-#: views/document_version_page_views.py:327
+#: views/document_version_page_views.py:331
 msgid "You are already at the first page of this document"
 msgstr "Usted ya está en la primera página de este documento"
 
 #: views/document_file_page_views.py:195
-#: views/document_version_page_views.py:366
+#: views/document_version_page_views.py:370
 #, python-format
 msgid "Image of: %s"
 msgstr "Imágen de: %s"
@@ -1916,12 +1916,12 @@ msgstr ""
 "numeración de páginas secuencial, utilice la acción de reasignación de "
 "página."
 
-#: views/document_version_page_views.py:61
+#: views/document_version_page_views.py:62
 #, python-format
 msgid "Delete document version page %s ?"
 msgstr "¿Eliminar la página de la versión del documento %s?"
 
-#: views/document_version_page_views.py:100
+#: views/document_version_page_views.py:102
 msgid ""
 "Document version pages are links to actual content pages. Create them using "
 "the page remap actions or the version modification action."
@@ -1930,29 +1930,29 @@ msgstr ""
 "real. Créelos usando las acciones de reasignación de página o la acción de "
 "modificación de versión."
 
-#: views/document_version_page_views.py:104
+#: views/document_version_page_views.py:107
 msgid "No document version pages available"
 msgstr "No hay páginas de versión de documento disponibles"
 
-#: views/document_version_page_views.py:107
+#: views/document_version_page_views.py:111
 #, python-format
 msgid "Pages of document version: %s"
 msgstr "Páginas de la versión del documento: %s"
 
-#: views/document_version_page_views.py:159
+#: views/document_version_page_views.py:163
 msgid "None"
 msgstr "Ninguno"
 
-#: views/document_version_page_views.py:186
+#: views/document_version_page_views.py:190
 msgid "There are no sources available to remap for this document version."
 msgstr ""
 "No hay fuentes disponibles para reasignar para esta versión del documento."
 
-#: views/document_version_page_views.py:189
+#: views/document_version_page_views.py:193
 msgid "No page sources available"
 msgstr "No hay fuentes de página disponibles"
 
-#: views/document_version_page_views.py:192
+#: views/document_version_page_views.py:196
 #, python-format
 msgid "Remap pages of document version: %s"
 msgstr "Reasignar páginas de la versión del documento: %s"
@@ -2192,8 +2192,8 @@ msgstr "%(count)d documentos agregados a favoritos."
 #: views/favorite_document_views.py:59
 msgid "Add the selected document to favorites?"
 msgid_plural "Add the selected documents to favorites?"
-msgstr[0] "¿Añadir el documento seleccionado a favoritos?"
-msgstr[1] "¿Añadir los documentos seleccionados a favoritos?"
+msgstr[0] "¿Agregar el documento seleccionado a favoritos?"
+msgstr[1] "¿Agregar los documentos seleccionados a favoritos?"
 msgstr[2] "¿Agregar los documentos seleccionados a favoritos?"
 
 #: views/favorite_document_views.py:77

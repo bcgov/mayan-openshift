@@ -4,15 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Domagoj Crljenko <domagoj@rii.hr>, 2023
+# Domagoj Crljenko <domagoj@rii.hr>, 2024
 # Mario Jakovina <mario.jakovina@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Mario Jakovina <mario.jakovina@gmail.com>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/rosarior/teams/13584/hr/)\n"
 "MIME-Version: 1.0\n"
@@ -73,19 +73,19 @@ msgstr ""
 msgid "Error log partitions"
 msgstr ""
 
-#: models.py:66
+#: models.py:67
 msgid "Date and time"
 msgstr "Datum i vrijeme"
 
-#: models.py:69
+#: models.py:71
 msgid "Text"
 msgstr ""
 
-#: models.py:77
+#: models.py:79
 msgid "Error log partition entry"
 msgstr ""
 
-#: models.py:78
+#: models.py:80
 msgid "Error log partition entries"
 msgstr ""
 
@@ -159,7 +159,7 @@ msgid ""
 "thing."
 msgstr ""
 
-#: views.py:104
+#: views.py:105
 #, python-format
 msgid "Error log entries for: %s"
 msgstr ""

@@ -4,14 +4,14 @@
 # 
 # Translators:
 # Translators:
-# Daniel Winiarski <daniel.winiarski.dw@gmail.com>, 2023
-# Annunnaky <doublemiu@gmail.com>, 2023
-# Roberto Rosario, 2023
-# Tomasz Szymanowicz <alakdae@gmail.com>, 2023
-# mic <winterfall24@gmail.com>, 2023
-# kicior kicior <kiciorek+github@gmail.com>, 2023
-# Marcin Lozynski <mlozynski@wp.pl>, 2023
-# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2023
+# Daniel Winiarski <daniel.winiarski.dw@gmail.com>, 2024
+# Annunnaky <doublemiu@gmail.com>, 2024
+# Tomasz Szymanowicz <alakdae@gmail.com>, 2024
+# Marcin Lozynski <mlozynski@wp.pl>, 2024
+# Roberto Rosario, 2024
+# kicior kicior <kiciorek+github@gmail.com>, 2024
+# mic <winterfall24@gmail.com>, 2024
+# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2024
 # tomkolp, 2024
 # edasmax <edasmax@gmail.com>, 2024
 # 
@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: edasmax <edasmax@gmail.com>, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/rosarior/teams/13584/pl/)\n"
 "MIME-Version: 1.0\n"
@@ -47,46 +47,46 @@ msgstr ""
 "Każdy przesłany dokument musi mieć przypisany typ dokumentu, ponieważ jest "
 "to podstawowy sposób kategoryzacji dokumentów w Mayan EDMS."
 
-#: apps.py:401
+#: apps.py:395
 msgid "File comments"
 msgstr "Komentarze do plików"
 
-#: apps.py:405
+#: apps.py:399
 msgid "File encodings"
 msgstr "Kodowanie plików"
 
-#: apps.py:409
+#: apps.py:403
 msgid "File MIME types"
 msgstr "Typy MIME plików"
 
-#: apps.py:413
+#: apps.py:407
 msgid "File timestamps"
 msgstr "Znaczniki czasu plików"
 
-#: apps.py:418 links/document_file_page_links.py:77
+#: apps.py:412 links/document_file_page_links.py:77
 #: models/document_file_models.py:106 models/document_file_page_models.py:26
 #: search.py:49
 msgid "Document file"
 msgstr "Plik dokumentu"
 
-#: apps.py:422 models/document_file_page_models.py:30
+#: apps.py:416 models/document_file_page_models.py:30
 #: models/document_version_page_models.py:40
 msgid "Page number"
 msgstr "Numer strony"
 
-#: apps.py:427
+#: apps.py:421
 msgid "Return the latest file of the document."
 msgstr "Zwróć najnowszy plik dokumentu."
 
-#: apps.py:428
+#: apps.py:422
 msgid "Latest file"
 msgstr "Najnowszy plik"
 
-#: apps.py:431
+#: apps.py:426
 msgid "Return the document instance."
 msgstr "Zwróć instancję dokumentu."
 
-#: apps.py:432 links/document_file_links.py:71
+#: apps.py:427 links/document_file_links.py:71
 #: links/document_file_page_links.py:71 links/document_version_links.py:73
 #: links/document_version_page_links.py:90 models/document_file_models.py:57
 #: models/document_models.py:115 models/document_version_models.py:28
@@ -97,15 +97,15 @@ msgstr "Zwróć instancję dokumentu."
 msgid "Document"
 msgstr "Dokument"
 
-#: apps.py:560 apps.py:612 apps.py:641 apps.py:675 apps.py:700
+#: apps.py:558 apps.py:612 apps.py:641 apps.py:676 apps.py:701
 msgid "Thumbnail"
 msgstr "Miniaturka"
 
-#: apps.py:566
+#: apps.py:564
 msgid "Type"
 msgstr "Typ"
 
-#: apps.py:570 apps.py:617 apps.py:680 forms/document_file_forms.py:89
+#: apps.py:569 apps.py:617 apps.py:681 forms/document_file_forms.py:89
 #: links/document_file_page_links.py:120
 #: links/document_version_page_links.py:50
 msgid "Pages"
@@ -176,7 +176,7 @@ msgstr "Nowe strony w bieżącym miesiącu"
 
 #: document_file_actions.py:9
 msgid "Append. Create a new version and append the new file pages."
-msgstr "Dodać. Utwórz nową wersję i dołącz nowe strony pliku."
+msgstr "Dodaj. Utwórz nową wersję i dołącz nowe strony pliku."
 
 #: document_file_actions.py:46
 msgid "Keep. Do not create a new version and keep the current version pages."
@@ -264,7 +264,7 @@ msgstr "Wersja dokumentu została usunięta"
 
 #: events.py:67
 msgid "Document version edited"
-msgstr "Wersja dokumentu edytowana"
+msgstr "Edytowano wersję dokumentu"
 
 #: events.py:73
 msgid "Document version page created"
@@ -683,11 +683,11 @@ msgid "All pages"
 msgstr "Wszystkie strony"
 
 #: models/document_file_model_mixins.py:299
-#: models/document_file_page_model_mixins.py:236
-#: models/document_model_mixins.py:174 models/document_models.py:67
+#: models/document_file_page_model_mixins.py:244
+#: models/document_model_mixins.py:176 models/document_models.py:67
 #: models/document_type_models.py:41 models/document_type_models.py:153
-#: models/document_version_model_mixins.py:124
-#: models/document_version_page_model_mixins.py:282
+#: models/document_version_model_mixins.py:128
+#: models/document_version_page_model_mixins.py:290
 #: serializers/document_serializers.py:22
 #: serializers/document_version_serializers.py:17
 msgid "Label"
@@ -743,7 +743,7 @@ msgstr ""
 msgid "Document files"
 msgstr "Pliki dokumentów"
 
-#: models/document_file_page_model_mixins.py:230
+#: models/document_file_page_model_mixins.py:238
 #, python-format
 msgid "%(document_file)s - page %(page_num)d of %(total_pages)d"
 msgstr "%(document_file)s - strona %(page_num)d z %(total_pages)d"
@@ -753,7 +753,7 @@ msgstr "%(document_file)s - strona %(page_num)d z %(total_pages)d"
 msgid "Document file page"
 msgstr "Strona pliku dokumentu"
 
-#: models/document_model_mixins.py:172
+#: models/document_model_mixins.py:173
 #, python-format
 msgid "Document stub, id: %d"
 msgstr "Niepełny dokument, id: %d"
@@ -946,7 +946,7 @@ msgstr "Aktywny"
 msgid "Document versions"
 msgstr "Wersje dokumentów"
 
-#: models/document_version_page_model_mixins.py:276
+#: models/document_version_page_model_mixins.py:284
 #, python-format
 msgid "%(document_version)s page %(page_number)d of %(total_pages)d"
 msgstr "%(document_version)s strona %(page_number)d z %(total_pages)d"
@@ -1592,17 +1592,17 @@ msgid "Pages of document file: %s"
 msgstr "Strony pliku dokumentu: %s"
 
 #: views/document_file_page_views.py:144
-#: views/document_version_page_views.py:311
+#: views/document_version_page_views.py:315
 msgid "There are no more pages in this document"
 msgstr "Ten dokument nie zawiera więcej stron"
 
 #: views/document_file_page_views.py:160
-#: views/document_version_page_views.py:327
+#: views/document_version_page_views.py:331
 msgid "You are already at the first page of this document"
 msgstr "Jesteś już na pierwszej stronie tego dokumentu"
 
 #: views/document_file_page_views.py:195
-#: views/document_version_page_views.py:366
+#: views/document_version_page_views.py:370
 #, python-format
 msgid "Image of: %s"
 msgstr "Obraz dokumentu: %s"
@@ -1875,12 +1875,12 @@ msgstr ""
 "Numer tej strony zostanie pominięty. Jeśli chcesz uzyskać sekwencyjną "
 "numerację stron, użyj zamiast tego akcji zmiany mapowania strony."
 
-#: views/document_version_page_views.py:61
+#: views/document_version_page_views.py:62
 #, python-format
 msgid "Delete document version page %s ?"
 msgstr "Usunąć stronę wersji dokumentu %s ?"
 
-#: views/document_version_page_views.py:100
+#: views/document_version_page_views.py:102
 msgid ""
 "Document version pages are links to actual content pages. Create them using "
 "the page remap actions or the version modification action."
@@ -1888,30 +1888,30 @@ msgstr ""
 "Strony wersji dokumentu są łączami do stron z rzeczywistą treścią. Utwórz je"
 " za pomocą akcji zmiany mapowania strony lub akcji modyfikacji wersji."
 
-#: views/document_version_page_views.py:104
+#: views/document_version_page_views.py:107
 msgid "No document version pages available"
 msgstr "Brak dostępnych stron wersji dokumentu"
 
-#: views/document_version_page_views.py:107
+#: views/document_version_page_views.py:111
 #, python-format
 msgid "Pages of document version: %s"
 msgstr "Strony wersji dokumentu: %s"
 
-#: views/document_version_page_views.py:159
+#: views/document_version_page_views.py:163
 msgid "None"
 msgstr "Brak"
 
-#: views/document_version_page_views.py:186
+#: views/document_version_page_views.py:190
 msgid "There are no sources available to remap for this document version."
 msgstr ""
 "Nie ma dostępnych źródeł umożliwiających ponowne mapowanie dla tej wersji "
 "dokumentu."
 
-#: views/document_version_page_views.py:189
+#: views/document_version_page_views.py:193
 msgid "No page sources available"
 msgstr "Brak dostępnych źródeł stron"
 
-#: views/document_version_page_views.py:192
+#: views/document_version_page_views.py:196
 #, python-format
 msgid "Remap pages of document version: %s"
 msgstr "Zmień mapowanie stron wersji dokumentu: %s"
@@ -2047,7 +2047,7 @@ msgid ""
 "%(document_version)s; %(error)s."
 msgstr ""
 "Błąd podczas klonowania przekształceń strony dla wersji dokumentu: "
-"%(document_version)s ; %(error)s ."
+"%(document_version)s ; %(error)s."
 
 #: views/document_version_views.py:427
 #, python-format

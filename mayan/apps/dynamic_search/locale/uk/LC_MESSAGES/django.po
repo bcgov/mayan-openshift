@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2023
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-02-07 11:57+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/rosarior/teams/13584/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -255,47 +255,47 @@ msgstr "Терміни фільтрування"
 msgid "Advanced"
 msgstr "Розширений"
 
-#: value_transformations.py:37
+#: value_transformations.py:38
 msgid "Replace accents"
 msgstr "Замінити акценти"
 
-#: value_transformations.py:49
+#: value_transformations.py:50
 msgid "@ sign replace"
 msgstr "@ знак заміни"
 
-#: value_transformations.py:59
+#: value_transformations.py:60
 msgid "Case fold"
 msgstr "Основа вибору"
 
-#: value_transformations.py:69 value_transformations.py:79
+#: value_transformations.py:70 value_transformations.py:80
 msgid "Hyphen replace"
 msgstr "Замінити дефіс"
 
-#: value_transformations.py:89
+#: value_transformations.py:90
 msgid "To boolean"
 msgstr "До булевого"
 
-#: value_transformations.py:102
+#: value_transformations.py:105
 msgid "To date time"
 msgstr "До позначки дати і часу"
 
-#: value_transformations.py:124
+#: value_transformations.py:132
 msgid "Date time ISO format"
 msgstr "Дата і час у ISO форматі"
 
-#: value_transformations.py:134
+#: value_transformations.py:146
 msgid "Date time simple format"
 msgstr "Простий формат дати і часу"
 
-#: value_transformations.py:144
+#: value_transformations.py:158
 msgid "Date time timestamp format"
 msgstr "Дата і час  timestamp мітки часу"
 
-#: value_transformations.py:158
+#: value_transformations.py:174
 msgid "To integer"
 msgstr "До цілого"
 
-#: value_transformations.py:168
+#: value_transformations.py:184
 msgid "To string"
 msgstr "До строки"
 

@@ -160,6 +160,7 @@ class CheckoutsAPITestCase(
         self.assertTrue(
             self._test_document.is_checked_out()
         )
+
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
 

@@ -9,7 +9,7 @@ x-mayan-container:
     MAYAN_DATABASES: "{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'${MAYAN_DATABASE_NAME:-mayan}','PASSWORD':'${MAYAN_DATABASE_PASSWORD:-mayandbpass}','USER':'${MAYAN_DATABASE_USER:-mayan}','HOST':'${MAYAN_DATABASE_HOST:-postgresql}','CONN_MAX_AGE':${MAYAN_DATABASE_CONN_MAX_AGE:-0}}}"
     MAYAN_LOCK_MANAGER_BACKEND: mayan.apps.lock_manager.backends.redis_lock.RedisLock
     MAYAN_LOCK_MANAGER_BACKEND_ARGUMENTS: "{'redis_url':'redis://:${MAYAN_REDIS_PASSWORD:-mayanredispassword}@redis:6379/${MAYAN_REDIS_LOCK_MANAGER_DATABASE:-2}'}"
-  image: ${MAYAN_DOCKER_IMAGE_NAME:-mayanedms/mayanedms}:${MAYAN_DOCKER_IMAGE_TAG:-s4.5}
+  image: ${MAYAN_DOCKER_IMAGE_NAME:-mayanedms/mayanedms}:${MAYAN_DOCKER_IMAGE_TAG:-s4.6}
   logging:
     driver: "json-file"
     options:
@@ -104,7 +104,7 @@ services:
       KC_DB: ${MAYAN_KEYCLOAK_DATABASE_NAME:-keycloak}
       KC_DB_PASSWORD: ${MAYAN_KEYCLOAK_DATABASE_PASSWORD:-keycloakdbpass}
       KC_DB_URL_DATABASE: ${MAYAN_KEYCLOAK_DATABASE_NAME:-keycloak}
-      KC_DB_URL_HOST: keycloak-postgres
+      KC_DB_URL_HOST: ${MAYAN_KEYCLOAK_DATABASE_HOST:-keycloak-postgres}
       KC_DB_USERNAME: ${MAYAN_DATABASE_KEYCLOAK_USER:-keycloak}
       KC_HOSTNAME_URL: http://127.0.0.1:8081/
       KC_HOSTNAME_STRICT: false
@@ -138,7 +138,7 @@ services:
       POSTGRES_DB: ${MAYAN_KEYCLOAK_DATABASE_NAME:-keycloak}
       POSTGRES_PASSWORD: ${MAYAN_KEYCLOAK_DATABASE_PASSWORD:-keycloakdbpass}
       POSTGRES_USER: ${MAYAN_DATABASE_KEYCLOAK_USER:-keycloak}
-    image: postgres:${MAYAN_DOCKER_KEYCLOAK_POSTGRESQL_TAG:-13.14-alpine}
+    image: ${MAYAN_DOCKER_KEYCLOAK_POSTGRESQL_IMAGE:-postgres}:${MAYAN_DOCKER_KEYCLOAK_POSTGRESQL_TAG:-13.15-alpine}
     networks:
       - keycloak
     profiles:
@@ -162,7 +162,7 @@ services:
       POSTGRES_DB: ${MAYAN_DATABASE_NAME:-mayan}
       POSTGRES_PASSWORD: ${MAYAN_DATABASE_PASSWORD:-mayandbpass}
       POSTGRES_USER: ${MAYAN_DATABASE_USER:-mayan}
-    image: ${MAYAN_DOCKER_POSTGRESQL_IMAGE:-postgres}:${MAYAN_DOCKER_POSTGRESQL_TAG:-13.14-alpine}
+    image: ${MAYAN_DOCKER_POSTGRESQL_IMAGE:-postgres}:${MAYAN_DOCKER_POSTGRESQL_TAG:-13.15-alpine}
     networks:
       - mayan
     # Enable to allow external access to the database.
@@ -174,6 +174,34 @@ services:
     shm_size: 128m
     volumes:
       - ${MAYAN_POSTGRESQL_VOLUME:-postgres}:/var/lib/postgresql/data
+
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_USER: ${MAYAN_RABBITMQ_USER:-mayan}
+      RABBITMQ_DEFAULT_PASS: ${MAYAN_RABBITMQ_PASSWORD:-mayanrabbitpass}
+      RABBITMQ_DEFAULT_VHOST: ${MAYAN_RABBITMQ_VHOST:-mayan}
+    hostname: ${MAYAN_DOCKER_RABBITMQ_HOSTNAME:-rabbitmq}
+    image: ${MAYAN_DOCKER_RABBITMQ_IMAGE:-rabbitmq}:${MAYAN_DOCKER_RABBITMQ_TAG:-3.12.28-management-alpine}
+    labels:
+      - "traefik.enable=${MAYAN_TRAEFIK_RABBITMQ_ENABLE:-false}"
+      - "traefik.http.routers.rabbitmq_admin_http.entrypoints=rabbitmq_admin_http"
+      - "traefik.http.routers.rabbitmq_admin_http.rule=Host(`${MAYAN_TRAEFIK_EXTERNAL_DOMAIN}`)"
+      - "traefik.http.routers.rabbitmq_admin_http.service=rabbitmq_admin_http"
+      - "traefik.http.routers.rabbitmq_admin_http.tls=true"
+      - "traefik.http.routers.rabbitmq_admin_http.tls.certresolver=letsencrypt"
+      - "traefik.http.services.rabbitmq_admin_http.loadbalancer.server.port=15672"
+    networks:
+      - mayan
+    # Enable the first port to allow access to the administration interface.
+    # Enable the second port to allow external access to the data.
+    # ports:
+    #   - "${MAYAN_RABBITMQ_ADMIN_PORT:-15672}:15672"
+    #   - "5672:5672"
+    profiles:
+      - rabbitmq
+    restart: unless-stopped
+    volumes:
+      - ${MAYAN_RABBITMQ_VOLUME:-rabbitmq}:/var/lib/rabbitmq
 
   redis:
     command:
@@ -212,8 +240,8 @@ services:
       - extra_frontend
       - multi_container
 
-  # Enable to run standalone workers
-  mountindex:
+  # Enable to run mirror an index.
+  index_mirror:
     <<: [*mayan-container, *mayan-dependencies]
     cap_add:
       - SYS_ADMIN
@@ -222,15 +250,19 @@ services:
     entrypoint:
       - /bin/sh
       - -c
-      - 'mkdir --parents /mnt/index && chown mayan:mayan /mnt/index && /usr/local/bin/entrypoint.sh run_command "mirroring_mount_index --allow-other creation_date /mnt/index"'  # Replace "creation_date" with the index of your choice.
+      - 'mkdir --parents /mnt/index && chown mayan:mayan /mnt/index && /usr/local/bin/entrypoint.sh run_command "mirroring_mount_index --allow-other ${MAYAN_MIRROR_INDEX_NAME} /mnt/index-${MAYAN_MIRROR_INDEX_NAME}"'
     profiles:
-      - mountindex
+      - index_mirror
     security_opt:
       - apparmor:unconfined
     volumes:
       - type: bind
-        source: /mnt/mayan_indexes/creation_date  # Host location where the index will show up.
-        target: /mnt/index  # Location inside the container where the index will be mounted. Must the same is in the "entrypoint" section.
+        # Location in the host where the index will show up.
+        # Must be created before enabling this profile.
+        # The Docker user must have access to this folder.
+        source: /mnt/mayan_indexes/${MAYAN_MIRROR_INDEX_NAME}
+        # Location inside the container where the index will be mounted.
+        target: /mnt/index-${MAYAN_MIRROR_INDEX_NAME}
         bind:
           propagation: shared
 
@@ -317,34 +349,6 @@ services:
       - extra_worker_custom
       - multi_container
     restart: "no"
-
-  rabbitmq:
-    environment:
-      RABBITMQ_DEFAULT_USER: ${MAYAN_RABBITMQ_USER:-mayan}
-      RABBITMQ_DEFAULT_PASS: ${MAYAN_RABBITMQ_PASSWORD:-mayanrabbitpass}
-      RABBITMQ_DEFAULT_VHOST: ${MAYAN_RABBITMQ_VHOST:-mayan}
-    hostname: ${MAYAN_DOCKER_RABBITMQ_HOSTNAME:-rabbitmq}
-    image: ${MAYAN_DOCKER_RABBITMQ_IMAGE:-rabbitmq}:${MAYAN_DOCKER_RABBITMQ_TAG:-3.12.12-management-alpine}
-    labels:
-      - "traefik.enable=${MAYAN_TRAEFIK_RABBITMQ_ENABLE:-false}"
-      - "traefik.http.routers.rabbitmq_admin_http.entrypoints=rabbitmq_admin_http"
-      - "traefik.http.routers.rabbitmq_admin_http.rule=Host(`${MAYAN_TRAEFIK_EXTERNAL_DOMAIN}`)"
-      - "traefik.http.routers.rabbitmq_admin_http.service=rabbitmq_admin_http"
-      - "traefik.http.routers.rabbitmq_admin_http.tls=true"
-      - "traefik.http.routers.rabbitmq_admin_http.tls.certresolver=letsencrypt"
-      - "traefik.http.services.rabbitmq_admin_http.loadbalancer.server.port=15672"
-    networks:
-      - mayan
-    # Enable the first port to allow access to the administration interface.
-    # Enable the second port to allow external access to the data.
-    # ports:
-    #   - "${MAYAN_RABBITMQ_ADMIN_PORT:-15672}:15672"
-    #   - "5672:5672"
-    profiles:
-      - rabbitmq
-    restart: unless-stopped
-    volumes:
-      - ${MAYAN_RABBITMQ_VOLUME:-rabbitmq}:/var/lib/rabbitmq
 
   traefik:
     container_name: "traefik"

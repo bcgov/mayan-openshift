@@ -12,7 +12,7 @@ except ImportError:
 
 from django.core.files import File
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 
 from mayan.apps.mime_types.classes import MIMETypeBackend
 
@@ -189,7 +189,7 @@ class ZipArchive(Archive):
                 filename = filename.decode('CP437')
                 is_unicode = False
             except AttributeError:
-                filename = force_text(s=filename)
+                filename = force_str(s=filename)
                 is_unicode = True
             except UnicodeEncodeError:
                 is_unicode = True

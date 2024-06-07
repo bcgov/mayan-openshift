@@ -4,7 +4,7 @@ from django.urls import reverse
 from furl import furl
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.permissions import Permission, PermissionNamespace
+from mayan.apps.permissions.classes import Permission, PermissionNamespace
 from mayan.apps.testing.tests.base import GenericViewTestCase
 
 from ..classes import Link, Menu, SourceColumn
@@ -57,7 +57,7 @@ class LinkClassTestCase(GenericViewTestCase):
 
     def test_link_permission_resolve_no_permission(self):
         link = Link(
-            permissions=(self._test_permission,), text=TEST_LINK_TEXT,
+            permission=self._test_permission, text=TEST_LINK_TEXT,
             view=self._test_view_name
         )
 
@@ -73,7 +73,7 @@ class LinkClassTestCase(GenericViewTestCase):
 
     def test_link_permission_resolve_with_permission(self):
         link = Link(
-            permissions=(self._test_permission,), text=TEST_LINK_TEXT,
+            permission=self._test_permission, text=TEST_LINK_TEXT,
             view=self._test_view_name
         )
 
@@ -97,7 +97,7 @@ class LinkClassTestCase(GenericViewTestCase):
         # ACL is tested against the resolved_object or just {{ object }}
         # if not.
         link = Link(
-            permissions=(self._test_permission,), text=TEST_LINK_TEXT,
+            permission=self._test_permission, text=TEST_LINK_TEXT,
             view=self._test_view_name
         )
 

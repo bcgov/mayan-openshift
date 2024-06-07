@@ -12,11 +12,11 @@ from django.template import RequestContext, Variable, VariableDoesNotExist
 from django.template.defaulttags import URLNode
 from django.urls import resolve, reverse
 from django.utils.encoding import force_str
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.settings import setting_home_view
 from mayan.apps.common.utils import get_related_field, resolve_attribute
-from mayan.apps.permissions import Permission
+from mayan.apps.permissions.classes import Permission
 from mayan.apps.views.icons import icon_sort_down, icon_sort_up
 from mayan.apps.views.literals import (
     TEXT_SORT_FIELD_PARAMETER, TEXT_SORT_FIELD_VARIABLE_NAME
@@ -49,7 +49,7 @@ class Link(TemplateObjectMixin):
         condition=None, conditional_active=None, conditional_disable=None,
         description=None, html_data=None, html_extra_attributes=None,
         html_extra_classes=None, icon=None, keep_query=False, kwargs=None,
-        name=None, permissions=None, query=None, remove_from_query=None,
+        name=None, permission=None, query=None, remove_from_query=None,
         tags=None, url=None
     ):
         self.args = args or []
@@ -66,7 +66,7 @@ class Link(TemplateObjectMixin):
         self.keep_query = keep_query
         self._kwargs = kwargs or {}
         self.name = name
-        self._permissions = permissions or []
+        self._permission = permission
         self.query = query or {}
         self.remove_from_query = remove_from_query or []
         self.tags = tags
@@ -90,8 +90,8 @@ class Link(TemplateObjectMixin):
     def get_permission_object(self, context):
         return None
 
-    def get_permissions(self, context):
-        return self._permissions
+    def get_permission(self, context):
+        return self._permission
 
     def get_resolved_object(self, context):
         try:
@@ -135,21 +135,21 @@ class Link(TemplateObjectMixin):
 
         # If this link has a required permission check that the user has it
         # too.
-        permissions = self.get_permissions(context=context)
+        permission = self.get_permission(context=context)
 
-        if permissions:
+        if permission:
             if permission_object:
                 try:
                     AccessControlList.objects.check_access(
-                        obj=permission_object, permissions=permissions,
+                        obj=permission_object, permission=permission,
                         user=request.user
                     )
                 except PermissionDenied:
                     return None
             else:
                 try:
-                    Permission.check_user_permissions(
-                        permissions=permissions, user=request.user
+                    Permission.check_user_permission(
+                        permission=permission, user=request.user
                     )
                 except PermissionDenied:
                     return None
@@ -232,7 +232,7 @@ class Link(TemplateObjectMixin):
             # Sometimes we are required to remove a key from the URL query.
             parsed_url = furl(
                 force_str(
-                    request.get_full_path() or request.META.get(
+                    s=request.get_full_path() or request.META.get(
                         'HTTP_REFERER', reverse(setting_home_view.value)
                     )
                 )
@@ -792,13 +792,26 @@ class SourceColumn(TemplateObjectMixin):
                 except AttributeError:
                     # Not a model instance.
 
-                    # Try as subclass instance, check the class hierarchy.
-                    for super_class in source.__class__.__mro__[:-1]:
-                        columns.extend(
-                            cls._registry.get(
-                                super_class, ()
+                    try:
+                        super_class_list = source.__mro__[:-1]
+                    except AttributeError:
+                        # Is not a class.
+
+                        # Try as subclass instance, check the class hierarchy.
+                        for super_class in source.__class__.__mro__[:-1]:
+                            columns.extend(
+                                cls._registry.get(
+                                    super_class, ()
+                                )
                             )
-                        )
+                    else:
+                        # Try as a subclass.
+                        for super_class in super_class_list:
+                            columns.extend(
+                                cls._registry.get(
+                                    super_class, ()
+                                )
+                            )
 
                     return columns
                 else:
@@ -822,10 +835,10 @@ class SourceColumn(TemplateObjectMixin):
 
                     return columns
             else:
-                # It was is a list.
+                # It is a list.
                 return cls.get_column_matches(source=item)
         else:
-            # It was is a queryset.
+            # It is a queryset.
             return cls.get_column_matches(source=model)
 
     @classmethod
@@ -960,7 +973,9 @@ class SourceColumn(TemplateObjectMixin):
                         self._label = self.attribute
             else:
                 self._label = getattr(
-                    self.func, 'short_description', _('Unnamed function')
+                    self.func, 'short_description', _(
+                        message='Unnamed function'
+                    )
                 )
 
         self.label = self._label
@@ -1039,10 +1054,17 @@ class SourceColumn(TemplateObjectMixin):
 
     def resolve(self, context):
         if self.attribute:
-            result = resolve_attribute(
-                attribute=self.attribute, kwargs=self.kwargs,
-                obj=context['object']
-            )
+            try:
+                result = resolve_attribute(
+                    attribute=self.attribute, kwargs=self.kwargs,
+                    obj=context['object']
+                )
+            except Exception as exception:
+                raise AttributeError(
+                    'Unable to resolve SourceColumn attribute `{}` for object `{}`.'.format(
+                        self.attribute, context['object']
+                    )
+                ) from exception
         elif self.func:
             result = self.func(context=context, **self.kwargs)
         else:

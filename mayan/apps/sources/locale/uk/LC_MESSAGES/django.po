@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2023
-# Сергій Гарашко, 2023
-# olenchenko <olenchenko@gmail.com>, 2023
+# olenchenko <olenchenko@gmail.com>, 2024
+# Сергій Гарашко, 2024
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-04-23 04:57+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/rosarior/teams/13584/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -176,19 +176,19 @@ msgstr "Налаштування джерел"
 msgid "View document file source metadata"
 msgstr ""
 
-#: permissions.py:18
+#: permissions.py:19
 msgid "Create new document sources"
 msgstr "Створити нові джерела документів"
 
-#: permissions.py:21
+#: permissions.py:22
 msgid "Delete document sources"
 msgstr "Видалити джерела документа"
 
-#: permissions.py:24
+#: permissions.py:25
 msgid "Edit document sources"
 msgstr "Редагувати джерела документа"
 
-#: permissions.py:27
+#: permissions.py:28
 msgid "View existing document sources"
 msgstr "Переглянути існуючі джерела документів"
 
@@ -196,11 +196,11 @@ msgstr "Переглянути існуючі джерела документі�
 msgid "Sources periodic"
 msgstr "Джерела періодів"
 
-#: queues.py:17
+#: queues.py:18
 msgid "Handle source backend action background task"
 msgstr "Обробка дії джерела фонового завдання бекенду"
 
-#: queues.py:21
+#: queues.py:22
 msgid "Check interval source"
 msgstr "Перевірити джерело інтервалу"
 

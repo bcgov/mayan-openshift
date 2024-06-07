@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2023
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps.py:39 events.py:6 links.py:37 links.py:46 models.py:46
-#: permissions.py:6 templates/announcements/announcements.html:8 views.py:126
+#: permissions.py:6 templates/announcements/announcements.html:8 views.py:127
 msgid "Announcements"
 msgstr "Közlemények"
 
@@ -38,7 +38,7 @@ msgstr "Közlemény létrehozva"
 msgid "Announcement edited"
 msgstr "Közlemény szerkesztve"
 
-#: links.py:18 views.py:34
+#: links.py:17 views.py:34
 msgid "Create announcement"
 msgstr "Közlemény létrehozása"
 
@@ -113,7 +113,7 @@ msgstr "URL"
 #: views.py:45
 #, python-format
 msgid "Error deleting announcement \"%(instance)s\"; %(exception)s"
-msgstr "Hiba a \"%(instance)s\" ; közlemény törlésekor; %(exception)s"
+msgstr "Hiba a \"%(instance)s\" közlemény törlésekor; %(exception)s"
 
 #: views.py:54
 #, python-format
@@ -156,10 +156,10 @@ msgid ""
 "convey information about your organization, announcements or usage "
 "guidelines for your users."
 msgstr ""
-"A közleményeka bejelentkezési nézetben jelennek meg. A közlemények "
+"A közlemények a bejelentkezési nézetben jelennek meg. A közlemények "
 "segítségével információkat közölhet szervezetéről, bejelentéseket vagy "
 "használati irányelveket a felhasználók számára."
 
-#: views.py:125
+#: views.py:126
 msgid "No announcements available"
 msgstr "Nem állnak rendelkezésre közlemények"

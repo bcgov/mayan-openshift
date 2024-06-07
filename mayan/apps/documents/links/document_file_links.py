@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.converter.permissions import (
     permission_transformation_delete, permission_transformation_edit
@@ -23,83 +23,83 @@ from ..permissions import (
 link_document_file_delete = Link(
     args='object.pk',
     icon=icon_document_file_delete,
-    permissions=(permission_document_file_delete,), tags='dangerous',
-    text=_('Delete'), view='documents:document_file_delete',
+    permission=permission_document_file_delete, tags='dangerous',
+    text=_(message='Delete'), view='documents:document_file_delete',
 )
 link_document_file_multiple_delete = Link(
     icon=icon_document_file_delete,
-    permissions=(permission_document_file_delete,), tags='dangerous',
-    text=_('Delete'), view='documents:document_file_multiple_delete',
+    permission=permission_document_file_delete, tags='dangerous',
+    text=_(message='Delete'), view='documents:document_file_multiple_delete',
 )
 link_document_file_edit = Link(
     args='object.pk', icon=icon_document_file_edit,
-    permissions=(permission_document_file_edit,),
-    text=_('Edit'), view='documents:document_file_edit',
+    permission=permission_document_file_edit,
+    text=_(message='Edit'), view='documents:document_file_edit',
 )
 link_document_file_introspect_multiple = Link(
     icon=icon_document_file_introspect,
-    text=_('Introspect'),
+    text=_(message='Introspect'),
     view='documents:document_file_introspect_multiple'
 )
 link_document_file_introspect_single = Link(
     args='resolved_object.pk',
     icon=icon_document_file_introspect,
-    permissions=(permission_document_file_tools,),
-    text=_('Introspect'),
+    permission=permission_document_file_tools,
+    text=_(message='Introspect'),
     view='documents:document_file_introspect_single'
 )
 link_document_file_list = Link(
     args='resolved_object.pk',
     icon=icon_document_file_list,
-    permissions=(permission_document_file_view,),
-    text=_('Files'), view='documents:document_file_list',
+    permission=permission_document_file_view,
+    text=_(message='Files'), view='documents:document_file_list',
 )
 link_document_file_print_form = Link(
     args='resolved_object.id', icon=icon_document_file_print,
-    permissions=(permission_document_file_print,), text=_('Print'),
+    permission=permission_document_file_print, text=_(message='Print'),
     view='documents:document_file_print_form'
 )
 link_document_file_properties = Link(
     args='resolved_object.id',
     icon=icon_document_file_properties_detail,
-    permissions=(permission_document_file_view,),
-    text=_('Properties'), view='documents:document_file_properties',
+    permission=permission_document_file_view,
+    text=_(message='Properties'), view='documents:document_file_properties',
 )
 link_document_file_return_to_document = Link(
     args='resolved_object.document.pk',
     icon=icon_document_file_return_to_document,
-    permissions=(permission_document_view,), text=_('Document'),
+    permission=permission_document_view, text=_(message='Document'),
     view='documents:document_preview',
 )
 link_document_file_return_list = Link(
     args='resolved_object.document.pk',
     icon=icon_document_file_return_list,
-    permissions=(permission_document_file_view,), text=_('Files'),
+    permission=permission_document_file_view, text=_(message='Files'),
     view='documents:document_file_list',
 )
 link_document_file_preview = Link(
     args='resolved_object.pk',
     icon=icon_document_file_preview,
-    permissions=(permission_document_file_view,),
-    text=_('Preview'), view='documents:document_file_preview'
+    permission=permission_document_file_view,
+    text=_(message='Preview'), view='documents:document_file_preview'
 )
 link_document_file_transformations_clear = Link(
     args='resolved_object.id',
     icon=icon_document_file_transformation_list_clear,
-    permissions=(permission_transformation_delete,),
-    text=_('Clear transformations'),
+    permission=permission_transformation_delete,
+    text=_(message='Clear transformations'),
     view='documents:document_file_transformations_clear'
 )
 link_document_file_multiple_transformations_clear = Link(
     icon=icon_document_file_transformation_list_clear,
-    permissions=(permission_transformation_delete,),
-    text=_('Clear transformations'),
+    permission=permission_transformation_delete,
+    text=_(message='Clear transformations'),
     view='documents:document_file_multiple_transformations_clear'
 )
 link_document_file_transformations_clone = Link(
     args='resolved_object.id',
     icon=icon_document_file_transformation_list_clone,
-    permissions=(permission_transformation_edit,),
-    text=_('Clone transformations'),
+    permission=permission_transformation_edit,
+    text=_(message='Clone transformations'),
     view='documents:document_file_transformations_clone'
 )

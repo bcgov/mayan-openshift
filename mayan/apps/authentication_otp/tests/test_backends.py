@@ -1,14 +1,15 @@
+from urllib.parse import unquote_plus
+
 from furl import furl
 
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.test import override_settings
 from django.urls import reverse
-from django.utils.http import urlunquote_plus
 
 from mayan.apps.authentication.classes import AuthenticationBackend
 from mayan.apps.authentication.tests.mixins import LoginViewTestMixin
-from mayan.apps.smart_settings.classes import SettingNamespace
+from mayan.apps.smart_settings.settings import setting_cluster
 from mayan.apps.testing.tests.base import GenericViewTestCase
 
 from .literals import (
@@ -22,8 +23,8 @@ class AuthenticationOTPBackendTestCase(
     AuthenticationOTPTestMixin, LoginViewTestMixin, GenericViewTestCase
 ):
     authenticated_url = reverse(viewname='common:home')
-    authentication_url = urlunquote_plus(
-        furl(
+    authentication_url = unquote_plus(
+        string=furl(
             path=reverse(settings.LOGIN_URL), args={
                 'next': authenticated_url
             }
@@ -34,7 +35,7 @@ class AuthenticationOTPBackendTestCase(
 
     def setUp(self):
         super().setUp()
-        SettingNamespace.invalidate_cache_all()
+        setting_cluster.do_cache_invalidate()
 
     @override_settings(AUTHENTICATION_BACKEND=PATH_AUTHENTICATION_BACKEND_EMAIL_OTP)
     def test_authentication_backend_email_no_otp(self):

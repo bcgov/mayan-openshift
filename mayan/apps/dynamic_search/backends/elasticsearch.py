@@ -92,7 +92,9 @@ class BackendQueryTypeGreaterThan(BackendQueryType):
         if self.value is not None:
             return Q(
                 name_or_query='range', _expand__to_dot=False,
-                **{self.search_field.field_name: {'gt': self.value}}
+                **{
+                    self.search_field.field_name: {'gt': self.value}
+                }
             )
 
 
@@ -103,7 +105,9 @@ class BackendQueryTypeGreaterThanOrEqual(BackendQueryType):
         if self.value is not None:
             return Q(
                 name_or_query='range', _expand__to_dot=False,
-                **{self.search_field.field_name: {'gte': self.value}}
+                **{
+                    self.search_field.field_name: {'gte': self.value}
+                }
             )
 
 
@@ -114,7 +118,9 @@ class BackendQueryTypeLessThan(BackendQueryType):
         if self.value is not None:
             return Q(
                 name_or_query='range', _expand__to_dot=False,
-                **{self.search_field.field_name: {'lt': self.value}}
+                **{
+                    self.search_field.field_name: {'lt': self.value}
+                }
             )
 
 
@@ -125,7 +131,9 @@ class BackendQueryTypeLessThanOrEqual(BackendQueryType):
         if self.value is not None:
             return Q(
                 name_or_query='range', _expand__to_dot=False,
-                **{self.search_field.field_name: {'lte': self.value}}
+                **{
+                    self.search_field.field_name: {'lte': self.value}
+                }
             )
 
 
@@ -427,12 +435,14 @@ class ElasticSearchBackend(SearchBackend):
             index=self._get_index_name(search_model=search_model)
         )
 
-    def index_instance(self, instance, exclude_model=None, exclude_kwargs=None):
+    def index_instance(
+        self, instance, exclude_model=None, exclude_kwargs=None
+    ):
         search_model = SearchModel.get_for_model(instance=instance)
 
         document = search_model.populate(
-            search_backend=self, instance=instance, exclude_model=exclude_model,
-            exclude_kwargs=exclude_kwargs
+            exclude_kwargs=exclude_kwargs, exclude_model=exclude_model,
+            instance=instance, search_backend=self
         )
         self._get_client().index(
             index=self._get_index_name(search_model=search_model),
@@ -457,7 +467,7 @@ class ElasticSearchBackend(SearchBackend):
                 yield kwargs
 
         bulk_indexing_generator = helpers.streaming_bulk(
-            client=client, index=index_name, actions=generate_actions(),
+            actions=generate_actions(), client=client, index=index_name,
             yield_ok=False
         )
 

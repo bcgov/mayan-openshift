@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Stefaniu Criste <gupi@hangar.ro>, 2023
-# Badea Gabriel <gcbadea@gmail.com>, 2023
+# Stefaniu Criste <gupi@hangar.ro>, 2024
+# Badea Gabriel <gcbadea@gmail.com>, 2024
 # Harald Ersch, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Harald Ersch, 2024\n"
 "Language-Team: Romanian (Romania) (https://app.transifex.com/rosarior/teams/13584/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: apps.py:36 events.py:6 permissions.py:6 settings.py:11
+#: apps.py:35 events.py:6 permissions.py:6 settings.py:11
 msgid "Authentication"
 msgstr "Autentificare"
 
@@ -118,29 +118,25 @@ msgstr "Faceți clic aici când ați terminat"
 msgid "Login"
 msgstr "Conectare"
 
-#: templates/authentication/login.html:21
-msgid "Sign in"
-msgstr "Înscriere"
-
-#: templates/authentication/login.html:62
-#: templates/authentication/login.html:72
-#: templates/authentication/login.html:86
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 msgid "Save"
 msgstr "Salvează"
 
-#: templates/authentication/login.html:62
-#: templates/authentication/login.html:72
-#: templates/authentication/login.html:86
+#: templates/authentication/login.html:65
+#: templates/authentication/login.html:75
+#: templates/authentication/login.html:89
 #: templates/authentication/password_reset_confirm.html:29
 #: templates/authentication/password_reset_form.html:29
 msgid "Submit"
 msgstr "Trimiteţi"
 
-#: templates/authentication/login.html:76
+#: templates/authentication/login.html:79
 msgid "Cancel"
 msgstr "Anulează"
 
-#: templates/authentication/login.html:98
+#: templates/authentication/login.html:106
 msgid "Forgot your password?"
 msgstr "Ați uitat parola?"
 
@@ -167,39 +163,43 @@ msgstr "Pagina de conectare"
 msgid "Password reset email sent!"
 msgstr "Email-ul de reinițializare a parolei a fost trimis!"
 
-#: views/authentication_views.py:161
+#: views/authentication_views.py:160
 msgid "Next"
 msgstr "Următor"
 
-#: views/authentication_views.py:167
+#: views/authentication_views.py:166
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "Pasul %(step)d din %(total_steps)d: %(step_label)s"
 
-#: views/authentication_views.py:237
+#: views/authentication_views.py:190
+msgid "Sign in"
+msgstr "Înscriere"
+
+#: views/authentication_views.py:240
 msgid "Your password has been successfully changed."
 msgstr "Parola dvs. a fost schimbată cu succes"
 
-#: views/authentication_views.py:247
+#: views/authentication_views.py:251
 msgid "Current user password change"
 msgstr "Schimbare parolă pentru utilizatorul curent"
 
-#: views/authentication_views.py:259
+#: views/authentication_views.py:263
 msgid "Changing the password is not allowed for this account."
 msgstr "Schimbarea parolei nu este permisă pentru acest cont."
 
-#: views/authentication_views.py:357
+#: views/authentication_views.py:362
 #, python-format
 msgid "Password change request performed on %(count)d user"
 msgstr "Solicitarea de schimbare a parolei efectuată pe %(count)dutilizator "
 
-#: views/authentication_views.py:360
+#: views/authentication_views.py:365
 #, python-format
 msgid "Password change request performed on %(count)d users"
 msgstr ""
 "Solicitarea de modificare a parolei efectuată pe %(count)dutilizatori "
 
-#: views/authentication_views.py:377
+#: views/authentication_views.py:382
 msgid ""
 "Changing the password of staff or super user accounts via the user interface"
 " is not allowed. Use administration tools to perform this operation."
@@ -208,24 +208,24 @@ msgstr ""
 "interfața cu utilizatorul nu este permisă. Utilizați instrumente de "
 "administrare pentru a efectua această operațiune."
 
-#: views/authentication_views.py:391
+#: views/authentication_views.py:396
 msgid "Change user password"
 msgid_plural "Change users passwords"
 msgstr[0] "Schimbați parola utilizatorului"
 msgstr[1] "Schimbați parolele utilizatorilor"
 msgstr[2] "Schimbați parolele utilizatorilor"
 
-#: views/authentication_views.py:402
+#: views/authentication_views.py:407
 #, python-format
 msgid "Change password for user: %s"
 msgstr "Schimbați parola pentru utilizatorul: %s"
 
-#: views/authentication_views.py:426
+#: views/authentication_views.py:431
 #, python-format
 msgid "Successful password reset for user: %s."
 msgstr "Resetarea reușită a parolei pentru utilizatorul: %s."
 
-#: views/authentication_views.py:432
+#: views/authentication_views.py:437
 #, python-format
 msgid "Error resetting password for user \"%(user)s\": %(error)s"
 msgstr ""

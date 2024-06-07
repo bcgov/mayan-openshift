@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from actstream.models import Action
 
@@ -62,7 +62,7 @@ class EventListClearView(EventClearBaseView):
         context = super().get_extra_context()
         context.update(
             {
-                'title': _('Clear events')
+                'title': _(message='Clear events')
             }
         )
         return context
@@ -83,7 +83,7 @@ class ObjectEventClearView(
         context.update(
             {
                 'object': self.external_object,
-                'title': _('Clear events of: %s') % self.external_object
+                'title': _(message='Clear events of: %s') % self.external_object
             }
         )
         return context

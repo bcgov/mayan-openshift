@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# olenchenko <olenchenko@gmail.com>, 2023
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2023
-# Сергій Гарашко, 2023
+# olenchenko <olenchenko@gmail.com>, 2024
+# Сергій Гарашко, 2024
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/rosarior/teams/13584/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -119,7 +119,7 @@ msgstr "Видалити та створити з нуля всі індекси
 msgid "Rebuild indexes"
 msgstr "Перебудувати індекси"
 
-#: links.py:69 views/index_template_views.py:454
+#: links.py:69 views/index_template_views.py:453
 msgid "Reset indexes"
 msgstr "Скинути індекси"
 
@@ -325,7 +325,7 @@ msgstr "Видалити шаблони індексу"
 msgid "View index templates"
 msgstr "Переглянути шаблони індексу"
 
-#: permissions.py:25 views/index_template_views.py:416
+#: permissions.py:25 views/index_template_views.py:415
 msgid "Rebuild index templates"
 msgstr "Перебудувати шаблони індексу"
 
@@ -479,7 +479,7 @@ msgstr "Навігація: %s"
 msgid "Contents for index: %s"
 msgstr "Зміст для індексу: %s"
 
-#: views/index_instance_views.py:143
+#: views/index_instance_views.py:142
 msgid ""
 "Assign the document type of this document to an index to have it appear in "
 "instances of those indexes organization units. "
@@ -487,11 +487,11 @@ msgstr ""
 "Призначити тип документа для цього документа для індексу, щоб він з'явився в"
 " екземплярах тих індексів організаційних одиниць."
 
-#: views/index_instance_views.py:148
+#: views/index_instance_views.py:147
 msgid "This document is not in any index"
 msgstr "Цей документ не міститься в жодному індексі."
 
-#: views/index_instance_views.py:152
+#: views/index_instance_views.py:151
 #, python-format
 msgid "Indexes nodes containing document: %s"
 msgstr "Індексує вузли, що містять документ: %s"
@@ -592,31 +592,31 @@ msgstr "Індекс шаблону події тригерів для: %s"
 msgid "Tree template nodes for index: %s"
 msgstr "Дерево шаблону вузлів для індексу: %s"
 
-#: views/index_template_views.py:314
+#: views/index_template_views.py:313
 #, python-format
 msgid "Create child node of: %s"
 msgstr "Створити дочірній вузол: %s"
 
-#: views/index_template_views.py:341
+#: views/index_template_views.py:340
 #, python-format
 msgid "Delete the index template node: %s?"
 msgstr "Видалити індекс шаблону вузла: %s ?"
 
-#: views/index_template_views.py:366
+#: views/index_template_views.py:365
 #, python-format
 msgid "Edit the index template node: %s"
 msgstr "Відредагувати індекс шаблону вузла: %s"
 
-#: views/index_template_views.py:387
+#: views/index_template_views.py:386
 #, python-format
 msgid "Rebuild index template: %s"
 msgstr "Перебудувати шаблон індексу: %s"
 
-#: views/index_template_views.py:409
+#: views/index_template_views.py:408
 msgid "Index template queued for rebuild."
 msgstr "Індекс шаблону поставлений у чергу для перебудови."
 
-#: views/index_template_views.py:433
+#: views/index_template_views.py:432
 #, python-format
 msgid "%(count)d index template queued for rebuild."
 msgid_plural "%(count)d index templates queued for rebuild."
@@ -625,7 +625,7 @@ msgstr[1] "%(count)d індексів шаблону поставлено в ч�
 msgstr[2] "%(count)d індекснів шаблону поставлено в чергу для перебудови."
 msgstr[3] "%(count)d індексних шаблонів поставлено в чергу для перебудови."
 
-#: views/index_template_views.py:467
+#: views/index_template_views.py:466
 #, python-format
 msgid "%(count)d index reset."
 msgid_plural "%(count)d indexes reset."
@@ -634,6 +634,6 @@ msgstr[1] "%(count)d індексів скинуто."
 msgstr[2] "%(count)d індексів скинуто."
 msgstr[3] "%(count)d індексів скинуто."
 
-#: views/index_template_views.py:480
+#: views/index_template_views.py:479
 msgid "Index templates for which their instances will be deleted."
 msgstr "Індексні шаблони, для яких будуть видалені їхні екземпляри."

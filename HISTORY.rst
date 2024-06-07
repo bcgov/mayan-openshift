@@ -1,3 +1,229 @@
+4.6.5 (2024-06-03)
+==================
+- Merge changes from version 4.5.13.
+- Update dependency versions:
+
+  - Django from 4.2.11 to 4.2.13.
+  - importlib-metadata from 7.0.1 to 7.0.2.
+  - pycountry from 23.12.11 to 24.6.1.
+  - sh from 2.0.6 to 2.0.7.
+  - twine from 5.0.0 to 5.1.0.
+  - safety from 3.1.0 to 3.2.0.
+
+- Update Docker image tags:
+
+  - PostgreSQL from 13.14-alpine to 13.15-alpine.
+  - Python from 3.11.8-slim to 3.11.9-slim.
+  - RabbitMQ from 3.12.13-management-alpine to 3.12.28-management-alpine.
+
+4.6.4 (2024-04-23)
+==================
+- Merge changes from 4.5.12.
+- Update dependency versions:
+
+  - setuptools from 69.1.1 to 69.5.1
+  - twine from 4.0.2 to 5.0.0
+  - ruff from 0.3.0 to 0.4.1
+  - safety from 3.0.1 to 3.1.0
+  - Pillow from 10.2.0 to 10.3.0
+  - graphviz from 0.20.1 to 0.20.3
+  - python-dateutil from 2.8.2 to 2.9.0.post0
+  - extract-msg from 0.48.0 to 0.48.5
+  - redis from 5.0.2 to 5.0.3
+
+4.6.3 (2024-03-28)
+==================
+- Merge changes from 4.5.11.
+- Add path support to the URL class.
+- Fix document print and password reset templates.
+- Fix display of build number.
+
+4.6.2 (2024-03-04)
+==================
+- Add clamav to the makefile ``setup-dev-operating-system-packages`` target.
+- Update the Debian Docker image from 12.4-slim to 12.5-slim.
+- Move the flanker dependency from the sources to the source_emails app.
+- Update dependency versions:
+
+  - redis from 5.0.1 to 5.0.2.
+  - django from 4.2.10 to 4.2.11.
+  - ruff from 0.2.1 to 0.3.0.
+  - sentry-sdk from 1.40.1 to 1.40.6.
+  - jsonschema from 4.20.0 to 4.21.1.
+  - extract-msg from 0.47.0 to 0.48.0.
+
+4.6.1 (2024-02-07)
+==================
+- Merge changes from versions 4.5.9 and 4.4.12.
+- Update dependency versions:
+
+  - django from 4.2.8 to 4.2.10 due to CVE-2024-24680.
+  - django-mptt from 0.15.0 to 0.16.0.
+  - importlib-metadata from 6.8.0 to 7.0.1.
+  - pycountry from 22.3.5 to 23.12.11.
+  - django-silk from 5.0.4 to 5.1.0.
+  - ruff from 0.2.1 to 0.1.6.
+  - jstree from 3.3.16. 3.3.12.
+  - django-solo from 2.1.0 to 2.2.0.
+  - pytz from 2023.3.post1 to 2024.1.
+  - greenlet from 3.0.1 to 3.0.3.
+  - sentry-sdk from 1.40.0 to 1.40.1.
+  - psutil from 5.9.6 to 5.9.8.
+  - sphinx from 4.5.0 to 5.3.0.
+  - sphinx_rtd_theme from 0.5.2 to 2.0.0.
+
+- Code style updates.
+
+  - Sort imports
+  - Collapse long import lines
+  - Expand import lines that are too short
+  - Fix variable names
+
+- Update translation files.
+- Fix sources app class method name.
+- Fix typos.
+
+4.6 (2024-01-11)
+================
+- Improve the index mirroring profile. Add ``MAYAN_MIRROR_INDEX_NAME`` to
+  allow mounting different indexes without modifying the Docker Compose
+  file.
+- Refactor the smart settings app. Setting value changes no longer take
+  effect immediately or trigger saving the configuration file. Added a new
+  view to save the current settings into a new configuration file. Setting
+  post edit functions are now execute during startup and not after editing
+  the setting. Added a new view and link to revert unsaved settings.
+- Override the test runner's logging setup to avoid having its output
+  being concatenated when calling management commands and makefile targets.
+- Add ``ruff`` dependency, version 0.1.6.
+- Update dependency versions:
+
+  - Docker
+
+    - Debian image from 12.1-slim to 12.2-slim.
+
+  - JavaScript
+
+    - jQuery from version 3.6.0 to 3.7.1.
+
+  - Python
+
+    - Update use of ``psycopg2`` version to 2.x to ``psycopg`` version 3.1.14.
+    - AMQP from 5.1.0 to 5.2.0.
+    - PIP from 23.2.1 to 23.3.2.
+    - Add the Django series version to the setup generation script.
+    - ``django-test-migrations`` from 1.1.0 to 1.3.0.
+    - ``redis`` from 4.6.0 to 5.0.1.
+    - ``wheel`` from 0.41.0 to 0.42.0.
+    - ``bleach`` from 6.0.0 to 6.1.0.
+    - ``django-auth-ldap`` from 4.4.0 to 4.6.0.
+    - ``mozilla-django-oidc`` from 2.0.0 to 3.0.0.
+    - ``pyotp`` from 2.6.0 to 2.9.0.
+    - ``django-solo`` from 2.0.0 to 2.1.0.
+    - ``django`` from 3.2 to 4.2.8.
+    - ``django-mptt`` from 0.14.0 to 0.15.0.
+    - ``sh`` from 2.0.4 to 2.0.6.
+    - ``django-debug-toolbar`` from 3.2.4 to 4.2.0.
+    - ``django-rosetta`` from 0.9.9 to 0.10.0.
+    - ``django-silk`` from 5.0.3 to 5.0.3.
+    - ``ipython`` from 8.14.0 to 8.18.1.
+    - ``Pillow`` from 10.0.0 to 10.2.0.
+    - ``pypdf`` from 3.14.0 to 3.17.1.
+    - ``qrcode`` from 7.3.1 to 7.4.2.
+    - ``node-semver`` from 0.8.1 to 0.9.0.
+    - ``python_gnupg`` from 0.4.8 to 0.4.9.
+    - ``graphviz`` from 0.17 to 0.20.1.
+    - ``dateparser`` from 1.1.8 to 1.2.0.
+    - ``pytz`` from 2022 to 2023.3.post1.
+    - ``gevent`` from 22.10.2 to 23.9.1.
+    - ``greenlet`` from 2.0.2 to 3.0.1.
+    - ``sentry-sdk`` from 1.29.0 to 1.38.0.
+    - ``whitenoise`` from 6.5.0 to 6.6.0.
+    - ``django-cors-headers`` from 4.2.0 to 4.3.1.
+    - ``jsonschema`` from 4.18.0 to 4.20.0.
+    - ``CairoSVG`` from 2.5.2 to 2.7.1.
+    - ``boto3`` from 1.28.16 to 1.33.7.
+    - ``django-storages`` from 1.13.2 to 1.14.2.
+    - ``extract-msg`` from 0.37.1 to 0.46.2.
+    - ``pycryptodome`` from 3.18.0 to 3.19.0.
+    - ``celery`` from 5.3.5 to 5.3.6.
+    - ``coverage`` from 5.5 to 6.5.0.
+    - ``coveralls`` from 3.2.0 to 3.3.1.
+    - ``psutil`` from 5.8.0 to 5.9.6.
+    - ``django-widget-tweaks`` from 1.4.12 to 1.5.0.
+
+- Refactor file metadata app:
+
+  - Allow multiple drivers to execute for the same MIME types.
+  - Automatically find and import file metadata drivers.
+  - Add a normalized internal name field for file metadata drive attributes.
+    This solves the issue where attributes with spaces were not usable
+    in templates. Spaces are converted into underscores. Uppercase letters
+    in attributes are converted to lowercase.
+  - Existing file metadata template references need to be updated for
+    attribute letter casing.
+  - Add view to display all detected file metadata drivers.
+  - Process all file metadata drivers as parallel background tasks.
+
+- Add antivirus scanning for documents. Implemented as a file metadata
+  driver and a new app named ``file_metadata_clamav``. ClamAV and the latest
+  database are included in the Docker image.
+- Support source column resolution for non model subclasses.
+- Convert the Docker Compose file into a platform template.
+- Generate unique test lock names to avoid unintended lock errors when
+  validating the lock manager backend. Closes GitLab issue #1157, thanks
+  to Mathias Behrle (@mbehrle) for the report.
+- Commit the event "document version edited" when a document version pages
+  are remapped.
+- Normalize the permission system to work with single permissions per filter
+  or check.
+- Mailer app refactor
+
+  - Replace uses of ``mailer`` and ``user mailer`` to ``mailing profile``.
+  - Add mailing profile API.
+  - Add generic object mailing API. Supports emailing object links and
+    object attachments.
+  - Add class ``ModelMailingAction`` to defined available mailing actions
+    per model.
+  - Use the ``__title__`` and ``__website__`` from the ``mayan`` module
+    as the email's body project name and website.
+
+- Move file metadata queue to worker D.
+- Update minimum and recommended requirements.
+- Lower the severity of searching indexing problems to ``INFO``. This
+  reduces user confusion between normal messages when processing the
+  asynchronous task queue and actual coding errors.
+- Expose Django's setting named ``CSRF_TRUSTED_ORIGINS`` via the smart
+  settings app.
+- Expose Django's setting named ``CSRF_COOKIE_SECURE`` via the smart
+  settings app.
+- Expose Django's setting named ``CSRF_USE_SESSIONS`` via the smart
+  settings app.
+- Optimize document type retention policy queries.
+- Minor optimization to the ACL calculation queries.
+- Fix search query warning when parsing dates. Default all date values the
+  timezone UTC.
+- Convert worker nice levels from literals to config constants.
+- Optimize the file cache eviction selection.
+- Convert the Docker Compose Keycloak services into a platform template.
+- Check if database tables are available before preloading and caching
+  permissions and file metadata drivers.
+- Use the correct ``post_load_modules`` method to execute initialization
+  code after app module loading.
+- Reorganize make files. Remove unused and outdated targets. Move all Docker
+  related targets to the Docker make file. Improve staging targets.
+- Reorganize templates:
+
+  - Unify the blocks ``content`` and ``content_plain``.
+  - Show the logo in the login form.
+  - Move the logo font to the ``head`` template.
+  - Split templates into small components.
+  - Move templates into sub-folders and shorten their names.
+
+- Fix double separator in the user menu.
+- Theme updates.
+- Switch from Apache 2.0 to GPL 2.0 license.
+
 4.5.13 (2024-06-02)
 ===================
 - Merge changes from version 4.4.16.

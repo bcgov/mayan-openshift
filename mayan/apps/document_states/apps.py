@@ -1,6 +1,6 @@
 from django.apps import apps
 from django.db.models.signals import post_migrate, post_save, pre_delete
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.common.apps import MayanAppConfig
@@ -41,22 +41,23 @@ from .links import (
     link_document_multiple_workflow_templates_launch,
     link_document_single_workflow_templates_launch,
     link_document_type_workflow_template_list, link_tool_launch_workflows,
-    link_workflow_instance_list, link_workflow_instance_detail,
+    link_workflow_instance_detail, link_workflow_instance_list,
     link_workflow_instance_transition,
     link_workflow_runtime_proxy_document_list,
-    link_workflow_runtime_proxy_list, link_workflow_template_preview,
+    link_workflow_runtime_proxy_list,
     link_workflow_runtime_proxy_state_document_list,
     link_workflow_runtime_proxy_state_list, link_workflow_template_create,
     link_workflow_template_document_type_list, link_workflow_template_edit,
     link_workflow_template_delete_multiple, link_workflow_template_launch,
     link_workflow_template_list, link_workflow_template_delete_single,
-    link_workflow_template_setup, link_workflow_template_state_list,
+    link_workflow_template_preview, link_workflow_template_setup,
+    link_workflow_template_state_list,
     link_workflow_template_state_action_delete,
     link_workflow_template_state_action_edit,
     link_workflow_template_state_action_list,
     link_workflow_template_state_action_selection,
-    link_workflow_template_state_create, link_workflow_template_state_delete,
-    link_workflow_template_state_edit,
+    link_workflow_template_state_create,
+    link_workflow_template_state_delete, link_workflow_template_state_edit,
     link_workflow_template_state_escalation_create,
     link_workflow_template_state_escalation_delete,
     link_workflow_template_state_escalation_edit,
@@ -88,7 +89,7 @@ class DocumentStatesApp(MayanAppConfig):
     has_rest_api = True
     has_tests = True
     name = 'mayan.apps.document_states'
-    verbose_name = _('Workflows')
+    verbose_name = _(message='Workflows')
 
     def ready(self):
         super().ready()
@@ -221,14 +222,14 @@ class DocumentStatesApp(MayanAppConfig):
         ModelProperty(
             model=Document,
             name='workflow.< workflow internal name >.get_current_state',
-            label=_('Current state of a workflow'), description=_(
+            label=_(message='Current state of a workflow'), description=_(
                 'Return the current state of the selected workflow.'
             )
         )
         ModelProperty(
             model=Document,
             name='workflow.< workflow internal name >.get_current_state.completion',
-            label=_('Current state of a workflow'), description=_(
+            label=_(message='Current state of a workflow'), description=_(
                 'Return the completion value of the current state of the '
                 'selected workflow.'
             )
@@ -290,20 +291,20 @@ class DocumentStatesApp(MayanAppConfig):
                 'Return the last workflow instance log entry. The '
                 'log entry itself has the following fields: datetime, '
                 'transition, user, and comment.'
-            ), label=_('Get last log entry'), model=WorkflowInstance,
+            ), label=_(message='Get last log entry'), model=WorkflowInstance,
             name='get_last_log_entry'
         )
         ModelProperty(
             description=_(
                 'Return the current context dictionary which includes '
                 'runtime data from the workflow transition fields.'
-            ), label=_('Get the context'), model=WorkflowInstance,
+            ), label=_(message='Get the context'), model=WorkflowInstance,
             name='get_runtime_context'
         )
         ModelProperty(
             description=_(
                 'Return the transition of the workflow instance.'
-            ), label=_('Get last transition'), model=WorkflowInstance,
+            ), label=_(message='Get last transition'), model=WorkflowInstance,
             name='get_last_transition'
         )
 
@@ -319,7 +320,7 @@ class DocumentStatesApp(MayanAppConfig):
             source=WorkflowRuntimeProxy
         )
         column_workflow_get_initial_state = SourceColumn(
-            attribute='get_initial_state', empty_value=_('None'),
+            attribute='get_initial_state', empty_value=_(message='None'),
             include_label=True, source=Workflow
         )
         column_workflow_get_initial_state.add_exclude(
@@ -327,37 +328,37 @@ class DocumentStatesApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='get_current_state', include_label=True,
-            label=_('Current state'), source=WorkflowInstance,
+            label=_(message='Current state'), source=WorkflowInstance,
         )
         SourceColumn(
             func=lambda context: getattr(
-                context['object'].get_last_log_entry(), 'user', _('None')
-            ), include_label=True, label=_('User'), source=WorkflowInstance
+                context['object'].get_last_log_entry(), 'user', _(message='None')
+            ), include_label=True, label=_(message='User'), source=WorkflowInstance
         )
         SourceColumn(
             attribute='get_last_transition', include_label=True,
-            label=_('Last transition'), source=WorkflowInstance
+            label=_(message='Last transition'), source=WorkflowInstance
         )
         SourceColumn(
             func=lambda context: getattr(
-                context['object'].get_last_log_entry(), 'datetime', _('None')
-            ), include_label=True, label=_('Date and time'),
+                context['object'].get_last_log_entry(), 'datetime', _(message='None')
+            ), include_label=True, label=_(message='Date and time'),
             source=WorkflowInstance
         )
         SourceColumn(
             func=lambda context: getattr(
                 context['object'].get_current_state(),
-                'completion', _('None')
-            ), include_label=True, label=_('Completion'),
+                'completion', _(message='None')
+            ), include_label=True, label=_(message='Completion'),
             source=WorkflowInstance
         )
 
         SourceColumn(
             attribute='datetime', is_identifier=True,
-            label=_('Date and time'), source=WorkflowInstanceLogEntry
+            label=_(message='Date and time'), source=WorkflowInstanceLogEntry
         )
         SourceColumn(
-            attribute='user', include_label=True, label=_('User'),
+            attribute='user', include_label=True, label=_(message='User'),
             source=WorkflowInstanceLogEntry
         )
         SourceColumn(
@@ -378,7 +379,7 @@ class DocumentStatesApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='get_extra_data', include_label=True,
-            label=_('Additional details'), source=WorkflowInstanceLogEntry,
+            label=_(message='Additional details'), source=WorkflowInstanceLogEntry,
             widget=WorkflowLogExtraDataWidget
         )
 
@@ -419,11 +420,11 @@ class DocumentStatesApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='get_when_display', include_label=True,
-            label=_('When?'), source=WorkflowStateAction
+            label=_(message='When?'), source=WorkflowStateAction
         )
         SourceColumn(
             attribute='get_backend_class_label', include_label=True,
-            label=_('Action type'), source=WorkflowStateAction
+            label=_(message='Action type'), source=WorkflowStateAction
         )
         SourceColumn(
             attribute='has_condition', include_label=True,
@@ -485,7 +486,7 @@ class DocumentStatesApp(MayanAppConfig):
             ), help_text=_(
                 'Triggers are system events that will cause the transition '
                 'to be applied.'
-            ), include_label=True, label=_('Triggers'),
+            ), include_label=True, label=_(message='Triggers'),
             source=WorkflowTransition
         )
 
@@ -499,7 +500,7 @@ class DocumentStatesApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='get_field_type_display', include_label=True,
-            label=_('Type'), source=WorkflowTransitionField
+            label=_(message='Type'), source=WorkflowTransitionField
         )
         SourceColumn(
             attribute='required', include_label=True, is_sortable=True,
@@ -507,7 +508,7 @@ class DocumentStatesApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='get_widget_display', include_label=True,
-            label=_('Widget'), is_sortable=False,
+            label=_(message='Widget'), is_sortable=False,
             source=WorkflowTransitionField
         )
         SourceColumn(
@@ -518,13 +519,13 @@ class DocumentStatesApp(MayanAppConfig):
         SourceColumn(
             func=lambda context: context['object'].get_document_count(
                 user=context['request'].user
-            ), include_label=True, label=_('Documents'), order=99,
+            ), include_label=True, label=_(message='Documents'), order=99,
             source=WorkflowRuntimeProxy
         )
         SourceColumn(
             func=lambda context: context['object'].get_document_count(
                 user=context['request'].user
-            ), include_label=True, label=_('Documents'), order=99,
+            ), include_label=True, label=_(message='Documents'), order=99,
             source=WorkflowStateRuntimeProxy
         )
 

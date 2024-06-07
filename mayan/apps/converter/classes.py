@@ -14,7 +14,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.mime_types.classes import MIMETypeBackend
 from mayan.apps.navigation.classes import Link
@@ -170,7 +170,7 @@ class ConverterBase:
         """
         if not self.command_libreoffice:
             raise OfficeConversionError(
-                _('LibreOffice not installed or not found.')
+                _(message='LibreOffice not installed or not found.')
             )
 
         with NamedTemporaryFile() as temporary_file_object:
@@ -276,7 +276,7 @@ class ConverterBase:
             return self.soffice()
         else:
             raise InvalidOfficeFormat(
-                _('Not an office file format.')
+                _(message='Not an office file format.')
             )
 
     def transform(self, transformation):
@@ -321,7 +321,7 @@ class Layer:
             layer.stored_layer
 
     def __init__(
-        self, label, name, order, permissions, default=False,
+        self, label, name, order, permission_map, default=False,
         empty_results_text=None, icon=None
     ):
         self.default = default
@@ -329,7 +329,7 @@ class Layer:
         self.label = label
         self.name = name
         self.order = order
-        self.permissions = permissions
+        self.permission_map = permission_map
         self.icon = icon
 
         # Check order
@@ -428,7 +428,7 @@ class Layer:
         return stored_layer
 
     def get_permission(self, action):
-        return self.permissions.get(action, None)
+        return self.permission_map.get(action, None)
 
     def get_transformations_for(self, obj, as_classes=False):
         """
@@ -526,11 +526,11 @@ class LayerLink(Link):
             except KeyError:
                 return None
 
-    def get_permissions(self, context):
+    def get_permission(self, context):
         layer = self.get_layer(context=context)
         permission = layer.get_permission(action=self.action)
 
         if permission:
-            return (permission,)
+            return permission
         else:
-            return ()
+            return None

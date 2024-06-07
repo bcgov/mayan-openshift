@@ -4,19 +4,19 @@
 # 
 # Translators:
 # Translators:
-# Daniele Bortoluzzi <daniele@elkos.it>, 2023
-# Giovanni Tricarico <gtricarico92@gmail.com>, 2023
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2023
-# Roberto Rosario, 2023
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2023
+# Daniele Bortoluzzi <daniele@elkos.it>, 2024
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
+# Giovanni Tricarico <gtricarico92@gmail.com>, 2024
+# Roberto Rosario, 2024
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Marco Camplese <marco.camplese.mc@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-04-23 04:57+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Marco Camplese <marco.camplese.mc@gmail.com>, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,19 +175,19 @@ msgstr "Setup sorgente"
 msgid "View document file source metadata"
 msgstr ""
 
-#: permissions.py:18
+#: permissions.py:19
 msgid "Create new document sources"
 msgstr "Crea nuova sorgente dei documenti"
 
-#: permissions.py:21
+#: permissions.py:22
 msgid "Delete document sources"
 msgstr "Cancella sorgenti dei documenti"
 
-#: permissions.py:24
+#: permissions.py:25
 msgid "Edit document sources"
 msgstr "Modifica sorgenti dei documenti"
 
-#: permissions.py:27
+#: permissions.py:28
 msgid "View existing document sources"
 msgstr "Visualizza sorgenti documento esistente"
 
@@ -195,11 +195,11 @@ msgstr "Visualizza sorgenti documento esistente"
 msgid "Sources periodic"
 msgstr "Fonti periodiche"
 
-#: queues.py:17
+#: queues.py:18
 msgid "Handle source backend action background task"
 msgstr ""
 
-#: queues.py:21
+#: queues.py:22
 msgid "Check interval source"
 msgstr "Controllare l'origine dell'intervallo"
 

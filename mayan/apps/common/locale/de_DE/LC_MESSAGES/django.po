@@ -4,23 +4,23 @@
 # 
 # Translators:
 # Translators:
-# Marvin Haschker <marvin@haschker.me>, 2023
-# Robin Schubert <robin.schubert@gmx.de>, 2023
-# Ingo Buchholz <ingo.buchholz@takwa.de>, 2023
-# Bjoern Kowarsch <bjoern.kowarsch@gmail.com>, 2023
-# Berny <berny@bernhard-marx.de>, 2023
-# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2023
-# Roberto Rosario, 2023
-# Jesaja Everling <jeverling@gmail.com>, 2023
-# Mathias Behrle <mathiasb@m9s.biz>, 2023
+# Bjoern Kowarsch <bjoern.kowarsch@gmail.com>, 2024
+# Marvin Haschker <marvin@haschker.me>, 2024
+# Robin Schubert <robin.schubert@gmx.de>, 2024
+# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2024
+# Roberto Rosario, 2024
+# Berny <berny@bernhard-marx.de>, 2024
+# Ingo Buchholz <ingo.buchholz@takwa.de>, 2024
+# Mathias Behrle <mathiasb@m9s.biz>, 2024
+# Jesaja Everling <jeverling@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2023\n"
+"POT-Creation-Date: 2024-06-03 22:27+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Jesaja Everling <jeverling@gmail.com>, 2024\n"
 "Language-Team: German (Germany) (https://app.transifex.com/rosarior/teams/13584/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,51 +48,59 @@ msgstr "Kommandozeilenumgebung mit Autovervollständigung."
 msgid "Checks proper formatting of the README file."
 msgstr "Überprüft die korrekte Formatierung der README-Datei."
 
-#: links.py:34
+#: links.py:36
 msgid "About this"
 msgstr "Über Mayan"
 
-#: links.py:37
+#: links.py:39
 msgid "Get the book"
 msgstr "Holen Sie sich das Buch"
 
-#: links.py:42
+#: links.py:44
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: links.py:45
+#: links.py:47
 msgid "Forum"
 msgstr "Forum"
 
-#: links.py:50
+#: links.py:52
 msgid "Knowledge base"
 msgstr "Wissensbasis"
 
-#: links.py:53 views.py:55
+#: links.py:55 views.py:55
 msgid "License"
 msgstr "Lizenz"
 
 #: links.py:58
+msgid "Mailing list"
+msgstr ""
+
+#: links.py:64
 msgid "Copy"
 msgstr "Kopieren"
 
-#: links.py:62
+#: links.py:69
+msgid "Release notes"
+msgstr ""
+
+#: links.py:73
 msgid "Setup"
 msgstr "Einrichtung"
 
-#: links.py:65
+#: links.py:76
 msgid "Source code"
 msgstr "Quelltext"
 
-#: links.py:69
+#: links.py:80
 msgid "Online store"
 msgstr "Online-Shop"
 
-#: links.py:73
-msgid "Get support"
-msgstr "Support erhalten"
+#: links.py:84
+msgid "Support"
+msgstr "Hilfe"
 
-#: links.py:77 views.py:136
+#: links.py:88 views.py:136
 msgid "Tools"
 msgstr "Werkzeuge"
 

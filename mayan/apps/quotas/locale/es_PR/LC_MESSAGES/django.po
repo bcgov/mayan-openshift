@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-02-06 20:31+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Roberto Rosario, 2024\n"
 "Language-Team: Spanish (Puerto Rico) (https://app.transifex.com/rosarior/teams/13584/es_PR/)\n"
 "MIME-Version: 1.0\n"
@@ -29,11 +29,11 @@ msgstr "Cuotas"
 msgid "none"
 msgstr "ninguna"
 
-#: classes.py:163
+#: classes.py:161
 msgid "Does not apply"
 msgstr "No aplica"
 
-#: classes.py:167 classes.py:171
+#: classes.py:165 classes.py:169
 msgid "Null backend"
 msgstr "Controlador nulo"
 
@@ -113,7 +113,7 @@ msgstr "Todos los usuarios"
 #: mixins.py:108
 msgid ""
 "Apply the quota to all users in the system, excluding admins and staff. "
-"Enabling this option, the quota will ignore the indiviual user and group "
+"Enabling this option, the quota will ignore the individual user and group "
 "selection."
 msgstr ""
 "Aplicar la cuota a todos los usuarios del sistema, excluyendo "

@@ -113,9 +113,9 @@ recent version if not to their most recent released version.
 Database connection leaks
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Stale database connection being left open by scheduler tasks are now explicitly
-closed. This avoids consumption of the pool of database connections, increases
-stability and reduces memory usage.
+Stale database connection being left open by scheduler tasks are now
+explicitly closed. This avoids consumption of the pool of database
+connections, increases stability and reduces memory usage.
 
 
 Deletion of detached signatures

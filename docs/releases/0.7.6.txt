@@ -19,7 +19,7 @@ Version 0.7.6
   ``UNCOMPRESS_COMPRESSED_STAGING_FILES``.
 * Added 'search again' button to the advances search results view
 * Implements an advanced search feature, which allows for individual field
-  terms.
+  terms:
 
   - Search fields supported: document type, MIME type, filename,
     extension, metadata values, content, description, tags, comments.

@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.views.generics import SimpleView, SingleObjectListView
 
@@ -15,7 +15,7 @@ from .utils import PyPIClient
 
 
 class CheckVersionView(SimpleView):
-    template_name = 'appearance/generic_template.html'
+    template_name = 'appearance/content_container.html'
     view_icon = icon_check_version
     view_permission = permission_dependencies_view
 
@@ -33,7 +33,7 @@ class CheckVersionView(SimpleView):
                     'such as container or virtual machine images.'
                 ),
             ),
-            'title': _('Check for updates')
+            'title': _(message='Check for updates')
         }
 
 
@@ -62,7 +62,7 @@ class DependencyGroupEntryListView(SingleObjectListView):
             )
         except KeyError:
             raise Http404(
-                _('Group %s not found.') % self.kwargs[
+                _(message='Group %s not found.') % self.kwargs[
                     'dependency_group_name'
                 ]
             )
@@ -76,7 +76,7 @@ class DependencyGroupListView(SingleObjectListView):
         return {
             'hide_link': True,
             'hide_object': True,
-            'title': _('Dependency groups')
+            'title': _(message='Dependency groups')
         }
 
     def get_source_queryset(self):
@@ -111,7 +111,7 @@ class DependencyGroupEntryDetailView(SingleObjectListView):
             )
         except KeyError:
             raise Http404(
-                _('Group %s not found.') % self.kwargs[
+                _(message='Group %s not found.') % self.kwargs[
                     'dependency_group_name'
                 ]
             )
@@ -123,7 +123,7 @@ class DependencyGroupEntryDetailView(SingleObjectListView):
             )
         except KeyError:
             raise Http404(
-                _('Entry %s not found.') % self.kwargs[
+                _(message='Entry %s not found.') % self.kwargs[
                     'dependency_group_entry_name'
                 ]
             )
@@ -133,7 +133,7 @@ class DependencyGroupEntryDetailView(SingleObjectListView):
 
 
 class DependencyLicensesView(SimpleView):
-    template_name = 'appearance/generic_form.html'
+    template_name = 'appearance/form_container.html'
     view_icon = icon_dependency_licenses
 
     def get_extra_context(self):
@@ -142,5 +142,5 @@ class DependencyLicensesView(SimpleView):
         return {
             'form': DependenciesLicensesForm(),
             'read_only': True,
-            'title': _('Other packages licenses')
+            'title': _(message='Other packages licenses')
         }

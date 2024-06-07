@@ -1,6 +1,8 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.dependencies.classes import BinaryDependency, PythonDependency
+from mayan.apps.dependencies.classes import (
+    BinaryDependency, PythonDependency
+)
 
 from .backends.python import pdfinfo_path, pdftoppm_path
 from .classes import libreoffice_path
@@ -22,11 +24,11 @@ BinaryDependency(
 )
 PythonDependency(
     attribute_copyright='PIL.__doc__', module=__name__, name='Pillow',
-    version_string='==10.2.0'
+    version_string='==10.3.0'
 )
 PythonDependency(
     module=__name__, name='pypdf', version_string='==3.17.4'
 )
 PythonDependency(
-    module=__name__, name='qrcode', version_string='==7.3.1'
+    module=__name__, name='qrcode', version_string='==7.4.2'
 )

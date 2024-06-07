@@ -1,3 +1,4 @@
+import logging
 import shutil
 
 from django import apps
@@ -5,6 +6,8 @@ from django.conf import settings
 from django.test.runner import DiscoverRunner
 
 from .literals import EXCLUDE_TEST_TAG
+
+logger = logging.getLogger(name=__name__)
 
 
 class NullMigrationsClass:
@@ -42,6 +45,7 @@ class MayanTestRunner(DiscoverRunner):
             settings.MIGRATION_MODULES = NullMigrationsClass()
 
         super().__init__(*args, **kwargs)
+        self.logger = logger
 
         # Test that should be excluded by default.
         # To include then pass --tag=exclude to the test runner invocation.
@@ -98,7 +102,7 @@ def filter_tests_by_tags(suite, tags, exclude_tags):
             matched_tags = all_tags.intersection(tags)
 
             if (matched_tags or not tags) and not all_tags.intersection(exclude_tags):
-                filtered_suite.addTest(test)
+                filtered_suite.append(test)
 
     return filtered_suite
 
@@ -113,3 +117,16 @@ def get_test_upstream_tags(test):
         result = result.union(klass_tags)
 
     return result
+
+
+def log(self, msg, level=None):
+    self.logger = logger
+
+    if level is None:
+        level = logging.INFO
+    if self.logger is None:
+        if self.verbosity <= 0 or (self.verbosity == 1 and level < logging.INFO):
+            return
+        print(msg)
+    else:
+        self.logger.log(level, msg)

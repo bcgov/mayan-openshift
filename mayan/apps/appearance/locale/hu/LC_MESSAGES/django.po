@@ -4,17 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Tamás Benkovszky, 2023
-# Dezső József <dejo60@gmail.com>, 2023
-# molnars <szabolcs.molnar@gmail.com>, 2023
+# Dezső József <dejo60@gmail.com>, 2024
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +92,7 @@ msgstr "Téma beállítások"
 
 #: links.py:27
 msgid "Edit theme settings"
-msgstr "Téma beállításainak szerkesztése"
+msgstr "Téma beállítások szerkesztése"
 
 #: links.py:33 views.py:32
 msgid "Create new theme"
@@ -199,11 +198,11 @@ msgstr ""
 
 #: templates/403.html:5 templates/403.html:30
 msgid "Insufficient permission"
-msgstr "Elégtelen engedély"
+msgstr "Elégtelen jogosultság"
 
 #: templates/403.html:32
 msgid "You don't have enough permissions for this operation."
-msgstr "Nincs elegendő engedélye ehhez a művelethez."
+msgstr "Nincs elégséges engedélye ehhez a művelethez."
 
 #: templates/404.html:5 templates/404.html:30
 msgid "Page not found"
@@ -248,7 +247,7 @@ msgstr "Mi legyen a következő?"
 
 #: templates/500.html:44
 msgid "Refresh the page."
-msgstr "Frissítse az oldalt."
+msgstr "Oldal frissítése."
 
 #: templates/500.html:45
 msgid "Wait a bit. The system might be overloaded."
@@ -271,111 +270,111 @@ msgstr ""
 "Nyisson meg egy hibajegyet a <a href=\"%(issue_url)s\">problémakövető</a> "
 "segítségével."
 
-#: templates/appearance/about.html:9
+#: templates/appearance/about.html:10
 msgid "About"
 msgstr "Névjegy"
 
-#: templates/appearance/about.html:67
+#: templates/appearance/about.html:39
 msgid "Version"
 msgstr "Verzió"
 
-#: templates/appearance/about.html:69
+#: templates/appearance/about.html:41
 #, python-format
-msgid "Build number: %(build_number)s"
-msgstr "Build szám: %(build_number)s"
+msgid "Build number: %(project_build_number)s"
+msgstr "Build szám: %(project_build_number)s"
 
-#: templates/appearance/about.html:82
+#: templates/appearance/about.html:48
 msgid "Released under the license:"
 msgstr "A licenc ami alatt megjelent:"
 
-#: templates/appearance/about.html:88
+#: templates/appearance/about.html:57
 #, python-format
 msgid ""
-"\n"
-"                The complete list of changes is available via the <a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">Release notes %(icon_documentation)s</a> or the short version <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\">Changelog %(icon_documentation)s</a>.\n"
-"            "
+"To get the latest news subscribe to the <a class=\"new_window\" "
+"href=\"%(link_mailing_list_url)s\"> Mailing list</a>."
 msgstr ""
-"\n"
-"                A változások teljes listája elérhető a <a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">Kiadási jegyzetben %(icon_documentation)s</a> vagy a rövid verzió <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\">a változásnaplóban %(icon_documentation)s</a>.\n"
-"            "
+"A legfrissebb hírekért iratkozzon fel a <a class=\"new_window\" "
+"href=\"%(link_mailing_list_url)s\">levelezőlistára</a> ."
 
-#: templates/appearance/about.html:94
+#: templates/appearance/about.html:66
 #, python-format
 msgid ""
-"\n"
-"                For questions check the <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">Documentation %(icon_documentation)s</a>.\n"
-"            "
+"For articles, tutorials, troubleshooting, subscribe to the <a "
+"class=\"new_window\" href=\"%(link_knowledge_base_url)s\"> Knowledge "
+"base</a>."
 msgstr ""
-"\n"
-"                Ha kérdései vannak, nézze meg a <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">Dokumentációt %(icon_documentation)s</a>.\n"
-"            "
+"Ha cikkeket, oktatóanyagokat és hibaelhárítást szeretne látni, iratkozzon "
+"fel a <a class=\"new_window\" "
+"href=\"%(link_knowledge_base_url)s\">Tudásbázisra</a> ."
 
-#: templates/appearance/about.html:100
+#: templates/appearance/about.html:75
 #, python-format
 msgid ""
-"\n"
-"                If you found a bug or have a feature idea, visit the <a class=\"new_window\" href=\"https://forum.mayan-edms.com\">Forum %(icon_forum)s</a> or open a ticket in the <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">Source code repository %(icon_source_code)s</a>.\n"
-"            "
+"Need professional help? Check out the <a class=\"new_window\" "
+"href=\"%(link_support_url)s\"> Support</a> offerings."
 msgstr ""
-"\n"
-"                Ha hibát talált, vagy új funkciót szeretne, látogassa meg a <a class=\"new_window\" href=\"https://forum.mayan-edms.com\">Fórumot %(icon_forum)s</a> vagy nyisson hibajegyet a <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">Forráskód repository-ban %(icon_source_code)s</a>.\n"
-"            "
+"Szakmai segítségre van szüksége? Tekintse meg a <a class=\"new_window\" "
+"href=\"%(link_support_url)s\">támogatási</a> ajánlatokat."
 
-#: templates/appearance/base.html:73
-msgid "Object"
-msgstr "Objektum"
+#: templates/appearance/about.html:84
+#, python-format
+msgid ""
+"For discussions visit the <a class=\"new_window\" "
+"href=\"%(link_forum_url)s\">Community forum</a>."
+msgstr ""
+"Megbeszélésekhez látogasson el a <a class=\"new_window\" "
+"href=\"%(link_forum_url)s\">közösségi fórumra</a> ."
 
-#: templates/appearance/generic_confirm.html:13
+#: templates/appearance/about.html:93
+#, python-format
+msgid ""
+"The complete list of changes is available via the <a class=\"new_window\" "
+"href=\"%(link_release_notes_url)s\">Release notes</a>."
+msgstr ""
+"A változtatások teljes listája a <a class=\"new_window\" "
+"href=\"%(link_release_notes_url)s\">Kibocsátási megjegyzésekben</a> érhető "
+"el."
+
+#: templates/appearance/about.html:102
+#, python-format
+msgid ""
+"For questions check the <a class=\"new_window\" "
+"href=\"%(link_documentation_url)s\">Documentation</a>."
+msgstr ""
+"Kérdés esetén nézze meg a <a class=\"new_window\" "
+"href=\"%(link_documentation_url)s\">Dokumentációt</a> ."
+
+#: templates/appearance/about.html:111
+#, python-format
+msgid ""
+"If you found a bug or have a feature idea open a ticket in the <a "
+"class=\"new_window\" href=\"%(link_source_code_url)s\">Source code "
+"repository</a>."
+msgstr ""
+"Ha hibát talált, vagy van egy funkcióötlete, nyisson hibajegyet a <a "
+"class=\"new_window\" href=\"%(link_source_code_url)s\">forráskód "
+"tárolóban</a> ."
+
+#: templates/appearance/about.html:117
+#, python-format
+msgid ""
+"%(project_title)s is Free and Open Source software, which is provided as-is "
+"with no warranty."
+msgstr ""
+"%(project_title)s egy ingyenes és nyílt forráskódú szoftver, amely eredeti "
+"állapotában, garancia nélkül kerül forgalomba."
+
+#: templates/appearance/confirm.html:13
 msgid "Are you sure?"
 msgstr "Biztos ebben?"
 
-#: templates/appearance/generic_confirm.html:37
+#: templates/appearance/confirm.html:37
 msgid "Yes"
 msgstr "Igen"
 
-#: templates/appearance/generic_confirm.html:47
+#: templates/appearance/confirm.html:47
 msgid "No"
 msgstr "Nem"
-
-#: templates/appearance/generic_form_subtemplate.html:50
-#: templates/appearance/generic_multiform_subtemplate.html:37
-#: templates/appearance/partials/form_field.html:10
-#: templates/appearance/partials/form_field.html:16
-msgid "required"
-msgstr "kötelező"
-
-#: templates/appearance/generic_form_subtemplate.html:85
-#: templates/appearance/generic_form_subtemplate.html:95
-#: templates/appearance/generic_form_subtemplate.html:109
-#: templates/appearance/generic_multiform_subtemplate.html:62
-msgid "Save"
-msgstr "Mentés"
-
-#: templates/appearance/generic_form_subtemplate.html:85
-#: templates/appearance/generic_form_subtemplate.html:95
-#: templates/appearance/generic_form_subtemplate.html:109
-#: templates/appearance/generic_multiform_subtemplate.html:62
-msgid "Submit"
-msgstr "Beküldés"
-
-#: templates/appearance/generic_form_subtemplate.html:99
-#: templates/appearance/generic_multiform_subtemplate.html:66
-msgid "Cancel"
-msgstr "Mégsem"
-
-#: templates/appearance/generic_list_subtemplate.html:35
-msgid "Identifier"
-msgstr "Azonosító"
-
-#: templates/appearance/generic_list_subtemplate.html:85
-#: templates/appearance/partials/list_object_facet_links_column.html:8
-#: templates/appearance/partials/list_object_facet_links_column.html:39
-msgid "Views"
-msgstr "Nézetek"
-
-#: templates/appearance/generic_list_subtemplate.html:91
-msgid "Actions"
-msgstr "Műveletek"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -385,15 +384,43 @@ msgstr "Kezdés"
 msgid "Before you can fully use Mayan EDMS you need the following:"
 msgstr "A Mayan EDMS teljes körű használatához a következőkre van szüksége:"
 
-#: templates/appearance/menus/menu_topbar.html:11
+#: templates/appearance/menus/topbar.html:11
 msgid "Toggle navigation"
 msgstr "Váltás navigációra"
 
-#: templates/appearance/partials/form_title.html:10
-msgid "Open main menu"
-msgstr "Főmenü megnyitása"
+#: templates/appearance/partials/form/field.html:10
+#: templates/appearance/partials/form/field.html:16
+#: templates/appearance/partials/form/multiple.html:37
+#: templates/appearance/partials/form/single.html:50
+msgid "required"
+msgstr "kötelező"
 
-#: templates/appearance/partials/list_header.html:11
+#: templates/appearance/partials/form/multiple.html:62
+#: templates/appearance/partials/form/single.html:85
+#: templates/appearance/partials/form/single.html:95
+#: templates/appearance/partials/form/single.html:109
+msgid "Save"
+msgstr "Mentés"
+
+#: templates/appearance/partials/form/multiple.html:62
+#: templates/appearance/partials/form/single.html:85
+#: templates/appearance/partials/form/single.html:95
+#: templates/appearance/partials/form/single.html:109
+msgid "Submit"
+msgstr "Beküldés"
+
+#: templates/appearance/partials/form/multiple.html:66
+#: templates/appearance/partials/form/single.html:99
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: templates/appearance/partials/list/column_object_facet_links.html:8
+#: templates/appearance/partials/list/column_object_facet_links.html:39
+#: templates/appearance/partials/list/table/head/row_cell_links.html:8
+msgid "Views"
+msgstr "Nézetek"
+
+#: templates/appearance/partials/list/header.html:11
 #, python-format
 msgid ""
 "Total (%(start)s - %(end)s out of %(total)s) (Page %(page_number)s of "
@@ -402,48 +429,64 @@ msgstr ""
 "Összesen (%(start)s - %(end)s a %(total)s-ból) (%(page_number)s oldal a "
 "%(total_pages)s-ból)"
 
-#: templates/appearance/partials/list_header.html:13
-#: templates/appearance/partials/list_header.html:16
+#: templates/appearance/partials/list/header.html:13
+#: templates/appearance/partials/list/header.html:16
 #, python-format
 msgid "Total: %(total)s"
 msgstr "Összesen: %(total)s"
 
-#: templates/appearance/partials/list_toolbar.html:14
+#: templates/appearance/partials/list/no_results.html:18
+msgid "No results"
+msgstr "Nincs eredmény"
+
+#: templates/appearance/partials/list/pagination.html:12
+#: templates/appearance/partials/list/pagination.html:14
+msgid "Previous page"
+msgstr "Előző oldal"
+
+#: templates/appearance/partials/list/pagination.html:30
+#: templates/appearance/partials/list/pagination.html:32
+msgid "Next page"
+msgstr "Következő oldal"
+
+#: templates/appearance/partials/list/table/head/row_cell_identifier.html:6
+msgid "Identifier"
+msgstr "Azonosító"
+
+#: templates/appearance/partials/list/table/head/row_cell_links.html:14
+msgid "Actions"
+msgstr "Műveletek"
+
+#: templates/appearance/partials/list/toolbar.html:14
 msgid "Select/Deselect all"
 msgstr "Összes kijelölése/kijelölésének törlése"
 
-#: templates/appearance/partials/list_toolbar.html:18
+#: templates/appearance/partials/list/toolbar.html:18
 msgid "Toggle list display mode"
 msgstr "Lista megjelenítési mód váltása"
 
-#: templates/appearance/partials/list_toolbar.html:31
+#: templates/appearance/partials/list/toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr ""
 "Válassza ki az elemeket a tömeges műveletek aktiválásához. Használja a Shift"
 " + kattintást több elem kiválasztásához."
 
-#: templates/appearance/partials/list_toolbar.html:36
+#: templates/appearance/partials/list/toolbar.html:36
 msgid "Bulk actions"
 msgstr "Tömeges műveletek"
 
-#: templates/appearance/partials/list_toolbar.html:38
+#: templates/appearance/partials/list/toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "Váltás a legördülő menüre"
 
-#: templates/appearance/partials/no_results.html:18
-msgid "No results"
-msgstr "Nincs eredmény"
+#: templates/appearance/partials/sidebar.html:17
+msgid "Object"
+msgstr "Objektum"
 
-#: templates/appearance/partials/pagination.html:12
-#: templates/appearance/partials/pagination.html:14
-msgid "Previous page"
-msgstr "Előző oldal"
-
-#: templates/appearance/partials/pagination.html:30
-#: templates/appearance/partials/pagination.html:32
-msgid "Next page"
-msgstr "Következő oldal"
+#: templates/appearance/partials/title.html:10
+msgid "Open main menu"
+msgstr "Főmenü megnyitása"
 
 #: templates/appearance/root.html:51
 msgid "Close"
@@ -483,12 +526,12 @@ msgstr ""
 msgid "There are no themes"
 msgstr "Nincsenek témák"
 
-#: views.py:124
+#: views.py:125
 #, python-format
 msgid "Theme settings for user: %s"
 msgstr "Témabeállítások a felhasználó számára: %s"
 
-#: views.py:146
+#: views.py:148
 #, python-format
 msgid "Edit theme settings for user: %s"
-msgstr "Szerkessze a téma beállításait a következő felhasználó számára: %s"
+msgstr "Témabeállítások szerkesztése a következő felhasználó számára: %s"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:53 apps.py:163 apps.py:167 apps.py:171 apps.py:175 apps.py:179
+#: apps.py:53 apps.py:173 apps.py:177 apps.py:182 apps.py:187 apps.py:192
 #: events.py:6 forms.py:14 links.py:30 menus.py:14 models.py:52 models.py:159
 #: permissions.py:6 search.py:48 views.py:169 workflow_actions.py:39
 #: workflow_actions.py:53
 msgid "Cabinets"
+msgstr ""
+
+#: apps.py:164 models.py:41
+msgid "Documents"
 msgstr ""
 
 #: events.py:11
@@ -84,11 +88,11 @@ msgstr ""
 msgid "get_cabinets()"
 msgstr ""
 
-#: model_mixins.py:50
+#: model_mixins.py:64
 msgid "The path to the cabinet including all ancestors."
 msgstr ""
 
-#: model_mixins.py:52 serializers.py:32
+#: model_mixins.py:66 serializers.py:32
 msgid "Full path"
 msgstr ""
 
@@ -102,10 +106,6 @@ msgstr ""
 
 #: models.py:37
 msgid "Label"
-msgstr ""
-
-#: models.py:41
-msgid "Documents"
 msgstr ""
 
 #: models.py:51 models.py:133 models.py:158

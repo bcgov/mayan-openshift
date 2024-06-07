@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.user_management.querysets import get_user_queryset
 from mayan.apps.views.forms import FilteredSelectionForm
@@ -31,7 +31,7 @@ class AuthenticationFormBase(forms.Form):
 class AuthenticationFormMixinRememberMe(forms.Form):
     _form_field_name_remember_me = 'remember_me'
     remember_me = forms.BooleanField(
-        label=_('Remember me'), required=False
+        label=_(message='Remember me'), required=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -78,7 +78,7 @@ class UserImpersonationOptionsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['permanent'] = forms.BooleanField(
-            label=_('Permanent'), help_text=_(
+            label=_(message='Permanent'), help_text=_(
                 'If selected, disables ending impersonation.'
             ), required=False
         )
@@ -90,7 +90,7 @@ class UserImpersonationSelectionForm(
     class Meta:
         allow_multiple = False
         field_name = 'user_to_impersonate'
-        label = _('User')
+        label = _(message='User')
         queryset = get_user_queryset().none()
         permission = permission_users_impersonate
         required = True

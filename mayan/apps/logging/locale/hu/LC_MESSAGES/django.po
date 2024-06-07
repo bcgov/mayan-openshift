@@ -4,16 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2023
-# Tamás Benkovszky, 2023
+# molnars <szabolcs.molnar@gmail.com>, 2024
 # Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -74,19 +73,19 @@ msgstr "Hibanapló-partíció"
 msgid "Error log partitions"
 msgstr "Hibanapló-partíciók"
 
-#: models.py:66
+#: models.py:67
 msgid "Date and time"
 msgstr "Dátum és idő"
 
-#: models.py:69
+#: models.py:71
 msgid "Text"
 msgstr "Szöveg"
 
-#: models.py:77
+#: models.py:79
 msgid "Error log partition entry"
-msgstr "Hibanapló partíció bejegyzés"
+msgstr "Hibanapló-partíció bejegyzés"
 
-#: models.py:78
+#: models.py:80
 msgid "Error log partition entries"
 msgstr "Hibanapló-partíció bejegyzések"
 
@@ -112,7 +111,7 @@ msgstr "URL"
 
 #: settings.py:18
 msgid "Disable logging message ANSI color codes."
-msgstr "Az üzenetek ANSI színkódjainak naplózásának letiltása."
+msgstr "Az üzenetek ANSI színkódos naplózásának letiltása."
 
 #: settings.py:24
 msgid "Automatically enable logging to all apps."
@@ -120,7 +119,7 @@ msgstr "A naplózás automatikus engedélyezése az összes alkalmazáshoz."
 
 #: settings.py:30
 msgid "List of handlers to which logging messages will be sent."
-msgstr "Azon kezelők listája, amelyeknek naplózási üzeneteket küldenek."
+msgstr "Azon kezelők listája, amelyeknek a naplózási üzeneteket elküldik."
 
 #: settings.py:35
 msgid "Level for the logging system."
@@ -165,7 +164,7 @@ msgid ""
 msgstr ""
 "Ez a nézet egy objektum hibanaplóját jeleníti meg. Az üres lista jó dolog."
 
-#: views.py:104
+#: views.py:105
 #, python-format
 msgid "Error log entries for: %s"
 msgstr "Hibanapló bejegyzések a következőhöz: %s"

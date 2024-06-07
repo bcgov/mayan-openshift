@@ -4,16 +4,15 @@
 # 
 # Translators:
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2023
-# Csaba Tarjányi, 2023
+# Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2023-09-06 21:36+0000\n"
-"Last-Translator: Csaba Tarjányi, 2023\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: Csaba Tarjányi, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,8 +68,7 @@ msgstr "Parancsok tárolása"
 #: source_backends/imap_source_backends.py:87
 msgid "Execute the IMAP expunge command after processing each email message."
 msgstr ""
-"Minden email üzenet feldolgozása után hajtsa végre az IMAP expunge "
-"parancsot."
+"Minden email üzenet feldolgozása után hajtsa végre az IMAP törlés parancsot."
 
 #: source_backends/imap_source_backends.py:90
 msgid "Execute expunge"
@@ -126,7 +124,7 @@ msgstr "POP3 email"
 
 #: source_backends/pop3_source_backends.py:32
 msgid "Timeout"
-msgstr "időtúllépés"
+msgstr "Időtúllépés"
 
 #: source_backends/pop3_source_backends.py:45
 msgid "POP3 protocol"
