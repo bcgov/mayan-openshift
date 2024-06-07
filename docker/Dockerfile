@@ -41,6 +41,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update \
   && apt-get install --no-install-recommends --yes \
   ca-certificates \
+  clamav \
   file \
   fonts-arphic-uming \
   fonts-arphic-ukai \
@@ -91,7 +92,9 @@ RUN --mount=type=cache,target=/var/cache/apt \
   ln -s /usr/lib/arm-linux-gnueabihf/libz.so /usr/lib/ \
   && ln -s /usr/lib/arm-linux-gnueabihf/libjpeg.so /usr/lib/ \
   ; fi \
-  && sed -i 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf
+  && sed -i 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf \
+  # Update ClamAV database.
+  && /usr/bin/freshclam
 
 ####
 # builder_image - This image builds the Python package and is discarded afterwards
@@ -158,7 +161,7 @@ RUN set -a \
   pip==${PYTHON_PIP_VERSION} \
   amqp==${PYTHON_AMQP_VERSION} \
   mysqlclient==${PYTHON_MYSQL_VERSION} \
-  psycopg2==${PYTHON_PSYCOPG2_VERSION} \
+  psycopg==${PYTHON_PSYCOPG_VERSION} \
   redis==${PYTHON_REDIS_VERSION} \
   # psutil is needed by ARM builds otherwise gevent and gunicorn fail to start.
   && UNAME=`uname -m` && if [ "${UNAME#*arm}" != ${UNAME} ]; then \
@@ -173,8 +176,8 @@ RUN set -a \
   # Install the built Mayan EDMS package.
   && pip install --no-cache-dir dist/mayan_edms-*.whl \
   # Install the static content.
-  && mayan-edms.py installdependencies \
-  && mayan-edms.py appearance_prepare_static --link --noinput
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py dependencies_install \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py appearance_prepare_static --link --noinput
 
 COPY --chown=mayan:mayan requirements/testing-base.txt "${PROJECT_INSTALL_DIR}"
 
@@ -192,7 +195,7 @@ COPY docker/rootfs /
 
 VOLUME ["/var/lib/mayan"]
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 EXPOSE 8000
 CMD ["run_all"]
