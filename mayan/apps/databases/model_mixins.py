@@ -63,7 +63,9 @@ class BackendModelMixin(models.Model):
                 raise
 
     def get_backend_instance(self):
-        return self.get_backend()(
+        backend_class = self.get_backend()
+
+        return backend_class(
             model_instance_id=self.id, **self.get_backend_data()
         )
 
@@ -87,7 +89,9 @@ class BackendModelMixin(models.Model):
 
 class ExtraDataModelMixin:
     def __init__(self, *args, **kwargs):
-        _instance_extra_data = kwargs.pop('_instance_extra_data', {})
+        _instance_extra_data = kwargs.pop(
+            '_instance_extra_data', {}
+        )
         result = super().__init__(*args, **kwargs)
         for key, value in _instance_extra_data.items():
             setattr(self, key, value)
@@ -134,7 +138,9 @@ class ValueChangeModelMixin:
     @classmethod
     def from_db(cls, db, field_names, values):
         new = super().from_db(db=db, field_names=field_names, values=values)
-        new._values_previous = dict(zip(field_names, values))
+        new._values_previous = dict(
+            zip(field_names, values)
+        )
         return new
 
     def __init__(self, *args, **kwargs):

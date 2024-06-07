@@ -49,6 +49,7 @@ class PartialNavigation {
         // Default is 10 requests in 5 seconds of less.
         this.maximumAjaxRequests = parameters.maximumAjaxRequests || 10;
         this.ajaxRequestTimeout = parameters.ajaxRequestTimeout || 5000;
+        this.ajaxThrottlingMessage = parameters.ajaxThrottlingMessage || 'Too many requests.';
 
         this.currentAjaxRequest = null;
         this.AjaxRequestTimeOutList = [];
@@ -96,19 +97,24 @@ class PartialNavigation {
         this.AjaxRequestTimeOutList.push(
             setTimeout(function() {
                 app.AjaxRequestTimeOutList.shift();
-            }, 5000)
+            }, app.ajaxRequestTimeout)
         );
 
         // Request exceeded maximum, ignoring.
-        if (this.AjaxRequestTimeOutList.length >= 10) {
+        if (this.AjaxRequestTimeOutList.length > app.maximumAjaxRequests) {
+            let options = {};
+
+            options['timeOut'] = 10000;
+
+            toastr['warning'](app.ajaxThrottlingMessage, '', options);
             return;
         }
 
-        // Another Ajax request is being processed. Cancel them previous
+        // Another AJAX request is being processed. Cancel the previous
         // one.
         if (this.currentAjaxRequest) {
             this.currentAjaxRequest.abort();
-            // Clear the content area to avoid an '0' status server error
+            // Clear the content area to avoid a '0' status server error
             // message.
             $('#ajax-content').empty('');
         }
@@ -234,9 +240,11 @@ class PartialNavigation {
                   hideAll(document.querySelectorAll('div.pastebin'));
             }
         } else {
-            if (jqXHR.status == 0) {
-                $('#modal-server-error .modal-body').html($('#template-error').html());
-                $('#modal-server-error').modal('show')
+            if (jqXHR.status === 0) {
+                if (jqXHR.statusText !== "abort") {
+                    $('#modal-server-error .modal-body').html($('#template-error').html());
+                    $('#modal-server-error').modal('show')
+                }
             } else {
                 if ([403, 404, 500].indexOf(jqXHR.status !== -1)) {
                     $('#ajax-content').html(jqXHR.responseText);
@@ -300,7 +308,7 @@ class PartialNavigation {
                 const uriFragment = uri.fragment();
                 const url = $form.attr('action') || uriFragment;
                 const formAction = new URI(url);
-                let finalUrl = new URI(formAction.path());
+                let finalUrl = new URI(formAction.path() + '?' + formAction.query());
                 const formQueryString = new URLSearchParams(
                     decodeURIComponent($form.serialize())
                 );
@@ -310,7 +318,7 @@ class PartialNavigation {
                 // Merge the URL and the form values in a smart way instead
                 // of just blindly adding a '?' between them.
                 formQueryString.forEach(function(value, key) {
-                    finalUrl.addQuery(key, value);
+                    finalUrl.setQuery(key, value);
                 });
 
                 lastAjaxFormData.url = finalUrl.toString();
@@ -320,7 +328,7 @@ class PartialNavigation {
                     // opening a new window and passing the form serialized
                     // data as the query.
                     const formAction = new URI($form.attr('action'));
-                    let finalUrl = new URL(formAction.path());
+                    let finalUrl = new URI(formAction.path());
                     const formQueryString = new URLSearchParams(
                         decodeURIComponent($form.serialize())
                     );
@@ -328,7 +336,7 @@ class PartialNavigation {
                     // Merge the URL and the form values in a smart way instead
                     // of just blindly adding a '?' between them.
                     formQueryString.forEach(function(value, key) {
-                        finalUrl.addQuery(key, value);
+                        finalUrl.setQuery(key, value);
                     });
                     window.open(finalUrl.toString());
 

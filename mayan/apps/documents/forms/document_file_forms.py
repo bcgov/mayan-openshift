@@ -7,11 +7,6 @@ from mayan.apps.views.forms import DetailForm
 from ..fields import DocumentFileField
 from ..models.document_file_models import DocumentFile
 
-__all__ = (
-    'DocumentFileForm', 'DocumentFilePreviewForm',
-    'DocumentFilePropertiesForm'
-)
-
 
 class DocumentFileForm(forms.ModelForm):
     class Meta:
@@ -43,21 +38,21 @@ class DocumentFilePropertiesForm(DetailForm):
     fieldsets = (
         (
             _('Original'), {
-                'fields': ('filename', 'size'),
+                'fields': ('filename', 'size')
             }
         ), (
             _('Detected'), {
-                'fields': ('mimetype', 'encoding', 'pages'),
+                'fields': ('mimetype', 'encoding', 'pages')
             }
         ), (
             _('Storage'), {
-                'fields': ('file', 'exists', 'checksum'),
+                'fields': ('file', 'exists', 'checksum')
             }
         ), (
             _('Other'), {
-                'fields': ('timestamp', 'comment'),
+                'fields': ('timestamp', 'comment')
             }
-        ),
+        )
     )
 
     class Meta:
@@ -69,29 +64,32 @@ class DocumentFilePropertiesForm(DetailForm):
             },
             {
                 'label': _('MIME type'),
-                'field': 'mimetype',
+                'field': 'mimetype'
             },
             {
                 'label': _('Encoding'),
-                'field': 'encoding',
+                'field': 'encoding'
             },
             {
                 'label': _('Size'),
                 'func': lambda document_file: filesizeformat(
-                    document_file.size
+                    bytes_=document_file.size
                 ) if document_file.size else '-', 'field': 'size'
             },
-            {'label': _('Exists in storage'), 'field': 'exists'},
             {
-                'label': _('Path in storage'),
-                'field': 'file'
+                'label': _('Exists in storage'), 'field': 'exists'
             },
-            {'label': _('Checksum'), 'field': 'checksum'},
+            {
+                'label': _('Path in storage'), 'field': 'file'
+            },
+            {
+                'label': _('Checksum'), 'field': 'checksum'
+            },
             {
                 'label': _('Pages'),
                 'func': lambda document_file: document_file.pages.count(),
                 'field': 'pages'
-            },
+            }
         ]
         fields = ('filename', 'comment',)
         model = DocumentFile

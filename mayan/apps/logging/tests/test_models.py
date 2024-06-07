@@ -20,15 +20,18 @@ class ErrorLoggingModelTestCase(ErrorLogPartitionEntryTestMixin, BaseTestCase):
         self._test_object.error_log.create(text='4')
 
         self.assertEqual(
-            list(self._test_object.error_log.values_list('text', flat=True)),
-            ['2', '3', '4']
+            list(
+                self._test_object.error_log.values_list('text', flat=True)
+            ), ['2', '3', '4']
         )
 
     def test_orphan_error_logs_after_object_deletion(self):
         self._clear_events()
 
         self._test_object.delete()
-        self.assertEqual(ErrorLogPartitionEntry.objects.count(), 0)
+        self.assertEqual(
+            ErrorLogPartitionEntry.objects.count(), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -37,7 +40,9 @@ class ErrorLoggingModelTestCase(ErrorLogPartitionEntryTestMixin, BaseTestCase):
         self._clear_events()
 
         self._test_error_log_entry.delete()
-        self.assertEqual(ErrorLogPartitionEntry.objects.count(), 0)
+        self.assertEqual(
+            ErrorLogPartitionEntry.objects.count(), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 1)

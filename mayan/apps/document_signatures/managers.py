@@ -10,8 +10,7 @@ from mayan.apps.documents.models import DocumentFile
 from mayan.apps.storage.utils import NamedTemporaryFile
 
 from .events import (
-    event_detached_signature_created,
-    event_embedded_signature_created
+    event_detached_signature_created, event_embedded_signature_created
 )
 
 logger = logging.getLogger(name=__name__)
@@ -78,7 +77,7 @@ class EmbeddedSignatureManager(models.Manager):
                 raise
             else:
                 # The result of key.sign_file does not contain the
-                # signtarure ID.
+                # signature ID.
                 # Verify the signed file to obtain the signature ID.
                 temporary_file_object.seek(0)
                 result = Key.objects.verify_file(
@@ -92,7 +91,7 @@ class EmbeddedSignatureManager(models.Manager):
                     file_object=temporary_file_object,
                     filename='{}_{}'.format(
                         str(document_file), _('signed')
-                    ), _user=user
+                    ), user=user
                 )
                 instance = self.get(signature_id=result.signature_id)
                 event_embedded_signature_created.commit(

@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2022
+# Roberto Rosario, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Roberto Rosario, 2022\n"
-"Language-Team: Spanish (https://www.transifex.com/rosarior/teams/13584/es/)\n"
+"POT-Creation-Date: 2024-06-02 01:53+0000\n"
+"PO-Revision-Date: 2023-01-05 02:50+0000\n"
+"Last-Translator: Roberto Rosario, 2023\n"
+"Language-Team: Spanish (https://app.transifex.com/rosarior/teams/13584/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,19 +40,19 @@ msgstr "El código no es válido o ha caducado."
 msgid "TOTP token"
 msgstr "Código TOTP"
 
-#: forms.py:84
+#: forms.py:86
 msgid "OTP enabled?"
 msgstr "¿OTP habilitado?"
 
-#: forms.py:85
+#: forms.py:87
 msgid "Yes"
 msgstr "Si"
 
-#: forms.py:85
+#: forms.py:87
 msgid "No"
 msgstr "No"
 
-#: forms.py:102
+#: forms.py:104
 msgid ""
 "Scan the QR code or enter the secret in your authentication device. Do not "
 "share this secret, treat it like a password."
@@ -60,22 +60,22 @@ msgstr ""
 "Escanee el código QR o ingrese el secreto en su dispositivo de "
 "autenticación. No comparta este secreto, trátelo como una contraseña."
 
-#: forms.py:104 forms.py:109
+#: forms.py:106 forms.py:111
 msgid "Secret"
 msgstr "Secreta"
 
-#: forms.py:115
+#: forms.py:117
 msgid ""
 "Enter the corresponding token to validate that the secret was saved correct."
 msgstr ""
 "Ingrese el código correspondiente para validar que el secreto se guardó "
 "correctamente."
 
-#: forms.py:118
+#: forms.py:120
 msgid "Token"
 msgstr "Código"
 
-#: forms.py:152
+#: forms.py:155
 msgid "Token is incorrect for the specified secret."
 msgstr "El código es incorrecto para el secreto especificado."
 
@@ -121,19 +121,19 @@ msgstr "Deshabilitar el código de un solo uso para el usuario: %s"
 msgid "OTP disable successfully."
 msgstr "OTP deshabilitado con éxito."
 
-#: views.py:78
+#: views.py:80
 msgid "OTP is already enabled."
 msgstr "OTP ya está habilitado."
 
-#: views.py:94
+#: views.py:96
 msgid "OTP enabled successfully."
 msgstr "OTP habilitado con éxito."
 
-#: views.py:103
+#: views.py:105
 #, python-format
 msgid "Enable one time pad for user: %s"
 msgstr "Habilitar código de un solo uso para el usuario: %s"
 
-#: views.py:115
+#: views.py:117
 msgid "OTP secret validation error."
 msgstr "Error de validación de secreto OTP."

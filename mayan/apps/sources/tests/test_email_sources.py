@@ -20,7 +20,6 @@ from .mixins.email_source_mixins import (
     EmailSourceBackendTestMixin, IMAPEmailSourceTestMixin,
     POP3EmailSourceTestMixin
 )
-
 from .mocks import MockIMAPServer, MockPOP3Mailbox
 
 
@@ -67,7 +66,9 @@ class EmailSourceBackendTestCase(
 
         source_backend_instance.process_documents()
 
-        self.assertEqual(Document.objects.count(), 0)
+        self.assertEqual(
+            Document.objects.count(), 0
+        )
 
     def test_decode_email_with_inline_image(self):
         self._create_test_email_source_backend(
@@ -82,7 +83,9 @@ class EmailSourceBackendTestCase(
 
         source_backend_instance.process_documents()
 
-        self.assertTrue(Document.objects.count(), 2)
+        self.assertEqual(
+            Document.objects.count(), 2
+        )
         self.assertQuerysetEqual(
             ordered=False, qs=Document.objects.all(), values=(
                 '<Document: test-01.png>', '<Document: email_body.html>'
@@ -101,7 +104,9 @@ class EmailSourceBackendTestCase(
         source_backend_instance.content = TEST_EMAIL_ATTACHMENT_AND_INLINE
         source_backend_instance.process_documents()
 
-        self.assertTrue(Document.objects.count(), 2)
+        self.assertEqual(
+            Document.objects.count(), 2
+        )
         self.assertQuerysetEqual(
             ordered=False, qs=Document.objects.all(), values=(
                 '<Document: test-01.png>', '<Document: email_body.html>',
@@ -119,7 +124,9 @@ class EmailSourceBackendTestCase(
         source_backend_instance.process_documents()
 
         # Only two attachments, no body document.
-        self.assertEqual(Document.objects.count(), 1)
+        self.assertEqual(
+            Document.objects.count(), 1
+        )
 
     def test_document_upload_with_body(self):
         self._create_test_email_source_backend(
@@ -134,7 +141,9 @@ class EmailSourceBackendTestCase(
         source_backend_instance.process_documents()
 
         # Only two attachments and a body document
-        self.assertEqual(Document.objects.count(), 2)
+        self.assertEqual(
+            Document.objects.count(), 2
+        )
 
 
 class EmailSourceBackendMedatadataTestCase(
@@ -151,7 +160,7 @@ class EmailSourceBackendMedatadataTestCase(
     def test_email_from_value_as_metadata(self):
         self._create_test_email_source_backend(
             extra_data={
-                'from_metadata_type_id': self._test_metadata_type.pk,
+                'from_metadata_type_id': self._test_metadata_type.pk
             }
         )
         source_backend_instance = self._test_source.get_backend_instance()
@@ -172,7 +181,7 @@ class EmailSourceBackendMedatadataTestCase(
     def test_email_subjet_value_as_metadata(self):
         self._create_test_email_source_backend(
             extra_data={
-                'subject_metadata_type_id': self._test_metadata_type.pk,
+                'subject_metadata_type_id': self._test_metadata_type.pk
             }
         )
         source_backend_instance = self._test_source.get_backend_instance()
@@ -193,7 +202,7 @@ class EmailSourceBackendMedatadataTestCase(
     def test_message_id_subjet_value_as_metadata(self):
         self._create_test_email_source_backend(
             extra_data={
-                'message_id_metadata_type_id': self._test_metadata_type.pk,
+                'message_id_metadata_type_id': self._test_metadata_type.pk
             }
         )
         source_backend_instance = self._test_source.get_backend_instance()
@@ -238,7 +247,7 @@ class EmailSourceBackendMetadataYAMLAttachmentTestCase(
         test_metadata_yaml = yaml_dump(
             data={
                 test_metadata_type_1.name: TEST_METADATA_VALUE_1,
-                test_metadata_type_2.name: TEST_METADATA_VALUE_2,
+                test_metadata_type_2.name: TEST_METADATA_VALUE_2
             }
         )
 
@@ -273,7 +282,9 @@ class EmailSourceBackendMetadataYAMLAttachmentTestCase(
 
         source_backend_instance.process_documents()
 
-        self.assertEqual(Document.objects.count(), 2)
+        self.assertEqual(
+            Document.objects.count(), 2
+        )
 
         for document in Document.objects.all():
             self.assertEqual(

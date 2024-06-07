@@ -1,6 +1,6 @@
+from django.conf import settings
 from django.contrib import contenttypes
 from django.db import models
-from django.utils.encoding import force_text
 
 import mptt
 
@@ -22,7 +22,9 @@ class ModelCopy:
 
     @classmethod
     def add_fields_lazy(cls, model, **kwargs):
-        cls._lazy.setdefault(model, [])
+        cls._lazy.setdefault(
+            model, []
+        )
         cls._lazy[model].append(kwargs)
 
     @classmethod
@@ -31,7 +33,7 @@ class ModelCopy:
 
     def __init__(
         self, model, acl_bind_link=True, condition=None, bind_link=False,
-        excludes=None, register_permission=False, extra_kwargs=None
+        excludes=None, extra_kwargs=None, register_permission=False
     ):
         self.condition = condition
         self.excludes = excludes or {}
@@ -58,8 +60,8 @@ class ModelCopy:
 
         if register_permission:
             ModelPermission.register(
-                model=model, permissions=(permission_object_copy,),
-                bind_link=acl_bind_link
+                bind_link=acl_bind_link, model=model,
+                permissions=(permission_object_copy,)
             )
 
         for entry in self.__class__._lazy.get(model, ()):
@@ -67,7 +69,7 @@ class ModelCopy:
             self.__class__._lazy.get(model).pop()
 
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
     def _evaluate_field_get_for_field(self, field, instance, value, values):
         context = {'instance': instance}
@@ -75,7 +77,11 @@ class ModelCopy:
 
         field_value_gets = self.field_value_gets.get(field, None)
         if field_value_gets:
-            related_model = self.model._meta.get_field(field).related_model or self.model._meta.get_field(field).model
+            related_model = self.model._meta.get_field(
+                field_name=field
+            ).related_model or self.model._meta.get_field(
+                field_name=field
+            ).model
             final_filter = {}
             for key, value in field_value_gets.items():
                 final_filter[key] = value.format(**context)
@@ -143,7 +149,9 @@ class ModelCopy:
 
                 new_node = self._copy(
                     instance=source_node, values=values,
-                    _get_or_create=self.extra_kwargs.get('get_or_create', False)
+                    _get_or_create=self.extra_kwargs.get(
+                        'get_or_create', False
+                    )
                 )
                 if not values['parent_id']:
                     result = new_node
@@ -170,7 +178,9 @@ class ModelCopy:
 
         # Base fields whose values are copied.
         for field in self.fields_copy:
-            value = values.get(field, getattr(instance, field))
+            value = values.get(
+                field, getattr(instance, field)
+            )
 
             value = self._evaluate_field_get_for_field(
                 field=field, instance=instance, value=value, values=values
@@ -187,7 +197,7 @@ class ModelCopy:
                 if not self.model._meta.default_manager.filter(**{field: value}).exists():
                     break
 
-                counter = counter + 1
+                counter += 1
 
             value = self._evaluate_field_get_for_field(
                 field=field, instance=instance, value=value, values=values
@@ -196,7 +206,9 @@ class ModelCopy:
 
         # Foreign keys.
         for field in self.fields_foreign_keys:
-            value = values.get(field, getattr(instance, field))
+            value = values.get(
+                field, getattr(instance, field)
+            )
 
             value = self._evaluate_field_get_for_field(
                 field=field, instance=instance, value=value, values=values
@@ -206,7 +218,8 @@ class ModelCopy:
         # Fields that are given an unique value if a condition is met.
         for field in self.unique_conditional:
             if self.unique_conditional[field](
-                instance=instance, new_instance_dictionary=new_model_dictionary
+                instance=instance,
+                new_instance_dictionary=new_model_dictionary
             ):
                 base_value = getattr(instance, field)
                 counter = 1
@@ -216,10 +229,11 @@ class ModelCopy:
                     if not self.model._meta.default_manager.filter(**{field: value}).exists():
                         break
 
-                    counter = counter + 1
+                    counter += 1
 
                 value = self._evaluate_field_get_for_field(
-                    field=field, instance=instance, value=value, values=values
+                    field=field, instance=instance, value=value,
+                    values=values
                 )
                 new_model_dictionary[field] = value
 
@@ -233,11 +247,15 @@ class ModelCopy:
 
         # Many to many fields added after instance creation.
         for field in self.fields_many_to_many:
-            getattr(new_instance, field).set(getattr(instance, field).all())
+            getattr(new_instance, field).set(
+                getattr(instance, field).all()
+            )
 
         # Many to many reverse related fields added after instance creation.
         for field in self.fields_many_to_many_reverse_related:
-            getattr(new_instance, field).set(getattr(instance, field).all())
+            getattr(new_instance, field).set(
+                getattr(instance, field).all()
+            )
 
         # Reverse related.
         for field in self.fields_reverse_related:
@@ -245,7 +263,9 @@ class ModelCopy:
             related_field_name = related_field.field.name
 
             for related_instance in getattr(instance, field).all():
-                values.update({related_field_name: new_instance})
+                values.update(
+                    {related_field_name: new_instance}
+                )
                 related_instance.copy_instance(
                     values=values
                 )
@@ -309,9 +329,9 @@ class MissingItem:
         return result
 
     def __init__(self, label, condition, description, view):
-        self.label = label
         self.condition = condition
         self.description = description
+        self.label = label
         self.view = view
         self.__class__._registry.append(self)
 
@@ -339,3 +359,29 @@ class PropertyHelper:
         by each subclass.
         """
         raise NotImplementedError
+
+
+class UpstreamSetting:
+    def __init__(self, name, default):
+        self.default = default
+        self.name = name
+        self.upstream_setting_collection = None
+
+    def do_kwargs_capture(self, **kwargs):
+        value = kwargs.pop(self.name.lower(), self.default)
+        setattr(settings, self.name, value)
+
+
+class UpstreamSettingCollection:
+    def __init__(self, name):
+        self.name = name
+        self.setting_list = []
+
+    def do_setting_add(self, **kwargs):
+        setting = UpstreamSetting(**kwargs)
+        setting.upstream_setting_collection = self
+        self.setting_list.append(setting)
+
+    def do_kwargs_capture(self, **kwargs):
+        for setting in self.setting_list:
+            setting.do_kwargs_capture(**kwargs)

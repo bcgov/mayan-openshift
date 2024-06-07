@@ -1,15 +1,14 @@
 from mayan.apps.document_states.permissions import permission_workflow_template_edit
 from mayan.apps.document_states.tests.base import ActionTestCase
 from mayan.apps.document_states.tests.mixins.workflow_template_mixins import WorkflowTemplateTestMixin
-from mayan.apps.document_states.tests.mixins.workflow_template_state_mixins import WorkflowTemplateStateActionViewTestMixin
+from mayan.apps.document_states.tests.mixins.workflow_template_state_action_mixins import WorkflowTemplateStateActionViewTestMixin
 from mayan.apps.testing.tests.base import GenericViewTestCase
 
 from ..models import LayerTransformation
 from ..workflow_actions import TransformationAddAction
 
 from .literals import (
-    TEST_TRANSFORMATION_ROTATE_ARGUMENT,
-    TEST_TRANSFORMATION_ROTATE_NAME
+    TEST_TRANSFORMATION_ROTATE_ARGUMENT, TEST_TRANSFORMATION_ROTATE_NAME
 )
 
 
@@ -26,7 +25,9 @@ class TransformationActionTestCase(ActionTestCase):
         transformation_count = LayerTransformation.objects.get_for_object(
             obj=self._test_document.pages.first()
         ).count()
-        action.execute(context={'document': self._test_document})
+        action.execute(
+            context={'document': self._test_document}
+        )
 
         self.assertEqual(
             LayerTransformation.objects.get_for_object(
@@ -46,7 +47,9 @@ class TransformationActionTestCase(ActionTestCase):
         transformation_count = LayerTransformation.objects.get_for_object(
             obj=self._test_document.pages.first()
         ).count()
-        action.execute(context={'document': self._test_document})
+        action.execute(
+            context={'document': self._test_document}
+        )
 
         self.assertEqual(
             LayerTransformation.objects.get_for_object(

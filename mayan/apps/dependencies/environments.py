@@ -1,4 +1,3 @@
-from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -10,7 +9,7 @@ class DependencyEnvironment:
         self.mark_missing = mark_missing
 
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
 
 environment_build = DependencyEnvironment(
@@ -34,8 +33,8 @@ environment_documentation = DependencyEnvironment(
 )
 environment_documentation_override = DependencyEnvironment(
     help_text=_(
-        'Environment used to specify direct documentation depedencies to '
-        'workaround unpinned or immutable depedency bugs in third party '
+        'Environment used to specify direct documentation dependencies to '
+        'workaround unpinned or immutable dependency bugs in third party '
         'libraries. End users can ignore missing dependencies under this '
         'environment.'
     ), label=_('Documentation (override)'), name='documentation_override'

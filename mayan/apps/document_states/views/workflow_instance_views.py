@@ -9,9 +9,9 @@ from mayan.apps.acls.models import AccessControlList
 from mayan.apps.documents.models import Document
 from mayan.apps.views.forms import DynamicForm
 from mayan.apps.views.generics import FormView, SingleObjectListView
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
-from ..forms import WorkflowInstanceTransitionSelectForm
+from ..forms.workflow_instance_forms import WorkflowInstanceTransitionSelectForm
 from ..icons import (
     icon_workflow_instance_detail, icon_workflow_instance_list,
     icon_workflow_instance_transition,
@@ -21,7 +21,8 @@ from ..links import link_workflow_instance_transition
 from ..literals import FIELD_TYPE_MAPPING, WIDGET_CLASS_MAPPING
 from ..models import WorkflowInstance
 from ..permissions import (
-    permission_workflow_instance_transition, permission_workflow_template_view
+    permission_workflow_instance_transition,
+    permission_workflow_template_view
 )
 
 
@@ -85,14 +86,14 @@ class WorkflowInstanceDetailView(ExternalObjectViewMixin, SingleObjectListView):
         }
 
     def get_external_object_queryset(self):
-        document_queryset = AccessControlList.objects.restrict_queryset(
+        queryset_documents = AccessControlList.objects.restrict_queryset(
             queryset=Document.valid.all(),
             permission=permission_workflow_template_view,
             user=self.request.user
         )
 
         return WorkflowInstance.objects.filter(
-            document_id__in=document_queryset.values('pk')
+            document_id__in=queryset_documents.values('pk')
         )
 
     def get_source_queryset(self):
@@ -120,7 +121,21 @@ class WorkflowInstanceTransitionExecuteView(ExternalObjectViewMixin, FormView):
                 'Document "%s" transitioned successfully'
             ) % self.external_object.document, request=self.request
         )
-        return HttpResponseRedirect(redirect_to=self.get_success_url())
+        return HttpResponseRedirect(
+            redirect_to=self.get_success_url()
+        )
+
+    def get_external_object_queryset_filtered(self):
+        queryset = super().get_external_object_queryset_filtered()
+
+        # Filter further down by document access.
+        queryset_documents = AccessControlList.objects.restrict_queryset(
+            permission=permission_workflow_instance_transition,
+            queryset=Document.valid.all(),
+            user=self.request.user
+        )
+
+        return queryset.filter(document__in=queryset_documents)
 
     def get_extra_context(self):
         return {
@@ -130,7 +145,7 @@ class WorkflowInstanceTransitionExecuteView(ExternalObjectViewMixin, FormView):
                 'Execute transition "%(transition)s" for workflow: %(workflow)s'
             ) % {
                 'transition': self.get_workflow_template_transition(),
-                'workflow': self.external_object,
+                'workflow': self.external_object
             },
             'workflow_instance': self.external_object
         }
@@ -178,22 +193,10 @@ class WorkflowInstanceTransitionExecuteView(ExternalObjectViewMixin, FormView):
     def get_success_url(self):
         return self.external_object.get_absolute_url()
 
-    def get_external_object_queryset_filtered(self):
-        queryset = super().get_external_object_queryset_filtered()
-
-        # Filter further down by document access.
-        document_queryset = AccessControlList.objects.restrict_queryset(
-            permission=permission_workflow_instance_transition,
-            queryset=Document.valid.all(),
-            user=self.request.user
-        )
-
-        return queryset.filter(document__in=document_queryset)
-
     def get_workflow_template_transition(self):
         return get_object_or_404(
             klass=self.external_object.get_transition_choices(
-                _user=self.request.user
+                user=self.request.user
             ), pk=self.kwargs['workflow_template_transition_id']
         )
 
@@ -234,13 +237,13 @@ class WorkflowInstanceTransitionSelectView(ExternalObjectViewMixin, FormView):
         queryset = super().get_external_object_queryset_filtered()
 
         # Filter further down by document access.
-        document_queryset = AccessControlList.objects.restrict_queryset(
+        queryset_documents = AccessControlList.objects.restrict_queryset(
             permission=permission_workflow_instance_transition,
             queryset=Document.valid.all(),
             user=self.request.user
         )
 
-        return queryset.filter(document__in=document_queryset)
+        return queryset.filter(document__in=queryset_documents)
 
     def get_form_extra_kwargs(self):
         return {

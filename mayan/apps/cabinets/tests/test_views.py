@@ -3,8 +3,9 @@ from mayan.apps.documents.tests.base import GenericDocumentViewTestCase
 from mayan.apps.testing.tests.base import GenericViewTestCase
 
 from ..events import (
-    event_cabinet_created, event_cabinet_edited,
-    event_cabinet_document_added, event_cabinet_document_removed
+    event_cabinet_created, event_cabinet_deleted,
+    event_cabinet_document_added, event_cabinet_document_removed,
+    event_cabinet_edited
 )
 from ..models import Cabinet
 from ..permissions import (
@@ -14,8 +15,7 @@ from ..permissions import (
 )
 from .literals import TEST_CABINET_LABEL, TEST_CABINET_LABEL_EDITED
 from .mixins import (
-    CabinetTestMixin, CabinetViewTestMixin,
-    DocumentCabinetViewTestMixin
+    CabinetTestMixin, CabinetViewTestMixin, DocumentCabinetViewTestMixin
 )
 
 
@@ -28,7 +28,9 @@ class CabinetViewTestCase(
         response = self._request_test_cabinet_create_view()
         self.assertEqual(response.status_code, 403)
 
-        self.assertEqual(Cabinet.objects.count(), 0)
+        self.assertEqual(
+            Cabinet.objects.count(), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -41,8 +43,12 @@ class CabinetViewTestCase(
         response = self._request_test_cabinet_create_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(Cabinet.objects.count(), 1)
-        self.assertEqual(Cabinet.objects.first().label, TEST_CABINET_LABEL)
+        self.assertEqual(
+            Cabinet.objects.count(), 1
+        )
+        self.assertEqual(
+            Cabinet.objects.first().label, TEST_CABINET_LABEL
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 1)
@@ -65,8 +71,12 @@ class CabinetViewTestCase(
         # HTTP 200 with error message.
         self.assertEqual(response.status_code, 200)
 
-        self.assertEqual(Cabinet.objects.count(), cabinet_count)
-        self.assertEqual(Cabinet.objects.first(), cabinet_original)
+        self.assertEqual(
+            Cabinet.objects.count(), cabinet_count
+        )
+        self.assertEqual(
+            Cabinet.objects.first(), cabinet_original
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -79,7 +89,9 @@ class CabinetViewTestCase(
         response = self._request_test_cabinet_delete_view()
         self.assertEqual(response.status_code, 404)
 
-        self.assertEqual(Cabinet.objects.count(), 1)
+        self.assertEqual(
+            Cabinet.objects.count(), 1
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -95,7 +107,9 @@ class CabinetViewTestCase(
         response = self._request_test_cabinet_delete_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(Cabinet.objects.count(), 0)
+        self.assertEqual(
+            Cabinet.objects.count(), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -170,9 +184,7 @@ class CabinetViewTestCase(
 class CabinetChildViewTestCase(
     CabinetTestMixin, CabinetViewTestMixin, GenericViewTestCase
 ):
-    def setUp(self):
-        super().setUp()
-        self._create_test_cabinet()
+    auto_create_test_cabinet = True
 
     def test_cabinet_child_create_view_no_permission(self):
         cabinet_count = Cabinet.objects.count()
@@ -189,7 +201,7 @@ class CabinetChildViewTestCase(
 
     def test_cabinet_child_create_view_with_access(self):
         self.grant_access(
-            obj=self._test_cabinet, permission=permission_cabinet_edit
+            obj=self._test_cabinet, permission=permission_cabinet_create
         )
         cabinet_count = Cabinet.objects.count()
 
@@ -199,17 +211,19 @@ class CabinetChildViewTestCase(
         self.assertEqual(response.status_code, 302)
 
         self._test_cabinets[0].refresh_from_db()
-        self.assertEqual(Cabinet.objects.count(), cabinet_count + 1)
+        self.assertEqual(
+            Cabinet.objects.count(), cabinet_count + 1
+        )
         self.assertTrue(
-            self._test_cabinets[1] in self._test_cabinets[0].get_descendants()
+            self._test_cabinet_child in self._test_cabinets[0].get_descendants()
         )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 1)
 
-        self.assertEqual(events[0].action_object, None)
+        self.assertEqual(events[0].action_object, self._test_cabinet)
         self.assertEqual(events[0].actor, self._test_case_user)
-        self.assertEqual(events[0].target, self._test_cabinet)
+        self.assertEqual(events[0].target, self._test_cabinet_child)
         self.assertEqual(events[0].verb, event_cabinet_created.id)
 
     def test_cabinet_child_delete_view_no_permission(self):
@@ -240,21 +254,28 @@ class CabinetChildViewTestCase(
         response = self._request_test_cabinet_child_delete_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(Cabinet.objects.count(), cabinet_count - 1)
+        self.assertEqual(
+            Cabinet.objects.count(), cabinet_count - 1
+        )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 0)
+        self.assertEqual(events.count(), 1)
+
+        self.assertEqual(events[0].action_object, self._test_cabinet)
+        self.assertEqual(events[0].actor, self._test_cabinet)
+        self.assertEqual(events[0].target, None)
+        self.assertEqual(events[0].verb, event_cabinet_deleted.id)
 
 
 class CabinetDocumentViewTestCase(
     CabinetTestMixin, CabinetViewTestMixin, GenericDocumentViewTestCase
 ):
+    auto_create_test_cabinet = True
     auto_upload_test_document = False
 
     def setUp(self):
         super().setUp()
         self._create_test_document_stub()
-        self._create_test_cabinet()
 
     def test_cabinet_add_document_view_no_permission(self):
         self.grant_permission(permission=permission_cabinet_view)
@@ -414,7 +435,9 @@ class CabinetDocumentViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_cabinet_remove_document_view_no_permission(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         cabinet_document_count = self._test_cabinet.documents.count()
 
@@ -432,7 +455,9 @@ class CabinetDocumentViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_cabinet_remove_document_view_with_access(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(
             obj=self._test_cabinet,
@@ -464,7 +489,9 @@ class CabinetDocumentViewTestCase(
         self.assertEqual(events[0].verb, event_cabinet_document_removed.id)
 
     def test_cabinet_remove_trashed_document_view_with_access(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(
             obj=self._test_cabinet,
@@ -493,7 +520,9 @@ class CabinetDocumentViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_cabinet_document_list_view_no_permission(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self._clear_events()
 
@@ -509,7 +538,9 @@ class CabinetDocumentViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_cabinet_document_list_view_with_cabinet_access(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(
             obj=self._test_cabinet, permission=permission_cabinet_view
@@ -529,7 +560,9 @@ class CabinetDocumentViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_cabinet_document_list_view_with_document_access(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(
             obj=self._test_document, permission=permission_document_view
@@ -549,7 +582,9 @@ class CabinetDocumentViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_cabinet_document_list_view_with_full_access(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(
             obj=self._test_cabinet, permission=permission_cabinet_view
@@ -601,12 +636,12 @@ class DocumentCabinetViewTestCase(
     CabinetTestMixin, DocumentCabinetViewTestMixin,
     GenericDocumentViewTestCase
 ):
+    auto_create_test_cabinet = True
     auto_upload_test_document = False
 
     def setUp(self):
         super().setUp()
         self._create_test_document_stub()
-        self._create_test_cabinet()
 
     def test_document_cabinet_list_view_no_permission(self):
         self._test_document.cabinets.add(self._test_cabinet)

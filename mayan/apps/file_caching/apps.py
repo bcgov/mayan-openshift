@@ -1,7 +1,9 @@
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.acls.permissions import permission_acl_edit, permission_acl_view
+from mayan.apps.acls.permissions import (
+    permission_acl_edit, permission_acl_view
+)
 from mayan.apps.common.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_multi_item, menu_object, menu_secondary, menu_tools
@@ -50,7 +52,8 @@ class FileCachingConfig(MayanAppConfig):
         )
 
         SourceColumn(
-            attribute='label', is_identifier=True, is_object_absolute_url=True, source=Cache
+            attribute='label', is_identifier=True,
+            is_object_absolute_url=True, source=Cache
         )
         SourceColumn(
             attribute='get_maximum_size_display', include_label=True,
@@ -58,6 +61,14 @@ class FileCachingConfig(MayanAppConfig):
         )
         SourceColumn(
             attribute='get_total_size_display', include_label=True,
+            source=Cache
+        )
+        SourceColumn(
+            attribute='get_partition_count', include_label=True,
+            source=Cache
+        )
+        SourceColumn(
+            attribute='get_partition_file_count', include_label=True,
             source=Cache
         )
 
@@ -75,4 +86,6 @@ class FileCachingConfig(MayanAppConfig):
             )
         )
 
-        menu_tools.bind_links(links=(link_cache_list,))
+        menu_tools.bind_links(
+            links=(link_cache_list,)
+        )

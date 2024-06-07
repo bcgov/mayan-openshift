@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
+import uuid
 
 from django.apps import apps
 from django.utils.module_loading import import_string
@@ -15,7 +16,9 @@ logger = logging.getLogger(name=__name__)
 
 
 def NamedTemporaryFile(*args, **kwargs):
-    kwargs.update({'dir': setting_temporary_directory.value})
+    kwargs.update(
+        {'dir': setting_temporary_directory.value}
+    )
     return tempfile.NamedTemporaryFile(*args, **kwargs)
 
 
@@ -74,8 +77,8 @@ class PassthroughStorageProcessor:
                     )
                     storage_instance.delete(name=file_name)
                     storage_instance.save(
-                        name=file_name, content=content,
-                        _direct=self.reverse
+                        _direct=self.reverse, content=content,
+                        name=file_name
                     )
                     self._update_entry(key=key)
 
@@ -83,13 +86,23 @@ class PassthroughStorageProcessor:
 
 
 def TemporaryDirectory(*args, **kwargs):
-    kwargs.update({'dir': setting_temporary_directory.value})
+    kwargs.update(
+        {'dir': setting_temporary_directory.value}
+    )
     return tempfile.TemporaryDirectory(*args, **kwargs)
 
 
 def TemporaryFile(*args, **kwargs):
-    kwargs.update({'dir': setting_temporary_directory.value})
+    kwargs.update(
+        {'dir': setting_temporary_directory.value}
+    )
     return tempfile.TemporaryFile(*args, **kwargs)
+
+
+def download_file_upload_to(instance, filename):
+    return 'download-file-{}'.format(
+        uuid.uuid4().hex
+    )
 
 
 def fs_cleanup(filename, suppress_exceptions=True):
@@ -124,7 +137,9 @@ def get_storage_subclass(dotted_path):
             return True
 
         def deconstruct(self):
-            return ('mayan.apps.storage.classes.FakeStorageSubclass', (), {})
+            return (
+                'mayan.apps.storage.classes.FakeStorageSubclass', (), {}
+            )
 
     return StorageSubclass
 
@@ -141,7 +156,9 @@ def mkdtemp(*args, **kwargs):
     if 'dir' in kwargs:
         path = path / kwargs['dir']
 
-    kwargs.update({'dir': path})
+    kwargs.update(
+        {'dir': path}
+    )
     return tempfile.mkdtemp(*args, **kwargs)
 
 
@@ -164,7 +181,12 @@ def patch_files(path=None, replace_list=None):
 
     path_object = Path(path)
     for replace_entry in replace_list or []:
-        for path_entry in path_object.glob('**/{}'.format(replace_entry['filename_pattern'])):
+        path_entries = path_object.glob(
+            '**/{}'.format(
+                replace_entry['filename_pattern']
+            )
+        )
+        for path_entry in path_entries:
             if path_entry.is_file():
                 for pattern in replace_entry['content_patterns']:
                     with path_entry.open(mode=file_open_mode) as source_file_object:
@@ -172,7 +194,7 @@ def patch_files(path=None, replace_list=None):
                             source_position = 0
                             destination_position = 0
 
-                            while(True):
+                            while (True):
                                 source_file_object.seek(source_position)
                                 letter = source_file_object.read(1)
 
@@ -180,22 +202,32 @@ def patch_files(path=None, replace_list=None):
                                     break
                                 else:
                                     if letter == pattern['search'][0]:
-                                        text = '{}{}'.format(letter, source_file_object.read(len(pattern['search']) - 1))
+                                        text = '{}{}'.format(
+                                            letter, source_file_object.read(
+                                                len(
+                                                    pattern['search']
+                                                ) - 1
+                                            )
+                                        )
 
                                         temporary_file_object.seek(destination_position)
                                         if text == pattern['search']:
                                             text = pattern['replace']
-                                            source_position = source_position + len(pattern['search'])
-                                            destination_position = destination_position + len(pattern['replace'])
+                                            source_position += len(
+                                                pattern['search']
+                                            )
+                                            destination_position += len(
+                                                pattern['replace']
+                                            )
                                             temporary_file_object.write(text)
 
                                         else:
-                                            source_position = source_position + 1
-                                            destination_position = destination_position + 1
+                                            source_position += 1
+                                            destination_position += 1
                                             temporary_file_object.write(letter)
                                     else:
-                                        source_position = source_position + 1
-                                        destination_position = destination_position + 1
+                                        source_position += 1
+                                        destination_position += 1
                                         temporary_file_object.write(letter)
 
                             source_file_object.seek(0)
@@ -205,6 +237,12 @@ def patch_files(path=None, replace_list=None):
                                 fsrc=temporary_file_object,
                                 fdst=source_file_object
                             )
+
+
+def shared_uploaded_file_upload_to(instance, filename):
+    return 'shared-file-{}'.format(
+        uuid.uuid4().hex
+    )
 
 
 def touch(filename, times=None):

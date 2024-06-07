@@ -1,10 +1,10 @@
 from mayan.apps.rest_api import generics
 
 from ..models.recently_accessed_document_models import RecentlyAccessedDocument
+from ..permissions import permission_document_view
 from ..serializers.recently_accessed_document_serializers import (
     RecentlyAccessedDocumentSerializer
 )
-from ..permissions import permission_document_view
 
 
 class APIRecentlyAccessedDocumentListView(generics.ListAPIView):
@@ -16,5 +16,5 @@ class APIRecentlyAccessedDocumentListView(generics.ListAPIView):
     }
     serializer_class = RecentlyAccessedDocumentSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return RecentlyAccessedDocument.valid.filter(user=self.request.user)

@@ -1,8 +1,17 @@
 import logging
 
+from mayan.apps.documents.events import (
+    event_document_created, event_document_file_created,
+    event_document_file_edited, event_document_version_created,
+    event_document_version_page_created, event_trashed_document_deleted
+)
 from mayan.apps.documents.tests.base import GenericDocumentTestCase
+from mayan.apps.user_management.events import (
+    event_group_created, event_user_created
+)
 from mayan.apps.user_management.tests.mixins import GroupTestMixin
 
+from ..events import event_quota_created
 from ..exceptions import QuotaExceeded
 from ..quota_backends import DocumentCountQuota, DocumentSizeQuota
 
@@ -14,9 +23,10 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
         super().setUp()
         # Increase the initial usage count to 1 by uploading a document
         # as the test case user.
-        self._upload_test_document(_user=self._test_case_user)
+        self._clear_events()
+        self._upload_test_document(user=self._test_case_user)
         self.test_case_silenced_logger_new_level = logging.FATAL + 10
-        self._silence_logger(name='mayan.apps.documents.models')
+        self._silence_logger(name='mayan.apps.documents.model_mixins')
 
     def test_user_all_document_type_all(self):
         self._test_quota = DocumentCountQuota.create(
@@ -25,11 +35,48 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=True,
-            user_ids=(),
+            user_ids=()
         )
 
         with self.assertRaises(expected_exception=QuotaExceeded):
             self._upload_test_document()
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 6)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_file)
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_document)
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_version)
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, self._test_document_version_page)
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[5].action_object, None)
+        self.assertEqual(events[5].actor, self._test_quota)
+        self.assertEqual(events[5].target, self._test_quota)
+        self.assertEqual(events[5].verb, event_quota_created.id)
 
     def test_user_all_document_type_all_two_users(self):
         self._test_quota = DocumentCountQuota.create(
@@ -38,12 +85,54 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=True,
-            user_ids=(),
+            user_ids=()
         )
         self._create_test_user()
 
         with self.assertRaises(expected_exception=QuotaExceeded):
-            self._upload_test_document(_user=self._test_user)
+            self._upload_test_document(user=self._test_user)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 7)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_file)
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_document)
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_version)
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, self._test_document_version_page)
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[5].action_object, None)
+        self.assertEqual(events[5].actor, self._test_quota)
+        self.assertEqual(events[5].target, self._test_quota)
+        self.assertEqual(events[5].verb, event_quota_created.id)
+
+        self.assertEqual(events[6].action_object, None)
+        self.assertEqual(events[6].actor, self._test_user)
+        self.assertEqual(events[6].target, self._test_user)
+        self.assertEqual(events[6].verb, event_user_created.id)
 
     def test_user_all_document_type_test(self):
         self._test_quota = DocumentCountQuota.create(
@@ -52,11 +141,48 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(self._test_document_type.pk,),
             group_ids=(),
             user_all=True,
-            user_ids=(),
+            user_ids=()
         )
 
         with self.assertRaises(expected_exception=QuotaExceeded):
             self._upload_test_document()
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 6)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_file)
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_document)
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_version)
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, self._test_document_version_page)
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[5].action_object, None)
+        self.assertEqual(events[5].actor, self._test_quota)
+        self.assertEqual(events[5].target, self._test_quota)
+        self.assertEqual(events[5].verb, event_quota_created.id)
 
     def test_user_test_document_type_all(self):
         self._test_quota = DocumentCountQuota.create(
@@ -65,11 +191,48 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=False,
-            user_ids=(self._test_case_user.pk,),
+            user_ids=(self._test_case_user.pk,)
         )
 
         with self.assertRaises(expected_exception=QuotaExceeded):
-            self._upload_test_document(_user=self._test_case_user)
+            self._upload_test_document(user=self._test_case_user)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 6)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_file)
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_document)
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_version)
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, self._test_document_version_page)
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[5].action_object, None)
+        self.assertEqual(events[5].actor, self._test_quota)
+        self.assertEqual(events[5].target, self._test_quota)
+        self.assertEqual(events[5].verb, event_quota_created.id)
 
     def test_group_test_document_type_all(self):
         self._create_test_group()
@@ -81,11 +244,53 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(self._test_group.pk,),
             user_all=False,
-            user_ids=(),
+            user_ids=()
         )
 
         with self.assertRaises(expected_exception=QuotaExceeded):
-            self._upload_test_document(_user=self._test_case_user)
+            self._upload_test_document(user=self._test_case_user)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 7)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_file)
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_document)
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_version)
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, self._test_document_version_page)
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[5].action_object, None)
+        self.assertEqual(events[5].actor, self._test_group)
+        self.assertEqual(events[5].target, self._test_group)
+        self.assertEqual(events[5].verb, event_group_created.id)
+
+        self.assertEqual(events[6].action_object, None)
+        self.assertEqual(events[6].actor, self._test_quota)
+        self.assertEqual(events[6].target, self._test_quota)
+        self.assertEqual(events[6].verb, event_quota_created.id)
 
     def test_allow(self):
         self._test_quota = DocumentCountQuota.create(
@@ -94,10 +299,78 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=False,
-            user_ids=(),
+            user_ids=()
         )
 
-        self._upload_test_document(_user=self._test_case_user)
+        self._upload_test_document(user=self._test_case_user)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 11)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_documents[0])
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_documents[0])
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_files[0])
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_documents[0])
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_files[0])
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_versions[0])
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_versions[0]
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(
+            events[4].target, self._test_document_versions[0].pages.first()
+        )
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[5].action_object, None)
+        self.assertEqual(events[5].actor, self._test_quota)
+        self.assertEqual(events[5].target, self._test_quota)
+        self.assertEqual(events[5].verb, event_quota_created.id)
+
+        self.assertEqual(events[6].action_object, self._test_document_type)
+        self.assertEqual(events[6].actor, self._test_case_user)
+        self.assertEqual(events[6].target, self._test_document)
+        self.assertEqual(events[6].verb, event_document_created.id)
+
+        self.assertEqual(events[7].action_object, self._test_document)
+        self.assertEqual(events[7].actor, self._test_case_user)
+        self.assertEqual(events[7].target, self._test_document_file)
+        self.assertEqual(events[7].verb, event_document_file_created.id)
+
+        self.assertEqual(events[8].action_object, self._test_document)
+        self.assertEqual(events[8].actor, self._test_case_user)
+        self.assertEqual(events[8].target, self._test_document_file)
+        self.assertEqual(events[8].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[9].action_object, self._test_document)
+        self.assertEqual(events[9].actor, self._test_case_user)
+        self.assertEqual(events[9].target, self._test_document_version)
+        self.assertEqual(events[9].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[10].action_object, self._test_document_version
+        )
+        self.assertEqual(events[10].actor, self._test_case_user)
+        self.assertEqual(events[10].target, self._test_document_version_page)
+        self.assertEqual(
+            events[10].verb, event_document_version_page_created.id
+        )
 
     def test_superuser_restriction(self):
         self._create_test_superuser()
@@ -108,10 +381,83 @@ class DocumentCountQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=True,
-            user_ids=(),
+            user_ids=()
         )
 
-        self._upload_test_document(_user=self._test_superuser)
+        self._upload_test_document(user=self._test_superuser)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 12)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_documents[0])
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_documents[0])
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_files[0])
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_documents[0])
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_files[0])
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_documents[0])
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_versions[0])
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_versions[0]
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(
+            events[4].target, self._test_document_versions[0].pages.first()
+        )
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(events[5].action_object, None)
+        self.assertEqual(events[5].actor, self._test_superuser)
+        self.assertEqual(events[5].target, self._test_superuser)
+        self.assertEqual(events[5].verb, event_user_created.id)
+
+        self.assertEqual(events[6].action_object, None)
+        self.assertEqual(events[6].actor, self._test_quota)
+        self.assertEqual(events[6].target, self._test_quota)
+        self.assertEqual(events[6].verb, event_quota_created.id)
+
+        self.assertEqual(events[7].action_object, self._test_document_type)
+        self.assertEqual(events[7].actor, self._test_superuser)
+        self.assertEqual(events[7].target, self._test_document)
+        self.assertEqual(events[7].verb, event_document_created.id)
+
+        self.assertEqual(events[8].action_object, self._test_document)
+        self.assertEqual(events[8].actor, self._test_superuser)
+        self.assertEqual(events[8].target, self._test_document_file)
+        self.assertEqual(events[8].verb, event_document_file_created.id)
+
+        self.assertEqual(events[9].action_object, self._test_document)
+        self.assertEqual(events[9].actor, self._test_superuser)
+        self.assertEqual(events[9].target, self._test_document_file)
+        self.assertEqual(events[9].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[10].action_object, self._test_document)
+        self.assertEqual(events[10].actor, self._test_superuser)
+        self.assertEqual(events[10].target, self._test_document_version)
+        self.assertEqual(events[10].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[11].action_object, self._test_document_version
+        )
+        self.assertEqual(events[11].actor, self._test_superuser)
+        self.assertEqual(events[11].target, self._test_document_version_page)
+        self.assertEqual(
+            events[11].verb, event_document_version_page_created.id
+        )
 
 
 class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
@@ -120,7 +466,7 @@ class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
     def setUp(self):
         super().setUp()
         self.test_case_silenced_logger_new_level = logging.FATAL + 10
-        self._silence_logger(name='mayan.apps.documents.models')
+        self._silence_logger(name='mayan.apps.documents.model_mixins')
 
     def test_user_all_document_type_all(self):
         self._test_quota = DocumentSizeQuota.create(
@@ -129,11 +475,21 @@ class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=True,
-            user_ids=(),
+            user_ids=()
         )
+
+        self._clear_events()
 
         with self.assertRaises(expected_exception=QuotaExceeded):
             self._upload_test_document()
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 1)
+
+        self.assertEqual(events[0].action_object, None)
+        self.assertEqual(events[0].actor, self._test_document_type)
+        self.assertEqual(events[0].target, self._test_document_type)
+        self.assertEqual(events[0].verb, event_trashed_document_deleted.id)
 
     def test_user_all_document_type_test(self):
         self._test_quota = DocumentSizeQuota.create(
@@ -142,11 +498,21 @@ class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(self._test_document_type.pk,),
             group_ids=(),
             user_all=True,
-            user_ids=(),
+            user_ids=()
         )
+
+        self._clear_events()
 
         with self.assertRaises(expected_exception=QuotaExceeded):
             self._upload_test_document()
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 1)
+
+        self.assertEqual(events[0].action_object, None)
+        self.assertEqual(events[0].actor, self._test_document_type)
+        self.assertEqual(events[0].target, self._test_document_type)
+        self.assertEqual(events[0].verb, event_trashed_document_deleted.id)
 
     def test_user_test_document_type_test(self):
         self._test_quota = DocumentSizeQuota.create(
@@ -155,11 +521,21 @@ class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(self._test_document_type.pk,),
             group_ids=(),
             user_all=False,
-            user_ids=(self._test_case_user.pk,),
+            user_ids=(self._test_case_user.pk,)
         )
 
+        self._clear_events()
+
         with self.assertRaises(expected_exception=QuotaExceeded):
-            self._upload_test_document(_user=self._test_case_user)
+            self._upload_test_document(user=self._test_case_user)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 1)
+
+        self.assertEqual(events[0].action_object, None)
+        self.assertEqual(events[0].actor, self._test_document_type)
+        self.assertEqual(events[0].target, self._test_document_type)
+        self.assertEqual(events[0].verb, event_trashed_document_deleted.id)
 
     def test_group_test_document_type_test(self):
         self._create_test_group()
@@ -171,11 +547,21 @@ class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(self._test_document_type.pk,),
             group_ids=(self._test_group.pk,),
             user_all=False,
-            user_ids=(),
+            user_ids=()
         )
 
+        self._clear_events()
+
         with self.assertRaises(expected_exception=QuotaExceeded):
-            self._upload_test_document(_user=self._test_case_user)
+            self._upload_test_document(user=self._test_case_user)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 1)
+
+        self.assertEqual(events[0].action_object, None)
+        self.assertEqual(events[0].actor, self._test_document_type)
+        self.assertEqual(events[0].target, self._test_document_type)
+        self.assertEqual(events[0].verb, event_trashed_document_deleted.id)
 
     def test_allow(self):
         self._test_quota = DocumentSizeQuota.create(
@@ -184,10 +570,44 @@ class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=False,
-            user_ids=(),
+            user_ids=()
         )
 
-        self._upload_test_document(_user=self._test_case_user)
+        self._clear_events()
+
+        self._upload_test_document(user=self._test_case_user)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 5)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_file)
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_document)
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_version)
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(events[4].target, self._test_document_version_page)
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
 
     def test_superuser_restriction(self):
         self._create_test_superuser()
@@ -198,7 +618,41 @@ class DocumentSizeQuotaTestCase(GroupTestMixin, GenericDocumentTestCase):
             document_type_ids=(),
             group_ids=(),
             user_all=True,
-            user_ids=(),
+            user_ids=()
         )
 
-        self._upload_test_document(_user=self._test_superuser)
+        self._clear_events()
+
+        self._upload_test_document(user=self._test_superuser)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 5)
+
+        self.assertEqual(events[0].action_object, self._test_document_type)
+        self.assertEqual(events[0].actor, self._test_superuser)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_superuser)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_created.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_superuser)
+        self.assertEqual(events[2].target, self._test_document_file)
+        self.assertEqual(events[2].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[3].action_object, self._test_document)
+        self.assertEqual(events[3].actor, self._test_superuser)
+        self.assertEqual(events[3].target, self._test_document_version)
+        self.assertEqual(events[3].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_superuser)
+        self.assertEqual(events[4].target, self._test_document_version_page)
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )

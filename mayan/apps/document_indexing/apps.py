@@ -30,18 +30,22 @@ from .html_widgets import (
 from .links import (
     link_document_index_instance_list, link_document_type_index_templates,
     link_index_instance_menu, link_index_instance_rebuild,
-    link_index_instances_reset, link_index_template_setup,
-    link_index_template_create, link_index_template_document_types,
-    link_index_template_delete, link_index_template_edit,
+    link_index_instances_rebuild, link_index_instances_reset,
+    link_index_template_create, link_index_template_delete,
+    link_index_template_document_types, link_index_template_edit,
     link_index_template_event_triggers, link_index_template_list,
-    link_index_template_node_tree_view, link_index_instances_rebuild,
     link_index_template_node_create, link_index_template_node_delete,
-    link_index_template_node_edit
+    link_index_template_node_edit, link_index_template_node_tree_view,
+    link_index_template_setup
+)
+from .methods import (
+    method_document_type_index_template_add,
+    method_document_type_index_template_remove
 )
 from .permissions import (
-    permission_index_template_delete, permission_index_template_edit,
-    permission_index_instance_view,
-    permission_index_template_rebuild, permission_index_template_view
+    permission_index_instance_view, permission_index_template_delete,
+    permission_index_template_edit, permission_index_template_rebuild,
+    permission_index_template_view
 )
 
 
@@ -78,6 +82,15 @@ class DocumentIndexingApp(MayanAppConfig):
         IndexTemplate = self.get_model(model_name='IndexTemplate')
         IndexTemplateNode = self.get_model(model_name='IndexTemplateNode')
 
+        DocumentType.add_to_class(
+            name='index_template_add',
+            value=method_document_type_index_template_add
+        )
+        DocumentType.add_to_class(
+            name='index_template_remove',
+            value=method_document_type_index_template_remove
+        )
+
         DynamicSerializerField.add_serializer(
             klass=IndexTemplate,
             serializer_class='mayan.apps.document_indexing.serializers.IndexTemplateSerializer'
@@ -86,12 +99,13 @@ class DocumentIndexingApp(MayanAppConfig):
         EventModelRegistry.register(model=IndexTemplate)
 
         ModelCopy(
-            model=IndexTemplateNode, excludes={'parent__isnull': False},
-            extra_kwargs={'get_or_create': True}
+            excludes={'parent__isnull': False},
+            extra_kwargs={'get_or_create': True},
+            model=IndexTemplateNode
         ).add_fields(
             field_names=(
                 'index', 'expression', 'enabled', 'link_documents'
-            ),
+            )
         )
         ModelCopy(
             model=IndexTemplate, bind_link=True, register_permission=True
@@ -99,7 +113,7 @@ class DocumentIndexingApp(MayanAppConfig):
             field_names=(
                 'label', 'slug', 'enabled', 'document_types',
                 'index_template_nodes'
-            ),
+            )
         )
 
         ModelEventType.register(
@@ -120,7 +134,7 @@ class DocumentIndexingApp(MayanAppConfig):
                 permission_index_template_edit,
                 permission_index_instance_view,
                 permission_index_template_rebuild,
-                permission_index_template_view,
+                permission_index_template_view
             )
         )
         ModelPermission.register_inheritance(
@@ -164,8 +178,9 @@ class DocumentIndexingApp(MayanAppConfig):
         # Index instance node
 
         column_index_instance_node_level = SourceColumn(
-            func=lambda context: index_instance_item_link(context['object']),
-            is_identifier=True, is_sortable=True, label=_('Level'),
+            func=lambda context: index_instance_item_link(
+                index_instance_item=context['object']
+            ), is_identifier=True, is_sortable=True, label=_('Level'),
             sort_field='value', source=IndexInstanceNode
         )
         column_index_instance_node_level.add_exclude(
@@ -203,8 +218,9 @@ class DocumentIndexingApp(MayanAppConfig):
         )
 
         SourceColumn(
-            func=lambda context: index_instance_item_link(context['object']),
-            is_identifier=True, is_sortable=True, label=_('Level'),
+            func=lambda context: index_instance_item_link(
+                index_instance_item=context['object']
+            ), is_identifier=True, is_sortable=True, label=_('Level'),
             sort_field='value', source=IndexInstanceNodeSearchResult
         )
         SourceColumn(
@@ -236,8 +252,9 @@ class DocumentIndexingApp(MayanAppConfig):
         # Index template node
 
         SourceColumn(
-            func=lambda context: node_level(context['object']),
-            include_label=True, is_identifier=True, label=_('Level'),
+            func=lambda context: node_level(
+                node=context['object']
+            ), include_label=True, is_identifier=True, label=_('Level'),
             source=IndexTemplateNode
         )
         SourceColumn(
@@ -278,7 +295,9 @@ class DocumentIndexingApp(MayanAppConfig):
                 link_index_template_node_edit
             ), sources=(IndexTemplateNode,)
         )
-        menu_main.bind_links(links=(link_index_instance_menu,), position=50)
+        menu_main.bind_links(
+            links=(link_index_instance_menu,), position=50
+        )
         menu_related.bind_links(
             links=(link_index_template_list,),
             sources=(
@@ -300,7 +319,9 @@ class DocumentIndexingApp(MayanAppConfig):
                 'indexing:index_template_create'
             )
         )
-        menu_setup.bind_links(links=(link_index_template_setup,))
+        menu_setup.bind_links(
+            links=(link_index_template_setup,)
+        )
         menu_tools.bind_links(
             links=(link_index_instances_rebuild, link_index_instances_reset)
         )

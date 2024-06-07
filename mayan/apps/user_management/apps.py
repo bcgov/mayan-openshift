@@ -15,6 +15,7 @@ from mayan.apps.common.menus import (
 )
 from mayan.apps.dashboards.dashboards import dashboard_administrator
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
+from mayan.apps.logging.classes import ErrorLog
 from mayan.apps.metadata.classes import MetadataLookup
 from mayan.apps.navigation.classes import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
@@ -30,8 +31,8 @@ from .events import (
 from .handlers import handler_initialize_new_user_options
 from .links import (
     link_current_user_details, link_group_create, link_group_edit,
-    link_group_list, link_group_multiple_delete, link_group_user_list,
-    link_group_setup, link_group_single_delete, link_user_create,
+    link_group_list, link_group_multiple_delete, link_group_setup,
+    link_group_single_delete, link_group_user_list, link_user_create,
     link_user_edit, link_user_group_list, link_user_list,
     link_user_multiple_delete, link_user_set_options, link_user_setup,
     link_user_single_delete, separator_user_label, text_user_label
@@ -45,24 +46,10 @@ from .methods import (
     method_user_groups_add, method_user_groups_remove
 )
 from .permissions import (
-    permission_group_delete, permission_group_edit,
-    permission_group_view, permission_user_delete, permission_user_edit,
-    permission_user_view
+    permission_group_delete, permission_group_edit, permission_group_view,
+    permission_user_delete, permission_user_edit, permission_user_view
 )
-
-
-def get_groups():
-    Group = apps.get_model(app_label='auth', model_name='Group')
-    return ','.join([group.name for group in Group.objects.all()])
-
-
-def get_users():
-    return ','.join(
-        [
-            user.get_full_name() or user.username
-            for user in get_user_model().objects.all()
-        ]
-    )
+from .utils import get_groups, get_users
 
 
 class UserManagementApp(MayanAppConfig):
@@ -88,7 +75,7 @@ class UserManagementApp(MayanAppConfig):
         Group._meta.ordering = ('name',)
         Group._meta.verbose_name = _('Group')
         Group._meta.verbose_name_plural = _('Groups')
-        Group._meta.get_field('name').verbose_name = _('Name')
+        Group._meta.get_field(field_name='name').verbose_name = _('Name')
 
         Group.add_to_class(
             name='__init__', value=get_method_group_init()
@@ -105,21 +92,35 @@ class UserManagementApp(MayanAppConfig):
         Group.add_to_class(
             name='users_remove', value=method_group_users_remove
         )
-        Group.add_to_class(name='save', value=get_method_group_save())
+        Group.add_to_class(
+            name='save', value=get_method_group_save()
+        )
 
         User._meta.ordering = ('pk',)
         User._meta.verbose_name = _('User')
         User._meta.verbose_name_plural = _('Users')
         User._meta.ordering = ('last_name', 'first_name')
 
-        User._meta.get_field('email').verbose_name = _('Email')
-        User._meta.get_field('first_name').verbose_name = _('First name')
-        User._meta.get_field('groups').verbose_name = _('Groups')
-        User._meta.get_field('is_active').verbose_name = _('Is active?')
-        User._meta.get_field('last_name').verbose_name = _('Last name')
-        User._meta.get_field('password').verbose_name = _('Password')
-        User._meta.get_field('username').verbose_name = _('Username')
-        User._meta.get_field('last_login').verbose_name = _('Last login')
+        User._meta.get_field(field_name='email').verbose_name = _('Email')
+        User._meta.get_field(
+            field_name='first_name'
+        ).verbose_name = _('First name')
+        User._meta.get_field(field_name='groups').verbose_name = _('Groups')
+        User._meta.get_field(
+            field_name='is_active'
+        ).verbose_name = _('Is active?')
+        User._meta.get_field(
+            field_name='last_name'
+        ).verbose_name = _('Last name')
+        User._meta.get_field(
+            field_name='password'
+        ).verbose_name = _('Password')
+        User._meta.get_field(
+            field_name='username'
+        ).verbose_name = _('Username')
+        User._meta.get_field(
+            field_name='last_login'
+        ).verbose_name = _('Last login')
 
         User.add_to_class(
             name='__init__', value=get_method_user_init()
@@ -140,7 +141,9 @@ class UserManagementApp(MayanAppConfig):
         User.add_to_class(
             name='groups_remove', value=method_user_groups_remove
         )
-        User.add_to_class(name='save', value=get_method_user_save())
+        User.add_to_class(
+            name='save', value=get_method_user_save()
+        )
 
         User.has_usable_password.short_description = _(
             'Has usable password?'
@@ -163,7 +166,7 @@ class UserManagementApp(MayanAppConfig):
         ).add_fields(
             field_names=(
                 'name', 'user',
-            ),
+            )
         )
         ModelCopy(model=UserOptions).add_fields(
             field_names=('user', 'block_password_change'),
@@ -182,11 +185,12 @@ class UserManagementApp(MayanAppConfig):
             field_names=(
                 'username', 'first_name', 'last_name', 'email', 'is_active',
                 'password', 'groups', 'user_options'
-            ),
+            )
         )
 
         ModelEventType.register(
-            event_types=(event_group_created, event_group_edited), model=Group
+            event_types=(event_group_created, event_group_edited),
+            model=Group
         )
 
         ModelEventType.register(
@@ -252,6 +256,9 @@ class UserManagementApp(MayanAppConfig):
         dashboard_administrator.add_widget(
             widget=DashboardWidgetGroupTotal, order=99
         )
+
+        error_log = ErrorLog(app_config=self)
+        error_log.register_model(model=User)
 
         # Group
 
@@ -326,7 +333,10 @@ class UserManagementApp(MayanAppConfig):
             )
         )
 
-        menu_setup.bind_links(links=(link_user_setup, link_group_setup))
+        menu_setup.bind_links(
+            links=(link_user_setup, link_group_setup)
+        )
+
         menu_user.bind_links(
             links=(
                 text_user_label, separator_user_label,

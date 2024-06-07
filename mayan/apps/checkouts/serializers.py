@@ -13,15 +13,20 @@ from .permissions import permission_document_check_out
 
 
 class DocumentCheckoutSerializer(serializers.ModelSerializer):
-    document = DocumentSerializer()
-    user = UserSerializer()
+    document = DocumentSerializer(
+        label=_('Document')
+    )
+    user = UserSerializer(
+        label=_('User')
+    )
 
     class Meta:
         extra_kwargs = {
             'url': {
+                'label': _('URL'),
                 'lookup_url_kwarg': 'checkout_id',
                 'view_name': 'rest_api:checkedout-document-view'
-            },
+            }
         }
         fields = (
             'checkout_datetime', 'document', 'expiration_datetime', 'id',
@@ -37,7 +42,7 @@ class NewDocumentCheckoutSerializer(serializers.ModelSerializer):
     block_new_file = serializers.BooleanField()
     document_pk = serializers.IntegerField(
         help_text=_('Primary key of the document to be checked out.'),
-        write_only=True
+        label=_('Document ID'), write_only=True
     )
     expiration_datetime = serializers.DateTimeField()
 

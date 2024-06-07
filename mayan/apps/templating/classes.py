@@ -4,8 +4,6 @@ from django.template import Context, Engine, Template as DjangoTemplate
 from django.template.response import TemplateResponse
 from django.urls import reverse
 
-from mayan.apps.common.settings import setting_home_view
-
 
 class AJAXTemplate:
     _registry = {}
@@ -17,14 +15,17 @@ class AJAXTemplate:
         else:
             result = []
             for template in cls._registry.values():
-                result.append(template.render(request=request))
+                result.append(
+                    template.render(request=request)
+                )
             return result
 
     @classmethod
     def get(cls, name):
         return cls._registry[name]
 
-    def __init__(self, name, template_name):
+    def __init__(self, name, template_name, context=None):
+        self.context = context or None
         self.name = name
         self.template_name = template_name
         self.__class__._registry[name] = self
@@ -35,19 +36,15 @@ class AJAXTemplate:
         )
 
     def render(self, request):
-        context = {
-            'home_view': setting_home_view.value,
-        }
         result = TemplateResponse(
-            request=request,
-            template=self.template_name,
-            context=context,
+            context=self.context, request=request,
+            template=self.template_name
         ).render()
 
         # Calculate the hash of the bytes version but return the unicode
         # version
         self.html = result.rendered_content.replace('\n', '')
-        self.hex_hash = hashlib.sha256(result.content).hexdigest()
+        self.hex_hash = hashlib.sha256(string=result.content).hexdigest()
         return self
 
 
@@ -56,7 +53,7 @@ class Template:
         engine = Engine(
             builtins=[
                 'mathfilters.templatetags.mathfilters',
-                'mayan.apps.templating.templatetags.templating_tags',
+                'mayan.apps.templating.templatetags.templating_tags'
             ]
         )
 
@@ -65,6 +62,8 @@ class Template:
         )
 
     def render(self, context=None):
-        context_object = Context(dict_=context or {})
+        context_object = Context(
+            dict_=context or {}
+        )
 
         return self._template.render(context=context_object)

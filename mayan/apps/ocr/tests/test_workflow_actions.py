@@ -2,10 +2,8 @@ import json
 
 from mayan.apps.document_states.literals import WORKFLOW_ACTION_ON_ENTRY
 from mayan.apps.document_states.permissions import permission_workflow_template_edit
-from mayan.apps.document_states.tests.mixins.workflow_template_mixins import WorkflowTemplateTestMixin
-from mayan.apps.document_states.tests.mixins.workflow_template_state_mixins import (
-    WorkflowTemplateStateActionViewTestMixin
-)
+from mayan.apps.document_states.tests.mixins.workflow_template_state_action_mixins import WorkflowTemplateStateActionViewTestMixin
+from mayan.apps.document_states.tests.mixins.workflow_template_transition_mixins import WorkflowTemplateTransitionTestMixin
 from mayan.apps.documents.tests.base import GenericDocumentViewTestCase
 from mayan.apps.testing.tests.base import GenericViewTestCase
 
@@ -20,7 +18,7 @@ from .literals import (
 
 
 class UpdateDocumentPageOCRActionTestCase(
-    WorkflowTemplateTestMixin, GenericDocumentViewTestCase
+    WorkflowTemplateTransitionTestMixin, GenericDocumentViewTestCase
 ):
     auto_upload_test_document = False
 
@@ -40,7 +38,9 @@ class UpdateDocumentPageOCRActionTestCase(
             }
         )
 
-        action.execute(context={'document': self._test_document})
+        action.execute(
+            context={'document': self._test_document}
+        )
 
         document_version_page.refresh_from_db()
         self.assertEqual(
@@ -63,7 +63,9 @@ class UpdateDocumentPageOCRActionTestCase(
                 'page_content': TEST_DOCUMENT_VERSION_PAGE_OCR_CONTENT_UPDATED
             }
         )
-        action.execute(context={'document': self._test_document})
+        action.execute(
+            context={'document': self._test_document}
+        )
 
         document_version_page.refresh_from_db()
         self.assertEqual(
@@ -86,7 +88,9 @@ class UpdateDocumentPageOCRActionTestCase(
                 'page_content': '{{ document_version_page.ocr_content.content }}+update'
             }
         )
-        action.execute(context={'document': self._test_document})
+        action.execute(
+            context={'document': self._test_document}
+        )
 
         document_version_page.refresh_from_db()
         self.assertEqual(
@@ -119,13 +123,14 @@ class UpdateDocumentPageOCRActionTestCase(
         )
 
         self.assertEqual(
-            ''.join(self._test_document.ocr_content()), self._test_document.label
+            ''.join(
+                self._test_document.ocr_content()
+            ), self._test_document.label
         )
 
 
 class UpdateDocumentPageOCRActionViewTestCase(
-    WorkflowTemplateTestMixin, WorkflowTemplateStateActionViewTestMixin,
-    GenericViewTestCase
+    WorkflowTemplateStateActionViewTestMixin, GenericViewTestCase
 ):
     def setUp(self):
         super().setUp()

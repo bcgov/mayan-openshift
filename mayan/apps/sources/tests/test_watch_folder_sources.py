@@ -4,9 +4,8 @@ import shutil
 from mayan.apps.documents.models import Document
 from mayan.apps.documents.tests.base import GenericDocumentTestCase
 from mayan.apps.documents.tests.literals import (
-    TEST_FILE_NON_ASCII_FILENAME,
-    TEST_FILE_NON_ASCII_COMPRESSED_PATH, TEST_DOCUMENT_SMALL_CHECKSUM,
-    TEST_FILE_SMALL_PATH
+    TEST_DOCUMENT_SMALL_CHECKSUM, TEST_FILE_NON_ASCII_COMPRESSED_PATH,
+    TEST_FILE_NON_ASCII_FILENAME, TEST_FILE_SMALL_PATH
 )
 
 from ..source_backends.literals import SOURCE_UNCOMPRESS_CHOICE_ALWAYS
@@ -156,7 +155,9 @@ class WatchFolderSourceBackendTestCase(
         document = Document.objects.first()
 
         self.assertEqual(document.label, TEST_FILE_NON_ASCII_FILENAME)
-        self.assertEqual(document.file_latest.exists(), True)
+        self.assertEqual(
+            document.file_latest.exists(), True
+        )
         self.assertEqual(document.file_latest.size, 17436)
         self.assertEqual(document.file_latest.mimetype, 'image/png')
         self.assertEqual(document.file_latest.encoding, 'binary')

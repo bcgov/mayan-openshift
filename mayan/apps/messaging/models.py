@@ -5,29 +5,28 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from bleach import Cleaner
-from bleach.linkifier import LinkifyFilter
-
 from mayan.apps.databases.model_mixins import ExtraDataModelMixin
 from mayan.apps.events.classes import EventManagerSave
 from mayan.apps.events.decorators import method_event
-from mayan.apps.templating.classes import Template
 
 from .events import event_message_created, event_message_edited
+from .model_mixins import MessageBusinessLogicMixin
 
 
-class Message(ExtraDataModelMixin, models.Model):
+class Message(ExtraDataModelMixin, MessageBusinessLogicMixin, models.Model):
     sender_content_type = models.ForeignKey(
-        blank=True, null=True, on_delete=models.CASCADE, to=ContentType
+        blank=True, null=True, on_delete=models.CASCADE, to=ContentType,
+        verbose_name=_('Sender content type')
     )
-    sender_object_id = models.PositiveIntegerField(blank=True, null=True)
+    sender_object_id = models.PositiveIntegerField(
+        blank=True, null=True, verbose_name=_('Sender object ID')
+    )
     sender_object = GenericForeignKey(
         ct_field='sender_content_type', fk_field='sender_object_id'
     )
     user = models.ForeignKey(
-        db_index=True, on_delete=models.CASCADE,
-        related_name='messages', to=settings.AUTH_USER_MODEL,
-        verbose_name=_('User')
+        db_index=True, on_delete=models.CASCADE, related_name='messages',
+        to=settings.AUTH_USER_MODEL, verbose_name=_('User')
     )
     subject = models.CharField(
         max_length=255, help_text=_('Short description of this message.'),
@@ -58,34 +57,10 @@ class Message(ExtraDataModelMixin, models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            viewname='messaging:message_detail', kwargs={'message_id': self.pk}
+            viewname='messaging:message_detail', kwargs={
+                'message_id': self.pk
+            }
         )
-
-    def get_label(self):
-        return Template(
-            template_string='{{ instance.date_time }} @{{ instance.sender_object }} "{{ instance.subject }}"'
-        ).render(
-            context={'instance': self}
-        )
-    get_label.short_description = _('Label')
-
-    def get_rendered_body(self):
-        cleaner = Cleaner(
-            filters=[LinkifyFilter]
-        )
-
-        template = Template(
-            template_string=cleaner.clean(text=self.body)
-        )
-        return template.render(context={'message': self})
-
-    def mark_read(self):
-        self.read = True
-        self.save(update_fields=('read',))
-
-    def mark_unread(self):
-        self.read = False
-        self.save(update_fields=('read',))
 
     @method_event(
         event_manager_class=EventManagerSave,

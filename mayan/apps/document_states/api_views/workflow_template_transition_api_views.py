@@ -4,15 +4,15 @@ from ..permissions import (
     permission_workflow_template_edit, permission_workflow_template_view
 )
 from ..serializers.workflow_template_transition_serializers import (
-    WorkflowTemplateTransitionSerializer, WorkflowTransitionFieldSerializer,
-    WorkflowTemplateTransitionTriggerSerializer
+    WorkflowTemplateTransitionSerializer,
+    WorkflowTemplateTransitionTriggerSerializer,
+    WorkflowTransitionFieldSerializer
 )
 
 from .api_view_mixins import (
     ParentObjectWorkflowTemplateAPIViewMixin,
     ParentObjectWorkflowTemplateTransitionAPIViewMixin
 )
-
 
 # Workflow transition views
 
@@ -36,14 +36,14 @@ class APIWorkflowTemplateTransitionListView(
         # edit permission.
         return {
             '_event_actor': self.request.user,
-            'workflow': self.workflow_template,
+            'workflow': self.get_workflow_template()
         }
 
-    def get_queryset(self):
-        return self.workflow_template.transitions.all()
+    def get_source_queryset(self):
+        return self.get_workflow_template().transitions.all()
 
 
-class APIWorkflowTemplateTransitionView(
+class APIWorkflowTemplateTransitionDetailView(
     ParentObjectWorkflowTemplateAPIViewMixin,
     generics.RetrieveUpdateDestroyAPIView
 ):
@@ -67,11 +67,11 @@ class APIWorkflowTemplateTransitionView(
         # edit permission.
         return {
             '_event_actor': self.request.user,
-            'workflow': self.workflow_template,
+            'workflow': self.get_workflow_template()
         }
 
-    def get_queryset(self):
-        return self.workflow_template.transitions.all()
+    def get_source_queryset(self):
+        return self.get_workflow_template().transitions.all()
 
 
 # Workflow template transition fields
@@ -97,11 +97,11 @@ class APIWorkflowTemplateTransitionFieldListView(
         # edit permission.
         return {
             '_event_actor': self.request.user,
-            'transition': self.workflow_template_transition
+            'transition': self.get_workflow_template_transition()
         }
 
-    def get_queryset(self):
-        return self.workflow_template_transition.fields.all()
+    def get_source_queryset(self):
+        return self.get_workflow_template_transition().fields.all()
 
 
 class APIWorkflowTemplateTransitionFieldDetailView(
@@ -125,11 +125,11 @@ class APIWorkflowTemplateTransitionFieldDetailView(
 
     def get_instance_extra_data(self):
         return {
-            '_event_actor': self.request.user,
+            '_event_actor': self.request.user
         }
 
-    def get_queryset(self):
-        return self.workflow_template_transition.fields.all()
+    def get_source_queryset(self):
+        return self.get_workflow_template_transition().fields.all()
 
 
 # Workflow template transition triggers
@@ -153,11 +153,11 @@ class APIWorkflowTemplateTransitionTriggerListView(
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'transition': self.workflow_template_transition
+            'transition': self.get_workflow_template_transition()
         }
 
-    def get_queryset(self):
-        return self.workflow_template_transition.trigger_events.all()
+    def get_source_queryset(self):
+        return self.get_workflow_template_transition().trigger_events.all()
 
 
 class APIWorkflowTemplateTransitionTriggerDetailView(
@@ -181,8 +181,8 @@ class APIWorkflowTemplateTransitionTriggerDetailView(
 
     def get_instance_extra_data(self):
         return {
-            '_event_actor': self.request.user,
+            '_event_actor': self.request.user
         }
 
-    def get_queryset(self):
-        return self.workflow_template_transition.trigger_events.all()
+    def get_source_queryset(self):
+        return self.get_workflow_template_transition().trigger_events.all()

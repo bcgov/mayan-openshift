@@ -17,7 +17,8 @@ from mayan.apps.views.html_widgets import TwoStateWidget
 from .events import event_announcement_edited
 from .links import (
     link_announcement_create, link_announcement_multiple_delete,
-    link_announcement_single_delete, link_announcement_edit, link_announcement_list
+    link_announcement_single_delete, link_announcement_edit,
+    link_announcement_list
 )
 from .permissions import (
     permission_announcement_delete, permission_announcement_edit,
@@ -52,7 +53,7 @@ class AnnouncementsApp(MayanAppConfig):
         ).add_fields(
             field_names=(
                 'label', 'text', 'enabled', 'start_datetime', 'end_datetime'
-            ),
+            )
         )
 
         ModelEventType.register(
@@ -84,7 +85,8 @@ class AnnouncementsApp(MayanAppConfig):
         )
 
         menu_multi_item.bind_links(
-            links=(link_announcement_multiple_delete,), sources=(Announcement,)
+            links=(link_announcement_multiple_delete,),
+            sources=(Announcement,)
         )
         menu_object.bind_links(
             links=(

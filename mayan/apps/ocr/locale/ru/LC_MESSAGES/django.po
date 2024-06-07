@@ -4,74 +4,74 @@
 # 
 # Translators:
 # Translators:
-# Sergey Glita <gsv70@mail.ru>, 2022
-# mizhgan <i@mizhgan.ru>, 2022
-# Roberto Rosario, 2022
-# lilo.panic, 2022
-# Ilya Pavlov <spirkaa@gmail.com>, 2022
+# Roberto Rosario, 2023
+# Sergey Glita <gsv70@mail.ru>, 2023
+# mizhgan <i@mizhgan.ru>, 2023
+# lilo.panic, 2023
+# Ilya Pavlov <spirkaa@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:37+0000\n"
-"Last-Translator: Ilya Pavlov <spirkaa@gmail.com>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/rosarior/teams/13584/ru/)\n"
+"POT-Creation-Date: 2024-06-02 01:53+0000\n"
+"PO-Revision-Date: 2023-01-05 02:54+0000\n"
+"Last-Translator: Ilya Pavlov <spirkaa@gmail.com>, 2023\n"
+"Language-Team: Russian (https://app.transifex.com/rosarior/teams/13584/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: apps.py:55 events.py:5 links.py:54 links.py:80 permissions.py:5 queues.py:6
+#: apps.py:54 events.py:6 links.py:54 links.py:80 permissions.py:6 queues.py:6
 #: search.py:18 settings.py:11
 msgid "OCR"
 msgstr "Распознавание текста"
 
-#: apps.py:116
+#: apps.py:115
 msgid "The OCR content."
 msgstr "Распознанное содержимое."
 
-#: apps.py:121
-msgid "A generator returning the document's pages OCR content."
-msgstr "Генератор, возвращающий  распознанное содержимое страниц документа."
+#: apps.py:120
+msgid "A generator returning the document's version pages OCR content."
+msgstr ""
 
 #: apps.py:122
 msgid "OCR content"
 msgstr "Распознанное содержимое"
 
-#: backends/tesseract.py:86
+#: backends/tesseract.py:84
 msgid "Tesseract OCR not found."
 msgstr "Tesseract OCR не найден."
 
-#: dependencies.py:23
+#: dependencies.py:24
 msgid "Free Open Source OCR Engine"
 msgstr ""
 "Свободно распространяемая система распознавания текста с открытым исходным "
 "кодом"
 
-#: events.py:8
+#: events.py:10
 msgid "Document version OCR content deleted"
 msgstr ""
 
-#: events.py:12
+#: events.py:14
 msgid "Document version page OCR content edited"
 msgstr ""
 
-#: events.py:16
+#: events.py:18
 msgid "Document version submitted for OCR"
 msgstr "Версия документа отправлена на распознавание"
 
-#: events.py:20
+#: events.py:22
 msgid "Document version OCR finished"
 msgstr "Распознавание версии документа завершено"
 
-#: forms.py:14 forms.py:43 forms.py:63
+#: forms.py:13 forms.py:44 forms.py:64
 msgid "Contents"
 msgstr "Содержимое"
 
-#: forms.py:94
+#: forms.py:99
 #, python-format
 msgid "Page %(page_number)d"
 msgstr "Страница %(page_number)d"
@@ -100,14 +100,18 @@ msgstr "Отправить на распознавание"
 msgid "Edit OCR"
 msgstr ""
 
-#: models.py:23
+#: models.py:22
 msgid "Document type"
 msgstr "Тип документа"
 
-#: models.py:27
+#: models.py:26
 msgid "Automatically queue newly created documents for OCR."
 msgstr ""
 "Автоматически ставить вновь созданные документы в очередь для распознавания."
+
+#: models.py:27
+msgid "Auto OCR"
+msgstr ""
 
 #: models.py:33
 msgid "Document type settings"
@@ -137,45 +141,41 @@ msgstr "Распознанное содержимое версии страни�
 msgid "Document version pages OCR contents"
 msgstr "Распознанное содержимое версий страниц документа"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Submit documents for OCR"
 msgstr "Отправить документы на распознавание текста"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Edit the transcribed text from document"
 msgstr ""
 
-#: permissions.py:15
+#: permissions.py:17
 msgid "View the transcribed text from document"
 msgstr "Просмотр распознанного текста документа"
 
-#: permissions.py:19
+#: permissions.py:21
 msgid "Change document type OCR settings"
 msgstr "Изменить настройки распознавания для типа документа"
 
 #: queues.py:10
-msgid "Finish document file OCR"
-msgstr "Завершить распознавание файла документа"
+msgid "Finish document version OCR"
+msgstr "Завершить распознавание версии документа"
 
 #: queues.py:14
-msgid "Document file page OCR"
-msgstr "Распознать страницу файла документа"
+msgid "Document version page OCR"
+msgstr "Распознать страницу версии документа"
 
-#: queues.py:18
-msgid "Document file OCR"
-msgstr "Распознать файл документа"
-
-#: search.py:12 search.py:24
+#: queues.py:18 search.py:12 search.py:24
 msgid "Document version OCR"
 msgstr "Распознать версию документа"
 
-#: settings.py:17
+#: settings.py:18
 msgid "Set new document types to perform OCR automatically by default."
 msgstr ""
 "Включить по умолчанию автоматический запуск распознавания текста для вновь "
 "создаваемых типов документов."
 
-#: settings.py:22
+#: settings.py:23
 msgid "Full path to the backend to be used to do OCR."
 msgstr ""
 "Полный путь к бэкэнду, который будет использоваться для распознавания "
@@ -190,62 +190,62 @@ msgstr "Настройки распознавания для типа докум
 msgid "Submit all documents of a type for OCR"
 msgstr "Отправить все документы указанного типа на распознавание"
 
-#: views.py:85
+#: views.py:88
 #, python-format
 msgid "%(count)d documents added to the OCR queue."
 msgstr "%(count)d документов добавлено в очередь для распознавания"
 
-#: views.py:106
+#: views.py:111
 #, python-format
 msgid "Error deleting document version OCR \"%(instance)s\"; %(exception)s"
 msgstr ""
 
-#: views.py:112
-#, python-format
-msgid "OCR content of \"%(object)s\" deleted successfully."
-msgstr ""
-
-#: views.py:115
-#, python-format
-msgid "OCR content of %(count)d document version deleted successfully."
-msgstr ""
-
-#: views.py:118
+#: views.py:117
 #, python-format
 msgid "OCR content of %(count)d document versions deleted successfully."
 msgstr ""
 
 #: views.py:120
 #, python-format
-msgid "Delete the OCR content of: %(object)s."
+msgid "OCR content of \"%(object)s\" deleted successfully."
 msgstr ""
 
-#: views.py:122
+#: views.py:123
 #, python-format
-msgid "Delete the OCR content of the %(count)d selected document version."
+msgid "OCR content of %(count)d document version deleted successfully."
 msgstr ""
 
-#: views.py:125
+#: views.py:126
 #, python-format
 msgid "Delete the OCR content of the %(count)d selected document versions."
 msgstr ""
 
-#: views.py:156
+#: views.py:128
+#, python-format
+msgid "Delete the OCR content of: %(object)s."
+msgstr ""
+
+#: views.py:130
+#, python-format
+msgid "Delete the OCR content of the %(count)d selected document version."
+msgstr ""
+
+#: views.py:161
 #, python-format
 msgid "OCR result for document: %s"
 msgstr "Распознанный текст документа: %s"
 
-#: views.py:178
+#: views.py:183
 #, python-format
 msgid "%(count)d document version submitted to the OCR queue."
 msgstr ""
 
-#: views.py:181
+#: views.py:186
 #, python-format
 msgid "%(count)d document versions submitted to the OCR queue."
 msgstr ""
 
-#: views.py:190
+#: views.py:195
 msgid "Submit the selected document version to the OCR queue?"
 msgid_plural "Submit the selected document versions to the OCR queue?"
 msgstr[0] ""
@@ -253,12 +253,12 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: views.py:226
+#: views.py:231
 #, python-format
 msgid "OCR result for document version page: %s"
 msgstr "Распознанный текст страницы версии документа: %s"
 
-#: views.py:254
+#: views.py:259
 #, python-format
 msgid "Edit OCR for document version page: %s"
 msgstr ""

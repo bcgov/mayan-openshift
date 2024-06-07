@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.documents.models import Document
 from mayan.apps.templating.fields import ModelTemplateField
-from mayan.apps.views.forms import Form, FilteredSelectionForm
+from mayan.apps.views.forms import FilteredSelectionForm, Form
 
 from .literals import RELATIONSHIP_CHOICES
 from .models.index_template_models import IndexTemplate, IndexTemplateNode
@@ -16,16 +16,19 @@ class IndexTemplateEventTriggerRelationshipForm(Form):
         widget=forms.widgets.HiddenInput()
     )
     namespace = forms.CharField(
-        label=_('Namespace'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        label=_('Namespace'), required=False, widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     namespace = forms.CharField(
-        label=_('Namespace'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        label=_('Namespace'), required=False, widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     label = forms.CharField(
-        label=_('Label'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        label=_('Label'), required=False, widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     relationship = forms.ChoiceField(
         choices=RELATIONSHIP_CHOICES, label=_('Enabled'),
@@ -63,5 +66,7 @@ class IndexTemplateNodeForm(forms.ModelForm):
         )
 
     class Meta:
-        fields = ('parent', 'index', 'expression', 'enabled', 'link_documents')
+        fields = (
+            'parent', 'index', 'expression', 'enabled', 'link_documents'
+        )
         model = IndexTemplateNode

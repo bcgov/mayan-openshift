@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext_lazy as _
+
 from mayan.apps.common.serializers import ContentTypeSerializer
 from mayan.apps.rest_api import serializers
 from mayan.apps.rest_api.relations import MultiKwargHyperlinkedIdentityField
@@ -7,31 +9,31 @@ from .models import ErrorLogPartitionEntry
 
 class ErrorLogPartitionEntrySerializer(serializers.ModelSerializer):
     content_type = ContentTypeSerializer(
-        read_only=True, source='error_log_partition.content_type'
+        label=_('Content type'), read_only=True,
+        source='error_log_partition.content_type'
     )
     object_id = serializers.IntegerField(
-        source='error_log_partition.object_id'
+        label=_('Object ID'), source='error_log_partition.object_id'
     )
     url = MultiKwargHyperlinkedIdentityField(
-        view_name='rest_api:errorlogpartitionentry-detail',
-        view_kwargs=(
+        label=_('URL'), view_kwargs=(
             {
                 'lookup_field': 'error_log_partition.content_type.app_label',
-                'lookup_url_kwarg': 'app_label',
+                'lookup_url_kwarg': 'app_label'
             },
             {
                 'lookup_field': 'error_log_partition.content_type.model',
-                'lookup_url_kwarg': 'model_name',
+                'lookup_url_kwarg': 'model_name'
             },
             {
                 'lookup_field': 'error_log_partition.object_id',
-                'lookup_url_kwarg': 'object_id',
+                'lookup_url_kwarg': 'object_id'
             },
             {
                 'lookup_field': 'pk',
-                'lookup_url_kwarg': 'error_log_partition_entry_id',
+                'lookup_url_kwarg': 'error_log_partition_entry_id'
             }
-        ),
+        ), view_name='rest_api:errorlogpartitionentry-detail'
     )
 
     class Meta:

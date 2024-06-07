@@ -1,7 +1,9 @@
-from mayan.apps.dynamic_search.tests.mixins import SearchTestMixin
+from mayan.apps.dynamic_search.tests.mixins.base import SearchTestMixin
 
 from ..permissions import permission_document_version_view
-from ..search import search_model_document_version_page, search_model_document_version
+from ..search import (
+    search_model_document_version, search_model_document_version_page
+)
 
 from .base import GenericDocumentViewTestCase
 from .literals import TEST_DOCUMENT_VERSION_COMMENT
@@ -13,11 +15,15 @@ class DocumentVersionSearchTestCase(
     auto_upload_test_document = False
 
     def _do_test_search(self, query):
-        terms = str(tuple(query.values())[0]).strip()
+        terms = str(
+            tuple(
+                query.values()
+            )[0]
+        ).strip()
         self.assertTrue(terms is not None)
         self.assertTrue(terms != '')
 
-        return self.search_backend.search(
+        return self._test_search_backend.search(
             search_model=search_model_document_version, query=query,
             user=self._test_case_user
         )
@@ -45,7 +51,8 @@ class DocumentVersionSearchTestCase(
 
     def test_search_model_document_version_by_comment_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -62,7 +69,8 @@ class DocumentVersionSearchTestCase(
 
     def test_trashed_search_model_document_version_by_comment_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -94,7 +102,8 @@ class DocumentVersionSearchTestCase(
 
     def test_search_model_document_version_by_document_description_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -111,7 +120,8 @@ class DocumentVersionSearchTestCase(
 
     def test_trashed_search_model_document_version_by_document_description_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -143,7 +153,8 @@ class DocumentVersionSearchTestCase(
 
     def test_search_model_document_version_by_document_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -160,7 +171,8 @@ class DocumentVersionSearchTestCase(
 
     def test_trashed_search_model_document_version_by_document_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -182,7 +194,7 @@ class DocumentVersionSearchTestCase(
 
         queryset = self._do_test_search(
             query={
-                'document__uuid': self._test_document.uuid
+                'document__uuid': str(self._test_document.uuid)
             }
         )
         self.assertTrue(self._test_document_version not in queryset)
@@ -192,14 +204,15 @@ class DocumentVersionSearchTestCase(
 
     def test_search_model_document_version_by_document_uuid_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
 
         queryset = self._do_test_search(
             query={
-                'document__uuid': self._test_document.uuid
+                'document__uuid': str(self._test_document.uuid)
             }
         )
         self.assertTrue(self._test_document_version in queryset)
@@ -209,7 +222,8 @@ class DocumentVersionSearchTestCase(
 
     def test_trashed_search_model_document_version_by_document_uuid_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -218,7 +232,7 @@ class DocumentVersionSearchTestCase(
 
         queryset = self._do_test_search(
             query={
-                'document__uuid': self._test_document.uuid
+                'document__uuid': str(self._test_document.uuid)
             }
         )
         self.assertTrue(self._test_document_version not in queryset)
@@ -241,7 +255,8 @@ class DocumentVersionSearchTestCase(
 
     def test_search_model_document_version_by_document_type_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -258,7 +273,8 @@ class DocumentVersionSearchTestCase(
 
     def test_trashed_search_model_document_version_by_document_type_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -282,11 +298,15 @@ class DocumentVersionPageSearchTestCase(
     auto_upload_test_document = False
 
     def _do_test_search(self, query):
-        terms = str(tuple(query.values())[0]).strip()
+        terms = str(
+            tuple(
+                query.values()
+            )[0]
+        ).strip()
         self.assertTrue(terms is not None)
         self.assertTrue(terms != '')
 
-        return self.search_backend.search(
+        return self._test_search_backend.search(
             search_model=search_model_document_version_page, query=query,
             user=self._test_case_user
         )
@@ -314,7 +334,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_search_model_document_version_page_by_document_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -331,7 +352,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_trashed_search_model_document_version_page_by_document_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -363,7 +385,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_search_model_document_version_page_by_document_description_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -380,7 +403,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_trashed_search_model_document_version_page_by_document_description_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -402,7 +426,9 @@ class DocumentVersionPageSearchTestCase(
 
         queryset = self._do_test_search(
             query={
-                'document_version__document__uuid': self._test_document.uuid
+                'document_version__document__uuid': str(
+                    self._test_document.uuid
+                )
             }
         )
         self.assertTrue(self._test_document_version_page not in queryset)
@@ -412,14 +438,17 @@ class DocumentVersionPageSearchTestCase(
 
     def test_search_model_document_version_page_by_document_uuid_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
 
         queryset = self._do_test_search(
             query={
-                'document_version__document__uuid': self._test_document.uuid
+                'document_version__document__uuid': str(
+                    self._test_document.uuid
+                )
             }
         )
         self.assertTrue(self._test_document_version_page in queryset)
@@ -429,7 +458,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_trashed_search_model_document_version_page_by_document_uuid_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -438,7 +468,9 @@ class DocumentVersionPageSearchTestCase(
 
         queryset = self._do_test_search(
             query={
-                'document_version__document__uuid': self._test_document.uuid
+                'document_version__document__uuid': str(
+                    self._test_document.uuid
+                )
             }
         )
         self.assertTrue(self._test_document_version_page not in queryset)
@@ -461,7 +493,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_search_model_document_version_page_by_document_type_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -478,7 +511,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_trashed_search_model_document_version_page_by_document_type_label_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()
@@ -510,7 +544,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_search_model_document_version_page_by_document_version_comment_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._clear_events()
@@ -527,7 +562,8 @@ class DocumentVersionPageSearchTestCase(
 
     def test_trashed_search_model_document_version_page_by_document_version_comment_with_access(self):
         self.grant_access(
-            obj=self._test_document, permission=permission_document_version_view
+            obj=self._test_document,
+            permission=permission_document_version_view
         )
 
         self._test_document.delete()

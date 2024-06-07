@@ -4,19 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2022
-# Roberto Rosario, 2022
-# Márcia Ferreira, 2022
-# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2022
+# Roberto Rosario, 2023
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2023
+# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2023
+# Márcia Ferreira, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2022\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/rosarior/teams/13584/pt_BR/)\n"
+"POT-Creation-Date: 2024-06-02 01:53+0000\n"
+"PO-Revision-Date: 2023-01-05 02:50+0000\n"
+"Last-Translator: Márcia Ferreira, 2023\n"
+"Language-Team: Portuguese (Brazil) (https://app.transifex.com/rosarior/teams/13584/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -43,19 +43,19 @@ msgstr "O código é inválido ou expirado"
 msgid "TOTP token"
 msgstr "Código TOTP"
 
-#: forms.py:84
+#: forms.py:86
 msgid "OTP enabled?"
 msgstr "OTP ativado?"
 
-#: forms.py:85
+#: forms.py:87
 msgid "Yes"
 msgstr "Sim"
 
-#: forms.py:85
+#: forms.py:87
 msgid "No"
 msgstr "Não"
 
-#: forms.py:102
+#: forms.py:104
 msgid ""
 "Scan the QR code or enter the secret in your authentication device. Do not "
 "share this secret, treat it like a password."
@@ -63,22 +63,22 @@ msgstr ""
 "Ler o código QR ou escreva o segredo no seu dispositivo de autenticação. Não"
 " partilhe este segredo, guarde-o como se fosse uma palavra-passe."
 
-#: forms.py:104 forms.py:109
+#: forms.py:106 forms.py:111
 msgid "Secret"
 msgstr "Secret"
 
-#: forms.py:115
+#: forms.py:117
 msgid ""
 "Enter the corresponding token to validate that the secret was saved correct."
 msgstr ""
 "Escreva o código correspondente para validar que o segredo foi salvo "
 "corretamente"
 
-#: forms.py:118
+#: forms.py:120
 msgid "Token"
 msgstr "Código"
 
-#: forms.py:152
+#: forms.py:155
 msgid "Token is incorrect for the specified secret."
 msgstr "O código está incorreto para o segredo específico."
 
@@ -124,19 +124,19 @@ msgstr "Desativar pad de uso único para o utilizador: %s"
 msgid "OTP disable successfully."
 msgstr "OTP desativado com sucesso"
 
-#: views.py:78
+#: views.py:80
 msgid "OTP is already enabled."
 msgstr "OTP já está ativo."
 
-#: views.py:94
+#: views.py:96
 msgid "OTP enabled successfully."
 msgstr "OTP ativado com sucesso"
 
-#: views.py:103
+#: views.py:105
 #, python-format
 msgid "Enable one time pad for user: %s"
 msgstr "Ativar pad de uso único para o utilizador: %s"
 
-#: views.py:115
+#: views.py:117
 msgid "OTP secret validation error."
 msgstr "Erro de validação do segredo OTP"

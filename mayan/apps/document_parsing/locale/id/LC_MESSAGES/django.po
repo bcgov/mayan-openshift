@@ -4,31 +4,31 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Sehat <sehat75@yahoo.com>, 2022
+# Sehat <sehat75@yahoo.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:34+0000\n"
-"Last-Translator: Sehat <sehat75@yahoo.com>, 2022\n"
-"Language-Team: Indonesian (https://www.transifex.com/rosarior/teams/13584/id/)\n"
+"POT-Creation-Date: 2024-06-02 01:53+0000\n"
+"PO-Revision-Date: 2023-01-05 02:51+0000\n"
+"Last-Translator: Sehat <sehat75@yahoo.com>, 2023\n"
+"Language-Team: Indonesian (https://app.transifex.com/rosarior/teams/13584/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: id\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:52 events.py:6 permissions.py:6 settings.py:10
+#: apps.py:51 events.py:6 permissions.py:6 settings.py:11
 msgid "Document parsing"
 msgstr ""
 
-#: apps.py:108
+#: apps.py:107
 msgid "A generator returning the document file's pages parsed content."
 msgstr ""
 
-#: apps.py:109 links.py:26 links.py:49 models.py:23 search.py:11
+#: apps.py:108 links.py:26 links.py:49 models.py:25 search.py:11
 msgid "Content"
 msgstr "Isi"
 
@@ -50,12 +50,12 @@ msgstr ""
 msgid "Document file parsing finished"
 msgstr ""
 
-#: forms.py:37
+#: forms.py:41
 #, python-format
 msgid "Page %(page_number)d"
 msgstr ""
 
-#: forms.py:45 forms.py:57
+#: forms.py:51 forms.py:63
 msgid "Contents"
 msgstr "Isi"
 
@@ -79,44 +79,48 @@ msgstr ""
 msgid "Parse documents per type"
 msgstr ""
 
-#: models.py:17
+#: models.py:19
 msgid "Document file page"
 msgstr ""
 
-#: models.py:21
+#: models.py:23
 msgid "The actual text content as extracted by the document parsing backend."
 msgstr ""
 
-#: models.py:29
+#: models.py:31 search.py:17
 msgid "Document file page content"
 msgstr ""
 
-#: models.py:30
+#: models.py:32
 msgid "Document file page contents"
 msgstr ""
 
-#: models.py:42
+#: models.py:44
 msgid "Document type"
 msgstr "Jenis dokumen"
 
-#: models.py:46
+#: models.py:48
 msgid "Automatically queue newly created documents for parsing."
 msgstr ""
 
-#: models.py:57
+#: models.py:49
+msgid "Auto parsing"
+msgstr ""
+
+#: models.py:59
 msgid "Document type settings"
 msgstr ""
 
-#: models.py:58
+#: models.py:60
 msgid "Document types settings"
 msgstr ""
 
-#: parsers.py:94
+#: parsers.py:106
 #, python-format
 msgid "Exception parsing page; %s"
 msgstr ""
 
-#: parsers.py:120
+#: parsers.py:132
 #, python-format
 msgid "Cannot find pdftotext executable at: %s"
 msgstr ""
@@ -141,96 +145,96 @@ msgstr ""
 msgid "Document file parsing"
 msgstr ""
 
-#: search.py:17 search.py:24
+#: search.py:24
 msgid "Document file content"
 msgstr ""
 
-#: settings.py:15
+#: settings.py:18
 msgid "Set new document types to perform parsing automatically by default."
 msgstr ""
 
-#: settings.py:21
+#: settings.py:24
 msgid ""
 "File path to poppler's pdftotext program used to extract text from PDF "
 "files."
 msgstr ""
 
-#: views.py:37
+#: views.py:35
 #, python-format
 msgid "Error deleting document version content \"%(instance)s\"; %(exception)s"
 msgstr ""
 
-#: views.py:43
-#, python-format
-msgid "Content of \"%(object)s\" deleted successfully."
-msgstr ""
-
-#: views.py:46
-#, python-format
-msgid "Content of %(count)d document version deleted successfully."
-msgstr ""
-
-#: views.py:49
+#: views.py:42
 #, python-format
 msgid "Content of %(count)d document versions deleted successfully."
 msgstr ""
 
-#: views.py:51
+#: views.py:45
+#, python-format
+msgid "Content of \"%(object)s\" deleted successfully."
+msgstr ""
+
+#: views.py:48
+#, python-format
+msgid "Content of %(count)d document version deleted successfully."
+msgstr ""
+
+#: views.py:50
 #, python-format
 msgid "Delete the content of: %(object)s."
 msgstr ""
 
-#: views.py:53
+#: views.py:52
 #, python-format
 msgid "Delete the content of the %(count)d selected document version."
 msgstr ""
 
-#: views.py:56
+#: views.py:55
 #, python-format
 msgid "Delete the content of the %(count)d selected document versions."
 msgstr ""
 
-#: views.py:97
+#: views.py:96
 #, python-format
 msgid "Content for document file: %s"
 msgstr ""
 
-#: views.py:119
+#: views.py:118
 #, python-format
 msgid "Content for document file page: %s"
 msgstr ""
 
-#: views.py:134
+#: views.py:133
 #, python-format
 msgid "%(count)d document file added to the parsing queue"
 msgstr ""
 
-#: views.py:137
+#: views.py:136
 #, python-format
 msgid "%(count)d documents files added to the parsing queue"
 msgstr ""
 
-#: views.py:146
+#: views.py:145
 #, python-format
 msgid "Submit %(count)d document file to the parsing queue?"
 msgid_plural "Submit %(count)d documents files to the parsing queue?"
 msgstr[0] ""
 
-#: views.py:159
+#: views.py:158
 #, python-format
 msgid "Submit document file \"%s\" to the parsing queue"
 msgstr ""
 
-#: views.py:187
+#: views.py:188
 #, python-format
 msgid "Edit parsing settings for document type: %s."
 msgstr ""
 
-#: views.py:197
+#: views.py:198
 msgid "Submit all documents of a type for parsing"
 msgstr ""
 
-#: views.py:219
+#: views.py:220
 #, python-format
 msgid "%(count)d documents added to the parsing queue."
 msgstr ""

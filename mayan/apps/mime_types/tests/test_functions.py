@@ -12,7 +12,7 @@ from mayan.apps.testing.tests.base import BaseTestCase
 from .literals import MAXIMUM_HEAP_MEMORY
 
 
-@unittest.skip('This test should be used only in development.')
+@unittest.skip(reason='This test should be used only in development.')
 @tag('memory', EXCLUDE_TEST_TAG)
 class MIMETypeTestCase(DocumentTestMixin, BaseTestCase):
     auto_upload_test_document = False
@@ -20,16 +20,22 @@ class MIMETypeTestCase(DocumentTestMixin, BaseTestCase):
 
     def setUp(self):
         super().setUp()
-        resource.setrlimit(resource.RLIMIT_DATA, (MAXIMUM_HEAP_MEMORY, -1))
+        resource.setrlimit(
+            resource.RLIMIT_DATA, (MAXIMUM_HEAP_MEMORY, -1)
+        )
 
     def test_little_memory_full_file(self):
         with self.assertRaises(expected_exception=Exception):
             self._upload_test_document()
 
-        self.assertEqual(Document.objects.count(), 0)
+        self.assertEqual(
+            Document.objects.count(), 0
+        )
 
     @override_settings(MIMETYPE_FILE_READ_SIZE=1024)
     def test_little_memory_partial_file(self):
         self._upload_test_document()
 
-        self.assertEqual(Document.objects.count(), 1)
+        self.assertEqual(
+            Document.objects.count(), 1
+        )

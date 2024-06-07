@@ -18,7 +18,8 @@ from mayan.apps.common.serialization import yaml_dump, yaml_load
 
 from .exceptions import BaseSettingsException
 from .literals import (
-    NAMESPACE_VERSION_INITIAL, SMART_SETTINGS_NAMESPACES_NAME
+    COMMAND_NAME_SETTINGS_REVERT, NAMESPACE_VERSION_INITIAL,
+    SMART_SETTINGS_NAMESPACES_NAME
 )
 
 logger = logging.getLogger(name=__name__)
@@ -64,7 +65,9 @@ class SettingNamespace(AppsModuleLoaderMixin):
 
     @classmethod
     def get_namespaces_config(cls):
-        return Setting.get_config_file_content().get(SMART_SETTINGS_NAMESPACES_NAME, {})
+        return Setting.get_config_file_content().get(
+            SMART_SETTINGS_NAMESPACES_NAME, {}
+        )
 
     @classmethod
     def invalidate_cache_all(cls):
@@ -110,6 +113,9 @@ class SettingNamespace(AppsModuleLoaderMixin):
         return sorted(self._settings, key=lambda x: x.global_name)
 
 
+SettingNamespace.verbose_name = _('Settings namespace')
+
+
 class SettingNamespaceMigration:
     @staticmethod
     def get_method_name(setting):
@@ -133,7 +139,9 @@ class SettingNamespaceMigration:
             # Get methods for this setting
             pattern = r'{}_\d{{4}}'.format(setting_method_name)
             setting_methods = re.findall(
-                pattern=pattern, string='\n'.join(dir(self))
+                pattern=pattern, string='\n'.join(
+                    dir(self)
+                )
             )
 
             # Get order of execution of setting methods
@@ -143,7 +151,9 @@ class SettingNamespaceMigration:
                 ) for method in setting_methods
             ]
             try:
-                start = versions.index(self.namespace.get_config_version())
+                start = versions.index(
+                    self.namespace.get_config_version()
+                )
             except ValueError:
                 start = 0
 
@@ -180,7 +190,9 @@ class Setting:
         Walk all the elements of a value and force promises to text
         """
         if isinstance(value, (list, tuple)):
-            return [Setting.express_promises(item) for item in value]
+            return [
+                Setting.express_promises(item) for item in value
+            ]
         elif isinstance(value, Promise):
             return value._proxy____args[0]
         else:
@@ -189,8 +201,8 @@ class Setting:
     @staticmethod
     def serialize_value(value):
         result = yaml_dump(
-            data=Setting.express_promises(value=value), allow_unicode=True,
-            default_flow_style=False,
+            allow_unicode=True, data=Setting.express_promises(value=value),
+            default_flow_style=False
         )
         # safe_dump returns bytestrings
         # Disregard the last 3 dots that mark the end of the YAML document
@@ -236,7 +248,9 @@ class Setting:
 
     @classmethod
     def get_all(cls):
-        return sorted(cls._registry.values(), key=lambda x: x.global_name)
+        return sorted(
+            cls._registry.values(), key=lambda x: x.global_name
+        )
 
     @classmethod
     def get_config_file_content(cls):
@@ -250,7 +264,11 @@ class Setting:
     @classmethod
     def get_hash(cls):
         return force_text(
-            s=hashlib.sha256(force_bytes(s=cls.dump_data())).hexdigest()
+            s=hashlib.sha256(
+                string=force_bytes(
+                    s=cls.dump_data()
+                )
+            ).hexdigest()
         )
 
     @classmethod
@@ -261,7 +279,9 @@ class Setting:
 
             try:
                 with open(file=path, mode='w') as file_object:
-                    file_object.write(cls.dump_data())
+                    file_object.write(
+                        cls.dump_data()
+                    )
             except IOError as exception:
                 if exception.errno == errno.ENOENT:
                     logger.warning(
@@ -278,7 +298,7 @@ class Setting:
     def save_last_known_good(cls):
         # Don't write over the last good configuration if we are trying
         # to restore the last good configuration
-        if 'revertsettings' not in sys.argv:
+        if COMMAND_NAME_SETTINGS_REVERT not in sys.argv:
             cls.save_configuration(
                 path=settings.CONFIGURATION_LAST_GOOD_FILEPATH
             )
@@ -305,9 +325,10 @@ class Setting:
             )
 
     def __init__(
-        self, namespace, global_name, default, help_text=None, is_path=False,
-        post_edit_function=None, validation_function=None
+        self, namespace, global_name, default, choices=None, help_text=None,
+        is_path=False, post_edit_function=None, validation_function=None
     ):
+        self.choices = choices
         self.global_name = global_name
         self.default = default
         self.help_text = help_text
@@ -325,7 +346,9 @@ class Setting:
     def cache_value(self, global_name=None, default_override=None):
         global_name = global_name or self.global_name
 
-        environment_value = os.environ.get('MAYAN_{}'.format(global_name))
+        environment_value = os.environ.get(
+            'MAYAN_{}'.format(global_name)
+        )
         if environment_value:
             self.environment_variable = True
             try:
@@ -359,11 +382,24 @@ class Setting:
 
         if self.validation_function:
             self.raw_value = self.validation_function(
-                setting=self, raw_value=self.raw_value
+                raw_value=self.raw_value, setting=self
             )
 
-        self.yaml = Setting.serialize_value(self.raw_value)
+        self.yaml = Setting.serialize_value(value=self.raw_value)
         self.loaded = True
+
+    def get_choices(self):
+        return self.choices
+
+    get_choices.short_description = _('Choices')
+    get_choices.help_text = _(
+        'Possible values allowed for this setting.'
+    )
+
+    def get_default(self):
+        return Setting.serialize_value(value=self.default)
+
+    get_default.short_description = _('Default')
 
     def invalidate_cache(self):
         self.loaded = False
@@ -373,7 +409,7 @@ class Setting:
 
     is_overridden.short_description = _('Overridden')
     is_overridden.help_text = _(
-        'Is this settings being overridden by an environment variable?'
+        'Is this setting being overridden by an environment variable?'
     )
 
     def migrate(self):
@@ -397,7 +433,7 @@ class Setting:
     def validate(self, raw_value):
         if self.validation_function:
             return self.validation_function(
-                setting=self, raw_value=raw_value
+                raw_value=raw_value, setting=self
             )
 
     @property

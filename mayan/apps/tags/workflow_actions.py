@@ -20,7 +20,7 @@ class AttachTagAction(WorkflowAction):
                 'help_text': _('Tags to attach to the document'),
                 'queryset': Tag.objects.none(), 'required': False
             }
-        },
+        }
     }
     label = _('Attach tag')
     media = {
@@ -29,7 +29,7 @@ class AttachTagAction(WorkflowAction):
     widgets = {
         'tags': {
             'class': 'mayan.apps.tags.widgets.TagFormWidget', 'kwargs': {
-                'attrs': {'class': 'select2-tags'},
+                'attrs': {'class': 'select2-tags'}
             }
         }
     }
@@ -37,7 +37,9 @@ class AttachTagAction(WorkflowAction):
 
     def execute(self, context):
         for tag in self.get_tags():
-            tag.attach_to(document=context['document'])
+            tag._attach_to(
+                document=context['document']
+            )
 
     def get_form_schema(self, **kwargs):
         result = super().get_form_schema(**kwargs)
@@ -52,7 +54,11 @@ class AttachTagAction(WorkflowAction):
         return result
 
     def get_tags(self):
-        return Tag.objects.filter(pk__in=self.form_data.get('tags', ()))
+        return Tag.objects.filter(
+            pk__in=self.form_data.get(
+                'tags', ()
+            )
+        )
 
 
 class RemoveTagAction(AttachTagAction):
@@ -60,14 +66,16 @@ class RemoveTagAction(AttachTagAction):
         'tags': {
             'label': _('Tags'),
             'class': 'django.forms.ModelMultipleChoiceField', 'kwargs': {
-                'help_text': _('Tags to remove from the document'),
+                'help_text': _('Tags to remove from the document.'),
                 'queryset': Tag.objects.none(), 'required': False
             }
-        },
+        }
     }
     label = _('Remove tag')
     permission = permission_tag_remove
 
     def execute(self, context):
         for tag in self.get_tags():
-            tag.remove_from(document=context['document'])
+            tag._remove_from(
+                document=context['document']
+            )

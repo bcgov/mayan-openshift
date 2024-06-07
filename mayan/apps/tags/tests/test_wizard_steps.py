@@ -10,7 +10,7 @@ from mayan.apps.sources.tests.mixins.web_form_source_mixins import WebFormSource
 
 from ..events import event_tag_attached
 
-from .mixins import TagTestMixin, TaggedDocumentUploadWizardStepViewTestMixin
+from .mixins import TaggedDocumentUploadWizardStepViewTestMixin, TagTestMixin
 
 
 class TaggedDocumentUploadViewTestCase(
@@ -34,7 +34,9 @@ class TaggedDocumentUploadViewTestCase(
         response = self._request_upload_interactive_document_create_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertTrue(self._test_tag in Document.objects.first().tags.all())
+        self.assertTrue(
+            self._test_tag in Document.objects.first().tags.all()
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 6)
@@ -72,7 +74,7 @@ class TaggedDocumentUploadViewTestCase(
         )
 
         self.assertEqual(events[5].action_object, self._test_tag)
-        self.assertEqual(events[5].actor, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
         self.assertEqual(events[5].target, test_document)
         self.assertEqual(events[5].verb, event_tag_attached.id)
 
@@ -135,11 +137,11 @@ class TaggedDocumentUploadViewTestCase(
         )
 
         self.assertEqual(events[5].action_object, self._test_tags[0])
-        self.assertEqual(events[5].actor, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
         self.assertEqual(events[5].target, test_document)
         self.assertEqual(events[5].verb, event_tag_attached.id)
 
         self.assertEqual(events[6].action_object, self._test_tags[1])
-        self.assertEqual(events[6].actor, test_document)
+        self.assertEqual(events[6].actor, self._test_case_user)
         self.assertEqual(events[6].target, test_document)
         self.assertEqual(events[6].verb, event_tag_attached.id)

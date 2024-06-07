@@ -30,7 +30,8 @@ class BatchResponse:
 
 class NestableLazyIterator:
     def __init__(
-        self, iterable_string, context, context_list_index, parent_iterator=None
+        self, iterable_string, context, context_list_index,
+        parent_iterator=None
     ):
         self.iterable_string = iterable_string
         self.context = context
@@ -67,7 +68,9 @@ class NestableLazyIterator:
         return value
 
     def update_iterable_object(self):
-        self.items = Variable(var=self.iterable_string).resolve(context=self.context)
+        self.items = Variable(
+            var=self.iterable_string
+        ).resolve(context=self.context)
 
 
 RenderedContent = namedtuple(
@@ -84,8 +87,8 @@ class BatchRequest:
     ):
         self.collection = collection
         self.body = body or {}
-        self.include = include
         self.group_name = group_name
+        self.include = include
         self.iterables = iterables
         self.method = method
         self.name = name
@@ -94,7 +97,9 @@ class BatchRequest:
     def execute(self):
         if self.iterables:
             # Initialize the iterables list to allow using any index.
-            self.collection.context['iterables'] = [None] * len(self.iterables)
+            self.collection.context['iterables'] = [None] * len(
+                self.iterables
+            )
 
             iterator = None
             for iterable_index, iterable in enumerate(self.iterables):
@@ -111,7 +116,9 @@ class BatchRequest:
                     break
                 except VariableDoesNotExist as exception:
                     self.collection.responses[self.name] = {
-                        'data': {'error': str(exception)},
+                        'data': {
+                            'error': str(exception)
+                        },
                         'include': 'true',
                         'is_response': True
                     }
@@ -138,7 +145,9 @@ class BatchRequest:
             except Resolver404 as exception:
                 self.collection.responses[rendered_content.name] = {
                     'data': {
-                        'error': '"{}" not found'.format(exception.args[0]['path'])
+                        'error': '"{}" not found'.format(
+                            exception.args[0]['path']
+                        )
                     },
                     'include': 'true',
                     'is_response': True,
@@ -158,8 +167,12 @@ class BatchRequest:
                 post_query_dict.update(rendered_content.body)
                 json_body = json.dumps(post_query_dict)
                 request_data = json_body.encode('utf-8')
-                environ['wsgi.input'] = io.BytesIO(request_data)
-                environ['CONTENT_LENGTH'] = str(len(request_data))
+                environ['wsgi.input'] = io.BytesIO(
+                    initial_bytes=request_data
+                )
+                environ['CONTENT_LENGTH'] = str(
+                    len(request_data)
+                )
 
                 if rendered_content.method == 'POST':
                     environ['CONTENT_TYPE'] = MULTIPART_CONTENT
@@ -188,7 +201,9 @@ class BatchRequest:
                 )
 
                 result = {
-                    'headers': {key: value for key, value in response.items()},
+                    'headers': {
+                        key: value for key, value in response.items()
+                    },
                     'include': rendered_content.include,
                     'is_response': True,
                     'status_code': response.status_code
@@ -212,7 +227,9 @@ class BatchRequest:
                 self.collection.responses[rendered_content.name] = result
 
             if self.group_name:
-                self.collection.context.setdefault('groups', {})
+                self.collection.context.setdefault(
+                    'groups', {}
+                )
                 self.collection.context['groups'].setdefault(
                     self.group_name, []
                 )
@@ -259,7 +276,9 @@ class BatchRequestCollection:
                 {'collection': self}
             )
             try:
-                self.requests.append(BatchRequest(**request_dict))
+                self.requests.append(
+                    BatchRequest(**request_dict)
+                )
             except Exception as exception:
                 raise ValueError(
                     'Error instantiating request #{}; {}'.format(
@@ -282,10 +301,14 @@ class BatchRequestCollection:
                 result.append(
                     BatchResponse(
                         content=value.get('content', ''),
+                        data=value.get(
+                            'data', {}
+                        ),
+                        headers=value.get(
+                            'headers', {}
+                        ),
                         name=key,
                         status_code=value.get('status_code', 0),
-                        data=value.get('data', {}),
-                        headers=value.get('headers', {}),
                     )
                 )
 

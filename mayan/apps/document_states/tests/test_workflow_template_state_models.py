@@ -6,15 +6,16 @@ from mayan.apps.events.classes import EventType
 
 from .literals import (
     TEST_DOCUMENT_EDIT_WORKFLOW_TEMPLATE_STATE_ACTION_DOTTED_PATH,
-    TEST_DOCUMENT_EDIT_WORKFLOW_TEMPLATE_STATE_ACTION_TEXT_LABEL,
-    TEST_DOCUMENT_EDIT_WORKFLOW_TEMPLATE_STATE_ACTION_TEXT_DESCRIPTION
+    TEST_DOCUMENT_EDIT_WORKFLOW_TEMPLATE_STATE_ACTION_TEXT_DESCRIPTION,
+    TEST_DOCUMENT_EDIT_WORKFLOW_TEMPLATE_STATE_ACTION_TEXT_LABEL
 )
-from .mixins.workflow_template_mixins import WorkflowTemplateTestMixin
-from .mixins.workflow_template_state_mixins import WorkflowTemplateStateActionTestMixin
+from .mixins.workflow_template_state_action_mixins import WorkflowTemplateStateActionTestMixin
+from .mixins.workflow_template_transition_mixins import WorkflowTemplateTransitionTestMixin
 
 
 class WorkflowTemplateStateActionModelTestCase(
-    WorkflowTemplateStateActionTestMixin, WorkflowTemplateTestMixin,
+    WorkflowTemplateStateActionTestMixin,
+    WorkflowTemplateTransitionTestMixin,
     GenericDocumentTestCase
 ):
     auto_upload_test_document = False
@@ -38,7 +39,9 @@ class WorkflowTemplateStateActionModelTestCase(
         self._test_workflow_instance = self._test_workflow_template.launch_for(
             document=self._test_document
         )
-        self.assertTrue(self._get_test_workflow_state_action_execute_flag())
+        self.assertTrue(
+            self._get_test_workflow_state_action_execute_flag()
+        )
 
     def test_workflow_initial_state_action_false_condition(self):
         self._create_test_workflow_template_state_action()
@@ -48,7 +51,9 @@ class WorkflowTemplateStateActionModelTestCase(
         self._test_workflow_instance = self._test_workflow_template.launch_for(
             document=self._test_document
         )
-        self.assertFalse(self._get_test_workflow_state_action_execute_flag())
+        self.assertFalse(
+            self._get_test_workflow_state_action_execute_flag()
+        )
 
     def test_workflow_initial_state_action_true_condition(self):
         self._create_test_workflow_template_state_action()
@@ -58,7 +63,9 @@ class WorkflowTemplateStateActionModelTestCase(
         self._test_workflow_instance = self._test_workflow_template.launch_for(
             document=self._test_document
         )
-        self.assertTrue(self._get_test_workflow_state_action_execute_flag())
+        self.assertTrue(
+            self._get_test_workflow_state_action_execute_flag()
+        )
 
     def test_workflow_state_action_no_condition(self):
         self._create_test_workflow_template_state_action(
@@ -70,7 +77,9 @@ class WorkflowTemplateStateActionModelTestCase(
         self._test_workflow_instance.do_transition(
             transition=self._test_workflow_template_transition
         )
-        self.assertTrue(self._get_test_workflow_state_action_execute_flag())
+        self.assertTrue(
+            self._get_test_workflow_state_action_execute_flag()
+        )
 
     def test_workflow_state_action_false_condition(self):
         self._create_test_workflow_template_state_action(
@@ -85,7 +94,9 @@ class WorkflowTemplateStateActionModelTestCase(
         self._test_workflow_instance.do_transition(
             transition=self._test_workflow_template_transition
         )
-        self.assertFalse(self._get_test_workflow_state_action_execute_flag())
+        self.assertFalse(
+            self._get_test_workflow_state_action_execute_flag()
+        )
 
     def test_workflow_state_action_true_condition(self):
         self._create_test_workflow_template_state_action(
@@ -100,7 +111,9 @@ class WorkflowTemplateStateActionModelTestCase(
         self._test_workflow_instance.do_transition(
             transition=self._test_workflow_template_transition
         )
-        self.assertTrue(self._get_test_workflow_state_action_execute_flag())
+        self.assertTrue(
+            self._get_test_workflow_state_action_execute_flag()
+        )
 
     def test_workflow_state_action_event_trigger(self):
         # actions 1 and 2 both trigger the transition event, to make this

@@ -8,12 +8,12 @@ from mayan.apps.views.generics import (
     SingleObjectDynamicFormCreateView, SingleObjectDynamicFormEditView,
     SingleObjectEditView, SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from ..classes import WorkflowAction
-from ..forms import (
-    WorkflowActionSelectionForm, WorkflowStateActionDynamicForm,
-    WorkflowStateForm
+from ..forms.workflow_template_state_forms import (
+    WorkflowTemplateStateActionDynamicForm,
+    WorkflowTemplateStateActionSelectionForm, WorkflowTemplateStateForm
 )
 from ..icons import (
     icon_workflow_template_state, icon_workflow_template_state_action,
@@ -23,11 +23,11 @@ from ..icons import (
     icon_workflow_template_state_action_list,
     icon_workflow_template_state_action_selection,
     icon_workflow_template_state_create, icon_workflow_template_state_delete,
-    icon_workflow_template_state_edit, link_workflow_template_state_list
+    icon_workflow_template_state_edit, icon_workflow_template_state_list
 )
 from ..links import (
-    link_workflow_template_state_create,
-    link_workflow_template_state_action_selection
+    link_workflow_template_state_action_selection,
+    link_workflow_template_state_create
 )
 from ..models import Workflow, WorkflowState, WorkflowStateAction
 from ..permissions import (
@@ -41,15 +41,19 @@ class WorkflowTemplateStateActionCreateView(
     external_object_class = WorkflowState
     external_object_permission = permission_workflow_template_edit
     external_object_pk_url_kwarg = 'workflow_template_state_id'
-    form_class = WorkflowStateActionDynamicForm
+    form_class = WorkflowTemplateStateActionDynamicForm
     view_icon = icon_workflow_template_state_action_create
 
     def get_class(self):
         try:
-            return WorkflowAction.get(name=self.kwargs['class_path'])
+            return WorkflowAction.get(
+                name=self.kwargs['class_path']
+            )
         except KeyError:
             raise Http404(
-                '{} class not found'.format(self.kwargs['class_path'])
+                '{} class not found'.format(
+                    self.kwargs['class_path']
+                )
             )
 
     def get_extra_context(self):
@@ -61,18 +65,20 @@ class WorkflowTemplateStateActionCreateView(
             ) % {
                 'action_class': self.get_class().label,
                 'workflow_state': self.external_object
-            }, 'workflow': self.external_object.workflow
+            },
+            'workflow': self.external_object.workflow
         }
 
     def get_form_extra_kwargs(self):
         return {
-            'request': self.request,
-            'action_path': self.kwargs['class_path']
+            'action_path': self.kwargs['class_path'],
+            'request': self.request
         }
 
     def get_form_schema(self):
         return self.get_class()().get_form_schema(
-            request=self.request, workflow_state=self.external_object
+            request=self.request,
+            workflow_template_state=self.external_object
         )
 
     def get_instance_extra_data(self):
@@ -123,7 +129,7 @@ class WorkflowTemplateStateActionDeleteView(SingleObjectDeleteView):
 
 
 class WorkflowTemplateStateActionEditView(SingleObjectDynamicFormEditView):
-    form_class = WorkflowStateActionDynamicForm
+    form_class = WorkflowTemplateStateActionDynamicForm
     model = WorkflowStateAction
     object_permission = permission_workflow_template_edit
     pk_url_kwarg = 'workflow_template_state_action_id'
@@ -142,13 +148,13 @@ class WorkflowTemplateStateActionEditView(SingleObjectDynamicFormEditView):
 
     def get_form_extra_kwargs(self):
         return {
-            'request': self.request,
             'action_path': self.object.action_path,
+            'request': self.request
         }
 
     def get_form_schema(self):
         return self.object.get_class_instance().get_form_schema(
-            request=self.request, workflow_state=self.object.state
+            request=self.request, workflow_template_state=self.object.state
         )
 
     def get_instance_extra_data(self):
@@ -180,9 +186,9 @@ class WorkflowTemplateStateActionListView(
             'no_results_icon': icon_workflow_template_state_action,
             'no_results_main_link': link_workflow_template_state_action_selection.resolve(
                 context=RequestContext(
-                    request=self.request, dict_={
+                    dict_={
                         'object': self.external_object
-                    }
+                    }, request=self.request
                 )
             ),
             'no_results_text': _(
@@ -196,7 +202,7 @@ class WorkflowTemplateStateActionListView(
             'title': _(
                 'Actions for workflow state: %s'
             ) % self.external_object,
-            'workflow': self.external_object.workflow,
+            'workflow': self.external_object.workflow
         }
 
     def get_source_queryset(self):
@@ -209,7 +215,7 @@ class WorkflowTemplateStateActionSelectionView(
     external_object_class = WorkflowState
     external_object_permission = permission_workflow_template_edit
     external_object_pk_url_kwarg = 'workflow_template_state_id'
-    form_class = WorkflowActionSelectionForm
+    form_class = WorkflowTemplateStateActionSelectionForm
     view_icon = icon_workflow_template_state_action_selection
 
     def get_extra_context(self):
@@ -219,7 +225,7 @@ class WorkflowTemplateStateActionSelectionView(
             ),
             'object': self.external_object,
             'title': _('New workflow state action selection for: %s') % self.external_object,
-            'workflow': self.external_object.workflow,
+            'workflow': self.external_object.workflow
         }
 
     def form_valid(self, form):
@@ -241,7 +247,7 @@ class WorkflowTemplateStateCreateView(
     external_object_class = Workflow
     external_object_permission = permission_workflow_template_edit
     external_object_pk_url_kwarg = 'workflow_template_id'
-    form_class = WorkflowStateForm
+    form_class = WorkflowTemplateStateForm
     view_icon = icon_workflow_template_state_create
 
     def get_extra_context(self):
@@ -284,7 +290,7 @@ class WorkflowTemplateStateDeleteView(SingleObjectDeleteView):
             'title': _(
                 'Delete workflow state: %s?'
             ) % self.object,
-            'workflow': self.object.workflow,
+            'workflow': self.object.workflow
         }
 
     def get_instance_extra_data(self):
@@ -302,7 +308,7 @@ class WorkflowTemplateStateDeleteView(SingleObjectDeleteView):
 
 
 class WorkflowTemplateStateEditView(SingleObjectEditView):
-    form_class = WorkflowStateForm
+    form_class = WorkflowTemplateStateForm
     model = WorkflowState
     object_permission = permission_workflow_template_edit
     pk_url_kwarg = 'workflow_template_state_id'
@@ -315,7 +321,7 @@ class WorkflowTemplateStateEditView(SingleObjectEditView):
             'title': _(
                 'Edit workflow state: %s'
             ) % self.object,
-            'workflow': self.object.workflow,
+            'workflow': self.object.workflow
         }
 
     def get_instance_extra_data(self):
@@ -336,7 +342,7 @@ class WorkflowTemplateStateListView(
     external_object_class = Workflow
     external_object_permission = permission_workflow_template_view
     external_object_pk_url_kwarg = 'workflow_template_id'
-    view_icon = link_workflow_template_state_list
+    view_icon = icon_workflow_template_state_list
 
     def get_extra_context(self):
         return {
@@ -344,7 +350,8 @@ class WorkflowTemplateStateListView(
             'no_results_icon': icon_workflow_template_state,
             'no_results_main_link': link_workflow_template_state_create.resolve(
                 context=RequestContext(
-                    self.request, {'workflow': self.external_object}
+                    dict_={'workflow': self.external_object},
+                    request=self.request
                 )
             ),
             'no_results_text': _(

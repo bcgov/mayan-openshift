@@ -49,7 +49,9 @@ class DocumentUploadMetadataTestCase(
         )
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(Document.objects.count(), 1)
+        self.assertEqual(
+            Document.objects.count(), 1
+        )
         self.assertEqual(
             Document.objects.first().metadata.first().value,
             TEST_METADATA_VALUE_UNICODE
@@ -91,12 +93,12 @@ class DocumentUploadMetadataTestCase(
         )
 
         self.assertEqual(events[5].action_object, self._test_metadata_type)
-        self.assertEqual(events[5].actor, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
         self.assertEqual(events[5].target, test_document)
         self.assertEqual(events[5].verb, event_document_metadata_added.id)
 
         self.assertEqual(events[6].action_object, self._test_metadata_type)
-        self.assertEqual(events[6].actor, test_document)
+        self.assertEqual(events[6].actor, self._test_case_user)
         self.assertEqual(events[6].target, test_document)
         self.assertEqual(events[6].verb, event_document_metadata_edited.id)
 
@@ -117,7 +119,9 @@ class DocumentUploadMetadataTestCase(
 
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(Document.objects.count(), 1)
+        self.assertEqual(
+            Document.objects.count(), 1
+        )
         self.assertEqual(
             Document.objects.first().metadata.first().value,
             TEST_METADATA_VALUE_WITH_AMPERSAND
@@ -159,12 +163,12 @@ class DocumentUploadMetadataTestCase(
         )
 
         self.assertEqual(events[5].action_object, self._test_metadata_type)
-        self.assertEqual(events[5].actor, test_document)
+        self.assertEqual(events[5].actor, self._test_case_user)
         self.assertEqual(events[5].target, test_document)
         self.assertEqual(events[5].verb, event_document_metadata_added.id)
 
         self.assertEqual(events[6].action_object, self._test_metadata_type)
-        self.assertEqual(events[6].actor, test_document)
+        self.assertEqual(events[6].actor, self._test_case_user)
         self.assertEqual(events[6].target, test_document)
         self.assertEqual(events[6].verb, event_document_metadata_edited.id)
 

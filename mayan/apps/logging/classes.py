@@ -1,6 +1,5 @@
-import logging
-
 from django.apps import apps
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models.signals import post_save, pre_delete
 
 from mayan.apps.acls.classes import ModelPermission
@@ -13,8 +12,6 @@ from .literals import DEFAULT_ERROR_LOG_PARTITION_ENTRY_LIMIT
 from .permissions import (
     permission_error_log_entry_delete, permission_error_log_entry_view
 )
-
-logger = logging.getLogger(name=__name__)
 
 
 class ErrorLog:
@@ -32,7 +29,9 @@ class ErrorLog:
     def get(cls, name):
         return cls._registry[name]
 
-    def __init__(self, app_config, limit=DEFAULT_ERROR_LOG_PARTITION_ENTRY_LIMIT):
+    def __init__(
+        self, app_config, limit=DEFAULT_ERROR_LOG_PARTITION_ENTRY_LIMIT
+    ):
         self.app_config = app_config
         self.limit = limit
 
@@ -41,8 +40,14 @@ class ErrorLog:
     def __str__(self):
         return str(self.app_config.verbose_name)
 
-    def register_model(self, model, register_permission=False):
+    def register_model(self, model, register_permission=True):
         error_log_instance = self
+
+        if getattr(model, 'error_log', None):
+            raise ImproperlyConfigured(
+                'Model `{}` has already been registered for error '
+                'logging.'.format(model)
+            )
 
         @property
         def method_instance_logs(self):
@@ -83,11 +88,14 @@ class ErrorLog:
         if register_permission:
             ModelPermission.register(
                 model=model, permissions=(
-                    permission_error_log_entry_delete, permission_error_log_entry_view
+                    permission_error_log_entry_delete,
+                    permission_error_log_entry_view
                 )
             )
 
-        def handler_model_instance_delete_partition(sender, instance, **kwargs):
+        def handler_model_instance_delete_partition(
+            sender, instance, **kwargs
+        ):
             ContentType = apps.get_model(
                 app_label='contenttypes', model_name='ContentType'
             )
@@ -100,7 +108,9 @@ class ErrorLog:
                 content_type=content_type, object_id=instance.pk
             ).delete()
 
-        def handler_model_instance_create_partition(sender, instance, **kwargs):
+        def handler_model_instance_create_partition(
+            sender, instance, **kwargs
+        ):
             if kwargs['created']:
                 ContentType = apps.get_model(
                     app_label='contenttypes', model_name='ContentType'

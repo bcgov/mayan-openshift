@@ -14,7 +14,9 @@ from .. import generics, serializers
 
 from .base import BaseAPITestCase
 from .literals import TEST_OBJECT_LABEL, TEST_OBJECT_LABEL_EDITED
-from .mixins import DynamicFieldSerializerAPIViewTestCaseMixin, RESTAPIViewTestMixin
+from .mixins import (
+    DynamicFieldSerializerAPIViewTestCaseMixin, RESTAPIViewTestMixin
+)
 
 
 class RESTAPIViewTestCase(RESTAPIViewTestMixin, GenericViewTestCase):
@@ -22,12 +24,18 @@ class RESTAPIViewTestCase(RESTAPIViewTestMixin, GenericViewTestCase):
         response = self._request_test_browser_api_view()
         self.assertEqual(response.status_code, 200)
 
-    @unittest.skipIf(connection.vendor != 'sqlite', 'Skip for known Django issues #15802 and #27074')
+    @unittest.skipIf(
+        condition=connection.vendor != 'sqlite',
+        reason='Skip for known Django issues #15802 and #27074'
+    )
     def test_redoc_ui_view(self):
         response = self._request_test_redoc_ui_view()
         self.assertEqual(response.status_code, 200)
 
-    @unittest.skipIf(connection.vendor != 'sqlite', 'Skip for known Django issues #15802 and #27074')
+    @unittest.skipIf(
+        condition=connection.vendor != 'sqlite',
+        reason='Skip for known Django issues #15802 and #27074'
+    )
     def test_swagger_ui_view(self):
         response = self._request_test_swagger_ui_view()
         self.assertEqual(response.status_code, 200)
@@ -82,8 +90,8 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
                 mayan_view_permissions = {
                     'POST': (self._test_permission,)
                 }
-                queryset = self.TestModel.objects.all()
                 serializer_class = TestModelSerializer
+                source_queryset = self.TestModel.objects.all()
 
             return TestView.as_view()
 
@@ -105,8 +113,8 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
                     'PATCH': (self._test_permission,),
                     'PUT': (self._test_permission,)
                 }
-                queryset = TestModel.objects.all()
                 serializer_class = TestModelSerializer
+                source_queryset = TestModel.objects.all()
 
             return TestView.as_view()
 
@@ -150,7 +158,9 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
             requests=json.dumps(obj=requests)
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(
+            response.data['count'], 1
+        )
 
         self.assertEqual(
             response.data['results'][0]['status_code'],
@@ -189,7 +199,9 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
             requests=json.dumps(obj=requests)
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(
+            response.data['count'], 1
+        )
 
         self.assertEqual(
             response.data['results'][0]['status_code'],
@@ -229,7 +241,9 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
             requests=json.dumps(obj=requests)
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(
+            response.data['count'], 1
+        )
 
         self.assertEqual(
             response.data['results'][0]['status_code'], status.HTTP_200_OK
@@ -267,7 +281,9 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
             requests=json.dumps(obj=requests)
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(
+            response.data['count'], 1
+        )
 
         self.assertEqual(
             response.data['results'][0]['status_code'], status.HTTP_200_OK
@@ -301,12 +317,16 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
             requests=json.dumps(obj=requests)
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 1)
+        self.assertEqual(
+            response.data['count'], 1
+        )
 
         self.assertEqual(
             response.data['results'][0]['status_code'], status.HTTP_200_OK
         )
-        self.assertEqual(response.data['results'][0]['data']['count'], 1)
+        self.assertEqual(
+            response.data['results'][0]['data']['count'], 1
+        )
         self.assertEqual(
             response.data['results'][0]['data']['results'][0]['id'],
             self._test_object.pk
@@ -357,7 +377,9 @@ class BatchAPIRequestViewTestCase(BaseAPITestCase):
         self.assertEqual(
             response.data['results'][0]['status_code'], status.HTTP_200_OK
         )
-        self.assertEqual(response.data['results'][0]['data']['count'], 1)
+        self.assertEqual(
+            response.data['results'][0]['data']['count'], 1
+        )
         self.assertEqual(
             response.data['results'][0]['data']['results'][0]['id'],
             self._test_object.pk
@@ -382,8 +404,8 @@ class DynamicFieldSerializerAPIViewTestCase(
 
         class TestView(generics.RetrieveAPIView):
             lookup_url_kwarg = 'test_object_id'
-            queryset = self.TestModelChild.objects.all()
             serializer_class = local_serializer_class
+            source_queryset = self.TestModelChild.objects.all()
 
         return TestView
 
@@ -414,8 +436,12 @@ class DynamicFieldSerializerAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' in data['parent'])
-        self.assertTrue('test_field_2' in data['parent'])
+        self.assertTrue(
+            'test_field_1' in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' in data['parent']
+        )
         self.assertTrue('test_field_3' not in data)
         self.assertTrue('test_field_4' not in data)
 
@@ -426,8 +452,12 @@ class DynamicFieldSerializerAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' in data['parent'])
-        self.assertTrue('test_field_2' not in data['parent'])
+        self.assertTrue(
+            'test_field_1' in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' not in data['parent']
+        )
         self.assertTrue('test_field_3' not in data)
         self.assertTrue('test_field_4' not in data)
 
@@ -440,8 +470,12 @@ class DynamicFieldSerializerAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' in data['parent'])
-        self.assertTrue('test_field_2' in data['parent'])
+        self.assertTrue(
+            'test_field_1' in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' in data['parent']
+        )
         self.assertTrue('test_field_3' not in data)
         self.assertTrue('test_field_4' not in data)
 
@@ -452,8 +486,12 @@ class DynamicFieldSerializerAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' in data['parent'])
-        self.assertTrue('test_field_2' in data['parent'])
+        self.assertTrue(
+            'test_field_1' in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' in data['parent']
+        )
         self.assertTrue('test_field_3' not in data)
         self.assertTrue('test_field_4' in data)
 
@@ -464,8 +502,12 @@ class DynamicFieldSerializerAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' in data['parent'])
-        self.assertTrue('test_field_2' in data['parent'])
+        self.assertTrue(
+            'test_field_1' in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' in data['parent']
+        )
         self.assertTrue('test_field_3' not in data)
         self.assertTrue('test_field_4' not in data)
 
@@ -486,8 +528,12 @@ class DynamicFieldSerializerAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' not in data['parent'])
-        self.assertTrue('test_field_2' in data['parent'])
+        self.assertTrue(
+            'test_field_1' not in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' in data['parent']
+        )
         self.assertTrue('test_field_3' in data)
         self.assertTrue('test_field_4' in data)
 
@@ -500,8 +546,12 @@ class DynamicFieldSerializerAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' not in data['parent'])
-        self.assertTrue('test_field_2' not in data['parent'])
+        self.assertTrue(
+            'test_field_1' not in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' not in data['parent']
+        )
         self.assertTrue('test_field_3' in data)
         self.assertTrue('test_field_4' in data)
 
@@ -520,8 +570,8 @@ class DynamicFieldSerializerWithMixinAPIViewTestCase(
             external_object_queryset = self.TestModelChild.objects.all()
             external_object_pk_url_kwarg = 'test_object_id'
             lookup_url_kwarg = 'test_object_id'
-            queryset = self.TestModelChild.objects.all()
             serializer_class = local_serializer_class
+            source_queryset = self.TestModelChild.objects.all()
 
         return TestView
 
@@ -532,7 +582,11 @@ class DynamicFieldSerializerWithMixinAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.json()
         self.assertTrue('parent' in data)
-        self.assertTrue('test_field_1' in data['parent'])
-        self.assertTrue('test_field_2' not in data['parent'])
+        self.assertTrue(
+            'test_field_1' in data['parent']
+        )
+        self.assertTrue(
+            'test_field_2' not in data['parent']
+        )
         self.assertTrue('test_field_3' not in data)
         self.assertTrue('test_field_4' not in data)

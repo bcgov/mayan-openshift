@@ -5,10 +5,10 @@ from django.apps import apps
 from django.utils.text import format_lazy
 from django.utils.translation import ugettext_lazy as _
 
+from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
+
 from .exceptions import QuotaExceeded
 from .handlers import handler_process_quota_signal
-
-from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
 
 __all__ = ('QuotaBackend',)
 logger = logging.getLogger(name=__name__)
@@ -34,7 +34,7 @@ class QuotaBackendBase(AppsModuleLoaderMixin):
     """
     Base class for the mailing backends. This class is mainly a wrapper
     for other Django backends that adds a few metadata to specify the
-    fields it needs to be instanciated at runtime.
+    fields it needs to be instantiated at runtime.
 
     The fields attribute is a list of dictionaries with the format:
     {
@@ -56,7 +56,11 @@ class QuotaBackend(QuotaBackendBase, metaclass=QuotaBackendMetaclass):
 
     @staticmethod
     def _queryset_to_text_list(queryset):
-        return ','.join(list(map(str, queryset))) or _('none')
+        return ','.join(
+            list(
+                map(str, queryset)
+            )
+        ) or _('none')
 
     @staticmethod
     def connect_signals():
@@ -77,9 +81,10 @@ class QuotaBackend(QuotaBackendBase, metaclass=QuotaBackendMetaclass):
     @classmethod
     def create(cls, **kwargs):
         Quota = apps.get_model(app_label='quotas', model_name='Quota')
+
         return Quota.objects.create(
-            backend_path=cls.get_dotted_path(),
-            backend_data=json.dumps(obj=kwargs)
+            backend_data=json.dumps(obj=kwargs),
+            backend_path=cls.get_dotted_path()
         )
 
     @classmethod
@@ -115,7 +120,10 @@ class QuotaBackend(QuotaBackendBase, metaclass=QuotaBackendMetaclass):
     @classmethod
     def get_instances(cls):
         Quota = apps.get_model(app_label='quotas', model_name='Quota')
-        return Quota.objects.filter(backend_path=cls.get_dotted_path())
+
+        return Quota.objects.filter(
+            backend_path=cls.get_dotted_path()
+        )
 
     @classmethod
     def get_widgets(cls):
@@ -137,11 +145,15 @@ class QuotaBackend(QuotaBackendBase, metaclass=QuotaBackendMetaclass):
         result = self.get_filter_text()
 
         return format_lazy(
-            ', '.join(['{}'] * len(result)), *result.values()
+            ', '.join(
+                ['{}'] * len(result)
+            ), *result.values()
         )
 
     def get_filter_text(self):
-        return {'limit': self._allowed_filter_display()}
+        return {
+            'limit': self._allowed_filter_display()
+        }
 
     def process(self, **kwargs):
         if self._usage() >= self._allowed():

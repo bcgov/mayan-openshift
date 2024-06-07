@@ -1,4 +1,4 @@
-from mayan.apps.dynamic_search.tests.mixins import SearchTestMixin
+from mayan.apps.dynamic_search.tests.mixins.base import SearchTestMixin
 
 from ..permissions import permission_document_view
 from ..search import search_model_document
@@ -10,11 +10,15 @@ class DocumentSearchTestCase(SearchTestMixin, GenericDocumentViewTestCase):
     auto_upload_test_document = False
 
     def _do_test_search(self, query):
-        terms = str(tuple(query.values())[0]).strip()
+        terms = str(
+            tuple(
+                query.values()
+            )[0]
+        ).strip()
         self.assertTrue(terms is not None)
         self.assertTrue(terms != '')
 
-        return self.search_backend.search(
+        return self._test_search_backend.search(
             search_model=search_model_document, query=query,
             user=self._test_case_user
         )
@@ -28,7 +32,9 @@ class DocumentSearchTestCase(SearchTestMixin, GenericDocumentViewTestCase):
 
         queryset = self._do_test_search(
             query={
-                'datetime_created': self._test_document.datetime_created.isoformat()
+                'datetime_created': '>={}'.format(
+                    self._test_document.datetime_created.isoformat()
+                )
             }
         )
         self.assertFalse(self._test_document in queryset)
@@ -45,7 +51,9 @@ class DocumentSearchTestCase(SearchTestMixin, GenericDocumentViewTestCase):
 
         queryset = self._do_test_search(
             query={
-                'datetime_created': self._test_document.datetime_created.isoformat()
+                'datetime_created': '>={}'.format(
+                    self._test_document.datetime_created.isoformat()
+                )
             }
         )
         self.assertTrue(self._test_document in queryset)
@@ -64,9 +72,12 @@ class DocumentSearchTestCase(SearchTestMixin, GenericDocumentViewTestCase):
 
         queryset = self._do_test_search(
             query={
-                'datetime_created': self._test_document.datetime_created.isoformat()
+                'datetime_created': '>={}'.format(
+                    self._test_document.datetime_created.isoformat()
+                )
             }
         )
+
         self.assertTrue(self._test_document not in queryset)
 
         events = self._get_test_events()
@@ -291,7 +302,9 @@ class DocumentSearchTestCase(SearchTestMixin, GenericDocumentViewTestCase):
         self._clear_events()
 
         queryset = self._do_test_search(
-            query={'uuid': self._test_document.uuid}
+            query={
+                'uuid': str(self._test_document.uuid)
+            }
         )
         self.assertFalse(self._test_document in queryset)
 
@@ -306,7 +319,9 @@ class DocumentSearchTestCase(SearchTestMixin, GenericDocumentViewTestCase):
         self._clear_events()
 
         queryset = self._do_test_search(
-            query={'uuid': self._test_document.uuid}
+            query={
+                'uuid': str(self._test_document.uuid)
+            }
         )
         self.assertTrue(self._test_document in queryset)
 
@@ -323,7 +338,9 @@ class DocumentSearchTestCase(SearchTestMixin, GenericDocumentViewTestCase):
         self._clear_events()
 
         queryset = self._do_test_search(
-            query={'uuid': self._test_document.uuid}
+            query={
+                'uuid': str(self._test_document.uuid)
+            }
         )
         self.assertTrue(self._test_document not in queryset)
 

@@ -3,18 +3,15 @@ from mayan.apps.documents.tests.base import GenericDocumentViewTestCase
 from ..events import event_workflow_instance_transitioned
 from ..literals import WIDGET_CLASS_TEXTAREA
 from ..permissions import (
-    permission_workflow_instance_transition, permission_workflow_template_view
+    permission_workflow_instance_transition,
+    permission_workflow_template_view
 )
 
 from .mixins.workflow_instance_mixins import WorkflowInstanceViewTestMixin
-from .mixins.workflow_template_mixins import (
-    WorkflowTemplateTestMixin, WorkflowTemplateViewTestMixin
-)
-from .mixins.workflow_template_transition_mixins import WorkflowTransitionFieldTestMixin
+from .mixins.workflow_template_transition_field_mixins import WorkflowTemplateTransitionFieldTestMixin
 
 
 class WorkflowInstanceTransitionViewTestCase(
-    WorkflowTemplateTestMixin, WorkflowTemplateViewTestMixin,
     WorkflowInstanceViewTestMixin, GenericDocumentViewTestCase
 ):
     auto_upload_test_document = False
@@ -215,7 +212,9 @@ class WorkflowInstanceTransitionViewTestCase(
         )
         self.assertNotContains(
             response=response,
-            text=str(self._test_workflow_template_transitions[0]),
+            text=str(
+                self._test_workflow_template_transitions[0]
+            ),
             status_code=200
         )
 
@@ -264,7 +263,9 @@ class WorkflowInstanceTransitionViewTestCase(
         )
         self.assertContains(
             response=response,
-            text=str(self._test_workflow_template_transitions[0]),
+            text=str(
+                self._test_workflow_template_transitions[0]
+            ),
             status_code=200
         )
 
@@ -313,7 +314,9 @@ class WorkflowInstanceTransitionViewTestCase(
         )
         self.assertContains(
             response=response,
-            text=str(self._test_workflow_template_transitions[0]),
+            text=str(
+                self._test_workflow_template_transitions[0]
+            ),
             status_code=200
         )
 
@@ -635,8 +638,8 @@ class WorkflowInstanceTransitionViewTestCase(
 
 
 class WorkflowInstanceTransitionFieldViewTestCase(
-    WorkflowTemplateTestMixin, WorkflowTransitionFieldTestMixin,
-    WorkflowInstanceViewTestMixin, GenericDocumentViewTestCase
+    WorkflowTemplateTransitionFieldTestMixin, WorkflowInstanceViewTestMixin,
+    GenericDocumentViewTestCase
 ):
     auto_upload_test_document = False
 

@@ -13,13 +13,16 @@ from mayan.apps.events.classes import (
 from mayan.apps.events.decorators import method_event
 from mayan.apps.permissions.models import Role, StoredPermission
 
-from .events import event_acl_created, event_acl_deleted, event_acl_edited
+from .events import event_acl_created, event_acl_deleted
 from .managers import AccessControlListManager
+from .model_mixins import AccessControlListBusinessLogicMixin
 
 logger = logging.getLogger(name=__name__)
 
 
-class AccessControlList(ExtraDataModelMixin, models.Model):
+class AccessControlList(
+    AccessControlListBusinessLogicMixin, ExtraDataModelMixin, models.Model
+):
     """
     ACL means Access Control List it is a more fine-grained method of
     granting access to objects. In the case of ACLs, they grant access using
@@ -34,11 +37,13 @@ class AccessControlList(ExtraDataModelMixin, models.Model):
     """
     content_type = models.ForeignKey(
         on_delete=models.CASCADE, related_name='object_content_type',
-        to=ContentType
+        to=ContentType, verbose_name=_('Content type')
     )
-    object_id = models.PositiveIntegerField()
+    object_id = models.PositiveIntegerField(
+        verbose_name=_('Object ID')
+    )
     content_object = GenericForeignKey(
-        ct_field='content_type', fk_field='object_id',
+        ct_field='content_type', fk_field='object_id'
     )
     permissions = models.ManyToManyField(
         blank=True, related_name='acls', to=StoredPermission,
@@ -64,7 +69,7 @@ class AccessControlList(ExtraDataModelMixin, models.Model):
             'Role "%(role)s" permission\'s for "%(object)s"'
         ) % {
             'object': self.content_object,
-            'role': self.role,
+            'role': self.role
         }
 
     @method_event(
@@ -80,35 +85,12 @@ class AccessControlList(ExtraDataModelMixin, models.Model):
             viewname='acls:acl_permissions', kwargs={'acl_id': self.pk}
         )
 
-    def get_inherited_permissions(self):
-        return AccessControlList.objects.get_inherited_permissions(
-            obj=self.content_object, role=self.role
-        )
-
-    def permissions_add(self, queryset, _event_actor=None):
-        for obj in queryset:
-            self.permissions.add(obj)
-
-        event_acl_edited.commit(
-            action_object=self.content_object,
-            actor=_event_actor or self._event_actor, target=self
-        )
-
-    def permissions_remove(self, queryset, _event_actor=None):
-        for obj in queryset:
-            self.permissions.remove(obj)
-
-        event_acl_edited.commit(
-            action_object=self.content_object,
-            actor=_event_actor or self._event_actor, target=self
-        )
-
     @method_event(
         event_manager_class=EventManagerSave,
         created={
             'action_object': 'content_object',
             'event': event_acl_created,
-            'target': 'self',
+            'target': 'self'
         }
     )
     def save(self, *args, **kwargs):

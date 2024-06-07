@@ -5,7 +5,10 @@ import shutil
 
 from django.core.files.base import ContentFile
 
-from mayan.apps.acls.classes import ModelPermission
+from mayan.apps.common.tests.literals import (
+    TEST_COMPRESSED_FILE_CONTENTS, TEST_FILE3_PATH, TEST_FILE_CONTENTS_1,
+    TEST_FILENAME1, TEST_FILENAME3
+)
 from mayan.apps.documents.literals import STORAGE_NAME_DOCUMENT_FILES
 from mayan.apps.permissions.tests.mixins import PermissionTestMixin
 from mayan.apps.smart_settings.classes import SettingNamespace
@@ -16,9 +19,7 @@ from ..models import DownloadFile, SharedUploadedFile
 from ..utils import mkdtemp
 
 from .literals import (
-    TEST_COMPRESSED_FILE_CONTENTS, TEST_DOWNLOAD_FILE_CONTENT_FILE_NAME,
-    TEST_FILE_CONTENTS_1, TEST_FILE3_PATH, TEST_FILENAME1, TEST_FILENAME3,
-    TEST_SHARED_UPLOADED_FILE_FILENAME
+    TEST_DOWNLOAD_FILE_CONTENT_FILE_NAME, TEST_SHARED_UPLOADED_FILE_FILENAME
 )
 
 
@@ -36,17 +37,23 @@ class ArchiveClassTestCaseMixin:
         archive.create()
         with open(file=self.file_path, mode='rb') as file_object:
             archive.add_file(file_object=file_object, filename=self.filename)
-            self.assertTrue(archive.members(), [self.filename])
+            self.assertEqual(
+                archive.members(), [self.filename]
+            )
 
     def test_open(self):
         with open(file=self.archive_path, mode='rb') as file_object:
             archive = Archive.open(file_object=file_object)
-            self.assertTrue(isinstance(archive, self.cls))
+            self.assertTrue(
+                isinstance(archive, self.cls)
+            )
 
     def test_members(self):
         with open(file=self.archive_path, mode='rb') as file_object:
             archive = Archive.open(file_object=file_object)
-            self.assertEqual(archive.members(), self.members_list)
+            self.assertEqual(
+                archive.members(), self.members_list
+            )
 
     def test_member_contents(self):
         with open(file=self.archive_path, mode='rb') as file_object:
@@ -66,7 +73,7 @@ class ArchiveClassTestCaseMixin:
 
 
 class DownloadFileTestMixin(PermissionTestMixin):
-    def _create_test_download_file(self, content=None, content_object=None):
+    def _create_test_download_file(self, content=None, user=None):
         file_content = None
 
         if content:
@@ -75,28 +82,7 @@ class DownloadFileTestMixin(PermissionTestMixin):
             )
 
         self.test_download_file = DownloadFile.objects.create(
-            content_object=content_object, file=file_content
-        )
-
-    def _create_test_download_file_with_permission(self, content=None):
-        file_content = None
-
-        if content:
-            file_content = ContentFile(
-                content=content, name=TEST_DOWNLOAD_FILE_CONTENT_FILE_NAME
-            )
-
-        self._create_test_permission()
-
-        ModelPermission.register(
-            model=DownloadFile, permissions=(
-                self._test_permission,
-            )
-        )
-
-        self.test_download_file = DownloadFile.objects.create(
-            file=file_content,
-            permission=self._test_permission.stored_permission
+            file=file_content, user=user or self._test_case_user
         )
 
 

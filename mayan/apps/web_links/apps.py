@@ -22,8 +22,11 @@ from .events import event_web_link_edited, event_web_link_navigated
 from .links import (
     link_document_type_web_links, link_document_web_link_list,
     link_web_link_create, link_web_link_delete, link_web_link_document_types,
-    link_web_link_edit, link_web_link_instance_view,
-    link_web_link_list, link_web_link_setup
+    link_web_link_edit, link_web_link_instance_view, link_web_link_list,
+    link_web_link_setup
+)
+from .methods import (
+    method_document_type_web_links_add, method_document_type_web_links_remove
 )
 from .permissions import (
     permission_web_link_delete, permission_web_link_edit,
@@ -37,7 +40,7 @@ class WebLinksApp(MayanAppConfig):
     has_rest_api = True
     has_tests = True
     name = 'mayan.apps.web_links'
-    verbose_name = _('Links')
+    verbose_name = _('Web links')
 
     def ready(self):
         super().ready()
@@ -51,6 +54,15 @@ class WebLinksApp(MayanAppConfig):
 
         ResolvedWebLink = self.get_model(model_name='ResolvedWebLink')
         WebLink = self.get_model(model_name='WebLink')
+
+        DocumentType.add_to_class(
+            name='web_links_add',
+            value=method_document_type_web_links_add
+        )
+        DocumentType.add_to_class(
+            name='web_links_remove',
+            value=method_document_type_web_links_remove
+        )
 
         DynamicSerializerField.add_serializer(
             klass=WebLink,
@@ -67,7 +79,7 @@ class WebLinksApp(MayanAppConfig):
         ).add_fields(
             field_names=(
                 'label', 'template', 'enabled', 'document_types',
-            ),
+            )
         )
 
         ModelEventType.register(
@@ -158,4 +170,6 @@ class WebLinksApp(MayanAppConfig):
                 'web_links:web_link_create'
             )
         )
-        menu_setup.bind_links(links=(link_web_link_setup,))
+        menu_setup.bind_links(
+            links=(link_web_link_setup,)
+        )

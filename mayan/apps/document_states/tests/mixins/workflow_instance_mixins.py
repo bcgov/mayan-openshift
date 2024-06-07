@@ -1,4 +1,25 @@
-class WorkflowInstanceAPIViewTestMixin:
+from .workflow_template_transition_mixins import WorkflowTemplateTransitionTestMixin
+
+
+class WorkflowInstanceTestMixin(WorkflowTemplateTransitionTestMixin):
+    """
+    Base class for forward compatibility.
+    """
+
+
+class DocumentWorkflowTemplateViewTestMixin(WorkflowInstanceTestMixin):
+    def _request_test_document_single_workflow_template_launch_view(self):
+        return self.post(
+            viewname='document_states:document_single_workflow_templates_launch',
+            kwargs={
+                'document_id': self._test_document.pk
+            }, data={
+                'workflows': self._test_workflow_template.pk
+            }
+        )
+
+
+class WorkflowInstanceAPIViewTestMixin(WorkflowInstanceTestMixin):
     def _request_test_workflow_instance_detail_api_view(self):
         return self.get(
             viewname='rest_api:workflow-instance-detail', kwargs={
@@ -40,19 +61,20 @@ class WorkflowInstanceAPIViewTestMixin:
         )
 
 
-class DocumentWorkflowTemplateViewTestMixin:
-    def _request_test_document_single_workflow_template_launch_view(self):
+class WorkflowInstanceLaunchAPIViewTestMixin(WorkflowInstanceTestMixin):
+    def _request_test_workflow_instance_launch_api_view(self):
         return self.post(
-            viewname='document_states:document_single_workflow_templates_launch',
-            kwargs={
+            viewname='rest_api:workflow-instance-launch', kwargs={
                 'document_id': self._test_document.pk
             }, data={
-                'workflows': self._test_workflow_template.pk
+                'workflow_template_id': self._test_workflow_template.pk
             }
         )
 
 
-class WorkflowInstanceLogEntryTransitrionListAPIViewTestMixin:
+class WorkflowInstanceLogEntryTransitionListAPIViewTestMixin(
+    WorkflowInstanceTestMixin
+):
     def _request_test_workflow_instance_log_entry_transition_list_api_view(self):
         return self.get(
             viewname='rest_api:workflow-instance-log-entry-transition-list',
@@ -63,7 +85,7 @@ class WorkflowInstanceLogEntryTransitrionListAPIViewTestMixin:
         )
 
 
-class WorkflowInstanceViewTestMixin:
+class WorkflowInstanceViewTestMixin(WorkflowInstanceTestMixin):
     def _request_test_document_workflow_instance_list_view(self):
         return self.get(
             viewname='document_states:workflow_instance_list', kwargs={
@@ -84,7 +106,7 @@ class WorkflowInstanceViewTestMixin:
             viewname='document_states:workflow_instance_transition_execute',
             kwargs={
                 'workflow_instance_id': self._test_workflow_instance.pk,
-                'workflow_template_transition_id': self._test_workflow_template_transition.pk,
+                'workflow_template_transition_id': self._test_workflow_template_transition.pk
             }
         )
 
@@ -92,7 +114,7 @@ class WorkflowInstanceViewTestMixin:
         return self.get(
             viewname='document_states:workflow_instance_transition_selection',
             kwargs={
-                'workflow_instance_id': self._test_workflow_instance.pk,
+                'workflow_instance_id': self._test_workflow_instance.pk
             }
         )
 
@@ -100,15 +122,8 @@ class WorkflowInstanceViewTestMixin:
         return self.post(
             viewname='document_states:workflow_instance_transition_selection',
             kwargs={
-                'workflow_instance_id': self._test_workflow_instance.pk,
+                'workflow_instance_id': self._test_workflow_instance.pk
             }, data={
-                'transition': self._test_workflow_template_transition.pk,
+                'transition': self._test_workflow_template_transition.pk
             }
-        )
-
-
-class WorkflowToolViewTestMixin:
-    def _request_workflow_launch_view(self):
-        return self.post(
-            viewname='document_states:tool_launch_workflows',
         )

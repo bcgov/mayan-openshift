@@ -21,7 +21,7 @@ class DocumentSignatureDetachedAction(WorkflowAction):
                 'help_text': _(
                     'Private key that will be used to sign the document '
                     'file.'
-                ), 'queryset': Key.objects.none(),
+                ), 'queryset': Key.objects.none()
             },
         }, 'passphrase': {
             'label': _('Passphrase'),
@@ -54,7 +54,9 @@ class DocumentSignatureDetachedAction(WorkflowAction):
 
         return {
             'document_file': latest_file,
-            'key': Key.objects.get(pk=self.form_data['key']),
+            'key': Key.objects.get(
+                pk=self.form_data['key']
+            ),
             'passphrase': self.form_data.get('passphrase')
         }
 

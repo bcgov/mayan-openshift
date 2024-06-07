@@ -10,7 +10,7 @@ from mayan.apps.views.generics import (
     FormView, SingleObjectCreateView, SingleObjectDeleteView,
     SingleObjectEditView, SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalContentTypeObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalContentTypeObjectViewMixin
 
 from ..forms import LayerTransformationSelectForm
 from ..icons import (
@@ -19,7 +19,7 @@ from ..icons import (
     icon_transformation_select
 )
 from ..links import link_transformation_select
-from ..models import LayerTransformation, ObjectLayer
+from ..models import ObjectLayer
 from ..transformations import BaseTransformation
 
 from .view_mixins import DynamicTransformationFormClassMixin, LayerViewMixin
@@ -71,7 +71,7 @@ class TransformationCreateView(
             ) % {
                 'layer': self.layer,
                 'transformation': self.get_transformation_class(),
-                'object': self.external_object,
+                'object': self.external_object
             }
         }
 
@@ -94,11 +94,6 @@ class TransformationCreateView(
             }
         )
 
-    def get_queryset(self):
-        return self.layer.get_transformations_for(
-            obj=self.content_object
-        )
-
     def get_template_names(self):
         return [
             getattr(
@@ -108,17 +103,24 @@ class TransformationCreateView(
         ]
 
     def get_transformation_class(self):
-        return BaseTransformation.get(name=self.kwargs['transformation_name'])
+        return BaseTransformation.get(
+            name=self.kwargs['transformation_name']
+        )
 
 
-class TransformationDeleteView(LayerViewMixin, SingleObjectDeleteView):
-    model = LayerTransformation
+class TransformationDeleteView(
+    LayerViewMixin, ExternalContentTypeObjectViewMixin, SingleObjectDeleteView
+):
     pk_url_kwarg = 'transformation_id'
     view_icon = icon_transformation_delete
 
+    def get_external_object_permission(self):
+        return self.layer.get_permission(action='delete')
+
     def get_extra_context(self):
         return {
-            'content_object': self.object.object_layer.content_object,
+            'content_object': self.external_object,
+            'layer': self.layer,
             'layer_name': self.layer.name,
             'navigation_object_list': ('content_object', 'transformation'),
             'previous': self.get_post_action_redirect(),
@@ -127,13 +129,10 @@ class TransformationDeleteView(LayerViewMixin, SingleObjectDeleteView):
                 '%(content_object)s?'
             ) % {
                 'transformation': self.object,
-                'content_object': self.object.object_layer.content_object
+                'content_object': self.external_object
             },
-            'transformation': self.object,
+            'transformation': self.object
         }
-
-    def get_object_permission(self):
-        return self.layer.get_permission(action='delete')
 
     def get_post_action_redirect(self):
         return reverse(
@@ -145,11 +144,16 @@ class TransformationDeleteView(LayerViewMixin, SingleObjectDeleteView):
             }
         )
 
+    def get_source_queryset(self):
+        return self.layer.get_transformations_for(
+            obj=self.external_object
+        )
+
 
 class TransformationEditView(
-    DynamicTransformationFormClassMixin, LayerViewMixin, SingleObjectEditView
+    LayerViewMixin, DynamicTransformationFormClassMixin,
+    ExternalContentTypeObjectViewMixin, SingleObjectEditView
 ):
-    model = LayerTransformation
     pk_url_kwarg = 'transformation_id'
     view_icon = icon_transformation_edit
 
@@ -164,9 +168,12 @@ class TransformationEditView(
         else:
             return super().form_valid(form=form)
 
+    def get_external_object_permission(self):
+        return self.layer.get_permission(action='edit')
+
     def get_extra_context(self):
         return {
-            'content_object': self.object.object_layer.content_object,
+            'content_object': self.external_object,
             'form_field_css_classes': 'hidden' if hasattr(
                 self.object.get_transformation_class(), 'template_name'
             ) else '',
@@ -178,13 +185,10 @@ class TransformationEditView(
                 'for: %(content_object)s'
             ) % {
                 'transformation': self.object,
-                'content_object': self.object.object_layer.content_object
+                'content_object': self.external_object
             },
-            'transformation': self.object,
+            'transformation': self.object
         }
-
-    def get_object_permission(self):
-        return self.layer.get_permission(action='edit')
 
     def get_post_action_redirect(self):
         return reverse(
@@ -194,6 +198,11 @@ class TransformationEditView(
                 'object_id': self.object.object_layer.object_id,
                 'layer_name': self.object.object_layer.stored_layer.name
             }
+        )
+
+    def get_source_queryset(self):
+        return self.layer.get_transformations_for(
+            obj=self.external_object
         )
 
     def get_template_names(self):
@@ -218,17 +227,20 @@ class TransformationListView(
 
     def get_extra_context(self):
         return {
-            'object': self.external_object,
+            'content_object': self.external_object,
             'hide_link': True,
             'hide_object': True,
+            'layer': self.layer,
             'layer_name': self.layer.name,
+            'navigation_disable_menus_link_group_object_header': True,
+            'navigation_object_list': ('content_object',),
             'no_results_icon': self.layer.get_icon(),
             'no_results_main_link': link_transformation_select.resolve(
                 context=RequestContext(
-                    request=self.request, dict_={
+                    dict_={
                         'resolved_object': self.external_object,
                         'layer_name': self.kwargs['layer_name'],
-                    }
+                    }, request=self.request
                 )
             ),
             'no_results_text': self.layer.get_empty_results_text(),
@@ -239,7 +251,7 @@ class TransformationListView(
                 'Layer "%(layer)s" transformations for: %(object)s'
             ) % {
                 'layer': self.layer,
-                'object': self.external_object,
+                'object': self.external_object
             }
         }
 
@@ -302,17 +314,17 @@ class TransformationSelectView(
 
     def get_extra_context(self):
         return {
+            'content_object': self.external_object,
             'layer': self.layer,
             'layer_name': self.kwargs['layer_name'],
             'navigation_object_list': ('content_object',),
-            'content_object': self.external_object,
             'submit_label': _('Select'),
             'title': _(
                 'Select new layer "%(layer)s" transformation '
                 'for: %(object)s'
             ) % {
                 'layer': self.layer,
-                'object': self.external_object,
+                'object': self.external_object
             }
         }
 

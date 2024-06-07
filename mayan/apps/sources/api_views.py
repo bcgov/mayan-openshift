@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from mayan.apps.documents.permissions import permission_document_create
 from mayan.apps.rest_api import generics
 
+from .classes import SourceBackendActionDummy
 from .models import Source
 from .permissions import (
     permission_sources_create, permission_sources_delete,
@@ -24,10 +25,6 @@ class APISourceActionDetailView(generics.ObjectActionAPIView):
     }
     serializer_class = SourceBackendActionSerializer
 
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        return super().dispatch(request=request, *args, **kwargs)
-
     def get(self, request, *args, **kwargs):
         if self.get_action().confirmation:
             handler = self.http_method_not_allowed
@@ -40,24 +37,34 @@ class APISourceActionDetailView(generics.ObjectActionAPIView):
             return self.view_action(request, *args, **kwargs)
 
     def get_action(self):
-        return self.object.get_action(name=self.kwargs['action_name'])
+        if getattr(self, 'swagger_fake_view', False):
+            return SourceBackendActionDummy(name='dummy')
+        else:
+            obj = self.get_object()
+            return obj.get_action(
+                name=self.kwargs['action_name']
+            )
 
     def get_serializer_extra_context(self):
-        return {'action': self.get_action()}
+        return {
+            'action': self.get_action()
+        }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return Source.objects.filter(enabled=True)
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         query_dict = request.GET
 
-        arguments = serializer.validated_data.get('arguments', {}) or {}
+        arguments = serializer.validated_data.get(
+            'arguments', {}
+        ) or {}
         arguments.update(query_dict)
 
         if self.get_action().accept_files:
             arguments['file'] = serializer.validated_data['file']
 
-        return self.object.execute_action(
+        return obj.execute_action(
             name=self.kwargs['action_name'], request=request, **arguments
         ) or (None, None)
 
@@ -76,12 +83,14 @@ class APISourceActionDetailView(generics.ObjectActionAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
+        obj = self.get_object()
+
         if hasattr(self, 'get_instance_extra_data'):
             for key, value in self.get_instance_extra_data().items():
-                setattr(self.object, key, value)
+                setattr(obj, key, value)
 
         data, response = self.object_action(
-            request=request, serializer=serializer
+            obj=obj, request=request, serializer=serializer
         )
 
         if response:
@@ -108,8 +117,8 @@ class APISourceListView(generics.ListCreateAPIView):
     mayan_view_permissions = {
         'POST': (permission_sources_create,)
     }
-    queryset = Source.objects.all()
     serializer_class = SourceSerializer
+    source_queryset = Source.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -131,8 +140,8 @@ class APISourceView(generics.RetrieveUpdateDestroyAPIView):
         'PATCH': (permission_sources_edit,),
         'PUT': (permission_sources_edit,)
     }
-    queryset = Source.objects.all()
     serializer_class = SourceSerializer
+    source_queryset = Source.objects.all()
 
     def get_instance_extra_data(self):
         return {

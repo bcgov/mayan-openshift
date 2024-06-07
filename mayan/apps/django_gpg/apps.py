@@ -1,10 +1,12 @@
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.acls.permissions import permission_acl_edit, permission_acl_view
+from mayan.apps.acls.permissions import (
+    permission_acl_edit, permission_acl_view
+)
 from mayan.apps.common.apps import MayanAppConfig
 from mayan.apps.common.menus import (
-    menu_object, menu_related, menu_secondary, menu_setup
+    menu_list_facet, menu_object, menu_related, menu_secondary, menu_setup
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
@@ -68,8 +70,10 @@ class DjangoGPGApp(MayanAppConfig):
             source=KeyStub
         )
         SourceColumn(
-            func=lambda context: context['object'].expires or _('No expiration'),
-            include_label=True, label=_('Expiration date'), source=KeyStub
+            func=lambda context: context['object'].expires or _(
+                'No expiration'
+            ), include_label=True, label=_('Expiration date'),
+            source=KeyStub
         )
         SourceColumn(
             attribute='length', include_label=True, label=_('Length'),
@@ -80,8 +84,12 @@ class DjangoGPGApp(MayanAppConfig):
             include_label=True, label=_('User ID'), source=KeyStub
         )
 
-        menu_object.bind_links(links=(link_key_detail,), sources=(Key,))
-        menu_object.bind_links(links=(link_key_receive,), sources=(KeyStub,))
+        menu_list_facet.bind_links(
+            links=(link_key_detail,), sources=(Key,)
+        )
+        menu_object.bind_links(
+            links=(link_key_receive,), sources=(KeyStub,)
+        )
 
         menu_object.bind_links(
             links=(link_key_delete, link_key_download),
@@ -103,4 +111,6 @@ class DjangoGPGApp(MayanAppConfig):
                 'django_gpg:key_upload', Key, KeyStub
             )
         )
-        menu_setup.bind_links(links=(link_key_setup,))
+        menu_setup.bind_links(
+            links=(link_key_setup,)
+        )

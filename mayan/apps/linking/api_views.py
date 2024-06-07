@@ -43,26 +43,20 @@ class APIDocumentResolvedSmartLinkDetailView(
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'document': self.external_object
+            'document': self.get_external_object()
         }
 
-    def get_serializer_context(self):
-        """
-        Extra context provided to the serializer class.
-        """
-        context = super().get_serializer_context()
+    def get_serializer_extra_context(self):
         if self.kwargs:
-            context.update(
-                {
-                    'document': self.external_object
-                }
-            )
+            return {
+                'document': self.get_external_object()
+            }
+        else:
+            return {}
 
-        return context
-
-    def get_queryset(self):
+    def get_source_queryset(self):
         return ResolvedSmartLink.objects.get_for(
-            document=self.external_object
+            document=self.get_external_object()
         )
 
 
@@ -77,13 +71,10 @@ class APIDocumentResolvedSmartLinkDocumentListView(
     mayan_external_object_permissions = {
         'GET': (permission_resolved_smart_link_view,)
     }
-    mayan_object_permissions = {'GET': (permission_document_view,)}
+    mayan_object_permissions = {
+        'GET': (permission_document_view,)
+    }
     serializer_class = ResolvedSmartLinkDocumentSerializer
-
-    def get_queryset(self):
-        return self.get_resolved_smart_link().get_linked_documents_for(
-            document=self.external_object
-        )
 
     def get_resolved_smart_link(self):
         queryset = AccessControlList.objects.restrict_queryset(
@@ -96,20 +87,19 @@ class APIDocumentResolvedSmartLinkDocumentListView(
             klass=queryset, pk=self.kwargs['resolved_smart_link_id']
         )
 
-    def get_serializer_context(self):
-        """
-        Extra context provided to the serializer class.
-        """
-        context = super().get_serializer_context()
+    def get_serializer_extra_context(self):
         if self.kwargs:
-            context.update(
-                {
-                    'document': self.external_object,
-                    'resolved_smart_link': self.get_resolved_smart_link()
-                }
-            )
+            return {
+                'document': self.get_external_object(),
+                'resolved_smart_link': self.get_resolved_smart_link()
+            }
+        else:
+            return {}
 
-        return context
+    def get_source_queryset(self):
+        return self.get_resolved_smart_link().get_linked_documents_for(
+            document=self.get_external_object()
+        )
 
 
 class APIDocumentResolvedSmartLinkListView(
@@ -129,23 +119,17 @@ class APIDocumentResolvedSmartLinkListView(
     }
     serializer_class = ResolvedSmartLinkSerializer
 
-    def get_serializer_context(self):
-        """
-        Extra context provided to the serializer class.
-        """
-        context = super().get_serializer_context()
+    def get_serializer_extra_context(self):
         if self.kwargs:
-            context.update(
-                {
-                    'document': self.external_object
-                }
-            )
+            return {
+                'document': self.get_external_object()
+            }
+        else:
+            return {}
 
-        return context
-
-    def get_queryset(self):
+    def get_source_queryset(self):
         return ResolvedSmartLink.objects.get_for(
-            document=self.external_object
+            document=self.get_external_object()
         )
 
 
@@ -168,11 +152,11 @@ class APISmartLinkConditionListView(
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'smart_link': self.external_object
+            'smart_link': self.get_external_object()
         }
 
-    def get_queryset(self):
-        return self.external_object.conditions.all()
+    def get_source_queryset(self):
+        return self.get_external_object().conditions.all()
 
 
 class APISmartLinkConditionView(
@@ -198,11 +182,11 @@ class APISmartLinkConditionView(
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'smart_link': self.external_object
+            'smart_link': self.get_external_object()
         }
 
-    def get_queryset(self):
-        return self.external_object.conditions.all()
+    def get_source_queryset(self):
+        return self.get_external_object().conditions.all()
 
 
 class APISmartLinkListView(generics.ListCreateAPIView):
@@ -210,10 +194,14 @@ class APISmartLinkListView(generics.ListCreateAPIView):
     get: Returns a list of all the smart links.
     post: Create a new smart link.
     """
-    mayan_object_permissions = {'GET': (permission_smart_link_view,)}
-    mayan_view_permissions = {'POST': (permission_smart_link_create,)}
-    queryset = SmartLink.objects.all()
+    mayan_object_permissions = {
+        'GET': (permission_smart_link_view,)
+    }
+    mayan_view_permissions = {
+        'POST': (permission_smart_link_create,)
+    }
     serializer_class = SmartLinkSerializer
+    source_queryset = SmartLink.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -236,8 +224,8 @@ class APISmartLinkDetailView(generics.RetrieveUpdateDestroyAPIView):
         'PUT': (permission_smart_link_edit,)
     }
     ordering_fields = ('dynamic_label', 'enabled', 'id', 'label')
-    queryset = SmartLink.objects.all()
     serializer_class = SmartLinkSerializer
+    source_queryset = SmartLink.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -254,13 +242,13 @@ class APISmartLinkDocumentTypeAddView(generics.ObjectActionAPIView):
         'POST': (permission_smart_link_edit,)
     }
     serializer_class = SmartLinkDocumentTypeAddSerializer
-    queryset = SmartLink.objects.all()
+    source_queryset = SmartLink.objects.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         document_type = serializer.validated_data['document_type']
-        self.object._event_actor = self.request.user
-        self.object.document_types_add(
-            queryset=DocumentType.objects.filter(pk=document_type.pk)
+        obj.document_types_add(
+            queryset=DocumentType.objects.filter(pk=document_type.pk),
+            user=self.request.user
         )
 
 
@@ -272,12 +260,16 @@ class APISmartLinkDocumentTypeListView(
     """
     external_object_class = SmartLink
     external_object_pk_url_kwarg = 'smart_link_id'
-    mayan_external_object_permissions = {'GET': (permission_smart_link_view,)}
-    mayan_object_permissions = {'GET': (permission_document_type_view,)}
+    mayan_external_object_permissions = {
+        'GET': (permission_smart_link_view,)
+    }
+    mayan_object_permissions = {
+        'GET': (permission_document_type_view,)
+    }
     serializer_class = DocumentTypeSerializer
 
-    def get_queryset(self):
-        return self.external_object.document_types.all()
+    def get_source_queryset(self):
+        return self.get_external_object().document_types.all()
 
 
 class APISmartLinkDocumentTypeRemoveView(generics.ObjectActionAPIView):
@@ -289,11 +281,11 @@ class APISmartLinkDocumentTypeRemoveView(generics.ObjectActionAPIView):
         'POST': (permission_smart_link_edit,)
     }
     serializer_class = SmartLinkDocumentTypeRemoveSerializer
-    queryset = SmartLink.objects.all()
+    source_queryset = SmartLink.objects.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         document_type = serializer.validated_data['document_type']
-        self.object._event_actor = self.request.user
-        self.object.document_types_remove(
-            queryset=DocumentType.objects.filter(pk=document_type.pk)
+        obj.document_types_remove(
+            queryset=DocumentType.objects.filter(pk=document_type.pk),
+            user=self.request.user
         )

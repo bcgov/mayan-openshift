@@ -6,15 +6,15 @@ from mayan.apps.views.generics import (
     SingleObjectCreateView, SingleObjectDeleteView, SingleObjectEditView,
     SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
-from ..forms import WorkflowStateEscalationForm
+from ..forms.workflow_template_state_forms import WorkflowTemplateStateEscalationForm
 from ..icons import (
+    icon_workflow_template_state_escalation,
     icon_workflow_template_state_escalation_create,
     icon_workflow_template_state_escalation_delete,
     icon_workflow_template_state_escalation_edit,
-    icon_workflow_template_state_escalation_list,
-    icon_workflow_template_state_escalation
+    icon_workflow_template_state_escalation_list
 )
 from ..links import link_workflow_template_state_escalation_create
 from ..models import WorkflowState, WorkflowStateEscalation
@@ -29,7 +29,7 @@ class WorkflowTemplateStateEscalationCreateView(
     external_object_class = WorkflowState
     external_object_permission = permission_workflow_template_edit
     external_object_pk_url_kwarg = 'workflow_template_state_id'
-    form_class = WorkflowStateEscalationForm
+    form_class = WorkflowTemplateStateEscalationForm
     view_icon = icon_workflow_template_state_escalation_create
 
     def get_extra_context(self):
@@ -83,7 +83,7 @@ class WorkflowTemplateStateEscalationDeleteView(SingleObjectDeleteView):
             'object': self.object,
             'title': _('Delete workflow state escalation: %s') % self.object,
             'workflow_template': self.object.state.workflow,
-            'workflow_template_state': self.object.state,
+            'workflow_template_state': self.object.state
         }
 
     def get_instance_extra_data(self):
@@ -101,7 +101,7 @@ class WorkflowTemplateStateEscalationDeleteView(SingleObjectDeleteView):
 
 
 class WorkflowTemplateStateEscalationEditView(SingleObjectEditView):
-    form_class = WorkflowStateEscalationForm
+    form_class = WorkflowTemplateStateEscalationForm
     model = WorkflowStateEscalation
     object_permission = permission_workflow_template_edit
     pk_url_kwarg = 'workflow_template_state_escalation_id'
@@ -115,7 +115,7 @@ class WorkflowTemplateStateEscalationEditView(SingleObjectEditView):
             'object': self.object,
             'title': _('Edit workflow state escalation: %s') % self.object,
             'workflow_template': self.object.state.workflow,
-            'workflow_template_state': self.object.state,
+            'workflow_template_state': self.object.state
         }
 
     def get_form_extra_kwargs(self):
@@ -146,9 +146,9 @@ class WorkflowTemplateStateEscalationListView(
             'no_results_icon': icon_workflow_template_state_escalation,
             'no_results_main_link': link_workflow_template_state_escalation_create.resolve(
                 context=RequestContext(
-                    request=self.request, dict_={
+                    dict_={
                         'object': self.external_object
-                    }
+                    }, request=self.request
                 )
             ),
             'no_results_text': _(

@@ -29,7 +29,7 @@
 
 <div align="center">
   <a href="http://www.mayan-edms.com">
-    <img width="200" heigth="200" src="https://gitlab.com/mayan-edms/mayan-edms/raw/master/docs/_static/mayan_logo.png">
+    <img width="200" height="200" src="https://gitlab.com/mayan-edms/mayan-edms/raw/master/docs/_static/mayan_logo.png">
   </a>
   <br>
   <br>
@@ -37,7 +37,7 @@
     Mayan EDMS is a document management system. Its main purpose is to store,
     introspect, and categorize files, with a strong emphasis on preserving the
     contextual and business information of documents. It can also OCR, preview,
-    label, sign, send, and receive thoses files. Other features of interest
+    label, sign, send, and receive those files. Other features of interest
     are its workflow system, role based access control, and REST API.
   <p>
 
@@ -46,6 +46,18 @@
 </p>
 
 </div>
+
+<h2 align="center">Knowledge Base</h2>
+
+Get exclusive access to the Knowledge Base!
+
+<p align="center">
+    <a href="https://forum.mayan-edms.com/s/prod_Ogq3lYaoROC02Q">
+        <img width="400" src="https://docs.mayan-edms.com/_static/knowledge-base.jpg">
+    </a>
+</p>
+
+Click the image or visit: https://forum.mayan-edms.com/s/prod_Ogq3lYaoROC02Q
 
 <h2 align="center">Book</h2>
 

@@ -13,15 +13,74 @@ from .literals import (
 )
 
 
-class DocumentMetadataAPIViewTestMixin:
+class MetadataTypeTestMixin:
+    auto_add_test_metadata_type_to_test_document_type = True
+    auto_create_test_metadata_type = False
+
+    def setUp(self):
+        super().setUp()
+        self._test_metadata_types = []
+        self._test_document_type_metadata_type_relationships = []
+
+        if self.auto_create_test_metadata_type:
+            self._create_test_metadata_type(
+                add_test_document_type=self.auto_add_test_metadata_type_to_test_document_type
+            )
+
+    def _get_test_metadata_type_queryset(self):
+        return MetadataType.objects.filter(
+            pk__in=[
+                metadata_type.pk for metadata_type in self._test_metadata_types
+            ]
+        )
+
+    def _create_test_metadata_type(
+        self, add_test_document_type=False, extra_kwargs=None, required=False
+    ):
+        total_test_metadata_types = len(self._test_metadata_types)
+        name = '{}_{}'.format(
+            TEST_METADATA_TYPE_NAME, total_test_metadata_types
+        )
+        label = '{}_{}'.format(
+            TEST_METADATA_TYPE_LABEL, total_test_metadata_types
+        )
+
+        kwargs = {'name': name, 'label': label}
+
+        if extra_kwargs:
+            kwargs.update(extra_kwargs)
+
+        self._test_metadata_type = MetadataType.objects.create(**kwargs)
+        self._test_metadata_types.append(self._test_metadata_type)
+
+        if add_test_document_type:
+            self._test_document_type_metadata_type_relationships.append(
+                self._test_document_type.metadata.create(
+                    metadata_type=self._test_metadata_type, required=required
+                )
+            )
+
+
+class DocumentMetadataMixin(MetadataTypeTestMixin):
+    def _create_test_document_metadata(self):
+        self._test_document_metadata = self._test_document.metadata.create(
+            metadata_type=self._test_metadata_type, value=TEST_METADATA_VALUE
+        )
+
+
+class DocumentMetadataAPIViewTestMixin(DocumentMetadataMixin):
     def _request_document_metadata_create_api_view(self, extra_data=None):
-        pk_list = list(DocumentMetadata.objects.values_list('pk', flat=True))
+        pk_list = list(
+            DocumentMetadata.objects.values_list('pk', flat=True)
+        )
 
         data = {
             'metadata_type_id': self._test_metadata_type.pk,
             'value': TEST_METADATA_VALUE
         }
-        data.update(extra_data or {})
+        data.update(
+            extra_data or {}
+        )
 
         response = self.post(
             viewname='rest_api:documentmetadata-list',
@@ -46,11 +105,15 @@ class DocumentMetadataAPIViewTestMixin:
             }
         )
 
-    def _request_document_metadata_edit_api_view_via_patch(self, extra_data=None):
+    def _request_document_metadata_edit_api_view_via_patch(
+        self, extra_data=None
+    ):
         data = {
             'value': TEST_METADATA_VALUE_EDITED
         }
-        data.update(extra_data or {})
+        data.update(
+            extra_data or {}
+        )
 
         return self.patch(
             viewname='rest_api:documentmetadata-detail',
@@ -60,11 +123,15 @@ class DocumentMetadataAPIViewTestMixin:
             }, data=data
         )
 
-    def _request_document_metadata_edit_api_view_via_put(self, extra_data=None):
+    def _request_document_metadata_edit_api_view_via_put(
+        self, extra_data=None
+    ):
         data = {
             'value': TEST_METADATA_VALUE_EDITED
         }
-        data.update(extra_data or {})
+        data.update(
+            extra_data or {}
+        )
 
         return self.put(
             viewname='rest_api:documentmetadata-detail',
@@ -82,14 +149,7 @@ class DocumentMetadataAPIViewTestMixin:
         )
 
 
-class DocumentMetadataMixin:
-    def _create_test_document_metadata(self):
-        self._test_document_metadata = self._test_document.metadata.create(
-            metadata_type=self._test_metadata_type, value=TEST_METADATA_VALUE
-        )
-
-
-class DocumentMetadataViewTestMixin:
+class DocumentMetadataViewTestMixin(DocumentMetadataMixin):
     def _request_test_document_metadata_add_get_view(self):
         return self.get(
             viewname='metadata:metadata_add', kwargs={
@@ -111,7 +171,7 @@ class DocumentMetadataViewTestMixin:
             }, data={
                 'metadata_type': [
                     metadata_type.pk for metadata_type in self._test_metadata_types
-                ],
+                ]
             }
         )
 
@@ -158,7 +218,7 @@ class DocumentMetadataViewTestMixin:
                 'form-0-update': True,
                 'form-TOTAL_FORMS': '1',
                 'form-INITIAL_FORMS': '0',
-                'form-MAX_NUM_FORMS': '',
+                'form-MAX_NUM_FORMS': ''
             }
         )
 
@@ -192,7 +252,7 @@ class DocumentMetadataViewTestMixin:
                 'form-0-value': TEST_METADATA_VALUE_EDITED,
                 'form-TOTAL_FORMS': '1',
                 'form-INITIAL_FORMS': '0',
-                'form-MAX_NUM_FORMS': '',
+                'form-MAX_NUM_FORMS': ''
             }
         )
 
@@ -215,14 +275,25 @@ class DocumentMetadataViewTestMixin:
                 'form-0-update': True,
                 'form-TOTAL_FORMS': '1',
                 'form-INITIAL_FORMS': '0',
-                'form-MAX_NUM_FORMS': '',
+                'form-MAX_NUM_FORMS': ''
             }
         )
 
 
-class DocumentTypeMetadataTypeAPIViewTestMixin:
+class DocumentTypeMetadataTypeTestMixin:
+    def _create_test_document_type_metadata_type(self):
+        self._test_document_type_metadata_type = self._test_document_type.metadata.create(
+            metadata_type=self._test_metadata_type, required=False
+        )
+
+
+class DocumentTypeMetadataTypeAPIViewTestMixin(
+    DocumentTypeMetadataTypeTestMixin
+):
     def _request_document_type_metadata_type_create_api_view(self):
-        pk_list = list(DocumentTypeMetadataType.objects.values_list('pk', flat=True))
+        pk_list = list(
+            DocumentTypeMetadataType.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             viewname='rest_api:documenttypemetadatatype-list',
@@ -280,14 +351,7 @@ class DocumentTypeMetadataTypeAPIViewTestMixin:
         )
 
 
-class DocumentTypeMetadataTypeTestMixin:
-    def _create_test_document_type_metadata_type(self):
-        self._test_document_type_metadata_type = self._test_document_type.metadata.create(
-            metadata_type=self._test_metadata_type, required=False
-        )
-
-
-class MetadataDocumentUploadWizardStepTestMixin:
+class MetadataDocumentUploadWizardStepTestMixin(MetadataTypeTestMixin):
     def _request_upload_interactive_document_create_view(
         self, metadata_value
     ):
@@ -314,9 +378,11 @@ class MetadataDocumentUploadWizardStepTestMixin:
         )
 
 
-class MetadataTypeAPIViewTestMixin:
+class MetadataTypeAPIViewTestMixin(MetadataTypeTestMixin):
     def _request_test_metadata_type_create_api_view(self):
-        pk_list = list(MetadataType.objects.values('pk'))
+        pk_list = list(
+            MetadataType.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             viewname='rest_api:metadatatype-list', data={
@@ -350,7 +416,7 @@ class MetadataTypeAPIViewTestMixin:
             viewname='rest_api:metadatatype-detail',
             kwargs={'metadata_type_id': self._test_metadata_type.pk}, data={
                 'label': '{} edited'.format(self._test_metadata_type.label),
-                'name': '{}_edited'.format(self._test_metadata_type.name),
+                'name': '{}_edited'.format(self._test_metadata_type.name)
             }
         )
 
@@ -359,7 +425,7 @@ class MetadataTypeAPIViewTestMixin:
             viewname='rest_api:metadatatype-detail',
             kwargs={'metadata_type_id': self._test_metadata_type.pk}, data={
                 'label': '{} edited'.format(self._test_metadata_type.label),
-                'name': '{}_edited'.format(self._test_metadata_type.name),
+                'name': '{}_edited'.format(self._test_metadata_type.name)
             }
         )
 
@@ -367,55 +433,7 @@ class MetadataTypeAPIViewTestMixin:
         return self.get(viewname='rest_api:metadatatype-list')
 
 
-class MetadataTypeTestMixin:
-    auto_add_test_metadata_type_to_test_document_type = True
-    auto_create_test_metadata_type = False
-
-    def setUp(self):
-        super().setUp()
-        self._test_metadata_types = []
-        self._test_document_type_metadata_type_relationships = []
-
-        if self.auto_create_test_metadata_type:
-            self._create_test_metadata_type(
-                add_test_document_type=self.auto_add_test_metadata_type_to_test_document_type
-            )
-
-    def _get_test_metadata_type_queryset(self):
-        return MetadataType.objects.filter(
-            pk__in=[
-                metadata_type.pk for metadata_type in self._test_metadata_types
-            ]
-        )
-
-    def _create_test_metadata_type(
-        self, add_test_document_type=False, extra_kwargs=None, required=False
-    ):
-        total_test_metadata_types = len(self._test_metadata_types)
-        name = '{}_{}'.format(
-            TEST_METADATA_TYPE_NAME, total_test_metadata_types
-        )
-        label = '{}_{}'.format(
-            TEST_METADATA_TYPE_LABEL, total_test_metadata_types
-        )
-
-        kwargs = {'name': name, 'label': label}
-
-        if extra_kwargs:
-            kwargs.update(extra_kwargs)
-
-        self._test_metadata_type = MetadataType.objects.create(**kwargs)
-        self._test_metadata_types.append(self._test_metadata_type)
-
-        if add_test_document_type:
-            self._test_document_type_metadata_type_relationships.append(
-                self._test_document_type.metadata.create(
-                    metadata_type=self._test_metadata_type, required=required
-                )
-            )
-
-
-class MetadataTypeViewTestMixin:
+class MetadataTypeViewTestMixin(MetadataTypeTestMixin):
     def _request_test_document_type_relationship_delete_view(self):
         # This request assumes there is only one document type and
         # blindly sets the first form of the formset.
@@ -443,7 +461,9 @@ class MetadataTypeViewTestMixin:
         )
 
     def _request_test_metadata_type_create_view(self):
-        pk_list = list(MetadataType.objects.values('pk'))
+        pk_list = list(
+            MetadataType.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             viewname='metadata:metadata_type_create', data={

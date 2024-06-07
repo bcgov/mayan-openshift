@@ -4,30 +4,31 @@
 # 
 # Translators:
 # Translators:
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2022
-# 0041b687dd284925c1885ba94464aacd_fde037b <fc746b00d74cefecce9698255909a24f_28512>, 2022
-# SadE54 <yannsuisini@gmail.com>, 2022
-# Olivier W, 2022
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2022
-# Guillaume Trottier <gui.trottier@gmail.com>, 2022
-# Yves Dubois <ydubois@gmail.com>, 2022
-# Frédéric Sheedy <sheedf@gmail.com>, 2022
+# 0041b687dd284925c1885ba94464aacd_fde037b <fc746b00d74cefecce9698255909a24f_28512>, 2023
+# Olivier W, 2023
+# SadE54 <yannsuisini@gmail.com>, 2023
+# Benoît GROUSSET <benoit@grousset.xyz>, 2023
+# Yves Dubois <ydubois@gmail.com>, 2023
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2023
+# Guillaume Trottier <gui.trottier@gmail.com>, 2023
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2023
+# Frédéric Sheedy <sheedf@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2022\n"
-"Language-Team: French (https://www.transifex.com/rosarior/teams/13584/fr/)\n"
+"POT-Creation-Date: 2024-06-02 01:53+0000\n"
+"PO-Revision-Date: 2023-01-05 02:49+0000\n"
+"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2024\n"
+"Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:57 events.py:5 permissions.py:5 settings.py:10
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
 msgid "Appearance"
 msgstr "Apparence"
 
@@ -79,15 +80,15 @@ msgstr "Toastr"
 msgid "URI.js"
 msgstr "URI.js"
 
-#: events.py:8
+#: events.py:10
 msgid "Theme created"
 msgstr "Thème créé"
 
-#: events.py:11
+#: events.py:13
 msgid "Theme edited"
 msgstr "Thème modifié"
 
-#: events.py:14
+#: events.py:16
 msgid "User theme edited"
 msgstr "Thème utilisateur modifié"
 
@@ -151,45 +152,55 @@ msgstr "Paramètre du thème utilisateur"
 msgid "User theme settings"
 msgstr "Paramètres du thème utilisateur"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Create new themes"
 msgstr "Créer de nouveaux thèmes"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Delete themes"
 msgstr "Supprimer les thèmes"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Edit themes"
 msgstr "Modifier les thèmes"
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "View existing themes"
 msgstr "Afficher les thèmes existants"
 
-#: settings.py:15
+#: settings.py:18
 msgid "Custom HTTP response code for AJAX redirections."
 msgstr "Code de réponse HTTP personnalisé pour les redirections AJAX."
 
-#: settings.py:21
+#: settings.py:24
 msgid "Maximum number of characters that will be displayed as the view title."
 msgstr "Nombre maximal de caractères affichés comme titre."
 
-#: settings.py:28
-msgid ""
-"Position where the system message will be displayed. Options are: top-left, "
-"top-center, top-right, bottom-left, bottom-center, bottom-right."
-msgstr ""
-"Position où le message du système sera affiché. Les options sont: en haut à "
-"gauche, en haut au centre, en haut à droite, en bas à gauche, en bas au "
-"centre et en bas à droite."
+#: settings.py:34
+msgid "Position where the system messages will be displayed."
+msgstr "Position où seront affichés les messages système ."
 
-#: settings.py:36
+#: settings.py:40
 msgid ""
 "Delay in milliseconds after which the menus will be checked for updates."
 msgstr ""
 "Délai en millisecondes après lequel les menus seront vérifiés pour les mises"
 " à jour."
+
+#: settings.py:47
+msgid ""
+"Maximum number of requests that can be made before throttling is enabled."
+msgstr ""
+"Nombre maximum de requêtes pouvant être effectuées avant que la limitation "
+"ne soit activée."
+
+#: settings.py:54
+msgid ""
+"Time in milliseconds after which a throttled request will clear allowing an "
+"additional request to be performed."
+msgstr ""
+"Temps en millisecondes après lequel une requête limitée s'effacera, "
+"permettant ainsi l'exécution d'une requête supplémentaire."
 
 #: templates/403.html:5 templates/403.html:30
 msgid "Insufficient permission"
@@ -384,9 +395,15 @@ msgstr "Annuler"
 msgid "Identifier"
 msgstr "Identifiant"
 
-#: templates/appearance/generic_list_subtemplate.html:134
-msgid "Facets"
-msgstr "Facettes"
+#: templates/appearance/generic_list_subtemplate.html:85
+#: templates/appearance/partials/list_object_facet_links_column.html:8
+#: templates/appearance/partials/list_object_facet_links_column.html:39
+msgid "Views"
+msgstr "Vues"
+
+#: templates/appearance/generic_list_subtemplate.html:91
+msgid "Actions"
+msgstr "Actions"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -429,24 +446,34 @@ msgstr "Tout sélectionner/Désélectionner"
 msgid "Toggle list display mode"
 msgstr "Basculer en mode d'affichage « liste »"
 
-#: templates/appearance/partials/list_toolbar.html:63
+#: templates/appearance/partials/list_toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr ""
 "Sélectionner les éléments pour activer les actions en masse. Utilisez Maj + "
 "clic pour en sélectionner plusieurs."
 
-#: templates/appearance/partials/list_toolbar.html:68
+#: templates/appearance/partials/list_toolbar.html:36
 msgid "Bulk actions"
 msgstr "Action groupée"
 
-#: templates/appearance/partials/list_toolbar.html:70
+#: templates/appearance/partials/list_toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "Activer la liste déroulante"
 
 #: templates/appearance/partials/no_results.html:18
 msgid "No results"
 msgstr "Aucun résultat"
+
+#: templates/appearance/partials/pagination.html:12
+#: templates/appearance/partials/pagination.html:14
+msgid "Previous page"
+msgstr "Page précédente"
+
+#: templates/appearance/partials/pagination.html:30
+#: templates/appearance/partials/pagination.html:32
+msgid "Next page"
+msgstr "Page suivante"
 
 #: templates/appearance/root.html:52
 msgid "Close"
@@ -460,7 +487,7 @@ msgstr "Erreur de communication serveur"
 msgid "Check you network connection and try again in a few moments."
 msgstr "Vérifiez votre connexion réseau et réessayez dans quelques instants."
 
-#: templatetags/appearance_tags.py:61
+#: templatetags/appearance_tags.py:67
 msgid "None"
 msgstr "Aucun"
 

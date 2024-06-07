@@ -8,14 +8,17 @@ from .models import Source
 
 
 class SourceSerializer(serializers.HyperlinkedModelSerializer):
-    actions = serializers.SerializerMethodField()
+    actions = serializers.SerializerMethodField(
+        label=_('Actions')
+    )
 
     class Meta:
         extra_kwargs = {
             'url': {
-                'lookup_field': 'pk', 'lookup_url_kwarg': 'source_id',
+                'label': _('URL'), 'lookup_field': 'pk',
+                'lookup_url_kwarg': 'source_id',
                 'view_name': 'rest_api:source-detail'
-            },
+            }
         }
         fields = (
             'actions', 'backend_data', 'backend_path', 'enabled', 'id',
@@ -56,7 +59,9 @@ class SourceBackendActionSerializer(serializers.Serializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if self.context['action'].accept_files:
+        action = self.context.get('action')
+
+        if action and action.accept_files:
             self.fields['file'] = serializers.FileField(
                 help_text=_('Binary content for the new file.'),
                 use_url=False, write_only=True

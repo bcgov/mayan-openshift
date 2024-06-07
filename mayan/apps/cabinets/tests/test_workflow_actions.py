@@ -1,7 +1,7 @@
 from mayan.apps.document_states.permissions import permission_workflow_template_edit
 from mayan.apps.document_states.tests.base import ActionTestCase
 from mayan.apps.document_states.tests.mixins.workflow_template_mixins import WorkflowTemplateTestMixin
-from mayan.apps.document_states.tests.mixins.workflow_template_state_mixins import WorkflowTemplateStateActionViewTestMixin
+from mayan.apps.document_states.tests.mixins.workflow_template_state_action_mixins import WorkflowTemplateStateActionViewTestMixin
 
 from mayan.apps.testing.tests.base import GenericViewTestCase
 
@@ -21,12 +21,16 @@ class CabinetWorkflowActionTestCase(CabinetTestMixin, ActionTestCase):
 
     def test_cabinet_document_add_action(self):
         action = CabinetAddAction(
-            form_data={'cabinets': Cabinet.objects.all()}
+            form_data={
+                'cabinets': Cabinet.objects.all()
+            }
         )
 
         self._clear_events()
 
-        action.execute(context={'document': self._test_document})
+        action.execute(
+            context={'document': self._test_document}
+        )
 
         self.assertTrue(
             self._test_document in self._test_cabinet.documents.all()
@@ -41,15 +45,21 @@ class CabinetWorkflowActionTestCase(CabinetTestMixin, ActionTestCase):
         self.assertEqual(events[0].verb, event_cabinet_document_added.id)
 
     def test_cabinet_document_remove_action(self):
-        self._test_cabinet.document_add(document=self._test_document)
+        self._test_cabinet.document_add(
+            document=self._test_document, user=self._test_case_user
+        )
 
         action = CabinetRemoveAction(
-            form_data={'cabinets': Cabinet.objects.all()}
+            form_data={
+                'cabinets': Cabinet.objects.all()
+            }
         )
 
         self._clear_events()
 
-        action.execute(context={'document': self._test_document})
+        action.execute(
+            context={'document': self._test_document}
+        )
 
         self.assertFalse(
             self._test_document in self._test_cabinet.documents.all()

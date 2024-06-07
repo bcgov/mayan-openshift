@@ -6,15 +6,15 @@ from ..links import (
     link_workflow_runtime_proxy_document_list,
     link_workflow_runtime_proxy_list,
     link_workflow_runtime_proxy_state_document_list,
-    link_workflow_runtime_proxy_state_list,
+    link_workflow_runtime_proxy_state_list
 )
 from ..permissions import permission_workflow_template_view
 
-from .mixins.workflow_template_mixins import WorkflowTemplateTestMixin
+from .mixins.workflow_template_state_mixins import WorkflowTemplateStateTestMixin
 
 
 class WorkflowRuntimeProxyLinkTestCase(
-    WorkflowTemplateTestMixin, GenericDocumentViewTestCase
+    WorkflowTemplateStateTestMixin, GenericDocumentViewTestCase
 ):
     auto_upload_test_document = False
 

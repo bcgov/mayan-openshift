@@ -7,11 +7,11 @@ from mayan.apps.acls.models import AccessControlList
 from mayan.apps.documents.models import Document
 from mayan.apps.documents.views.document_views import DocumentListView
 from mayan.apps.views.generics import SingleObjectListView
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from ..html_widgets import node_tree
 from ..icons import (
-    icon_index, icon_document_index_instance_list, icon_index_instance_list,
+    icon_document_index_instance_list, icon_index, icon_index_instance_list,
     icon_index_instance_node_with_documents
 )
 from ..links import link_index_template_create
@@ -39,7 +39,7 @@ class IndexInstanceListView(SingleObjectListView):
                 'but they are no properly defined.'
             ),
             'no_results_title': _('There are no index instances available.'),
-            'title': _('Indexes'),
+            'title': _('Indexes')
         }
 
     def get_source_queryset(self):
@@ -67,7 +67,7 @@ class IndexInstanceNodeView(DocumentListView):
     def get_document_queryset(self):
         if self.index_instance_node:
             if self.index_instance_node.index_template_node.link_documents:
-                return self.index_instance_node.get_documents()
+                return self.index_instance_node._get_documents()
 
         return Document.valid.none()
 
@@ -77,14 +77,14 @@ class IndexInstanceNodeView(DocumentListView):
             {
                 'column_class': 'col-xs-12 col-sm-6 col-md-4 col-lg-3',
                 'navigation': mark_safe(
-                    _('Navigation: %s') % node_tree(
+                    s=_('Navigation: %s') % node_tree(
                         node=self.index_instance_node, user=self.request.user
                     )
                 ),
                 'object': self.index_instance_node,
                 'title': _(
                     'Contents for index: %s'
-                ) % self.index_instance_node.get_full_path(),
+                ) % self.index_instance_node.get_full_path()
             }
         )
 
@@ -92,7 +92,7 @@ class IndexInstanceNodeView(DocumentListView):
             context.update(
                 {
                     'hide_object': True,
-                    'list_as_items': False,
+                    'list_as_items': False
                 }
             )
 
@@ -127,7 +127,7 @@ class DocumentIndexInstanceNodeListView(
     ExternalObjectViewMixin, SingleObjectListView
 ):
     """
-    Show a list of indexes where the current document can be found
+    Show a list of indexes where the current document can be found.
     """
     external_object_permission = permission_index_instance_view
     external_object_pk_url_kwarg = 'document_id'
@@ -150,7 +150,7 @@ class DocumentIndexInstanceNodeListView(
             'object': self.external_object,
             'title': _(
                 'Indexes nodes containing document: %s'
-            ) % self.external_object,
+            ) % self.external_object
         }
 
     def get_source_queryset(self):

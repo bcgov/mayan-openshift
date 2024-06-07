@@ -7,8 +7,7 @@ import mayan.apps.storage.models
 class Migration(migrations.Migration):
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
@@ -24,7 +23,8 @@ class Migration(migrations.Migration):
                     'file', models.FileField(
                         storage=mayan.apps.storage.classes.DefinedStorageLazy(
                             name='storage__shareduploadedfile'
-                        ), upload_to=mayan.apps.storage.models.upload_to,
+                        ),
+                        upload_to=mayan.apps.storage.utils.shared_uploaded_file_upload_to,
                         verbose_name='File'
                     )
                 ),
@@ -37,11 +37,11 @@ class Migration(migrations.Migration):
                     'datetime', models.DateTimeField(
                         auto_now_add=True, verbose_name='Date time'
                     )
-                ),
+                )
             ],
             options={
                 'verbose_name': 'Shared uploaded file',
-                'verbose_name_plural': 'Shared uploaded files',
-            },
-        ),
+                'verbose_name_plural': 'Shared uploaded files'
+            }
+        )
     ]

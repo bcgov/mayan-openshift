@@ -35,18 +35,17 @@ from mayan.apps.documents.html_widgets import ThumbnailWidget
 from mayan.apps.documents.models.document_type_models import DocumentType
 from mayan.apps.documents.permissions import permission_document_create
 from mayan.apps.navigation.classes import Link, SourceColumn
-from mayan.apps.sources.classes import SourceBackend
-from mayan.apps.sources.forms import UploadBaseForm
-from mayan.apps.sources.literals import STORAGE_NAME_SOURCE_CACHE_FOLDER
-from mayan.apps.sources.source_backends.mixins import (
-    SourceBackendCompressedMixin, SourceBackendInteractiveMixin,
-    SourceBaseMixin
-)
 from mayan.apps.storage.classes import DefinedStorage
 from mayan.apps.storage.models import SharedUploadedFile
 from mayan.apps.views.settings import setting_paginate_by
 
-from ..classes import SourceBackendAction
+from ..classes import SourceBackend, SourceBackendAction
+from ..forms import UploadBaseForm
+from ..literals import STORAGE_NAME_SOURCE_CACHE_FOLDER
+from ..source_backends.mixins import (
+    SourceBackendCompressedMixin, SourceBackendInteractiveMixin,
+    SourceBaseMixin
+)
 from ..tasks import task_process_document_upload
 
 from .literals import (
@@ -69,7 +68,7 @@ class StagingFolderFile:
 
             try:
                 self.filename = base64.urlsafe_b64decode(
-                    unquote_plus(self.encoded_filename)
+                    s=unquote_plus(self.encoded_filename)
                 ).decode('utf8')
             except UnicodeDecodeError:
                 raise ValueError(
@@ -84,7 +83,7 @@ class StagingFolderFile:
             self.filename = filename
             self.encoded_filename = quote_plus(
                 base64.urlsafe_b64encode(
-                    filename.encode('utf8')
+                    s=filename.encode('utf8')
                 )
             )
 
@@ -105,12 +104,20 @@ class StagingFolderFile:
         )
 
     def delete(self):
-        self.storage.delete(self.cache_filename)
-        os.unlink(self.get_full_path())
+        try:
+            self.storage.delete(self.cache_filename)
+        except FileNotFoundError:
+            """No preview was yet generated."""
+
+        os.unlink(
+            path=self.get_full_path()
+        )
 
     def generate_image(self, transformation_instance_list=None):
         # Check is transformed image is available.
-        logger.debug('transformations cache filename: %s', self.cache_filename)
+        logger.debug(
+            'transformations cache filename: %s', self.cache_filename
+        )
 
         if self.storage.exists(self.cache_filename):
             logger.debug(
@@ -127,11 +134,13 @@ class StagingFolderFile:
             # Since open "wb+" doesn't create files, check if the file
             # exists, if not then create it.
             self.storage.save(
-                name=self.cache_filename, content=ContentFile(content='')
+                content=ContentFile(content=b''), name=self.cache_filename
             )
 
             with self.storage.open(name=self.cache_filename, mode='wb+') as file_object:
-                file_object.write(image.getvalue())
+                file_object.write(
+                    image.getvalue()
+                )
 
         return self.cache_filename
 
@@ -143,8 +152,8 @@ class StagingFolderFile:
         final_url.args = {'encoded_filename': self.encoded_filename}
         final_url.path = rest_framework_reverse(
             'rest_api:source-action', kwargs={
-                'source_id': self.staging_folder.model_instance_id,
-                'action_name': 'file_image'
+                'action_name': 'file_image',
+                'source_id': self.staging_folder.model_instance_id
             }, request=request
         )
 
@@ -162,17 +171,23 @@ class StagingFolderFile:
         result = [
             TransformationResize(
                 width=self.staging_folder.kwargs['preview_width'],
-                height=self.staging_folder.kwargs['preview_height'],
+                height=self.staging_folder.kwargs['preview_height']
             )
         ]
 
         # Interactive transformations second.
-        result.extend(transformation_instance_list or [])
+        result.extend(
+            transformation_instance_list or []
+        )
 
         return result
 
     def get_date_time_created(self):
-        return time.ctime(os.path.getctime(self.get_full_path()))
+        return time.ctime(
+            os.path.getctime(
+                self.get_full_path()
+            )
+        )
 
     def get_full_path(self):
         return os.path.join(
@@ -222,7 +237,9 @@ class StagingUploadForm(UploadBaseForm):
         try:
             self.fields['staging_folder_file_id'].choices = [
                 (
-                    staging_folder_file.encoded_filename, force_text(s=staging_folder_file)
+                    staging_folder_file.encoded_filename, str(
+                        staging_folder_file
+                    )
                 ) for staging_folder_file in self.source.get_backend_instance().get_files()
             ]
         except Exception as exception:
@@ -267,7 +284,7 @@ class SourceBackendStagingFolder(
                 'Server side filesystem path.'
             ),
             'kwargs': {
-                'max_length': 255,
+                'max_length': 255
             },
             'label': _('Folder path'),
             'required': True
@@ -342,7 +359,7 @@ class SourceBackendStagingFolder(
     upload_form_class = StagingUploadForm
 
     @classmethod
-    def intialize(cls):
+    def initialize(cls):
         link_staging_folder_file_delete = Link(
             icon=cls.icon_staging_folder_file_delete, kwargs={
                 'source_id': 'source.pk',
@@ -370,13 +387,13 @@ class SourceBackendStagingFolder(
 
         SourceColumn(
             func=lambda context: context['object'].get_date_time_created(),
-            label=_('Created'), source=StagingFolderFile,
+            label=_('Created'), source=StagingFolderFile
         )
 
         SourceColumn(
-            label=_('Thumbnail'), source=StagingFolderFile,
-            widget=StagingFolderFileThumbnailWidget,
-            html_extra_classes='text-center'
+            html_extra_classes='text-center', label=_('Thumbnail'),
+            source=StagingFolderFile,
+            widget=StagingFolderFileThumbnailWidget
         )
 
         menu_object.bind_links(
@@ -387,7 +404,9 @@ class SourceBackendStagingFolder(
         )
 
     def action_file_delete(self, request, encoded_filename):
-        staging_folder_file = self.get_file(encoded_filename=encoded_filename)
+        staging_folder_file = self.get_file(
+            encoded_filename=encoded_filename
+        )
         staging_folder_file.delete()
 
     def action_file_image(self, request, encoded_filename, **kwargs):
@@ -403,7 +422,9 @@ class SourceBackendStagingFolder(
         if maximum_layer_order:
             maximum_layer_order = int(maximum_layer_order)
 
-        staging_folder_file = self.get_file(encoded_filename=encoded_filename)
+        staging_folder_file = self.get_file(
+            encoded_filename=encoded_filename
+        )
 
         combined_transformation_list = staging_folder_file.get_combined_transformation_list(
             maximum_layer_order=maximum_layer_order,
@@ -437,7 +458,7 @@ class SourceBackendStagingFolder(
                         yield chunk
 
         response = StreamingHttpResponse(
-            streaming_content=file_generator(), content_type='image'
+            content_type='image', streaming_content=file_generator()
         )
         return None, response
 
@@ -450,8 +471,8 @@ class SourceBackendStagingFolder(
                     'filename': staging_folder_file.filename,
                     'delete-url': rest_framework_reverse(
                         viewname='rest_api:source-action', kwargs={
-                            'source_id': staging_folder_file.staging_folder.model_instance_id,
-                            'action_name': 'file_delete'
+                            'action_name': 'file_delete',
+                            'source_id': staging_folder_file.staging_folder.model_instance_id
                         }, request=request
                     ),
                     'encoded_filename': staging_folder_file.encoded_filename,
@@ -460,10 +481,10 @@ class SourceBackendStagingFolder(
                     ),
                     'upload-url': rest_framework_reverse(
                         viewname='rest_api:source-action', kwargs={
-                            'source_id': staging_folder_file.staging_folder.model_instance_id,
-                            'action_name': 'file_upload'
+                            'action_name': 'file_upload',
+                            'source_id': staging_folder_file.staging_folder.model_instance_id
                         }, request=request
-                    ),
+                    )
                 }
             )
 
@@ -501,18 +522,27 @@ class SourceBackendStagingFolder(
             'source_id': self.model_instance_id,
             'user_id': request.user.pk
         }
-        kwargs.update(self.get_task_extra_kwargs())
+        kwargs.update(
+            self.get_task_extra_kwargs()
+        )
 
         task_process_document_upload.apply_async(kwargs=kwargs)
 
         return None, Response(status=status.HTTP_202_ACCEPTED)
 
-    def callback(self, document_file, **kwargs):
-        super().callback(document_file=document_file, **kwargs)
-
+    def callback(
+        self, document_file, source_id, user_id, extra_data=None,
+        query_string=None
+    ):
+        super().callback(
+            document_file=document_file, extra_data=extra_data,
+            query_string=query_string, source_id=source_id, user_id=user_id
+        )
         if self.kwargs.get('delete_after_upload'):
             path = Path(
-                self.kwargs['folder_path'], kwargs['staging_folder_file_filename']
+                self.kwargs[
+                    'folder_path'
+                ], extra_data['staging_folder_file_filename']
             )
 
             try:
@@ -528,29 +558,38 @@ class SourceBackendStagingFolder(
 
     def get_callback_kwargs(self):
         callback_kwargs = super().get_callback_kwargs()
+        callback_kwargs.setdefault(
+            'extra_data', {}
+        )
 
-        callback_kwargs.update(
+        callback_kwargs['extra_data'].update(
             {
-                'staging_folder_file_filename': self.process_kwargs['staging_folder_file_filename']
+                'staging_folder_file_filename': self.process_kwargs[
+                    'staging_folder_file_filename'
+                ]
             }
         )
 
         return callback_kwargs
 
     def get_action_file_delete_context(self, view, encoded_filename):
-        staging_folder_file = self.get_file(encoded_filename=encoded_filename)
+        staging_folder_file = self.get_file(
+            encoded_filename=encoded_filename
+        )
 
         context = {
             'delete_view': True,
             'object': staging_folder_file,
             'object_name': _('Staging file'),
-            'title': _('Delete staging file "%s"?') % staging_folder_file,
+            'title': _('Delete staging file "%s"?') % staging_folder_file
         }
 
         view_kwargs = view.get_all_kwargs()
 
         if 'document_type_id' in view_kwargs:
-            context['document_type'] = DocumentType.objects.get(pk=view_kwargs['document_type_id'][0])
+            context['document_type'] = DocumentType.objects.get(
+                pk=view_kwargs['document_type_id'][0]
+            )
 
         return context
 
@@ -572,7 +611,9 @@ class SourceBackendStagingFolder(
             ) or REGULAR_EXPRESSION_MATCH_NOTHING
         )
 
-        path = Path(self.kwargs['folder_path'])
+        path = Path(
+            self.kwargs['folder_path']
+        )
 
         # Force path check to trigger any error.
         path.lstat()
@@ -585,7 +626,9 @@ class SourceBackendStagingFolder(
         for entry in sorted(iterator):
             if entry.is_file() and include_regex.match(string=entry.name) and not exclude_regex.match(string=entry.name):
                 relative_filename = str(
-                    entry.relative_to(self.kwargs['folder_path'])
+                    entry.relative_to(
+                        self.kwargs['folder_path']
+                    )
                 )
                 yield self.get_file(
                     filename=relative_filename
@@ -605,7 +648,9 @@ class SourceBackendStagingFolder(
 
     def get_view_context(self, context, request):
         try:
-            staging_files = list(self.get_files())
+            staging_files = list(
+                self.get_files()
+            )
         except Exception as exception:
             messages.error(
                 message=_(
@@ -638,18 +683,20 @@ class SourceBackendStagingFolder(
             )
         }
 
-        template_staging_file_list_context.update(view.get_context_data())
+        template_staging_file_list_context.update(
+            view.get_context_data()
+        )
 
         subtemplates_list = [
             {
-                'name': 'appearance/generic_multiform_subtemplate.html',
                 'context': {
-                    'forms': context['forms'],
+                    'forms': context['forms']
                 },
+                'name': 'appearance/generic_multiform_subtemplate.html'
             },
             {
-                'name': 'appearance/generic_list_subtemplate.html',
-                'context': template_staging_file_list_context
+                'context': template_staging_file_list_context,
+                'name': 'appearance/generic_list_subtemplate.html'
             }
         ]
 

@@ -1,12 +1,7 @@
-from django.shortcuts import get_object_or_404
-
-from mayan.apps.acls.models import AccessControlList
 from mayan.apps.documents.permissions import permission_document_type_view
 from mayan.apps.documents.serializers.document_type_serializers import DocumentTypeSerializer
 from mayan.apps.rest_api import generics
-from mayan.apps.rest_api.api_view_mixins import (
-    AsymmetricSerializerAPIViewMixin, ExternalObjectAPIViewMixin
-)
+from mayan.apps.rest_api.api_view_mixins import ExternalObjectAPIViewMixin
 
 from ..models.index_template_models import IndexTemplate
 from ..permissions import (
@@ -16,10 +11,11 @@ from ..permissions import (
 )
 from ..serializers import (
     DocumentTypeAddSerializer, DocumentTypeRemoveSerializer,
-    IndexTemplateSerializer, IndexTemplateNodeSerializer,
-    IndexTemplateNodeWriteSerializer
+    IndexTemplateSerializer
 )
 from ..tasks import task_index_template_rebuild
+
+from .index_template_api_view_mixins import APIIndexTemplateNodeViewMixin
 
 
 class APIIndexTemplateListView(generics.ListCreateAPIView):
@@ -30,8 +26,8 @@ class APIIndexTemplateListView(generics.ListCreateAPIView):
     mayan_object_permissions = {'GET': (permission_index_template_view,)}
     mayan_view_permissions = {'POST': (permission_index_template_create,)}
     ordering_fields = ('enabled', 'id', 'label', 'slug')
-    queryset = IndexTemplate.objects.all()
     serializer_class = IndexTemplateSerializer
+    source_queryset = IndexTemplate.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -53,8 +49,8 @@ class APIIndexTemplateDetailView(generics.RetrieveUpdateDestroyAPIView):
         'PATCH': (permission_index_template_edit,),
         'DELETE': (permission_index_template_delete,)
     }
-    queryset = IndexTemplate.objects.all()
     serializer_class = IndexTemplateSerializer
+    source_queryset = IndexTemplate.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -76,8 +72,8 @@ class APIIndexTemplateDocumentTypeListView(
     mayan_object_permissions = {'GET': (permission_document_type_view,)}
     serializer_class = DocumentTypeSerializer
 
-    def get_queryset(self):
-        return self.external_object.document_types.all()
+    def get_source_queryset(self):
+        return self.get_external_object().document_types.all()
 
 
 class APIIndexTemplateDocumentTypeAddView(generics.ObjectActionAPIView):
@@ -89,12 +85,13 @@ class APIIndexTemplateDocumentTypeAddView(generics.ObjectActionAPIView):
         'POST': (permission_index_template_edit,)
     }
     serializer_class = DocumentTypeAddSerializer
-    queryset = IndexTemplate.objects.all()
+    source_queryset = IndexTemplate.objects.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         document_type = serializer.validated_data['document_type']
-        self.object._event_actor = self.request.user
-        self.object.document_types_add(queryset=[document_type])
+        obj.document_types_add(
+            queryset=[document_type], user=self.request.user
+        )
 
 
 class APIIndexTemplateDocumentTypeRemoveView(generics.ObjectActionAPIView):
@@ -106,48 +103,13 @@ class APIIndexTemplateDocumentTypeRemoveView(generics.ObjectActionAPIView):
         'POST': (permission_index_template_edit,)
     }
     serializer_class = DocumentTypeRemoveSerializer
-    queryset = IndexTemplate.objects.all()
+    source_queryset = IndexTemplate.objects.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         document_type = serializer.validated_data['document_type']
-        self.object._event_actor = self.request.user
-        self.object.document_types_remove(queryset=[document_type])
-
-
-class APIIndexTemplateNodeViewMixin(AsymmetricSerializerAPIViewMixin):
-    object_permissions = {
-        'GET': permission_index_template_view,
-        'PATCH': permission_index_template_edit,
-        'PUT': permission_index_template_edit,
-        'POST': permission_index_template_edit,
-        'DELETE': permission_index_template_edit
-    }
-    read_serializer_class = IndexTemplateNodeSerializer
-    write_serializer_class = IndexTemplateNodeWriteSerializer
-
-    def get_serializer(self, *args, **kwargs):
-        if not self.request:
-            return None
-
-        return super().get_serializer(*args, **kwargs)
-
-    def get_index_template(self):
-        if 'index_template_id' in self.kwargs:
-            permission = self.object_permissions[self.request.method]
-
-            queryset = AccessControlList.objects.restrict_queryset(
-                permission=permission, queryset=IndexTemplate.objects.all(),
-                user=self.request.user
-            )
-
-            return get_object_or_404(
-                klass=queryset, pk=self.kwargs['index_template_id']
-            )
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context['index_template'] = self.get_index_template()
-        return context
+        obj.document_types_remove(
+            queryset=[document_type], user=self.request.user
+        )
 
 
 class APIIndexTemplateNodeListView(
@@ -159,7 +121,7 @@ class APIIndexTemplateNodeListView(
     """
     ordering_fields = ('enabled', 'id', 'link_documents')
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_index_template().index_template_root_node.get_children()
 
 
@@ -174,7 +136,7 @@ class APIIndexTemplateNodeDetailView(
     """
     lookup_url_kwarg = 'index_template_node_id'
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_index_template().index_template_nodes.all()
 
 
@@ -186,12 +148,12 @@ class APIIndexTemplateRebuildView(generics.ObjectActionAPIView):
     mayan_object_permissions = {
         'POST': (permission_index_template_rebuild,)
     }
-    queryset = IndexTemplate.objects.all()
+    source_queryset = IndexTemplate.objects.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         task_index_template_rebuild.apply_async(
             kwargs={
-                'index_id': self.object.pk
+                'index_id': obj.pk
             }
         )
 
@@ -204,7 +166,7 @@ class APIIndexTemplateResetView(generics.ObjectActionAPIView):
     mayan_object_permissions = {
         'POST': (permission_index_template_rebuild,)
     }
-    queryset = IndexTemplate.objects.all()
+    source_queryset = IndexTemplate.objects.all()
 
-    def object_action(self, request, serializer):
-        self.object.reset()
+    def object_action(self, obj, request, serializer):
+        obj.reset()

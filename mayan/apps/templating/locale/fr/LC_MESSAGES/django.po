@@ -4,27 +4,28 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Yves Dubois <ydubois@gmail.com>, 2022
-# Roberto Rosario, 2022
-# Guillaume Trottier <gui.trottier@gmail.com>, 2022
-# Benoît GROUSSET <benoit@grousset.xyz>, 2022
-# Frédéric Sheedy <sheedf@gmail.com>, 2022
+# Guillaume Trottier <gui.trottier@gmail.com>, 2023
+# Benoît GROUSSET <benoit@grousset.xyz>, 2023
+# Roberto Rosario, 2023
+# Yves Dubois <ydubois@gmail.com>, 2023
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2023
+# Frédéric Sheedy <sheedf@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:38+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2022\n"
-"Language-Team: French (https://www.transifex.com/rosarior/teams/13584/fr/)\n"
+"POT-Creation-Date: 2024-06-02 01:54+0000\n"
+"PO-Revision-Date: 2023-01-05 02:56+0000\n"
+"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2023\n"
+"Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:19 permissions.py:5
+#: apps.py:19 permissions.py:6
 msgid "Templating"
 msgstr "Modéliser"
 
@@ -65,36 +66,52 @@ msgstr "La chaîne de modèle à évaluer."
 msgid "Template"
 msgstr "Modèle"
 
-#: links.py:11
+#: links.py:10
 msgid "Sandbox"
 msgstr "Bac à sable"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Use the template sandbox"
 msgstr "Utilisez le modèle bac à sable"
 
-#: views.py:40
+#: serializers.py:8
+msgid "Hex hash"
+msgstr "Signature hexadécimale"
+
+#: serializers.py:11
+msgid "Name"
+msgstr "Nom"
+
+#: serializers.py:14
+msgid "HTML"
+msgstr "HTML"
+
+#: serializers.py:17
+msgid "URL"
+msgstr "URL"
+
+#: views.py:44
 #, python-format
 msgid "Template sandbox for: %s"
 msgstr "Modèle bac à sable pour: %s"
 
-#: views.py:61
+#: views.py:65
 #, python-format
 msgid "Template error; %(exception)s"
 msgstr "Erreur de modèle; %(exception)s"
 
-#: widgets.py:65
+#: widgets.py:69
 msgid "Filters"
 msgstr "Filtres"
 
-#: widgets.py:72
+#: widgets.py:76
 msgid "Tags"
 msgstr "Étiquettes"
 
-#: widgets.py:78
+#: widgets.py:83
 msgid "<Filters and tags>"
 msgstr "<Filters and tags>"
 
-#: widgets.py:119
+#: widgets.py:128
 msgid "<Model attributes>"
 msgstr "<Model attributes>"

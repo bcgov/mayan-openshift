@@ -22,15 +22,20 @@ def common_get_object_verbose_name(obj):
     try:
         return obj._meta.verbose_name
     except AttributeError:
-        if isinstance(obj, str):
-            return ''
-        else:
-            return type(obj)
+        try:
+            return obj.verbose_name
+        except AttributeError:
+            if isinstance(obj, str):
+                return ''
+            else:
+                return type(obj)
 
 
 @register.filter
 def common_get_type(value):
-    return force_text(s=type(value))
+    return force_text(
+        s=type(value)
+    )
 
 
 @register.filter

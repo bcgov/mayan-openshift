@@ -5,10 +5,9 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import OperationalError
 
-from mayan.celery import app
-
 from mayan.apps.lock_manager.backends.base import LockingBackend
 from mayan.apps.lock_manager.exceptions import LockError
+from mayan.celery import app
 
 from .literals import DEFAULT_SOURCES_LOCK_EXPIRE
 
@@ -50,7 +49,8 @@ def task_source_process_document(source_id, dry_run=False):
                     )
                 )
         else:
-            source.error_log.all().delete()
+            if source.enabled or dry_run:
+                source.error_log.all().delete()
         finally:
             lock.release()
 
@@ -79,7 +79,7 @@ def task_process_document_upload(
         source = Source.objects.get(pk=source_id)
 
         if not label:
-            label = shared_uploaded_file.filename
+            label = str(shared_uploaded_file)
 
         if user_id:
             user = get_user_model().objects.get(pk=user_id)

@@ -4,82 +4,82 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2022
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2022
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2023
+# Roberto Rosario, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:38+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2022\n"
-"Language-Team: Bulgarian (https://www.transifex.com/rosarior/teams/13584/bg/)\n"
+"POT-Creation-Date: 2024-06-02 01:54+0000\n"
+"PO-Revision-Date: 2023-01-05 02:56+0000\n"
+"Last-Translator: Roberto Rosario, 2023\n"
+"Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:28 links.py:10 permissions.py:5
+#: apps.py:30 links.py:10 permissions.py:6
 msgid "Task manager"
 msgstr "Управление на задачите"
 
-#: apps.py:97
+#: apps.py:112
 msgid "Label"
 msgstr "Етикет"
 
-#: apps.py:101
+#: apps.py:116
 msgid "Name"
 msgstr "Име"
 
-#: apps.py:106
+#: apps.py:121
 msgid "Default queue?"
 msgstr "Опашка по подразбиране?"
 
-#: apps.py:111
+#: apps.py:126
 msgid "Is transient?"
 msgstr "Преходен ли е?"
 
-#: apps.py:115
+#: apps.py:130
 msgid "Type"
 msgstr "Тип"
 
-#: apps.py:120
+#: apps.py:135
 msgid "Start time"
 msgstr "Начален час"
 
-#: apps.py:124
+#: apps.py:139
 msgid "Host"
 msgstr "Хост"
 
-#: apps.py:128
+#: apps.py:143
 msgid "Arguments"
 msgstr "Аргументи"
 
-#: apps.py:132
+#: apps.py:147
 msgid "Keyword arguments"
 msgstr "Аргументи на ключови думи"
 
-#: apps.py:136
+#: apps.py:151
 msgid "Worker process ID"
 msgstr "Идентификационен номер на работния процес"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "View tasks"
 msgstr "Преглед на задачите"
 
-#: settings.py:10
+#: settings.py:11
 msgid "Celery"
 msgstr "Celery"
 
-#: settings.py:15
+#: settings.py:17
 msgid "Default: \"AMQPLAIN\". Set custom amqp login method."
 msgstr ""
 "По подразбиране: &quot;AMQPLAIN&quot;. Задайте потребителски метод за вход в"
 " amqp."
 
-#: settings.py:21
+#: settings.py:23
 msgid ""
 "Default: \"amqp://\". Default broker URL. This must be a URL in the form of:"
 " transport://userid:password@hostname:port/virtual_host Only the scheme part"
@@ -92,7 +92,7 @@ msgstr ""
 "частта от схемата (transport://), останалото е по избор и по подразбиране "
 "към конкретните стойности на транспортиране по подразбиране."
 
-#: settings.py:30
+#: settings.py:32
 msgid ""
 "Default: \"Disabled\". Toggles SSL usage on broker connection and SSL "
 "settings. The valid values for this option vary by transport."
@@ -101,7 +101,7 @@ msgstr ""
 "връзка с брокера и настройките на SSL. Валидните стойности за тази опция "
 "варират в зависимост от транспорта."
 
-#: settings.py:38
+#: settings.py:40
 msgid ""
 "Default: No result backend enabled by default. The backend used to store "
 "task results (tombstones). Refer to "

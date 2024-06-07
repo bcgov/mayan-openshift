@@ -1,5 +1,3 @@
-from django.utils.encoding import force_text
-
 from mayan.apps.navigation.html_widgets import SourceColumnWidget
 
 from .icons import icon_fail as default_icon_fail, icon_ok as default_icon_ok
@@ -15,7 +13,7 @@ class TwoStateWidget(SourceColumnWidget):
 
     def get_extra_context(self):
         return {
-            'icon_ok': self.icon_ok, 'icon_fail': self.icon_fail,
+            'icon_fail': self.icon_fail, 'icon_ok': self.icon_ok
         }
 
 
@@ -28,7 +26,7 @@ class ObjectLinkWidget(SourceColumnWidget):
         url = None
 
         if self.value:
-            label = force_text(s=self.value)
+            label = str(self.value)
             object_type = '{}: '.format(self.value._meta.verbose_name)
             try:
                 url = self.value.get_absolute_url()

@@ -25,7 +25,9 @@ class NewDocumentFileForm(forms.Form):
     comment = forms.CharField(
         help_text=_('An optional comment to explain the upload.'),
         label=_('Comment'), required=False,
-        widget=forms.widgets.Textarea(attrs={'rows': 4}),
+        widget=forms.widgets.Textarea(
+            attrs={'rows': 4}
+        )
     )
     action = forms.ChoiceField(
         label=_('Action'), help_text=_(
@@ -48,8 +50,9 @@ class UploadBaseForm(forms.Form):
 
 class SourceBackendSelectionForm(forms.Form):
     backend = forms.ChoiceField(
-        choices=(), help_text=_('The backend used to create the new source.'),
-        label=_('Backend')
+        choices=(), help_text=_(
+            'The backend used to create the new source.'
+        ), label=_('Backend')
     )
 
     def __init__(self, *args, **kwargs):

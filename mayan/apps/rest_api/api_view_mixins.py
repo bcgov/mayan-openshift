@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.settings import api_settings
 
 from mayan.apps.databases.utils import check_queryset
-from mayan.apps.views.mixins import ExternalObjectBaseMixin
+from mayan.apps.views.view_mixins import ExternalObjectBaseMixin
 
 from .literals import (
     QUERY_FIELD_EXCLUDE_PARAMETER, QUERY_FIELD_ONLY_PARAMETER
@@ -22,7 +22,7 @@ class AsymmetricSerializerAPIViewMixin:
     def get_read_serializer_class(self):
         if not self.read_serializer_class:
             raise ImproperlyConfigured(
-                'View {} must specify a read_serializer_class.'.format(
+                'View {} must specify a `read_serializer_class`.'.format(
                     self.__class__.__name__
                 )
             )
@@ -32,8 +32,8 @@ class AsymmetricSerializerAPIViewMixin:
     def get_serializer_class(self):
         if getattr(self, 'serializer_class', None):
             raise ImproperlyConfigured(
-                'View {} can not use AsymmetricSerializerAPIViewMixin while '
-                'also specifying a serializer_class.'.format(
+                'View {} can not use `AsymmetricSerializerAPIViewMixin` '
+                'while also specifying a `serializer_class`.'.format(
                     self.__class__.__name__
                 )
             )
@@ -46,7 +46,7 @@ class AsymmetricSerializerAPIViewMixin:
     def get_write_serializer_class(self):
         if not self.write_serializer_class:
             raise ImproperlyConfigured(
-                'View {} must specify a write_serializer_class.'.format(
+                'View {} must specify a `write_serializer_class`.'.format(
                     self.__class__.__name__
                 )
             )
@@ -55,9 +55,9 @@ class AsymmetricSerializerAPIViewMixin:
 
 
 class CheckQuerysetAPIViewMixin:
-    def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-        return check_queryset(self=self, queryset=queryset)
+    def get_source_queryset(self, *args, **kwargs):
+        queryset = super().get_source_queryset(*args, **kwargs)
+        return check_queryset(view=self, queryset=queryset)
 
 
 class ContentTypeAPIViewMixin:
@@ -72,11 +72,11 @@ class ContentTypeAPIViewMixin:
 
     def get_content_type(self):
         return get_object_or_404(
-            queryset=ContentType, app_label=self.kwargs[
+            queryset=ContentType, app_label=self.kwargs.get(
                 self.content_type_url_kw_args['app_label']
-            ], model=self.kwargs[
+            ), model=self.kwargs.get(
                 self.content_type_url_kw_args['model_name']
-            ]
+            )
         )
 
 
@@ -112,7 +112,9 @@ class ExternalObjectAPIViewMixin(ExternalObjectBaseMixin):
     def get_external_object_permission(self):
         return getattr(
             self, 'mayan_external_object_permissions', {}
-        ).get(self.request.method, (None,))[0]
+        ).get(
+            self.request.method, (None,)
+        )[0]
 
     def get_serializer_extra_context(self):
         """
@@ -121,19 +123,9 @@ class ExternalObjectAPIViewMixin(ExternalObjectBaseMixin):
         """
         context = super().get_serializer_extra_context()
         if self.kwargs:
-            context['external_object'] = self.external_object
+            context['external_object'] = self.get_external_object()
 
         return context
-
-    def initial(self, *args, **kwargs):
-        result = super().initial(*args, **kwargs)
-        # Ensure self.external_object is initialized to allow the browseable
-        # API view to display when attempting to introspect the serializer
-        # and the parent object is not found.
-        self.external_object = None
-
-        self.external_object = self.get_external_object()
-        return result
 
 
 class ExternalContentTypeObjectAPIViewMixin(
@@ -173,24 +165,68 @@ class InstanceExtraDataAPIViewMixin:
 
 
 class SchemaInspectionAPIViewMixin:
+    def get_serializer_context(self, *args, **kwargs):
+        if getattr(self, 'swagger_fake_view', False):
+            return {'request': self.request}
+        else:
+            return super().get_serializer_context(*args, **kwargs)
+
+
+class QuerySetOverrideCheckAPIViewMixin:
+    source_queryset = None
+
+    def __init__(self, *args, **kwargs):
+        result = super().__init__(*args, **kwargs)
+
+        queryset = getattr(self, 'queryset', None)
+
+        if queryset is not None:
+            raise ImproperlyConfigured(
+                '%(cls)s is overloading the `queryset` property. '
+                'Subclasses should use the `source_queryset` property '
+                'instead. ' % {
+                    'cls': self.__class__.mro()[0].__name__
+                }
+            )
+
+        if self.__class__.mro()[0].get_queryset != QuerySetOverrideCheckAPIViewMixin.get_queryset:
+            raise ImproperlyConfigured(
+                '%(cls)s is overloading the `get_queryset` method. '
+                'Subclasses should implement the `get_source_queryset` '
+                'method instead. ' % {
+                    'cls': self.__class__.mro()[0].__name__
+                }
+            )
+
+        return result
+
+    def get_source_queryset(self):
+        if self.source_queryset is None:
+            if self.model:
+                return self.model._default_manager.all()
+            else:
+                raise ImproperlyConfigured(
+                    '%(cls)s is missing a QuerySet. Define '
+                    '`%(cls)s.model`, `%(cls)s.source_queryset`, or '
+                    'override `%(cls)s.get_source_queryset()`.' % {
+                        'cls': self.__class__.__name__
+                    }
+                )
+
+        return self.source_queryset
+
     def get_queryset(self):
         if getattr(self, 'swagger_fake_view', False):
             return []
-
-        return super().get_queryset()
-
-    def get_serializer(self, *args, **kwargs):
-        if getattr(self, 'swagger_fake_view', False):
-
-            return None
-
-        return super().get_serializer(*args, **kwargs)
-
-    def get_serializer_context(self, *args, **kwargs):
-        if getattr(self, 'swagger_fake_view', False):
-            return {}
-
-        return super().get_serializer_context(*args, **kwargs)
+        else:
+            try:
+                return super().get_queryset()
+            except AssertionError:
+                self.queryset = self.get_source_queryset()
+                return super().get_queryset()
+            except ImproperlyConfigured:
+                self.queryset = self.get_source_queryset()
+                return super().get_queryset()
 
 
 class SerializerActionAPIViewMixin:
@@ -198,7 +234,11 @@ class SerializerActionAPIViewMixin:
 
     def get_success_headers(self, data):
         try:
-            return {'Location': str(data[api_settings.URL_FIELD_NAME])}
+            return {
+                'Location': str(
+                    data[api_settings.URL_FIELD_NAME]
+                )
+            }
         except (TypeError, KeyError):
             return {}
 
@@ -214,14 +254,19 @@ class SerializerActionAPIViewMixin:
         self.perform_serializer_action(serializer=serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(
-            serializer.data, status=status.HTTP_200_OK, headers=headers
+            serializer.data, headers=headers, status=status.HTTP_200_OK
         )
 
 
 class SerializerExtraContextAPIViewMixin:
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context.update(self.get_serializer_extra_context())
+
+        if not getattr(self, 'swagger_fake_view', False):
+            context.update(
+                self.get_serializer_extra_context()
+            )
+
         return context
 
     def get_serializer_extra_context(self):
@@ -231,6 +276,10 @@ class SerializerExtraContextAPIViewMixin:
 class SuccessHeadersAPIViewMixin:
     def get_success_headers(self, data):
         try:
-            return {'Location': str(data[api_settings.URL_FIELD_NAME])}
+            return {
+                'Location': str(
+                    data[api_settings.URL_FIELD_NAME]
+                )
+            }
         except (TypeError, KeyError):
             return {}

@@ -2,17 +2,16 @@ from rest_framework import status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from mayan.apps.documents.api_views.mixins import ParentObjectDocumentVersionPageAPIViewMixin
+from mayan.apps.documents.api_views.api_view_mixins import ParentObjectDocumentVersionPageAPIViewMixin
 from mayan.apps.documents.models.document_models import Document
 from mayan.apps.documents.models.document_version_models import DocumentVersion
 from mayan.apps.rest_api import generics
 
 from .models import DocumentVersionPageOCRContent, DocumentTypeOCRSettings
 from .permissions import (
-    permission_document_type_ocr_setup,
+    permission_document_type_ocr_setup, permission_document_version_ocr,
     permission_document_version_ocr_content_edit,
-    permission_document_version_ocr_content_view,
-    permission_document_version_ocr
+    permission_document_version_ocr_content_view
 )
 from .serializers import (
     DocumentVersionPageOCRContentSerializer,
@@ -33,8 +32,8 @@ class APIDocumentTypeOCRSettingsView(generics.RetrieveUpdateAPIView):
         'PATCH': (permission_document_type_ocr_setup,),
         'PUT': (permission_document_type_ocr_setup,)
     }
-    queryset = DocumentTypeOCRSettings.objects.all()
     serializer_class = DocumentTypeOCRSettingsSerializer
+    source_queryset = DocumentTypeOCRSettings.objects.all()
 
 
 class APIDocumentOCRSubmitView(generics.GenericAPIView):
@@ -45,7 +44,7 @@ class APIDocumentOCRSubmitView(generics.GenericAPIView):
     mayan_object_permissions = {
         'POST': (permission_document_version_ocr,)
     }
-    queryset = Document.valid.all()
+    source_queryset = Document.valid.all()
 
     def get_serializer(self, *args, **kwargs):
         return None
@@ -54,7 +53,7 @@ class APIDocumentOCRSubmitView(generics.GenericAPIView):
         return None
 
     def post(self, request, *args, **kwargs):
-        self.get_object().submit_for_ocr(_user=self.request.user)
+        self.get_object().submit_for_ocr(user=self.request.user)
         return Response(status=status.HTTP_202_ACCEPTED)
 
 
@@ -102,15 +101,12 @@ class APIDocumentVersionOCRSubmitView(generics.GenericAPIView):
     mayan_object_permissions = {
         'POST': (permission_document_version_ocr,)
     }
-    queryset = DocumentVersion.objects.all()
+    source_queryset = DocumentVersion.objects.all()
 
     def get_document(self):
         return get_object_or_404(
             queryset=Document.valid.all(), pk=self.kwargs['document_id']
         )
-
-    def get_queryset(self):
-        return self.get_document().versions.all()
 
     def get_serializer(self, *args, **kwargs):
         return None
@@ -118,6 +114,9 @@ class APIDocumentVersionOCRSubmitView(generics.GenericAPIView):
     def get_serializer_class(self):
         return None
 
+    def get_source_queryset(self):
+        return self.get_document().versions.all()
+
     def post(self, request, *args, **kwargs):
-        self.get_object().submit_for_ocr(_user=self.request.user)
+        self.get_object().submit_for_ocr(user=self.request.user)
         return Response(status=status.HTTP_202_ACCEPTED)

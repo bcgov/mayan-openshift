@@ -12,7 +12,8 @@ from .models import UserMailer
 from .permissions import permission_user_mailer_use
 from .settings import (
     setting_attachment_body_template, setting_attachment_subject_template,
-    setting_document_link_body_template, setting_document_link_subject_template
+    setting_document_link_body_template,
+    setting_document_link_subject_template
 )
 from .validators import validate_email_multiple
 
@@ -59,7 +60,9 @@ class ObjectMailForm(forms.Form):
             'separated by comma or semicolon.'
         ), label=_('Email address'), validators=[validate_email_multiple]
     )
-    subject = forms.CharField(label=_('Subject'), required=False)
+    subject = forms.CharField(
+        label=_('Subject'), required=False
+    )
     body = forms.CharField(
         label=_('Body'), widget=forms.widgets.Textarea(), required=False
     )
@@ -83,7 +86,7 @@ class UserMailerBackendSelectionForm(forms.Form):
 
 class UserMailerDynamicForm(BackendDynamicForm):
     class Meta:
-        fields = ('label', 'enabled')
+        fields = ('label', 'enabled', 'default')
         model = UserMailer
 
 

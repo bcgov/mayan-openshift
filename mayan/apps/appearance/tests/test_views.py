@@ -5,11 +5,11 @@ from selenium.common.exceptions import NoAlertPresentException
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
+from mayan.apps.testing.tests.base import GenericViewTestCase
+from mayan.apps.testing.tests.mixins import SeleniumTestMixin
 from mayan.apps.user_management.permissions import (
     permission_user_edit, permission_user_view
 )
-from mayan.apps.testing.tests.base import GenericViewTestCase
-from mayan.apps.testing.tests.mixins import SeleniumTestMixin
 
 from ..events import (
     event_theme_created, event_theme_edited, event_user_theme_settings_edited
@@ -25,7 +25,7 @@ from .mixins import (
 )
 
 
-@skip('Skip until a synchronous live server class is added.')
+@skip(reason='Skip until a synchronous live server class is added.')
 class BasePlainViewTestCase(
     SeleniumTestMixin, StaticLiveServerTestCase, GenericViewTestCase
 ):
@@ -48,7 +48,9 @@ class BasePlainViewTestCase(
             fragment='#javascript:alert("XSS")', viewname=settings.LOGIN_URL
         )
 
-        self.assertTrue(self.test_view_template in self.webdriver.page_source)
+        self.assertTrue(
+            self.test_view_template in self.webdriver.page_source
+        )
 
 
 class ThemeViewTestCase(
@@ -62,7 +64,9 @@ class ThemeViewTestCase(
         response = self._request_test_theme_create_view()
         self.assertEqual(response.status_code, 403)
 
-        self.assertEqual(Theme.objects.count(), theme_count)
+        self.assertEqual(
+            Theme.objects.count(), theme_count
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -77,7 +81,9 @@ class ThemeViewTestCase(
         response = self._request_test_theme_create_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(Theme.objects.count(), theme_count + 1)
+        self.assertEqual(
+            Theme.objects.count(), theme_count + 1
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 1)
@@ -97,7 +103,9 @@ class ThemeViewTestCase(
         response = self._request_test_theme_delete_view()
         self.assertEqual(response.status_code, 404)
 
-        self.assertEqual(Theme.objects.count(), theme_count)
+        self.assertEqual(
+            Theme.objects.count(), theme_count
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -116,7 +124,9 @@ class ThemeViewTestCase(
         response = self._request_test_theme_delete_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(Theme.objects.count(), theme_count - 1)
+        self.assertEqual(
+            Theme.objects.count(), theme_count - 1
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)

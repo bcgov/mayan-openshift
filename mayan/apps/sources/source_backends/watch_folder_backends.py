@@ -38,7 +38,7 @@ class SourceBackendWatchFolder(
                 'Server side filesystem path.'
             ),
             'kwargs': {
-                'max_length': 255,
+                'max_length': 255
             },
             'label': _('Folder path'),
             'required': True
@@ -87,12 +87,16 @@ class SourceBackendWatchFolder(
                 'exclude_regex', REGULAR_EXPRESSION_MATCH_NOTHING
             ) or REGULAR_EXPRESSION_MATCH_NOTHING
         )
-        path = Path(self.kwargs['folder_path'])
+        path = Path(
+            self.kwargs['folder_path']
+        )
 
         # Force testing the path and raise errors for the log.
         path.lstat()
         if not path.is_dir():
-            raise SourceException('Path {} is not a directory.'.format(path))
+            raise SourceException(
+                'Path {} is not a directory.'.format(path)
+            )
 
         if self.kwargs.get('include_subdirectories', False):
             iterator = path.rglob(pattern='*')

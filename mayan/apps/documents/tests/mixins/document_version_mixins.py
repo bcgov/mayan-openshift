@@ -16,10 +16,14 @@ from ..literals import (
     TEST_TRANSFORMATION_CLASS
 )
 
+from .document_mixins import DocumentTestMixin
+
 
 class DocumentVersionAPIViewTestMixin:
     def _request_test_document_version_create_api_view(self):
-        pk_list = list(DocumentVersion.objects.values_list('pk', flat=True))
+        pk_list = list(
+            DocumentVersion.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             viewname='rest_api:documentversion-list', kwargs={
@@ -60,30 +64,22 @@ class DocumentVersionAPIViewTestMixin:
             }, data={'comment': TEST_DOCUMENT_VERSION_COMMENT_EDITED}
         )
 
-    def _request_test_document_version_edit_via_put_api_view(self):
+    def _request_test_document_version_edit_via_put_api_view(
+        self, extra_view_kwargs=None
+    ):
+        view_kwargs = {
+            'document_id': self._test_document.pk,
+            'document_version_id': self._test_document.version_active.pk
+        }
+
+        if extra_view_kwargs:
+            view_kwargs.update(**extra_view_kwargs)
+
         return self.put(
-            viewname='rest_api:documentversion-detail', kwargs={
-                'document_id': self._test_document.pk,
-                'document_version_id': self._test_document.version_active.pk
-            }, data={
+            viewname='rest_api:documentversion-detail', kwargs=view_kwargs,
+            data={
                 'active': True,
                 'comment': TEST_DOCUMENT_VERSION_COMMENT_EDITED
-            }
-        )
-
-    def _request_test_document_version_export_api_view_via_get(self):
-        return self.get(
-            viewname='rest_api:documentversion-export', kwargs={
-                'document_id': self._test_document.pk,
-                'document_version_id': self._test_document.version_active.pk,
-            }
-        )
-
-    def _request_test_document_version_export_api_view_via_post(self):
-        return self.post(
-            viewname='rest_api:documentversion-export', kwargs={
-                'document_id': self._test_document.pk,
-                'document_version_id': self._test_document.version_active.pk,
             }
         )
 
@@ -146,7 +142,9 @@ class DocumentVersionModificationViewTestMixin:
 
 class DocumentVersionPageAPIViewTestMixin:
     def _request_test_document_version_page_create_api_view(self):
-        pk_list = list(DocumentVersionPage.objects.values_list('pk', flat=True))
+        pk_list = list(
+            DocumentVersionPage.objects.values_list('pk', flat=True)
+        )
 
         content_type = ContentType.objects.get_for_model(
             model=self._test_document_file_page
@@ -228,17 +226,17 @@ class DocumentVersionPageAPIViewTestMixin:
         return self.get(
             viewname='rest_api:documentversionpage-list', kwargs={
                 'document_id': self._test_document.pk,
-                'document_version_id': self._test_document_version.pk,
+                'document_version_id': self._test_document_version.pk
             }
         )
 
 
-class DocumentVersionTestMixin:
+class DocumentVersionTestMixin(DocumentTestMixin):
     auto_create_test_document_version = False
 
     def setUp(self):
         super().setUp()
-        self._test_document_versions = []
+
         if self.auto_create_test_document_version:
             self._create_test_document_version()
 
@@ -289,13 +287,6 @@ class DocumentVersionViewTestMixin:
             }
         )
 
-    def _request_test_document_version_export_view(self):
-        return self.post(
-            viewname='documents:document_version_export', kwargs={
-                'document_version_id': self._test_document_version.pk
-            }
-        )
-
     def _request_test_document_version_list_view(self):
         return self.get(
             viewname='documents:document_version_list', kwargs={
@@ -313,7 +304,7 @@ class DocumentVersionViewTestMixin:
     def _request_test_document_version_print_form_view(self):
         return self.get(
             viewname='documents:document_version_print_form', kwargs={
-                'document_version_id': self._test_document_version.pk,
+                'document_version_id': self._test_document_version.pk
             }, data={
                 'page_group': PAGE_RANGE_ALL
             }
@@ -322,7 +313,7 @@ class DocumentVersionViewTestMixin:
     def _request_test_document_version_print_view(self):
         return self.get(
             viewname='documents:document_version_print_view', kwargs={
-                'document_version_id': self._test_document_version.pk,
+                'document_version_id': self._test_document_version.pk
             }, query={
                 'page_group': PAGE_RANGE_ALL
             }
@@ -333,7 +324,7 @@ class DocumentVersionPageViewTestMixin:
     def _request_test_document_version_page_delete_view(self):
         return self.post(
             viewname='documents:document_version_page_delete', kwargs={
-                'document_version_page_id': self._test_document_version_page.pk,
+                'document_version_page_id': self._test_document_version_page.pk
             }
         )
 
@@ -361,7 +352,7 @@ class DocumentVersionPageViewTestMixin:
     def _request_test_document_version_page_view(self, document_version_page):
         return self.get(
             viewname='documents:document_version_page_view', kwargs={
-                'document_version_page_id': document_version_page.pk,
+                'document_version_page_id': document_version_page.pk
             }
         )
 

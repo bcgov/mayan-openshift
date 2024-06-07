@@ -58,15 +58,28 @@ X.Y     # Final release
 Release checklist
 =================
 
+#. Check for missing ``__init__.py`` modules::
+
+    make check-missing-inits
+
+#. Update the ``config.env`` file values ``DJANGO_SERIES``, ``DOCKER_IMAGE_MAYAN_TAG``.
+
 #. Copy the ``config.env`` values::
 
     make copy-config-env
+
+#. Run the system checks::
+
+    ./manage.py check
 
 #. Update the distrution ``.gitlab-ci.yml`` file::
 
     make gitlab-ci-update
 
-#. Scan the code with flake8 for simple style warnings.
+#. Scan the code with flake8 for simple style warnings::
+
+    flake8
+
 #. Run all tests::
 
     make test-all
@@ -94,15 +107,9 @@ Release checklist
     make increase-version PART=<major, minor or micro>
 
 #. Commit as version bump.
-#. Build source package and test:
    ::
 
-       make test-sdist-via-docker-ubuntu
-
-#. Build wheel package and test:
-   ::
-
-       make test-wheel-via-docker-ubuntu
+       git commit -s -m "Bump version to ..."
 
 #. Tag version:
    ::
@@ -122,16 +129,16 @@ Release checklist
 Release using GitLab CI using the makefile
 ------------------------------------------
 
-#. Use of the GitLab makefile targets: ``gitlab-release-all``,
-   ``gitlab-release-all-minor``, ``gitlab-release-docker-minor``,
-   ``gitlab-release-python-minor``, ``gitlab-release-docker``,
-   ``gitlab-release-documentation``, ``gitlab-release-python``.
+#. Use of the GitLab makefile targets: ``gitlab-ci-release-all``,
+   ``gitlab-ci-release-all-minor``, ``gitlab-ci-release-docker-minor``,
+   ``gitlab-ci-release-python-minor``, ``gitlab-ci-release-docker``,
+   ``gitlab-ci-release-documentation``, ``gitlab-ci-release-python``.
 
 
 Release using GitLab CI manually
 --------------------------------
 
-#. Push the current brach:
+#. Push the current branch:
    ::
 
        git push

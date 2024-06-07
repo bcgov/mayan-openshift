@@ -6,7 +6,6 @@ from pathlib import Path
 import sys
 
 from docutils import core
-from html2bbcode.parser import HTML2BBCode
 from lxml import etree, html
 import sh
 
@@ -40,12 +39,12 @@ class ReleaseNoteExporter:
             if element.attrib.get('id') not in ignore_ids_list:
 
                 if element.tag == 'div':
-                    if not element.attrib.get('id') in ignore_ids_list:
+                    if element.attrib.get('id') not in ignore_ids_list:
                         result.extend(
                             ReleaseNoteExporter.filter_elements(tree=element)
                         )
                 else:
-                    if not element.attrib.get('id') in ignore_ids_list:
+                    if element.attrib.get('id') not in ignore_ids_list:
                         result.append(
                             etree.tostring(element).replace(b'\n', b' ')
                         )
@@ -53,8 +52,12 @@ class ReleaseNoteExporter:
         return result
 
     def __init__(self):
-        sys.path.insert(0, os.path.abspath('..'))
-        sys.path.insert(1, os.path.abspath('.'))
+        sys.path.insert(
+            0, os.path.abspath('..')
+        )
+        sys.path.insert(
+            1, os.path.abspath('.')
+        )
 
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mayan.settings')
 
@@ -99,6 +102,17 @@ class ReleaseNoteExporter:
                     )
 
                     content.append(result)
+                elif ':github-issue:' in line:
+                    line_parts = line.split('`')
+
+                    result = (
+                        '- `GitHub issue #{} '
+                        '<https://github.com/mayan-edms/mayan-edms/issues/{}>`_ {}'.format(
+                            line_parts[1], line_parts[1], line_parts[2]
+                        )
+                    )
+
+                    content.append(result)
                 else:
                     content.append(line)
 
@@ -113,40 +127,7 @@ class ReleaseNoteExporter:
             tree=html.fromstring(html_fragment)
         )
 
-        if self.options.output_format == 'bb':
-            result = result[1:]
-            html_output = str(b''.join(result))
-
-            html_replace_list = (
-                ('<tt', '<code'),
-                ('</tt>', '</code>'),
-            )
-
-            for html_replace_item in html_replace_list:
-                html_output = html_output.replace(*html_replace_item)
-
-            parser = HTML2BBCode()
-
-            result = str(parser.feed(html_output))
-
-            bbcode_replace_list = (
-                ('[h1]', '\n[size=150]'),
-                ('[/h1]', '[/size]\n'),
-                ('[h2]', '\n[size=150]'),
-                ('[/h2]', '[/size]\n'),
-                ('[h3]', '\n[b]'),
-                ('[/h3]', '[/b]\n'),
-                ('[li]', '\n[*]'),
-                ('[/li]', ''),
-                ('[code]', '[b][i]'),
-                ('[/code]', '[/i][/b]'),
-            )
-
-            for bbcode_replace_item in bbcode_replace_list:
-                result = result.replace(*bbcode_replace_item)
-
-            return result
-        elif self.options.output_format == 'md':
+        if self.options.output_format == 'md':
             command_pandoc = sh.Command('pandoc')
 
             markdown_tag_cleanup = (
@@ -176,16 +157,20 @@ class ReleaseNoteExporter:
             result_body = command_pandoc(_in=joined_result, f='html', t='markdown')
 
             tree = html.fromstring(html_fragment)
-            # ~ title = tree[0].text
-            # ~ date tree[1].text)
 
             released, month, day, year = tree[1].text.split(' ')
 
             return '\n'.join(
                 (
                     '---',
-                    'date: {}-{:02d}-{:02d}'.format(year, MONTHS_TO_NUMBER[month], int(day[:-1])),
-                    'title: "{}"'.format(tree[0].text),
+                    'date: {}-{:02d}-{:02d}'.format(
+                        year, MONTHS_TO_NUMBER[month], int(
+                            day[:-1]
+                        )
+                    ),
+                    'title: "{}"'.format(
+                        tree[0].text
+                    ),
                     '---',
                     str(result_body)
                 )

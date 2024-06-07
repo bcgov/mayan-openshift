@@ -4,134 +4,140 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2022
-# Dezső József <dejo60@gmail.com>, 2022
-# molnars <szabolcs.molnar@gmail.com>, 2022
+# Dezső József <dejo60@gmail.com>, 2023
+# Roberto Rosario, 2023
+# molnars <szabolcs.molnar@gmail.com>, 2023
+# Csaba Tarjányi, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:38+0000\n"
-"Last-Translator: molnars <szabolcs.molnar@gmail.com>, 2022\n"
-"Language-Team: Hungarian (https://www.transifex.com/rosarior/teams/13584/hu/)\n"
+"POT-Creation-Date: 2024-06-02 01:54+0000\n"
+"PO-Revision-Date: 2023-01-05 02:55+0000\n"
+"Last-Translator: Csaba Tarjányi, 2024\n"
+"Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:57 events.py:5 links.py:141 menus.py:5 models.py:42 queues.py:7
-#: settings.py:13 views/source_views.py:173
+#: apps.py:53 events.py:6 links.py:144 menus.py:6 models.py:35 queues.py:7
+#: settings.py:12 views/source_views.py:177
 msgid "Sources"
 msgstr "Források"
 
-#: apps.py:87
+#: apps.py:83
 msgid "Create a document source"
 msgstr "Egy dokumentum forrás létrehozása"
 
-#: apps.py:89
+#: apps.py:85
 msgid ""
 "Document sources are the way in which new documents are feed to Mayan EDMS, "
 "create at least a web form source to be able to upload documents from a "
 "browser."
 msgstr ""
+"A dokumentumforrások az a mód, ahogyan az új dokumentumokat a Mayan EDMS-be "
+"táplálják, hozzon létre legalább egy webes űrlapforrást, hogy a "
+"dokumentumokat böngészőből lehessen feltölteni."
 
-#: apps.py:112
+#: apps.py:108
 msgid "Type"
 msgstr "Típus"
 
-#: classes.py:235
+#: classes.py:262
 msgid "Null backend"
-msgstr ""
+msgstr "Null háttérrendszer"
 
 #: dependencies.py:12
 msgid ""
 "Utility provided by the SANE package. Used to control the scanner and "
 "obtained the scanned document image."
 msgstr ""
+"A SANE csomag által biztosított segédprogram. A szkenner vezérlésére és a "
+"beolvasott dokumentum képének lekérésére szolgál."
 
-#: events.py:8
+#: events.py:10
 msgid "Source created"
-msgstr ""
+msgstr "Forrás létrehozva"
 
-#: events.py:11
+#: events.py:13
 msgid "Source edited"
-msgstr ""
+msgstr "Forrás szerkesztve"
 
 #: forms.py:26
 msgid "An optional comment to explain the upload."
-msgstr ""
+msgstr "Opcionális megjegyzés a feltöltés magyarázatához."
 
 #: forms.py:27
 msgid "Comment"
-msgstr "Megjegyzés"
+msgstr "Hozzászólás"
 
-#: forms.py:31
+#: forms.py:33
 msgid "Action"
-msgstr ""
+msgstr "Művelet"
 
-#: forms.py:32
+#: forms.py:34
 msgid ""
 "The action to take in regards to the pages of the new file being uploaded."
-msgstr ""
+msgstr "A feltöltendő új fájl oldalaival kapcsolatos teendők."
 
-#: forms.py:51
+#: forms.py:54
 msgid "The backend used to create the new source."
-msgstr ""
+msgstr "Az új forrás létrehozásához használt háttérrendszer."
 
-#: forms.py:52
+#: forms.py:55
 msgid "Backend"
-msgstr ""
+msgstr "Háttérrendszer"
 
-#: forms.py:102
+#: forms.py:105
 msgid "File"
-msgstr "Állomány"
+msgstr "Fájl"
 
-#: handlers.py:15
+#: handlers.py:22
 msgid "Default"
 msgstr "Alapéretelmezett"
 
-#: links.py:111
+#: links.py:115
 msgid "New document"
-msgstr ""
+msgstr "Új dokumentum"
 
-#: links.py:118
+#: links.py:122
 msgid "Upload new file"
-msgstr ""
+msgstr "Új fájl feltöltése"
 
-#: links.py:126
+#: links.py:130
 msgid "Create source"
-msgstr ""
+msgstr "Forrás létrehozása"
 
-#: links.py:132 source_backends/staging_folder_backends.py:355
+#: links.py:135 source_backends/staging_folder_backends.py:372
 msgid "Delete"
 msgstr "Törlés"
 
-#: links.py:136
+#: links.py:139
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: links.py:148
+#: links.py:151
 msgid "Test"
-msgstr ""
+msgstr "Tesztelés"
 
-#: models.py:32
+#: models.py:23
 msgid "A short text to describe this source."
-msgstr ""
+msgstr "Egy rövid szöveg a forrás leírására."
 
-#: models.py:33
+#: models.py:24
 msgid "Label"
 msgstr "Cimke"
 
-#: models.py:35
+#: models.py:27
 msgid "Enabled"
-msgstr "Bekapcsolt"
+msgstr "Engedélyezett"
 
-#: models.py:41
+#: models.py:34
 msgid "Source"
-msgstr ""
+msgstr "Forrás"
 
 #: permissions.py:6
 msgid "Sources setup"
@@ -155,196 +161,233 @@ msgstr "Létező dokumentum források megtekintése"
 
 #: queues.py:10
 msgid "Sources periodic"
-msgstr ""
+msgstr "Időszakos források"
 
 #: queues.py:14
 msgid "Sources fast"
-msgstr ""
+msgstr "Gyors források"
 
 #: queues.py:19
 msgid "Check interval source"
-msgstr ""
+msgstr "Intervallum forrás ellenőrzés"
 
 #: queues.py:24
 msgid "Handle upload"
-msgstr ""
+msgstr "Feltöltés kezelése"
 
-#: serializers.py:52
+#: serializers.py:12
+msgid "Actions"
+msgstr "Műveletek"
+
+#: serializers.py:18
+msgid "URL"
+msgstr "URL"
+
+#: serializers.py:55
 msgid "Optional arguments for the action. Must be JSON formatted."
-msgstr ""
+msgstr "Választható argumentumok a művelethez. JSON formátumúnak kell lennie."
 
-#: serializers.py:53 source_backends/sane_scanner_backends.py:45
+#: serializers.py:56 source_backends/sane_scanner_backends.py:45
 msgid "Arguments"
-msgstr "Paraméterek"
+msgstr "Argumentumok"
 
-#: serializers.py:61
+#: serializers.py:66
 msgid "Binary content for the new file."
-msgstr ""
+msgstr "Bináris tartalom az új fájlhoz."
 
-#: settings.py:20
+#: settings.py:19
 msgid "Arguments to use when creating source backends."
-msgstr ""
+msgstr "A forrás háttérrendszer létrehozásakor használandó argumentumok."
 
-#: settings.py:26
+#: settings.py:25
 msgid "Path to the Storage subclass used to store cached source image files."
 msgstr ""
+"A gyorsítótárazott forrás képfájlok tárolására használt Storage alosztály "
+"elérési útja."
 
-#: settings.py:34
+#: settings.py:33
 msgid "Arguments to pass to the SOURCES_SOURCE_CACHE_STORAGE_BACKEND."
-msgstr ""
+msgstr "Argumentumok a következőhöz: SOURCES_SOURCE_CACHE_STORAGE_BACKEND."
 
-#: source_backends/email_backends.py:47
+#: source_backends/email_backends.py:46
 msgid "Host"
 msgstr "Kiszolgáló"
 
-#: source_backends/email_backends.py:56
+#: source_backends/email_backends.py:55
 msgid "SSL"
-msgstr ""
+msgstr "SSL"
 
-#: source_backends/email_backends.py:62
+#: source_backends/email_backends.py:61
 msgid ""
 "Typical choices are 110 for POP3, 995 for POP3 over SSL, 143 for IMAP, 993 "
 "for IMAP over SSL."
 msgstr ""
+"A tipikus választások a következők: 110 POP3, 995 POP3 SSL, 143 IMAP, 993 "
+"IMAP SSL felett."
 
-#: source_backends/email_backends.py:68
+#: source_backends/email_backends.py:67
 msgid "Port"
-msgstr ""
+msgstr "Portszám"
 
-#: source_backends/email_backends.py:75
+#: source_backends/email_backends.py:74
 msgid "Username"
-msgstr ""
+msgstr "Felhasználónév"
 
-#: source_backends/email_backends.py:82
+#: source_backends/email_backends.py:81
 msgid "Password"
 msgstr "Jelszó"
 
-#: source_backends/email_backends.py:89
+#: source_backends/email_backends.py:88
 msgid ""
 "Name of the attachment that will contains the metadata type names and value "
 "pairs to be assigned to the rest of the downloaded attachments."
 msgstr ""
+"Annak a mellékletnek a neve, amely tartalmazza a metaadat típusneveket és "
+"értékpárokat, amelyeket a többi letöltött melléklethez kell hozzárendelni."
 
-#: source_backends/email_backends.py:96
+#: source_backends/email_backends.py:95
 msgid "Metadata attachment name"
-msgstr ""
+msgstr "Metaadat-melléklet név"
 
-#: source_backends/email_backends.py:102
+#: source_backends/email_backends.py:101
 msgid ""
 "Select a metadata type to store the email's \"from\" value. Must be a valid "
 "metadata type for the document type selected previously."
 msgstr ""
+"Válasszon ki egy metaadattípust az email \"feladó\" értékének tárolásához. A"
+" korábban kiválasztott dokumentumtípushoz érvényes metaadattípusnak kell "
+"lennie."
 
-#: source_backends/email_backends.py:112
+#: source_backends/email_backends.py:114
 msgid "From metadata type"
-msgstr ""
+msgstr "Metaadattípus"
 
-#: source_backends/email_backends.py:120
+#: source_backends/email_backends.py:122
 msgid ""
 "Select a metadata type to store the email's subject value. Must be a valid "
 "metadata type for the document type selected previously."
 msgstr ""
+"Válasszon metaadat típust az email tárgyértékének tárolásához. Érvényes "
+"metaadat típusnak kell lennie a korábban kiválasztott dokumentumtípushoz."
 
-#: source_backends/email_backends.py:130
+#: source_backends/email_backends.py:136
 msgid "Subject metadata type"
-msgstr ""
+msgstr "Tárgy metaadat típus"
 
-#: source_backends/email_backends.py:138
+#: source_backends/email_backends.py:144
 msgid ""
 "Select a metadata type to store the email's message ID value. Must be a "
 "valid metadata type for the document type selected previously."
 msgstr ""
-
-#: source_backends/email_backends.py:148
-msgid "Message ID metadata type"
-msgstr ""
-
-#: source_backends/email_backends.py:156
-msgid "Store the body of the email as a text document."
-msgstr ""
+"Válasszon metaadat típust az email üzenetazonosító értékének tárolásához. "
+"Érvényes metaadat típusnak kell lennie a korábban kiválasztott "
+"dokumentumtípushoz."
 
 #: source_backends/email_backends.py:158
-msgid "Store email body"
-msgstr ""
+msgid "Message ID metadata type"
+msgstr "Üzenetazonosító metaadat típus"
 
-#: source_backends/email_backends.py:303
+#: source_backends/email_backends.py:166
+msgid "Store the body of the email as a text document."
+msgstr "Az email szövegtörzsét szöveges dokumentumként tárolja."
+
+#: source_backends/email_backends.py:168
+msgid "Store email body"
+msgstr "Az email szövegtörzsének tárolása"
+
+#: source_backends/email_backends.py:320
 #, python-format
 msgid ""
 "\"From\" metadata type \"%(metadata_type)s\" is not valid for the document "
 "type: %(document_type)s"
 msgstr ""
+"A „Feladó” metaadattípus \"%(metadata_type)s\" nem érvényes a következő "
+"dokumentumtípushoz: %(document_type)s"
 
-#: source_backends/email_backends.py:317
+#: source_backends/email_backends.py:335
 #, python-format
 msgid ""
 "Subject metadata type \"%(metadata_type)s\" is not valid for the document "
 "type: %(document_type)s"
 msgstr ""
+"A tárgy metaadat-típusa \"%(metadata_type)s\" nem érvényes a következő "
+"dokumentumtípushoz: %(document_type)s"
 
-#: source_backends/email_backends.py:331
+#: source_backends/email_backends.py:350
 #, python-format
 msgid ""
 "Message ID metadata type \"%(metadata_type)s\" is not valid for the document"
 " type: %(document_type)s"
 msgstr ""
+"A \"%(metadata_type)s\" üzenetazonosító metaadattípusa nem érvényes a "
+"következő dokumentumtípushoz: %(document_type)s"
 
-#: source_backends/email_backends.py:379
+#: source_backends/email_backends.py:399
 msgid "IMAP Mailbox from which to check for messages."
-msgstr ""
+msgstr "IMAP-postafiók, amelyből ellenőrizhetők az üzenetek."
 
-#: source_backends/email_backends.py:383
+#: source_backends/email_backends.py:403
 msgid "Mailbox"
-msgstr ""
+msgstr "Postafiók"
 
-#: source_backends/email_backends.py:390
+#: source_backends/email_backends.py:410
 msgid ""
 "Criteria to use when searching for messages to process. Use the format "
 "specified in https://tools.ietf.org/html/rfc2060.html#section-6.4.4"
 msgstr ""
+"A feldolgozandó üzenetek keresésekor használandó kritériumok. Használja a "
+"https://tools.ietf.org/html/rfc2060.html#section-6.4.4 helyen megadott "
+"formátumot"
 
-#: source_backends/email_backends.py:394
+#: source_backends/email_backends.py:414
 msgid "Search criteria"
-msgstr ""
+msgstr "Keresőfeltétel"
 
-#: source_backends/email_backends.py:402
+#: source_backends/email_backends.py:422
 msgid ""
 "IMAP STORE command to execute on messages after they are processed. One "
 "command per line. Use the commands specified in "
 "https://tools.ietf.org/html/rfc2060.html#section-6.4.6 or the custom "
 "commands for your IMAP server."
 msgstr ""
+"IMAP STORE parancs, amelyet az üzenetek feldolgozása után kell végrehajtani."
+" Soronként egy parancs. Használja a "
+"https://tools.ietf.org/html/rfc2060.html#section-6.4.6 oldalon megadott "
+"parancsokat vagy az IMAP-kiszolgálóhoz tartozó egyéni parancsokat."
 
-#: source_backends/email_backends.py:407
+#: source_backends/email_backends.py:427
 msgid "Store commands"
-msgstr ""
+msgstr "Parancsok tárolása"
 
-#: source_backends/email_backends.py:414
+#: source_backends/email_backends.py:434
 msgid "Execute the IMAP expunge command after processing each email message."
 msgstr ""
+"Minden email üzenet feldolgozása után hajtsa végre az IMAP expunge "
+"parancsot."
 
-#: source_backends/email_backends.py:417
+#: source_backends/email_backends.py:437
 msgid "Execute expunge"
-msgstr ""
+msgstr "Törlés végrehajtása"
 
-#: source_backends/email_backends.py:424
+#: source_backends/email_backends.py:444
 msgid "IMAP Mailbox to which processed messages will be copied."
-msgstr ""
+msgstr "IMAP-postafiók, amelybe a feldolgozott üzenetek másolásra kerülnek."
 
-#: source_backends/email_backends.py:426
+#: source_backends/email_backends.py:446
 msgid "Destination mailbox"
-msgstr ""
+msgstr "Cél postafiók"
 
-#: source_backends/email_backends.py:432
+#: source_backends/email_backends.py:452
 msgid "IMAP email"
-msgstr ""
+msgstr "IMAP email"
 
-#: source_backends/email_backends.py:559
+#: source_backends/email_backends.py:598
 msgid "Timeout"
-msgstr "időtúllépés"
+msgstr "Időtúllépés"
 
-#: source_backends/email_backends.py:562
+#: source_backends/email_backends.py:601
 msgid "POP3 email"
-msgstr ""
+msgstr "POP3 email"
 
 #: source_backends/literals.py:18 source_backends/literals.py:23
 msgid "Always"
@@ -352,51 +395,53 @@ msgstr "Mindig"
 
 #: source_backends/literals.py:19 source_backends/literals.py:24
 msgid "Never"
-msgstr "Sohasem"
+msgstr "Soha"
 
 #: source_backends/literals.py:25
 msgid "Ask user"
-msgstr "Kérdezd meg a felhasználót"
+msgstr "Kérdezze a felhasználót"
 
-#: source_backends/mixins.py:132
+#: source_backends/mixins.py:137
 msgid "Uncompress"
-msgstr ""
+msgstr "Kitömörítés"
 
-#: source_backends/mixins.py:136
+#: source_backends/mixins.py:141
 msgid "Whether to expand or not compressed archives."
-msgstr ""
+msgstr "Kell-e kibontani vagy sem a tömörített archívumot."
 
-#: source_backends/mixins.py:160
+#: source_backends/mixins.py:165
 msgid "Expand compressed files"
 msgstr "Tömörített fájlok kibontása"
 
-#: source_backends/mixins.py:162
+#: source_backends/mixins.py:167
 msgid "Upload a compressed file's contained files as individual documents."
 msgstr ""
+"A tömörített fájlban lévő fájlok feltöltése különálló dokumentumokként."
 
-#: source_backends/mixins.py:251
+#: source_backends/mixins.py:266
 msgid "Assign a document type to documents uploaded from this source."
 msgstr ""
+"Rendeljen dokumentumtípust az ebből a forrásból feltöltött dokumentumokhoz."
 
-#: source_backends/mixins.py:257
+#: source_backends/mixins.py:274
 msgid "Document type"
-msgstr "Dokumentum típus"
+msgstr "Dokumentumtípus"
 
-#: source_backends/mixins.py:264
+#: source_backends/mixins.py:281
 msgid "Interval in seconds between checks for new documents."
-msgstr ""
+msgstr "Az új dokumentumok ellenőrzése közötti időköz másodpercekben."
 
-#: source_backends/mixins.py:270
+#: source_backends/mixins.py:287
 msgid "Interval"
-msgstr ""
+msgstr "Időköz"
 
 #: source_backends/sane_scanner_backends.py:31
 msgid "Device name as returned by the SANE backend."
-msgstr ""
+msgstr "A SANE háttérrendszer által visszaadott eszköznév."
 
 #: source_backends/sane_scanner_backends.py:34
 msgid "Device name"
-msgstr ""
+msgstr "Eszköznév"
 
 #: source_backends/sane_scanner_backends.py:40
 msgid ""
@@ -404,289 +449,287 @@ msgid ""
 "will change depending on the device. Execute `scanimage --help --device-"
 "name=DEVICE` for the list of supported arguments."
 msgstr ""
+"A `scanimage` parancsnak átadandó YAML formátumú argumentumok. Az "
+"argumentumok az eszköztől függően változnak. A támogatott argumentumok "
+"listájáért futtassa az `scanimage --help --device-name=DEVICE` parancsot."
 
 #: source_backends/sane_scanner_backends.py:49
 msgid "SANE Scanner"
-msgstr ""
+msgstr "SANE szkenner"
 
-#: source_backends/sane_scanner_backends.py:108
+#: source_backends/sane_scanner_backends.py:110
 msgid "Document properties"
-msgstr ""
+msgstr "Dokumentum tulajdonságok"
 
-#: source_backends/sane_scanner_backends.py:109
+#: source_backends/sane_scanner_backends.py:111
 msgid "Scan"
-msgstr ""
+msgstr "Szkennelés"
 
-#: source_backends/staging_folder_backends.py:232
-#: source_backends/staging_folder_backends.py:546
+#: source_backends/staging_folder_backends.py:249
+#: source_backends/staging_folder_backends.py:583
 msgid "Staging file"
 msgstr "Átmeneti fájl"
 
-#: source_backends/staging_folder_backends.py:267
+#: source_backends/staging_folder_backends.py:284
 #: source_backends/watch_folder_backends.py:38
 msgid "Server side filesystem path."
-msgstr ""
-
-#: source_backends/staging_folder_backends.py:272
-#: source_backends/watch_folder_backends.py:43
-msgid "Folder path"
-msgstr ""
-
-#: source_backends/staging_folder_backends.py:278
-msgid "Width value to be passed to the converter backend."
-msgstr ""
-
-#: source_backends/staging_folder_backends.py:283
-msgid "Preview width"
-msgstr ""
+msgstr "Szerver oldali fájlrendszer elérési útja."
 
 #: source_backends/staging_folder_backends.py:289
-msgid "Height value to be passed to the converter backend."
-msgstr ""
+#: source_backends/watch_folder_backends.py:43
+msgid "Folder path"
+msgstr "Mappa elérési útja"
 
-#: source_backends/staging_folder_backends.py:294
-msgid "Preview height"
-msgstr ""
+#: source_backends/staging_folder_backends.py:295
+msgid "Width value to be passed to the converter backend."
+msgstr "A konverter háttérrendszerének átadandó szélességi érték."
 
 #: source_backends/staging_folder_backends.py:300
+msgid "Preview width"
+msgstr "Előnézet szélessége"
+
+#: source_backends/staging_folder_backends.py:306
+msgid "Height value to be passed to the converter backend."
+msgstr "A konverter háttérrendszerének átadandó magasságérték."
+
+#: source_backends/staging_folder_backends.py:311
+msgid "Preview height"
+msgstr "Előnézet magassága"
+
+#: source_backends/staging_folder_backends.py:317
 msgid "Delete the file after is has been successfully uploaded."
-msgstr ""
+msgstr "A sikeres feltöltés után törölje a fájlt."
 
-#: source_backends/staging_folder_backends.py:302
+#: source_backends/staging_folder_backends.py:319
 msgid "Delete after upload"
-msgstr ""
+msgstr "Törlés feltöltés után"
 
-#: source_backends/staging_folder_backends.py:309
+#: source_backends/staging_folder_backends.py:326
 #: source_backends/watch_folder_backends.py:50
 msgid ""
 "If checked, not only will the folder path be scanned for files but also its "
 "subdirectories."
 msgstr ""
+"Ha be van jelölve, akkor nem csak a mappa elérési útvonalát, hanem az "
+"alkönyvtárakat is átvizsgálja a rendszer."
 
-#: source_backends/staging_folder_backends.py:312
+#: source_backends/staging_folder_backends.py:329
 #: source_backends/watch_folder_backends.py:53
 msgid "Include subdirectories?"
-msgstr ""
+msgstr "Tartalmazza az alkönyvtárakat?"
 
-#: source_backends/staging_folder_backends.py:319
+#: source_backends/staging_folder_backends.py:336
 #: source_backends/watch_folder_backends.py:60
 msgid "Regular expression used to select which files to upload."
-msgstr ""
+msgstr "A feltöltendő fájlok kiválasztásához használt reguláris kifejezés."
 
-#: source_backends/staging_folder_backends.py:321
+#: source_backends/staging_folder_backends.py:338
 #: source_backends/watch_folder_backends.py:62
 msgid "Include regular expression"
-msgstr ""
+msgstr "Befoglaló reguláris kifejezés"
 
-#: source_backends/staging_folder_backends.py:328
+#: source_backends/staging_folder_backends.py:345
 #: source_backends/watch_folder_backends.py:69
 msgid "Regular expression used to exclude which files to upload."
-msgstr ""
+msgstr "A feltöltendő fájlok kizárására használt reguláris kifejezés."
 
-#: source_backends/staging_folder_backends.py:330
+#: source_backends/staging_folder_backends.py:347
 #: source_backends/watch_folder_backends.py:71
 msgid "Exclude regular expression"
-msgstr ""
+msgstr "Kizáró reguláris kifejezés"
 
-#: source_backends/staging_folder_backends.py:341
+#: source_backends/staging_folder_backends.py:358
 msgid "Staging folder"
-msgstr ""
+msgstr "Átmeneti mappa"
 
-#: source_backends/staging_folder_backends.py:361
+#: source_backends/staging_folder_backends.py:378
 msgid "Select"
-msgstr "Kiválaszt"
+msgstr "Kiválasztás"
 
-#: source_backends/staging_folder_backends.py:373
+#: source_backends/staging_folder_backends.py:390
 msgid "Created"
 msgstr "Létrehozva"
 
-#: source_backends/staging_folder_backends.py:377
+#: source_backends/staging_folder_backends.py:394
 msgid "Thumbnail"
-msgstr "bélyegkép"
+msgstr "Miniatűr"
 
-#: source_backends/staging_folder_backends.py:526
+#: source_backends/staging_folder_backends.py:556
 #, python-format
 msgid "Error deleting staging file; %s"
-msgstr ""
+msgstr "Hiba az átmeneti fájl törlésekor; %s"
 
-#: source_backends/staging_folder_backends.py:547
+#: source_backends/staging_folder_backends.py:584
 #, python-format
 msgid "Delete staging file \"%s\"?"
-msgstr ""
+msgstr "Törli a \"%s\" átmeneti fájlt?"
 
-#: source_backends/staging_folder_backends.py:612
+#: source_backends/staging_folder_backends.py:657
 #, python-format
 msgid "Unable get list of staging files; %s"
-msgstr ""
+msgstr "Nem lehet beolvasni az átmeneti fájlok listáját; %s"
 
-#: source_backends/staging_folder_backends.py:630
+#: source_backends/staging_folder_backends.py:675
 msgid ""
 "This could mean that the staging folder is empty. It could also mean that "
 "the operating system user account being used for Mayan EDMS doesn't have the"
 " necessary file system permissions for the folder."
 msgstr ""
+"Ez azt jelentheti, hogy az átmeneti mappa üres. Azt is jelentheti, hogy a "
+"Mayan EDMS-hez használt operációs rendszer felhasználói fiókja nem "
+"rendelkezik a mappához szükséges fájlrendszeri engedélyekkel."
 
-#: source_backends/staging_folder_backends.py:637
+#: source_backends/staging_folder_backends.py:682
 msgid "No staging files available"
-msgstr ""
+msgstr "Nem állnak rendelkezésre átmeneti fájlok"
 
 #: source_backends/watch_folder_backends.py:75
 msgid "Watch folder"
-msgstr ""
+msgstr "Figyelő mappa"
 
-#: source_backends/web_form_backends.py:39
+#: source_backends/web_form_backends.py:40
 msgid "Web form"
-msgstr ""
+msgstr "Webes űrlap"
 
 #: storages.py:14
 msgid ""
 "Unable to initialize the staging folder file image storage. Check the "
 "settings {} and {} for formatting errors."
 msgstr ""
+"Nem lehet inicializálni az átmeneti mappa fájl képtárát. Ellenőrizze a "
+"beállításokat {} és {} formázási hibákért."
 
 #: storages.py:21
 msgid "Staging folder files"
-msgstr ""
+msgstr "Átmeneti mappa fájlok"
 
-#: templates/sources/app/foot.html:42
-msgid "Cancel upload"
-msgstr ""
-
-#: templates/sources/app/foot.html:43
-msgid "Are you sure you want to cancel this upload?"
-msgstr ""
-
-#: templates/sources/app/foot.html:44
-msgid "Drop files or click here to upload files"
-msgstr ""
-
-#: templates/sources/app/foot.html:45
-msgid "Your browser does not support drag and drop file uploads."
-msgstr ""
-
-#: templates/sources/app/foot.html:46
-msgid "Please use the fallback form below to upload your files."
-msgstr ""
-
-#: templates/sources/app/foot.html:47
-msgid "Clear"
-msgstr ""
-
-#: templates/sources/app/foot.html:48
-msgid "Server responded with {{statusCode}} code."
-msgstr ""
-
-#: views/base.py:54 wizards.py:58
+#: views/base.py:57 wizards.py:58
 msgid ""
 "No interactive document sources have been defined or none have been enabled,"
 " create one before proceeding."
 msgstr ""
+"Nincs interaktív dokumentumforrás definiálva, vagy egyik sincs engedélyezve,"
+" hozzon létre egyet a folytatás előtt."
 
-#: views/document_file_views.py:52
+#: views/document_file_views.py:51
 #, python-format
 msgid "Unable to upload new files for document \"%(document)s\". %(exception)s"
 msgstr ""
+"Nem lehet új fájlokat feltölteni a \"%(document)s\". %(exception)s "
+"dokumentumhoz"
 
 #: views/document_file_views.py:76
 #, python-format
 msgid "Error executing document file upload task; %(exception)s"
 msgstr ""
+"Hiba a dokumentumfájl feltöltési feladat végrehajtása során; %(exception)s"
 
-#: views/document_file_views.py:95
+#: views/document_file_views.py:97
 msgid "New document file queued for upload and will be available shortly."
 msgstr ""
+"Új dokumentumfájl várakozik a feltöltésre, és hamarosan elérhető lesz."
 
-#: views/document_file_views.py:133
+#: views/document_file_views.py:136
 #, python-format
 msgid "Upload a new file for document \"%(document)s\" from source: %(source)s"
 msgstr ""
+"Új fájl feltöltése a \"%(document)s\" dokumentumhoz a %(source)s forrásból"
 
-#: views/document_file_views.py:139
+#: views/document_file_views.py:142
 msgid "Submit"
-msgstr ""
+msgstr "Beküldés"
 
-#: views/document_views.py:41
+#: views/document_views.py:40
 #, python-format
 msgid "Error processing source document upload; %(exception)s"
-msgstr ""
+msgstr "Hiba a forrásdokumentum feltöltés feldolgozása során; %(exception)s"
 
-#: views/document_views.py:60
+#: views/document_views.py:61
 msgid "New document queued for upload and will be available shortly."
-msgstr ""
+msgstr "Az új dokumentum feltöltésre vár, és hamarosan elérhető lesz."
 
-#: views/document_views.py:91
+#: views/document_views.py:92
 #, python-format
 msgid "Upload a document of type \"%(document_type)s\" from source: %(source)s"
 msgstr ""
+"Töltsön fel egy \"%(document_type)s\" típusú dokumentumot a %(source)s "
+"forrásból"
 
 #: views/source_views.py:40
 msgid "New source backend selection"
-msgstr ""
+msgstr "Új forrás háttérrendszer kiválasztás"
 
-#: views/source_views.py:99
+#: views/source_views.py:103
 #, python-format
 msgid "Create a \"%s\" source"
-msgstr ""
+msgstr "\"%s\" forrás létrehozása"
 
-#: views/source_views.py:125
+#: views/source_views.py:129
 #, python-format
 msgid "Delete the source: %s?"
-msgstr ""
+msgstr "Forrás törlése: %s ?"
 
-#: views/source_views.py:141
+#: views/source_views.py:145
 #, python-format
 msgid "Edit source: %s"
-msgstr ""
+msgstr "Forrás szerkesztése: %s"
 
-#: views/source_views.py:167
+#: views/source_views.py:171
 msgid ""
 "Sources provide the means to upload documents. Some sources are interactive "
 "and require user input to operate. Others are automatic and run in the "
 "background without user intervention."
 msgstr ""
+"A források biztosítják a dokumentumok feltöltésének lehetőségét. Egyes "
+"források interaktívak, és működésükhöz felhasználói bevitel szükséges. Mások"
+" automatikusak, és a háttérben futnak felhasználói beavatkozás nélkül."
 
-#: views/source_views.py:172
+#: views/source_views.py:176
 msgid "No sources available"
-msgstr ""
+msgstr "Nincs elérhető forrás"
 
-#: views/source_views.py:191
+#: views/source_views.py:195
 msgid ""
 "This will execute the source code even if the source is not enabled. Sources"
 " that delete content after downloading will not do so while being tested. "
 "Check the source's error log for information during testing. A successful "
 "test will clear the error log."
 msgstr ""
+"Ez akkor is végrehajtja a forráskódot, ha a forrás nincs engedélyezve. Azok "
+"a források, amelyek a letöltés után törölnek tartalmat, nem teszik ezt meg a"
+" tesztelés alatt. A tesztelés során ellenőrizze a forrás hibanaplóját. A "
+"sikeres teszt törli a hibanaplót."
 
-#: views/source_views.py:197
+#: views/source_views.py:201
 #, python-format
 msgid "Trigger check for source \"%s\"?"
-msgstr ""
+msgstr "Eseményindító ellenőrzés a \"%s\" forráshoz?"
 
-#: views/source_views.py:209
+#: views/source_views.py:213
 msgid "Source test queued."
-msgstr ""
+msgstr "A forrás tesztelés sorban áll."
 
 #: wizard_steps.py:11
 msgid "Select document type"
-msgstr ""
+msgstr "Dokumentumtípus választás"
 
 #: wizards.py:77
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
-msgstr ""
+msgstr "%(total_steps)d lépés a%(step)d-ből: %(step_label)s"
 
-#: wizards.py:82
+#: wizards.py:83
 msgid "Document upload wizard"
-msgstr ""
+msgstr "Dokumentumfeltöltés varázsló"
 
-#: wizards.py:91
+#: wizards.py:92
 msgid "First"
-msgstr ""
+msgstr "Első"
 
-#: wizards.py:97
+#: wizards.py:98
 msgid "Previous"
-msgstr ""
+msgstr "Előző"
 
-#: wizards.py:104
+#: wizards.py:105
 msgid "Next"
-msgstr ""
+msgstr "Következő"

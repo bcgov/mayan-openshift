@@ -10,13 +10,16 @@ def handler_create_default_document_source(sender, **kwargs):
         app_label='sources', model_name='Source'
     )
 
-    if not Source.objects.filter(backend_path=SourceBackendWebForm.get_class_path()).count():
+    queryset_source_web_forms = Source.objects.filter(
+        backend_path=SourceBackendWebForm.get_class_path()
+    )
+
+    if not queryset_source_web_forms.exists():
         Source.objects.create_backend(
-            label=_('Default'),
             backend_path=SourceBackendWebForm.get_class_path(),
             backend_data={
                 'uncompress': SOURCE_UNCOMPRESS_CHOICE_ASK
-            }
+            }, label=_('Default')
         )
 
 

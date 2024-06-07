@@ -4,6 +4,7 @@ import os
 import yaml
 
 from mayan.apps.common.serialization import yaml_load
+from mayan.apps.templating.classes import Template
 
 from .literals import (
     CONFIGURATION_FILENAME, CONFIGURATION_LAST_GOOD_FILENAME
@@ -51,6 +52,7 @@ class SettingNamespaceSingleton:
     def __init__(self, global_symbol_table):
         self.global_symbol_table = global_symbol_table
         self.settings = {}
+
         for name, klass in self.__class__._settings.items():
             kwargs = self.__class__._setting_kwargs[name].copy()
             kwargs['name'] = name
@@ -58,10 +60,7 @@ class SettingNamespaceSingleton:
             setting.namespace = self
             self.settings[name] = setting
 
-    def get_config_file_setting(self, name):
-        """
-        Wrapper for load_config_file to cache the result.
-        """
+    def get_config_file_content(self):
         if hasattr(self, '_cache_file_data'):
             file_data = self._cache_file_data
         else:
@@ -72,10 +71,7 @@ class SettingNamespaceSingleton:
             file_data = self.load_config_file(filepath=filepath) or {}
             self._cache_file_data = file_data
 
-        try:
-            return file_data[name]
-        except KeyError:
-            raise SettingNamespaceSingleton.SettingNotFound
+        return file_data
 
     def get_setting_value(self, name):
         """
@@ -105,6 +101,12 @@ class SettingNamespaceSingleton:
                     Not critical, we just avoid adding it to the result
                     dictionary.
                     """
+                except Exception as exception:
+                    exit(
+                        'Unable to load bootstrap setting; {}'.format(
+                            exception
+                        )
+                    )
 
         return result
 
@@ -117,24 +119,20 @@ class SettingNamespaceSingleton:
 
 
 class BaseSetting:
+    @staticmethod
+    def safe_string_value_to_string(value):
+        return value.encode('utf-8').decode()
+
     def __init__(
-        self, name, critical=False, has_default=False, default_value=None
+        self, name, critical=False, default_value=None,
+        has_default=False
     ):
         self.critical = critical
-        self.name = name
-        self.has_default = has_default
         self.default_value = default_value
+        self.has_default = has_default
+        self.name = name
 
-    def _get_environment_value(self):
-        return os.environ.get(self.get_environment_name())
-
-    def get_default_value(self):
-        return self.default_value
-
-    def get_environment_name(self):
-        return 'MAYAN_{}'.format(self.name)
-
-    def get_value(self):
+    def _get_value(self):
         """
         By default will try to get the value from the namespace symbol table,
         then the configuration file, and finally from the environment.
@@ -145,33 +143,102 @@ class BaseSetting:
         # 3 - Global
         # 4 - Default
         try:
-            return self.load_environment_value()
+            return self.load_value_from_environment()
         except SettingNamespaceSingleton.SettingNotFound:
             try:
-                return self.namespace.get_config_file_setting(name=self.name)
+                return self.load_value_from_config_file()
             except SettingNamespaceSingleton.SettingNotFound:
                 try:
-                    return self.namespace.global_symbol_table[self.name]
+                    return self.load_value_from_global_system_table()
                 except KeyError:
                     if self.has_default:
                         return self.get_default_value()
                     else:
                         raise SettingNamespaceSingleton.SettingNotFound
 
-    def load_environment_value(self):
-        value = self._get_environment_value()
+    def get_default_value(self):
+        return self.default_value
 
-        if value:
+    def get_environment_name(self):
+        return 'MAYAN_{}'.format(self.name)
+
+    def get_template_environment_name(self):
+        return 'MAYAN_{}'.format(
+            self.get_template_name()
+        )
+
+    def get_template_name(self):
+        return 'SETTING_TEMPLATE_{}'.format(self.name)
+
+    def get_template_string(self):
+        try:
+            return self.get_template_string_from_environment()
+        except KeyError:
+            try:
+                return self.get_template_string_from_config_file()
+            except KeyError:
+                return self.get_template_string_from_global_system_table()
+
+    def get_template_string_from_config_file(self):
+        self.namespace.get_config_file_content()[
+            self.get_template_name()
+        ]
+
+    def get_template_string_from_environment(self):
+        return os.environ[
+            self.get_template_environment_name()
+        ]
+
+    def get_template_string_from_global_system_table(self):
+        return self.namespace.global_symbol_table[
+            self.get_template_name()
+        ]
+
+    def get_value(self):
+        try:
+            template_string = self.get_template_string()
+        except KeyError:
+            return self._get_value()
+        else:
+            setting_template = Template(template_string=template_string)
+            context = {}
+            context.update(self.namespace.global_symbol_table)
+            context.update(
+                self.namespace.get_config_file_content()
+            )
+            context.update(os.environ)
+
+            value = setting_template.render(context=context)
+            value = BaseSetting.safe_string_value_to_string(value=value)
+
+            return value
+
+    def load_value_from_config_file(self):
+        try:
+            return self.namespace.get_config_file_content()[self.name]
+        except KeyError:
+            raise SettingNamespaceSingleton.SettingNotFound
+
+    def load_value_from_environment(self):
+        try:
+            value = os.environ[
+                self.get_environment_name()
+            ]
+        except KeyError:
+            raise SettingNamespaceSingleton.SettingNotFound
+        else:
             try:
                 return yaml_load(stream=value)
             except yaml.YAMLError as exception:
-                exit(
-                    'Error loading setting environment value: {}; {}'.format(
-                        self.name, exception
+                raise ValueError(
+                    'Error loading setting environment variable "{}", '
+                    'value: "{}"; {}'.format(
+                        self.name, value, exception
                     )
                 )
-        else:
-            raise SettingNamespaceSingleton.SettingNotFound
+
+    def load_value_from_global_system_table(self):
+        return self.namespace.global_symbol_table[self.name]
 
 
 class FilesystemBootstrapSetting(BaseSetting):
@@ -181,6 +248,20 @@ class FilesystemBootstrapSetting(BaseSetting):
         self.name = name
         self.path_parts = path_parts
 
+    def _get_value(self):
+        """
+        It is not possible to look for this setting in the config file
+        because not even the config file setup has completed.
+        This setting only supports being set from the environment.
+        """
+        try:
+            return self.load_value_from_environment()
+        except SettingNamespaceSingleton.SettingNotFound:
+            if self.has_default:
+                return self.get_default_value()
+            else:
+                raise SettingNamespaceSingleton.SettingNotFound
+
     def get_default_value(self):
         """
         The default value of this setting class is not static but calculated.
@@ -188,22 +269,15 @@ class FilesystemBootstrapSetting(BaseSetting):
         return os.path.join(
             # Can't use BASE_DIR from django.conf.settings
             # Use it from the global_symbol_table which should be the same
-            self.namespace.global_symbol_table.get('BASE_DIR'), *self.path_parts
+            self.namespace.global_symbol_table.get('BASE_DIR'),
+            *self.path_parts
         )
 
-    def get_value(self):
-        """
-        It is not possible to look for this setting in the config file
-        because not even the config file setup has completed.
-        This setting only supports being set from the environment.
-        """
+    def get_template_string(self):
         try:
-            return self.load_environment_value()
-        except SettingNamespaceSingleton.SettingNotFound:
-            if self.has_default:
-                return self.get_default_value()
-            else:
-                raise SettingNamespaceSingleton.SettingNotFound
+            return self.get_template_string_from_environment()
+        except KeyError:
+            return self.get_template_string_from_global_system_table()
 
 
 class MediaBootstrapSetting(FilesystemBootstrapSetting):
@@ -222,221 +296,220 @@ def smart_yaml_load(value):
         return value
     else:
         return yaml_load(
-            stream=value or '{}',
+            stream=value or '{}'
         )
 
 
 # FilesystemBootstrapSetting settings
 
 SettingNamespaceSingleton.register_setting(
-    name='CONFIGURATION_FILEPATH', klass=MediaBootstrapSetting,
-    kwargs={
+    klass=MediaBootstrapSetting, kwargs={
         'critical': True, 'path_parts': (CONFIGURATION_FILENAME,)
-    }
+    }, name='CONFIGURATION_FILEPATH'
 )
 
 # MediaBootstrapSetting settings
 
 SettingNamespaceSingleton.register_setting(
-    name='CONFIGURATION_LAST_GOOD_FILEPATH', klass=MediaBootstrapSetting,
-    kwargs={
+    klass=MediaBootstrapSetting, kwargs={
         'critical': True, 'path_parts': (CONFIGURATION_LAST_GOOD_FILENAME,)
-    }
+    }, name='CONFIGURATION_LAST_GOOD_FILEPATH'
 )
 SettingNamespaceSingleton.register_setting(
-    name='MEDIA_ROOT', klass=FilesystemBootstrapSetting, kwargs={
+    klass=FilesystemBootstrapSetting, kwargs={
         'critical': True, 'path_parts': ('media',)
-    }
+    }, name='MEDIA_ROOT'
 )
 
 # Normal settings
 
 SettingNamespaceSingleton.register_setting(
-    name='ALLOWED_HOSTS', klass=BaseSetting, kwargs={
-        'has_default': True, 'default_value': ['127.0.0.1', 'localhost', '[::1]']
-    }
+    klass=BaseSetting, kwargs={
+        'has_default': True,
+        'default_value': ['127.0.0.1', 'localhost', '[::1]']
+    }, name='ALLOWED_HOSTS'
 )
 SettingNamespaceSingleton.register_setting(
-    name='APPEND_SLASH', klass=BaseSetting,
+    klass=BaseSetting, name='APPEND_SLASH'
 )
 SettingNamespaceSingleton.register_setting(
-    name='AUTH_PASSWORD_VALIDATORS', klass=BaseSetting,
+    klass=BaseSetting, name='AUTH_PASSWORD_VALIDATORS'
 )
 SettingNamespaceSingleton.register_setting(
-    name='AUTHENTICATION_BACKENDS', klass=BaseSetting,
+    klass=BaseSetting, name='AUTHENTICATION_BACKENDS'
 )
 SettingNamespaceSingleton.register_setting(
     name='DATA_UPLOAD_MAX_MEMORY_SIZE', klass=BaseSetting,
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASES', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': None
-    }
+    }, name='DATABASES'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DEBUG', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': False
-    }
+    }, name='DEBUG'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DEFAULT_FROM_EMAIL', klass=BaseSetting,
+    klass=BaseSetting, name='DEFAULT_FROM_EMAIL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DISALLOWED_USER_AGENTS', klass=BaseSetting,
+    klass=BaseSetting, name='DISALLOWED_USER_AGENTS'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_BACKEND', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_BACKEND'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_HOST', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_HOST'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_HOST_PASSWORD', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_HOST_PASSWORD'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_HOST_USER', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_HOST_USER'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_PORT', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_PORT'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_TIMEOUT', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_TIMEOUT'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_USE_SSL', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_USE_SSL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='EMAIL_USE_TLS', klass=BaseSetting,
+    klass=BaseSetting, name='EMAIL_USE_TLS'
 )
 SettingNamespaceSingleton.register_setting(
-    name='FILE_UPLOAD_MAX_MEMORY_SIZE', klass=BaseSetting,
+    klass=BaseSetting, name='FILE_UPLOAD_MAX_MEMORY_SIZE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='INTERNAL_IPS', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': ['127.0.0.1']
-    }
+    }, name='INTERNAL_IPS'
 )
 SettingNamespaceSingleton.register_setting(
-    name='LOGIN_REDIRECT_URL', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': 'common:home'
-    }
+    }, name='LOGIN_REDIRECT_URL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='LOGIN_URL', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': 'authentication:login_view'
-    }
+    }, name='LOGIN_URL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='LOGOUT_REDIRECT_URL', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': 'authentication:login_view'
-    }
+    }, name='LOGOUT_REDIRECT_URL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='LANGUAGES', klass=BaseSetting,
+    klass=BaseSetting, name='LANGUAGES'
 )
 SettingNamespaceSingleton.register_setting(
-    name='LANGUAGE_CODE', klass=BaseSetting,
+    klass=BaseSetting, name='LANGUAGE_CODE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='SESSION_COOKIE_NAME', klass=BaseSetting,
+    klass=BaseSetting, name='SESSION_COOKIE_NAME'
 )
 SettingNamespaceSingleton.register_setting(
-    name='SESSION_ENGINE', klass=BaseSetting,
+    klass=BaseSetting, name='SESSION_ENGINE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='STATIC_URL', klass=BaseSetting,
+    klass=BaseSetting, name='STATIC_URL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='STATICFILES_STORAGE', klass=BaseSetting,
+    klass=BaseSetting, name='STATICFILES_STORAGE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='TIME_ZONE', klass=BaseSetting,
+    klass=BaseSetting, name='TIME_ZONE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='WSGI_APPLICATION', klass=BaseSetting,
+    klass=BaseSetting, name='WSGI_APPLICATION'
 )
 
 # Celery
 
 SettingNamespaceSingleton.register_setting(
-    name='CELERY_TASK_ALWAYS_EAGER', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': True
-    }
+    }, name='CELERY_TASK_ALWAYS_EAGER'
 )
 SettingNamespaceSingleton.register_setting(
-    name='CELERY_BROKER_LOGIN_METHOD', klass=BaseSetting
+    klass=BaseSetting, name='CELERY_BROKER_LOGIN_METHOD'
 )
 SettingNamespaceSingleton.register_setting(
-    name='CELERY_BROKER_URL', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': 'memory://'
-    }
+    }, name='CELERY_BROKER_URL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='CELERY_BROKER_USE_SSL', klass=BaseSetting
+    klass=BaseSetting, name='CELERY_BROKER_USE_SSL'
 )
 SettingNamespaceSingleton.register_setting(
-    name='CELERY_RESULT_BACKEND', klass=BaseSetting
+    klass=BaseSetting, name='CELERY_RESULT_BACKEND'
 )
 
 # Mayan
 
 SettingNamespaceSingleton.register_setting(
-    name='COMMON_DISABLE_LOCAL_STORAGE', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': False
-    }
+    }, name='COMMON_DISABLE_LOCAL_STORAGE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='COMMON_DISABLED_APPS', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'critical': True, 'has_default': True, 'default_value': ()
-    }
+    }, name='COMMON_DISABLED_APPS'
 )
 SettingNamespaceSingleton.register_setting(
-    name='COMMON_EXTRA_APPS', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'critical': True, 'has_default': True, 'default_value': ()
-    }
+    }, name='COMMON_EXTRA_APPS'
 )
 SettingNamespaceSingleton.register_setting(
-    name='COMMON_EXTRA_APPS_PRE', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'critical': True, 'has_default': True, 'default_value': ()
-    }
+    }, name='COMMON_EXTRA_APPS_PRE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASE_ENGINE', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': None
-    }
+    }, name='DATABASE_ENGINE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASE_NAME', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': None
-    }
+    }, name='DATABASE_NAME'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASE_USER', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': None
-    }
+    }, name='DATABASE_USER'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASE_PASSWORD', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': None
-    }
+    }, name='DATABASE_PASSWORD'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASE_HOST', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': None
-    }
+    }, name='DATABASE_HOST'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASE_PORT', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': None
-    }
+    }, name='DATABASE_PORT'
 )
 SettingNamespaceSingleton.register_setting(
-    name='DATABASE_CONN_MAX_AGE', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': 0
-    }
+    }, name='DATABASE_CONN_MAX_AGE'
 )
 SettingNamespaceSingleton.register_setting(
-    name='TESTING', klass=BaseSetting, kwargs={
+    klass=BaseSetting, kwargs={
         'has_default': True, 'default_value': False
-    }
+    }, name='TESTING'
 )

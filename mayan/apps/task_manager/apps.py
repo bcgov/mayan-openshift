@@ -2,12 +2,13 @@ import logging
 
 from celery.backends.base import DisabledBackend
 
+from django.apps import apps
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.common.apps import MayanAppConfig
 from mayan.apps.common.menus import menu_tools
 from mayan.apps.common.signals import signal_perform_upgrade
-
 from mayan.apps.navigation.classes import SourceColumn
 from mayan.apps.views.html_widgets import TwoStateWidget
 from mayan.celery import app as celery_app
@@ -16,6 +17,7 @@ from .classes import CeleryQueue, Task
 from .handlers import handler_perform_upgrade
 from .links import link_queue_list
 from .literals import TEST_CELERY_RESULT_KEY, TEST_CELERY_RESULT_VALUE
+from .methods import factory_method_periodic_task_save
 
 logger = logging.getLogger(name=__name__)
 
@@ -33,7 +35,8 @@ class TaskManagerApp(MayanAppConfig):
         logger.debug('Starting Celery broker connectivity test')
         try:
             connection.ensure_connection(
-                interval_step=0, interval_max=0, interval_start=0, timeout=0.1
+                interval_step=0, interval_max=0, interval_start=0,
+                timeout=0.1
             )
         except Exception as exception:
             print(
@@ -59,7 +62,8 @@ class TaskManagerApp(MayanAppConfig):
             logger.debug('Starting Celery result backend connectivity test')
             try:
                 backend.set(
-                    key=TEST_CELERY_RESULT_KEY, value=TEST_CELERY_RESULT_VALUE
+                    key=TEST_CELERY_RESULT_KEY,
+                    value=TEST_CELERY_RESULT_VALUE
                 )
             except Exception as exception:
                 print(
@@ -74,6 +78,10 @@ class TaskManagerApp(MayanAppConfig):
 
     def ready(self):
         super().ready()
+
+        PeriodicTask = apps.get_model(
+            app_label='django_celery_beat', model_name='PeriodicTask'
+        )
 
         try:
             self.check_broker_connectivity()
@@ -92,6 +100,13 @@ class TaskManagerApp(MayanAppConfig):
             exit(1)
 
         CeleryQueue.load_modules()
+
+        if settings.DEBUG or settings.TESTING:
+            PeriodicTask.add_to_class(
+                name='save', value=factory_method_periodic_task_save(
+                    super_save=PeriodicTask.save
+                )
+            )
 
         SourceColumn(
             attribute='label', is_identifier=True, label=_('Label'),
@@ -136,7 +151,9 @@ class TaskManagerApp(MayanAppConfig):
             include_label=True, label=_('Worker process ID'), source=Task
         )
 
-        menu_tools.bind_links(links=(link_queue_list,))
+        menu_tools.bind_links(
+            links=(link_queue_list,)
+        )
 
         signal_perform_upgrade.connect(
             dispatch_uid='task_manager_handler_perform_upgrade',

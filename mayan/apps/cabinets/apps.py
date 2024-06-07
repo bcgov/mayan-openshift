@@ -17,25 +17,24 @@ from mayan.apps.navigation.classes import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
 
 from .events import (
-    event_cabinet_edited, event_cabinet_document_added,
-    event_cabinet_document_removed
+    event_cabinet_deleted, event_cabinet_document_added,
+    event_cabinet_document_removed, event_cabinet_edited
 )
 from .handlers import handler_cabinet_pre_delete, handler_index_document
 from .html_widgets import DocumentCabinetWidget
 from .links import (
-    link_cabinet_list, link_document_cabinet_list,
-    link_document_cabinet_remove, link_document_cabinet_add,
-    link_document_multiple_cabinet_add, link_cabinet_child_add,
-    link_cabinet_create, link_cabinet_delete, link_cabinet_edit,
-    link_cabinet_view, link_custom_acl_list,
-    link_multiple_document_cabinet_remove
+    link_cabinet_child_add, link_cabinet_create, link_cabinet_delete,
+    link_cabinet_edit, link_cabinet_list, link_cabinet_view,
+    link_custom_acl_list, link_document_cabinet_add,
+    link_document_cabinet_list, link_document_cabinet_remove,
+    link_document_multiple_cabinet_add, link_multiple_document_cabinet_remove
 )
 from .menus import menu_cabinets
 from .methods import method_document_get_cabinets
 from .permissions import (
-    permission_cabinet_add_document, permission_cabinet_delete,
-    permission_cabinet_edit, permission_cabinet_remove_document,
-    permission_cabinet_view
+    permission_cabinet_add_document, permission_cabinet_create,
+    permission_cabinet_delete, permission_cabinet_edit,
+    permission_cabinet_remove_document, permission_cabinet_view
 )
 
 
@@ -108,8 +107,8 @@ class CabinetsApp(MayanAppConfig):
 
         ModelEventType.register(
             model=Cabinet, event_types=(
-                event_cabinet_edited, event_cabinet_document_added,
-                event_cabinet_document_removed
+                event_cabinet_deleted, event_cabinet_edited,
+                event_cabinet_document_added, event_cabinet_document_removed
             )
         )
         ModelEventType.register(
@@ -128,14 +127,17 @@ class CabinetsApp(MayanAppConfig):
         ModelPermission.register(
             model=Cabinet, permissions=(
                 permission_acl_edit, permission_acl_view,
-                permission_cabinet_delete, permission_cabinet_edit,
-                permission_cabinet_view, permission_cabinet_add_document,
+                permission_cabinet_create, permission_cabinet_delete,
+                permission_cabinet_edit, permission_cabinet_view,
+                permission_cabinet_add_document,
                 permission_cabinet_remove_document
             ), bind_link=False
         )
 
         model_query_fields_document = ModelQueryFields(model=Document)
-        model_query_fields_document.add_prefetch_related_field(field_name='cabinets')
+        model_query_fields_document.add_prefetch_related_field(
+            field_name='cabinets'
+        )
 
         def get_root_filter():
             return {

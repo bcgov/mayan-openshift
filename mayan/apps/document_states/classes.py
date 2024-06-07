@@ -52,7 +52,9 @@ class WorkflowAction(BaseBackend):
         for klass in WorkflowAction.get_all():
             for app_name, app in apps_name_map.items():
                 if klass.__module__.startswith(app_name):
-                    apps_workflow_action_map.setdefault(app, [])
+                    apps_workflow_action_map.setdefault(
+                        app, []
+                    )
                     apps_workflow_action_map[app].append(
                         (klass.id(), klass.label)
                     )
@@ -62,7 +64,11 @@ class WorkflowAction(BaseBackend):
         ]
 
         # Sort by app, then by workflow action.
-        return sorted(result, key=lambda x: (x[0], x[1]))
+        return sorted(
+            result, key=lambda x: (
+                x[0], x[1]
+            )
+        )
 
     @classmethod
     def id(cls):
@@ -77,7 +83,9 @@ class WorkflowAction(BaseBackend):
             try:
                 WorkflowStateAction.objects.filter(
                     action_path=previous_dotted_path
-                ).update(action_path=cls.id())
+                ).update(
+                    action_path=cls.id()
+                )
             except (OperationalError, ProgrammingError):
                 # Ignore errors during the database migration and
                 # quit further attempts.
@@ -90,19 +98,25 @@ class WorkflowAction(BaseBackend):
         raise NotImplementedError
 
     def get_fields(self):
-        return getattr(self, 'fields', {})
+        return getattr(
+            self, 'fields', {}
+        )
 
     def get_field_order(self):
-        return getattr(self, 'field_order', ())
+        return getattr(
+            self, 'field_order', ()
+        )
 
     def get_media(self):
-        return getattr(self, 'media', {})
+        return getattr(
+            self, 'media', {}
+        )
 
-    def get_form_schema(self, workflow_state, request=None):
+    def get_form_schema(self, workflow_template_state, request=None):
         result = {
             'fields': self.get_fields(),
             'media': self.get_media(),
-            'widgets': self.get_widgets(),
+            'widgets': self.get_widgets()
         }
 
         field_order = self.get_field_order()
@@ -113,15 +127,15 @@ class WorkflowAction(BaseBackend):
         return result
 
     def get_widgets(self):
-        return getattr(self, 'widgets', {})
+        return getattr(
+            self, 'widgets', {}
+        )
 
     def render_field(self, field_name, context):
         try:
-            result = Template(
-                template_string=self.form_data.get(field_name, '')
-            ).render(
-                context=context
-            )
+            template_string = self.form_data.get(field_name, '')
+            template = Template(template_string=template_string)
+            result = template.render(context=context)
         except Exception as exception:
             raise WorkflowStateActionError(
                 _('%(field_name)s template error: %(exception)s') % {

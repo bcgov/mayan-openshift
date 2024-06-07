@@ -103,7 +103,9 @@ icon_document_file_page_count_update = Icon(
 )
 icon_document_list = Icon(driver_name='fontawesome', symbol='book')
 icon_document_preview = Icon(driver_name='fontawesome', symbol='eye')
-icon_document_properties_detail = Icon(driver_name='fontawesome', symbol='info')
+icon_document_properties_detail = Icon(
+    driver_name='fontawesome', symbol='info'
+)
 icon_document_properties_edit = Icon(
     driver_name='fontawesome', symbol='pencil-alt'
 )
@@ -116,9 +118,6 @@ icon_document_type_change = icon_document_type
 
 icon_document_file_delete = Icon(
     driver_name='fontawesome', symbol='times'
-)
-icon_document_file_download_quick = Icon(
-    driver_name='fontawesome', symbol='download'
 )
 icon_document_file_edit = Icon(
     driver_name='fontawesome', symbol='pencil-alt'
@@ -208,9 +207,6 @@ icon_document_version_delete = Icon(
 )
 icon_document_version_edit = Icon(
     driver_name='fontawesome', symbol='pencil-alt'
-)
-icon_document_version_export = Icon(
-    driver_name='fontawesome', symbol='file-export'
 )
 icon_document_version_list = Icon(
     driver_name='fontawesome', symbol='code-branch'

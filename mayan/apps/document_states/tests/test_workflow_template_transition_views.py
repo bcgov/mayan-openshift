@@ -7,16 +7,12 @@ from ..permissions import (
 )
 
 from .literals import TEST_WORKFLOW_TEMPLATE_TRANSITION_LABEL
-from .mixins.workflow_template_mixins import (
-    WorkflowTemplateTestMixin, WorkflowTemplateViewTestMixin
-)
 from .mixins.workflow_template_transition_mixins import (
     WorkflowTemplateTransitionViewTestMixin
 )
 
 
 class WorkflowTransitionViewTestCase(
-    WorkflowTemplateTestMixin, WorkflowTemplateViewTestMixin,
     WorkflowTemplateTransitionViewTestMixin, GenericViewTestCase
 ):
     def setUp(self):
@@ -31,7 +27,9 @@ class WorkflowTransitionViewTestCase(
         response = self._request_test_workflow_template_transition_create_view()
         self.assertEqual(response.status_code, 404)
 
-        self.assertEqual(WorkflowTransition.objects.count(), 0)
+        self.assertEqual(
+            WorkflowTransition.objects.count(), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -47,7 +45,9 @@ class WorkflowTransitionViewTestCase(
         response = self._request_test_workflow_template_transition_create_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(WorkflowTransition.objects.count(), 1)
+        self.assertEqual(
+            WorkflowTransition.objects.count(), 1
+        )
         self.assertEqual(
             WorkflowTransition.objects.all()[0].label,
             TEST_WORKFLOW_TEMPLATE_TRANSITION_LABEL

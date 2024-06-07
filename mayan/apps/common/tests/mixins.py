@@ -1,3 +1,9 @@
+from io import StringIO
+
+from django.core import management
+
+from mayan.apps.testing.tests.utils import mute_stdout
+
 from ..classes import ModelCopy
 from ..links import link_object_copy
 
@@ -10,6 +16,24 @@ class CommonAPITestMixin:
 class CommonViewTestMixin:
     def _request_about_view(self):
         return self.get(viewname='common:about_view')
+
+
+class ManagementCommandTestMixin:
+    def _call_test_management_command(self, *args, **kwargs):
+        stderr = StringIO()
+        stdout = StringIO()
+
+        kwargs['stderr'] = stderr
+        kwargs['stdout'] = stdout
+
+        with mute_stdout():
+            management.call_command(
+                self._test_management_command_name, *args, **kwargs
+            )
+
+        return (
+            stdout.getvalue(), stderr.getvalue()
+        )
 
 
 class ObjectCopyLinkTestMixin:
@@ -42,7 +66,9 @@ class ObjectCopyTestMixin:
                 getattr(test_object_copy, self._test_copy_method)()
             )
         else:
-            test_objects = ((test_object, test_object_copy),)
+            test_objects = (
+                (test_object, test_object_copy),
+            )
 
         for test_object, test_object_copy in test_objects:
             for field in model_copy.fields:
@@ -52,8 +78,10 @@ class ObjectCopyTestMixin:
                             getattr(test_object, field).all(),
                             getattr(test_object_copy, field).all()
                         )
-                        exclude_fields = exclude_fields + (
-                            test_object._meta.get_field(field).remote_field.name,
+                        exclude_fields += (
+                            test_object._meta.get_field(
+                                field_name=field
+                            ).remote_field.name,
                         )
 
                         for related_test_object, related_test_object_copy in related_test_objects:
@@ -69,8 +97,10 @@ class ObjectCopyTestMixin:
                                 getattr(test_object_copy, field)
                             ),
                         )
-                        exclude_fields = exclude_fields + (
-                            test_object._meta.get_field(field).remote_field.name,
+                        exclude_fields += (
+                            test_object._meta.get_field(
+                                field_name=field
+                            ).remote_field.name,
                         )
 
                         for related_test_object, related_test_object_copy in related_test_objects:
@@ -86,8 +116,10 @@ class ObjectCopyTestMixin:
                                 getattr(test_object_copy, field)
                             ),
                         )
-                        exclude_fields = exclude_fields + (
-                            test_object._meta.get_field(field).remote_field.name,
+                        exclude_fields += (
+                            test_object._meta.get_field(
+                                field_name=field
+                            ).remote_field.name,
                         )
 
                         for related_test_object, related_test_object_copy in related_test_objects:

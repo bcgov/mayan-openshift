@@ -4,28 +4,29 @@
 # 
 # Translators:
 # Translators:
-# Panasoft, 2022
-# lilo.panic, 2022
-# Sergey Glita <gsv70@mail.ru>, 2022
-# Oleg Sizov <olegsm35@gmail.com>, 2022
-# mizhgan <i@mizhgan.ru>, 2022
-# Ilya Pavlov <spirkaa@gmail.com>, 2022
+# Panasoft, 2023
+# mizhgan <i@mizhgan.ru>, 2023
+# Sergey Glita <gsv70@mail.ru>, 2023
+# lilo.panic, 2023
+# Oleg Sizov <olegsm35@gmail.com>, 2023
+# Ilya Pavlov <spirkaa@gmail.com>, 2023
+# Андрей Ткачёв, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Ilya Pavlov <spirkaa@gmail.com>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/rosarior/teams/13584/ru/)\n"
+"POT-Creation-Date: 2024-06-02 01:53+0000\n"
+"PO-Revision-Date: 2023-01-05 02:49+0000\n"
+"Last-Translator: Андрей Ткачёв, 2023\n"
+"Language-Team: Russian (https://app.transifex.com/rosarior/teams/13584/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: apps.py:57 events.py:5 permissions.py:5 settings.py:10
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
 msgid "Appearance"
 msgstr "Внешний вид"
 
@@ -77,17 +78,17 @@ msgstr "Toastr"
 msgid "URI.js"
 msgstr "URI.js"
 
-#: events.py:8
+#: events.py:10
 msgid "Theme created"
 msgstr "Тема создана"
 
-#: events.py:11
+#: events.py:13
 msgid "Theme edited"
 msgstr "Тема изменена"
 
-#: events.py:14
+#: events.py:16
 msgid "User theme edited"
-msgstr ""
+msgstr "Отредактированная пользовательская тема"
 
 #: links.py:18
 msgid "Theme settings"
@@ -147,41 +148,49 @@ msgstr "Настройка темы пользователя"
 msgid "User theme settings"
 msgstr "Настройки темы пользователя"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Create new themes"
 msgstr "Создать темы"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Delete themes"
 msgstr "Удалить темы"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Edit themes"
 msgstr "Редактировать темы"
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "View existing themes"
 msgstr "Просмотр существующих тем"
 
-#: settings.py:15
+#: settings.py:18
 msgid "Custom HTTP response code for AJAX redirections."
-msgstr ""
+msgstr "Кастомный код HTTP-ответа для перехода AJAX"
 
-#: settings.py:21
+#: settings.py:24
 msgid "Maximum number of characters that will be displayed as the view title."
 msgstr "Максимальное количество символов, отображаемое в заголовке."
 
-#: settings.py:28
-msgid ""
-"Position where the system message will be displayed. Options are: top-left, "
-"top-center, top-right, bottom-left, bottom-center, bottom-right."
+#: settings.py:34
+msgid "Position where the system messages will be displayed."
 msgstr ""
-"Расположение всплывающих системных сообщений. Варианты: top-left, top-"
-"center, top-right, bottom-left, bottom-center, bottom-right."
 
-#: settings.py:36
+#: settings.py:40
 msgid ""
 "Delay in milliseconds after which the menus will be checked for updates."
+msgstr ""
+"Задержка в миллисекундах после которой меню будут отправлены на обновление."
+
+#: settings.py:47
+msgid ""
+"Maximum number of requests that can be made before throttling is enabled."
+msgstr ""
+
+#: settings.py:54
+msgid ""
+"Time in milliseconds after which a throttled request will clear allowing an "
+"additional request to be performed."
 msgstr ""
 
 #: templates/403.html:5 templates/403.html:30
@@ -371,9 +380,15 @@ msgstr "Отменить"
 msgid "Identifier"
 msgstr "Идентификатор"
 
-#: templates/appearance/generic_list_subtemplate.html:134
-msgid "Facets"
-msgstr "Грани"
+#: templates/appearance/generic_list_subtemplate.html:85
+#: templates/appearance/partials/list_object_facet_links_column.html:8
+#: templates/appearance/partials/list_object_facet_links_column.html:39
+msgid "Views"
+msgstr "Представления"
+
+#: templates/appearance/generic_list_subtemplate.html:91
+msgid "Actions"
+msgstr "Действия"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -416,24 +431,34 @@ msgstr "Выбрать все / отменить выбор"
 msgid "Toggle list display mode"
 msgstr "Переключить режим отображения"
 
-#: templates/appearance/partials/list_toolbar.html:63
+#: templates/appearance/partials/list_toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr ""
 "Выберите элементы для массовых действий. Чтобы отметить сразу несколько, "
 "нажмите Shift + клик."
 
-#: templates/appearance/partials/list_toolbar.html:68
+#: templates/appearance/partials/list_toolbar.html:36
 msgid "Bulk actions"
 msgstr "Массовые действия"
 
-#: templates/appearance/partials/list_toolbar.html:70
+#: templates/appearance/partials/list_toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "Переключение выпадающего списка"
 
 #: templates/appearance/partials/no_results.html:18
 msgid "No results"
 msgstr "Нет результатов"
+
+#: templates/appearance/partials/pagination.html:12
+#: templates/appearance/partials/pagination.html:14
+msgid "Previous page"
+msgstr "Предыдущая страница"
+
+#: templates/appearance/partials/pagination.html:30
+#: templates/appearance/partials/pagination.html:32
+msgid "Next page"
+msgstr "Следующая страница"
 
 #: templates/appearance/root.html:52
 msgid "Close"
@@ -447,7 +472,7 @@ msgstr "Ошибка связи с сервером"
 msgid "Check you network connection and try again in a few moments."
 msgstr "Проверьте ваше подключение к сети и повторите попытку позже."
 
-#: templatetags/appearance_tags.py:61
+#: templatetags/appearance_tags.py:67
 msgid "None"
 msgstr "Нет"
 
@@ -473,9 +498,9 @@ msgstr "Нет тем"
 #: views.py:122
 #, python-format
 msgid "Theme settings for user: %s"
-msgstr ""
+msgstr "Настройки темы для пользователя: %s"
 
 #: views.py:144
 #, python-format
 msgid "Edit theme settings for user: %s"
-msgstr ""
+msgstr "Редактировать настройки темы для пользователя: %s"

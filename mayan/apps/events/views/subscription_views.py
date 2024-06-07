@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.views.generics import FormView, SingleObjectListView
-from mayan.apps.views.mixins import ExternalContentTypeObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalContentTypeObjectViewMixin
 
 from ..classes import EventType, ModelEventType
 from ..forms import (
@@ -161,7 +161,7 @@ class UserObjectSubscriptionList(SingleObjectListView):
             'hide_object': True,
             'no_results_icon': icon_user_object_subscriptions_list,
             'no_results_text': _(
-                'Subscribe to the events of an object to received '
+                'Subscribe to the events of an object to receive '
                 'notifications when those events occur.'
             ),
             'no_results_title': _('There are no object event subscriptions'),

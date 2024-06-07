@@ -1,15 +1,15 @@
 from mayan.apps.acls.models import AccessControlList
 from mayan.apps.documents.models import Document, DocumentType
 from mayan.apps.documents.permissions import (
-    permission_document_type_view, permission_document_type_edit
+    permission_document_type_edit, permission_document_type_view
 )
 from mayan.apps.rest_api import generics
 from mayan.apps.rest_api.api_view_mixins import ExternalObjectAPIViewMixin
 
 from .models import MetadataType
 from .permissions import (
-    permission_document_metadata_add, permission_document_metadata_remove,
-    permission_document_metadata_edit, permission_document_metadata_view,
+    permission_document_metadata_add, permission_document_metadata_edit,
+    permission_document_metadata_remove, permission_document_metadata_view,
     permission_metadata_type_create, permission_metadata_type_delete,
     permission_metadata_type_edit, permission_metadata_type_view
 )
@@ -41,11 +41,11 @@ class APIDocumentMetadataListView(
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'document': self.external_object
+            'document': self.get_external_object()
         }
 
-    def get_queryset(self):
-        return self.external_object.metadata.all()
+    def get_source_queryset(self):
+        return self.get_external_object().metadata.all()
 
     def perform_create(self, serializer):
         if 'metadata_type_id' in serializer.validated_data:
@@ -82,11 +82,11 @@ class APIDocumentMetadataView(
 
     def get_instance_extra_data(self):
         return {
-            '_event_actor': self.request.user,
+            '_event_actor': self.request.user
         }
 
-    def get_queryset(self):
-        return self.external_object.metadata.all()
+    def get_source_queryset(self):
+        return self.get_external_object().metadata.all()
 
 
 class APIMetadataTypeListView(generics.ListCreateAPIView):
@@ -94,11 +94,15 @@ class APIMetadataTypeListView(generics.ListCreateAPIView):
     get: Returns a list of all the metadata types.
     post: Create a new metadata type.
     """
-    mayan_object_permissions = {'GET': (permission_metadata_type_view,)}
-    mayan_view_permissions = {'POST': (permission_metadata_type_create,)}
+    mayan_object_permissions = {
+        'GET': (permission_metadata_type_view,)
+    }
+    mayan_view_permissions = {
+        'POST': (permission_metadata_type_create,)
+    }
     ordering_fields = ('id', 'label', 'name')
-    queryset = MetadataType.objects.all()
     serializer_class = MetadataTypeSerializer
+    source_queryset = MetadataType.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -120,8 +124,8 @@ class APIMetadataTypeView(generics.RetrieveUpdateDestroyAPIView):
         'PATCH': (permission_metadata_type_edit,),
         'DELETE': (permission_metadata_type_delete,)
     }
-    queryset = MetadataType.objects.all()
     serializer_class = MetadataTypeSerializer
+    source_queryset = MetadataType.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -151,8 +155,8 @@ class MetadataTypeFilterAPIMixin:
 
         return queryset
 
-    def get_queryset(self):
-        return self.external_object.metadata.filter(
+    def get_source_queryset(self):
+        return self.get_external_object().metadata.filter(
             metadata_type__in=self.get_metadata_type_queryset()
         )
 
@@ -175,7 +179,7 @@ class APIDocumentTypeMetadataTypeListView(
 
     def get_instance_extra_data(self):
         return {
-            '_event_actor': self.request.user,
+            '_event_actor': self.request.user
         }
 
 
@@ -202,5 +206,5 @@ class APIDocumentTypeMetadataTypeView(
 
     def get_instance_extra_data(self):
         return {
-            '_event_actor': self.request.user,
+            '_event_actor': self.request.user
         }

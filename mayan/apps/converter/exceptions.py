@@ -1,6 +1,6 @@
 class ConvertError(Exception):
     """
-    Base exception for all coverter app exceptions
+    Base exception for all converter app exceptions.
     """
 
 
@@ -15,19 +15,23 @@ class AppImageError(ConvertError):
         super().__init__()
 
     def __str__(self):
-        return('Error name: {}'.format(repr(self.error_name)))
+        return (
+            'Error name: {}'.format(
+                repr(self.error_name)
+            )
+        )
 
 
 class UnknownFileFormat(ConvertError):
     """
-    Raised when the converter backend can't understand a file
+    Raised when the converter backend can't understand a file.
     """
 
 
 class UnkownConvertError(ConvertError):
     """
-    Raised when an error is found but there is no disernible way to
-    identify the kind of error
+    Raised when an error is found but there is no discernible way to
+    identify the kind of error.
     """
 
 

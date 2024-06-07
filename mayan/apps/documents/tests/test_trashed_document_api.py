@@ -1,5 +1,3 @@
-from django.utils.encoding import force_text
-
 from rest_framework import status
 
 from mayan.apps.rest_api.tests.base import BaseAPITestCase
@@ -8,12 +6,11 @@ from ..events import (
     event_document_trashed, event_trashed_document_deleted,
     event_trashed_document_restored
 )
-
 from ..models.document_models import Document
 from ..permissions import (
-    permission_trashed_document_delete, permission_trashed_document_restore,
     permission_document_trash, permission_document_version_view,
-    permission_document_view
+    permission_document_view, permission_trashed_document_delete,
+    permission_trashed_document_restore
 )
 
 from .mixins.document_mixins import DocumentTestMixin
@@ -184,7 +181,7 @@ class TrashedDocumentAPIViewTestCase(
         response = self._request_test_trashed_document_detail_api_view()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
-            response.data['uuid'], force_text(s=self._test_document.uuid)
+            response.data['uuid'], str(self._test_document.uuid)
         )
 
         self.assertEqual(Document.trash.count(), trashed_document_count)
@@ -236,7 +233,7 @@ class TrashedDocumentAPIViewTestCase(
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
             response.data['results'][0]['uuid'],
-            force_text(s=self._test_document.uuid)
+            str(self._test_document.uuid)
         )
 
         events = self._get_test_events()

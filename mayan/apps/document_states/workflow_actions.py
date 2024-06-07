@@ -1,5 +1,5 @@
-import logging
 import json
+import logging
 
 import requests
 
@@ -27,7 +27,7 @@ class DocumentPropertiesEditAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _('The new label to be assigned to the document.'),
                         BASE_WORKFLOW_TEMPLATE_STATE_ACTION_HELP_TEXT
                     )
@@ -42,7 +42,7 @@ class DocumentPropertiesEditAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _(
                             'The new description to be assigned to the '
                             'document.'
@@ -52,15 +52,17 @@ class DocumentPropertiesEditAction(WorkflowAction):
                 'model': WorkflowInstance,
                 'model_variable': 'workflow_instance',
                 'required': False
-            },
-        },
+            }
+        }
     }
     field_order = ('document_label', 'document_description')
     label = _('Modify document properties')
 
     def execute(self, context):
         self.document_label = self.form_data.get('document_label')
-        self.document_description = self.form_data.get('document_description')
+        self.document_description = self.form_data.get(
+            'document_description'
+        )
         new_label = None
         new_description = None
 
@@ -98,7 +100,7 @@ class DocumentWorkflowLaunchAction(WorkflowAction):
     widgets = {
         'workflows': {
             'class': 'django.forms.widgets.SelectMultiple', 'kwargs': {
-                'attrs': {'class': 'select2'},
+                'attrs': {'class': 'select2'}
             }
         }
     }
@@ -106,9 +108,11 @@ class DocumentWorkflowLaunchAction(WorkflowAction):
     def get_form_schema(self, **kwargs):
         result = super().get_form_schema(**kwargs)
 
+        workflow_template = kwargs['workflow_template_state'].workflow
+
         workflows_union = Workflow.objects.filter(
-            document_types__in=kwargs['workflow_state'].workflow.document_types.all()
-        ).exclude(pk=kwargs['workflow_state'].workflow.pk).distinct()
+            document_types__in=workflow_template.document_types.all()
+        ).exclude(pk=workflow_template.pk).distinct()
 
         result['fields']['workflows']['kwargs']['queryset'] = workflows_union
 
@@ -116,7 +120,9 @@ class DocumentWorkflowLaunchAction(WorkflowAction):
 
     def execute(self, context):
         workflows = Workflow.objects.filter(
-            pk__in=self.form_data.get('workflows', ())
+            pk__in=self.form_data.get(
+                'workflows', ()
+            )
         )
 
         for workflow in workflows:
@@ -136,7 +142,7 @@ class HTTPAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _('The URL to access.'),
                         BASE_WORKFLOW_TEMPLATE_STATE_ACTION_HELP_TEXT
                     )
@@ -152,7 +158,7 @@ class HTTPAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _('Time in seconds to wait for a response.'),
                         BASE_WORKFLOW_TEMPLATE_STATE_ACTION_HELP_TEXT
                     )
@@ -167,7 +173,7 @@ class HTTPAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _('A JSON document to include in the request.'),
                         BASE_WORKFLOW_TEMPLATE_STATE_ACTION_HELP_TEXT
                     )
@@ -182,7 +188,7 @@ class HTTPAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _(
                             'Username to use for making the request with '
                             'HTTP Basic Auth.'
@@ -200,7 +206,7 @@ class HTTPAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _(
                             'Password to use for making the request with '
                             'HTTP Basic Auth.'
@@ -218,7 +224,7 @@ class HTTPAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _(
                             'The HTTP method to use for the request. '
                             'Typical choices are OPTIONS, HEAD, POST, GET, '
@@ -236,7 +242,7 @@ class HTTPAction(WorkflowAction):
             'kwargs': {
                 'initial_help_text': _(
                     format_lazy(
-                        '{}. {}',
+                        '{} {}',
                         _(
                             'Headers to send with the HTTP request. Must '
                             'be in JSON format.'
@@ -280,10 +286,14 @@ class HTTPAction(WorkflowAction):
         return load_result
 
     def execute(self, context):
-        headers = self.render_field_load(field_name='headers', context=context)
+        headers = self.render_field_load(
+            field_name='headers', context=context
+        )
         method = self.render_field(field_name='method', context=context)
         password = self.render_field(field_name='password', context=context)
-        payload = self.render_field_load(field_name='payload', context=context)
+        payload = self.render_field_load(
+            field_name='payload', context=context
+        )
         timeout = self.render_field(field_name='timeout', context=context)
         url = self.render_field(field_name='url', context=context)
         username = self.render_field(field_name='username', context=context)
@@ -298,10 +308,10 @@ class HTTPAction(WorkflowAction):
         authentication = None
         if username or password:
             authentication = requests.auth.HTTPBasicAuth(
-                username=username, password=password
+                password=password, username=username
             )
 
         requests.request(
-            method=method, url=url, json=payload, timeout=timeout,
-            auth=authentication, headers=headers
+            auth=authentication, headers=headers, json=payload,
+            method=method, timeout=timeout, url=url
         )

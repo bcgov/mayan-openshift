@@ -3,6 +3,7 @@ import json
 from mayan.apps.document_states.events import event_workflow_instance_transitioned
 from mayan.apps.document_states.literals import WORKFLOW_ACTION_ON_ENTRY
 from mayan.apps.document_states.tests.mixins.workflow_template_mixins import WorkflowTemplateTestMixin
+from mayan.apps.document_states.tests.mixins.workflow_template_transition_mixins import WorkflowTemplateTransitionTestMixin
 from mayan.apps.documents.tests.base import (
     GenericDocumentTestCase, GenericDocumentViewTestCase
 )
@@ -30,7 +31,9 @@ class WorkflowActionMessageSendTestCase(
 
         self._clear_events()
 
-        action.execute(context={})
+        action.execute(
+            context={}
+        )
 
         self.assertEqual(
             Message.objects.count(), test_message_count + 1
@@ -39,14 +42,16 @@ class WorkflowActionMessageSendTestCase(
         events = self._get_test_events()
         self.assertEqual(events.count(), 1)
 
+        _test_message = Message.objects.first()
+
         self.assertEqual(events[0].action_object, None)
-        self.assertEqual(events[0].actor, Message.objects.first())
-        self.assertEqual(events[0].target, Message.objects.first())
+        self.assertEqual(events[0].actor, _test_message)
+        self.assertEqual(events[0].target, _test_message)
         self.assertEqual(events[0].verb, event_message_created.id)
 
 
 class WorkflowActionMessageSendViewTestCase(
-    WorkflowTemplateTestMixin, GenericDocumentViewTestCase
+    WorkflowTemplateTransitionTestMixin, GenericDocumentViewTestCase
 ):
     auto_upload_test_document = False
 
@@ -84,9 +89,11 @@ class WorkflowActionMessageSendViewTestCase(
         events = self._get_test_events()
         self.assertEqual(events.count(), 2)
 
+        _test_message = Message.objects.first()
+
         self.assertEqual(events[0].action_object, None)
-        self.assertEqual(events[0].actor, Message.objects.first())
-        self.assertEqual(events[0].target, Message.objects.first())
+        self.assertEqual(events[0].actor, _test_message)
+        self.assertEqual(events[0].target, _test_message)
         self.assertEqual(events[0].verb, event_message_created.id)
 
         self.assertEqual(events[1].action_object, self._test_document)

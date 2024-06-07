@@ -8,7 +8,7 @@ from mayan.apps.views.generics import (
     FormView, SingleObjectDeleteView, SingleObjectDynamicFormCreateView,
     SingleObjectDynamicFormEditView, SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from ..classes import MailerBackend
 from ..forms import (
@@ -55,17 +55,21 @@ class UserMailingCreateView(SingleObjectDynamicFormCreateView):
 
     def get_backend(self):
         try:
-            return MailerBackend.get(name=self.kwargs['class_path'])
+            return MailerBackend.get(
+                name=self.kwargs['class_path']
+            )
         except KeyError:
             raise Http404(
-                '{} class not found'.format(self.kwargs['class_path'])
+                '{} class not found'.format(
+                    self.kwargs['class_path']
+                )
             )
 
     def get_extra_context(self):
         return {
             'title': _(
                 'Create a "%s" mailing profile'
-            ) % self.get_backend().label,
+            ) % self.get_backend().label
         }
 
     def get_form_schema(self):
@@ -89,7 +93,7 @@ class UserMailingDeleteView(SingleObjectDeleteView):
 
     def get_extra_context(self):
         return {
-            'title': _('Delete mailing profile: %s') % self.object,
+            'title': _('Delete mailing profile: %s') % self.object
         }
 
 
@@ -102,7 +106,7 @@ class UserMailingEditView(SingleObjectDynamicFormEditView):
 
     def get_extra_context(self):
         return {
-            'title': _('Edit mailing profile: %s') % self.object,
+            'title': _('Edit mailing profile: %s') % self.object
         }
 
     def get_form_schema(self):
@@ -128,15 +132,17 @@ class UserMailerListView(SingleObjectListView):
             ),
             'no_results_text': _(
                 'Mailing profiles are email configurations. '
-                'Mailing profiles allow sending documents as attachments or as '
-                'links via email.'
+                'Mailing profiles allow sending documents as '
+                'attachments or as links via email.'
             ),
             'no_results_title': _('No mailing profiles available'),
-            'title': _('Mailing profile'),
+            'title': _('Mailing profile')
         }
 
     def get_form_schema(self):
-        return {'fields': self.get_backend().fields}
+        return {
+            'fields': self.get_backend().fields
+        }
 
 
 class UserMailerTestView(ExternalObjectViewMixin, FormView):
@@ -148,7 +154,7 @@ class UserMailerTestView(ExternalObjectViewMixin, FormView):
 
     def form_valid(self, form):
         self.external_object.test(
-            to=form.cleaned_data['email'], _user=self.request.user
+            to=form.cleaned_data['email'], user=self.request.user
         )
         messages.success(
             message=_('Test email sent.'), request=self.request
@@ -160,5 +166,5 @@ class UserMailerTestView(ExternalObjectViewMixin, FormView):
             'hide_object': True,
             'object': self.external_object,
             'submit_label': _('Test'),
-            'title': _('Test mailing profile: %s') % self.external_object,
+            'title': _('Test mailing profile: %s') % self.external_object
         }

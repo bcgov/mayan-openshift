@@ -1,10 +1,15 @@
 from django.utils.translation import ugettext_lazy as _
 
-from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.classes import (
+    BinaryDependency, PythonDependency
+)
 from mayan.apps.dependencies.environments import (
     environment_build, environment_development, environment_documentation,
     environment_documentation_override
 )
+from mayan.settings.literals import PYTHON_WHEEL_VERSION
+
+from .literals import DEFAULT_TX_PATH
 
 PythonDependency(
     copyright_text='''
@@ -35,7 +40,7 @@ PythonDependency(
         ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django', version_string='==3.2.14'
+    ''', module=__name__, name='django', version_string='==3.2.25'
 )
 PythonDependency(
     copyright_text='''
@@ -58,7 +63,7 @@ PythonDependency(
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
-    ''', module=__name__, name='PyYAML', version_string='==6.0'
+    ''', module=__name__, name='PyYAML', version_string='==6.0.1'
 )
 PythonDependency(
     copyright_text='''
@@ -90,7 +95,7 @@ PythonDependency(
         THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
         OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django-model-utils', version_string='==4.2.0'
+    ''', module=__name__, name='django-model-utils', version_string='==4.3.1'
 )
 PythonDependency(
     copyright_text='''
@@ -115,7 +120,10 @@ PythonDependency(
         COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
         IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
         CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    ''', module=__name__, name='django-mptt', version_string='==0.13.4'
+    ''', module=__name__, name='django-mptt', version_string='==0.14.0'
+)
+PythonDependency(
+    module=__name__, name='importlib-metadata', version_string='==5.0.0'
 )
 PythonDependency(
     copyright_text='''
@@ -124,7 +132,10 @@ PythonDependency(
     ''', module=__name__, name='pycountry', version_string='==22.3.5'
 )
 PythonDependency(
-    module=__name__, name='requests', version_string='==2.27.1'
+    module=__name__, name='requests', version_string='==2.29'
+)
+PythonDependency(
+    module=__name__, name='setuptools', version_string='==69.1.1'
 )
 PythonDependency(
     copyright_text='''
@@ -147,11 +158,15 @@ PythonDependency(
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
-    ''', module=__name__, name='sh', version_string='==1.14.2'
+    ''', module=__name__, name='sh', version_string='==1.14.3'
 )
 
 # Development
 
+BinaryDependency(
+    help_text=_('Transifex Client'), label='Transifex Client',
+    module=__name__, name='tx', path=DEFAULT_TX_PATH
+)
 PythonDependency(
     module=__name__, environment=environment_development, name='devpi-server',
     version_string='==6.5.0'
@@ -176,12 +191,12 @@ PythonDependency(
 PythonDependency(
     environment=environment_development, help_text=_(
         'Provides style checking.'
-    ), module=__name__, name='flake8', version_string='==4.0.1'
+    ), module=__name__, name='flake8', version_string='==7.0.0'
 )
 PythonDependency(
     environment=environment_development, help_text=_(
         'Command line environment with autocompletion.'
-    ), module=__name__, name='ipython', version_string='==7.32.0'
+    ), module=__name__, name='ipython', version_string='==8.21.0'
 )
 PythonDependency(
     environment=environment_development, help_text=_(
@@ -190,29 +205,27 @@ PythonDependency(
 )
 PythonDependency(
     environment=environment_development,
-    module=__name__, name='safety', version_string='==1.10.3'
-)
-PythonDependency(
-    environment=environment_development,
-    module=__name__, name='transifex-client', version_string='==0.14.4'
+    module=__name__, name='safety', version_string='==2.3.5'
 )
 
 # Build
 
 PythonDependency(
     environment=environment_build, module=__name__, name='twine',
-    version_string='==3.8.0'
+    version_string='==4.0.2'
 )
 PythonDependency(
     environments=(environment_build, environment_documentation),
-    module=__name__, name='wheel', version_string='==0.37.1'
+    module=__name__, name='wheel', version_string='=={}'.format(
+        PYTHON_WHEEL_VERSION
+    )
 )
 
 # Documentation
 
 PythonDependency(
     environment=environment_documentation, module=__name__, name='Sphinx',
-    version_string='==4.5.0'
+    version_string='==5.3.0'
 )
 PythonDependency(
     environment=environment_documentation, module=__name__,
@@ -224,11 +237,7 @@ PythonDependency(
 )
 PythonDependency(
     environment=environment_documentation, module=__name__,
-    name='sphinx_rtd_theme', version_string='==0.5.2'
-)
-PythonDependency(
-    environment=environment_documentation, module=__name__,
-    name='sphinxcontrib-blockdiag', version_string='==2.0.0'
+    name='sphinx_rtd_theme', version_string='==2.0.0'
 )
 PythonDependency(
     environment=environment_documentation, module=__name__,

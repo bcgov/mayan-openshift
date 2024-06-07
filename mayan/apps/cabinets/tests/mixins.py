@@ -8,6 +8,28 @@ from .literals import (
 
 
 class CabinetAPIViewTestMixin:
+    def _request_test_cabinet_child_create_api_view(self):
+        data = {
+            'label': TEST_CABINET_CHILD_LABEL,
+            'parent': self._test_cabinet.pk
+        }
+
+        values = list(
+            Cabinet.objects.values_list('pk', flat=True)
+        )
+        response = self.post(viewname='rest_api:cabinet-list', data=data)
+
+        self._test_cabinet_child = Cabinet.objects.exclude(pk__in=values).first()
+
+        return response
+
+    def _request_test_cabinet_child_delete_api_view(self):
+        return self.delete(
+            viewname='rest_api:cabinet-detail', kwargs={
+                'cabinet_id': self._test_cabinet_child.pk
+            }
+        )
+
     def _request_test_cabinet_create_api_view(self, extra_data=None):
         data = {'label': TEST_CABINET_LABEL, 'parent': ''}
 
@@ -15,7 +37,9 @@ class CabinetAPIViewTestMixin:
             data.update(extra_data)
 
         # Typecast to list to force queryset evaluation
-        values = list(Cabinet.objects.values_list('pk', flat=True))
+        values = list(
+            Cabinet.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(viewname='rest_api:cabinet-list', data=data)
 
@@ -112,7 +136,7 @@ class CabinetTestMixin:
         )
 
         if add_test_document:
-            self._test_cabinet.document_add(document=self._test_document)
+            self._test_cabinet._document_add(document=self._test_document)
 
         self._test_cabinets.append(self._test_cabinet)
 
@@ -131,7 +155,9 @@ class CabinetViewTestMixin:
 
     def _request_test_cabinet_create_view(self):
         # Typecast to list to force queryset evaluation
-        values = list(Cabinet.objects.values_list('pk', flat=True))
+        values = list(
+            Cabinet.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             'cabinets:cabinet_create', data={
@@ -162,7 +188,9 @@ class CabinetViewTestMixin:
 
     def _request_test_cabinet_child_create_view(self):
         # Typecast to list to force queryset evaluation
-        values = list(Cabinet.objects.values_list('pk', flat=True))
+        values = list(
+            Cabinet.objects.values_list('pk', flat=True)
+        )
 
         response = self.post(
             viewname='cabinets:cabinet_child_add', kwargs={
@@ -170,7 +198,7 @@ class CabinetViewTestMixin:
             }, data={'label': TEST_CABINET_CHILD_LABEL}
         )
 
-        self._test_cabinet = Cabinet.objects.exclude(pk__in=values).first()
+        self._test_cabinet_child = Cabinet.objects.exclude(pk__in=values).first()
         self._test_cabinets.append(self._test_cabinet)
 
         return response
@@ -206,7 +234,7 @@ class CabinetViewTestMixin:
             viewname='cabinets:document_cabinet_remove', kwargs={
                 'document_id': self._test_document.pk
             }, data={
-                'cabinets': (self._test_cabinet.pk,),
+                'cabinets': (self._test_cabinet.pk,)
             }
         )
 

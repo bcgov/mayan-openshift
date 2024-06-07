@@ -13,28 +13,12 @@ from django.db.models import Model
 from django.db.models.query import QuerySet
 from django.forms import Form as DjangoForm, ModelForm as DjangoModelForm
 from django.forms.models import ModelFormMetaclass
-from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.common.utils import resolve_attribute
 
+from .form_mixins import DynamicFormMixin, FormFieldsetMixin
 from .widgets import DisableableSelectWidget, PlainWidget, TextAreaDiv
-
-
-class FormFieldsetMixin:
-    fieldsets = None
-
-    def get_fieldsets(self):
-        if self.fieldsets:
-            return self.fieldsets
-        else:
-            return (
-                (
-                    None, {
-                        'fields': tuple(self.fields)
-                    }
-                ),
-            )
 
 
 class Form(FormFieldsetMixin, DjangoForm):
@@ -51,7 +35,8 @@ class ChoiceForm(Form):
     items from a many to many field.
     """
     search = django_forms.CharField(
-        label=_('Search'), required=False, widget=django_forms.widgets.TextInput(
+        label=_('Search'), required=False,
+        widget=django_forms.widgets.TextInput(
             attrs={
                 'autocomplete': 'off',
                 'class': 'views-select-search',
@@ -64,10 +49,16 @@ class ChoiceForm(Form):
     )
 
     def __init__(self, *args, **kwargs):
-        choices = kwargs.pop('choices', [])
-        label = kwargs.pop('label', _('Selection'))
+        choices = kwargs.pop(
+            'choices', []
+        )
+        label = kwargs.pop(
+            'label', _('Selection')
+        )
         help_text = kwargs.pop('help_text', None)
-        disabled_choices = kwargs.pop('disabled_choices', ())
+        disabled_choices = kwargs.pop(
+            'disabled_choices', ()
+        )
         super().__init__(*args, **kwargs)
         self.fields['selection'].choices = choices
         self.fields['selection'].label = label
@@ -86,7 +77,7 @@ class FormOptions:
         """
         Option definitions will be iterated. The option value will be
         determined in the following order: as passed via keyword
-        arguments during form intialization, as form get_... method or
+        arguments during form initialization, as form get_... method or
         finally as static Meta options. This is to allow a form with
         Meta options or method to be overridden at initialization
         and increase the usability of a single class.
@@ -98,7 +89,9 @@ class FormOptions:
             except KeyError:
                 try:
                     # Check if there is a get_... method
-                    value = getattr(self, 'get_{}'.format(name))()
+                    value = getattr(
+                        self, 'get_{}'.format(name)
+                    )()
                 except AttributeError:
                     try:
                         # Check the meta class options
@@ -111,7 +104,9 @@ class FormOptions:
 
 class DetailFormOption(FormOptions):
     # Dictionary list of option names and default values.
-    option_definitions = {'extra_fields': []}
+    option_definitions = {
+        'extra_fields': []
+    }
 
 
 class DetailForm(ModelForm):
@@ -183,44 +178,6 @@ class DetailForm(ModelForm):
             )
 
 
-class DynamicFormMixin:
-    def __init__(self, *args, **kwargs):
-        self.schema = kwargs.pop('schema')
-        super().__init__(*args, **kwargs)
-
-        widgets = self.schema.get('widgets', {})
-        field_order = self.schema.get(
-            'field_order', self.schema['fields'].keys()
-        )
-
-        for field_name in field_order:
-            field_data = self.schema['fields'][field_name]
-            field_class = import_string(dotted_path=field_data['class'])
-            kwargs = {
-                'label': field_data['label'],
-                'required': field_data.get('required', True),
-                'initial': field_data.get('default', None),
-                'help_text': field_data.get('help_text'),
-            }
-            if widgets and field_name in widgets:
-                widget = widgets[field_name]
-                kwargs['widget'] = import_string(
-                    dotted_path=widget['class']
-                )(**widget.get('kwargs', {}))
-
-            kwargs.update(field_data.get('kwargs', {}))
-            self.fields[field_name] = field_class(**kwargs)
-
-    @property
-    def media(self):
-        """
-        Append the media of the dynamic fields to the normal fields' media.
-        """
-        media = super().media
-        media = media + django_forms.Media(**self.schema.get('media', {}))
-        return media
-
-
 class DynamicForm(DynamicFormMixin, Form):
     """Normal dynamic form."""
 
@@ -237,7 +194,9 @@ class DynamicFormMetaclass(ModelFormMetaclass):
 
         if new_class._meta.fields:
             new_class._meta.fields += ('backend_data',)
-            widgets = getattr(new_class._meta, 'widgets', {}) or {}
+            widgets = getattr(
+                new_class._meta, 'widgets', {}
+            ) or {}
             widgets['backend_data'] = django_forms.widgets.HiddenInput
             new_class._meta.widgets = widgets
 
@@ -317,15 +276,15 @@ class FilteredSelectionFormOptions(FormOptions):
         'queryset': None,
         'required': True,
         'user': None,
-        'widget_class': None,
         'widget_attributes': {'size': '10'},
+        'widget_class': None
     }
 
 
 class FilteredSelectionForm(Form):
     """
     Form to select the from a list of choice filtered by access. Can be
-    configure to allow single or multiple selection.
+    configured to allow single or multiple selection.
     """
     def __init__(self, *args, **kwargs):
         opts = FilteredSelectionFormOptions(
@@ -383,11 +342,13 @@ class RelationshipForm(Form):
 
         self.fields['label'] = django_forms.CharField(
             label=_('Label'), required=False,
-            widget=django_forms.TextInput(attrs={'readonly': 'readonly'})
+            widget=django_forms.TextInput(
+                attrs={'readonly': 'readonly'}
+            )
         )
         self.fields['relationship_type'] = django_forms.ChoiceField(
-            label=_('Relationship'),
-            widget=django_forms.RadioSelect(), choices=self.RELATIONSHIP_CHOICES
+            choices=self.RELATIONSHIP_CHOICES, label=_('Relationship'),
+            widget=django_forms.RadioSelect()
         )
 
         self.sub_object = self.initial.get('sub_object')
@@ -412,7 +373,7 @@ class RelationshipForm(Form):
             }
         )
 
-    def get_relationship_queryset(self):
+    def get_queryset_relationship(self):
         return getattr(
             self.initial.get('object'),
             self.initial['relationship_related_field']
@@ -423,9 +384,9 @@ class RelationshipForm(Form):
         )
 
     def get_relationship_instance(self):
-        relationship_queryset = self.get_relationship_queryset()
-        if relationship_queryset.exists():
-            return relationship_queryset.get()
+        queryset_relationship = self.get_queryset_relationship()
+        if queryset_relationship.exists():
+            return queryset_relationship.get()
         else:
             return self.get_new_relationship_instance()
 

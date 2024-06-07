@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2022
+# Roberto Rosario, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:35+0000\n"
-"Last-Translator: Roberto Rosario, 2022\n"
-"Language-Team: Spanish (https://www.transifex.com/rosarior/teams/13584/es/)\n"
+"POT-Creation-Date: 2024-06-02 01:53+0000\n"
+"PO-Revision-Date: 2023-01-05 02:52+0000\n"
+"Last-Translator: Roberto Rosario, 2023\n"
+"Language-Team: Spanish (https://app.transifex.com/rosarior/teams/13584/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Label"
 msgstr "Etiqueta"
 
-#: apps.py:49 events.py:6 links.py:20 permissions.py:5 queues.py:7
+#: apps.py:49 events.py:6 links.py:21 permissions.py:6 queues.py:7
 #: settings.py:12
 msgid "File metadata"
 msgstr "Metadatos de archivo"
@@ -37,11 +37,11 @@ msgstr "Atributo de metadatos del archivo"
 msgid "File metadata value"
 msgstr "Valor de metadatos del archivo"
 
-#: apps.py:132
+#: apps.py:130
 msgid "Return the value of a specific file metadata."
 msgstr "Devuelve el valor de un metadato de archivo específico."
 
-#: apps.py:133
+#: apps.py:131
 msgid "File metadata value of"
 msgstr "Valor de metadatos de archivo de"
 
@@ -56,6 +56,10 @@ msgstr ""
 msgid "EXIF Tool"
 msgstr "Herramienta EXIF"
 
+#: drivers/extract_msg.py:15
+msgid "Extract msg"
+msgstr "Extract msg"
+
 #: events.py:10
 msgid "Document file submitted for file metadata processing"
 msgstr ""
@@ -66,19 +70,19 @@ msgid "Document file file metadata processing finished"
 msgstr ""
 "El procesamiento de metadatos del archivo del archivo de documento finalizó"
 
-#: links.py:26
+#: links.py:27
 msgid "Attributes"
 msgstr "Atributos"
 
-#: links.py:33 links.py:38
+#: links.py:34 links.py:39
 msgid "Submit for file metadata"
 msgstr "Enviar para metadatos de archivo"
 
-#: links.py:48
+#: links.py:49
 msgid "Setup file metadata"
 msgstr "Configurar metadatos del archivo"
 
-#: links.py:54
+#: links.py:55
 msgid "File metadata processing per type"
 msgstr "Procesamiento de metadatos de archivos por tipo"
 
@@ -99,90 +103,94 @@ msgstr ""
 "Devuelve la entrada de metadatos del archivo de archivo de documento "
 "especificado."
 
-#: models.py:18
-msgid "Driver path"
-msgstr "Ruta del controlador"
+#: model_mixins.py:9
+msgid "Attribute count"
+msgstr "Conteo de atributos"
 
-#: models.py:22
-msgid "Internal name"
-msgstr "Nombre interno"
-
-#: models.py:27 models.py:70
+#: models.py:17 models.py:96
 msgid "Driver"
 msgstr "Controlador"
 
-#: models.py:28
-msgid "Drivers"
-msgstr "Controladores"
+#: models.py:21
+msgid "Document file"
+msgstr "Archivo de documento"
 
-#: models.py:48
+#: models.py:27 models.py:63
+msgid "Document file driver entry"
+msgstr "Entrada de controlador de archivo de documento"
+
+#: models.py:28
+msgid "Document file driver entries"
+msgstr "Entradas del controlador de archivos de documentos"
+
+#: models.py:40
 msgid "Document type"
 msgstr "Tipo de documento"
 
-#: models.py:52
+#: models.py:44
 msgid "Automatically queue newly created documents for processing."
 msgstr ""
 "Poner en cola automáticamente los documentos recién creados para su "
 "procesamiento."
 
-#: models.py:59
+#: models.py:45
+msgid "Auto process"
+msgstr "Procesamiento automático"
+
+#: models.py:51
 msgid "Document type settings"
 msgstr "Configuración del tipo de documento"
 
-#: models.py:60
+#: models.py:52
 msgid "Document types settings"
 msgstr "Configuraciones de tipos de documento"
 
-#: models.py:74
-msgid "Document file"
-msgstr "Archivo de documento"
-
-#: models.py:80 models.py:95
-msgid "Document file driver entry"
-msgstr "Entrada de controlador de archivo de documento"
-
-#: models.py:81
-msgid "Document file driver entries"
-msgstr "Entradas del controlador de archivos de documentos"
-
-#: models.py:88
-msgid "Attribute count"
-msgstr "Conteo de atributos"
-
-#: models.py:99
+#: models.py:66
 msgid "Name of the file metadata entry."
 msgstr "Nombre de la entrada de metadatos del archivo."
 
-#: models.py:100
+#: models.py:67
 msgid "Key"
 msgstr "Llave"
 
-#: models.py:103
+#: models.py:70
 msgid "Value of the file metadata entry."
 msgstr "Valor de la entrada de metadatos del archivo."
 
-#: models.py:104
+#: models.py:71
 msgid "Value"
 msgstr "Valor"
 
-#: models.py:109
+#: models.py:76
 msgid "File metadata entry"
 msgstr "Entrada de metadatos del archivo."
 
-#: models.py:110
+#: models.py:77
 msgid "File metadata entries"
 msgstr "Entradas de metadato de archivos"
 
-#: permissions.py:8
+#: models.py:87
+msgid "Driver path"
+msgstr "Ruta del controlador"
+
+#: models.py:91
+msgid "Internal name"
+msgstr "Nombre interno"
+
+#: models.py:97
+msgid "Drivers"
+msgstr "Controladores"
+
+#: permissions.py:10
 msgid "Change document type file metadata settings"
 msgstr ""
 "Cambiar la configuración de metadatos del archivo de tipo de documento"
 
-#: permissions.py:13
+#: permissions.py:15
 msgid "Submit document for file metadata processing"
 msgstr "Enviar documento para el procesamiento de metadatos de archivos."
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "View file metadata"
 msgstr "Ver metadatos de archivo"
 
@@ -190,7 +198,7 @@ msgstr "Ver metadatos de archivo"
 msgid "Process document file"
 msgstr "Procesar archivo de documento"
 
-#: settings.py:18
+#: settings.py:19
 msgid ""
 "Set new document types to perform file metadata processing automatically by "
 "default."
@@ -198,11 +206,11 @@ msgstr ""
 "Establecer nuevos tipos de documentos para realizar el procesamiento de "
 "metadatos de archivos automáticamente de forma predeterminada."
 
-#: settings.py:25
+#: settings.py:26
 msgid "Arguments to pass to the drivers."
 msgstr "Argumentos para pasar a los controladores."
 
-#: views.py:52
+#: views.py:51
 msgid ""
 "File metadata are the attributes of the document's file. They can range from"
 " camera information used to take a photo to the author that created a file. "
@@ -218,16 +226,16 @@ msgstr ""
 "los metadatos del documento, que son definidos por el usuario y residen en "
 "la base de datos."
 
-#: views.py:60
+#: views.py:59
 msgid "No file metadata available."
 msgstr "No hay metadatos de archivo disponibles."
 
-#: views.py:63
+#: views.py:62
 #, python-format
 msgid "File metadata drivers for: %s"
 msgstr "Controladores de metadatos de archivos para: %s"
 
-#: views.py:90
+#: views.py:89
 msgid ""
 "This could mean that the file metadata detection has not completed or that "
 "the driver does not support any metadata field for the file type of this "
@@ -237,11 +245,11 @@ msgstr ""
 "completado o que el controlador no admite ningún campo de metadatos para el "
 "tipo de archivo de este documento."
 
-#: views.py:95
+#: views.py:94
 msgid "No file metadata available for this driver."
 msgstr "No hay metadatos de archivo disponibles para este controlador."
 
-#: views.py:99
+#: views.py:98
 #, python-format
 msgid ""
 "File metadata attributes for: %(document_file)s with driver: %(driver)s"
@@ -249,40 +257,46 @@ msgstr ""
 "Atributos de metadatos de archivo para: %(document_file)s con controlador: "
 "%(driver)s"
 
-#: views.py:121
-#, python-format
-msgid "%(count)d document file submitted to the file metadata queue."
-msgstr ""
-"%(count)d archivo de documento enviado a la cola de metadatos del archivo."
-
-#: views.py:124
+#: views.py:120
 #, python-format
 msgid "%(count)d documents files submitted to the file metadata queue."
 msgstr ""
 "%(count)d archivos de documentos enviados a la cola de metadatos de "
 "archivos."
 
-#: views.py:133
+#: views.py:123
+#, python-format
+msgid "%(count)d document file submitted to the file metadata queue."
+msgstr ""
+"%(count)d archivo de documento enviado a la cola de metadatos del archivo."
+
+#: views.py:132
 msgid "Submit the selected document file to the file metadata queue?"
 msgid_plural "Submit the selected documents files to the file metadata queue?"
 msgstr[0] ""
+"¿Someter el archivo del documento seleccionado a la cola de tareas metadatos"
+" del archivo?"
 msgstr[1] ""
+"¿Someter los archivos de documentos seleccionados a la cola de tareas de "
+"metadatos de archivos?"
 msgstr[2] ""
+"¿Someter los archivos de documentos seleccionados a la cola de tareas de "
+"metadatos de archivos?"
 
-#: views.py:164
+#: views.py:163
 #, python-format
 msgid "Edit file metadata settings for document type: %s"
 msgstr ""
 "Editar la configuración de metadatos del archivo para el tipo de documento: "
 "%s"
 
-#: views.py:175
+#: views.py:174
 msgid "Submit all documents of a type for file metadata processing."
 msgstr ""
 "Enviar todos los documentos de un tipo para el procesamiento de metadatos de"
 " archivos."
 
-#: views.py:202
+#: views.py:201
 #, python-format
 msgid "%(count)d documents added to the file metadata processing queue."
 msgstr ""

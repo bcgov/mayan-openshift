@@ -1,5 +1,3 @@
-import logging
-
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -10,8 +8,6 @@ from .classes import NullBackend
 from .managers import (
     DuplicateBackendEntryManager, StoredDuplicateBackendManager
 )
-
-logger = logging.getLogger(name=__name__)
 
 
 class StoredDuplicateBackend(BackendModelMixin, models.Model):
@@ -24,7 +20,9 @@ class StoredDuplicateBackend(BackendModelMixin, models.Model):
         verbose_name_plural = _('Stored duplicate backends')
 
     def __str__(self):
-        return str(self.get_backend_label())
+        return str(
+            self.get_backend_label()
+        )
 
 
 class DuplicateBackendEntry(models.Model):

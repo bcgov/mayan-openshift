@@ -11,8 +11,9 @@ from mayan.apps.acls.models import AccessControlList
 from mayan.apps.documents.models.document_type_models import DocumentType
 from mayan.apps.documents.permissions import permission_document_create
 from mayan.apps.storage.models import SharedUploadedFile
+from mayan.apps.views.settings import setting_show_dropzone_submit_button
 
-from ..classes import SourceBackendAction, SourceBackend
+from ..classes import SourceBackend, SourceBackendAction
 from ..forms import WebFormUploadFormHTML5
 from ..tasks import task_process_document_upload
 
@@ -47,12 +48,10 @@ class SourceBackendWebForm(
         )
 
         document_type = rest_get_object_or_404(
-            queryset=queryset, pk=document_type_id
+            pk=document_type_id, queryset=queryset
         )
 
-        self.process_kwargs = {
-            'request': request
-        }
+        self.process_kwargs = {'request': request}
 
         shared_uploaded_file = SharedUploadedFile.objects.create(
             file=file
@@ -69,7 +68,9 @@ class SourceBackendWebForm(
 
         task_process_document_upload.apply_async(kwargs=kwargs)
 
-        return None, Response(status=status.HTTP_202_ACCEPTED)
+        return (
+            None, Response(status=status.HTTP_202_ACCEPTED)
+        )
 
     def get_shared_uploaded_files(self):
         return (
@@ -79,13 +80,16 @@ class SourceBackendWebForm(
         )
 
     def get_view_context(self, context, request):
+        if setting_show_dropzone_submit_button.value:
+            form_disable_submit = False
+        else:
+            form_disable_submit = True
+
         return {
             'subtemplates_list': [
                 {
-                    'name': 'appearance/generic_multiform_subtemplate.html',
                     'context': {
                         'forms': context['forms'],
-                        'is_multipart': True,
                         'form_action': '{}?{}'.format(
                             reverse(
                                 viewname=request.resolver_match.view_name,
@@ -93,9 +97,11 @@ class SourceBackendWebForm(
                             ), request.META['QUERY_STRING']
                         ),
                         'form_css_classes': 'dropzone',
-                        'form_disable_submit': True,
+                        'form_disable_submit': form_disable_submit,
                         'form_id': 'html5upload',
+                        'is_multipart': True
                     },
+                    'name': 'appearance/generic_multiform_subtemplate.html'
                 }
             ]
         }

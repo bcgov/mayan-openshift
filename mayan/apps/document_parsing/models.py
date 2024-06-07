@@ -5,7 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 from mayan.apps.documents.models.document_file_page_models import DocumentFilePage
 from mayan.apps.documents.models.document_type_models import DocumentType
 
-from .managers import DocumentFilePageContentManager, DocumentTypeSettingsManager
+from .managers import (
+    DocumentFilePageContentManager, DocumentTypeSettingsManager
+)
 
 
 class DocumentFilePageContent(models.Model):
@@ -42,9 +44,9 @@ class DocumentTypeSettings(models.Model):
         to=DocumentType, unique=True, verbose_name=_('Document type')
     )
     auto_parsing = models.BooleanField(
-        default=True, verbose_name=_(
+        default=True, help_text=_(
             'Automatically queue newly created documents for parsing.'
-        )
+        ), verbose_name=_('Auto parsing')
     )
 
     objects = DocumentTypeSettingsManager()

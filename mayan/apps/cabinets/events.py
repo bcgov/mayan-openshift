@@ -2,11 +2,16 @@ from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.events.classes import EventTypeNamespace
 
-namespace = EventTypeNamespace(label=_('Cabinets'), name='cabinets')
+namespace = EventTypeNamespace(
+    label=_('Cabinets'), name='cabinets'
+)
 
 
 event_cabinet_created = namespace.add_event_type(
     label=_('Cabinet created'), name='cabinet_created'
+)
+event_cabinet_deleted = namespace.add_event_type(
+    label=_('Cabinet deleted'), name='cabinet_deleted'
 )
 event_cabinet_edited = namespace.add_event_type(
     label=_('Cabinet edited'), name='cabinet_edited'

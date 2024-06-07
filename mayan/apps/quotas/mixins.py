@@ -18,7 +18,7 @@ class DocumentTypesQuotaMixin:
                     'class': 'django.forms.BooleanField', 'default': False,
                     'help_text': _(
                         'Apply to all document types. Enabling this, '
-                        'the quota will ignore the indiviual document type'
+                        'the quota will ignore the individual document type'
                         ' selection.'
                     ), 'required': False,
                 },
@@ -51,7 +51,7 @@ class DocumentTypesQuotaMixin:
                     'kwargs': {
                         'attrs': {'class': 'select2', 'size': 10}
                     }
-                },
+                }
             }
         )
 
@@ -109,7 +109,7 @@ class GroupsUsersQuotaMixin:
                         'excluding admins and staff. '
                         'Enabling this option, the quota will ignore the '
                         'indiviual user and group selection.'
-                    ), 'required': False,
+                    ), 'required': False
                 },
                 'user_ids': {
                     'label': _('Users'),

@@ -12,7 +12,7 @@ from mayan.apps.views.generics import (
     FormView, MultipleObjectConfirmActionView, MultipleObjectDeleteView,
     SingleObjectDetailView, SingleObjectDownloadView, SingleObjectEditView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from .forms import (
     DocumentVersionPageOCRContentDetailForm,
@@ -73,22 +73,27 @@ class DocumentTypeOCRSubmitView(FormView):
     def form_valid(self, form):
         count = 0
 
-        valid_documents_queryset = Document.valid.all()
+        queryset_valid_documents = Document.valid.all()
 
         for document_type in form.cleaned_data['document_type']:
-            for document in document_type.documents.filter(pk__in=valid_documents_queryset.values('pk')):
-                document.submit_for_ocr(_user=self.request.user)
+            queryset = document_type.documents.filter(
+                pk__in=queryset_valid_documents.values('pk')
+            )
+            for document in queryset:
+                document.submit_for_ocr(user=self.request.user)
                 count += 1
 
         messages.success(
             message=_(
                 '%(count)d documents added to the OCR queue.'
             ) % {
-                'count': count,
+                'count': count
             }, request=self.request
         )
 
-        return HttpResponseRedirect(redirect_to=self.get_success_url())
+        return HttpResponseRedirect(
+            redirect_to=self.get_success_url()
+        )
 
     def get_form_extra_kwargs(self):
         return {
@@ -108,21 +113,21 @@ class DocumentVersionOCRContentDeleteView(MultipleObjectDeleteView):
     object_permission = permission_document_version_ocr
     pk_url_kwarg = 'document_version_id'
     source_queryset = DocumentVersion.valid.all()
+    success_message_plural = _(
+        'OCR content of %(count)d document versions deleted successfully.'
+    )
     success_message_single = _(
         'OCR content of "%(object)s" deleted successfully.'
     )
     success_message_singular = _(
         'OCR content of %(count)d document version deleted successfully.'
     )
-    success_message_plural = _(
-        'OCR content of %(count)d document versions deleted successfully.'
+    title_plural = _(
+        'Delete the OCR content of the %(count)d selected document versions.'
     )
     title_single = _('Delete the OCR content of: %(object)s.')
     title_singular = _(
         'Delete the OCR content of the %(count)d selected document version.'
-    )
-    title_plural = _(
-        'Delete the OCR content of the %(count)d selected document versions.'
     )
     view_icon = icon_document_version_ocr_content_single_delete
 
@@ -153,7 +158,7 @@ class DocumentVersionOCRContentView(SingleObjectDetailView):
             'document': self.object,
             'hide_labels': True,
             'object': self.object,
-            'title': _('OCR result for document: %s') % self.object,
+            'title': _('OCR result for document: %s') % self.object
         }
 
 
@@ -199,7 +204,7 @@ class DocumentVersionOCRSubmitView(MultipleObjectConfirmActionView):
         return result
 
     def object_action(self, form, instance):
-        instance.submit_for_ocr(_user=self.request.user)
+        instance.submit_for_ocr(user=self.request.user)
 
 
 class DocumentVersionPageOCRContentDetailView(SingleObjectDetailView):

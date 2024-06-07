@@ -18,7 +18,9 @@ def get_method_group_init():
     method_original = Group.__init__
 
     def method_init(self, *args, **kwargs):
-        _instance_extra_data = kwargs.pop('_instance_extra_data', {})
+        _instance_extra_data = kwargs.pop(
+            '_instance_extra_data', {}
+        )
         result = method_original(self, *args, **kwargs)
         for key, value in _instance_extra_data.items():
             setattr(self, key, value)
@@ -67,21 +69,19 @@ def method_group_get_users(self, user, permission=permission_user_view):
     )
 
 
-def method_group_users_add(self, queryset, _event_actor=None):
-    for user in queryset:
-        self.user_set.add(user)
+def method_group_users_add(self, queryset, user=None):
+    for model_instance in queryset:
+        self.user_set.add(model_instance)
         event_group_edited.commit(
-            action_object=user, actor=_event_actor or self._event_actor,
-            target=self
+            action_object=model_instance, actor=user, target=self
         )
 
 
-def method_group_users_remove(self, queryset, _event_actor=None):
-    for user in queryset:
-        self.user_set.remove(user)
+def method_group_users_remove(self, queryset, user=None):
+    for model_instance in queryset:
+        self.user_set.remove(model_instance)
         event_group_edited.commit(
-            action_object=user, actor=_event_actor or self._event_actor,
-            target=self
+            action_object=model_instance, actor=user, target=self
         )
 
 
@@ -90,7 +90,9 @@ def get_method_user_init():
     method_original = User.__init__
 
     def method_init(self, *args, **kwargs):
-        _instance_extra_data = kwargs.pop('_instance_extra_data', {})
+        _instance_extra_data = kwargs.pop(
+            '_instance_extra_data', {}
+        )
         result = method_original(self, *args, **kwargs)
         for key, value in _instance_extra_data.items():
             setattr(self, key, value)
@@ -122,21 +124,19 @@ def method_user_get_groups(self, user, permission=permission_group_view):
     )
 
 
-def method_user_groups_add(self, queryset, _event_actor=None):
-    for group in queryset:
-        self.groups.add(group)
+def method_user_groups_add(self, queryset, user=None):
+    for model_instance in queryset:
+        self.groups.add(model_instance)
         event_user_edited.commit(
-            action_object=group, actor=_event_actor or self._event_actor,
-            target=self
+            action_object=model_instance, actor=user, target=self
         )
 
 
-def method_user_groups_remove(self, queryset, _event_actor=None):
-    for group in queryset:
-        self.groups.remove(group)
+def method_user_groups_remove(self, queryset, user=None):
+    for model_instance in queryset:
+        self.groups.remove(model_instance)
         event_user_edited.commit(
-            action_object=group, actor=_event_actor or self._event_actor,
-            target=self
+            action_object=model_instance, actor=user, target=self
         )
 
 
@@ -147,11 +147,11 @@ def get_method_user_save():
         event_manager_class=EventManagerSave,
         created={
             'event': event_user_created,
-            'target': 'self',
+            'target': 'self'
         },
         edited={
             'event': event_user_edited,
-            'target': 'self',
+            'target': 'self'
         }
     )
     def method_user_save(self, *args, **kwargs):

@@ -9,7 +9,7 @@ import mayan.apps.storage.classes
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('converter', '0017_auto_20200810_0504'),
+        ('converter', '0017_auto_20200810_0504')
     ]
 
     operations = [
@@ -46,15 +46,16 @@ class Migration(migrations.Migration):
                     'file', models.FileField(
                         storage=mayan.apps.storage.classes.DefinedStorageLazy(
                             name='converter__assets'
-                        ), upload_to=mayan.apps.converter.models.upload_to,
+                        ),
+                        upload_to=mayan.apps.converter.utils.model_upload_to,
                         verbose_name='File'
                     )
-                ),
+                )
             ],
             options={
                 'verbose_name': 'Asset',
                 'verbose_name_plural': 'Assets',
-                'ordering': ('label',),
+                'ordering': ('label',)
             },
-        ),
+        )
     ]

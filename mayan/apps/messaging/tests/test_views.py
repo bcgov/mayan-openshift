@@ -1,13 +1,13 @@
 from mayan.apps.testing.tests.base import GenericViewTestCase
 
-from .mixins import MessageTestMixin, MessageViewTestMixin
-
 from ..events import event_message_created, event_message_edited
 from ..models import Message
 from ..permissions import (
     permission_message_create, permission_message_delete,
     permission_message_edit, permission_message_view
 )
+
+from .mixins import MessageTestMixin, MessageViewTestMixin
 
 
 class MessageViewTestCase(
@@ -217,7 +217,7 @@ class MessageViewTestCase(
     def test_message_mark_unread_view_no_permission(self):
         self._create_test_message()
 
-        self._test_message.mark_read()
+        self._test_message.mark_read(user=self._test_case_user)
 
         self._clear_events()
 
@@ -237,7 +237,7 @@ class MessageViewTestCase(
             obj=self._test_message, permission=permission_message_edit
         )
 
-        self._test_message.mark_read()
+        self._test_message.mark_read(user=self._test_case_user)
 
         self._clear_events()
 
