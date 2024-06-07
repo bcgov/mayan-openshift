@@ -173,8 +173,8 @@ RUN set -a \
   # Install the built Mayan EDMS package.
   && pip install --no-cache-dir dist/mayan_edms-*.whl \
   # Install the static content.
-  && mayan-edms.py installdependencies \
-  && mayan-edms.py appearance_prepare_static --link --noinput
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py dependencies_install \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py appearance_prepare_static --link --noinput
 
 COPY --chown=mayan:mayan requirements/testing-base.txt "${PROJECT_INSTALL_DIR}"
 
@@ -192,7 +192,7 @@ COPY docker/rootfs /
 
 VOLUME ["/var/lib/mayan"]
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 EXPOSE 8000
 CMD ["run_all"]
@@ -200,15 +200,15 @@ CMD ["run_all"]
 RUN set -a \
   && . /config.env \
   && set +a \
-  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platformtemplate docker_entrypoint > /usr/local/bin/entrypoint.sh \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platform_template docker_entrypoint > /usr/local/bin/entrypoint.sh \
   && chown mayan:mayan /usr/local/bin/entrypoint.sh \
   && chmod +x /usr/local/bin/entrypoint.sh \
-  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platformtemplate docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
+  && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platform_template docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
   && apt-get clean autoclean \
   && apt-get autoremove --purge --yes \
   && rm -rf /var/lib/apt/lists/* \
   && rm -f /var/cache/apt/archives/*.deb \
-  # Remove temporary files owned by root from the platformtemplate step.
+  # Remove temporary files owned by root from the platform_template step.
   && rm -f /tmp/* \
   # Keep displaying log messages to stdout
   && find /var/log -type f | while read f; do echo -ne '' > $f; done \
