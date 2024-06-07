@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -8,13 +7,14 @@ from mayan.apps.common.literals import (
 from mayan.apps.databases.model_mixins import (
     ExtraDataModelMixin, ModelMixinConditionField
 )
-from mayan.apps.events.classes import (
+from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import (
     EventManagerMethodAfter, EventManagerSave
 )
-from mayan.apps.events.decorators import method_event
 
 from ..events import event_workflow_template_edited
 
+from .workflow_state_escalation_model_mixins import WorkflowStateEscalationBusinessLogicMixin
 from .workflow_state_models import WorkflowState
 from .workflow_transition_models import WorkflowTransition
 
@@ -22,7 +22,8 @@ __all__ = ('WorkflowStateEscalation',)
 
 
 class WorkflowStateEscalation(
-    ExtraDataModelMixin, ModelMixinConditionField, models.Model
+    ExtraDataModelMixin, ModelMixinConditionField,
+    WorkflowStateEscalationBusinessLogicMixin, models.Model
 ):
     state = models.ForeignKey(
         on_delete=models.CASCADE, related_name='escalations',
@@ -78,41 +79,22 @@ class WorkflowStateEscalation(
         action_object='self',
         event_manager_class=EventManagerMethodAfter,
         event=event_workflow_template_edited,
-        target='state.workflow',
+        target='state.workflow'
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
-
-    def execute(self, context, workflow_instance):
-        if self.evaluate_condition(workflow_instance=workflow_instance):
-            try:
-                self.get_class_instance().execute(context=context)
-            except Exception as exception:
-                self.error_log.create(
-                    text='{}; {}'.format(
-                        exception.__class__.__name__, exception
-                    )
-                )
-
-                if settings.DEBUG or settings.TESTING:
-                    raise
-            else:
-                self.error_log.all().delete()
-
-    def get_comment(self):
-        return self.comment or _('Workflow escalation.')
 
     @method_event(
         event_manager_class=EventManagerSave,
         created={
             'action_object': 'self',
             'event': event_workflow_template_edited,
-            'target': 'state.workflow',
+            'target': 'state.workflow'
         },
         edited={
             'action_object': 'self',
             'event': event_workflow_template_edited,
-            'target': 'state.workflow',
+            'target': 'state.workflow'
         }
     )
     def save(self, *args, **kwargs):

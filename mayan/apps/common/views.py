@@ -6,7 +6,7 @@ from django.views.generic import RedirectView
 from stronghold.views import StrongholdPublicMixin
 
 from mayan.apps.views.generics import ConfirmView, SimpleView
-from mayan.apps.views.mixins import (
+from mayan.apps.views.view_mixins import (
     ExternalContentTypeObjectViewMixin, ObjectNameViewMixin
 )
 
@@ -22,7 +22,9 @@ from .settings import setting_home_view
 
 
 class AboutView(SimpleView):
-    extra_context = {'title': _('About')}
+    extra_context = {
+        'title': _('About')
+    }
     template_name = 'appearance/about.html'
     view_icon = icon_about
 
@@ -40,7 +42,7 @@ class FaviconRedirectView(RedirectView):
 
 class HomeView(SimpleView):
     extra_context = {
-        'title': _('Home'),
+        'title': _('Home')
     }
     template_name = 'appearance/home.html'
     view_icon = icon_home
@@ -50,7 +52,7 @@ class LicenseView(SimpleView):
     extra_context = {
         'form': LicenseForm(),
         'read_only': True,
-        'title': _('License'),
+        'title': _('License')
     }
     template_name = 'appearance/generic_form.html'
     view_icon = icon_license
@@ -112,10 +114,10 @@ class SetupListView(SimpleView):
             'resolved_links': menu_setup.resolve(
                 request=self.request, sort_results=True
             ),
-            'title': _('Setup items'),
             'subtitle': _(
                 'Here you can configure all aspects of the system.'
-            )
+            ),
+            'title': _('Setup items')
         }
 
 
@@ -128,8 +130,8 @@ class ToolsListView(SimpleView):
             'resolved_links': menu_tools.resolve(
                 request=self.request, sort_results=True
             ),
-            'title': _('Tools'),
             'subtitle': _(
                 'These modules are used to do system maintenance.'
-            )
+            ),
+            'title': _('Tools')
         }

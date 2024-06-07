@@ -14,25 +14,34 @@
 import os
 import sys
 
-from docutils.parsers.rst import directives
+import docutils.parsers.rst
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mayan.settings')
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(1, os.path.abspath('.'))
+sys.path.insert(
+    0, os.path.abspath('..')
+)
+sys.path.insert(
+    1, os.path.abspath('.')
+)
 
-from contrib.scripts.version import Version
+import django  # NOQA
 
-import mayan
+import mayan  # NOQA
+from mayan.apps.dependencies.versions import Version  # NOQA
 
-import callbacks
-import patches
-import utils
+import callbacks  # NOQA
+import directives  # NOQA
+import patches  # NOQA
+import utils  # NOQA
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), '_ext'))
+    os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__), '_ext'
+        )
+    )
 )
 
 # -- General configuration -----------------------------------------------------
@@ -44,13 +53,8 @@ sys.path.append(
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 # extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.intersphinx']
 extensions = [
-    'sphinx_sitemap', 'sphinx.ext.extlinks', 'sphinxcontrib.blockdiag',
-    'sphinxcontrib.spelling',
+    'sphinx_sitemap', 'sphinx.ext.extlinks', 'sphinxcontrib.spelling',
 ]
-
-blockdiag_antialias = True
-blockdiag_html_image_format = 'SVG'
-blockdiag_latex_image_format = 'PDF'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -205,16 +209,17 @@ html_show_sphinx = False
 # latex_font_size = '10pt'
 
 # Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title, author, documentclass [howto/manual]).
+# (source start file, target name, title, author, documentclass
+# [howto/manual]).
 latex_documents = [
     (
         'index', 'MayanEDMS.tex', 'Mayan EDMS Documentation',
         mayan.__author__, 'manual'
-    ),
+    )
 ]
 
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
+# The name of an image file (relative to this directory) to place at the
+# top of the title page.
 # latex_logo = None
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
@@ -242,8 +247,10 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'mayanedms', '{} Documentation'.format(mayan.__title__),
-     [mayan.__author__], 1)
+    (
+        'index', 'mayanedms', '{} Documentation'.format(mayan.__title__),
+        [mayan.__author__], 1
+    )
 ]
 
 # -- External links --
@@ -257,10 +264,12 @@ extlinks = {
         'https://forum.mayan-edms.com/viewtopic.php?t=%s', 'Forum topic #'
     ),
     'github-issue': (
-        'https://github.com/mayan-edms/mayan-edms/issues/%s', 'GitHub issue #'
+        'https://github.com/mayan-edms/mayan-edms/issues/%s',
+        'GitHub issue #'
     ),
     'gitlab-issue': (
-        'https://gitlab.com/mayan-edms/mayan-edms/issues/%s', 'GitLab issue #'
+        'https://gitlab.com/mayan-edms/mayan-edms/issues/%s',
+        'GitLab issue #'
     ),
     'gitlab-merge': (
         'https://gitlab.com/mayan-edms/mayan-edms/merge_requests/%s',
@@ -271,9 +280,13 @@ extlinks = {
 # -- Options for sitemap extension ---------------------------------------------
 
 html_baseurl = 'https://docs.mayan-edms.com/'
+sitemap_url_scheme = '{lang}{link}'
 
 
 def setup(app):
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mayan.settings')
+    django.setup()
+
     environment_variables = utils.load_env_file()
 
     MAYAN_PYTHON_BIN_DIR = os.path.join(
@@ -313,9 +326,19 @@ def setup(app):
             substitutions=substitutions
         )
     )
-    directives.register_directive(
+    app.add_directive(
+        name='mayan_setting_namespace',
+        cls=directives.DirectiveMayanSettingNamespace
+    )
+    app.add_directive(
+        name='mayan_setting',
+        cls=directives.DirectiveMayanSetting
+    )
+    docutils.parsers.rst.directives.register_directive(
         name='include', directive=patches.monkey_patch_include(
             substitutions=substitutions
         )
     )
-    utils.patch_theme_template(app, templates_path=templates_path[0])
+    utils.patch_theme_template(
+        app, templates_path=templates_path[0]
+    )

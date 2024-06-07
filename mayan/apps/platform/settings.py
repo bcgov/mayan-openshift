@@ -7,8 +7,9 @@ from .literals import (
     DEFAULT_PLATFORM_CLIENT_BACKEND_ENABLED
 )
 
-
-namespace = SettingNamespace(label=_('Platform'), name='platform')
+namespace = SettingNamespace(
+    label=_('Platform'), name='platform'
+)
 
 setting_client_backend_enabled = namespace.add_setting(
     default=DEFAULT_PLATFORM_CLIENT_BACKEND_ENABLED,

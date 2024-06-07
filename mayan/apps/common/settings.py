@@ -8,8 +8,7 @@ from .literals import (
     DEFAULT_COMMON_DISABLE_LOCAL_STORAGE, DEFAULT_COMMON_DISABLED_APPS,
     DEFAULT_COMMON_EXTRA_APPS, DEFAULT_COMMON_EXTRA_APPS_PRE,
     DEFAULT_COMMON_HOME_VIEW, DEFAULT_COMMON_HOME_VIEW_DASHBOARD_NAME,
-    DEFAULT_COMMON_PROJECT_TITLE,
-    DEFAULT_COMMON_PROJECT_URL
+    DEFAULT_COMMON_PROJECT_TITLE
 )
 
 namespace = SettingNamespace(
@@ -17,6 +16,7 @@ namespace = SettingNamespace(
 )
 
 setting_collapse_list_menu_list_facet = namespace.add_setting(
+    choices=('false', 'true'),
     default=DEFAULT_COMMON_COLLAPSE_LIST_MENU_LIST_FACET,
     global_name='COMMON_COLLAPSE_LIST_MENU_LIST_FACET',
     help_text=_(
@@ -25,6 +25,7 @@ setting_collapse_list_menu_list_facet = namespace.add_setting(
     )
 )
 setting_collapse_list_menu_object = namespace.add_setting(
+    choices=('false', 'true'),
     default=DEFAULT_COMMON_COLLAPSE_LIST_MENU_OBJECT,
     global_name='COMMON_COLLAPSE_LIST_MENU_OBJECT',
     help_text=_(
@@ -33,6 +34,7 @@ setting_collapse_list_menu_object = namespace.add_setting(
     )
 )
 setting_disable_local_storage = namespace.add_setting(
+    choices=('false', 'true'),
     default=DEFAULT_COMMON_DISABLE_LOCAL_STORAGE,
     global_name='COMMON_DISABLE_LOCAL_STORAGE', help_text=_(
         'Disables the use of the local `media` folder. When using this '
@@ -57,10 +59,11 @@ setting_extra_apps = namespace.add_setting(
         'beyond those normally installed by Mayan EDMS. Each string '
         'should be a dotted Python path to: an application configuration '
         'class (preferred), or a package containing an application. '
+        'These apps will be installed after the default apps. '
         'Example: [\'app_1\', \'app_2\']'
     )
 )
-setting_extra_apps = namespace.add_setting(
+setting_extra_apps_pre = namespace.add_setting(
     default=DEFAULT_COMMON_EXTRA_APPS_PRE,
     global_name='COMMON_EXTRA_APPS_PRE',
     help_text=_(
@@ -90,8 +93,4 @@ setting_home_view_dashboard = namespace.add_setting(
 setting_project_title = namespace.add_setting(
     default=DEFAULT_COMMON_PROJECT_TITLE, global_name='COMMON_PROJECT_TITLE',
     help_text=_('Sets the project\'s name.')
-)
-setting_project_url = namespace.add_setting(
-    default=DEFAULT_COMMON_PROJECT_URL, global_name='COMMON_PROJECT_URL',
-    help_text=_('URL of the project\'s homepage.')
 )

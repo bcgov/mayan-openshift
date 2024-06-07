@@ -1,22 +1,21 @@
 from django.conf.urls import url
 
 from .api_views.document_api_views import (
-    APIDocumentDetailView, APIDocumentChangeTypeView,
-    APIDocumentFileActionListView, APIDocumentListView,
-    APIDocumentUploadView
+    APIDocumentChangeTypeView, APIDocumentDetailView,
+    APIDocumentFileActionListView, APIDocumentListView, APIDocumentUploadView
 )
 from .api_views.document_file_api_views import (
-    APIDocumentFileDetailView, APIDocumentFileDownloadView,
-    APIDocumentFileListView, APIDocumentFilePageImageView,
-    APIDocumentFilePageDetailView, APIDocumentFilePageListView
+    APIDocumentFileDetailView, APIDocumentFileListView,
+    APIDocumentFilePageDetailView, APIDocumentFilePageImageView,
+    APIDocumentFilePageListView
 )
 from .api_views.document_type_api_views import (
     APIDocumentTypeDetailView, APIDocumentTypeListView,
     APIDocumentTypeQuickLabelDetailView, APIDocumentTypeQuickLabelListView
 )
 from .api_views.document_version_api_views import (
-    APIDocumentVersionDetailView, APIDocumentVersionExportView,
-    APIDocumentVersionListView, APIDocumentVersionModificationBackendListView,
+    APIDocumentVersionDetailView, APIDocumentVersionListView,
+    APIDocumentVersionModificationBackendListView,
     APIDocumentVersionModificationView, APIDocumentVersionPageDetailView,
     APIDocumentVersionPageImageView, APIDocumentVersionPageListView
 )
@@ -30,35 +29,35 @@ from .api_views.recently_created_document_api_views import (
     APIRecentlyCreatedDocumentListView
 )
 from .api_views.trashed_document_api_views import (
-    APITrashedDocumentDetailView, APITrashedDocumentListView,
-    APITrashedDocumentRestoreView, APITrashedDocumentImageView
+    APITrashedDocumentDetailView, APITrashedDocumentImageView,
+    APITrashedDocumentListView, APITrashedDocumentRestoreView
+)
+from .views.document_file_page_views import (
+    DocumentFilePageListView, DocumentFilePageNavigationFirst,
+    DocumentFilePageNavigationLast, DocumentFilePageNavigationNext,
+    DocumentFilePageNavigationPrevious, DocumentFilePageRotateLeftView,
+    DocumentFilePageRotateRightView, DocumentFilePageView,
+    DocumentFilePageViewResetView, DocumentFilePageZoomInView,
+    DocumentFilePageZoomOutView
 )
 from .views.document_file_views import (
-    DocumentFileDeleteView, DocumentFileDownloadView, DocumentFileEditView,
-    DocumentFileListView, DocumentFilePrintFormView, DocumentFilePrintView,
-    DocumentFilePropertiesView, DocumentFilePreviewView,
+    DocumentFileDeleteView, DocumentFileEditView, DocumentFileIntrospectView,
+    DocumentFileListView, DocumentFilePreviewView, DocumentFilePrintFormView,
+    DocumentFilePrintView, DocumentFilePropertiesView,
     DocumentFileTransformationsClearView,
     DocumentFileTransformationsCloneView
 )
-from .views.document_file_page_views import (
-    DocumentFilePageCountUpdateView, DocumentFilePageListView,
-    DocumentFilePageNavigationFirst, DocumentFilePageNavigationLast,
-    DocumentFilePageNavigationNext, DocumentFilePageNavigationPrevious,
-    DocumentFilePageRotateLeftView, DocumentFilePageRotateRightView,
-    DocumentFilePageView, DocumentFilePageViewResetView,
-    DocumentFilePageZoomInView, DocumentFilePageZoomOutView
-)
+from .views.document_type_retention_policy_views import DocumentTypeRetentionPoliciesEditView
 from .views.document_type_views import (
     DocumentTypeCreateView, DocumentTypeDeleteView,
-    DocumentTypeDeletionPoliciesEditView, DocumentTypeDocumentListView,
-    DocumentTypeEditView, DocumentTypeFilenameGeneratorEditView,
+    DocumentTypeDocumentListView, DocumentTypeEditView,
     DocumentTypeFilenameCreateView, DocumentTypeFilenameDeleteView,
-    DocumentTypeFilenameEditView, DocumentTypeFilenameListView,
-    DocumentTypeListView
+    DocumentTypeFilenameEditView, DocumentTypeFilenameGeneratorEditView,
+    DocumentTypeFilenameListView, DocumentTypeListView
 )
 from .views.document_version_page_views import (
-    DocumentVersionPageDeleteView, DocumentVersionPageListView,
-    DocumentVersionPageListRemapView, DocumentVersionPageNavigationFirst,
+    DocumentVersionPageDeleteView, DocumentVersionPageListRemapView,
+    DocumentVersionPageListView, DocumentVersionPageNavigationFirst,
     DocumentVersionPageNavigationLast, DocumentVersionPageNavigationNext,
     DocumentVersionPageNavigationPrevious, DocumentVersionPageRotateLeftView,
     DocumentVersionPageRotateRightView, DocumentVersionPageView,
@@ -68,15 +67,14 @@ from .views.document_version_page_views import (
 from .views.document_version_views import (
     DocumentVersionActiveView, DocumentVersionCreateView,
     DocumentVersionDeleteView, DocumentVersionEditView,
-    DocumentVersionExportView, DocumentVersionListView,
-    DocumentVersionModifyView, DocumentVersionPreviewView,
-    DocumentVersionPrintFormView, DocumentVersionPrintView,
-    DocumentVersionTransformationsClearView,
+    DocumentVersionListView, DocumentVersionModifyView,
+    DocumentVersionPreviewView, DocumentVersionPrintFormView,
+    DocumentVersionPrintView, DocumentVersionTransformationsClearView,
     DocumentVersionTransformationsCloneView
 )
 from .views.document_views import (
-    DocumentTypeChangeView, DocumentListView, DocumentPreviewView,
-    DocumentPropertiesEditView, DocumentPropertiesView
+    DocumentListView, DocumentPreviewView, DocumentPropertiesEditView,
+    DocumentPropertiesView, DocumentTypeChangeView
 )
 from .views.favorite_document_views import (
     FavoriteAddView, FavoriteDocumentListView, FavoriteRemoveView
@@ -112,14 +110,19 @@ urlpatterns_document_files = [
         view=DocumentFileDeleteView.as_view()
     ),
     url(
-        regex=r'^documents/files/(?P<document_file_id>\d+)/download/$',
-        name='document_file_download',
-        view=DocumentFileDownloadView.as_view()
-    ),
-    url(
         regex=r'^documents/files/(?P<document_file_id>\d+)/edit/$',
         name='document_file_edit',
         view=DocumentFileEditView.as_view()
+    ),
+    url(
+        regex=r'^documents/files/(?P<document_file_id>\d+)/introspect/$',
+        name='document_file_introspect_single',
+        view=DocumentFileIntrospectView.as_view()
+    ),
+    url(
+        regex=r'^documents/files/multiple/introspect/$',
+        name='document_file_introspect_multiple',
+        view=DocumentFileIntrospectView.as_view()
     ),
     url(
         regex=r'^documents/files/(?P<document_file_id>\d+)/print/form/$',
@@ -156,16 +159,6 @@ urlpatterns_document_file_pages = [
     url(
         regex=r'^documents/files/(?P<document_file_id>\d+)/pages/$',
         name='document_file_page_list', view=DocumentFilePageListView.as_view()
-    ),
-    url(
-        regex=r'^documents/files/(?P<document_file_id>\d+)/pages/update/$',
-        name='document_file_page_count_update',
-        view=DocumentFilePageCountUpdateView.as_view()
-    ),
-    url(
-        regex=r'^documents/files/multiple/page/update/$',
-        name='document_file_multiple_page_count_update',
-        view=DocumentFilePageCountUpdateView.as_view()
     ),
     url(
         regex=r'^documents/files/pages/(?P<document_file_page_id>\d+)/$',
@@ -230,9 +223,9 @@ urlpatterns_document_types = [
         name='document_type_delete', view=DocumentTypeDeleteView.as_view()
     ),
     url(
-        regex=r'^document_types/(?P<document_type_id>\d+)/deletion_policies/$',
-        name='document_type_policies',
-        view=DocumentTypeDeletionPoliciesEditView.as_view()
+        regex=r'^document_types/(?P<document_type_id>\d+)/retention_policies/$',
+        name='document_type_retention_policies',
+        view=DocumentTypeRetentionPoliciesEditView.as_view()
     ),
     url(
         regex=r'^document_types/(?P<document_type_id>\d+)/documents/$',
@@ -289,11 +282,6 @@ urlpatterns_document_version = [
         regex=r'^documents/versions/(?P<document_version_id>\d+)/delete/$',
         name='document_version_single_delete',
         view=DocumentVersionDeleteView.as_view()
-    ),
-    url(
-        regex=r'^documents/versions/(?P<document_version_id>\d+)/export/$',
-        name='document_version_export',
-        view=DocumentVersionExportView.as_view()
     ),
     url(
         regex=r'^documents/versions/(?P<document_version_id>\d+)/edit/$',
@@ -574,11 +562,6 @@ api_urls_document_files = [
         name='documentfile-detail', view=APIDocumentFileDetailView.as_view()
     ),
     url(
-        regex=r'^documents/(?P<document_id>[0-9]+)/files/(?P<document_file_id>[0-9]+)/download/$',
-        name='documentfile-download',
-        view=APIDocumentFileDownloadView.as_view()
-    ),
-    url(
         regex=r'^documents/(?P<document_id>[0-9]+)/files/(?P<document_file_id>[0-9]+)/pages/$',
         name='documentfilepage-list',
         view=APIDocumentFilePageListView.as_view()
@@ -631,11 +614,6 @@ api_urls_document_versions = [
         regex=r'^documents/(?P<document_id>[0-9]+)/versions/(?P<document_version_id>[0-9]+)/$',
         name='documentversion-detail',
         view=APIDocumentVersionDetailView.as_view()
-    ),
-    url(
-        regex=r'^documents/(?P<document_id>[0-9]+)/versions/(?P<document_version_id>[0-9]+)/export/$',
-        view=APIDocumentVersionExportView.as_view(),
-        name='documentversion-export'
     ),
     url(
         regex=r'^documents/(?P<document_id>[0-9]+)/versions/(?P<document_version_id>[0-9]+)/modify/$',

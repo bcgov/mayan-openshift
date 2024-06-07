@@ -1,4 +1,4 @@
-from mayan.apps.documents.api_views.mixins import ParentObjectDocumentFileAPIViewMixin
+from mayan.apps.documents.api_views.api_view_mixins import ParentObjectDocumentFileAPIViewMixin
 from mayan.apps.rest_api import generics
 
 from .models import DetachedSignature, EmbeddedSignature
@@ -28,10 +28,10 @@ class APIDocumentFileSignDetachedView(
     lookup_url_kwarg = 'document_file_id'
     serializer_class = SignDetachedSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_document_file_queryset()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -55,10 +55,10 @@ class APIDocumentFileSignEmbeddedView(
     lookup_url_kwarg = 'document_file_id'
     serializer_class = SignEmbeddedSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_document_file_queryset()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -82,7 +82,7 @@ class APIDocumentFileDetachedSignatureListView(
     }
     serializer_class = DetachedSignatureSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return DetachedSignature.objects.filter(
             document_file=self.get_document_file()
         )
@@ -103,7 +103,7 @@ class APIDocumentFileDetachedSignatureDetailView(
     lookup_url_kwarg = 'detached_signature_id'
     serializer_class = DetachedSignatureSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return DetachedSignature.objects.filter(
             document_file=self.get_document_file()
         )
@@ -121,14 +121,14 @@ class APIDocumentFileDetachedSignatureUploadView(
     lookup_url_kwarg = 'document_file_id'
     serializer_class = DetachedSignatureUploadSerializer
 
-    def get_queryset(self):
-        return self.get_document_file_queryset()
-
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
             'document_file': self.get_document_file()
         }
+
+    def get_source_queryset(self):
+        return self.get_document_file_queryset()
 
 
 class APIDocumentFileEmbeddedSignatureListView(
@@ -142,7 +142,7 @@ class APIDocumentFileEmbeddedSignatureListView(
         'GET': (permission_document_file_signature_view,)
     }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return EmbeddedSignature.objects.filter(
             document_file=self.get_document_file()
         )
@@ -160,7 +160,7 @@ class APIDocumentFileEmbeddedSignatureDetailView(
     lookup_url_kwarg = 'embedded_signature_id'
     serializer_class = EmbeddedSignatureSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return EmbeddedSignature.objects.filter(
             document_file=self.get_document_file()
         )

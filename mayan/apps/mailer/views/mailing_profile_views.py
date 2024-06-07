@@ -1,23 +1,27 @@
 from django.contrib import messages
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
-from mayan.apps.views.generics import (
-    FormView, SingleObjectDeleteView, SingleObjectDynamicFormCreateView,
-    SingleObjectDynamicFormEditView, SingleObjectListView
+from mayan.apps.backends.views import (
+    ViewSingleObjectDynamicFormModelBackendCreate,
+    ViewSingleObjectDynamicFormModelBackendEdit
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.generics import (
+    FormView, SingleObjectDeleteView, SingleObjectListView
+)
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from ..classes import MailerBackend
 from ..forms import (
-    UserMailerBackendSelectionForm, UserMailerDynamicForm, UserMailerTestForm
+    UserMailerBackendSelectionForm, UserMailerSetupDynamicForm,
+    UserMailerTestForm
 )
 from ..icons import (
     icon_user_mailer_backend_select, icon_user_mailer_create,
     icon_user_mailer_delete, icon_user_mailer_edit, icon_user_mailer_list,
-    icon_user_mailer_setup, icon_user_mailer_test
+    icon_user_mailer_test
 )
 from ..links import link_user_mailer_create
 from ..models import UserMailer
@@ -30,7 +34,7 @@ from ..permissions import (
 
 class UserMailerBackendSelectionView(FormView):
     extra_context = {
-        'title': _('New mailing profile backend selection'),
+        'title': _('New mailing profile backend selection')
     }
     form_class = UserMailerBackendSelectionForm
     view_icon = icon_user_mailer_backend_select
@@ -41,42 +45,37 @@ class UserMailerBackendSelectionView(FormView):
         return HttpResponseRedirect(
             redirect_to=reverse(
                 viewname='mailer:user_mailer_create', kwargs={
-                    'class_path': backend
+                    'backend_path': backend
                 }
             )
         )
 
 
-class UserMailingCreateView(SingleObjectDynamicFormCreateView):
-    form_class = UserMailerDynamicForm
+class UserMailingCreateView(ViewSingleObjectDynamicFormModelBackendCreate):
+    backend_class = MailerBackend
+    form_class = UserMailerSetupDynamicForm
     post_action_redirect = reverse_lazy(viewname='mailer:user_mailer_list')
     view_icon = icon_user_mailer_create
     view_permission = permission_user_mailer_create
 
-    def get_backend(self):
-        try:
-            return MailerBackend.get(name=self.kwargs['class_path'])
-        except KeyError:
-            raise Http404(
-                '{} class not found'.format(self.kwargs['class_path'])
-            )
-
     def get_extra_context(self):
+        backend_class = self.get_backend_class()
+
         return {
             'title': _(
                 'Create a "%s" mailing profile'
-            ) % self.get_backend().label,
+            ) % backend_class.label
         }
 
-    def get_form_schema(self):
-        backend = self.get_backend()
-
-        return backend.get_form_schema()
+    def get_form_extra_kwargs(self):
+        return {
+            'user': self.request.user
+        }
 
     def get_instance_extra_data(self):
         return {
             '_event_actor': self.request.user,
-            'backend_path': self.kwargs['class_path']
+            'backend_path': self.kwargs['backend_path']
         }
 
 
@@ -89,12 +88,12 @@ class UserMailingDeleteView(SingleObjectDeleteView):
 
     def get_extra_context(self):
         return {
-            'title': _('Delete mailing profile: %s') % self.object,
+            'title': _('Delete mailing profile: %s') % self.object
         }
 
 
-class UserMailingEditView(SingleObjectDynamicFormEditView):
-    form_class = UserMailerDynamicForm
+class UserMailingEditView(ViewSingleObjectDynamicFormModelBackendEdit):
+    form_class = UserMailerSetupDynamicForm
     model = UserMailer
     object_permission = permission_user_mailer_edit
     pk_url_kwarg = 'mailer_id'
@@ -102,13 +101,13 @@ class UserMailingEditView(SingleObjectDynamicFormEditView):
 
     def get_extra_context(self):
         return {
-            'title': _('Edit mailing profile: %s') % self.object,
+            'title': _('Edit mailing profile: %s') % self.object
         }
 
-    def get_form_schema(self):
-        backend = self.object.get_backend()
-
-        return backend.get_form_schema()
+    def get_form_extra_kwargs(self):
+        return {
+            'user': self.request.user
+        }
 
     def get_instance_extra_data(self):
         return {'_event_actor': self.request.user}
@@ -122,21 +121,24 @@ class UserMailerListView(SingleObjectListView):
     def get_extra_context(self):
         return {
             'hide_object': True,
-            'no_results_icon': icon_user_mailer_setup,
+            'no_results_icon': icon_user_mailer_list,
             'no_results_main_link': link_user_mailer_create.resolve(
                 context=RequestContext(request=self.request)
             ),
             'no_results_text': _(
                 'Mailing profiles are email configurations. '
-                'Mailing profiles allow sending documents as attachments or as '
-                'links via email.'
+                'Mailing profiles allow sending documents as '
+                'attachments or as links via email.'
             ),
             'no_results_title': _('No mailing profiles available'),
-            'title': _('Mailing profile'),
+            'title': _('Mailing profiles')
         }
 
     def get_form_schema(self):
-        return {'fields': self.get_backend().fields}
+        backend_class = self.get_backend_class()
+        return {
+            'fields': backend_class.fields
+        }
 
 
 class UserMailerTestView(ExternalObjectViewMixin, FormView):
@@ -148,7 +150,7 @@ class UserMailerTestView(ExternalObjectViewMixin, FormView):
 
     def form_valid(self, form):
         self.external_object.test(
-            to=form.cleaned_data['email'], _user=self.request.user
+            to=form.cleaned_data['email'], user=self.request.user
         )
         messages.success(
             message=_('Test email sent.'), request=self.request
@@ -160,5 +162,5 @@ class UserMailerTestView(ExternalObjectViewMixin, FormView):
             'hide_object': True,
             'object': self.external_object,
             'submit_label': _('Test'),
-            'title': _('Test mailing profile: %s') % self.external_object,
+            'title': _('Test mailing profile: %s') % self.external_object
         }

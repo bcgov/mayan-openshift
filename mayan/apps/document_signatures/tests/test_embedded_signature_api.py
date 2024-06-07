@@ -140,6 +140,8 @@ class EmbeddedSignatureDocumentAPIViewTestCase(
         response = self._request_test_document_signature_embedded_sign_view()
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
+        self._test_document.refresh_from_db()
+
         self.assertEqual(
             self._test_document.file_latest.signatures.count(),
             signatures
@@ -164,6 +166,8 @@ class EmbeddedSignatureDocumentAPIViewTestCase(
         response = self._request_test_document_signature_embedded_sign_view()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+        self._test_document.refresh_from_db()
+
         self.assertEqual(
             self._test_document.file_latest.signatures.count(),
             signatures
@@ -187,6 +191,8 @@ class EmbeddedSignatureDocumentAPIViewTestCase(
 
         response = self._request_test_document_signature_embedded_sign_view()
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        self._test_document.refresh_from_db()
 
         self.assertEqual(
             self._test_document.file_latest.signatures.count(),
@@ -216,6 +222,8 @@ class EmbeddedSignatureDocumentAPIViewTestCase(
         response = self._request_test_document_signature_embedded_sign_view()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+        self._test_document.refresh_from_db()
+
         self.assertEqual(
             self._test_document.file_latest.signatures.count(),
             signatures + 1
@@ -244,7 +252,9 @@ class EmbeddedSignatureDocumentAPIViewTestCase(
 
         self.assertEqual(events[3].action_object, test_document_version)
         self.assertEqual(events[3].actor, self._test_case_user)
-        self.assertEqual(events[3].target, test_document_version.pages.first())
+        self.assertEqual(
+            events[3].target, test_document_version.pages.first()
+        )
         self.assertEqual(
             events[3].verb, event_document_version_page_created.id
         )
@@ -278,6 +288,8 @@ class EmbeddedSignatureDocumentAPIViewTestCase(
 
         response = self._request_test_document_signature_embedded_sign_view()
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        self._test_document.refresh_from_db()
 
         self.assertEqual(
             self._test_document.file_latest.signatures.count(),

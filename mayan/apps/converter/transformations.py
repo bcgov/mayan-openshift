@@ -4,7 +4,7 @@ import logging
 from PIL import Image, ImageColor, ImageFilter
 
 from django import forms
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
 from django.utils.text import format_lazy
 from django.utils.translation import ugettext_lazy as _
 
@@ -26,7 +26,7 @@ logger = logging.getLogger(name=__name__)
 
 class BaseTransformationType(type):
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
 
 class BaseTransformation(metaclass=BaseTransformationType):
@@ -34,10 +34,10 @@ class BaseTransformation(metaclass=BaseTransformationType):
     Transformation can modify the appearance of the document's page preview.
     Some transformation available are: Rotate, zoom, resize and crop.
     """
-    arguments = ()
-    name = 'base_transformation'
     _layer_transformations = {}
     _registry = {}
+    arguments = ()
+    name = 'base_transformation'
 
     @staticmethod
     def combine(transformations):
@@ -45,7 +45,9 @@ class BaseTransformation(metaclass=BaseTransformationType):
 
         for transformation in transformations or ():
             try:
-                result.update(transformation.cache_hash())
+                result.update(
+                    transformation.cache_hash()
+                )
             except Exception as exception:
                 logger.error(
                     'Unable to compute hash for transformation: %s; %s',
@@ -59,7 +61,9 @@ class BaseTransformation(metaclass=BaseTransformationType):
         result = URL()
 
         for index, transformation in enumerate(transformation_instance_list):
-            result.args['transformation_{}_name'.format(index)] = transformation.name
+            result.args[
+                'transformation_{}_name'.format(index)
+            ] = transformation.name
 
             for argument in transformation.arguments:
                 value = getattr(transformation, argument)
@@ -91,7 +95,9 @@ class BaseTransformation(metaclass=BaseTransformationType):
     def get_label(cls):
         arguments = cls.get_arguments()
         if arguments:
-            return format_lazy('{}: {}', cls.label, ', '.join(arguments))
+            return format_lazy(
+                '{}: {}', cls.label, ', '.join(arguments)
+            )
         else:
             return cls.label
 
@@ -99,7 +105,9 @@ class BaseTransformation(metaclass=BaseTransformationType):
     def get_transformation_choices(cls, group_by_layer=False, layer=None):
         if layer:
             transformation_list = [
-                (transformation.name, transformation) for transformation in cls._layer_transformations.get(layer, ())
+                (transformation.name, transformation) for transformation in cls._layer_transformations.get(
+                    layer, ()
+                )
             ]
         else:
             transformation_list = cls._registry.items()
@@ -113,49 +121,74 @@ class BaseTransformation(metaclass=BaseTransformationType):
             for layer, transformations in cls._layer_transformations.items():
                 for transformation in transformations:
                     if transformation in flat_transformation_list:
-                        layer_transformation_choices.setdefault(layer, [])
+                        layer_transformation_choices.setdefault(
+                            layer, []
+                        )
                         layer_transformation_choices[layer].append(
-                            (transformation.name, transformation.get_label())
+                            (
+                                transformation.name,
+                                transformation.get_label()
+                            )
                         )
 
                 # Sort the transformation for each layer group.
-                layer_transformation_choices[layer].sort(key=lambda x: x[1])
+                layer_transformation_choices[layer].sort(
+                    key=lambda x: x[1]
+                )
 
             result = [
-                (layer.label, transformations) for layer, transformations in layer_transformation_choices.items()
+                (
+                    layer.label, transformations
+                ) for layer, transformations in layer_transformation_choices.items()
             ]
 
             # Finally sort by transformation layer group.
-            return sorted(result, key=lambda x: x[0])
+            return sorted(
+                result, key=lambda x: x[0]
+            )
         else:
             return sorted(
-                (name, klass.get_label()) for name, klass in transformation_list
+                (
+                    name, klass.get_label()
+                ) for name, klass in transformation_list
             )
 
     @classmethod
     def register(cls, layer, transformation):
         cls._registry[transformation.name] = transformation
-        cls._layer_transformations.setdefault(layer, set())
+        cls._layer_transformations.setdefault(
+            layer, set()
+        )
         cls._layer_transformations[layer].add(transformation)
 
     def __init__(self, **kwargs):
         self.kwargs = {}
         for argument_name in self.__class__.get_arguments():
-            setattr(self, argument_name, kwargs.get(argument_name))
+            setattr(
+                self, argument_name, kwargs.get(argument_name)
+            )
             self.kwargs[argument_name] = kwargs.get(argument_name)
 
     def _update_hash(self):
-        result = hashlib.sha256(force_bytes(s=self.name))
+        result = hashlib.sha256(
+            string=force_bytes(s=self.name)
+        )
 
         # Sort arguments for guaranteed repeatability.
         for key, value in sorted(self.kwargs.items()):
-            result.update(force_bytes(s=key))
-            result.update(force_bytes(s=value))
+            result.update(
+                force_bytes(s=key)
+            )
+            result.update(
+                force_bytes(s=value)
+            )
 
         return result
 
     def cache_hash(self):
-        return force_bytes(s=self._update_hash().hexdigest())
+        return force_bytes(
+            s=self._update_hash().hexdigest()
+        )
 
     def execute_on(self, image):
         self.image = image
@@ -174,7 +207,7 @@ class TransformationAssetPastePercent(
     ImagePasteCoordinatesPercentTransformationMixin,
     AssetTransformationMixin, BaseTransformation
 ):
-    label = _('Paste an asset (percents coordinates)')
+    label = _('Paste an asset (percent coordinates)')
     name = 'paste_asset_percent'
 
 
@@ -276,7 +309,9 @@ class TransformationCrop(BaseTransformation):
             bottom
         )
 
-        return self.image.crop(box=(left, top, right, bottom))
+        return self.image.crop(
+            box=(left, top, right, bottom)
+        )
 
 
 class TransformationDrawRectangle(
@@ -384,7 +419,7 @@ class TransformationDrawRectanglePercent(
         'left', 'top', 'right', 'bottom', 'fillcolor', 'fill_transparency',
         'outlinecolor', 'outlinewidth'
     )
-    label = _('Draw rectangle (percents coordinates)')
+    label = _('Draw rectangle (percent coordinates)')
     name = 'draw_rectangle_percent'
 
     class Form(TransformationDrawRectangleMixin.Form):
@@ -467,8 +502,12 @@ class TransformationDrawRectanglePercent(
         # that can crop from the right and bottom borders without
         # having to know the real dimensions of an image.
 
-        right = self.image.size[0] - (right / 100.0 * self.image.size[0])
-        bottom = self.image.size[1] - (bottom / 100.0 * self.image.size[1])
+        right = self.image.size[0] - (
+            right / 100.0 * self.image.size[0]
+        )
+        bottom = self.image.size[1] - (
+            bottom / 100.0 * self.image.size[1]
+        )
 
         self.bottom = bottom
         self.left = left
@@ -552,7 +591,9 @@ class TransformationResize(BaseTransformation):
         super().execute_on(*args, **kwargs)
 
         width = int(self.width)
-        height = int(self.height or (1.0 * width / self.aspect))
+        height = int(
+            self.height or (1.0 * width / self.aspect)
+        )
 
         factor = 1
         while self.image.size[0] / factor > 2 * width and self.image.size[1] * 2 / factor > 2 * height:
@@ -563,11 +604,12 @@ class TransformationResize(BaseTransformation):
                 size=(
                     self.image.size[0] / factor,
                     self.image.size[1] / factor
-                ), resample=Image.NEAREST
+                ), resample=Image.Resampling.NEAREST
             )
 
-        # Resize the image with best quality algorithm ANTIALIAS.
-        self.image.thumbnail(size=(width, height), resample=Image.ANTIALIAS)
+        self.image.thumbnail(
+            size=(width, height), resample=Image.Resampling.LANCZOS
+        )
 
         return self.image
 
@@ -609,8 +651,8 @@ class TransformationRotate(BaseTransformation):
             fillcolor = None
 
         return self.image.rotate(
-            angle=360 - self.degrees, resample=Image.BICUBIC, expand=True,
-            fillcolor=fillcolor
+            angle=360 - self.degrees, expand=True, fillcolor=fillcolor,
+            resample=Image.Resampling.BICUBIC
         )
 
 
@@ -708,7 +750,7 @@ class TransformationZoom(BaseTransformation):
             height = 1
 
         return self.image.resize(
-            size=(width, height), resample=Image.ANTIALIAS
+            size=(width, height), resample=Image.Resampling.LANCZOS
         )
 
 

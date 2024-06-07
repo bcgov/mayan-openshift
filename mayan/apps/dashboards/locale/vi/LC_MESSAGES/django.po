@@ -4,23 +4,23 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Thanh Long Hoàng <hoangthanhlong@gmail.com>, 2022
+# Thanh Long Hoàng <hoangthanhlong@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:33+0000\n"
-"Last-Translator: Thanh Long Hoàng <hoangthanhlong@gmail.com>, 2022\n"
-"Language-Team: Vietnamese (https://www.transifex.com/rosarior/teams/13584/vi/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Thanh Long Hoàng <hoangthanhlong@gmail.com>, 2023\n"
+"Language-Team: Vietnamese (https://app.transifex.com/rosarior/teams/13584/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:18 links.py:9 views.py:12
+#: apps.py:18 links.py:12 views.py:12
 msgid "Dashboards"
 msgstr ""
 
@@ -36,7 +36,7 @@ msgstr "Nhãn"
 msgid "Administrator dashboard"
 msgstr ""
 
-#: links.py:14
+#: links.py:9
 msgid "Details"
 msgstr "Chi tiết"
 
@@ -45,6 +45,6 @@ msgstr "Chi tiết"
 msgid "View details"
 msgstr ""
 
-#: views.py:30
+#: views.py:32
 msgid "Dashboard detail"
 msgstr ""

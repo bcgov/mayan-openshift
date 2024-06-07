@@ -5,10 +5,10 @@ from mayan.apps.rest_api import generics
 
 from ..models.document_models import Document
 from ..models.favorite_document_models import FavoriteDocument
+from ..permissions import permission_document_view
 from ..serializers.favorite_document_serializers import (
     FavoriteDocumentSerializer
 )
-from ..permissions import permission_document_view
 
 
 class APIFavoriteDocumentDetailView(generics.RetrieveDestroyAPIView):
@@ -23,7 +23,7 @@ class APIFavoriteDocumentDetailView(generics.RetrieveDestroyAPIView):
     }
     serializer_class = FavoriteDocumentSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return FavoriteDocument.valid.filter(user=self.request.user)
 
 
@@ -42,7 +42,7 @@ class APIFavoriteDocumentListView(generics.ListCreateAPIView):
             'user': self.request.user
         }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return FavoriteDocument.valid.filter(user=self.request.user)
 
     def perform_create(self, serializer):

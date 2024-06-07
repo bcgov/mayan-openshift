@@ -19,24 +19,21 @@ from .literals import (
     TEST_RECIPIENTS_MULTIPLE_SEMICOLON,
     TEST_RECIPIENTS_MULTIPLE_SEMICOLON_RESULT
 )
-from .mailers import TestBackend
-from .mixins import MailerTestMixin, MailerViewTestMixin
+from .mixins import MailerViewTestMixin
 
 
-class MailerViewTestCase(
-    MailerTestMixin, MailerViewTestMixin, GenericViewTestCase
-):
+class MailerViewTestCase(MailerViewTestMixin, GenericViewTestCase):
     def test_user_mailer_create_view_no_permission(self):
         self.grant_permission(permission=permission_user_mailer_view)
 
         self._clear_events()
 
         response = self._request_test_user_mailer_create_view()
-        self.assertNotContains(
-            response=response, status_code=403, text=TestBackend.label
-        )
+        self.assertEqual(response.status_code, 403)
 
-        self.assertEqual(UserMailer.objects.count(), 0)
+        self.assertEqual(
+            UserMailer.objects.count(), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -50,7 +47,9 @@ class MailerViewTestCase(
         response = self._request_test_user_mailer_create_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(UserMailer.objects.count(), 1)
+        self.assertEqual(
+            UserMailer.objects.count(), 1
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 1)
@@ -69,7 +68,9 @@ class MailerViewTestCase(
         self.assertEqual(response.status_code, 404)
 
         self.assertQuerysetEqual(
-            UserMailer.objects.all(), (repr(self._test_user_mailer),)
+            UserMailer.objects.all(), (
+                repr(self._test_user_mailer),
+            )
         )
 
         events = self._get_test_events()
@@ -88,7 +89,9 @@ class MailerViewTestCase(
         response = self._request_test_user_mailer_delete_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(UserMailer.objects.count(), 0)
+        self.assertEqual(
+            UserMailer.objects.count(), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -173,7 +176,7 @@ class MailerViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_user_mailer_list_bad_data_view_with_access(self):
-        self._silence_logger(name='mayan.apps.databases.model_mixins')
+        self._silence_logger(name='mayan.apps.backends.model_mixins')
 
         self._create_test_user_mailer()
         self._test_user_mailer.backend_path = 'bad.backend.path'
@@ -204,7 +207,9 @@ class MailerViewTestCase(
         response = self._request_test_user_mailer_test_view()
         self.assertEqual(response.status_code, 404)
 
-        self.assertEqual(len(mail.outbox), 0)
+        self.assertEqual(
+            len(mail.outbox), 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -213,7 +218,8 @@ class MailerViewTestCase(
         self._create_test_user_mailer()
 
         self.grant_access(
-            obj=self._test_user_mailer, permission=permission_user_mailer_use
+            obj=self._test_user_mailer,
+            permission=permission_user_mailer_use
         )
 
         self._clear_events()
@@ -221,9 +227,15 @@ class MailerViewTestCase(
         response = self._request_test_user_mailer_test_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS)
-        self.assertEqual(mail.outbox[0].to, [TEST_EMAIL_ADDRESS])
+        self.assertEqual(
+            len(mail.outbox), 1
+        )
+        self.assertEqual(
+            mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS
+        )
+        self.assertEqual(
+            mail.outbox[0].to, [TEST_EMAIL_ADDRESS]
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 1)
@@ -237,7 +249,8 @@ class MailerViewTestCase(
         self._create_test_user_mailer()
 
         self.grant_access(
-            obj=self._test_user_mailer, permission=permission_user_mailer_use
+            obj=self._test_user_mailer,
+            permission=permission_user_mailer_use
         )
 
         self._test_email_address = TEST_RECIPIENTS_MULTIPLE_COMMA
@@ -247,8 +260,12 @@ class MailerViewTestCase(
         response = self._request_test_user_mailer_test_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS)
+        self.assertEqual(
+            len(mail.outbox), 1
+        )
+        self.assertEqual(
+            mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS
+        )
         self.assertEqual(
             mail.outbox[0].to, TEST_RECIPIENTS_MULTIPLE_COMMA_RESULT
         )
@@ -265,7 +282,8 @@ class MailerViewTestCase(
         self._create_test_user_mailer()
 
         self.grant_access(
-            obj=self._test_user_mailer, permission=permission_user_mailer_use
+            obj=self._test_user_mailer,
+            permission=permission_user_mailer_use
         )
 
         self._test_email_address = TEST_RECIPIENTS_MULTIPLE_MIXED
@@ -275,8 +293,12 @@ class MailerViewTestCase(
         response = self._request_test_user_mailer_test_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS)
+        self.assertEqual(
+            len(mail.outbox), 1
+        )
+        self.assertEqual(
+            mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS
+        )
         self.assertEqual(
             mail.outbox[0].to, TEST_RECIPIENTS_MULTIPLE_MIXED_RESULT
         )
@@ -303,8 +325,12 @@ class MailerViewTestCase(
         response = self._request_test_user_mailer_test_view()
         self.assertEqual(response.status_code, 302)
 
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS)
+        self.assertEqual(
+            len(mail.outbox), 1
+        )
+        self.assertEqual(
+            mail.outbox[0].from_email, TEST_EMAIL_FROM_ADDRESS
+        )
         self.assertEqual(
             mail.outbox[0].to, TEST_RECIPIENTS_MULTIPLE_SEMICOLON_RESULT
         )

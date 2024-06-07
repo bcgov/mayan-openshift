@@ -5,13 +5,13 @@ from django.template import RequestContext
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
+from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import EventManagerMethodAfter
 from mayan.apps.views.generics import (
     ConfirmView, SingleObjectCreateView, SingleObjectDeleteView,
     SingleObjectDetailView, SingleObjectDownloadView, SingleObjectListView,
     SimpleView
 )
-from mayan.apps.events.classes import EventManagerMethodAfter
-from mayan.apps.events.decorators import method_event
 
 from .events import event_key_downloaded
 from .forms import KeyDetailForm, KeySearchForm
@@ -38,7 +38,9 @@ class KeyDeleteView(SingleObjectDeleteView):
     view_icon = icon_key_delete
 
     def get_extra_context(self):
-        return {'title': _('Delete key: %s') % self.object}
+        return {
+            'title': _('Delete key: %s') % self.object
+        }
 
     def get_post_action_redirect(self):
         if self.object.key_type == KEY_TYPE_PUBLIC:
@@ -56,7 +58,7 @@ class KeyDetailView(SingleObjectDetailView):
 
     def get_extra_context(self):
         return {
-            'title': _('Details for key: %s') % self.object,
+            'title': _('Details for key: %s') % self.object
         }
 
 
@@ -73,26 +75,34 @@ class KeyDownloadView(SingleObjectDownloadView):
         target='object'
     )
     def get_download_file_object(self):
-        return self.object.key_data
+        """
+        Passthrough code to ensure the download event
+        is triggered.
+        """
+        return super().get_download_file_object()
 
     def get_download_filename(self):
         return self.object.key_id
 
 
 class KeyReceive(ConfirmView):
-    post_action_redirect = reverse_lazy(viewname='django_gpg:key_public_list')
+    post_action_redirect = reverse_lazy(
+        viewname='django_gpg:key_public_list'
+    )
     view_icon = icon_key_upload
     view_permission = permission_key_receive
 
     def get_extra_context(self):
         return {
             'message': _('Import key ID: %s?') % self.kwargs['key_id'],
-            'title': _('Import key'),
+            'title': _('Import key')
         }
 
     def view_action(self):
         try:
-            Key.objects.receive_key(key_id=self.kwargs['key_id'])
+            Key.objects.receive_key(
+                key_id=self.kwargs['key_id']
+            )
         except Exception as exception:
             messages.error(
                 message=_(
@@ -128,7 +138,7 @@ class KeyQueryResultView(SingleObjectListView):
             'no_results_title': _(
                 'No results returned'
             ),
-            'title': _('Key query results'),
+            'title': _('Key query results')
         }
 
     def get_source_queryset(self):
@@ -149,13 +159,15 @@ class KeyQueryView(SimpleView):
             'form': self.get_form(),
             'form_action': reverse(viewname='django_gpg:key_query_results'),
             'submit_method': 'GET',
-            'title': _('Query key server'),
+            'title': _('Query key server')
         }
 
     def get_form(self):
         if ('term' in self.request.GET) and self.request.GET['term'].strip():
             term = self.request.GET['term']
-            return KeySearchForm(initial={'term': term})
+            return KeySearchForm(
+                initial={'term': term}
+            )
         else:
             return KeySearchForm()
 
@@ -163,13 +175,15 @@ class KeyQueryView(SimpleView):
 class KeyUploadView(SingleObjectCreateView):
     fields = ('key_data',)
     model = Key
-    post_action_redirect = reverse_lazy(viewname='django_gpg:key_public_list')
+    post_action_redirect = reverse_lazy(
+        viewname='django_gpg:key_public_list'
+    )
     view_icon = icon_key_upload
     view_permission = permission_key_upload
 
     def get_extra_context(self):
         return {
-            'title': _('Upload new key'),
+            'title': _('Upload new key')
         }
 
     def get_instance_extra_data(self):

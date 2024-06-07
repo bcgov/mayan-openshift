@@ -4,80 +4,80 @@
 # 
 # Translators:
 # Translators:
-# Giovanni Tricarico <gtricarico92@gmail.com>, 2022
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2022
-# Daniele Bortoluzzi <daniele@elkos.it>, 2022
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2022
-# Roberto Rosario, 2022
+# Giovanni Tricarico <gtricarico92@gmail.com>, 2023
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2023
+# Roberto Rosario, 2023
+# Daniele Bortoluzzi <daniele@elkos.it>, 2023
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:35+0000\n"
-"Last-Translator: Roberto Rosario, 2022\n"
-"Language-Team: Italian (https://www.transifex.com/rosarior/teams/13584/it/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2023\n"
+"Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:31 events.py:11 links.py:52 links.py:93 permissions.py:5
-#: queues.py:7 views/event_views.py:29
+#: apps.py:32 events.py:11 links.py:52 links.py:93 permissions.py:6
+#: settings.py:7 views/event_views.py:29
 msgid "Events"
 msgstr "Eventi"
 
-#: apps.py:81 apps.py:114
+#: apps.py:82 apps.py:117
 msgid "Date and time"
 msgstr "Data e ora"
 
-#: apps.py:85 apps.py:117
+#: apps.py:86 apps.py:120 serializers.py:72
 msgid "Actor"
 msgstr "Attore"
 
-#: apps.py:89 apps.py:122
+#: apps.py:90 apps.py:125
 msgid "Event"
 msgstr "Evento"
 
-#: apps.py:93 apps.py:127
+#: apps.py:94 apps.py:130 serializers.py:78
 msgid "Target"
 msgstr "Destinazione"
 
-#: apps.py:97 apps.py:131
+#: apps.py:98 apps.py:134
 msgid "Action object"
 msgstr "Azione di oggetto"
 
-#: apps.py:104 forms.py:10 forms.py:67
+#: apps.py:105 forms.py:10 forms.py:71
 msgid "Namespace"
 msgstr "Namespace"
 
-#: apps.py:107 forms.py:14 forms.py:71
+#: apps.py:110 forms.py:16 forms.py:77 serializers.py:21 serializers.py:46
 msgid "Label"
 msgstr "Etichetta"
 
-#: apps.py:136
+#: apps.py:139
 msgid "Seen"
 msgstr "Visto"
 
-#: apps.py:143
+#: apps.py:146
 msgid "Object"
 msgstr "Oggetto"
 
-#: apps.py:148 models.py:64 models.py:127
+#: apps.py:151 models.py:46 models.py:105
 msgid "Event type"
 msgstr "Tipo evento"
 
-#: classes.py:87
+#: classes.py:90
 msgid "Event list export to CSV"
 msgstr ""
 
-#: classes.py:116
+#: classes.py:121
 msgid "Events exported."
 msgstr ""
 
-#: classes.py:118
+#: classes.py:123
 #, python-format
 msgid ""
 "The event list has been exported and is available for download using the "
@@ -92,15 +92,15 @@ msgstr ""
 msgid "Events exported"
 msgstr ""
 
-#: forms.py:18 forms.py:75
+#: forms.py:22 forms.py:83
 msgid "Subscription"
 msgstr "Sottoscrizione"
 
-#: forms.py:20 forms.py:77
+#: forms.py:24 forms.py:85
 msgid "No"
 msgstr "No"
 
-#: forms.py:21 forms.py:78
+#: forms.py:25 forms.py:86
 msgid "Subscribed"
 msgstr "Sottoscritto"
 
@@ -108,19 +108,19 @@ msgstr "Sottoscritto"
 msgid "System"
 msgstr "Sistema"
 
-#: links.py:55 links.py:100 views/clear_views.py:63
+#: links.py:55 links.py:100 views/clear_views.py:65
 msgid "Clear events"
 msgstr ""
 
-#: links.py:59 links.py:107 views/export_views.py:59
+#: links.py:59 links.py:107 views/export_views.py:64
 msgid "Export events"
 msgstr ""
 
-#: links.py:65 models.py:71 views/subscription_views.py:54
+#: links.py:65 models.py:53 views/subscription_views.py:54
 msgid "Event subscriptions"
 msgstr "Abbonamenti agli eventi"
 
-#: links.py:71 models.py:135 views/subscription_views.py:169
+#: links.py:71 models.py:113 views/subscription_views.py:169
 msgid "Object event subscriptions"
 msgstr "Sottoscrizioni a eventi di oggetti"
 
@@ -136,69 +136,111 @@ msgstr "Segna tutto come visto"
 msgid "Subscriptions"
 msgstr "Sottoscrizioni"
 
-#: literals.py:12
+#: literals.py:14
 #, python-format
 msgid "Unknown or obsolete event type: %s"
 msgstr "Tipo di evento sconosciuto o obsoleto: %s"
 
-#: models.py:24
+#: models.py:23 serializers.py:24 serializers.py:49
 msgid "Name"
 msgstr "Nome "
 
-#: models.py:28
+#: models.py:27
 msgid "Stored event type"
 msgstr "Tipo di evento memorizzato"
 
-#: models.py:29
+#: models.py:28
 msgid "Stored event types"
 msgstr "Tipi di eventi memorizzati"
 
-#: models.py:60 models.py:86 models.py:123
+#: models.py:42 models.py:68 models.py:101 serializers.py:103
 msgid "User"
 msgstr "Utente"
 
-#: models.py:70
+#: models.py:52
 msgid "Event subscription"
 msgstr "Abbonamento a eventi"
 
-#: models.py:90
+#: models.py:72 serializers.py:100
 msgid "Action"
 msgstr "Azione"
 
-#: models.py:92
+#: models.py:75
 msgid "Read"
 msgstr "Leggere"
 
-#: models.py:98
+#: models.py:82
 msgid "Notification"
 msgstr "Notifica"
 
-#: models.py:99 views/notification_views.py:33
+#: models.py:83 views/notification_views.py:33
 msgid "Notifications"
 msgstr "Notifiche"
 
-#: models.py:134
+#: models.py:112
 msgid "Object event subscription"
 msgstr "Sottoscrizione all'evento di oggetto"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Clear the events of an object"
 msgstr ""
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Export the events of an object"
 msgstr ""
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "View the events of an object"
 msgstr ""
 
-#: queues.py:13
+#: queues.py:7
+msgid "Events fast"
+msgstr ""
+
+#: queues.py:10
+msgid "Events slow"
+msgstr ""
+
+#: queues.py:16
+msgid "Commit an event"
+msgstr ""
+
+#: queues.py:21
 msgid "Clear event querysets"
 msgstr ""
 
-#: queues.py:17
+#: queues.py:25
 msgid "Export event querysets"
+msgstr ""
+
+#: serializers.py:27
+msgid "URL"
+msgstr "URL"
+
+#: serializers.py:40
+msgid "Event type namespace URL"
+msgstr ""
+
+#: serializers.py:43
+msgid "ID"
+msgstr "ID"
+
+#: serializers.py:75
+msgid "Actor content type"
+msgstr ""
+
+#: serializers.py:81
+msgid "Target content type"
+msgstr ""
+
+#: serializers.py:84
+msgid "Verb"
+msgstr "Verbo"
+
+#: settings.py:13
+msgid ""
+"Disables asynchronous events mode. All events will be committed in the same "
+"process that triggers them. This was the behavior prior to version 4.5."
 msgstr ""
 
 #: views/clear_views.py:27
@@ -207,16 +249,16 @@ msgid ""
 "background. "
 msgstr ""
 
-#: views/clear_views.py:51
+#: views/clear_views.py:53
 msgid "Event list clear task queued successfully."
 msgstr ""
 
-#: views/clear_views.py:84
+#: views/clear_views.py:86
 #, python-format
 msgid "Clear events of: %s"
 msgstr ""
 
-#: views/clear_views.py:109
+#: views/clear_views.py:111
 #, python-format
 msgid "Clear events of type: %s"
 msgstr ""
@@ -247,22 +289,22 @@ msgstr ""
 msgid "Events of type: %s"
 msgstr "Eventi di tipo: %s"
 
-#: views/export_views.py:27
+#: views/export_views.py:28
 msgid ""
 "The process will be performed in the background. The exported events will be"
 " available in the downloads area."
 msgstr ""
 
-#: views/export_views.py:46
+#: views/export_views.py:51
 msgid "Event list export task queued successfully."
 msgstr ""
 
-#: views/export_views.py:80
+#: views/export_views.py:85
 #, python-format
 msgid "Export events of: %s"
 msgstr ""
 
-#: views/export_views.py:99
+#: views/export_views.py:104
 #, python-format
 msgid "Export events of type: %s"
 msgstr ""
@@ -318,7 +360,7 @@ msgstr "Sottoscrizioni agli eventi per: %s"
 
 #: views/subscription_views.py:164
 msgid ""
-"Subscribe to the events of an object to received notifications when those "
+"Subscribe to the events of an object to receive notifications when those "
 "events occur."
 msgstr ""
 

@@ -4,44 +4,44 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2022
-# Jože Detečnik <joze.detecnik@3tav.si>, 2022
+# Roberto Rosario, 2023
+# Jože Detečnik <joze.detecnik@3tav.si>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:39+0000\n"
-"Last-Translator: Jože Detečnik <joze.detecnik@3tav.si>, 2022\n"
-"Language-Team: Slovenian (https://www.transifex.com/rosarior/teams/13584/sl/)\n"
+"POT-Creation-Date: 2024-06-02 14:06+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Jože Detečnik <joze.detecnik@3tav.si>, 2023\n"
+"Language-Team: Slovenian (https://app.transifex.com/rosarior/teams/13584/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
-#: apps.py:15 settings.py:9
+#: apps.py:21 settings.py:11
 msgid "Views"
 msgstr "Pogledi"
 
-#: forms.py:54
+#: forms.py:35
 msgid "Search"
 msgstr ""
 
-#: forms.py:68
+#: forms.py:53
 msgid "Selection"
 msgstr "Izbira"
 
-#: forms.py:385
+#: forms.py:233
 msgid "Label"
 msgstr "Oznaka"
 
-#: forms.py:389
+#: forms.py:239
 msgid "Relationship"
 msgstr ""
 
-#: generics.py:148
+#: generics.py:168
 msgid ""
 "Select entries to be removed. Hold Control to select multiple entries. Once "
 "the selection is complete, click the button below or double click the list "
@@ -51,7 +51,7 @@ msgstr ""
 "več vnosov. Ko je izbor končan, kliknite spodnji gumb ali dvokliknite "
 "seznam, da aktivirate dejanje."
 
-#: generics.py:153
+#: generics.py:173
 msgid ""
 "Select entries to be added. Hold Control to select multiple entries. Once "
 "the selection is complete, click the button below or double click the list "
@@ -61,176 +61,182 @@ msgstr ""
 "vnosov. Ko je izbor končan, kliknite spodnji gumb ali dvokliknite seznam, da"
 " aktivirate dejanje."
 
-#: generics.py:288
+#: generics.py:327
 msgid "Add all"
 msgstr "Dodaj vse"
 
-#: generics.py:296
+#: generics.py:334
 msgid "Add"
 msgstr "Dodaj"
 
-#: generics.py:306
+#: generics.py:345
 msgid "Remove all"
 msgstr "Odstrani vse"
 
-#: generics.py:314
+#: generics.py:352
 msgid "Remove"
 msgstr "Odstrani"
 
-#: generics.py:533
+#: generics.py:581
 #, python-format
 msgid "Error updating relationship; %s"
 msgstr ""
 
-#: generics.py:540
+#: generics.py:588
 msgid "Relationships updated successfully"
 msgstr ""
 
-#: generics.py:603
+#: generics.py:651
 #, python-format
 msgid "Duplicate data error: %(error)s"
 msgstr "Napaka podvojenih podatkov: %(error)s"
 
-#: generics.py:622
+#: generics.py:670
 #, python-format
 msgid "%(object)s not created, error: %(error)s"
 msgstr ""
 
-#: generics.py:633
+#: generics.py:681
 #, python-format
 msgid "%(object)s created successfully."
 msgstr ""
 
-#: generics.py:673
+#: generics.py:726
 #, python-format
 msgid "%(object)s not deleted, error: %(error)s."
 msgstr ""
 
-#: generics.py:682
+#: generics.py:736
 #, python-format
 msgid "%(object)s deleted successfully."
 msgstr ""
 
-#: generics.py:737
+#: generics.py:799
 #, python-format
 msgid "Error retrieving %(object)s; %(error)s"
 msgstr ""
 
-#: generics.py:843
+#: generics.py:911
 #, python-format
 msgid "%(object)s not updated, error: %(error)s."
 msgstr ""
 
-#: generics.py:852
+#: generics.py:921
 #, python-format
 msgid "%(object)s updated successfully."
 msgstr ""
 
-#: generics.py:914
-#, python-format
-msgid "\"%(object)s\" deleted successfully."
-msgstr ""
-
-#: generics.py:915
-#, python-format
-msgid "%(count)d object deleted successfully."
-msgstr ""
-
-#: generics.py:916
+#: generics.py:988
 #, python-format
 msgid "%(count)d objects deleted successfully."
 msgstr ""
 
-#: generics.py:917
+#: generics.py:989
 #, python-format
-msgid "Delete \"%(object)s\"."
+msgid "\"%(object)s\" deleted successfully."
 msgstr ""
 
-#: generics.py:918
+#: generics.py:990
 #, python-format
-msgid "Delete %(count)d object."
+msgid "%(count)d object deleted successfully."
 msgstr ""
 
-#: generics.py:919
+#: generics.py:991
 #, python-format
 msgid "Delete %(count)d objects."
 msgstr ""
 
-#: mixins.py:374
+#: generics.py:992
 #, python-format
-msgid "No %(verbose_name)s found matching the query"
+msgid "Delete \"%(object)s\"."
 msgstr ""
 
-#: mixins.py:399
+#: generics.py:993
 #, python-format
-msgid "Unable to perform operation on object %(instance)s; %(exception)s."
+msgid "Delete %(count)d object."
 msgstr ""
 
-#: mixins.py:401
-#, python-format
-msgid "Operation performed on %(object)s."
-msgstr ""
-
-#: mixins.py:402
-#, python-format
-msgid "Operation performed on %(count)d object."
-msgstr ""
-
-#: mixins.py:403
-#, python-format
-msgid "Operation performed on %(count)d objects."
-msgstr ""
-
-#: mixins.py:404
-#, python-format
-msgid "Perform operation on %(object)s."
-msgstr ""
-
-#: mixins.py:405
-#, python-format
-msgid "Perform operation on %(count)d object."
-msgstr ""
-
-#: mixins.py:406
-#, python-format
-msgid "Perform operation on %(count)d objects."
-msgstr ""
-
-#: mixins.py:488
-msgid "Object"
-msgstr "Predmet"
-
-#: settings.py:14
+#: settings.py:17
 msgid "The number objects that will be displayed per page."
 msgstr "Število predmetov, ki bodo prikazani na strani."
 
-#: settings.py:21
+#: settings.py:23
 msgid "A string specifying the name to use for the paging parameter."
 msgstr ""
 
-#: templatetags/views_tags.py:29
+#: settings.py:29
+msgid ""
+"Display a submit button and wait for the submit button to be pressed before "
+"processing up the upload."
+msgstr ""
+
+#: templatetags/views_tags.py:30
 msgid "Confirm delete"
 msgstr "Potrdi izbris"
 
-#: templatetags/views_tags.py:34
+#: templatetags/views_tags.py:35
 #, python-format
 msgid "Edit %s"
 msgstr ""
 
-#: templatetags/views_tags.py:37
+#: templatetags/views_tags.py:38
 msgid "Confirm"
 msgstr "Potrdi"
 
-#: templatetags/views_tags.py:41
+#: templatetags/views_tags.py:42
 #, python-format
 msgid "Details for: %s"
 msgstr ""
 
-#: templatetags/views_tags.py:45
+#: templatetags/views_tags.py:46
 #, python-format
 msgid "Edit: %s"
 msgstr ""
 
-#: templatetags/views_tags.py:49
+#: templatetags/views_tags.py:50
 msgid "Create"
 msgstr "Ustvari"
+
+#: view_mixins.py:426
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: view_mixins.py:452
+#, python-format
+msgid "Unable to perform operation on object %(instance)s; %(exception)s."
+msgstr ""
+
+#: view_mixins.py:455
+#, python-format
+msgid "Operation performed on %(count)d objects."
+msgstr ""
+
+#: view_mixins.py:456
+#, python-format
+msgid "Operation performed on %(object)s."
+msgstr ""
+
+#: view_mixins.py:457
+#, python-format
+msgid "Operation performed on %(count)d object."
+msgstr ""
+
+#: view_mixins.py:458
+#, python-format
+msgid "Perform operation on %(count)d objects."
+msgstr ""
+
+#: view_mixins.py:459
+#, python-format
+msgid "Perform operation on %(object)s."
+msgstr ""
+
+#: view_mixins.py:460
+#, python-format
+msgid "Perform operation on %(count)d object."
+msgstr ""
+
+#: view_mixins.py:545
+msgid "Object"
+msgstr "Predmet"

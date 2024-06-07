@@ -4,68 +4,69 @@
 # 
 # Translators:
 # Translators:
-# WM Shinkada <shinkadawasim@gmail.com>, 2022
-# Mohammed ALDOUB <voulnet@gmail.com>, 2022
-# Yaman Sanobar <yman.snober@gmail.com>, 2022
-# Roberto Rosario, 2022
-# Marwan Rahhal <Marwanr@sssit.net>, 2022
+# WM Shinkada <shinkadawasim@gmail.com>, 2023
+# Mohammed ALDOUB <voulnet@gmail.com>, 2023
+# Yaman Sanobar <yman.snober@gmail.com>, 2023
+# Marwan Rahhal <Marwanr@sssit.net>, 2023
+# Roberto Rosario, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:36+0000\n"
-"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2022\n"
-"Language-Team: Arabic (https://www.transifex.com/rosarior/teams/13584/ar/)\n"
+"POT-Creation-Date: 2024-06-02 14:06+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Roberto Rosario, 2023\n"
+"Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: apps.py:70 apps.py:208 apps.py:214 apps.py:218 apps.py:223 apps.py:227
-#: events.py:5 links.py:52 permissions.py:5 queues.py:7
+#: apps.py:69 apps.py:207 apps.py:213 apps.py:217 apps.py:222 apps.py:226
+#: events.py:6 links.py:53 permissions.py:6 queues.py:7
+#: workflow_actions.py:159
 msgid "Metadata"
 msgstr "البيانات الوصفية"
 
-#: apps.py:140
+#: apps.py:139
 msgid "Return the value of a specific document metadata."
 msgstr "إرجاع قيمة بيانات تعريف وثيقة معينة."
 
-#: apps.py:141
+#: apps.py:140
 msgid "Metadata value of"
 msgstr "قيمة البيانات الوصفية"
 
-#: apps.py:146
+#: apps.py:145
 msgid "Metadata type name"
 msgstr "اسم نوع البيانات الوصفية"
 
-#: apps.py:150 search.py:17
+#: apps.py:149 search.py:14
 msgid "Metadata value"
 msgstr "قيمة البيانات الوصفية"
 
-#: events.py:8
+#: events.py:10
 msgid "Document metadata added"
 msgstr "إضافة بيانات وصفية للوثيقة"
 
-#: events.py:11
+#: events.py:13
 msgid "Document metadata edited"
 msgstr "تعديل البيانات الوصفية للوثيقة"
 
-#: events.py:14
+#: events.py:16
 msgid "Document metadata removed"
 msgstr "حذف البيانات الوصفية للوثيقة"
 
-#: events.py:17
+#: events.py:19
 msgid "Metadata type created"
 msgstr "إنشاء البيانات الوصفية"
 
-#: events.py:20
+#: events.py:22
 msgid "Metadata type edited"
 msgstr "تعديل البانات الوصفية"
 
-#: events.py:23
+#: events.py:25
 msgid "Metadata type relationship updated"
 msgstr "تحديث ارتباطات البيانات الوصفية"
 
@@ -73,11 +74,11 @@ msgstr "تحديث ارتباطات البيانات الوصفية"
 msgid "ID"
 msgstr "المعرف"
 
-#: forms.py:19 models.py:39
+#: forms.py:19 models.py:42
 msgid "Name"
 msgstr "اسم"
 
-#: forms.py:27 models.py:204 workflow_actions.py:93
+#: forms.py:27 models.py:188 workflow_actions.py:109
 msgid "Value"
 msgstr "قيمة"
 
@@ -85,96 +86,97 @@ msgstr "قيمة"
 msgid "Update"
 msgstr "تحديث"
 
-#: forms.py:52 forms.py:231 models.py:292
+#: forms.py:52 forms.py:236 models.py:285
 msgid "Required"
 msgstr "متطلب"
 
-#: forms.py:80
+#: forms.py:84
 #, python-format
 msgid "Lookup value error: %s"
 msgstr "خطأ في قيمة البحث: %s"
 
-#: forms.py:93
+#: forms.py:97
 #, python-format
 msgid "Default value error: %s"
 msgstr "خطأ القيمة الافتراضية: %s"
 
-#: forms.py:114 models.py:151
+#: forms.py:118 models.py:130
 #, python-format
 msgid "\"%s\" is required for this document type."
 msgstr "مطلوب &quot;%s&quot; لنوع المستند هذا."
 
-#: forms.py:133
+#: forms.py:137
 msgid "Metadata types to be added to the selected documents."
 msgstr "يرجى الإختيار لإكمال عملية الإضافة"
 
-#: forms.py:134 models.py:87 models.py:290 search.py:14 workflow_actions.py:86
+#: forms.py:138 models.py:92 models.py:282 search.py:11 serializers.py:48
+#: serializers.py:108 workflow_actions.py:145
 msgid "Metadata type"
 msgstr "نوع البيانات الوصفية"
 
-#: forms.py:159
+#: forms.py:163
 msgid "Remove"
 msgstr "حذف"
 
-#: forms.py:178
+#: forms.py:182
 msgid "Basic"
 msgstr ""
 
-#: forms.py:182
+#: forms.py:186
 msgid "Values"
 msgstr ""
 
-#: forms.py:186
+#: forms.py:190
 msgid "Validation"
 msgstr ""
 
-#: forms.py:190
+#: forms.py:194
 msgid "Parsing"
 msgstr "تفسير"
 
-#: forms.py:205
+#: forms.py:210
 msgid " Available template context variables: "
 msgstr "متغيرات سياق القالب المتوفرة:"
 
-#: forms.py:229
+#: forms.py:234
 msgid "None"
 msgstr "لا شيء"
 
-#: forms.py:230
+#: forms.py:235
 msgid "Optional"
 msgstr "اختياري"
 
-#: links.py:25 links.py:34 workflow_actions.py:30
+#: links.py:26 links.py:35 workflow_actions.py:28
 msgid "Add metadata"
 msgstr "إضافة الوصف"
 
-#: links.py:31 links.py:38 workflow_actions.py:104
+#: links.py:32 links.py:39 workflow_actions.py:122
 msgid "Edit metadata"
 msgstr "تعديل البيانات الوصفية"
 
-#: links.py:42 links.py:48 workflow_actions.py:177
+#: links.py:43 links.py:49 workflow_actions.py:201
 msgid "Remove metadata"
 msgstr "إزالة البيانات الوصفية"
 
-#: links.py:62 links.py:96 models.py:88 permissions.py:22
-#: views/metadata_type_views.py:115 workflow_actions.py:23
-#: workflow_actions.py:170
+#: links.py:63 links.py:95 links.py:103 models.py:93 permissions.py:24
+#: views/metadata_type_views.py:116 workflow_actions.py:52
+#: workflow_actions.py:66
 msgid "Metadata types"
 msgstr "أنواع البيانات الوصفية"
 
-#: links.py:71
+#: links.py:72
 msgid "Document types"
 msgstr "أنواع الوثائق"
 
-#: links.py:75
+#: links.py:76
 msgid "Create new"
 msgstr "إنشاء جديد"
 
-#: links.py:81 links.py:86
+#: links.py:82 links.py:87
 msgid "Delete"
 msgstr "حذف"
 
-#: links.py:91
+#: links.py:92
 msgid "Edit"
 msgstr "تعديل"
 
@@ -218,11 +220,11 @@ msgstr ""
 msgid "Return the metadata of the document."
 msgstr ""
 
-#: mixins.py:19
+#: mixins.py:23
 msgid "Selected documents must be of the same type."
 msgstr "يجب أن تكون المستندات المحددة من نفس النوع."
 
-#: models.py:36
+#: models.py:39
 msgid ""
 "Name used by other apps to reference this metadata type. Do not use python "
 "reserved words, or spaces."
@@ -230,31 +232,31 @@ msgstr ""
 "الاسم المستخدم من قبل التطبيقات الأخرى للإشارة إلى نوع البيانات الوصفية هذا."
 " لا تستخدم كلمات أو مسافات محجوزة في لغة python."
 
-#: models.py:42
+#: models.py:45
 msgid "Short description of this metadata type."
 msgstr "وصف موجز لنوع البيانات الوصفية هذا."
 
-#: models.py:43
+#: models.py:46
 msgid "Label"
 msgstr "العنوان"
 
-#: models.py:47
+#: models.py:50
 msgid "Enter a template to render."
 msgstr "أدخال قالب للعرض."
 
-#: models.py:48
+#: models.py:51
 msgid "Default"
 msgstr "القيمة الإفتراضية"
 
-#: models.py:52
+#: models.py:55
 msgid "Enter a template to render. Must result in a comma delimited string."
 msgstr "أدخل قالب للعرض ، يجب أن ينتج عنه سلسلة مفصولة "
 
-#: models.py:54
+#: models.py:57
 msgid "Lookup"
 msgstr "ابحث عن"
 
-#: models.py:58
+#: models.py:61
 msgid ""
 "The validator will reject data entry if the value entered does not conform "
 "to the expected format."
@@ -262,19 +264,19 @@ msgstr ""
 "سوف يرفض المدقق إدخال البيانات إذا كانت القيمة المدخلة لا تتوافق مع التنسيق "
 "المتوقع."
 
-#: models.py:60
+#: models.py:63
 msgid "Validator"
 msgstr "المدقق"
 
-#: models.py:64
+#: models.py:67
 msgid "Enter the arguments for the validator in YAML format."
 msgstr ""
 
-#: models.py:66
+#: models.py:69
 msgid "Validator arguments"
 msgstr ""
 
-#: models.py:71
+#: models.py:74
 msgid ""
 "The parser will reformat the value entered to conform to the expected "
 "format."
@@ -282,92 +284,92 @@ msgstr ""
 "سيقوم المحلل اللغوي بإعادة تنسيق القيمة التي تم إدخالها لتتوافق مع التنسيق "
 "المتوقع."
 
-#: models.py:73
+#: models.py:76
 msgid "Parser"
 msgstr "محلل"
 
-#: models.py:77
+#: models.py:80
 msgid "Enter the arguments for the parser in YAML format."
 msgstr ""
 
-#: models.py:79
+#: models.py:84
 msgid "Parser arguments"
 msgstr ""
 
-#: models.py:159
+#: models.py:139
 msgid "Value is not one of the provided options."
 msgstr "القيمة ليست من بين الخيارات المتوفرة."
 
-#: models.py:173
+#: models.py:153
 #, python-format
 msgid "Metadata type validation error; %(exception)s"
 msgstr ""
 
-#: models.py:195
+#: models.py:179 serializers.py:105
 msgid "Document"
 msgstr "الوثيقة"
 
-#: models.py:198
+#: models.py:182
 msgid "Type"
 msgstr "النوع"
 
-#: models.py:202
+#: models.py:186
 msgid "The actual value stored in the metadata type field for the document."
 msgstr "القيمة الفعلية المخزنة في حقل نوع البيانات الأولية للمستند."
 
-#: models.py:210 models.py:211
+#: models.py:194 models.py:195
 msgid "Document metadata"
 msgstr "بيانات تعريف الوثيقة"
 
-#: models.py:238
+#: models.py:231
 msgid "Metadata type is required for this document type."
 msgstr "نوع البيانات الوصفية للوثيقة"
 
-#: models.py:273
+#: models.py:264
 msgid "Metadata type is not valid for this document type."
 msgstr "نوع البيانات الوصفية غير صالح للوثيقة."
 
-#: models.py:286
+#: models.py:278 serializers.py:45
 msgid "Document type"
 msgstr "نوع الوثيقة"
 
-#: models.py:299
+#: models.py:293
 msgid "Document type metadata type options"
 msgstr "خيارات نوع البيانات الأولية لنوع الوثيقة"
 
-#: models.py:300
+#: models.py:294
 msgid "Document type metadata types options"
 msgstr "خيارات أنواع البيانات الأولية لنوع الوثيقة"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Add metadata to a document"
 msgstr "إضافة بيانات وصفية إلى وثيقة"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Edit a document's metadata"
 msgstr "قم بتعديل البيانات الوصفية لوثيقة"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Remove metadata from a document"
 msgstr "إزالة بيانات وصفية من وثيقة"
 
-#: permissions.py:18
+#: permissions.py:20
 msgid "View metadata from a document"
 msgstr "عرض البيانات الوصفية من وثيقة"
 
-#: permissions.py:26
+#: permissions.py:28
 msgid "Edit metadata types"
 msgstr "تحرير أنواع البيانات الوصفية"
 
-#: permissions.py:29
+#: permissions.py:31
 msgid "Create new metadata types"
 msgstr "إنشاء أنواع جديدة من البيانات الوصفية"
 
-#: permissions.py:32
+#: permissions.py:34
 msgid "Delete metadata types"
 msgstr "حذف نوع من البيانات الوصفية"
 
-#: permissions.py:35
+#: permissions.py:37
 msgid "View metadata types"
 msgstr "عرض أنواع البيانات الوصفية"
 
@@ -379,23 +381,19 @@ msgstr "إزالة نوع البيانات الوصفية"
 msgid "Add required metadata type"
 msgstr "أضف نوع البيانات الوصفية المطلوب"
 
-#: search.py:24 search.py:35 search.py:46 search.py:57
-msgid "Document metadata type"
-msgstr ""
+#: serializers.py:28 serializers.py:57 serializers.py:111
+msgid "URL"
+msgstr "URL"
 
-#: search.py:28 search.py:39 search.py:50 search.py:61
-msgid "Document metadata value"
-msgstr ""
-
-#: serializers.py:47
+#: serializers.py:52
 msgid "Primary key of the metadata type to be added."
 msgstr "المفتاح الأساسي لنوع البيانات الوصفية المراد إضافته."
 
-#: serializers.py:48
+#: serializers.py:53 serializers.py:101
 msgid "Metadata type ID"
 msgstr ""
 
-#: serializers.py:93
+#: serializers.py:100
 msgid "Primary key of the metadata type to be added to the document."
 msgstr "المفتاح الأساسي لنوع البيانات الأولية المراد إضافته إلى المستند."
 
@@ -404,12 +402,12 @@ msgstr "المفتاح الأساسي لنوع البيانات الأولية �
 msgid "Metadata add request performed on %(count)d document"
 msgstr "تم تنفيذ طلب إضافة بيانات التعريف على وثيقة %(count)d"
 
-#: views/document_views.py:47
+#: views/document_views.py:48
 #, python-format
 msgid "Metadata add request performed on %(count)d documents"
 msgstr "تم تنفيذ طلب إضافة بيانات التعريف على مستندات %(count)d"
 
-#: views/document_views.py:56
+#: views/document_views.py:57
 msgid "Add metadata types to document"
 msgid_plural "Add metadata types to documents"
 msgstr[0] ""
@@ -419,12 +417,12 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: views/document_views.py:67
+#: views/document_views.py:68
 #, python-format
 msgid "Add metadata types to document: %s"
 msgstr "إضافة وصف على بيانات الوثيقة: %s"
 
-#: views/document_views.py:145
+#: views/document_views.py:146
 #, python-format
 msgid ""
 "Error adding metadata type \"%(metadata_type)s\" to document: %(document)s; "
@@ -433,7 +431,7 @@ msgstr ""
 "خطأ في إضافة نوع بيانات التعريف &quot;%(metadata_type)s&quot; للوثيقة : "
 "%(document)s؛ %(exception)s"
 
-#: views/document_views.py:160
+#: views/document_views.py:165
 #, python-format
 msgid ""
 "Metadata type: %(metadata_type)s successfully added to document "
@@ -441,24 +439,24 @@ msgid ""
 msgstr ""
 "تم اضافة نوع البيانات الوصفية %(metadata_type)s بنجاح للوثيقة %(document)s ."
 
-#: views/document_views.py:170
+#: views/document_views.py:175
 #, python-format
 msgid ""
 "Metadata type: %(metadata_type)s already present in document %(document)s."
 msgstr ""
 "نوع البيانات الوصفية %(metadata_type)s موجود مسبقا للوثيقة %(document)s ."
 
-#: views/document_views.py:187
+#: views/document_views.py:192
 #, python-format
 msgid "Metadata edit request performed on %(count)d document"
 msgstr "تم إجراء طلب تحرير بيانات التعريف على مستند %(count)d"
 
-#: views/document_views.py:190
+#: views/document_views.py:195
 #, python-format
 msgid "Metadata edit request performed on %(count)d documents"
 msgstr "تم إجراء طلب تحرير البيانات الوصفية على مستندات %(count)d"
 
-#: views/document_views.py:222
+#: views/document_views.py:230
 msgid ""
 "Add metadata types available for this document's type and assign them "
 "corresponding values."
@@ -466,11 +464,11 @@ msgstr ""
 "أضف أنواع البيانات الأولية المتاحة لنوع هذا المستند وقم بتعيين القيم "
 "المقابلة لها."
 
-#: views/document_views.py:225
+#: views/document_views.py:233
 msgid "There is no metadata to edit"
 msgstr "لا توجد بيانات وصفية للتحرير"
 
-#: views/document_views.py:227
+#: views/document_views.py:235
 msgid "Edit document metadata"
 msgid_plural "Edit documents metadata"
 msgstr[0] ""
@@ -480,22 +478,22 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: views/document_views.py:238
+#: views/document_views.py:246
 #, python-format
 msgid "Edit metadata for document: %s"
 msgstr "تعديل البيانات الوصفية للوثيقة: %s"
 
-#: views/document_views.py:326
+#: views/document_views.py:335
 #, python-format
 msgid "Error editing metadata for document: %(document)s; %(exception)s."
 msgstr "خطأ في تحرير البيانات الوصفية للوثيقة: %(document)s ؛ %(exception)s."
 
-#: views/document_views.py:339
+#: views/document_views.py:348
 #, python-format
 msgid "Metadata for document %s edited successfully."
 msgstr "تم تعديل البيانات الوصفية للوثيقة %s بنجاح"
 
-#: views/document_views.py:365
+#: views/document_views.py:374
 msgid ""
 "Add metadata types this document's type to be able to add them to individual"
 " documents. Once added to individual document, you can then edit their "
@@ -504,26 +502,26 @@ msgstr ""
 "أضف أنواع البيانات الوصفية لنوع هذا المستند لتتمكن من إضافتها إلى المستندات "
 "الفردية. بمجرد إضافتها إلى مستند فردي ، يمكنك بعد ذلك تعديل قيمها."
 
-#: views/document_views.py:370
+#: views/document_views.py:380
 msgid "This document doesn't have any metadata"
 msgstr "لا يحتوي هذا المستند على أي بيانات وصفية"
 
-#: views/document_views.py:371
+#: views/document_views.py:382
 #, python-format
 msgid "Metadata for document: %s"
 msgstr "البيانات الوصفية للوثيقة: %s"
 
-#: views/document_views.py:386
+#: views/document_views.py:397
 #, python-format
 msgid "Metadata remove request performed on %(count)d document"
 msgstr "تم إجراء طلب إزالة بيانات التعريف على مستند %(count)d"
 
-#: views/document_views.py:389
+#: views/document_views.py:400
 #, python-format
 msgid "Metadata remove request performed on %(count)d documents"
 msgstr "تم إجراء طلب إزالة البيانات الوصفية على مستندات %(count)d"
 
-#: views/document_views.py:399
+#: views/document_views.py:410
 msgid "Remove metadata types from the document"
 msgid_plural "Remove metadata types from the documents"
 msgstr[0] ""
@@ -533,12 +531,12 @@ msgstr[3] ""
 msgstr[4] ""
 msgstr[5] ""
 
-#: views/document_views.py:410
+#: views/document_views.py:421
 #, python-format
 msgid "Remove metadata types from the document: %s"
 msgstr "الغاء البيانات الاولية للوثيقة : %s"
 
-#: views/document_views.py:476
+#: views/document_views.py:487
 #, python-format
 msgid ""
 "Successfully remove metadata type \"%(metadata_type)s\" from document: "
@@ -547,7 +545,7 @@ msgstr ""
 "تمت إزالة نوع البيانات الوصفية &quot;%(metadata_type)s&quot; من الوثيقة: "
 "%(document)s."
 
-#: views/document_views.py:485
+#: views/document_views.py:496
 #, python-format
 msgid ""
 "Error removing metadata type \"%(metadata_type)s\" from document: "
@@ -560,47 +558,47 @@ msgstr ""
 msgid "Create metadata type"
 msgstr "إنشاء نوع البيانات الوصفية"
 
-#: views/metadata_type_views.py:48
+#: views/metadata_type_views.py:49
 #, python-format
 msgid "Error deleting metadata type \"%(instance)s\"; %(exception)s"
 msgstr ""
 
-#: views/metadata_type_views.py:57
-#, python-format
-msgid "Metadata type \"%(object)s\" deleted successfully."
-msgstr ""
-
-#: views/metadata_type_views.py:60
-#, python-format
-msgid "%(count)d metadata type deleted successfully."
-msgstr ""
-
-#: views/metadata_type_views.py:63
+#: views/metadata_type_views.py:58
 #, python-format
 msgid "%(count)d metadata types deleted successfully."
 msgstr ""
 
-#: views/metadata_type_views.py:65
+#: views/metadata_type_views.py:61
 #, python-format
-msgid "Delete metadata type: %(object)s."
+msgid "Metadata type \"%(object)s\" deleted successfully."
+msgstr ""
+
+#: views/metadata_type_views.py:64
+#, python-format
+msgid "%(count)d metadata type deleted successfully."
 msgstr ""
 
 #: views/metadata_type_views.py:66
 #, python-format
-msgid "Delete the %(count)d selected metadata type."
+msgid "Delete the %(count)d selected metadata types."
 msgstr ""
 
 #: views/metadata_type_views.py:67
 #, python-format
-msgid "Delete the %(count)d selected metadata types."
+msgid "Delete metadata type: %(object)s."
 msgstr ""
 
-#: views/metadata_type_views.py:84
+#: views/metadata_type_views.py:68
+#, python-format
+msgid "Delete the %(count)d selected metadata type."
+msgstr ""
+
+#: views/metadata_type_views.py:85
 #, python-format
 msgid "Edit metadata type: %s"
 msgstr "تحرير نوع البيانات الوصفية: %s"
 
-#: views/metadata_type_views.py:107
+#: views/metadata_type_views.py:108
 msgid ""
 "Metadata types are user defined properties that can be assigned values. Once"
 " created they must be associated to document types, either as optional or "
@@ -609,39 +607,45 @@ msgid ""
 "provided."
 msgstr ""
 
-#: views/metadata_type_views.py:114
+#: views/metadata_type_views.py:115
 msgid "There are no metadata types"
 msgstr "لا توجد أنواع بيانات وصفية"
 
-#: views/metadata_type_views.py:138
+#: views/metadata_type_views.py:139
 msgid ""
 "Create metadata type relationships to be able to associate them to this "
 "document type."
 msgstr ""
 
-#: views/metadata_type_views.py:142
+#: views/metadata_type_views.py:143
 msgid "There are no metadata type relationships available"
 msgstr ""
 
-#: views/metadata_type_views.py:146
+#: views/metadata_type_views.py:147
 #, python-format
 msgid "Metadata type relationships for document type: %s"
 msgstr ""
 
-#: views/metadata_type_views.py:191
+#: views/metadata_type_views.py:192
 #, python-format
 msgid "Document type relationships for metadata type: %s"
 msgstr ""
 
-#: wizard_steps.py:13
+#: wizard_steps.py:19
 msgid "Enter document metadata"
 msgstr "أدخل البيانات الوصفية للوثيقة"
 
-#: workflow_actions.py:25
+#: wizard_steps.py:201
+msgid ""
+"One of more metadata types that are required for this document type are not "
+"available."
+msgstr ""
+
+#: workflow_actions.py:46
 msgid "Metadata types to add to the document."
 msgstr "أنواع البيانات الوصفية المراد إضافتها إلى الوثيقة."
 
-#: workflow_actions.py:49
+#: workflow_actions.py:81
 #, python-format
 msgid ""
 "Unable to add metadata type \"%(metadata_type)s\" from document: "
@@ -650,16 +654,16 @@ msgstr ""
 "تعذر إضافة نوع البيانات الوصفية &quot;%(metadata_type)s&quot; من الوثيقة: "
 "%(document)s. بإستثناء: %(exception)s"
 
-#: workflow_actions.py:88
-msgid "Metadata types to edit."
-msgstr "أنواع البيانات الوصفية المراد تعديلها."
-
-#: workflow_actions.py:96
+#: workflow_actions.py:113
 msgid ""
 "Value to assign to the metadata. Can be a literal value or template code."
 msgstr "القيمة المخصصة. يمكن أن تكون قيمة حرفية أو رمز قالب."
 
-#: workflow_actions.py:128
+#: workflow_actions.py:139
+msgid "Metadata types to edit."
+msgstr "أنواع البيانات الوصفية المراد تعديلها."
+
+#: workflow_actions.py:178
 #, python-format
 msgid ""
 "Unable to edit metadata type \"%(metadata_type)s\" from document: "
@@ -667,11 +671,11 @@ msgid ""
 "Exception: %(exception)s"
 msgstr ""
 
-#: workflow_actions.py:172
+#: workflow_actions.py:209
 msgid "Metadata types to remove from the document."
 msgstr "أنواع البيانات الوصفية المطلوب إزالتها من الوثيقة."
 
-#: workflow_actions.py:192
+#: workflow_actions.py:225
 #, python-format
 msgid ""
 "Unable to remove metadata type \"%(metadata_type)s\" from document: "

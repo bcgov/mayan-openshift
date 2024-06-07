@@ -1,24 +1,25 @@
 from django.db import models
-from django.db.models import Q
-from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.databases.model_mixins import ExtraDataModelMixin
-from mayan.apps.documents.models import Document, DocumentType
-from mayan.apps.events.classes import (
+from mayan.apps.documents.models.document_type_models import DocumentType
+from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import (
     EventManagerMethodAfter, EventManagerSave
 )
-from mayan.apps.events.decorators import method_event
-from mayan.apps.templating.classes import Template
 
 from .events import event_smart_link_created, event_smart_link_edited
-from .literals import (
-    INCLUSION_AND, INCLUSION_CHOICES, INCLUSION_OR, OPERATOR_CHOICES
-)
+from .literals import INCLUSION_AND, INCLUSION_CHOICES, OPERATOR_CHOICES
 from .managers import SmartLinkManager
+from .model_mixins import (
+    ResolvedSmartLinkBusinessLogicMixin, SmartLinkBusinessLogicMixin,
+    SmartLinkConditionBusinessLogicMixin
+)
 
 
-class SmartLink(ExtraDataModelMixin, models.Model):
+class SmartLink(
+    ExtraDataModelMixin, SmartLinkBusinessLogicMixin, models.Model
+):
     """
     This model stores the basic fields for a smart link. Smart links allow
     linking documents using a programmatic method of conditions that mirror
@@ -34,7 +35,9 @@ class SmartLink(ExtraDataModelMixin, models.Model):
             'document from which the smart link is being accessed.'
         ), verbose_name=_('Dynamic label')
     )
-    enabled = models.BooleanField(default=True, verbose_name=_('Enabled'))
+    enabled = models.BooleanField(
+        default=True, verbose_name=_('Enabled')
+    )
     document_types = models.ManyToManyField(
         related_name='smart_links', to=DocumentType,
         verbose_name=_('Document types')
@@ -50,101 +53,22 @@ class SmartLink(ExtraDataModelMixin, models.Model):
     def __str__(self):
         return self.label
 
-    def document_types_add(self, queryset, _event_actor=None):
-        for obj in queryset:
-            self.document_types.add(obj)
-            event_smart_link_edited.commit(
-                action_object=obj, actor=_event_actor or self._event_actor,
-                target=self
-            )
-
-    def document_types_remove(self, queryset, _event_actor=None):
-        for obj in queryset:
-            self.document_types.remove(obj)
-            event_smart_link_edited.commit(
-                action_object=obj, actor=_event_actor or self._event_actor,
-                target=self
-            )
-
-    def get_dynamic_label(self, document):
-        """
-        If the smart links was created using a template label instead of a
-        static label, resolve the template and return the result.
-        """
-        if self.dynamic_label:
-            try:
-                template = Template(template_string=self.dynamic_label)
-                return template.render(context={'document': document})
-            except Exception as exception:
-                return _(
-                    'Error generating dynamic label; %s' % force_text(
-                        s=exception
-                    )
-                )
-        else:
-            return None
-
-    def get_linked_documents_for(self, document):
-        """
-        Execute the corresponding smart links conditions for the document
-        provided and return the resulting document queryset.
-        """
-        if document.document_type.pk not in self.document_types.values_list('pk', flat=True):
-            raise Exception(
-                _(
-                    'This smart link is not allowed for the selected '
-                    'document\'s type.'
-                )
-            )
-
-        smart_link_query = Q()
-
-        for condition in self.conditions.filter(enabled=True):
-            template = Template(template_string=condition.expression)
-
-            condition_query = Q(**{
-                '{}__{}'.format(
-                    condition.foreign_document_data, condition.operator
-                ): template.render(context={'document': document})
-            })
-            if condition.negated:
-                condition_query = ~condition_query
-
-            if condition.inclusion == INCLUSION_AND:
-                smart_link_query &= condition_query
-            elif condition.inclusion == INCLUSION_OR:
-                smart_link_query |= condition_query
-
-        if smart_link_query:
-            queryset = Document.objects.filter(smart_link_query)
-        else:
-            queryset = Document.objects.none()
-
-        return Document.valid.filter(pk__in=queryset.values('pk'))
-
-    def resolve_for(self, document):
-        return ResolvedSmartLink(
-            smart_link=self, queryset=self.get_linked_documents_for(
-                document=document
-            )
-        )
-
     @method_event(
         event_manager_class=EventManagerSave,
         created={
             'event': event_smart_link_created,
-            'target': 'self',
+            'target': 'self'
         },
         edited={
             'event': event_smart_link_edited,
-            'target': 'self',
+            'target': 'self'
         }
     )
     def save(self, *args, **kwargs):
         return super().save(*args, **kwargs)
 
 
-class ResolvedSmartLink(SmartLink):
+class ResolvedSmartLink(ResolvedSmartLinkBusinessLogicMixin, SmartLink):
     """
     Proxy model to represent an already resolved smart link. Used for easier
     columns registration.
@@ -152,11 +76,10 @@ class ResolvedSmartLink(SmartLink):
     class Meta:
         proxy = True
 
-    def get_label_for(self, document):
-        return self.get_dynamic_label(document=document) or self.label
 
-
-class SmartLinkCondition(ExtraDataModelMixin, models.Model):
+class SmartLinkCondition(
+    ExtraDataModelMixin, SmartLinkConditionBusinessLogicMixin, models.Model
+):
     """
     This model stores a single smart link condition. A smart link is a
     collection of one of more smart link conditions.
@@ -185,7 +108,9 @@ class SmartLinkCondition(ExtraDataModelMixin, models.Model):
         default=False, help_text=_('Inverts the logic of the operator.'),
         verbose_name=_('Negated')
     )
-    enabled = models.BooleanField(default=True, verbose_name=_('Enabled'))
+    enabled = models.BooleanField(
+        default=True, verbose_name=_('Enabled')
+    )
 
     class Meta:
         verbose_name = _('Link condition')
@@ -202,26 +127,17 @@ class SmartLinkCondition(ExtraDataModelMixin, models.Model):
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
 
-    def get_full_label(self):
-        return '{} foreign {} {} {} {}'.format(
-            self.get_inclusion_display(),
-            self.foreign_document_data, _('not') if self.negated else '',
-            self.get_operator_display(), self.expression
-        )
-
-    get_full_label.short_description = _('Full label')
-
     @method_event(
         event_manager_class=EventManagerSave,
         created={
             'action_object': 'self',
             'event': event_smart_link_edited,
-            'target': 'smart_link',
+            'target': 'smart_link'
         },
         edited={
             'action_object': 'self',
             'event': event_smart_link_edited,
-            'target': 'smart_link',
+            'target': 'smart_link'
         }
     )
     def save(self, *args, **kwargs):

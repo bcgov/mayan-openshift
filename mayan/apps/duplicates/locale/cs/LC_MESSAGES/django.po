@@ -4,23 +4,23 @@
 # 
 # Translators:
 # Translators:
-# Michal Švábík <snadno@lehce.cz>, 2022
+# Michal Švábík <snadno@lehce.cz>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:35+0000\n"
-"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2022\n"
-"Language-Team: Czech (https://www.transifex.com/rosarior/teams/13584/cs/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2023\n"
+"Language-Team: Czech (https://app.transifex.com/rosarior/teams/13584/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: apps.py:28 apps.py:54 links.py:14 queues.py:9
+#: apps.py:28 apps.py:54 links.py:14 queues.py:7
 msgid "Duplicates"
 msgstr "Duplikáty"
 
@@ -28,7 +28,7 @@ msgstr "Duplikáty"
 msgid "Duplicate backend"
 msgstr ""
 
-#: classes.py:90
+#: classes.py:89
 msgid "Null backend"
 msgstr "Null backend"
 
@@ -40,39 +40,43 @@ msgstr ""
 msgid "Exact document label"
 msgstr ""
 
-#: links.py:18 models.py:41 views.py:79
+#: links.py:18 models.py:39 views.py:79
 msgid "Duplicated documents"
 msgstr "Duplicitní dokumenty"
 
-#: links.py:24 queues.py:23
+#: links.py:24 queues.py:24
 msgid "Duplicated document scan"
 msgstr "Skenování duplicitních dokumentů"
 
-#: models.py:23 models.py:33
+#: models.py:19 models.py:31
 msgid "Stored duplicate backend"
 msgstr ""
 
-#: models.py:24
+#: models.py:20
 msgid "Stored duplicate backends"
 msgstr ""
 
-#: models.py:37
+#: models.py:35
 msgid "Document"
 msgstr "Dokument"
 
-#: models.py:49
+#: models.py:47
 msgid "Duplicated backend entry"
 msgstr ""
 
-#: models.py:50
+#: models.py:48
 msgid "Duplicated backend entries"
 msgstr ""
 
-#: queues.py:14
+#: queues.py:10
+msgid "Duplicates slow"
+msgstr ""
+
+#: queues.py:15
 msgid "Clean empty duplicate lists"
 msgstr "Vyčistěte prázdné duplicitní seznamy"
 
-#: queues.py:18
+#: queues.py:19
 msgid "Scan document duplicates"
 msgstr "Sken dplicitních dokumentů"
 

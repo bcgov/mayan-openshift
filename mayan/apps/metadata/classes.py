@@ -2,18 +2,7 @@ from django.core.exceptions import ValidationError
 from django.utils.text import format_lazy
 
 from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
-from mayan.apps.common.classes import PropertyHelper
 from mayan.apps.common.literals import EMPTY_LABEL
-
-
-class DocumentMetadataHelper(PropertyHelper):
-    @staticmethod
-    @property
-    def constructor(*args, **kwargs):
-        return DocumentMetadataHelper(*args, **kwargs)
-
-    def get_result(self, name):
-        return self.instance.metadata.get(metadata_type__name=name).value
 
 
 class MetadataLookup:
@@ -87,12 +76,18 @@ class MetadataTypeModuleMixin(AppsModuleLoaderMixin):
     @classmethod
     def get_choices(cls, add_blank=False):
         choices = [
-            (entry.get_import_path(), entry.get_full_label()) for entry in cls.get_all()
+            (
+                entry.get_import_path(), entry.get_full_label()
+            ) for entry in cls.get_all()
         ]
-        choices.sort(key=lambda x: x[1])
+        choices.sort(
+            key=lambda x: x[1]
+        )
 
         if add_blank:
-            choices.insert(0, (None, EMPTY_LABEL))
+            choices.insert(
+                0, (None, EMPTY_LABEL)
+            )
 
         return choices
 
@@ -110,7 +105,7 @@ class MetadataTypeModuleMixin(AppsModuleLoaderMixin):
 
         return format_lazy(
             '{label} {arguments_template}'.format(
-                label=cls.label, arguments_template=arguments_template
+                arguments_template=arguments_template, label=cls.label
             )
         )
 
@@ -121,21 +116,25 @@ class MetadataTypeModuleMixin(AppsModuleLoaderMixin):
         raise NotImplementedError
 
 
-class MetadataParser(MetadataTypeModuleMixin, metaclass=MetadataTypeParserMetaclass):
+class MetadataParser(
+    MetadataTypeModuleMixin, metaclass=MetadataTypeParserMetaclass
+):
     _loader_module_name = 'metadata_parsers'
 
     def parse(self, input_data):
         try:
             return self.execute(input_data)
         except Exception as exception:
-            raise ValidationError(exception)
+            raise ValidationError(message=exception)
 
 
-class MetadataValidator(MetadataTypeModuleMixin, metaclass=MetadataTypeValidatorMetaclass):
+class MetadataValidator(
+    MetadataTypeModuleMixin, metaclass=MetadataTypeValidatorMetaclass
+):
     _loader_module_name = 'metadata_validators'
 
     def validate(self, input_data):
         try:
             self.execute(input_data)
         except Exception as exception:
-            raise ValidationError(exception)
+            raise ValidationError(message=exception)

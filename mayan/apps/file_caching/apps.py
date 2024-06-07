@@ -1,19 +1,26 @@
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.acls.permissions import permission_acl_edit, permission_acl_view
+from mayan.apps.acls.permissions import (
+    permission_acl_edit, permission_acl_view
+)
 from mayan.apps.common.apps import MayanAppConfig
 from mayan.apps.common.menus import (
-    menu_multi_item, menu_object, menu_secondary, menu_tools
+    menu_multi_item, menu_object, menu_return, menu_tools
 )
+from mayan.apps.dashboards.dashboards import dashboard_administrator
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
 
+from .dashboard_widgets import (
+    DashboardWidgetFileCacheSizeAllocated, DashboardWidgetFileCacheSizeUsed
+)
 from .events import (
     event_cache_edited, event_cache_partition_purged, event_cache_purged
 )
 from .links import (
-    link_cache_list, link_cache_multiple_purge, link_cache_purge
+    link_cache_list, link_cache_purge_single_multiple,
+    link_cache_purge_single, link_cache_tool
 )
 from .permissions import permission_cache_purge, permission_cache_view
 
@@ -50,7 +57,8 @@ class FileCachingConfig(MayanAppConfig):
         )
 
         SourceColumn(
-            attribute='label', is_identifier=True, is_object_absolute_url=True, source=Cache
+            attribute='label', is_identifier=True,
+            is_object_absolute_url=True, source=Cache
         )
         SourceColumn(
             attribute='get_maximum_size_display', include_label=True,
@@ -60,19 +68,35 @@ class FileCachingConfig(MayanAppConfig):
             attribute='get_total_size_display', include_label=True,
             source=Cache
         )
+        SourceColumn(
+            attribute='get_partition_count', include_label=True,
+            source=Cache
+        )
+        SourceColumn(
+            attribute='get_partition_file_count', include_label=True,
+            source=Cache
+        )
+
+        dashboard_administrator.add_widget(
+            widget=DashboardWidgetFileCacheSizeUsed, order=99
+        )
+        dashboard_administrator.add_widget(
+            widget=DashboardWidgetFileCacheSizeAllocated, order=99
+        )
 
         menu_object.bind_links(
-            links=(link_cache_purge,),
+            links=(link_cache_purge_single,),
             sources=(Cache,)
         )
         menu_multi_item.bind_links(
-            links=(link_cache_multiple_purge,),
+            links=(link_cache_purge_single_multiple,),
             sources=(Cache,)
         )
-        menu_secondary.bind_links(
+        menu_return.bind_links(
             links=(link_cache_list,), sources=(
-                Cache,
+                Cache, 'file_caching:cache_list'
             )
         )
-
-        menu_tools.bind_links(links=(link_cache_list,))
+        menu_tools.bind_links(
+            links=(link_cache_tool,)
+        )

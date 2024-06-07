@@ -2,7 +2,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.events.classes import EventTypeNamespace
 
-namespace = EventTypeNamespace(label=_('Documents'), name='documents')
+namespace = EventTypeNamespace(
+    label=_('Documents'), name='documents'
+)
 
 # Document
 
@@ -23,9 +25,6 @@ event_document_file_created = namespace.add_event_type(
 )
 event_document_file_deleted = namespace.add_event_type(
     label=_('Document file deleted'), name='document_file_deleted'
-)
-event_document_file_downloaded = namespace.add_event_type(
-    label=_('Document file downloaded'), name='document_file_downloaded'
 )
 event_document_file_edited = namespace.add_event_type(
     label=_('Document file edited'), name='document_file_edited'
@@ -51,7 +50,7 @@ event_document_type_quick_label_edited = namespace.add_event_type(
     label=_('Document type quick label edited'),
     name='document_type_quick_label_edited'
 )
-# The type of an existing document is changed to another type
+# The type of an existing document is changed to another type.
 event_document_type_changed = namespace.add_event_type(
     label=_('Document type changed'), name='document_type_change'
 )
@@ -66,9 +65,6 @@ event_document_version_deleted = namespace.add_event_type(
 )
 event_document_version_edited = namespace.add_event_type(
     label=_('Document version edited'), name='document_version_edited'
-)
-event_document_version_exported = namespace.add_event_type(
-    label=_('Document version exported'), name='document_version_exported'
 )
 
 # Document version page

@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework.reverse import reverse
 from rest_framework_recursive.fields import RecursiveField
 
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
 from mayan.apps.rest_api import serializers
 from mayan.apps.rest_api.relations import FilteredPrimaryKeyRelatedField
 
@@ -15,27 +15,31 @@ from .permissions import (
 
 class CabinetSerializer(serializers.ModelSerializer):
     children = RecursiveField(
-        help_text=_('List of children cabinets.'), many=True, read_only=True
+        help_text=_('List of children cabinets.'), label=_('Children'),
+        many=True, read_only=True
     )
     documents_url = serializers.HyperlinkedIdentityField(
         help_text=_(
             'URL of the API endpoint showing the list documents inside this '
             'cabinet.'
-        ), lookup_url_kwarg='cabinet_id',
+        ), label=_('Documents URL'), lookup_url_kwarg='cabinet_id',
         view_name='rest_api:cabinet-document-list'
     )
     full_path = serializers.SerializerMethodField(
         help_text=_(
             'The name of this cabinet level appended to the names of its '
             'ancestors.'
-        ), read_only=True
+        ), label=_('Full path'), read_only=True
     )
-    parent_url = serializers.SerializerMethodField(read_only=True)
+    parent_url = serializers.SerializerMethodField(
+        label=_('Parents URL'), read_only=True
+    )
 
     # This is here because parent is optional in the model but the serializer
     # sets it as required.
     parent = serializers.PrimaryKeyRelatedField(
-        allow_null=True, queryset=Cabinet.objects.all(), required=False
+        allow_null=True, label=_('Parent'), queryset=Cabinet.objects.all(),
+        required=False
     )
 
     # DEPRECATION: Version 5.0, remove 'parent' fields from GET request as
@@ -44,9 +48,10 @@ class CabinetSerializer(serializers.ModelSerializer):
     class Meta:
         extra_kwargs = {
             'url': {
+                'label': _('URL'),
                 'lookup_url_kwarg': 'cabinet_id',
                 'view_name': 'rest_api:cabinet-detail'
-            },
+            }
         }
         fields = (
             'children', 'documents_url', 'full_path', 'id', 'label',
@@ -75,13 +80,17 @@ class CabinetSerializer(serializers.ModelSerializer):
 
 class CabinetDocumentAddSerializer(serializers.Serializer):
     document = FilteredPrimaryKeyRelatedField(
-        source_queryset=Document.valid.all(),
+        help_text=_(
+            'Primary key of the document to add to the cabinet.'
+        ), label=_('Document ID'), source_queryset=Document.valid.all(),
         source_permission=permission_cabinet_add_document
     )
 
 
 class CabinetDocumentRemoveSerializer(serializers.Serializer):
     document = FilteredPrimaryKeyRelatedField(
-        source_queryset=Document.valid.all(),
+        help_text=_(
+            'Primary key of the document to remove from the cabinet.'
+        ), label=_('Document ID'), source_queryset=Document.valid.all(),
         source_permission=permission_cabinet_remove_document
     )

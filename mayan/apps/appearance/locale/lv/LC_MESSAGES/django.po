@@ -4,23 +4,23 @@
 # 
 # Translators:
 # Translators:
-# Māris Teivāns <maris.teivans@gmail.com>, 2022
+# Māris Teivāns <maris.teivans@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Māris Teivāns <maris.teivans@gmail.com>, 2022\n"
-"Language-Team: Latvian (https://www.transifex.com/rosarior/teams/13584/lv/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Māris Teivāns <maris.teivans@gmail.com>, 2023\n"
+"Language-Team: Latvian (https://app.transifex.com/rosarior/teams/13584/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
 
-#: apps.py:57 events.py:5 permissions.py:5 settings.py:10
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
 msgid "Appearance"
 msgstr "Izskats"
 
@@ -72,39 +72,39 @@ msgstr "Toastr"
 msgid "URI.js"
 msgstr "URI.js"
 
-#: events.py:8
+#: events.py:10
 msgid "Theme created"
 msgstr "Tēma ir izveidota"
 
-#: events.py:11
+#: events.py:13
 msgid "Theme edited"
 msgstr "Tēma ir rediģēta"
 
-#: events.py:14
+#: events.py:16
 msgid "User theme edited"
 msgstr ""
 
-#: links.py:18
+#: links.py:20
 msgid "Theme settings"
 msgstr "Tēmas iestatījumi"
 
-#: links.py:25
+#: links.py:27
 msgid "Edit theme settings"
 msgstr "Rediģēt tēmas iestatījumus"
 
-#: links.py:31 views.py:31
+#: links.py:33 views.py:32
 msgid "Create new theme"
 msgstr "Izveidot jaunu tēmu"
 
-#: links.py:36
+#: links.py:38
 msgid "Delete"
 msgstr "Dzēst"
 
-#: links.py:40
+#: links.py:42
 msgid "Edit"
 msgstr "Rediģēt"
 
-#: links.py:44 links.py:49 models.py:32 views.py:99
+#: links.py:46 links.py:54 models.py:32 views.py:101
 msgid "Themes"
 msgstr "Tēmas"
 
@@ -143,42 +143,48 @@ msgstr "Lietotāja tēmas iestatījums"
 msgid "User theme settings"
 msgstr "Lietotāja tēmas iestatījumi"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Create new themes"
 msgstr "Izveidot jaunas tēmas"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Delete themes"
 msgstr "Dzēst tēmas"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Edit themes"
 msgstr "Rediģēt tēmas"
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "View existing themes"
 msgstr "Skatīt esošās tēmas"
 
-#: settings.py:15
+#: settings.py:18
 msgid "Custom HTTP response code for AJAX redirections."
 msgstr ""
 
-#: settings.py:21
+#: settings.py:24
 msgid "Maximum number of characters that will be displayed as the view title."
 msgstr "Maksimālais rakstzīmju skaits, kas tiks attēlots kā skata nosaukums."
 
-#: settings.py:28
-msgid ""
-"Position where the system message will be displayed. Options are: top-left, "
-"top-center, top-right, bottom-left, bottom-center, bottom-right."
+#: settings.py:34
+msgid "Position where the system messages will be displayed."
 msgstr ""
-"Pozīcija, kur tiks parādīts sistēmas ziņojums. Iespējas ir: augšā pa kreisi,"
-" augšā centrā, augšā pa labi, apakšā pa kreisi, apakšā centrā, apakšā pa "
-"labi."
 
-#: settings.py:36
+#: settings.py:40
 msgid ""
 "Delay in milliseconds after which the menus will be checked for updates."
+msgstr ""
+
+#: settings.py:47
+msgid ""
+"Maximum number of requests that can be made before throttling is enabled."
+msgstr ""
+
+#: settings.py:54
+msgid ""
+"Time in milliseconds after which a throttled request will clear allowing an "
+"additional request to be performed."
 msgstr ""
 
 #: templates/403.html:5 templates/403.html:30
@@ -218,7 +224,7 @@ msgstr ""
 "tai piekļūtu."
 
 #: templates/500.html:5 templates/500.html:30
-#: templates/appearance/root.html:47
+#: templates/appearance/root.html:46
 msgid "Server error"
 msgstr "Servera kļūda"
 
@@ -255,34 +261,24 @@ msgstr ""
 "Atveriet biļeti, izmantojot <a href=\"%(issue_url)s\">problēmu "
 "izsekotāju</a> ."
 
-#: templates/appearance/about.html:10
+#: templates/appearance/about.html:9
 msgid "About"
 msgstr "Par"
 
-#: templates/appearance/about.html:72
-#, python-format
-msgid ""
-"\n"
-"                    %(setting_project_title)s is based on %(project_title)s\n"
-"                "
-msgstr ""
-"\n"
-"%(setting_project_title)s ir balstīts uz %(project_title)s"
-
-#: templates/appearance/about.html:77
+#: templates/appearance/about.html:67
 msgid "Version"
 msgstr "Versija"
 
-#: templates/appearance/about.html:79
+#: templates/appearance/about.html:69
 #, python-format
 msgid "Build number: %(build_number)s"
 msgstr "Veidošanas numurs: %(build_number)s"
 
-#: templates/appearance/about.html:92
+#: templates/appearance/about.html:82
 msgid "Released under the license:"
 msgstr "Izdots saskaņā ar licenci:"
 
-#: templates/appearance/about.html:98
+#: templates/appearance/about.html:88
 #, python-format
 msgid ""
 "\n"
@@ -292,7 +288,7 @@ msgstr ""
 "\n"
 "Pilns izmaiņu saraksts ir pieejams, skatot <a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">Release notes %(icon_documentation)s</a> vai īso versiju <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\">Changelog %(icon_documentation)s</a> ."
 
-#: templates/appearance/about.html:104
+#: templates/appearance/about.html:94
 #, python-format
 msgid ""
 "\n"
@@ -302,7 +298,7 @@ msgstr ""
 "\n"
 "Ja rodas jautājumi, skatiet <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">dokumentāciju %(icon_documentation)s</a> ."
 
-#: templates/appearance/about.html:110
+#: templates/appearance/about.html:100
 #, python-format
 msgid ""
 "\n"
@@ -311,16 +307,6 @@ msgid ""
 msgstr ""
 "\n"
 "Ja atradāt kļūdu vai ir kāda funkcionalitātes ideja, apmeklējiet <a class=\"new_window\" href=\"https://forum.mayan-edms.com\">forumu %(icon_forum)s</a> vai atveriet biļeti <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">pirmkoda repozitorijā %(icon_source_code)s</a> ."
-
-#: templates/appearance/about.html:115
-#, python-format
-msgid ""
-"\n"
-"                Spread the word. Talk to your friends and colleagues about how awesome %(project_title)s is!\n"
-"            "
-msgstr ""
-"\n"
-"Izplatiet vārdu. Runājiet ar draugiem un kolēģiem par to, cik satriecošs ir %(project_title)s!"
 
 #: templates/appearance/base.html:73
 msgid "Object"
@@ -345,21 +331,21 @@ msgstr "Nē"
 msgid "required"
 msgstr "nepieciešams"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Save"
 msgstr "Saglabāt"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Submit"
 msgstr "Iesniegt"
 
-#: templates/appearance/generic_form_subtemplate.html:98
+#: templates/appearance/generic_form_subtemplate.html:99
 #: templates/appearance/generic_multiform_subtemplate.html:66
 msgid "Cancel"
 msgstr "Atcelt"
@@ -368,9 +354,15 @@ msgstr "Atcelt"
 msgid "Identifier"
 msgstr "Identifikators"
 
-#: templates/appearance/generic_list_subtemplate.html:134
-msgid "Facets"
+#: templates/appearance/generic_list_subtemplate.html:85
+#: templates/appearance/partials/list_object_facet_links_column.html:8
+#: templates/appearance/partials/list_object_facet_links_column.html:39
+msgid "Views"
 msgstr ""
+
+#: templates/appearance/generic_list_subtemplate.html:91
+msgid "Actions"
+msgstr "Darbības"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -411,18 +403,18 @@ msgstr "Atlasīt / noņemt atlasi visiem"
 msgid "Toggle list display mode"
 msgstr "Pārslēgt saraksta skata režīmu"
 
-#: templates/appearance/partials/list_toolbar.html:63
+#: templates/appearance/partials/list_toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr ""
 "Atlasiet vienumus, lai aktivizētu lielapjoma darbības. Izmantojiet taustiņu "
 "kombināciju Shift + noklikšķiniet, lai atlasītu daudzus."
 
-#: templates/appearance/partials/list_toolbar.html:68
+#: templates/appearance/partials/list_toolbar.html:36
 msgid "Bulk actions"
 msgstr "Lielapjoma darbības"
 
-#: templates/appearance/partials/list_toolbar.html:70
+#: templates/appearance/partials/list_toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "Toggle Dropdown"
 
@@ -430,47 +422,57 @@ msgstr "Toggle Dropdown"
 msgid "No results"
 msgstr "Nav rezultātu"
 
-#: templates/appearance/root.html:52
+#: templates/appearance/partials/pagination.html:12
+#: templates/appearance/partials/pagination.html:14
+msgid "Previous page"
+msgstr ""
+
+#: templates/appearance/partials/pagination.html:30
+#: templates/appearance/partials/pagination.html:32
+msgid "Next page"
+msgstr ""
+
+#: templates/appearance/root.html:51
 msgid "Close"
 msgstr "Aizvērt"
 
-#: templates/appearance/root.html:60
+#: templates/appearance/root.html:59
 msgid "Server communication error"
 msgstr "Servera sakaru kļūda"
 
-#: templates/appearance/root.html:62
+#: templates/appearance/root.html:61
 msgid "Check you network connection and try again in a few moments."
 msgstr "Pārbaudiet tīkla savienojumu un pēc brīža mēģiniet vēlreiz."
 
-#: templatetags/appearance_tags.py:61
+#: templatetags/appearance_tags.py:77
 msgid "None"
 msgstr "Nav neviens"
 
-#: views.py:55
+#: views.py:57
 #, python-format
 msgid "Delete theme: %s"
 msgstr "Dzēst tēmu: %s"
 
-#: views.py:72
+#: views.py:74
 #, python-format
 msgid "Edit theme: %s"
 msgstr "Rediģēt tēmu: %s"
 
-#: views.py:93
+#: views.py:95
 msgid ""
 "Themes allow changing the visual appearance without requiring code changes."
 msgstr "Tēmas ļauj mainīt vizuālo izskatu, neprasot koda izmaiņas."
 
-#: views.py:97
+#: views.py:99
 msgid "There are no themes"
 msgstr "Nav tēmu"
 
-#: views.py:122
+#: views.py:124
 #, python-format
 msgid "Theme settings for user: %s"
 msgstr ""
 
-#: views.py:144
+#: views.py:146
 #, python-format
 msgid "Edit theme settings for user: %s"
 msgstr ""

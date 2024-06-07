@@ -1,32 +1,52 @@
-from mayan.apps.messaging.events import event_message_created
-from mayan.apps.messaging.models import Message
-from mayan.apps.storage.events import event_download_file_created
-from mayan.apps.storage.models import DownloadFile
-
 from ..document_file_actions import (
     DocumentFileActionAppendNewPages, DocumentFileActionNothing,
     DocumentFileActionUseNewPages
 )
-from ..events import event_document_version_exported
-from ..literals import DOCUMENT_VERSION_EXPORT_MESSAGE_SUBJECT
+from ..events import (
+    event_document_file_created, event_document_file_edited,
+    event_document_version_created, event_document_version_edited,
+    event_document_version_page_created
+)
 
 from .base import GenericDocumentTestCase
 from .mixins.document_file_mixins import DocumentFileTestMixin
+from .mixins.document_version_mixins import DocumentVersionTestMixin
 
 
-class DocumentVersionTestCase(
+class DocumentFileActionTestCase(
     DocumentFileTestMixin, GenericDocumentTestCase
 ):
     def test_version_new_file_new_pages(self):
+        test_document_file_count = self._test_document.files.count()
+        test_document_version_count = self._test_document.versions.count()
+
         test_document_version_page_content_objects = self._test_document_version.page_content_objects
 
-        self.assertEqual(self._test_document.versions.count(), 1)
-
-        self._upload_test_document_file(
-            action=DocumentFileActionUseNewPages.backend_id
+        self.assertEqual(
+            self._test_document.versions.count(), 1
         )
 
-        self.assertEqual(self._test_document.versions.count(), 2)
+        self._clear_events()
+
+        self._upload_test_document_file(
+            action_name=DocumentFileActionUseNewPages.backend_id,
+            user=self._test_case_user
+        )
+
+        self.assertEqual(
+            self._test_document.files.count(), test_document_file_count + 1
+        )
+        self.assertEqual(
+            self._test_document.versions.count(),
+            test_document_version_count + 1
+        )
+
+        self.assertEqual(
+            self._test_document_version_list[0].active, False
+        )
+        self.assertEqual(
+            self._test_document_version_list[1].active, True
+        )
 
         self.assertNotEqual(
             self._test_document_version.page_content_objects,
@@ -34,19 +54,66 @@ class DocumentVersionTestCase(
         )
         self.assertEqual(
             self._test_document_version.page_content_objects,
-            list(self._test_document.file_latest.pages.all())
+            list(
+                self._test_document.file_latest.pages.all()
+            )
+        )
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 4)
+
+        self.assertEqual(events[0].action_object, self._test_document)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document_file)
+        self.assertEqual(events[0].verb, event_document_file_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_version)
+        self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[3].action_object, self._test_document_version
+        )
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(events[3].target, self._test_document_version_page)
+        self.assertEqual(
+            events[3].verb, event_document_version_page_created.id
         )
 
     def test_version_new_version_keep_pages(self):
+        test_document_file_count = self._test_document.files.count()
+        test_document_version_count = self._test_document.versions.count()
+
         test_document_version_page_content_objects = self._test_document_version.page_content_objects
 
-        self.assertEqual(self._test_document.versions.count(), 1)
-
-        self._upload_test_document_file(
-            action=DocumentFileActionNothing.backend_id
+        self.assertEqual(
+            self._test_document.versions.count(), 1
         )
 
-        self.assertEqual(self._test_document.versions.count(), 1)
+        self._clear_events()
+
+        self._upload_test_document_file(
+            action_name=DocumentFileActionNothing.backend_id,
+            user=self._test_case_user
+        )
+
+        self.assertEqual(
+            self._test_document.files.count(), test_document_file_count + 1
+        )
+        self.assertEqual(
+            self._test_document.versions.count(),
+            test_document_version_count
+        )
+
+        self.assertEqual(
+            self._test_document_version_list[0].active, True
+        )
 
         self.assertEqual(
             self._test_document_version.page_content_objects,
@@ -54,21 +121,44 @@ class DocumentVersionTestCase(
         )
         self.assertNotEqual(
             self._test_document_version.page_content_objects,
-            list(self._test_document.file_latest.pages.all())
+            list(
+                self._test_document.file_latest.pages.all()
+            )
         )
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 2)
+
+        self.assertEqual(events[0].action_object, self._test_document)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document_file)
+        self.assertEqual(events[0].verb, event_document_file_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_edited.id)
 
     def test_version_new_file_append_pages(self):
+        test_document_file_count = self._test_document.files.count()
+        test_document_version_count = self._test_document.versions.count()
+
         test_document_version_page_content_objects = self._test_document_version.page_content_objects
 
-        self.assertEqual(self._test_document.versions.count(), 1)
-        self.assertEqual(self._test_document.files.count(), 1)
+        self._clear_events()
 
         self._upload_test_document_file(
-            action=DocumentFileActionAppendNewPages.backend_id
+            action_name=DocumentFileActionAppendNewPages.backend_id,
+            user=self._test_case_user
         )
 
-        self.assertEqual(self._test_document.files.count(), 2)
-        self.assertEqual(self._test_document.versions.count(), 2)
+        self.assertEqual(
+            self._test_document.files.count(), test_document_file_count + 1
+        )
+        self.assertEqual(
+            self._test_document.versions.count(),
+            test_document_version_count + 1
+        )
 
         test_document_version_expected_page_content_objects = list(
             self._test_document.files.first().pages.all()
@@ -79,101 +169,129 @@ class DocumentVersionTestCase(
             )
         )
 
-        self.assertNotEqual(
-            self._test_document_version.page_content_objects,
+        self.assertEqual(self._test_document_version_list[0].active, False)
+        self.assertEqual(self._test_document_version_list[1].active, True)
+
+        self.assertEqual(
+            self._test_document_version_list[0].page_content_objects,
             test_document_version_page_content_objects
         )
         self.assertEqual(
-            self._test_document_version.page_content_objects,
+            self._test_document_version_list[1].page_content_objects,
             test_document_version_expected_page_content_objects
         )
 
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 5)
+
+        self.assertEqual(events[0].action_object, self._test_document)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(events[0].target, self._test_document_file)
+        self.assertEqual(events[0].verb, event_document_file_created.id)
+
+        self.assertEqual(events[1].action_object, self._test_document)
+        self.assertEqual(events[1].actor, self._test_case_user)
+        self.assertEqual(events[1].target, self._test_document_file)
+        self.assertEqual(events[1].verb, event_document_file_edited.id)
+
+        self.assertEqual(events[2].action_object, self._test_document)
+        self.assertEqual(events[2].actor, self._test_case_user)
+        self.assertEqual(events[2].target, self._test_document_version)
+        self.assertEqual(events[2].verb, event_document_version_created.id)
+
+        self.assertEqual(
+            events[3].action_object, self._test_document_version
+        )
+        self.assertEqual(events[3].actor, self._test_case_user)
+        self.assertEqual(
+            events[3].target, self._test_document_version_page_list[1]
+        )
+        self.assertEqual(
+            events[3].verb, event_document_version_page_created.id
+        )
+
+        self.assertEqual(
+            events[4].action_object, self._test_document_version
+        )
+        self.assertEqual(events[4].actor, self._test_case_user)
+        self.assertEqual(
+            events[4].target, self._test_document_version_page_list[2]
+        )
+        self.assertEqual(
+            events[4].verb, event_document_version_page_created.id
+        )
+
+
+class DocumentVersionTestCase(
+    DocumentVersionTestMixin, GenericDocumentTestCase
+):
+    def test_create(self):
+        self._clear_events()
+
+        self._create_test_document_version(user=self._test_case_user)
+
+        self.assertEqual(self._test_document_version_list[0].active, True)
+        self.assertEqual(self._test_document_version_list[1].active, False)
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 1)
+
+        self.assertEqual(events[0].action_object, self._test_document)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(
+            events[0].target, self._test_document_version_list[1]
+        )
+        self.assertEqual(events[0].verb, event_document_version_created.id)
+
     def test_method_get_absolute_url(self):
-        self.assertTrue(self._test_document.version_active.get_absolute_url())
-
-
-class DocumentVersionExportModelTestCase(GenericDocumentTestCase):
-    def test_document_version_export(self):
-        self._create_test_user()
-
-        download_file_count = DownloadFile.objects.count()
-
         self._clear_events()
 
-        self._test_user.locale_profile.language = 'es'
-
-        self._test_document_version.export_to_download_file(
-            user=self._test_user
-        )
-
-        self.assertEqual(
-            DownloadFile.objects.count(), download_file_count + 1
-        )
-
-        test_download_file = DownloadFile.objects.first()
-        test_message = Message.objects.first()
-
-        self.assertNotEqual(
-            test_message.subject, DOCUMENT_VERSION_EXPORT_MESSAGE_SUBJECT
+        self.assertTrue(
+            self._test_document.version_active.get_absolute_url()
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 0)
 
-        self.assertEqual(events[0].action_object, self._test_document_version)
-        self.assertEqual(events[0].actor, self._test_user)
-        self.assertEqual(events[0].target, test_download_file)
-        self.assertEqual(events[0].verb, event_download_file_created.id)
 
-        self.assertEqual(events[1].action_object, test_download_file)
-        self.assertEqual(events[1].actor, self._test_user)
-        self.assertEqual(events[1].target, self._test_document_version)
-        self.assertEqual(events[1].verb, event_document_version_exported.id)
+class DocumentVersionBusinessLogicTestCase(
+    DocumentVersionTestMixin, GenericDocumentTestCase
+):
+    def test_multiple_active(self):
+        self._create_test_document_version(user=self._test_case_user)
 
-        self.assertEqual(events[2].action_object, None)
-        self.assertEqual(events[2].actor, test_message)
-        self.assertEqual(events[2].target, test_message)
-        self.assertEqual(events[2].verb, event_message_created.id)
+        self._test_document_version_list[0].refresh_from_db()
+        self._test_document_version_list[1].refresh_from_db()
 
-    def test_document_version_empty_content_type_export(self):
-        self._create_test_user()
-
-        download_file_count = DownloadFile.objects.count()
-        self._test_document_file.delete()
+        self.assertEqual(
+            self._test_document_version_list[0].active, True
+        )
+        self.assertEqual(
+            self._test_document_version_list[1].active, False
+        )
 
         self._clear_events()
 
-        self._test_user.locale_profile.language = 'es'
+        self._test_document_version_list[1].active = True
+        self._test_document_version_list[1]._event_actor = self._test_case_user
+        self._test_document_version_list[1].save()
 
-        self._test_document_version.export_to_download_file(
-            user=self._test_user
-        )
+        self._test_document_version_list[0].refresh_from_db()
+        self._test_document_version_list[1].refresh_from_db()
 
         self.assertEqual(
-            DownloadFile.objects.count(), download_file_count + 1
+            self._test_document_version_list[0].active, False
         )
-
-        test_download_file = DownloadFile.objects.first()
-        test_message = Message.objects.first()
-
-        self.assertNotEqual(
-            test_message.subject, DOCUMENT_VERSION_EXPORT_MESSAGE_SUBJECT
+        self.assertEqual(
+            self._test_document_version_list[1].active, True
         )
 
         events = self._get_test_events()
-        self.assertEqual(events.count(), 3)
+        self.assertEqual(events.count(), 1)
 
-        self.assertEqual(events[0].action_object, self._test_document_version)
-        self.assertEqual(events[0].actor, self._test_user)
-        self.assertEqual(events[0].target, test_download_file)
-        self.assertEqual(events[0].verb, event_download_file_created.id)
-
-        self.assertEqual(events[1].action_object, test_download_file)
-        self.assertEqual(events[1].actor, self._test_user)
-        self.assertEqual(events[1].target, self._test_document_version)
-        self.assertEqual(events[1].verb, event_document_version_exported.id)
-
-        self.assertEqual(events[2].action_object, None)
-        self.assertEqual(events[2].actor, test_message)
-        self.assertEqual(events[2].target, test_message)
-        self.assertEqual(events[2].verb, event_message_created.id)
+        self.assertEqual(events[0].action_object, self._test_document)
+        self.assertEqual(events[0].actor, self._test_case_user)
+        self.assertEqual(
+            events[0].target, self._test_document_version_list[1]
+        )
+        self.assertEqual(events[0].verb, event_document_version_edited.id)

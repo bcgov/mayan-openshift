@@ -1,12 +1,11 @@
 from django.db import models
-from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.databases.model_mixins import ExtraDataModelMixin
 from mayan.apps.documents.models.document_type_models import DocumentType
 from mayan.apps.documents.models.document_version_page_models import DocumentVersionPage
-from mayan.apps.events.classes import EventManagerSave
 from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import EventManagerSave
 
 from .events import event_ocr_document_version_page_content_edited
 from .managers import (
@@ -23,8 +22,9 @@ class DocumentTypeOCRSettings(ExtraDataModelMixin, models.Model):
         to=DocumentType, unique=True, verbose_name=_('Document type')
     )
     auto_ocr = models.BooleanField(
-        default=True,
-        verbose_name=_('Automatically queue newly created documents for OCR.')
+        default=True, help_text=_(
+            'Automatically queue newly created documents for OCR.'
+        ), verbose_name=_('Auto OCR')
     )
 
     objects = DocumentTypeSettingsManager()
@@ -59,7 +59,7 @@ class DocumentVersionPageOCRContent(models.Model):
         verbose_name_plural = _('Document version pages OCR contents')
 
     def __str__(self):
-        return force_text(s=self.document_version_page)
+        return str(self.document_version_page)
 
     @method_event(
         event_manager_class=EventManagerSave,

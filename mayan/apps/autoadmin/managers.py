@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.core import management
 from django.db import models
 
+from .literals import COMMAND_NAME_CREATESUPERUSER
 from .settings import setting_email, setting_password, setting_username
 
 logger = logging.getLogger(name=__name__)
@@ -24,11 +25,11 @@ class AutoAdminSingletonManager(models.Manager):
             )
         except UserModel.DoesNotExist:
             logger.info(
-                'Creating superuser -- login: %s, email: %s, password: %s',
+                'Creating super user -- login: %s, email: %s, password: %s',
                 setting_username.value, setting_email.value, password
             )
             management.call_command(
-                'createsuperuser',
+                COMMAND_NAME_CREATESUPERUSER,
                 **{
                     UserModel.USERNAME_FIELD: setting_username.value,
                     'email': setting_email.value,

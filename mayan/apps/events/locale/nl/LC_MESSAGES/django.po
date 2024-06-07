@@ -4,100 +4,103 @@
 # 
 # Translators:
 # Translators:
-# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2022
-# Roberto Rosario, 2022
+# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2023
+# Roberto Rosario, 2023
+# bwakkie <bwakkie@gmail.com>, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:35+0000\n"
-"Last-Translator: Roberto Rosario, 2022\n"
-"Language-Team: Dutch (https://www.transifex.com/rosarior/teams/13584/nl/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: bwakkie <bwakkie@gmail.com>, 2023\n"
+"Language-Team: Dutch (https://app.transifex.com/rosarior/teams/13584/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:31 events.py:11 links.py:52 links.py:93 permissions.py:5
-#: queues.py:7 views/event_views.py:29
+#: apps.py:32 events.py:11 links.py:52 links.py:93 permissions.py:6
+#: settings.py:7 views/event_views.py:29
 msgid "Events"
 msgstr "Evenementen"
 
-#: apps.py:81 apps.py:114
+#: apps.py:82 apps.py:117
 msgid "Date and time"
 msgstr "Datum en tijd"
 
-#: apps.py:85 apps.py:117
+#: apps.py:86 apps.py:120 serializers.py:72
 msgid "Actor"
 msgstr "Acteur"
 
-#: apps.py:89 apps.py:122
+#: apps.py:90 apps.py:125
 msgid "Event"
 msgstr "Gebeurtenis"
 
-#: apps.py:93 apps.py:127
+#: apps.py:94 apps.py:130 serializers.py:78
 msgid "Target"
 msgstr "Doel"
 
-#: apps.py:97 apps.py:131
+#: apps.py:98 apps.py:134
 msgid "Action object"
 msgstr "Actie object"
 
-#: apps.py:104 forms.py:10 forms.py:67
+#: apps.py:105 forms.py:10 forms.py:71
 msgid "Namespace"
 msgstr "Namespace"
 
-#: apps.py:107 forms.py:14 forms.py:71
+#: apps.py:110 forms.py:16 forms.py:77 serializers.py:21 serializers.py:46
 msgid "Label"
 msgstr "Label"
 
-#: apps.py:136
+#: apps.py:139
 msgid "Seen"
 msgstr "Gezien"
 
-#: apps.py:143
+#: apps.py:146
 msgid "Object"
 msgstr "Object"
 
-#: apps.py:148 models.py:64 models.py:127
+#: apps.py:151 models.py:46 models.py:105
 msgid "Event type"
 msgstr "Evenementsoort"
 
-#: classes.py:87
+#: classes.py:90
 msgid "Event list export to CSV"
-msgstr ""
+msgstr "Exporteren van evenementenlijst naar CSV"
 
-#: classes.py:116
+#: classes.py:121
 msgid "Events exported."
-msgstr ""
+msgstr "Gebeurtenissen geëxporteerd."
 
-#: classes.py:118
+#: classes.py:123
 #, python-format
 msgid ""
 "The event list has been exported and is available for download using the "
 "link: %(download_url)s or from the downloads area (%(download_list_url)s)."
 msgstr ""
+"De evenementenlijst is geëxporteerd en kan worden gedownload via de link: "
+"%(download_url)s of via het downloadgedeelte ( %(download_list_url)s )."
 
 #: events.py:15
 msgid "Events cleared"
-msgstr ""
+msgstr "Gebeurtenissen gewist"
 
 #: events.py:18
 msgid "Events exported"
-msgstr ""
+msgstr "Gebeurtenissen geëxporteerd"
 
-#: forms.py:18 forms.py:75
+#: forms.py:22 forms.py:83
 msgid "Subscription"
 msgstr "Abonnement"
 
-#: forms.py:20 forms.py:77
+#: forms.py:24 forms.py:85
 msgid "No"
 msgstr "Nee"
 
-#: forms.py:21 forms.py:78
+#: forms.py:25 forms.py:86
 msgid "Subscribed"
 msgstr "Geabonneerd"
 
@@ -105,19 +108,19 @@ msgstr "Geabonneerd"
 msgid "System"
 msgstr "Systeem"
 
-#: links.py:55 links.py:100 views/clear_views.py:63
+#: links.py:55 links.py:100 views/clear_views.py:65
 msgid "Clear events"
-msgstr ""
+msgstr "Duidelijke gebeurtenissen"
 
-#: links.py:59 links.py:107 views/export_views.py:59
+#: links.py:59 links.py:107 views/export_views.py:64
 msgid "Export events"
-msgstr ""
+msgstr "Evenementen exporteren"
 
-#: links.py:65 models.py:71 views/subscription_views.py:54
+#: links.py:65 models.py:53 views/subscription_views.py:54
 msgid "Event subscriptions"
 msgstr "Gebeurtenis abonnement"
 
-#: links.py:71 models.py:135 views/subscription_views.py:169
+#: links.py:71 models.py:113 views/subscription_views.py:169
 msgid "Object event subscriptions"
 msgstr "Object gebeurtenis abonnementen"
 
@@ -133,98 +136,145 @@ msgstr "Alle markeren als gezien"
 msgid "Subscriptions"
 msgstr "Abonnementen"
 
-#: literals.py:12
+#: literals.py:14
 #, python-format
 msgid "Unknown or obsolete event type: %s"
 msgstr "Onbekend of overbodig gebeurtenistype: %s"
 
-#: models.py:24
+#: models.py:23 serializers.py:24 serializers.py:49
 msgid "Name"
 msgstr "Naam"
 
-#: models.py:28
+#: models.py:27
 msgid "Stored event type"
 msgstr "Opgeslagen gebeurtenistype"
 
-#: models.py:29
+#: models.py:28
 msgid "Stored event types"
 msgstr "Opgeslagen gebeurtenistypes"
 
-#: models.py:60 models.py:86 models.py:123
+#: models.py:42 models.py:68 models.py:101 serializers.py:103
 msgid "User"
 msgstr "Gebruiker"
 
-#: models.py:70
+#: models.py:52
 msgid "Event subscription"
 msgstr "Gebeurtenis abonnement"
 
-#: models.py:90
+#: models.py:72 serializers.py:100
 msgid "Action"
 msgstr "Actie"
 
-#: models.py:92
+#: models.py:75
 msgid "Read"
 msgstr "Lezen"
 
-#: models.py:98
+#: models.py:82
 msgid "Notification"
 msgstr "Melding"
 
-#: models.py:99 views/notification_views.py:33
+#: models.py:83 views/notification_views.py:33
 msgid "Notifications"
 msgstr "Meldingen"
 
-#: models.py:134
+#: models.py:112
 msgid "Object event subscription"
 msgstr "Object gebeurtenis abonnement"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Clear the events of an object"
-msgstr ""
+msgstr "Wis de gebeurtenissen van een object"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Export the events of an object"
-msgstr ""
+msgstr "Exporteer de gebeurtenissen van een object"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "View the events of an object"
-msgstr ""
+msgstr "Bekijk de gebeurtenissen van een object"
 
-#: queues.py:13
+#: queues.py:7
+msgid "Events fast"
+msgstr "Evenementen snel"
+
+#: queues.py:10
+msgid "Events slow"
+msgstr "Gebeurtenissen traag"
+
+#: queues.py:16
+msgid "Commit an event"
+msgstr "Een evenement vastleggen"
+
+#: queues.py:21
 msgid "Clear event querysets"
-msgstr ""
+msgstr "Wis gebeurtenisquerysets"
 
-#: queues.py:17
+#: queues.py:25
 msgid "Export event querysets"
+msgstr "Gebeurtenisquerysets exporteren"
+
+#: serializers.py:27
+msgid "URL"
+msgstr "URL"
+
+#: serializers.py:40
+msgid "Event type namespace URL"
+msgstr "Naamruimte-URL van gebeurtenistype"
+
+#: serializers.py:43
+msgid "ID"
+msgstr "ID"
+
+#: serializers.py:75
+msgid "Actor content type"
+msgstr "Inhoudstype acteur"
+
+#: serializers.py:81
+msgid "Target content type"
+msgstr "Doelinhoudstype"
+
+#: serializers.py:84
+msgid "Verb"
+msgstr "Werkwoord"
+
+#: settings.py:13
+msgid ""
+"Disables asynchronous events mode. All events will be committed in the same "
+"process that triggers them. This was the behavior prior to version 4.5."
 msgstr ""
+"Schakelt de modus voor asynchrone gebeurtenissen uit. Alle gebeurtenissen "
+"worden vastgelegd in hetzelfde proces dat ze activeert. Dit was het gedrag "
+"vóór versie 4.5."
 
 #: views/clear_views.py:27
 msgid ""
 "This action is not reversible. The process will be performed in the "
 "background. "
 msgstr ""
+"Deze actie is niet omkeerbaar. Het proces wordt op de achtergrond "
+"uitgevoerd."
 
-#: views/clear_views.py:51
+#: views/clear_views.py:53
 msgid "Event list clear task queued successfully."
-msgstr ""
+msgstr "Gebeurtenislijst taak wissen succesvol in de wachtrij geplaatst."
 
-#: views/clear_views.py:84
+#: views/clear_views.py:86
 #, python-format
 msgid "Clear events of: %s"
-msgstr ""
+msgstr "Wis gebeurtenissen van: %s"
 
-#: views/clear_views.py:109
+#: views/clear_views.py:111
 #, python-format
 msgid "Clear events of type: %s"
-msgstr ""
+msgstr "Wis gebeurtenissen van het type: %s"
 
 #: views/event_views.py:25
 msgid "Events track actions that have been performed on, to, or with objects."
-msgstr ""
+msgstr "Gebeurtenissen volg acties die zijn uitgevoerd op of met objecten."
 
 #: views/event_views.py:28
 msgid "There are no events"
-msgstr ""
+msgstr "Er zijn geen evenementen"
 
 #: views/event_views.py:49
 msgid "There are no events for this object"
@@ -237,32 +287,34 @@ msgstr "Evenementen voor: %s"
 
 #: views/event_views.py:67
 msgid "There are no events of this type"
-msgstr ""
+msgstr "Er zijn geen evenementen van dit type"
 
 #: views/event_views.py:69
 #, python-format
 msgid "Events of type: %s"
 msgstr "Evenementen van soort: %s"
 
-#: views/export_views.py:27
+#: views/export_views.py:28
 msgid ""
 "The process will be performed in the background. The exported events will be"
 " available in the downloads area."
 msgstr ""
+"Het proces wordt op de achtergrond uitgevoerd. De geëxporteerde "
+"gebeurtenissen zijn beschikbaar in het downloadgedeelte."
 
-#: views/export_views.py:46
+#: views/export_views.py:51
 msgid "Event list export task queued successfully."
-msgstr ""
+msgstr "Exporttaak van gebeurtenislijst succesvol in wachtrij geplaatst."
 
-#: views/export_views.py:80
+#: views/export_views.py:85
 #, python-format
 msgid "Export events of: %s"
-msgstr ""
+msgstr "Exporteer gebeurtenissen van: %s"
 
-#: views/export_views.py:99
+#: views/export_views.py:104
 #, python-format
 msgid "Export events of type: %s"
-msgstr ""
+msgstr "Exporteer gebeurtenissen van het type: %s"
 
 #: views/notification_views.py:29
 msgid "Subscribe to global or object events to receive notifications."
@@ -275,19 +327,19 @@ msgstr "Er zijn geen meldingen"
 
 #: views/notification_views.py:45
 msgid "Mark the selected notification as read?"
-msgstr ""
+msgstr "De geselecteerde melding markeren als gelezen?"
 
 #: views/notification_views.py:60
 msgid "Notification marked as read."
-msgstr ""
+msgstr "Melding gemarkeerd als gelezen."
 
 #: views/notification_views.py:72
 msgid "Mark all notification as read?"
-msgstr ""
+msgstr "Alle meldingen als gelezen markeren?"
 
 #: views/notification_views.py:79
 msgid "All notifications marked as read."
-msgstr ""
+msgstr "Alle meldingen gemarkeerd als gelezen."
 
 #: views/subscription_views.py:38
 #, python-format
@@ -314,10 +366,10 @@ msgstr "Gebeurtenis abonnementen voor: %s"
 
 #: views/subscription_views.py:164
 msgid ""
-"Subscribe to the events of an object to received notifications when those "
+"Subscribe to the events of an object to receive notifications when those "
 "events occur."
 msgstr ""
 
 #: views/subscription_views.py:167
 msgid "There are no object event subscriptions"
-msgstr ""
+msgstr "Er zijn geen objectgebeurtenisabonnementen"

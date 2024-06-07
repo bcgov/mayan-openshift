@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from mayan.apps.appearance.settings import setting_max_title_length
 
 from ..icons import icon_list_mode_items, icon_list_mode_list
+from ..literals import TEXT_LIST_AS_ITEMS_PARAMETER
 from ..settings import setting_paging_argument
 
 logger = logging.getLogger(name=__name__)
@@ -69,7 +70,11 @@ def views_get_list_mode_querystring(context):
     else:
         list_mode = 'items'
 
-    return views_update_query_string(context=context, _list_mode=list_mode)
+    kwargs = {
+        TEXT_LIST_AS_ITEMS_PARAMETER: list_mode
+    }
+
+    return views_update_query_string(context=context, **kwargs)
 
 
 @register.simple_tag(takes_context=True)
@@ -103,9 +108,15 @@ def views_render_subtemplate(context, template_name, template_context):
     Renders the specified template with the mixed parent and
     subtemplate contexts.
     """
-    new_context = Context(context.flatten())
-    new_context.update(Context(template_context))
-    return get_template(template_name).render(new_context.flatten())
+    new_context = Context(
+        context.flatten()
+    )
+    new_context.update(
+        Context(template_context)
+    )
+    return get_template(template_name=template_name).render(
+        context=new_context.flatten()
+    )
 
 
 @register.simple_tag(takes_context=True)
@@ -129,4 +140,6 @@ def views_update_query_string(context, **kwargs):
     for key, value in kwargs.items():
         query[key] = value
 
-    return '?{}'.format(query.urlencode())
+    return '?{}'.format(
+        query.urlencode()
+    )

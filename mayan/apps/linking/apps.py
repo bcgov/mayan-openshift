@@ -8,23 +8,28 @@ from mayan.apps.acls.permissions import (
 from mayan.apps.common.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
-    menu_list_facet, menu_object, menu_related, menu_secondary, menu_setup
+    menu_list_facet, menu_object, menu_related, menu_return, menu_secondary,
+    menu_setup
 )
 from mayan.apps.documents.links.document_type_links import link_document_type_list
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
-from mayan.apps.views.html_widgets import TwoStateWidget
+from mayan.apps.views.column_widgets import TwoStateWidget
 
 from .events import event_smart_link_edited
 from .links import (
-    link_document_type_smart_links, link_smart_link_create,
+    link_document_smart_link_instance_list, link_document_type_smart_links,
     link_smart_link_condition_create, link_smart_link_condition_delete,
     link_smart_link_condition_edit, link_smart_link_condition_list,
-    link_smart_link_delete, link_smart_link_document_types,
-    link_smart_link_edit, link_smart_link_instance_view,
-    link_document_smart_link_instance_list, link_smart_link_list,
+    link_smart_link_create, link_smart_link_delete,
+    link_smart_link_document_types, link_smart_link_edit,
+    link_smart_link_instance_view, link_smart_link_list,
     link_smart_link_setup
+)
+from .methods import (
+    method_document_type_smart_links_add,
+    method_document_type_smart_links_remove
 )
 from .permissions import (
     permission_resolved_smart_link_view, permission_smart_link_delete,
@@ -53,6 +58,15 @@ class LinkingApp(MayanAppConfig):
         ResolvedSmartLink = self.get_model(model_name='ResolvedSmartLink')
         SmartLink = self.get_model(model_name='SmartLink')
         SmartLinkCondition = self.get_model(model_name='SmartLinkCondition')
+
+        DocumentType.add_to_class(
+            name='smart_links_add',
+            value=method_document_type_smart_links_add
+        )
+        DocumentType.add_to_class(
+            name='smart_links_remove',
+            value=method_document_type_smart_links_remove
+        )
 
         DynamicSerializerField.add_serializer(
             klass=SmartLink,
@@ -147,7 +161,6 @@ class LinkingApp(MayanAppConfig):
         menu_list_facet.bind_links(
             links=(link_document_type_smart_links,), sources=(DocumentType,)
         )
-
         menu_related.bind_links(
             links=(link_smart_link_list,),
             sources=(
@@ -168,17 +181,16 @@ class LinkingApp(MayanAppConfig):
         menu_list_facet.bind_links(
             exclude=(ResolvedSmartLink,),
             links=(
-                link_smart_link_document_types, link_smart_link_condition_list
+                link_smart_link_document_types,
+                link_smart_link_condition_list
             ), sources=(SmartLink,)
         )
-
         menu_object.bind_links(
             exclude=(ResolvedSmartLink,),
             links=(
                 link_smart_link_delete, link_smart_link_edit
             ), sources=(SmartLink,)
         )
-
         menu_related.bind_links(
             links=(link_document_type_list,),
             sources=(
@@ -186,9 +198,15 @@ class LinkingApp(MayanAppConfig):
                 'linking:smart_link_create'
             )
         )
-
+        menu_return.bind_links(
+            links=(link_smart_link_list,),
+            sources=(
+                SmartLink, 'linking:smart_link_list',
+                'linking:smart_link_create'
+            )
+        )
         menu_secondary.bind_links(
-            links=(link_smart_link_list, link_smart_link_create),
+            links=(link_smart_link_create,),
             sources=(
                 SmartLink, 'linking:smart_link_list',
                 'linking:smart_link_create'
@@ -203,7 +221,6 @@ class LinkingApp(MayanAppConfig):
                 link_smart_link_condition_delete
             ), sources=(SmartLinkCondition,)
         )
-
         menu_secondary.bind_links(
             links=(link_smart_link_condition_create,),
             sources=(
@@ -216,4 +233,6 @@ class LinkingApp(MayanAppConfig):
 
         # Setup
 
-        menu_setup.bind_links(links=(link_smart_link_setup,))
+        menu_setup.bind_links(
+            links=(link_smart_link_setup,)
+        )

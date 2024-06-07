@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
 
 from ..icons import icon_document_link_send_single
 from ..permissions import permission_send_document_link
@@ -17,6 +17,6 @@ class MailDocumentLinkView(ObjectLinkMailView):
         '%(count)d document links queued for email delivery'
     )
     title = 'Email document link'
-    title_plural = 'Email document links'
     title_document = 'Email link for document: %s'
+    title_plural = 'Email document links'
     view_icon = icon_document_link_send_single

@@ -21,11 +21,11 @@ BinaryDependency(
     ), module=__name__, name='pdftoppm', path=pdftoppm_path
 )
 PythonDependency(
-    copyright_attribute='PIL.__doc__', module=__name__, name='Pillow',
-    version_string='==9.2.0'
+    attribute_copyright='PIL.__doc__', module=__name__, name='Pillow',
+    version_string='==10.2.0'
 )
 PythonDependency(
-    module=__name__, name='PyPDF2', version_string='==1.28.4'
+    module=__name__, name='pypdf', version_string='==3.17.4'
 )
 PythonDependency(
     module=__name__, name='qrcode', version_string='==7.3.1'

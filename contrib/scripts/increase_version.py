@@ -1,13 +1,18 @@
 #!/usr/bin/env python
+import os
 import sys
-
-import version
 
 
 if __name__ == '__main__':
+    sys.path.insert(
+        1, os.path.abspath('.')
+    )
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mayan.settings')
+    from mayan.apps.dependencies import versions as version
+
     if len(sys.argv) == 1:
         print(
-            'usage: <part to increase [major, minor, micro]> <-test>'
+            'usage: <part to increase [major, minor, micro, dev, pre, post]>'
         )
         exit(0)
 
@@ -28,8 +33,16 @@ if __name__ == '__main__':
         version.increment_minor()
     elif part == 'micro':
         version.increment_micro()
+    elif part == 'dev':
+        version.increment_dev()
+    elif part == 'pre':
+        version.increment_pre()
+    elif part == 'post':
+        version.increment_post()
     else:
         print('Unknown part')
         exit(1)
 
-    print(version.get_version_string())
+    print(
+        version.get_version_string()
+    )

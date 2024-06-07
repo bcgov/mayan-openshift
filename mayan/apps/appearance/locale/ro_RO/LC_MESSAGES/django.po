@@ -4,26 +4,26 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2022
-# Stefaniu Criste <gupi@hangar.ro>, 2022
-# Badea Gabriel <gcbadea@gmail.com>, 2022
-# Harald Ersch, 2022
+# Roberto Rosario, 2023
+# Stefaniu Criste <gupi@hangar.ro>, 2023
+# Badea Gabriel <gcbadea@gmail.com>, 2023
+# Harald Ersch, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Harald Ersch, 2022\n"
-"Language-Team: Romanian (Romania) (https://www.transifex.com/rosarior/teams/13584/ro_RO/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Harald Ersch, 2023\n"
+"Language-Team: Romanian (Romania) (https://app.transifex.com/rosarior/teams/13584/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: apps.py:57 events.py:5 permissions.py:5 settings.py:10
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
 msgid "Appearance"
 msgstr "Aspect"
 
@@ -75,39 +75,39 @@ msgstr "Toastr"
 msgid "URI.js"
 msgstr "URI.js"
 
-#: events.py:8
+#: events.py:10
 msgid "Theme created"
 msgstr "Temă creată"
 
-#: events.py:11
+#: events.py:13
 msgid "Theme edited"
 msgstr "Temă editată"
 
-#: events.py:14
+#: events.py:16
 msgid "User theme edited"
 msgstr "Tema utilizatorului a fost editată"
 
-#: links.py:18
+#: links.py:20
 msgid "Theme settings"
 msgstr "Setari temă"
 
-#: links.py:25
+#: links.py:27
 msgid "Edit theme settings"
 msgstr "Editați setările temei"
 
-#: links.py:31 views.py:31
+#: links.py:33 views.py:32
 msgid "Create new theme"
 msgstr "Creați o temă nouă"
 
-#: links.py:36
+#: links.py:38
 msgid "Delete"
 msgstr "Șterge"
 
-#: links.py:40
+#: links.py:42
 msgid "Edit"
 msgstr "Editați"
 
-#: links.py:44 links.py:49 models.py:32 views.py:99
+#: links.py:46 links.py:54 models.py:32 views.py:101
 msgid "Themes"
 msgstr "Teme"
 
@@ -147,46 +147,56 @@ msgstr "Setări ale temei utilizatorului"
 msgid "User theme settings"
 msgstr "Setări ale temei utilizatorului"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Create new themes"
 msgstr "Creați teme noi"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Delete themes"
 msgstr "Ștergeți teme"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Edit themes"
 msgstr "Editați teme"
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "View existing themes"
 msgstr "Vizualizați temele existente"
 
-#: settings.py:15
+#: settings.py:18
 msgid "Custom HTTP response code for AJAX redirections."
 msgstr "Cod de răspuns HTTP personalizat pentru redirecționări AJAX."
 
-#: settings.py:21
+#: settings.py:24
 msgid "Maximum number of characters that will be displayed as the view title."
 msgstr ""
 "Numărul maxim de caractere care vor fi afișate ca titlu de vizualizare."
 
-#: settings.py:28
-msgid ""
-"Position where the system message will be displayed. Options are: top-left, "
-"top-center, top-right, bottom-left, bottom-center, bottom-right."
-msgstr ""
-"Poziția în care va fi afișat mesajul de sistem. Opțiunile sunt: în stânga "
-"sus, în centru-sus, în dreapta-sus, în stânga-jos, în jos-centru, în jos-"
-"dreapta."
+#: settings.py:34
+msgid "Position where the system messages will be displayed."
+msgstr "Poziția în care vor fi afișate mesajele de sistem."
 
-#: settings.py:36
+#: settings.py:40
 msgid ""
 "Delay in milliseconds after which the menus will be checked for updates."
 msgstr ""
 "Întârziere în milisecunde după care meniurile vor fi verificate pentru "
 "actualizări."
+
+#: settings.py:47
+msgid ""
+"Maximum number of requests that can be made before throttling is enabled."
+msgstr ""
+"Numărul maxim de solicitări care pot fi făcute înainte ca limitarea să fie "
+"activată."
+
+#: settings.py:54
+msgid ""
+"Time in milliseconds after which a throttled request will clear allowing an "
+"additional request to be performed."
+msgstr ""
+"Timp în milisecunde după care o solicitare limitată se va șterge, permițând "
+"efectuarea unei cereri suplimentare."
 
 #: templates/403.html:5 templates/403.html:30
 msgid "Insufficient permission"
@@ -225,7 +235,7 @@ msgstr ""
 "accesarea acesteia."
 
 #: templates/500.html:5 templates/500.html:30
-#: templates/appearance/root.html:47
+#: templates/appearance/root.html:46
 msgid "Server error"
 msgstr "Eroare la server"
 
@@ -262,34 +272,24 @@ msgstr ""
 "Deschideți un bilet folosind <a href=\"%(issue_url)s\">trackerul de "
 "probleme</a> ."
 
-#: templates/appearance/about.html:10
+#: templates/appearance/about.html:9
 msgid "About"
 msgstr "Despre"
 
-#: templates/appearance/about.html:72
-#, python-format
-msgid ""
-"\n"
-"                    %(setting_project_title)s is based on %(project_title)s\n"
-"                "
-msgstr ""
-"\n"
-"%(setting_project_title)s se bazează pe %(project_title)s"
-
-#: templates/appearance/about.html:77
+#: templates/appearance/about.html:67
 msgid "Version"
 msgstr "Versiune"
 
-#: templates/appearance/about.html:79
+#: templates/appearance/about.html:69
 #, python-format
 msgid "Build number: %(build_number)s"
 msgstr "Număr de compilare: %(build_number)s"
 
-#: templates/appearance/about.html:92
+#: templates/appearance/about.html:82
 msgid "Released under the license:"
 msgstr "Lansat sub licența:"
 
-#: templates/appearance/about.html:98
+#: templates/appearance/about.html:88
 #, python-format
 msgid ""
 "\n"
@@ -299,7 +299,7 @@ msgstr ""
 "\n"
 "Lista completă a modificărilor este disponibilă prin notele <a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">Note de lansare%(icon_documentation)s </a> sau versiunea scurtă <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\"> Istoricul modificărilor %(icon_documentation)s </a>."
 
-#: templates/appearance/about.html:104
+#: templates/appearance/about.html:94
 #, python-format
 msgid ""
 "\n"
@@ -309,7 +309,7 @@ msgstr ""
 "\n"
 "Pentru întrebări, verificați <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">documentația %(icon_documentation)s</a> ."
 
-#: templates/appearance/about.html:110
+#: templates/appearance/about.html:100
 #, python-format
 msgid ""
 "\n"
@@ -318,16 +318,6 @@ msgid ""
 msgstr ""
 "\n"
 "Dacă ați găsit un bug sau aveți o idee de noi caracteristici, vizitați <a class=\"new_window\" href=\"https://forum.mayan-edms.com\">Forumul %(icon_forum)s</a> sau deschideți un bilet în <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">depozitul de coduri sursă%(icon_source_code)s</a>."
-
-#: templates/appearance/about.html:115
-#, python-format
-msgid ""
-"\n"
-"                Spread the word. Talk to your friends and colleagues about how awesome %(project_title)s is!\n"
-"            "
-msgstr ""
-"\n"
-"Împrăștie vestea. Vorbețte cu prietenii și colegii tăi despre cât de minunat este %(project_title)s!"
 
 #: templates/appearance/base.html:73
 msgid "Object"
@@ -352,21 +342,21 @@ msgstr "Nu"
 msgid "required"
 msgstr "necesar"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Save"
 msgstr "Salvează"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Submit"
 msgstr "Trimiteţi"
 
-#: templates/appearance/generic_form_subtemplate.html:98
+#: templates/appearance/generic_form_subtemplate.html:99
 #: templates/appearance/generic_multiform_subtemplate.html:66
 msgid "Cancel"
 msgstr "Anulează"
@@ -375,9 +365,15 @@ msgstr "Anulează"
 msgid "Identifier"
 msgstr "ID"
 
-#: templates/appearance/generic_list_subtemplate.html:134
-msgid "Facets"
-msgstr "Fațete"
+#: templates/appearance/generic_list_subtemplate.html:85
+#: templates/appearance/partials/list_object_facet_links_column.html:8
+#: templates/appearance/partials/list_object_facet_links_column.html:39
+msgid "Views"
+msgstr "Vizualizări"
+
+#: templates/appearance/generic_list_subtemplate.html:91
+msgid "Actions"
+msgstr "Acţiuni"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -420,18 +416,18 @@ msgstr "Selectați / Deselectați toate"
 msgid "Toggle list display mode"
 msgstr "Comutați modul afișare listă"
 
-#: templates/appearance/partials/list_toolbar.html:63
+#: templates/appearance/partials/list_toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr ""
 "Selectați elemente pentru a activa acțiuni în vrac. Folosiți Shift + faceți "
 "clic pentru a selecta mai multe."
 
-#: templates/appearance/partials/list_toolbar.html:68
+#: templates/appearance/partials/list_toolbar.html:36
 msgid "Bulk actions"
 msgstr "Acțiuni în vrac"
 
-#: templates/appearance/partials/list_toolbar.html:70
+#: templates/appearance/partials/list_toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "Comutare  mod listă"
 
@@ -439,50 +435,60 @@ msgstr "Comutare  mod listă"
 msgid "No results"
 msgstr "Fără rezultate"
 
-#: templates/appearance/root.html:52
+#: templates/appearance/partials/pagination.html:12
+#: templates/appearance/partials/pagination.html:14
+msgid "Previous page"
+msgstr "Pagina precedentă"
+
+#: templates/appearance/partials/pagination.html:30
+#: templates/appearance/partials/pagination.html:32
+msgid "Next page"
+msgstr "Pagina următoare"
+
+#: templates/appearance/root.html:51
 msgid "Close"
 msgstr "Închide"
 
-#: templates/appearance/root.html:60
+#: templates/appearance/root.html:59
 msgid "Server communication error"
 msgstr "Eroare de comunicare cu server-ul"
 
-#: templates/appearance/root.html:62
+#: templates/appearance/root.html:61
 msgid "Check you network connection and try again in a few moments."
 msgstr ""
 "Verificați conexiunea la rețea și încercați din nou în câteva momente."
 
-#: templatetags/appearance_tags.py:61
+#: templatetags/appearance_tags.py:77
 msgid "None"
 msgstr "Nici unul"
 
-#: views.py:55
+#: views.py:57
 #, python-format
 msgid "Delete theme: %s"
 msgstr "Ștergeți tema: %s "
 
-#: views.py:72
+#: views.py:74
 #, python-format
 msgid "Edit theme: %s"
 msgstr "Editați tema: %s"
 
-#: views.py:93
+#: views.py:95
 msgid ""
 "Themes allow changing the visual appearance without requiring code changes."
 msgstr ""
 "Temele permit schimbarea aspectului vizual fără a necesita modificări de "
 "cod."
 
-#: views.py:97
+#: views.py:99
 msgid "There are no themes"
 msgstr "Nu există teme"
 
-#: views.py:122
+#: views.py:124
 #, python-format
 msgid "Theme settings for user: %s"
 msgstr "Configurarea temei pentru utilizator: %s"
 
-#: views.py:144
+#: views.py:146
 #, python-format
 msgid "Edit theme settings for user: %s"
 msgstr "Editați configurația temei pentru utilizator: %s"

@@ -1,6 +1,7 @@
 import logging
 
 from rest_framework import status
+from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
 from mayan.apps.converter.api_view_mixins import APIImageViewMixin
@@ -21,15 +22,15 @@ class APITrashedDocumentDetailView(generics.RetrieveDestroyAPIView):
     """
     Returns the selected trashed document details.
     delete: Delete the trashed document.
-    get: Retreive the details of the trashed document.
+    get: Retrieve the details of the trashed document.
     """
     lookup_url_kwarg = 'document_id'
     mayan_object_permissions = {
         'DELETE': (permission_trashed_document_delete,),
         'GET': (permission_document_view,)
     }
-    queryset = TrashedDocument.objects.all()
     serializer_class = TrashedDocumentSerializer
+    source_queryset = TrashedDocument.objects.all()
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -48,10 +49,12 @@ class APITrashedDocumentListView(generics.ListAPIView):
     """
     get: Returns a list of all the trashed documents.
     """
-    mayan_object_permissions = {'GET': (permission_document_view,)}
+    mayan_object_permissions = {
+        'GET': (permission_document_view,)
+    }
     ordering_fields = ('id', 'label')
-    queryset = TrashedDocument.objects.all()
     serializer_class = TrashedDocumentSerializer
+    source_queryset = TrashedDocument.objects.all()
 
 
 class APITrashedDocumentRestoreView(generics.ObjectActionAPIView):
@@ -62,15 +65,10 @@ class APITrashedDocumentRestoreView(generics.ObjectActionAPIView):
     mayan_object_permissions = {
         'POST': (permission_trashed_document_restore,)
     }
-    queryset = TrashedDocument.objects.all()
+    source_queryset = TrashedDocument.objects.all()
 
-    def get_instance_extra_data(self):
-        return {
-            '_event_actor': self.request.user
-        }
-
-    def object_action(self, request, serializer):
-        self.object.restore()
+    def object_action(self, obj, request, serializer):
+        obj.restore(user=self.request.user)
 
 
 class APITrashedDocumentImageView(
@@ -81,15 +79,10 @@ class APITrashedDocumentImageView(
     """
     lookup_url_kwarg = 'document_id'
     mayan_object_permissions = {
-        'GET': (permission_document_version_view,),
+        'GET': (permission_document_version_view,)
     }
 
-    def get_queryset(self):
-        return TrashedDocument.objects.all()
-
     def get_object(self):
-        from rest_framework.generics import get_object_or_404
-
         obj = super().get_object()
 
         # Return a 404 if the document doesn't have any pages.
@@ -101,3 +94,6 @@ class APITrashedDocumentImageView(
             first_page_id = None
 
         return get_object_or_404(queryset=obj.pages, pk=first_page_id)
+
+    def get_source_queryset(self):
+        return TrashedDocument.objects.all()

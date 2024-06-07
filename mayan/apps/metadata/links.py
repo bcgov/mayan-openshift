@@ -2,14 +2,15 @@ from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.documents.permissions import permission_document_type_edit
 from mayan.apps.navigation.classes import Link
+from mayan.apps.navigation.utils import factory_condition_queryset_access
 
 from .icons import (
     icon_document_metadata_add, icon_document_metadata_edit,
-    icon_document_metadata_remove, icon_document_metadata_list,
-    icon_metadata_type_create, icon_metadata_type_single_delete,
-    icon_metadata_type_multiple_delete,
+    icon_document_metadata_list, icon_document_metadata_remove,
+    icon_document_type_metadata_type_list, icon_metadata_type_create,
     icon_metadata_type_document_type_list, icon_metadata_type_edit,
-    icon_metadata_type_list, icon_document_type_metadata_type_list
+    icon_metadata_type_list, icon_metadata_type_multiple_delete,
+    icon_metadata_type_single_delete
 )
 from .permissions import (
     permission_document_metadata_add, permission_document_metadata_edit,
@@ -91,7 +92,14 @@ link_metadata_type_edit = Link(
     text=_('Edit'), view='metadata:metadata_type_edit'
 )
 link_metadata_type_list = Link(
-    icon=icon_metadata_type_list,
-    permissions=(permission_metadata_type_view,),
-    text=_('Metadata types'), view='metadata:metadata_type_list'
+    icon=icon_metadata_type_list, text=_('Metadata types'),
+    view='metadata:metadata_type_list'
+)
+link_metadata_type_setup = Link(
+    condition=factory_condition_queryset_access(
+        app_label='metadata', model_name='MetadataType',
+        object_permission=permission_metadata_type_view,
+        view_permission=permission_metadata_type_create,
+    ), icon=icon_metadata_type_list, text=_('Metadata types'),
+    view='metadata:metadata_type_list'
 )

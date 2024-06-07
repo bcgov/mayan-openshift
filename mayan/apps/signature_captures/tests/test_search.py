@@ -1,7 +1,7 @@
-from mayan.apps.documents.tests.base import GenericDocumentViewTestCase
 from mayan.apps.documents.permissions import permission_document_view
 from mayan.apps.documents.search import search_model_document
-from mayan.apps.dynamic_search.tests.mixins import SearchTestMixin
+from mayan.apps.documents.tests.base import GenericDocumentViewTestCase
+from mayan.apps.dynamic_search.tests.mixins.base import SearchTestMixin
 
 from ..permissions import permission_signature_capture_view
 from ..search import search_model_signature_capture
@@ -12,15 +12,10 @@ from .mixins import SignatureCaptureTestMixin
 class DocumentSignatureCaptureSearchTestCase(
     SignatureCaptureTestMixin, SearchTestMixin, GenericDocumentViewTestCase
 ):
+    _test_search_model = search_model_document
     auto_create_test_document_stub = True
-    auto_upload_test_document = False
     auto_create_test_signature_capture = True
-
-    def _do_test_search(self, query):
-        return self.search_backend.search(
-            search_model=search_model_document, query=query,
-            user=self._test_case_user
-        )
+    auto_upload_test_document = False
 
     def test_search_by_text_no_permission(self):
         self._clear_events()
@@ -238,15 +233,10 @@ class DocumentSignatureCaptureSearchTestCase(
 class SignatureCaptureSearchTestCase(
     SignatureCaptureTestMixin, SearchTestMixin, GenericDocumentViewTestCase
 ):
+    _test_search_model = search_model_signature_capture
     auto_create_test_document_stub = True
     auto_upload_test_document = False
     auto_create_test_signature_capture = True
-
-    def _do_test_search(self, query):
-        return self.search_backend.search(
-            search_model=search_model_signature_capture, query=query,
-            user=self._test_case_user
-        )
 
     def test_search_by_document_label_no_permission(self):
         self._clear_events()

@@ -1,4 +1,4 @@
-from mayan.apps.documents.api_views.mixins import (
+from mayan.apps.documents.api_views.api_view_mixins import (
     ParentObjectDocumentAPIViewMixin
 )
 from mayan.apps.documents.permissions import permission_document_view
@@ -16,8 +16,8 @@ class APIDuplicatedDocumentListView(generics.ListAPIView):
     mayan_object_permissions = {
         'GET': (permission_document_view,)
     }
-    queryset = DuplicateBackendEntry.objects.get_duplicated_documents()
     serializer_class = DocumentSerializer
+    source_queryset = DuplicateBackendEntry.objects.get_duplicated_documents()
 
 
 class APIDocumentDuplicateListView(
@@ -31,7 +31,7 @@ class APIDocumentDuplicateListView(
     }
     serializer_class = DuplicateTargetDocumentSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return DuplicateBackendEntry.objects.get_duplicates_of(
             document=self.get_document(
                 permission=permission_document_view

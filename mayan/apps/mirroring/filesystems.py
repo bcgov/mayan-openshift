@@ -12,10 +12,10 @@ from django.db.models import (
 )
 from django.db.models.functions import Concat
 
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
 
 from .literals import (
-    MAX_FILE_DESCRIPTOR, MIN_FILE_DESCRIPTOR, FILE_MODE, DIRECTORY_MODE
+    DIRECTORY_MODE, FILE_MODE, MAX_FILE_DESCRIPTOR, MIN_FILE_DESCRIPTOR
 )
 from .runtime import cache
 
@@ -48,14 +48,14 @@ class MirrorFilesystem(LoggingMixIn, Operations):
         queryset, source_field_name, destination_field_name='clean_value'
     ):
         # Remove newline carriage returns and the first and last space
-        # to make multiline indexes valid directoy names
+        # to make multiline indexes valid directory names.
         return queryset.annotate(
             **{
                 destination_field_name: Trim(
                     Func(
                         F(source_field_name), Value('\r\n'), Value(' '),
                         function='replace', output_field=CharField()
-                    ),
+                    )
                 )
             }
         )
@@ -87,16 +87,16 @@ class MirrorFilesystem(LoggingMixIn, Operations):
 
     @staticmethod
     def _clean_queryset_duplicates(
-        queryset, source_field_name='_no_slashes',
-        destination_field_name='_deduplicated'
+        queryset, destination_field_name='_deduplicated',
+        source_field_name='_no_slashes'
     ):
-        # Make second queryset of all duplicates
+        # Make second queryset of all duplicates.
         repeats = queryset.values(source_field_name).annotate(
             repeated_count=Count(source_field_name)
         ).filter(repeated_count__gt=1).values(source_field_name)
 
         # This is a conditional expression that is executed only for
-        # duplicates. The primary key is appended inside a parethesis to
+        # duplicates. The primary key is appended inside a parenthesis to
         # the source field.
         return queryset.annotate(
             **{
@@ -116,7 +116,7 @@ class MirrorFilesystem(LoggingMixIn, Operations):
         )
 
     def _get_next_file_descriptor(self):
-        while(True):
+        while (True):
             self.file_descriptor_count += 1
             if self.file_descriptor_count > MAX_FILE_DESCRIPTOR:
                 self.file_descriptor_count = MIN_FILE_DESCRIPTOR
@@ -146,7 +146,9 @@ class MirrorFilesystem(LoggingMixIn, Operations):
                     if access_only:
                         return True
                     else:
-                        return self.func_document_container_node().get_descendants(include_self=True).get(pk=node_pk)
+                        return self.func_document_container_node().get_descendants(
+                            include_self=True
+                        ).get(pk=node_pk)
 
                 document_pk = path_cache.get('document_pk')
                 if document_pk:
@@ -157,12 +159,12 @@ class MirrorFilesystem(LoggingMixIn, Operations):
 
             for count, part in enumerate(iterable=parts[1:]):
                 try:
-                    node_queryset = MirrorFilesystem._clean_queryset(
+                    queryset_nodes = MirrorFilesystem._clean_queryset(
                         queryset=node.get_descendants(include_self=True),
-                        source_field_name=self.node_text_attribute,
-                        destination_field_name='value_clean'
+                        destination_field_name='value_clean',
+                        source_field_name=self.node_text_attribute
                     )
-                    node = node_queryset.get(value_clean=part)
+                    node = queryset_nodes.get(value_clean=part)
                 except self.func_document_container_node()._meta.model.DoesNotExist:
                     logger.debug('%s does not exists', part)
 
@@ -171,9 +173,9 @@ class MirrorFilesystem(LoggingMixIn, Operations):
                     else:
                         try:
                             document = MirrorFilesystem._clean_queryset(
-                                queryset=node.get_documents(),
-                                source_field_name='label',
-                                destination_field_name='label_clean'
+                                destination_field_name='label_clean',
+                                queryset=node._get_documents(),
+                                source_field_name='label'
                             ).get(label_clean=part)
 
                             logger.debug(
@@ -195,7 +197,9 @@ class MirrorFilesystem(LoggingMixIn, Operations):
             cache.set_path(path=path, node=node)
 
         logger.debug('node: %s', node)
-        logger.debug('node is root: %s', node.is_root_node())
+        logger.debug(
+            'node is root: %s', node.is_root_node()
+        )
 
         return node
 
@@ -207,7 +211,7 @@ class MirrorFilesystem(LoggingMixIn, Operations):
 
     def access(self, path, fh=None):
         result = self._path_to_node(
-            path=path, access_only=True, directory_only=False
+            directory_only=False, path=path, access_only=True
         )
 
         if not result:
@@ -223,16 +227,20 @@ class MirrorFilesystem(LoggingMixIn, Operations):
             raise FuseOSError(ENOENT)
 
         # st_nlink tracks the number of hard links to a file.
-        # Must be 2 for directories and at least 1 for files
+        # Must be 2 for directories and at least 1 for files.
         # https://www.gnu.org/software/libc/manual/html_node/Attribute-Meanings.html
         if isinstance(result, Document):
             function_result = {
                 'st_mode': (S_IFREG | FILE_MODE),
                 'st_ctime': (
-                    result.datetime_created.replace(tzinfo=None) - result.datetime_created.utcoffset() - datetime.datetime(1970, 1, 1)
+                    result.datetime_created.replace(
+                        tzinfo=None
+                    ) - result.datetime_created.utcoffset() - datetime.datetime(1970, 1, 1)
                 ).total_seconds(),
                 'st_mtime': (
-                    result.file_latest.timestamp.replace(tzinfo=None) - result.file_latest.timestamp.utcoffset() - datetime.datetime(1970, 1, 1)
+                    result.file_latest.timestamp.replace(
+                        tzinfo=None
+                    ) - result.file_latest.timestamp.utcoffset() - datetime.datetime(1970, 1, 1)
                 ).total_seconds(),
                 'st_atime': now,
                 'st_size': result.file_latest.size or 0,
@@ -240,8 +248,9 @@ class MirrorFilesystem(LoggingMixIn, Operations):
             }
         else:
             function_result = {
-                'st_mode': (S_IFDIR | DIRECTORY_MODE), 'st_ctime': now,
-                'st_mtime': now, 'st_atime': now, 'st_nlink': 2
+                'st_atime': now, 'st_ctime': now,
+                'st_mode': (S_IFDIR | DIRECTORY_MODE), 'st_mtime': now,
+                'st_nlink': 2
             }
 
         logger.debug('function_result: %s', function_result)
@@ -284,8 +293,8 @@ class MirrorFilesystem(LoggingMixIn, Operations):
 
         # Then serve nodes documents as files.
         queryset = MirrorFilesystem._clean_queryset(
-            queryset=node.get_documents(), source_field_name='label',
-            destination_field_name='label_clean'
+            destination_field_name='label_clean',
+            queryset=node._get_documents(), source_field_name='label'
         )
 
         for value in queryset.values_list('label_clean', flat=True):
@@ -293,4 +302,6 @@ class MirrorFilesystem(LoggingMixIn, Operations):
 
     def release(self, path, fh):
         self.file_descriptors[fh] = None
-        del(self.file_descriptors[fh])
+        del (
+            self.file_descriptors[fh]
+        )

@@ -2,23 +2,10 @@ import logging
 
 from django.apps import apps
 
-from mayan.apps.common.classes import PropertyHelper
-
 from .events import event_file_metadata_document_file_finished
 from .exceptions import FileMetadataDriverError
 
 logger = logging.getLogger(name=__name__)
-
-
-class FileMetadataHelper(PropertyHelper):
-    @staticmethod
-    @property
-    def constructor(*args, **kwargs):
-        return FileMetadataHelper(*args, **kwargs)
-
-    def get_result(self, name):
-        result = self.instance.get_file_metadata(dotted_name=name)
-        return result
 
 
 class FileMetadataDriver:
@@ -26,11 +13,17 @@ class FileMetadataDriver:
 
     @classmethod
     def process_document_file(cls, document_file, user=None):
-        # Get list of drivers for the document's MIME type
-        driver_classes = cls._registry.get(document_file.mimetype, ())
-        # Add wilcard drivers, drivers meant to be executed for all MIME
+        # Get list of drivers for the document's MIME type.
+        driver_classes = cls._registry.get(
+            document_file.mimetype, ()
+        )
+        # Add wildcard drivers, drivers meant to be executed for all MIME
         # types.
-        driver_classes = driver_classes + tuple(cls._registry.get('*', ()))
+        driver_classes += tuple(
+            cls._registry.get(
+                '*', ()
+            )
+        )
 
         for driver_class in driver_classes:
             try:
@@ -55,10 +48,17 @@ class FileMetadataDriver:
     @classmethod
     def register(cls, mimetypes):
         for mimetype in mimetypes:
-            cls._registry.setdefault(mimetype, []).append(cls)
+            cls._registry.setdefault(
+                mimetype, []
+            ).append(cls)
+
+    def __init__(self, auto_initialize=True, **kwargs):
+        self.auto_initialize = auto_initialize
 
     def get_driver_path(self):
-        return '.'.join([self.__module__, self.__class__.__name__])
+        return '.'.join(
+            [self.__module__, self.__class__.__name__]
+        )
 
     def initialize(self):
         StoredDriver = apps.get_model(

@@ -11,7 +11,7 @@ from mayan.apps.views.generics import (
     SingleObjectCreateView, SingleObjectDeleteView, SingleObjectDetailView,
     SingleObjectEditView, SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from .forms import ThemeForm, UserThemeSettingForm, UserThemeSettingForm_view
 from .icons import (
@@ -28,7 +28,9 @@ from .permissions import (
 
 
 class ThemeCreateView(SingleObjectCreateView):
-    extra_context = {'title': _('Create new theme')}
+    extra_context = {
+        'title': _('Create new theme')
+    }
     form_class = ThemeForm
     post_action_redirect = reverse_lazy(
         viewname='appearance:theme_list'
@@ -96,7 +98,7 @@ class ThemeListView(SingleObjectListView):
             'no_results_title': _(
                 'There are no themes'
             ),
-            'title': _('Themes'),
+            'title': _('Themes')
         }
 
 

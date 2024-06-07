@@ -6,36 +6,32 @@ from furl import furl
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from actstream import action
 
 from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
 from mayan.apps.common.menus import menu_list_facet
-from mayan.apps.common.settings import setting_project_url
-from mayan.apps.common.utils import return_attrib
+from mayan.apps.organizations.utils import get_organization_installation_url
 
-from .literals import (
-    DEFAULT_EVENT_LIST_EXPORT_FILENAME, EVENT_MANAGER_ORDER_AFTER,
-    EVENT_TYPE_NAMESPACE_NAME, EVENT_EVENTS_CLEARED_NAME,
-    EVENT_EVENTS_EXPORTED_NAME
-)
 from .links import (
     link_object_event_list, link_object_event_type_user_subscription_list
+)
+from .literals import (
+    DEFAULT_EVENT_LIST_EXPORT_FILENAME, EVENT_EVENTS_CLEARED_NAME,
+    EVENT_EVENTS_EXPORTED_NAME, EVENT_TYPE_NAMESPACE_NAME
 )
 from .permissions import (
     permission_events_clear, permission_events_export, permission_events_view
 )
-
-logger = logging.getLogger(name=__name__)
-
+from .settings import setting_disable_asynchronous_mode
 
 DEFAULT_ACTION_EXPORTER_FIELD_NAMES = (
     'timestamp', 'id', 'actor_content_type', 'actor_object_id', 'actor',
     'target_content_type', 'target_object_id', 'target', 'verb',
     'action_object_content_type', 'action_object_object_id', 'action_object'
 )
+logger = logging.getLogger(name=__name__)
 
 
 class ActionExporter:
@@ -55,9 +51,14 @@ class ActionExporter:
             )
 
         writer = csv.writer(
-            file_object, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL
+            file_object, delimiter=',', quotechar='"',
+            quoting=csv.QUOTE_MINIMAL
         )
-        file_object.write(','.join(self.field_names + ('\n',)))
+        file_object.write(
+            ','.join(
+                self.field_names + ('\n',)
+            )
+        )
 
         for entry in self.queryset.iterator():
             row = [
@@ -67,7 +68,9 @@ class ActionExporter:
             ]
             writer.writerow(row)
 
-    def export_to_download_file(self, user=None):
+    def export_to_download_file(
+        self, organization_installation_url=None, user=None
+    ):
         event_type_namespace = EventTypeNamespace.get(
             name=EVENT_TYPE_NAMESPACE_NAME
         )
@@ -84,8 +87,7 @@ class ActionExporter:
 
         download_file = DownloadFile(
             filename=DEFAULT_EVENT_LIST_EXPORT_FILENAME,
-            label=_('Event list export to CSV'),
-            permission=permission_events_export.stored_permission
+            label=_('Event list export to CSV'), user=user
         )
         download_file._event_actor = user
         download_file.save()
@@ -98,12 +100,15 @@ class ActionExporter:
         )
 
         if user:
-            download_list_url = furl(setting_project_url.value).join(
+            if not organization_installation_url:
+                organization_installation_url = get_organization_installation_url()
+
+            download_list_url = furl(organization_installation_url).join(
                 reverse(
                     viewname='storage:download_file_list'
                 )
             ).tostr()
-            download_url = furl(setting_project_url.value).join(
+            download_url = furl(organization_installation_url).join(
                 reverse(
                     viewname='storage:download_file_download',
                     kwargs={'download_file_id': download_file.pk}
@@ -120,99 +125,9 @@ class ActionExporter:
                     'the downloads area (%(download_list_url)s).'
                 ) % {
                     'download_list_url': download_list_url,
-                    'download_url': download_url,
+                    'download_url': download_url
                 }
             )
-
-
-class EventManager:
-    EVENT_ATTRIBUTES = ('ignore', 'keep_attributes', 'type')
-    EVENT_ARGUMENTS = ('actor', 'action_object', 'target')
-
-    def __init__(self, instance, **kwargs):
-        self.instance = instance
-        self.instance_event_attributes = {}
-        self.kwargs = kwargs
-
-    def commit(self):
-        if not self.instance_event_attributes['ignore']:
-            self._commit()
-
-    def get_event_arguments(self, argument_map):
-        result = {}
-
-        for argument in self.EVENT_ARGUMENTS:
-            # Grab the static argument value from the argument map.
-            # If the argument is not in the map, it is dynamic and must be
-            # obtained from the instance attributes.
-            value = argument_map.get(
-                argument, self.instance_event_attributes[argument]
-            )
-
-            if value == 'self':
-                result[argument] = self.instance
-            elif isinstance(value, str):
-                result[argument] = return_attrib(obj=self.instance, attrib=value)
-            else:
-                result[argument] = value
-
-        return result
-
-    def pop_event_attributes(self):
-        for attribute in self.EVENT_ATTRIBUTES:
-            # If the attribute is not set or is set but is None.
-            if not self.instance_event_attributes.get(attribute, None):
-                full_name = '_event_{}'.format(attribute)
-                value = self.instance.__dict__.pop(full_name, None)
-                self.instance_event_attributes[attribute] = value
-
-        keep_attributes = self.instance_event_attributes['keep_attributes'] or ()
-
-        # Allow passing a runtime defined event.
-        if self.instance_event_attributes['type']:
-            self.kwargs['event'] = self.instance_event_attributes['type']
-
-        for attribute in self.EVENT_ARGUMENTS:
-            # If the attribute is not set or is set but is None.
-            if not self.instance_event_attributes.get(attribute, None):
-                full_name = '_event_{}'.format(attribute)
-                if full_name in keep_attributes:
-                    value = self.instance.__dict__.get(full_name, None)
-                else:
-                    value = self.instance.__dict__.pop(full_name, None)
-
-                self.instance_event_attributes[attribute] = value
-
-    def prepare(self):
-        """Optional method to gather information before the actual commit."""
-
-
-class EventManagerMethodAfter(EventManager):
-    order = EVENT_MANAGER_ORDER_AFTER
-
-    def _commit(self):
-        self.kwargs['event'].commit(
-            **self.get_event_arguments(argument_map=self.kwargs)
-        )
-
-
-class EventManagerSave(EventManager):
-    order = EVENT_MANAGER_ORDER_AFTER
-
-    def _commit(self):
-        if self.created:
-            if 'created' in self.kwargs:
-                self.kwargs['created']['event'].commit(
-                    **self.get_event_arguments(argument_map=self.kwargs['created'])
-                )
-        else:
-            if 'edited' in self.kwargs:
-                self.kwargs['edited']['event'].commit(
-                    **self.get_event_arguments(argument_map=self.kwargs['edited'])
-                )
-
-    def prepare(self):
-        self.created = not self.instance.pk
 
 
 class EventModelRegistry:
@@ -226,7 +141,15 @@ class EventModelRegistry:
     ):
         # Hidden imports.
         from actstream import registry
+
         from mayan.apps.acls.classes import ModelPermission
+
+        AccessControlList = apps.get_model(
+            app_label='acls', model_name='AccessControlList'
+        )
+        StoredPermission = apps.get_model(
+            app_label='permissions', model_name='StoredPermission'
+        )
 
         event_type_namespace = EventTypeNamespace.get(
             name=EVENT_TYPE_NAMESPACE_NAME
@@ -261,13 +184,6 @@ class EventModelRegistry:
                     ), sources=(model,)
                 )
 
-            AccessControlList = apps.get_model(
-                app_label='acls', model_name='AccessControlList'
-            )
-            StoredPermission = apps.get_model(
-                app_label='permissions', model_name='StoredPermission'
-            )
-
             if register_permissions and not issubclass(model, (AccessControlList, StoredPermission)):
                 ModelPermission.register(
                     exclude=exclude,
@@ -290,7 +206,9 @@ class EventTypeNamespace(AppsModuleLoaderMixin):
 
     @classmethod
     def all(cls):
-        return sorted(cls._registry.values())
+        return sorted(
+            cls._registry.values()
+        )
 
     @classmethod
     def get(cls, name):
@@ -306,7 +224,7 @@ class EventTypeNamespace(AppsModuleLoaderMixin):
         return self.label < other.label
 
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
     def add_event_type(self, name, label):
         event_type = EventType(namespace=self, name=name, label=label)
@@ -314,7 +232,9 @@ class EventTypeNamespace(AppsModuleLoaderMixin):
         return event_type
 
     def get_event(self, name):
-        return EventType.get(id='{}.{}'.format(self.name, name))
+        return EventType.get(
+            id='{}.{}'.format(self.name, name)
+        )
 
     def get_event_types(self):
         return EventType.sort(event_type_list=self.event_types)
@@ -326,13 +246,17 @@ class EventType:
     @staticmethod
     def sort(event_type_list):
         return sorted(
-            event_type_list, key=lambda event_type: (event_type.namespace.label, event_type.label)
+            event_type_list, key=lambda event_type: (
+                event_type.namespace.label, event_type.label
+            )
         )
 
     @classmethod
     def all(cls):
-        # Return sorted permisions by namespace.name
-        return EventType.sort(event_type_list=cls._registry.values())
+        # Return sorted permissions by namespace.name.
+        return EventType.sort(
+            event_type_list=cls._registry.values()
+        )
 
     @classmethod
     def get(cls, id):
@@ -356,7 +280,7 @@ class EventType:
     def __str__(self):
         return '{}: {}'.format(self.namespace.label, self.label)
 
-    def commit(self, actor=None, action_object=None, target=None):
+    def _commit(self, action_object=None, actor=None, target=None):
         EventSubscription = apps.get_model(
             app_label='events', model_name='EventSubscription'
         )
@@ -373,7 +297,7 @@ class EventType:
             # create a new event.
             logger.warning(
                 'Attempting to commit event "%s" without an actor or a '
-                'target. This is not yet supported.', self
+                'target. This is not supported.', self
             )
             return
 
@@ -387,7 +311,7 @@ class EventType:
         # Create notifications for the actions created by the event committed.
 
         # Gather the users subscribed globally to the event.
-        user_queryset = User.objects.filter(
+        queryset_users = User.objects.filter(
             id__in=EventSubscription.objects.filter(
                 stored_event_type__name=result.verb
             ).values('user')
@@ -395,7 +319,7 @@ class EventType:
 
         # Gather the users subscribed to the target object event.
         if result.target:
-            user_queryset = user_queryset | User.objects.filter(
+            queryset_users = queryset_users | User.objects.filter(
                 id__in=ObjectEventSubscription.objects.filter(
                     content_type=result.target_content_type,
                     object_id=result.target.pk,
@@ -405,7 +329,7 @@ class EventType:
 
         # Gather the users subscribed to the action object event.
         if result.action_object:
-            user_queryset = user_queryset | User.objects.filter(
+            queryset_users = queryset_users | User.objects.filter(
                 id__in=ObjectEventSubscription.objects.filter(
                     content_type=result.action_object_content_type,
                     object_id=result.action_object.pk,
@@ -413,7 +337,7 @@ class EventType:
                 ).values('user')
             )
 
-        for user in user_queryset:
+        for user in queryset_users:
             if result.action_object:
                 Notification.objects.create(action=result, user=user)
                 # Don't check or add any other notification for the
@@ -426,7 +350,46 @@ class EventType:
                 # same user-event-object.
                 continue
 
-        return result
+    def commit(self, action_object=None, actor=None, target=None):
+        # Hidden import.
+        # This circular import is necessary.
+        from .tasks import task_event_commit
+
+        task_kwargs = {'event_id': self.id}
+
+        if setting_disable_asynchronous_mode.value:
+            self._commit(
+                action_object=action_object, actor=actor, target=target
+            )
+        else:
+            if action_object:
+                task_kwargs.update(
+                    {
+                        'action_object_app_label': action_object._meta.app_label,
+                        'action_object_model_name': action_object._meta.model_name,
+                        'action_object_id': action_object.pk
+                    }
+                )
+
+            if actor:
+                task_kwargs.update(
+                    {
+                        'actor_app_label': actor._meta.app_label,
+                        'actor_model_name': actor._meta.model_name,
+                        'actor_id': actor.pk
+                    }
+                )
+
+            if target:
+                task_kwargs.update(
+                    {
+                        'target_app_label': target._meta.app_label,
+                        'target_model_name': target._meta.model_name,
+                        'target_id': target.pk
+                    }
+                )
+
+            task_event_commit.apply_async(kwargs=task_kwargs)
 
     def get_stored_event_type(self):
         if not self.stored_event_type:
@@ -454,7 +417,9 @@ class ModelEventType:
 
     @classmethod
     def get_for_class(cls, klass):
-        result = cls._registry.get(klass, ())
+        result = cls._registry.get(
+            klass, ()
+        )
         return EventType.sort(event_type_list=result)
 
     @classmethod
@@ -465,7 +430,9 @@ class ModelEventType:
 
         events = []
 
-        class_events = cls._registry.get(type(instance))
+        class_events = cls._registry.get(
+            type(instance)
+        )
 
         if class_events:
             events.extend(class_events)
@@ -484,7 +451,9 @@ class ModelEventType:
 
     @classmethod
     def register(cls, model, event_types):
-        cls._registry.setdefault(model, [])
+        cls._registry.setdefault(
+            model, []
+        )
         for event_type in event_types:
             cls._registry[model].append(event_type)
 

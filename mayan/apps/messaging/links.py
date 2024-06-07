@@ -16,11 +16,11 @@ from .permissions import (
 
 
 def condition_is_read(context):
-    return context['object'].read
+    return context['resolved_object'].read
 
 
 def condition_is_unread(context):
-    return not context['object'].read
+    return not context['resolved_object'].read
 
 
 def get_unread_message_count(context):
@@ -55,7 +55,8 @@ link_message_multiple_delete = Link(
 link_message_single_delete = Link(
     args='object.pk', icon=icon_message_delete,
     permissions=(permission_message_delete,),
-    tags='dangerous', text=_('Delete'), view='messaging:message_single_delete'
+    tags='dangerous', text=_('Delete'),
+    view='messaging:message_single_delete'
 )
 link_message_list = Link(
     condition=condition_user_is_authenticated,

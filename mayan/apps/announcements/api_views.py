@@ -13,13 +13,17 @@ class APIAnnouncementListView(generics.ListCreateAPIView):
     get: Returns a list of all the announcements.
     post: Create a new announcement.
     """
-    mayan_object_permissions = {'GET': (permission_announcement_view,)}
-    mayan_view_permissions = {'POST': (permission_announcement_create,)}
+    mayan_object_permissions = {
+        'GET': (permission_announcement_view,)
+    }
+    mayan_view_permissions = {
+        'POST': (permission_announcement_create,)
+    }
     ordering_fields = (
         'enabled', 'end_datetime', 'id', 'label', 'start_datetime'
     )
-    queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
+    source_queryset = Announcement.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -41,8 +45,8 @@ class APIAnnouncementView(generics.RetrieveUpdateDestroyAPIView):
         'PATCH': (permission_announcement_edit,),
         'PUT': (permission_announcement_edit,)
     }
-    queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
+    source_queryset = Announcement.objects.all()
 
     def get_instance_extra_data(self):
         return {

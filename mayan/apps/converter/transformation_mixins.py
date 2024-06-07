@@ -84,7 +84,7 @@ class ImagePasteTransformationMixin:
             instance_image.putalpha(alpha=255)
 
         instance_image = instance_image.rotate(
-            angle=360 - self.rotation, resample=Image.BICUBIC,
+            angle=360 - self.rotation, resample=Image.Resampling.BICUBIC,
             expand=True
         )
 
@@ -94,7 +94,7 @@ class ImagePasteTransformationMixin:
                 size=(
                     int(instance_image.size[0] * zoom_decimal_value),
                     int(instance_image.size[1] * zoom_decimal_value)
-                ), resample=Image.ANTIALIAS
+                ), resample=Image.Resampling.LANCZOS
             )
 
         paste_mask = instance_image.getchannel(channel='A').point(
@@ -106,7 +106,9 @@ class ImagePasteTransformationMixin:
         }
 
 
-class ImagePasteCoordinatesAbsoluteTransformationMixin(ImagePasteTransformationMixin):
+class ImagePasteCoordinatesAbsoluteTransformationMixin(
+    ImagePasteTransformationMixin
+):
     arguments = ('left', 'top')
     label = _('Paste an image')
     name = 'paste_image'
@@ -141,16 +143,18 @@ class ImagePasteCoordinatesAbsoluteTransformationMixin(ImagePasteTransformationM
         images = self.get_images()
 
         self.image.paste(
-            im=images['instance_image'], box=(self.left, self.top),
+            box=(self.left, self.top), im=images['instance_image'],
             mask=images['paste_mask']
         )
 
         return self.image
 
 
-class ImagePasteCoordinatesPercentTransformationMixin(ImagePasteTransformationMixin):
+class ImagePasteCoordinatesPercentTransformationMixin(
+    ImagePasteTransformationMixin
+):
     arguments = ('left', 'top')
-    label = _('Paste an image (percents coordinates)')
+    label = _('Paste an image (percent coordinates)')
     name = 'paste_image_percent'
 
     class Form(ImagePasteTransformationMixin.Form):
@@ -199,14 +203,16 @@ class ImagePasteCoordinatesPercentTransformationMixin(ImagePasteTransformationMi
         )
 
         self.image.paste(
-            im=images['instance_image'], box=(self.left, self.top),
+            box=(self.left, self.top), im=images['instance_image'],
             mask=images['paste_mask']
         )
 
         return self.image
 
 
-class ImageWatermarkPercentTransformationMixin(ImagePasteTransformationMixin):
+class ImageWatermarkPercentTransformationMixin(
+    ImagePasteTransformationMixin
+):
     arguments = (
         'left', 'top', 'right', 'bottom', 'horizontal_increment',
         'vertical_increment'
@@ -216,8 +222,9 @@ class ImageWatermarkPercentTransformationMixin(ImagePasteTransformationMixin):
 
     class Form(ImagePasteTransformationMixin.Form):
         left = forms.IntegerField(
-            help_text=_('Horizontal start position in pixels from the left.'),
-            label=_('Left'), required=False
+            help_text=_(
+                'Horizontal start position in pixels from the left.'
+            ), label=_('Left'), required=False
         )
         right = forms.IntegerField(
             help_text=_('Horizontal end position in pixels from the right.'),
@@ -282,7 +289,7 @@ class ImageWatermarkPercentTransformationMixin(ImagePasteTransformationMixin):
         for x in range(self.left, self.right or self.image.size[0], self.horizontal_increment):
             for y in range(self.top, self.bottom or self.image.size[1], self.vertical_increment):
                 self.image.paste(
-                    im=images['instance_image'], box=(x, y),
+                    box=(x, y), im=images['instance_image'],
                     mask=images['paste_mask']
                 )
 
@@ -396,9 +403,8 @@ class TransformationDrawRectangleMixin:
 
         draw = ImageDraw.Draw(im=self.image, mode='RGBA')
         draw.rectangle(
-            xy=(self.left, self.top, self.right, self.bottom),
-            fill=fill_color,
-            outline=outline_color, width=outline_width
+            fill=fill_color, outline=outline_color, width=outline_width,
+            xy=(self.left, self.top, self.right, self.bottom)
         )
 
         return self.image

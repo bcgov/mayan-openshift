@@ -7,7 +7,7 @@ from mayan.apps.common.menus import (
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
-from mayan.apps.views.html_widgets import ObjectLinkWidget
+from mayan.apps.views.column_widgets import ObjectLinkWidget
 
 from .classes import ModelPermission
 from .events import event_acl_deleted, event_acl_edited
@@ -65,6 +65,11 @@ class ACLsApp(MayanAppConfig):
             ), include_label=True, is_sortable=True, label=_('Object'),
             sort_field='content_type', source=GlobalAccessControlListProxy,
             widget=ObjectLinkWidget
+        )
+
+        SourceColumn(
+            attribute='get_permission_count', include_label=True,
+            source=AccessControlList
         )
 
         menu_list_facet.bind_links(

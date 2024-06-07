@@ -5,11 +5,11 @@ from .classes import DocumentFileAction
 
 
 class DocumentFileActionAppendNewPages(DocumentFileAction):
-    action_id = 2
+    action_id = 'append'
     label = _('Append. Create a new version and append the new file pages.')
 
     @staticmethod
-    def execute(document, document_file, comment, _user):
+    def execute(document, document_file, comment, user):
         DocumentVersion = apps.get_model(
             app_label='documents', model_name='DocumentVersion'
         )
@@ -29,43 +29,43 @@ class DocumentFileActionAppendNewPages(DocumentFileAction):
         )
 
         document_version = DocumentVersion(
-            document=document, comment=comment
+            active=True, document=document, comment=comment
         )
-        document_version._event_actor = _user
+        document_version._event_actor = user
         document_version.save()
 
         document_version.pages_remap(
             annotated_content_object_list=annotated_content_object_list,
-            _user=_user
+            user=user
         )
 
 
 class DocumentFileActionNothing(DocumentFileAction):
-    action_id = 3
+    action_id = 'keep'
     label = _(
         'Keep. Do not create a new version and keep the current '
         'version pages.'
     )
 
     @staticmethod
-    def execute(document, document_file, comment, _user):
+    def execute(document, document_file, comment, user):
         return
 
 
 class DocumentFileActionUseNewPages(DocumentFileAction):
-    action_id = 1
+    action_id = 'replace'
     label = _('Replace. Create a new version and use the new file pages.')
 
     @staticmethod
-    def execute(document, document_file, comment, _user):
+    def execute(document, document_file, comment, user):
         DocumentVersion = apps.get_model(
             app_label='documents', model_name='DocumentVersion'
         )
 
         document_version = DocumentVersion(
-            document=document, comment=comment
+            active=True, document=document, comment=comment
         )
-        document_version._event_actor = _user
+        document_version._event_actor = user
         document_version.save()
 
         annotated_content_object_list = DocumentVersion.annotate_content_object_list(
@@ -74,5 +74,5 @@ class DocumentFileActionUseNewPages(DocumentFileAction):
 
         document_version.pages_remap(
             annotated_content_object_list=annotated_content_object_list,
-            _user=_user
+            user=user
         )

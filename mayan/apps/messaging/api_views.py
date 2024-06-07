@@ -28,7 +28,7 @@ class APIMessageDetailView(generics.RetrieveUpdateDestroyAPIView):
             '_event_actor': self.request.user
         }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.request.user.messages.all()
 
 
@@ -37,8 +37,12 @@ class APIMessageListView(generics.ListCreateAPIView):
     get: Returns a list of all the messages.
     post: Create a new message.
     """
-    mayan_object_permissions = {'GET': (permission_message_view,)}
-    mayan_view_permissions = {'POST': (permission_message_create,)}
+    mayan_object_permissions = {
+        'GET': (permission_message_view,)
+    }
+    mayan_view_permissions = {
+        'POST': (permission_message_create,)
+    }
     ordering_fields = ('date_time', 'id')
     serializer_class = MessageSerializer
 
@@ -47,5 +51,5 @@ class APIMessageListView(generics.ListCreateAPIView):
             '_event_actor': self.request.user
         }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.request.user.messages.all()

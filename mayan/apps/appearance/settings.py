@@ -4,10 +4,13 @@ from mayan.apps.smart_settings.classes import SettingNamespace
 
 from .literals import (
     DEFAULT_AJAX_REDIRECTION_CODE, DEFAULT_MAXIMUM_TITLE_LENGTH,
-    DEFAULT_MESSAGE_POSITION, DEFAULT_MENU_POLLING_INTERVAL
+    DEFAULT_MENU_POLLING_INTERVAL, DEFAULT_MESSAGE_POSITION,
+    DEFAULT_THROTTLING_MAXIMUM_REQUESTS, DEFAULT_THROTTLING_TIMEOUT
 )
 
-namespace = SettingNamespace(label=_('Appearance'), name='appearance')
+namespace = SettingNamespace(
+    label=_('Appearance'), name='appearance'
+)
 
 setting_ajax_redirection_code = namespace.add_setting(
     default=DEFAULT_AJAX_REDIRECTION_CODE,
@@ -23,11 +26,12 @@ setting_max_title_length = namespace.add_setting(
     )
 )
 setting_message_position = namespace.add_setting(
-    default=DEFAULT_MESSAGE_POSITION,
+    choices=(
+        'top-left', 'top-center', 'top-right', 'bottom-left',
+        'bottom-center', 'bottom-right',
+    ), default=DEFAULT_MESSAGE_POSITION,
     global_name='APPEARANCE_MESSAGE_POSITION', help_text=_(
-        'Position where the system message will be displayed. Options are: '
-        'top-left, top-center, top-right, bottom-left, bottom-center, '
-        'bottom-right.'
+        'Position where the system messages will be displayed.'
     )
 )
 setting_menu_polling_interval = namespace.add_setting(
@@ -35,5 +39,19 @@ setting_menu_polling_interval = namespace.add_setting(
     global_name='APPEARANCE_MENU_POLLING_INTERVAL', help_text=_(
         'Delay in milliseconds after which the menus will be checked for '
         'updates.'
+    )
+)
+appearance_throttling_maximum_requests = namespace.add_setting(
+    default=DEFAULT_THROTTLING_MAXIMUM_REQUESTS,
+    global_name='APPEARANCE_THROTTLING_MAXIMUM_REQUESTS', help_text=_(
+        'Maximum number of requests that can be made before throttling '
+        'is enabled.'
+    )
+)
+appearance_throttling_timeout = namespace.add_setting(
+    default=DEFAULT_THROTTLING_TIMEOUT,
+    global_name='APPEARANCE_THROTTLING_TIMEOUT', help_text=_(
+        'Time in milliseconds after which a throttled request will '
+        'clear allowing an additional request to be performed.'
     )
 )

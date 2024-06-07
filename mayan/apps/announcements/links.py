@@ -4,8 +4,8 @@ from mayan.apps.navigation.classes import Link
 from mayan.apps.navigation.utils import factory_condition_queryset_access
 
 from .icons import (
-    icon_announcement_create, icon_announcement_delete, icon_announcement_edit,
-    icon_announcement_list
+    icon_announcement_create, icon_announcement_delete,
+    icon_announcement_edit, icon_announcement_list
 )
 from .permissions import (
     permission_announcement_create, permission_announcement_delete,
@@ -13,8 +13,10 @@ from .permissions import (
 )
 
 link_announcement_create = Link(
-    icon=icon_announcement_create, permissions=(permission_announcement_create,),
-    text=_('Create announcement'), view='announcements:announcement_create'
+    icon=icon_announcement_create, permissions=(
+        permission_announcement_create,
+    ), text=_('Create announcement'),
+    view='announcements:announcement_create'
 )
 link_announcement_multiple_delete = Link(
     icon=icon_announcement_delete, tags='dangerous', text=_('Delete'),
@@ -32,11 +34,14 @@ link_announcement_edit = Link(
     view='announcements:announcement_edit'
 )
 link_announcement_list = Link(
+    icon=icon_announcement_list, text=_('Announcements'),
+    view='announcements:announcement_list'
+)
+link_announcement_setup = Link(
     condition=factory_condition_queryset_access(
         app_label='announcements', model_name='Announcement',
         object_permission=permission_announcement_view,
         view_permission=permission_announcement_create,
     ), icon=icon_announcement_list,
-    text=_('Announcements'),
-    view='announcements:announcement_list'
+    text=_('Announcements'), view='announcements:announcement_list'
 )

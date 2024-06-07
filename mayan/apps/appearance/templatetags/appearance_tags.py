@@ -48,27 +48,63 @@ def appearance_app_templates(context, template_name):
 
         result.append(app_template_output)
 
-    return mark_safe(' '.join(result))
+    return mark_safe(
+        s=' '.join(result)
+    )
+
+
+@register.filter
+def appearance_form_get_visile_fields_map(form):
+    field_map = {
+        field.name: field for field in form.visible_fields()
+    }
+    return field_map
 
 
 @register.filter
 def appearance_get_choice_value(field):
     try:
-        return dict(field.field.choices)[field.value()]
+        return dict(field.field.choices)[
+            field.value()
+        ]
     except TypeError:
-        return ', '.join([subwidget.data['label'] for subwidget in field.subwidgets if subwidget.data['selected']])
+        return ', '.join(
+            [
+                subwidget.data['label'] for subwidget in field.subwidgets if subwidget.data['selected']
+            ]
+        )
     except KeyError:
         return _('None')
 
 
 @register.filter
-def appearance_get_form_media_js(form):
-    return [form.media.absolute_path(path) for path in form.media._js]
+def appearance_get_form_media_js(form=None):
+    if form:
+        return [
+            form.media.absolute_path(path) for path in form.media._js
+        ]
 
 
 @register.simple_tag
-def appearance_get_icon(icon_path):
-    return import_string(dotted_path=icon_path).render()
+def appearance_get_icon(icon_path, **kwargs):
+    clean_kwargs = {}
+
+    for key, value in kwargs.items():
+        if '__' in key:
+            subdictionary = clean_kwargs
+            parts = key.split('__')
+            for part in parts:
+                subdictionary.setdefault(
+                    part, {}
+                )
+                dictionary_pointer = subdictionary
+                subdictionary = subdictionary[part]
+
+            dictionary_pointer[part] = value
+        else:
+            clean_kwargs[key] = value
+
+    return import_string(dotted_path=icon_path).render(**clean_kwargs)
 
 
 @register.simple_tag
@@ -90,7 +126,9 @@ def appearance_get_user_theme_stylesheet(user):
 
 @register.simple_tag
 def appearance_icon_render(icon, enable_shadow=False):
-    return icon.render(extra_context={'enable_shadow': enable_shadow})
+    return icon.render(
+        extra_context={'enable_shadow': enable_shadow}
+    )
 
 
 @register.filter

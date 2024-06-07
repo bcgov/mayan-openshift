@@ -4,35 +4,35 @@
 # 
 # Translators:
 # Translators:
-# Stefaniu Criste <gupi@hangar.ro>, 2022
-# Roberto Rosario, 2022
-# Badea Gabriel <gcbadea@gmail.com>, 2022
-# Harald Ersch, 2022
+# Stefaniu Criste <gupi@hangar.ro>, 2023
+# Badea Gabriel <gcbadea@gmail.com>, 2023
+# Roberto Rosario, 2023
+# Harald Ersch, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:38+0000\n"
-"Last-Translator: Harald Ersch, 2022\n"
-"Language-Team: Romanian (Romania) (https://www.transifex.com/rosarior/teams/13584/ro_RO/)\n"
+"POT-Creation-Date: 2024-06-02 14:06+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Harald Ersch, 2024\n"
+"Language-Team: Romanian (Romania) (https://app.transifex.com/rosarior/teams/13584/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: apps.py:57 events.py:5 links.py:141 menus.py:5 models.py:42 queues.py:7
-#: settings.py:13 views/source_views.py:173
+#: apps.py:56 events.py:6 links.py:152 links.py:159 menus.py:6 models.py:62
+#: queues.py:9 settings.py:12 views/source_views.py:285
 msgid "Sources"
 msgstr "Surse"
 
-#: apps.py:87
+#: apps.py:104
 msgid "Create a document source"
 msgstr "Creați o sursă de documente"
 
-#: apps.py:89
+#: apps.py:106
 msgid ""
 "Document sources are the way in which new documents are feed to Mayan EDMS, "
 "create at least a web form source to be able to upload documents from a "
@@ -42,549 +42,311 @@ msgstr ""
 "EDMS, creează cel puțin o sursă de formă web pentru a putea încărca "
 "documente dintr-un browser."
 
-#: apps.py:112
+#: apps.py:130
+msgid ""
+"Return the value of a specific source metadata for the document's latest "
+"file."
+msgstr ""
+"Returnează valoarea unei anumite metadate sursă pentru cel mai recent fișier"
+" al documentului."
+
+#: apps.py:132 apps.py:139
+msgid "Source metadata value of"
+msgstr "Valoarea metadatelor sursă a"
+
+#: apps.py:138
+msgid "Return the value of a specific source metadata."
+msgstr "Returnează valoarea unei anumite metadate sursă."
+
+#: apps.py:157
 msgid "Type"
 msgstr "Tip"
 
-#: classes.py:235
-msgid "Null backend"
-msgstr "Backend vid"
-
-#: dependencies.py:12
-msgid ""
-"Utility provided by the SANE package. Used to control the scanner and "
-"obtained the scanned document image."
-msgstr ""
-"Utilitate furnizată de pachetul SANE. Folosit pentru a controla scanerul și "
-"pentru a obține imaginea documentului scanat."
-
-#: events.py:8
+#: events.py:10
 msgid "Source created"
 msgstr "Sursa creată"
 
-#: events.py:11
+#: events.py:13
 msgid "Source edited"
 msgstr "Sursa editată"
 
-#: forms.py:26
+#: forms.py:25
 msgid "An optional comment to explain the upload."
 msgstr "Un comentariu opțional pentru a explica încărcarea."
 
-#: forms.py:27
+#: forms.py:26
 msgid "Comment"
 msgstr "Comentariu"
 
-#: forms.py:31
+#: forms.py:32
 msgid "Action"
 msgstr "Acțiune"
 
-#: forms.py:32
+#: forms.py:33
 msgid ""
 "The action to take in regards to the pages of the new file being uploaded."
 msgstr ""
 "Acțiunea de luat în ceea ce privește paginile noului fișier care se încarcă."
 
-#: forms.py:51
+#: forms.py:54
 msgid "The backend used to create the new source."
 msgstr "Backend-ul folosit pentru a crea noua sursă."
 
-#: forms.py:52
+#: forms.py:55
 msgid "Backend"
 msgstr "Backend"
 
-#: forms.py:102
+#: forms.py:71
 msgid "File"
 msgstr "Fișier"
 
-#: handlers.py:15
-msgid "Default"
-msgstr "Implicit"
-
-#: links.py:111
+#: links.py:116
 msgid "New document"
 msgstr "Document nou"
 
-#: links.py:118
+#: links.py:122
 msgid "Upload new file"
 msgstr "Încărcați un fișier nou"
 
-#: links.py:126
+#: links.py:130
+msgid "Source metadata"
+msgstr "Metadate sursă"
+
+#: links.py:139
 msgid "Create source"
 msgstr "Creați sursa"
 
-#: links.py:132 source_backends/staging_folder_backends.py:355
+#: links.py:144
 msgid "Delete"
 msgstr "Șterge"
 
-#: links.py:136
+#: links.py:148
 msgid "Edit"
 msgstr "Editați"
 
-#: links.py:148
+#: links.py:165
 msgid "Test"
 msgstr "Test"
 
-#: models.py:32
+#: models.py:19 models.py:61
+msgid "Source"
+msgstr "Sursă"
+
+#: models.py:23
+msgid "Document file"
+msgstr "Fișier document"
+
+#: models.py:26
+msgid "Name of the source metadata entry."
+msgstr "Numele intrării de metadate sursă."
+
+#: models.py:27
+msgid "Key"
+msgstr "Cheie"
+
+#: models.py:31
+msgid "The actual value stored in the source metadata for the document file."
+msgstr "Valoarea reală stocată în metadatele sursă pentru fișierul document."
+
+#: models.py:33
+msgid "Value"
+msgstr "Valoare"
+
+#: models.py:39 models.py:40
+msgid "Document file source metadata"
+msgstr "Metadatele sursă din fișierul document"
+
+#: models.py:50
 msgid "A short text to describe this source."
 msgstr "Un text scurt pentru a descrie această sursă."
 
-#: models.py:33
+#: models.py:51
 msgid "Label"
 msgstr "Conținut etichetă"
 
-#: models.py:35
+#: models.py:54
 msgid "Enabled"
 msgstr "Activat"
-
-#: models.py:41
-msgid "Source"
-msgstr "Sursă"
 
 #: permissions.py:6
 msgid "Sources setup"
 msgstr "Configurare surse"
 
-#: permissions.py:10
+#: permissions.py:12
+msgid "View document file source metadata"
+msgstr "Vizualizați metadatele sursei fișierului documentului"
+
+#: permissions.py:18
 msgid "Create new document sources"
 msgstr "Creaza noi surse de documente"
 
-#: permissions.py:13
+#: permissions.py:21
 msgid "Delete document sources"
 msgstr "Ștergeți din surse de documente"
 
-#: permissions.py:16
+#: permissions.py:24
 msgid "Edit document sources"
 msgstr "Editare de documente din surse"
 
-#: permissions.py:19
+#: permissions.py:27
 msgid "View existing document sources"
 msgstr "Vezi sursele existente de documente"
 
-#: queues.py:10
+#: queues.py:12
 msgid "Sources periodic"
 msgstr "Surse periodice"
 
-#: queues.py:14
-msgid "Sources fast"
-msgstr "Surse rapide"
+#: queues.py:17
+msgid "Handle source backend action background task"
+msgstr "Gestionați sarcina de fundal a acțiunii de backend sursă"
 
-#: queues.py:19
+#: queues.py:21
 msgid "Check interval source"
 msgstr "Interval de verificare a sursei"
 
-#: queues.py:24
-msgid "Handle upload"
-msgstr "Manipulați încărcarea"
+#: serializers.py:13
+msgid "Default"
+msgstr "Implicit"
 
-#: serializers.py:52
-msgid "Optional arguments for the action. Must be JSON formatted."
-msgstr "Argumente opționale pentru acțiune. Trebuie să fie formatat JSON."
+#: serializers.py:16
+msgid "Has default?"
+msgstr "Are valori implicite?"
 
-#: serializers.py:53 source_backends/sane_scanner_backends.py:45
+#: serializers.py:19
+msgid "Help text"
+msgstr "Text de ajutor"
+
+#: serializers.py:22 serializers.py:41
+msgid "Name"
+msgstr "Nume"
+
+#: serializers.py:25
+msgid "Required"
+msgstr "Necesară"
+
+#: serializers.py:37 serializers.py:52
 msgid "Arguments"
 msgstr "Argumente"
 
-#: serializers.py:61
+#: serializers.py:47
+msgid "Accept files"
+msgstr "Acceptați fișiere"
+
+#: serializers.py:51
+msgid "Optional arguments for the action. Must be JSON formatted."
+msgstr "Argumente opționale pentru acțiune. Trebuie să fie formatat JSON."
+
+#: serializers.py:56
+msgid "Confirmation"
+msgstr "Confirmare"
+
+#: serializers.py:59
+msgid "Execute URL"
+msgstr "Adresa URL de executare"
+
+#: serializers.py:62
+msgid "Interfaces"
+msgstr "Interfețe"
+
+#: serializers.py:66
+msgid "name"
+msgstr "nume"
+
+#: serializers.py:69
+msgid "Permission"
+msgstr "Permisiune"
+
+#: serializers.py:74
+msgid "URL"
+msgstr "URL"
+
+#: serializers.py:85
 msgid "Binary content for the new file."
 msgstr "Conținut binar pentru noul fișier."
 
-#: settings.py:20
+#: serializers.py:121
+msgid "Actions URL"
+msgstr "Adresa URL a acțiunilor"
+
+#: settings.py:19
 msgid "Arguments to use when creating source backends."
 msgstr "Argumente de folosit la crearea backend-urilor sursă."
 
-#: settings.py:26
+#: settings.py:25
 msgid "Path to the Storage subclass used to store cached source image files."
 msgstr ""
 "Calea către subclasa Stocare utilizată pentru a stoca fișierele imagine "
 "sursă stocate în cache."
 
-#: settings.py:34
+#: settings.py:33
 msgid "Arguments to pass to the SOURCES_SOURCE_CACHE_STORAGE_BACKEND."
 msgstr "Argumente de transmis către SOURCES_SOURCE_CACHE_STORAGE_BACKEND."
 
-#: source_backends/email_backends.py:47
-msgid "Host"
-msgstr "Gazdă"
+#: source_backend_actions/interfaces.py:161
+msgid "Forms containing the upload data generated by the upload views."
+msgstr ""
+"Formulare care conțin datele de încărcare generate de vizualizările de "
+"încărcare."
 
-#: source_backends/email_backends.py:56
-msgid "SSL"
-msgstr "SSL"
+#: source_backend_actions/mixins/argument_help_texts.py:4
+msgid "Document to which a new file will be uploaded to."
+msgstr "Document în care va fi încărcat un fișier nou."
 
-#: source_backends/email_backends.py:62
+#: source_backend_actions/mixins/argument_help_texts.py:8
 msgid ""
-"Typical choices are 110 for POP3, 995 for POP3 over SSL, 143 for IMAP, 993 "
-"for IMAP over SSL."
+"When enabled, a document stub is created immediately and returned. The "
+"document file is processed asynchronously. When disabled, the entire process"
+" happens asynchronously with no returned data. Enabling immediate mode, "
+"disables compressed file processing."
 msgstr ""
-"Opțiunile tipice sunt 110 pentru POP3, 995 pentru POP3 peste SSL, 143 pentru"
-" IMAP, 993 pentru IMAP peste SSL."
+"Când este activată, un stub de document este creat imediat și returnat. "
+"Fișierul documentului este procesat asincron. Când este dezactivat, întregul"
+" proces are loc asincron, fără date returnate. Activarea modului imediat, "
+"dezactivează procesarea fișierelor comprimate."
 
-#: source_backends/email_backends.py:68
-msgid "Port"
-msgstr "Port"
+#: source_backend_actions/mixins/arguments.py:29
+msgid "ID of the document to which a new file will be uploaded to."
+msgstr "ID-ul documentului în care va fi încărcat un fișier nou."
 
-#: source_backends/email_backends.py:75
-msgid "Username"
-msgstr "Nume de utilizator"
+#: source_backend_actions/mixins/arguments.py:57
+msgid "ID of the document type."
+msgstr "ID-ul tipului de document."
 
-#: source_backends/email_backends.py:82
-msgid "Password"
-msgstr "Parola"
+#: source_backend_actions/mixins/arguments.py:74
+msgid "User that will feature as the actor in the events."
+msgstr "Utilizator care va apărea ca actor în evenimente."
 
-#: source_backends/email_backends.py:89
-msgid ""
-"Name of the attachment that will contains the metadata type names and value "
-"pairs to be assigned to the rest of the downloaded attachments."
-msgstr ""
-"Numele atașamentului care va conține nume de tip de metadate și perechi de "
-"valori care vor fi alocate restului de atașamente descărcate."
+#: source_backend_actions/mixins/arguments.py:79
+msgid "ID of the user that will feature as the actor in the events."
+msgstr "ID-ul utilizatorului care va apărea ca actor în evenimente."
 
-#: source_backends/email_backends.py:96
-msgid "Metadata attachment name"
-msgstr "Numele atașamentului metadatelor"
+#: source_backends/base.py:101
+msgid "General"
+msgstr "General"
 
-#: source_backends/email_backends.py:102
-msgid ""
-"Select a metadata type to store the email's \"from\" value. Must be a valid "
-"metadata type for the document type selected previously."
-msgstr ""
-"Selectați un tip de metadate pentru a stoca valoarea „de la” a e-mailului. "
-"Trebuie să fie un tip de metadată valabil pentru tipul de document selectat "
-"anterior."
+#: source_backends/base.py:134
+msgid "Null backend"
+msgstr "Backend vid"
 
-#: source_backends/email_backends.py:112
-msgid "From metadata type"
-msgstr "Tipul de metadate De la"
-
-#: source_backends/email_backends.py:120
-msgid ""
-"Select a metadata type to store the email's subject value. Must be a valid "
-"metadata type for the document type selected previously."
-msgstr ""
-"Selectați un tip de metadate pentru a stoca valoarea subiectului e-mailului."
-" Trebuie să fie un tip de metadată valabil pentru tipul de document selectat"
-" anterior."
-
-#: source_backends/email_backends.py:130
-msgid "Subject metadata type"
-msgstr "Tip de metadate subiect"
-
-#: source_backends/email_backends.py:138
-msgid ""
-"Select a metadata type to store the email's message ID value. Must be a "
-"valid metadata type for the document type selected previously."
-msgstr ""
-"Selectați un tip de metadate pentru a stoca valoarea ID-ului mesajului de "
-"e-mail. Trebuie să fie un tip de metadate valid pentru tipul de document "
-"selectat anterior."
-
-#: source_backends/email_backends.py:148
-msgid "Message ID metadata type"
-msgstr "Tip de metadate pentru ID mesaj"
-
-#: source_backends/email_backends.py:156
-msgid "Store the body of the email as a text document."
-msgstr "Păstrați corpul e-mailului ca document text."
-
-#: source_backends/email_backends.py:158
-msgid "Store email body"
-msgstr "Stocați corpul de e-mail"
-
-#: source_backends/email_backends.py:303
-#, python-format
-msgid ""
-"\"From\" metadata type \"%(metadata_type)s\" is not valid for the document "
-"type: %(document_type)s"
-msgstr ""
-"Tipul de metadate \"De la\" \"%(metadata_type)s\" nu este valabil pentru "
-"tipul de document: %(document_type)s"
-
-#: source_backends/email_backends.py:317
-#, python-format
-msgid ""
-"Subject metadata type \"%(metadata_type)s\" is not valid for the document "
-"type: %(document_type)s"
-msgstr ""
-"Tipul de metadate Subiect \"%(metadata_type)s\" nu este valid pentru tipul "
-"de document: %(document_type)s"
-
-#: source_backends/email_backends.py:331
-#, python-format
-msgid ""
-"Message ID metadata type \"%(metadata_type)s\" is not valid for the document"
-" type: %(document_type)s"
-msgstr ""
-"Tipul de metadate pentru ID-ul mesajului „%(metadata_type)s” nu este valid "
-"pentru tipul de document: %(document_type)s"
-
-#: source_backends/email_backends.py:379
-msgid "IMAP Mailbox from which to check for messages."
-msgstr "Căsuța poștală IMAP din care să se verifice mesajele."
-
-#: source_backends/email_backends.py:383
-msgid "Mailbox"
-msgstr "Căsuță poștală"
-
-#: source_backends/email_backends.py:390
-msgid ""
-"Criteria to use when searching for messages to process. Use the format "
-"specified in https://tools.ietf.org/html/rfc2060.html#section-6.4.4"
-msgstr ""
-"Criterii de utilizat atunci când căutați mesaje pentru procesare. Utilizați "
-"formatul specificat în "
-"https://tools.ietf.org/html/rfc2060.html#section-6.4.4"
-
-#: source_backends/email_backends.py:394
-msgid "Search criteria"
-msgstr "Criteriu de cautare"
-
-#: source_backends/email_backends.py:402
-msgid ""
-"IMAP STORE command to execute on messages after they are processed. One "
-"command per line. Use the commands specified in "
-"https://tools.ietf.org/html/rfc2060.html#section-6.4.6 or the custom "
-"commands for your IMAP server."
-msgstr ""
-"Comanda IMAP STORE pentru a executa pe mesaje după ce acestea sunt "
-"procesate. O comandă pe linie. Utilizați comenzile specificate în "
-"https://tools.ietf.org/html/rfc2060.html#section-6.4.6 sau comenzile "
-"personalizate pentru serverul dvs. IMAP."
-
-#: source_backends/email_backends.py:407
-msgid "Store commands"
-msgstr "Stocare comenzi"
-
-#: source_backends/email_backends.py:414
-msgid "Execute the IMAP expunge command after processing each email message."
-msgstr ""
-"Executați comanda de extragere IMAP după procesarea fiecărui mesaj de "
-"e-mail."
-
-#: source_backends/email_backends.py:417
-msgid "Execute expunge"
-msgstr "Execută extragerea"
-
-#: source_backends/email_backends.py:424
-msgid "IMAP Mailbox to which processed messages will be copied."
-msgstr "Căsuța poștală IMAP pe care vor fi copiate mesajele procesate."
-
-#: source_backends/email_backends.py:426
-msgid "Destination mailbox"
-msgstr "Căsuța poștală de destinație"
-
-#: source_backends/email_backends.py:432
-msgid "IMAP email"
-msgstr "E-mail IMAP"
-
-#: source_backends/email_backends.py:559
-msgid "Timeout"
-msgstr "Pauză"
-
-#: source_backends/email_backends.py:562
-msgid "POP3 email"
-msgstr "E-mail POP3"
-
-#: source_backends/literals.py:18 source_backends/literals.py:23
-msgid "Always"
-msgstr "Mereu"
-
-#: source_backends/literals.py:19 source_backends/literals.py:24
-msgid "Never"
-msgstr "niciodată"
-
-#: source_backends/literals.py:25
-msgid "Ask user"
-msgstr "Întreabă utilizatorul"
-
-#: source_backends/mixins.py:132
-msgid "Uncompress"
-msgstr "Decomprimai"
-
-#: source_backends/mixins.py:136
-msgid "Whether to expand or not compressed archives."
-msgstr "Dacă se extinde sau nu se arhivează."
-
-#: source_backends/mixins.py:160
-msgid "Expand compressed files"
-msgstr "Dezarhivare fișiere comprimate"
-
-#: source_backends/mixins.py:162
-msgid "Upload a compressed file's contained files as individual documents."
-msgstr ""
-"Încărcați fișierele conținute ale unui fișier comprimat ca documente "
-"individuale."
-
-#: source_backends/mixins.py:251
-msgid "Assign a document type to documents uploaded from this source."
-msgstr ""
-"Atribuiți un tip de document documentelor încărcate din această sursă."
-
-#: source_backends/mixins.py:257
-msgid "Document type"
-msgstr "Tipul documentului"
-
-#: source_backends/mixins.py:264
-msgid "Interval in seconds between checks for new documents."
-msgstr "Interval în secunde între verificările pentru documente noi."
-
-#: source_backends/mixins.py:270
-msgid "Interval"
-msgstr "Interval"
-
-#: source_backends/sane_scanner_backends.py:31
-msgid "Device name as returned by the SANE backend."
-msgstr "Numele dispozitivului returnat de backend-ul SANE."
-
-#: source_backends/sane_scanner_backends.py:34
-msgid "Device name"
-msgstr "Nume dispozitiv"
-
-#: source_backends/sane_scanner_backends.py:40
-msgid ""
-"YAML formatted arguments to pass to the `scanimage` command. The arguments "
-"will change depending on the device. Execute `scanimage --help --device-"
-"name=DEVICE` for the list of supported arguments."
-msgstr ""
-"Argumente formatate YAML pentru a fi transmise comenzii `scanimage`. "
-"Argumentele se vor schimba în funcție de dispozitiv. Executați `scanimage "
-"--help --device-name=DEVICE` pentru lista de argumente acceptate."
-
-#: source_backends/sane_scanner_backends.py:49
-msgid "SANE Scanner"
-msgstr "Scaner SANE "
-
-#: source_backends/sane_scanner_backends.py:108
-msgid "Document properties"
-msgstr "Proprietățile documentului"
-
-#: source_backends/sane_scanner_backends.py:109
-msgid "Scan"
-msgstr "Scanează"
-
-#: source_backends/staging_folder_backends.py:232
-#: source_backends/staging_folder_backends.py:546
-msgid "Staging file"
-msgstr "Structura fisier"
-
-#: source_backends/staging_folder_backends.py:267
-#: source_backends/watch_folder_backends.py:38
-msgid "Server side filesystem path."
-msgstr "Cale de fișiere server."
-
-#: source_backends/staging_folder_backends.py:272
-#: source_backends/watch_folder_backends.py:43
-msgid "Folder path"
-msgstr "Calea dosarului"
-
-#: source_backends/staging_folder_backends.py:278
-msgid "Width value to be passed to the converter backend."
-msgstr "Valoarea lățime trecuta convertorului."
-
-#: source_backends/staging_folder_backends.py:283
-msgid "Preview width"
-msgstr "Lățimea de previzualizare"
-
-#: source_backends/staging_folder_backends.py:289
-msgid "Height value to be passed to the converter backend."
-msgstr "Valoare de înălțime trecuta convertorului."
-
-#: source_backends/staging_folder_backends.py:294
-msgid "Preview height"
-msgstr "Înălțime de previzualizare"
-
-#: source_backends/staging_folder_backends.py:300
-msgid "Delete the file after is has been successfully uploaded."
-msgstr "Ștergeți fișierul după ce este a fost încărcat cu succes."
-
-#: source_backends/staging_folder_backends.py:302
-msgid "Delete after upload"
-msgstr "Șterge după încărcare"
-
-#: source_backends/staging_folder_backends.py:309
-#: source_backends/watch_folder_backends.py:50
-msgid ""
-"If checked, not only will the folder path be scanned for files but also its "
-"subdirectories."
-msgstr ""
-"Dacă este bifată, nu doar calea directorului nu va fi scanată numai pentru "
-"fișiere, ci și subdirectoarele sale."
-
-#: source_backends/staging_folder_backends.py:312
-#: source_backends/watch_folder_backends.py:53
-msgid "Include subdirectories?"
-msgstr "Includeți subdirectoarele?"
-
-#: source_backends/staging_folder_backends.py:319
-#: source_backends/watch_folder_backends.py:60
+#: source_backends/mixins.py:27
 msgid "Regular expression used to select which files to upload."
 msgstr "Expresie regulată folosită pentru a selecta fișierele de încărcat."
 
-#: source_backends/staging_folder_backends.py:321
-#: source_backends/watch_folder_backends.py:62
+#: source_backends/mixins.py:30
 msgid "Include regular expression"
 msgstr "Includeți expresia regulată"
 
-#: source_backends/staging_folder_backends.py:328
-#: source_backends/watch_folder_backends.py:69
+#: source_backends/mixins.py:37
 msgid "Regular expression used to exclude which files to upload."
 msgstr "Expresie regulată folosită pentru a exclude fișierele de încărcat."
 
-#: source_backends/staging_folder_backends.py:330
-#: source_backends/watch_folder_backends.py:71
+#: source_backends/mixins.py:40
 msgid "Exclude regular expression"
 msgstr "Excludeți expresia regulată"
 
-#: source_backends/staging_folder_backends.py:341
-msgid "Staging folder"
-msgstr "Dosarul pentru așteptare"
-
-#: source_backends/staging_folder_backends.py:361
-msgid "Select"
-msgstr "Selecta"
-
-#: source_backends/staging_folder_backends.py:373
-msgid "Created"
-msgstr "Creat"
-
-#: source_backends/staging_folder_backends.py:377
-msgid "Thumbnail"
-msgstr "Miniatură"
-
-#: source_backends/staging_folder_backends.py:526
-#, python-format
-msgid "Error deleting staging file; %s"
-msgstr "Eroare la ștergerea fișierului de așteptare; %s"
-
-#: source_backends/staging_folder_backends.py:547
-#, python-format
-msgid "Delete staging file \"%s\"?"
-msgstr "Ștergeți fișierul de așteptare \"%s\"?"
-
-#: source_backends/staging_folder_backends.py:612
-#, python-format
-msgid "Unable get list of staging files; %s"
-msgstr "Nu s-a putut obține lista de fișiere intermediare; %s"
-
-#: source_backends/staging_folder_backends.py:630
-msgid ""
-"This could mean that the staging folder is empty. It could also mean that "
-"the operating system user account being used for Mayan EDMS doesn't have the"
-" necessary file system permissions for the folder."
-msgstr ""
-"Aceasta ar putea însemna că folderul tampon este gol. Poate însemna, de "
-"asemenea, că contul de utilizator al sistemului de operare utilizat pentru "
-"Mayn EDMS nu are permisiunile necesare în sistemul de fișiere pentru folder."
-
-#: source_backends/staging_folder_backends.py:637
-msgid "No staging files available"
-msgstr "Nu sunt disponibile fișiere intermediare"
-
-#: source_backends/watch_folder_backends.py:75
-msgid "Watch folder"
-msgstr "Dosarul de urmărire"
-
-#: source_backends/web_form_backends.py:39
-msgid "Web form"
-msgstr "Formular web"
+#: source_backends/mixins.py:54
+msgid "Content selection"
+msgstr "Selectarea conținutului"
 
 #: storages.py:14
 msgid ""
@@ -598,111 +360,121 @@ msgstr ""
 msgid "Staging folder files"
 msgstr "Stabilirea  dosarului de așteptare a fișierelor. "
 
-#: templates/sources/app/foot.html:42
-msgid "Cancel upload"
-msgstr "Anulați încărcarea"
+#: tests/arguments.py:6
+msgid "Python file like object."
+msgstr "Fișier Python ca obiect."
 
-#: templates/sources/app/foot.html:43
-msgid "Are you sure you want to cancel this upload?"
-msgstr "Sigur doriți să anulați încărcarea?"
+#: tests/arguments.py:10
+msgid "ID of the shared uploaded file to be processed."
+msgstr "ID-ul fișierului încărcat partajat care urmează să fie procesat."
 
-#: templates/sources/app/foot.html:44
-msgid "Drop files or click here to upload files"
-msgstr "Drop fișiere sau faceți clic aici pentru a încărca fișiere"
-
-#: templates/sources/app/foot.html:45
-msgid "Your browser does not support drag and drop file uploads."
-msgstr "Browserul dvs. nu acceptă încărcarea de fișiere de tip drag and drop."
-
-#: templates/sources/app/foot.html:46
-msgid "Please use the fallback form below to upload your files."
-msgstr ""
-"Utilizați formularul de rezervă de mai jos pentru a încărca fișierele."
-
-#: templates/sources/app/foot.html:47
-msgid "Clear"
-msgstr "Golire"
-
-#: templates/sources/app/foot.html:48
-msgid "Server responded with {{statusCode}} code."
-msgstr "Serverul a răspuns cu codul {{statusCode}}."
-
-#: views/base.py:54 wizards.py:58
+#: views/base.py:33
 msgid ""
-"No interactive document sources have been defined or none have been enabled,"
-" create one before proceeding."
+"There are no enabled sources that support this operation. Create a new one "
+"or enable and existing one."
 msgstr ""
-"Nu s-au definit surse de documente interactive sau nici una nu a fost "
-"activată, creați una înainte de a continua."
+"Nu există surse activate care să suporte această operațiune. Creați unul nou"
+" sau activați una existentă."
 
-#: views/document_file_views.py:52
+#: views/document_file_views.py:43
+msgid ""
+"This means that the sources system did not record any information about the "
+"creation of the document file."
+msgstr ""
+"Aceasta înseamnă că sistemul surselor nu a înregistrat nicio informație "
+"despre crearea fișierului document."
+
+#: views/document_file_views.py:47
+msgid "No source metadata available for this document file."
+msgstr "Nu există metadate sursă disponibile pentru acest fișier document."
+
+#: views/document_file_views.py:51
+#, python-format
+msgid "Source metadata for: %(document_file)s"
+msgstr "Metadate sursă pentru: %(document_file)s"
+
+#: views/document_file_views.py:96
 #, python-format
 msgid "Unable to upload new files for document \"%(document)s\". %(exception)s"
 msgstr ""
 "Nu se pot încărca fișiere noi pentru documentul „%(document)s”. "
 "%(exception)s"
 
-#: views/document_file_views.py:76
+#: views/document_file_views.py:141
 #, python-format
 msgid "Error executing document file upload task; %(exception)s"
 msgstr ""
 "Eroare la executarea sarcinii de încărcare a fișierului documentului; "
 "%(exception)s"
 
-#: views/document_file_views.py:95
+#: views/document_file_views.py:162
 msgid "New document file queued for upload and will be available shortly."
 msgstr ""
 "Fișier nou document a fost pus în coadă pentru încărcare și va fi disponibil"
 " în curând."
 
-#: views/document_file_views.py:133
+#: views/document_file_views.py:187
 #, python-format
 msgid "Upload a new file for document \"%(document)s\" from source: %(source)s"
 msgstr ""
 "Încărcați un fișier nou pentru documentul „%(document)s” din sursa: "
 "%(source)s"
 
-#: views/document_file_views.py:139
+#: views/document_file_views.py:193
 msgid "Submit"
 msgstr "Trimiteţi"
 
-#: views/document_views.py:41
+#: views/document_views.py:53
 #, python-format
 msgid "Error processing source document upload; %(exception)s"
 msgstr "Eroare la procesarea încărcării documentului sursă; %(exception)s"
 
-#: views/document_views.py:60
+#: views/document_views.py:74
 msgid "New document queued for upload and will be available shortly."
 msgstr ""
 "Documentul cel nou este în coada de așteptare pentru încărcare și va fi "
 "disponibil în scurt timp."
 
-#: views/document_views.py:91
+#: views/document_views.py:94
 #, python-format
 msgid "Upload a document of type \"%(document_type)s\" from source: %(source)s"
 msgstr ""
 "Încărcați un document de tipul \"%(document_type)s\" din sursa: %(source)s"
 
-#: views/source_views.py:40
+#: views/source_views.py:76
+#, python-format
+msgid "Unable to execute action; %s."
+msgstr "Nu se poate executa acțiunea; %s ."
+
+#: views/source_views.py:155
+#, python-format
+msgid "Error processing source action; %(exception)s"
+msgstr "Eroare la procesarea acțiunii sursei; %(exception)s"
+
+#: views/source_views.py:170
+msgid "Source action executed successfully."
+msgstr "Acțiunea sursă a fost executată cu succes."
+
+#: views/source_views.py:179
 msgid "New source backend selection"
 msgstr "Selectare backend sursă nou"
 
-#: views/source_views.py:99
+#: views/source_views.py:207
 #, python-format
 msgid "Create a \"%s\" source"
 msgstr "Creați o sursă „%s”."
 
-#: views/source_views.py:125
+#: views/source_views.py:235
 #, python-format
 msgid "Delete the source: %s?"
 msgstr "Ștergeți sursa: %s?"
 
-#: views/source_views.py:141
+#: views/source_views.py:251
 #, python-format
 msgid "Edit source: %s"
 msgstr "Editați sursa: %s"
 
-#: views/source_views.py:167
+#: views/source_views.py:279
 msgid ""
 "Sources provide the means to upload documents. Some sources are interactive "
 "and require user input to operate. Others are automatic and run in the "
@@ -712,11 +484,19 @@ msgstr ""
 "interactive și necesită intervenția utilizatorului pentru a funcționa. "
 "Altele sunt automate și rulează în fundal, fără intervenția utilizatorului."
 
-#: views/source_views.py:172
+#: views/source_views.py:284
 msgid "No sources available"
 msgstr "Nu există surse disponibile"
 
-#: views/source_views.py:191
+#: views/source_views.py:309
+#, python-format
+msgid ""
+"The selected action \"%s\" does not require confirmation and cannot be "
+"tested."
+msgstr ""
+"Acțiunea selectată „ %s ” nu necesită confirmare și nu poate fi testată."
+
+#: views/source_views.py:331
 msgid ""
 "This will execute the source code even if the source is not enabled. Sources"
 " that delete content after downloading will not do so while being tested. "
@@ -728,36 +508,48 @@ msgstr ""
 "ce sunt testate. Verificați jurnalul de erori al sursei pentru informații în"
 " timpul testării. Un test reușit va șterge jurnalul de erori."
 
-#: views/source_views.py:197
+#: views/source_views.py:337
 #, python-format
 msgid "Trigger check for source \"%s\"?"
 msgstr "Declanșați verificarea pentru sursa \"%s\"?"
 
-#: views/source_views.py:209
-msgid "Source test queued."
-msgstr "Testul sursei a fost pus în coadă."
+#: views/source_views.py:353
+msgid ""
+"Source test queued. Check for newly created documents or for error log "
+"entries."
+msgstr ""
+"Testul sursă a fost pus în coadă. Verificați dacă există documente nou "
+"create sau dacă există intrări în jurnalul de erori."
 
 #: wizard_steps.py:11
 msgid "Select document type"
 msgstr "Selectați tipul de document"
 
-#: wizards.py:77
+#: wizards.py:68
+msgid ""
+"No interactive document sources have been defined or none have been enabled,"
+" create one before proceeding."
+msgstr ""
+"Nu s-au definit surse de documente interactive sau nici una nu a fost "
+"activată, creați una înainte de a continua."
+
+#: wizards.py:85
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "Pasul %(step)d din %(total_steps)d: %(step_label)s"
 
-#: wizards.py:82
+#: wizards.py:91
 msgid "Document upload wizard"
 msgstr "Asistentul pentru încărcarea documentelor"
 
-#: wizards.py:91
+#: wizards.py:100
 msgid "First"
 msgstr "Primul"
 
-#: wizards.py:97
+#: wizards.py:106
 msgid "Previous"
 msgstr "Precedent"
 
-#: wizards.py:104
+#: wizards.py:113
 msgid "Next"
 msgstr "Următor"

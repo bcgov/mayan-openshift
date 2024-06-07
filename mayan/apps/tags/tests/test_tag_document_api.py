@@ -6,11 +6,11 @@ from mayan.apps.rest_api.tests.base import BaseAPITestCase
 
 from ..permissions import permission_tag_view
 
-from .mixins import TagAPIViewTestMixin, TagTestMixin
+from .mixins import TagAPIViewTestMixin
 
 
 class TagDocumentAPIViewTestCase(
-    DocumentTestMixin, TagAPIViewTestMixin, TagTestMixin, BaseAPITestCase
+    DocumentTestMixin, TagAPIViewTestMixin, BaseAPITestCase
 ):
     auto_upload_test_document = False
 
@@ -20,7 +20,9 @@ class TagDocumentAPIViewTestCase(
         self._create_test_document_stub()
 
     def test_tag_document_list_api_view_no_permission(self):
-        self._test_tag.attach_to(document=self._test_document)
+        self._test_tag.attach_to(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self._clear_events()
 
@@ -31,7 +33,9 @@ class TagDocumentAPIViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_tag_document_list_api_view_with_tag_access(self):
-        self._test_tag.attach_to(document=self._test_document)
+        self._test_tag.attach_to(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(obj=self._test_tag, permission=permission_tag_view)
 
@@ -40,13 +44,17 @@ class TagDocumentAPIViewTestCase(
         response = self._request_test_tag_document_list_api_view()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(response.data['count'], 0)
+        self.assertEqual(
+            response.data['count'], 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
 
     def test_tag_document_list_api_view_with_document_access(self):
-        self._test_tag.attach_to(document=self._test_document)
+        self._test_tag.attach_to(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self._clear_events()
 
@@ -63,7 +71,9 @@ class TagDocumentAPIViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_tag_document_list_api_view_with_full_access(self):
-        self._test_tag.attach_to(document=self._test_document)
+        self._test_tag.attach_to(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(obj=self._test_tag, permission=permission_tag_view)
         self.grant_access(
@@ -84,7 +94,9 @@ class TagDocumentAPIViewTestCase(
         self.assertEqual(events.count(), 0)
 
     def test_tag_trashed_document_list_api_view_with_full_access(self):
-        self._test_tag.attach_to(document=self._test_document)
+        self._test_tag.attach_to(
+            document=self._test_document, user=self._test_case_user
+        )
 
         self.grant_access(obj=self._test_tag, permission=permission_tag_view)
         self.grant_access(
@@ -98,7 +110,9 @@ class TagDocumentAPIViewTestCase(
         response = self._request_test_tag_document_list_api_view()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(response.data['count'], 0)
+        self.assertEqual(
+            response.data['count'], 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)

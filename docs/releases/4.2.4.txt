@@ -125,20 +125,7 @@ Removals
 Upgrade process
 ---------------
 
-.. important::
-
-  If using a direct deployment, Supervisord must be upgraded to version
-  4.2.2. See troubleshooting section: :ref:`troubleshooting-version-4.1`
-
-
 .. include:: partials/upgrade-3.5-4.0.txt
-
-
-Troubleshooting
----------------
-
-Follow the solutions outlined in the troubleshooting section:
-:ref:`troubleshooting-version-4.1`
 
 
 Backward incompatible changes
@@ -151,8 +138,8 @@ Issues closed
 -------------
 
 - :gitlab-issue:`1083` python 3.10 AttributeError: module 'collections' has no attribute 'Iterable'
-- :gitlab-issue:`1098` Wrong or missleading API documentation
-- :gitlab-issue:`1099` wrong config sting for AUTHENTICATION_BACKEND TOTP authentication in Version 4.2 Changes documentation
+- :gitlab-issue:`1098` Wrong or misleading API documentation
+- :gitlab-issue:`1099` wrong config string for AUTHENTICATION_BACKEND TOTP authentication in Version 4.2 Changes documentation
 
 
 .. _PyPI: https://pypi.python.org/pypi/mayan-edms/

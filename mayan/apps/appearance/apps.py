@@ -10,18 +10,18 @@ from mayan.apps.acls.permissions import (
 from mayan.apps.common.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
-    menu_list_facet, menu_object, menu_secondary, menu_setup
+    menu_list_facet, menu_object, menu_return, menu_secondary, menu_setup
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
 from mayan.apps.navigation.classes import SourceColumn
 
 from .events import event_theme_edited, event_user_theme_settings_edited
+from .handlers import handler_user_theme_setting_create
 from .links import (
     link_theme_create, link_theme_delete, link_theme_edit, link_theme_list,
     link_theme_setup, link_user_theme_settings_detail,
     link_user_theme_settings_edit
 )
-from .handlers import handler_user_theme_setting_create
 from .permissions import (
     permission_theme_delete, permission_theme_edit, permission_theme_view
 )
@@ -30,13 +30,14 @@ from .permissions import (
 class AppearanceApp(MayanAppConfig):
     app_namespace = 'appearance'
     app_url = 'appearance'
+    has_javascript_translations = True
     has_static_media = True
     has_tests = True
     name = 'mayan.apps.appearance'
     static_media_ignore_patterns = (
         'AUTHORS*', 'CHANGE*', 'CONTRIBUT*', 'CODE_OF_CONDUCT*', 'Grunt*',
-        'LICENSE*', 'MAINTAIN*', 'README*', '*.less', '*.md', '*.nupkg',
-        '*.nuspec', '*.scss*', '*.sh', '*tests*', 'bower*', 'composer.json*',
+        'MAINTAIN*', 'README*', '*.less', '*.md', '*.nupkg', '*.nuspec',
+        '*.scss*', '*.sh', '*tests*', 'bower*', 'composer.json*',
         'demo*', 'grunt*', 'gulp*', 'install', 'less', 'package.json*',
         'package-lock*', 'test', 'tests', 'variable*',
         'appearance/node_modules/@fancyapps/fancybox/docs/*',
@@ -52,7 +53,7 @@ class AppearanceApp(MayanAppConfig):
         'appearance/node_modules/toastr/karma.conf.js',
         'appearance/node_modules/toastr/toastr.js',
         'appearance/node_modules/toastr/toastr-icon.png',
-        'appearance/node_modules/toastr/nuget/*',
+        'appearance/node_modules/toastr/nuget/*'
     )
     verbose_name = _('Appearance')
 
@@ -64,9 +65,9 @@ class AppearanceApp(MayanAppConfig):
         User = get_user_model()
 
         ModelCopy(
-            model=Theme, bind_link=True, register_permission=True
+            bind_link=True, model=Theme, register_permission=True
         ).add_fields(
-            field_names=('label', 'stylesheet',),
+            field_names=('label', 'stylesheet',)
         )
 
         EventModelRegistry.register(model=Theme)
@@ -101,28 +102,34 @@ class AppearanceApp(MayanAppConfig):
             sender=settings.AUTH_USER_MODEL
         )
 
+        # Theme
+
         menu_object.bind_links(
             links=(
                 link_theme_delete, link_theme_edit
             ), sources=(Theme,)
         )
-
-        menu_secondary.bind_links(
-            links=(link_theme_list, link_theme_create),
+        menu_return.bind_links(
+            links=(link_theme_list,),
             sources=(
                 Theme, 'appearance:theme_list', 'appearance:theme_create'
             )
         )
-        menu_setup.bind_links(links=(link_theme_setup,))
-
-        menu_list_facet.bind_links(
-            links=(
-                link_user_theme_settings_detail,
-            ), sources=(User,)
+        menu_secondary.bind_links(
+            links=(link_theme_create,),
+            sources=(
+                Theme, 'appearance:theme_list', 'appearance:theme_create'
+            )
+        )
+        menu_setup.bind_links(
+            links=(link_theme_setup,)
         )
 
+        # User
+
+        menu_list_facet.bind_links(
+            links=(link_user_theme_settings_detail,), sources=(User,)
+        )
         menu_object.bind_links(
-            links=(
-                link_user_theme_settings_edit,
-            ), sources=(User,)
+            links=(link_user_theme_settings_edit,), sources=(User,)
         )

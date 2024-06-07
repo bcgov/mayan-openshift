@@ -21,8 +21,19 @@ class CheckVersionView(SimpleView):
 
     def get_extra_context(self):
         return {
-            'title': _('Check for updates'),
-            'content': PyPIClient().check_version_verbose()
+            'paragraphs': (
+                PyPIClient().check_version_verbose(),
+                _(
+                    'This process only checks the Python component of '
+                    'Mayan EDMS.'
+                ),
+                _(
+                    'It does not verify versions of other '
+                    'components like packaging or deployment technologies, '
+                    'such as container or virtual machine images.'
+                ),
+            ),
+            'title': _('Check for updates')
         }
 
 
@@ -36,7 +47,9 @@ class DependencyGroupEntryListView(SingleObjectListView):
             'hide_object': True,
             'object': self.get_object(),
             'subtitle': self.get_object().help_text,
-            'title': _('Entries for dependency group: %s') % self.get_object(),
+            'title': _(
+                'Entries for dependency group: %s'
+            ) % self.get_object()
         }
 
     def get_source_queryset(self):
@@ -63,7 +76,7 @@ class DependencyGroupListView(SingleObjectListView):
         return {
             'hide_link': True,
             'hide_object': True,
-            'title': _('Dependency groups'),
+            'title': _('Dependency groups')
         }
 
     def get_source_queryset(self):
@@ -84,7 +97,9 @@ class DependencyGroupEntryDetailView(SingleObjectListView):
             'hide_link': True,
             'hide_object': True,
             'navigation_object_list': ('group', 'entry'),
-            'title': _('Dependency group and entry: %(group)s, %(entry)s') % {
+            'title': _(
+                'Dependency group and entry: %(group)s, %(entry)s'
+            ) % {
                 'group': group, 'entry': entry
             }
         }
@@ -123,9 +138,9 @@ class DependencyLicensesView(SimpleView):
 
     def get_extra_context(self):
         # Use a function so that DependenciesLicensesForm get initialized
-        # at every request
+        # at every request.
         return {
             'form': DependenciesLicensesForm(),
             'read_only': True,
-            'title': _('Other packages licenses'),
+            'title': _('Other packages licenses')
         }

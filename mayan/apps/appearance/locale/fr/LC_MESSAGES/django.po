@@ -4,30 +4,31 @@
 # 
 # Translators:
 # Translators:
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2022
-# 0041b687dd284925c1885ba94464aacd_fde037b <fc746b00d74cefecce9698255909a24f_28512>, 2022
-# SadE54 <yannsuisini@gmail.com>, 2022
-# Olivier W, 2022
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2022
-# Guillaume Trottier <gui.trottier@gmail.com>, 2022
-# Yves Dubois <ydubois@gmail.com>, 2022
-# Frédéric Sheedy <sheedf@gmail.com>, 2022
+# 3d8c9ede7eec1ed3d454abc701cf2020_b5d10da <2cc9776490f3745e0e39b80d9b76a349_955453>, 2023
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2023
+# SadE54 <yannsuisini@gmail.com>, 2023
+# Yves Dubois <ydubois@gmail.com>, 2023
+# 0041b687dd284925c1885ba94464aacd_fde037b <fc746b00d74cefecce9698255909a24f_28512>, 2023
+# Olivier W, 2023
+# Guillaume Trottier <gui.trottier@gmail.com>, 2023
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2023
+# Frédéric Sheedy <sheedf@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2022\n"
-"Language-Team: French (https://www.transifex.com/rosarior/teams/13584/fr/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2024\n"
+"Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:57 events.py:5 permissions.py:5 settings.py:10
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
 msgid "Appearance"
 msgstr "Apparence"
 
@@ -79,39 +80,39 @@ msgstr "Toastr"
 msgid "URI.js"
 msgstr "URI.js"
 
-#: events.py:8
+#: events.py:10
 msgid "Theme created"
 msgstr "Thème créé"
 
-#: events.py:11
+#: events.py:13
 msgid "Theme edited"
 msgstr "Thème modifié"
 
-#: events.py:14
+#: events.py:16
 msgid "User theme edited"
 msgstr "Thème utilisateur modifié"
 
-#: links.py:18
+#: links.py:20
 msgid "Theme settings"
 msgstr "Paramètres du thème"
 
-#: links.py:25
+#: links.py:27
 msgid "Edit theme settings"
 msgstr "Modifier les paramètres du thème"
 
-#: links.py:31 views.py:31
+#: links.py:33 views.py:32
 msgid "Create new theme"
 msgstr "Créer un nouveau thème"
 
-#: links.py:36
+#: links.py:38
 msgid "Delete"
 msgstr "Supprimer"
 
-#: links.py:40
+#: links.py:42
 msgid "Edit"
 msgstr "Modifier"
 
-#: links.py:44 links.py:49 models.py:32 views.py:99
+#: links.py:46 links.py:54 models.py:32 views.py:101
 msgid "Themes"
 msgstr "Thèmes"
 
@@ -121,7 +122,7 @@ msgstr "Un court texte décrivant le thème."
 
 #: models.py:20
 msgid "Label"
-msgstr "Étiquette"
+msgstr "Libellé"
 
 #: models.py:24
 msgid ""
@@ -151,45 +152,55 @@ msgstr "Paramètre du thème utilisateur"
 msgid "User theme settings"
 msgstr "Paramètres du thème utilisateur"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Create new themes"
 msgstr "Créer de nouveaux thèmes"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Delete themes"
 msgstr "Supprimer les thèmes"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Edit themes"
 msgstr "Modifier les thèmes"
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "View existing themes"
 msgstr "Afficher les thèmes existants"
 
-#: settings.py:15
+#: settings.py:18
 msgid "Custom HTTP response code for AJAX redirections."
 msgstr "Code de réponse HTTP personnalisé pour les redirections AJAX."
 
-#: settings.py:21
+#: settings.py:24
 msgid "Maximum number of characters that will be displayed as the view title."
 msgstr "Nombre maximal de caractères affichés comme titre."
 
-#: settings.py:28
-msgid ""
-"Position where the system message will be displayed. Options are: top-left, "
-"top-center, top-right, bottom-left, bottom-center, bottom-right."
-msgstr ""
-"Position où le message du système sera affiché. Les options sont: en haut à "
-"gauche, en haut au centre, en haut à droite, en bas à gauche, en bas au "
-"centre et en bas à droite."
+#: settings.py:34
+msgid "Position where the system messages will be displayed."
+msgstr "Position où seront affichés les messages système ."
 
-#: settings.py:36
+#: settings.py:40
 msgid ""
 "Delay in milliseconds after which the menus will be checked for updates."
 msgstr ""
 "Délai en millisecondes après lequel les menus seront vérifiés pour les mises"
 " à jour."
+
+#: settings.py:47
+msgid ""
+"Maximum number of requests that can be made before throttling is enabled."
+msgstr ""
+"Nombre maximum de requêtes pouvant être effectuées avant que la limitation "
+"ne soit activée."
+
+#: settings.py:54
+msgid ""
+"Time in milliseconds after which a throttled request will clear allowing an "
+"additional request to be performed."
+msgstr ""
+"Temps en millisecondes après lequel une requête limitée s'effacera, "
+"permettant ainsi l'exécution d'une requête supplémentaire."
 
 #: templates/403.html:5 templates/403.html:30
 msgid "Insufficient permission"
@@ -229,7 +240,7 @@ msgstr ""
 "l'autorisation requise pour y accéder."
 
 #: templates/500.html:5 templates/500.html:30
-#: templates/appearance/root.html:47
+#: templates/appearance/root.html:46
 msgid "Server error"
 msgstr "Erreur du serveur"
 
@@ -266,35 +277,24 @@ msgstr ""
 "Créez un nouveau rapport à l'aide du <a href=\"%(issue_url)s\">système de "
 "suivi des problèmes</a> ."
 
-#: templates/appearance/about.html:10
+#: templates/appearance/about.html:9
 msgid "About"
 msgstr "À propos"
 
-#: templates/appearance/about.html:72
-#, python-format
-msgid ""
-"\n"
-"                    %(setting_project_title)s is based on %(project_title)s\n"
-"                "
-msgstr ""
-"\n"
-"                    %(setting_project_title)s est basé sur %(project_title)s\n"
-"                "
-
-#: templates/appearance/about.html:77
+#: templates/appearance/about.html:67
 msgid "Version"
 msgstr "Version"
 
-#: templates/appearance/about.html:79
+#: templates/appearance/about.html:69
 #, python-format
 msgid "Build number: %(build_number)s"
 msgstr "Numéro de build : %(build_number)s"
 
-#: templates/appearance/about.html:92
+#: templates/appearance/about.html:82
 msgid "Released under the license:"
 msgstr "Publié sous la licence :"
 
-#: templates/appearance/about.html:98
+#: templates/appearance/about.html:88
 #, python-format
 msgid ""
 "\n"
@@ -305,7 +305,7 @@ msgstr ""
 "                La liste complète des changements est disponible dans les <a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">notes de publication %(icon_documentation)s</a> ou en version courte dans le <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\">journal des modifications %(icon_documentation)s</a>.\n"
 "            "
 
-#: templates/appearance/about.html:104
+#: templates/appearance/about.html:94
 #, python-format
 msgid ""
 "\n"
@@ -316,7 +316,7 @@ msgstr ""
 "                Pour des questions, consulter la <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">Documentation %(icon_documentation)s</a>.\n"
 "            "
 
-#: templates/appearance/about.html:110
+#: templates/appearance/about.html:100
 #, python-format
 msgid ""
 "\n"
@@ -325,17 +325,6 @@ msgid ""
 msgstr ""
 "\n"
 "                Si vous avez trouvé un bogue ou une idée pour une nouvelle fonctionnalité, visitez le <a class=\"new_window\" href=\"https://forum.mayan-edms.com\">forum %(icon_forum)s</a> ou soumettez un nouveau billet dans le <a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">dépôt de code source %(icon_source_code)s</a>.\n"
-"            "
-
-#: templates/appearance/about.html:115
-#, python-format
-msgid ""
-"\n"
-"                Spread the word. Talk to your friends and colleagues about how awesome %(project_title)s is!\n"
-"            "
-msgstr ""
-"\n"
-"                Faites connaitre notre logiciel. Dites à vos amis et collègues à quel point %(project_title)s est génial!\n"
 "            "
 
 #: templates/appearance/base.html:73
@@ -361,21 +350,21 @@ msgstr "Non"
 msgid "required"
 msgstr "obligatoire"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Save"
 msgstr "Enregistrer"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Submit"
 msgstr "Soumettre"
 
-#: templates/appearance/generic_form_subtemplate.html:98
+#: templates/appearance/generic_form_subtemplate.html:99
 #: templates/appearance/generic_multiform_subtemplate.html:66
 msgid "Cancel"
 msgstr "Annuler"
@@ -384,9 +373,15 @@ msgstr "Annuler"
 msgid "Identifier"
 msgstr "Identifiant"
 
-#: templates/appearance/generic_list_subtemplate.html:134
-msgid "Facets"
-msgstr "Facettes"
+#: templates/appearance/generic_list_subtemplate.html:85
+#: templates/appearance/partials/list_object_facet_links_column.html:8
+#: templates/appearance/partials/list_object_facet_links_column.html:39
+msgid "Views"
+msgstr "Vues"
+
+#: templates/appearance/generic_list_subtemplate.html:91
+msgid "Actions"
+msgstr "Actions"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -429,18 +424,18 @@ msgstr "Tout sélectionner/Désélectionner"
 msgid "Toggle list display mode"
 msgstr "Basculer en mode d'affichage « liste »"
 
-#: templates/appearance/partials/list_toolbar.html:63
+#: templates/appearance/partials/list_toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr ""
 "Sélectionner les éléments pour activer les actions en masse. Utilisez Maj + "
 "clic pour en sélectionner plusieurs."
 
-#: templates/appearance/partials/list_toolbar.html:68
+#: templates/appearance/partials/list_toolbar.html:36
 msgid "Bulk actions"
 msgstr "Action groupée"
 
-#: templates/appearance/partials/list_toolbar.html:70
+#: templates/appearance/partials/list_toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "Activer la liste déroulante"
 
@@ -448,49 +443,59 @@ msgstr "Activer la liste déroulante"
 msgid "No results"
 msgstr "Aucun résultat"
 
-#: templates/appearance/root.html:52
+#: templates/appearance/partials/pagination.html:12
+#: templates/appearance/partials/pagination.html:14
+msgid "Previous page"
+msgstr "Page précédente"
+
+#: templates/appearance/partials/pagination.html:30
+#: templates/appearance/partials/pagination.html:32
+msgid "Next page"
+msgstr "Page suivante"
+
+#: templates/appearance/root.html:51
 msgid "Close"
 msgstr "Fermer"
 
-#: templates/appearance/root.html:60
+#: templates/appearance/root.html:59
 msgid "Server communication error"
 msgstr "Erreur de communication serveur"
 
-#: templates/appearance/root.html:62
+#: templates/appearance/root.html:61
 msgid "Check you network connection and try again in a few moments."
 msgstr "Vérifiez votre connexion réseau et réessayez dans quelques instants."
 
-#: templatetags/appearance_tags.py:61
+#: templatetags/appearance_tags.py:77
 msgid "None"
 msgstr "Aucun"
 
-#: views.py:55
+#: views.py:57
 #, python-format
 msgid "Delete theme: %s"
 msgstr "Supprimer le thème: %s"
 
-#: views.py:72
+#: views.py:74
 #, python-format
 msgid "Edit theme: %s"
 msgstr "Modifier le thème: %s"
 
-#: views.py:93
+#: views.py:95
 msgid ""
 "Themes allow changing the visual appearance without requiring code changes."
 msgstr ""
 "Les thèmes permettent de changer l'apparence visuelle sans nécessiter de "
 "changements de code."
 
-#: views.py:97
+#: views.py:99
 msgid "There are no themes"
 msgstr "Il n'y a pas de thèmes"
 
-#: views.py:122
+#: views.py:124
 #, python-format
 msgid "Theme settings for user: %s"
 msgstr "Paramètres du thème pour l'utilisateur: %s"
 
-#: views.py:144
+#: views.py:146
 #, python-format
 msgid "Edit theme settings for user: %s"
 msgstr "Modifier les paramètres de thème pour l'utilisateur: %s"

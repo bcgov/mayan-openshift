@@ -1,15 +1,15 @@
 from django.utils.encoding import force_bytes
 
-from mayan.apps.testing.tests.base import BaseTestCase
-
-from ..compressed_files import Archive, MsgArchive, TarArchive, ZipArchive
-
-from .literals import (
+from mayan.apps.common.tests.literals import (
     TEST_ARCHIVE_MSG_STRANGE_DATE_PATH, TEST_ARCHIVE_ZIP_CP437_MEMBER_PATH,
     TEST_ARCHIVE_ZIP_SPECIAL_CHARACTERS_FILENAME_MEMBER_PATH,
     TEST_TAR_BZ2_FILE_PATH, TEST_TAR_FILE_PATH, TEST_TAR_GZ_FILE_PATH,
     TEST_ZIP_FILE_PATH
 )
+from mayan.apps.testing.tests.base import BaseTestCase
+
+from ..compressed_files import Archive, MsgArchive, TarArchive, ZipArchive
+
 from .mixins import ArchiveClassTestCaseMixin
 
 
@@ -62,11 +62,6 @@ Zealand. '''.replace('\n', '\r\n')
             )
 
 
-class TarArchiveClassTestCase(ArchiveClassTestCaseMixin, BaseTestCase):
-    archive_path = TEST_TAR_FILE_PATH
-    cls = TarArchive
-
-
 class ZipArchiveClassTestCase(ArchiveClassTestCaseMixin, BaseTestCase):
     archive_path = TEST_ZIP_FILE_PATH
     cls = ZipArchive
@@ -74,12 +69,21 @@ class ZipArchiveClassTestCase(ArchiveClassTestCaseMixin, BaseTestCase):
     def test_open_member_with_special_characters_filename(self):
         with open(file=TEST_ARCHIVE_ZIP_SPECIAL_CHARACTERS_FILENAME_MEMBER_PATH, mode='rb') as file_object:
             archive = Archive.open(file_object=file_object)
-            list(archive.get_members())
+            list(
+                archive.get_members()
+            )
 
     def test_open_cp437_member(self):
         with open(file=TEST_ARCHIVE_ZIP_CP437_MEMBER_PATH, mode='rb') as file_object:
             archive = Archive.open(file_object=file_object)
-            list(archive.get_members())
+            list(
+                archive.get_members()
+            )
+
+
+class TarArchiveClassTestCase(ArchiveClassTestCaseMixin, BaseTestCase):
+    archive_path = TEST_TAR_FILE_PATH
+    cls = TarArchive
 
 
 class TarGzArchiveClassTestCase(ArchiveClassTestCaseMixin, BaseTestCase):

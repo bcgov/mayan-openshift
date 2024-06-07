@@ -39,6 +39,11 @@ def navigation_get_source_columns(
 
 
 @register.simple_tag(takes_context=True)
+def navigation_link_get_icon(context, link):
+    return link.get_icon(context=context)
+
+
+@register.simple_tag(takes_context=True)
 def navigation_resolve_menu(context, name, source=None, sort_results=None):
     return _navigation_resolve_menu(
         context=context, name=name, source=source, sort_results=sort_results
@@ -57,6 +62,14 @@ def navigation_resolve_menus(context, names, source=None, sort_results=None):
         )
 
     return result
+
+
+@register.simple_tag
+def navigation_resolved_menus_is_single_link(resolved_menus):
+    if len(resolved_menus) == 1:
+        if len(resolved_menus[0]['link_groups']) == 1:
+            if len(resolved_menus[0]['link_groups'][0]['links']) == 1:
+                return True
 
 
 @register.simple_tag(takes_context=True)

@@ -4,97 +4,40 @@ from furl import furl
 
 from django.contrib import messages
 from django.urls import reverse
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _, ungettext
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView
 
 from mayan.apps.common.settings import setting_home_view
-from mayan.apps.converter.literals import DEFAULT_ROTATION, DEFAULT_ZOOM_LEVEL
+from mayan.apps.converter.literals import (
+    DEFAULT_ROTATION, DEFAULT_ZOOM_LEVEL
+)
 from mayan.apps.converter.transformations import (
     TransformationResize, TransformationRotate, TransformationZoom
 )
 from mayan.apps.databases.classes import ModelQueryFields
-from mayan.apps.views.generics import (
-    MultipleObjectConfirmActionView, SimpleView, SingleObjectListView
-)
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.generics import SimpleView, SingleObjectListView
 from mayan.apps.views.utils import resolve
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from ..forms.document_file_page_forms import DocumentFilePageForm
 from ..icons import (
-    icon_document_file_page_count_update, icon_document_file_page_list,
-    icon_document_file_page_detail
+    icon_document_file_page_detail, icon_document_file_page_list
 )
-from ..links.document_file_page_links import link_document_file_page_count_update
+from ..links.document_file_links import link_document_file_introspect_single
 from ..models.document_file_models import DocumentFile
 from ..models.document_file_page_models import DocumentFilePage
-from ..permissions import (
-    permission_document_file_tools, permission_document_file_view
-)
+from ..permissions import permission_document_file_view
 from ..settings import (
     setting_display_height, setting_display_width, setting_rotation_step,
-    setting_zoom_percent_step, setting_zoom_max_level,
-    setting_zoom_min_level
+    setting_zoom_percent_step, setting_zoom_max_level, setting_zoom_min_level
 )
-from ..tasks import task_document_file_page_count_update
 
-__all__ = (
-    'DocumentFilePageListView',
-    'DocumentFilePageNavigationFirst', 'DocumentFilePageNavigationLast',
-    'DocumentFilePageNavigationNext', 'DocumentFilePageNavigationPrevious',
-    'DocumentFilePageView', 'DocumentFilePageViewResetView',
-    'DocumentFilePageInteractiveTransformation', 'DocumentFilePageZoomInView',
-    'DocumentFilePageZoomOutView', 'DocumentFilePageRotateLeftView',
-    'DocumentFilePageRotateRightView'
-)
 logger = logging.getLogger(name=__name__)
 
 
-class DocumentFilePageCountUpdateView(MultipleObjectConfirmActionView):
-    object_permission = permission_document_file_tools
-    pk_url_kwarg = 'document_file_id'
-    source_queryset = DocumentFile.valid.all()
-    success_message = _(
-        '%(count)d document file queued for page count recalculation.'
-    )
-    success_message_plural = _(
-        '%(count)d document files queued for page count recalculation.'
-    )
-    view_icon = icon_document_file_page_count_update
-
-    def get_extra_context(self):
-        queryset = self.object_list
-
-        result = {
-            'title': ungettext(
-                singular='Recalculate the page count of the selected document file?',
-                plural='Recalculate the page count of the selected document files?',
-                number=queryset.count()
-            )
-        }
-
-        if queryset.count() == 1:
-            result.update(
-                {
-                    'object': queryset.first(),
-                    'title': _(
-                        'Recalculate the page count of the document file: %s?'
-                    ) % queryset.first()
-                }
-            )
-
-        return result
-
-    def object_action(self, form, instance):
-        task_document_file_page_count_update.apply_async(
-            kwargs={
-                'document_file_id': instance.pk,
-                'user_id': self.request.user.pk
-            }
-        )
-
-
-class DocumentFilePageListView(ExternalObjectViewMixin, SingleObjectListView):
+class DocumentFilePageListView(
+    ExternalObjectViewMixin, SingleObjectListView
+):
     external_object_permission = permission_document_file_view
     external_object_pk_url_kwarg = 'document_file_id'
     external_object_queryset = DocumentFile.valid.all()
@@ -105,24 +48,29 @@ class DocumentFilePageListView(ExternalObjectViewMixin, SingleObjectListView):
             'hide_object': True,
             'list_as_items': True,
             'no_results_icon': icon_document_file_page_list,
-            'no_results_main_link': link_document_file_page_count_update.resolve(
+            'no_results_main_link': link_document_file_introspect_single.resolve(
                 request=self.request, resolved_object=self.external_object
             ),
             'no_results_text': _(
                 'This could mean that the document file is of a format that '
-                'is not supported, that it is corrupted or that the upload '
-                'process was interrupted. Use the document file page '
-                'recalculation action to attempt to introspect the page '
+                'is not supported, that it is corrupted, or that the upload '
+                'process was interrupted. Use the document file '
+                'introspection link to attempt detection the page '
                 'count again.'
             ),
             'no_results_title': _('No document file pages available'),
             'object': self.external_object,
-            'title': _('Pages of document file: %s') % self.external_object,
+            'title': _('Pages of document file: %s') % self.external_object
         }
 
     def get_source_queryset(self):
-        queryset = ModelQueryFields.get(model=DocumentFilePage).get_queryset()
-        return queryset.filter(pk__in=self.external_object.pages.all())
+        queryset = ModelQueryFields.get(
+            model=DocumentFilePage
+        ).get_queryset()
+
+        return queryset.filter(
+            pk__in=self.external_object.pages.all()
+        )
 
 
 class DocumentFilePageNavigationBase(ExternalObjectViewMixin, RedirectView):
@@ -147,7 +95,9 @@ class DocumentFilePageNavigationBase(ExternalObjectViewMixin, RedirectView):
 
         # Obtain the view name to be able to resolve it back with new keyword
         # arguments.
-        resolver_match = resolve(path=force_text(s=parsed_url.path))
+        resolver_match = resolve(
+            path=str(parsed_url.path)
+        )
 
         new_kwargs = self.get_new_kwargs()
 
@@ -221,20 +171,20 @@ class DocumentFilePageView(ExternalObjectViewMixin, SimpleView):
     view_icon = icon_document_file_page_detail
 
     def get_extra_context(self):
-        zoom = int(self.request.GET.get('zoom', DEFAULT_ZOOM_LEVEL))
-        rotation = int(self.request.GET.get('rotation', DEFAULT_ROTATION))
+        zoom = int(
+            self.request.GET.get('zoom', DEFAULT_ZOOM_LEVEL)
+        )
+        rotation = int(
+            self.request.GET.get('rotation', DEFAULT_ROTATION)
+        )
 
         transformation_instance_list = (
             TransformationResize(
                 height=setting_display_height.value,
                 width=setting_display_width.value
             ),
-            TransformationRotate(
-                degrees=rotation,
-            ),
-            TransformationZoom(
-                percent=zoom,
-            )
+            TransformationRotate(degrees=rotation),
+            TransformationZoom(percent=zoom)
         )
 
         document_file_page_form = DocumentFilePageForm(
@@ -253,10 +203,12 @@ class DocumentFilePageView(ExternalObjectViewMixin, SimpleView):
             'form': document_file_page_form,
             'hide_labels': True,
             'object': self.external_object,
-            'rotation': rotation,
-            'title': ' '.join((base_title, zoom_text)),
             'read_only': True,
-            'zoom': zoom,
+            'rotation': rotation,
+            'title': ' '.join(
+                (base_title, zoom_text)
+            ),
+            'zoom': zoom
         }
 
 
@@ -298,7 +250,9 @@ class DocumentFilePageInteractiveTransformation(
 
 class DocumentFilePageZoomInView(DocumentFilePageInteractiveTransformation):
     def transformation_function(self, query_dict):
-        zoom = int(query_dict['zoom']) + setting_zoom_percent_step.value
+        zoom = int(
+            query_dict['zoom']
+        ) + setting_zoom_percent_step.value
 
         if zoom > setting_zoom_max_level.value:
             zoom = setting_zoom_max_level.value
@@ -308,7 +262,9 @@ class DocumentFilePageZoomInView(DocumentFilePageInteractiveTransformation):
 
 class DocumentFilePageZoomOutView(DocumentFilePageInteractiveTransformation):
     def transformation_function(self, query_dict):
-        zoom = int(query_dict['zoom']) - setting_zoom_percent_step.value
+        zoom = int(
+            query_dict['zoom']
+        ) - setting_zoom_percent_step.value
 
         if zoom < setting_zoom_min_level.value:
             zoom = setting_zoom_min_level.value
@@ -316,15 +272,23 @@ class DocumentFilePageZoomOutView(DocumentFilePageInteractiveTransformation):
         query_dict['zoom'] = zoom
 
 
-class DocumentFilePageRotateLeftView(DocumentFilePageInteractiveTransformation):
+class DocumentFilePageRotateLeftView(
+    DocumentFilePageInteractiveTransformation
+):
     def transformation_function(self, query_dict):
         query_dict['rotation'] = (
-            int(query_dict['rotation']) - setting_rotation_step.value
+            int(
+                query_dict['rotation']
+            ) - setting_rotation_step.value
         ) % 360
 
 
-class DocumentFilePageRotateRightView(DocumentFilePageInteractiveTransformation):
+class DocumentFilePageRotateRightView(
+    DocumentFilePageInteractiveTransformation
+):
     def transformation_function(self, query_dict):
         query_dict['rotation'] = (
-            int(query_dict['rotation']) + setting_rotation_step.value
+            int(
+                query_dict['rotation']
+            ) + setting_rotation_step.value
         ) % 360

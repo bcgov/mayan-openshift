@@ -1,5 +1,5 @@
-import logging
 from io import BytesIO, StringIO
+import logging
 
 from django.core.files.base import File
 from django.core.files.storage import Storage
@@ -67,7 +67,9 @@ class DefinedStorage(AppsModuleLoaderMixin):
     def get(cls, name):
         return cls._registry[name]
 
-    def __init__(self, dotted_path, label, name, kwargs=None, error_message=None):
+    def __init__(
+        self, dotted_path, label, name, kwargs=None, error_message=None
+    ):
         self.dotted_path = dotted_path
         self.error_message = error_message
         self.label = label
@@ -94,9 +96,9 @@ class DefinedStorage(AppsModuleLoaderMixin):
 
     def get_storage_subclass(self):
         """
-        Import a storage class and return a subclass that will always return eq
-        True to avoid creating a new migration when for runtime storage class
-        changes.
+        Import a storage class and return a subclass that will always
+        return eq True to avoid creating a new migration when for runtime
+        storage class changes.
         """
         try:
             imported_storage_class = import_string(
@@ -131,7 +133,8 @@ class DefinedStorage(AppsModuleLoaderMixin):
 def defined_storage_proxy_method(method_name):
     def inner_function(self, *args, **kwargs):
         return getattr(
-            DefinedStorage.get(name=self.name).get_storage_instance(), method_name
+            DefinedStorage.get(name=self.name).get_storage_instance(),
+            method_name
         )(*args, **kwargs)
 
     return inner_function
@@ -166,7 +169,7 @@ class FakeStorageSubclass:
 class PassthroughStorage(Storage):
     def __init__(self, *args, **kwargs):
         logger.debug(
-            'initializing passthrought storage with: %s, %s', args, kwargs
+            'initializing passthrough storage with: %s, %s', args, kwargs
         )
         next_storage_backend = kwargs.pop(
             'next_storage_backend', DEFAULT_STORAGE_BACKEND

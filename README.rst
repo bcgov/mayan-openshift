@@ -9,7 +9,7 @@
 Mayan EDMS is a document management system. Its main purpose is to store,
 introspect, and categorize files, with a strong emphasis on preserving the
 contextual and business information of documents. It can also OCR, preview,
-label, sign, send, and receive thoses files. Other features of interest
+label, sign, send, and receive those files. Other features of interest
 are its workflow system, role based access control, and REST API.
 
 .. image:: https://gitlab.com/mayan-edms/mayan-edms/raw/master/docs/_static/overview.gif
@@ -24,6 +24,17 @@ For the complete set of installation instructions visit the Mayan EDMS documenta
 at: https://docs.mayan-edms.com/parts/installation.html
 
 .. _Docker: https://www.docker.com/
+
+
+Get exclusive access to the Knowledge Base!
+
+.. image:: https://docs.mayan-edms.com/_static/knowledge-base.jpg
+    :align: center
+    :width: 300
+    :target: https://sellfy.com/p/um2fkx/
+
+Click the image or visit: https://forum.mayan-edms.com/s/prod_Ogq3lYaoROC02Q
+
 
 The final version of the book "Exploring Mayan EDMS" available now!
 

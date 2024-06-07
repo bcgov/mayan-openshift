@@ -8,16 +8,15 @@ from mayan.apps.rest_api import generics
 from ..classes import DocumentVersionModification
 from ..permissions import (
     permission_document_version_create, permission_document_version_delete,
-    permission_document_version_edit, permission_document_version_export,
-    permission_document_version_view
+    permission_document_version_edit, permission_document_version_view
 )
 from ..serializers.document_version_serializers import (
-    DocumentVersionModificationSerializer, DocumentVersionModificationExecuteSerializer,
-    DocumentVersionSerializer, DocumentVersionPageSerializer
+    DocumentVersionModificationSerializer,
+    DocumentVersionModificationExecuteSerializer, DocumentVersionSerializer,
+    DocumentVersionPageSerializer
 )
-from ..tasks import task_document_version_export
 
-from .mixins import (
+from .api_view_mixins import (
     ParentObjectDocumentAPIViewMixin, ParentObjectDocumentVersionAPIViewMixin
 )
 
@@ -44,35 +43,11 @@ class APIDocumentVersionDetailView(
 
     def get_instance_extra_data(self):
         return {
-            '_event_actor': self.request.user,
+            '_event_actor': self.request.user
         }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_document().versions.all()
-
-
-class APIDocumentVersionExportView(
-    ParentObjectDocumentAPIViewMixin, generics.ObjectActionAPIView
-):
-    """
-    post: Exports the specified document version.
-    """
-    action_response_status = status.HTTP_202_ACCEPTED
-    lookup_url_kwarg = 'document_version_id'
-    mayan_object_permissions = {
-        'POST': (permission_document_version_export,),
-    }
-
-    def get_queryset(self):
-        return self.get_document().versions.all()
-
-    def object_action(self, request, serializer):
-        task_document_version_export.apply_async(
-            kwargs={
-                'document_version_id': self.object.pk,
-                'user_id': request.user.id
-            }
-        )
 
 
 class APIDocumentVersionListView(
@@ -95,7 +70,7 @@ class APIDocumentVersionListView(
             )
         }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         # This method is only called during GET, therefore filter only by
         # the view permission.
         return self.get_document(
@@ -112,19 +87,18 @@ class APIDocumentVersionModificationView(
     action_response_status = status.HTTP_202_ACCEPTED
     lookup_url_kwarg = 'document_version_id'
     mayan_object_permissions = {
-        'POST': (permission_document_version_edit,),
+        'POST': (permission_document_version_edit,)
     }
     serializer_class = DocumentVersionModificationExecuteSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_document().versions.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         DocumentVersionModification.get(
             name=serializer.validated_data['backend_id']
         ).execute(
-            document_version=self.object,
-            _user=request.user
+            document_version=obj, user=request.user
         )
 
 
@@ -134,15 +108,15 @@ class APIDocumentVersionModificationBackendListView(generics.ListAPIView):
     """
     serializer_class = DocumentVersionModificationSerializer
 
-    def get_queryset(self):
-        return DocumentVersionModification.get_all()
-
     def get_serializer_context(self):
         return {
             'format': self.format_kwarg,
             'request': self.request,
             'view': self
         }
+
+    def get_source_queryset(self):
+        return DocumentVersionModification.get_all()
 
 
 class APIDocumentVersionPageDetailView(
@@ -169,7 +143,7 @@ class APIDocumentVersionPageDetailView(
             '_event_actor': self.request.user
         }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_document_version().pages.all()
 
 
@@ -182,10 +156,10 @@ class APIDocumentVersionPageImageView(
     """
     lookup_url_kwarg = 'document_version_page_id'
     mayan_object_permissions = {
-        'GET': (permission_document_version_view,),
+        'GET': (permission_document_version_view,)
     }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return self.get_document_version().pages.all()
 
 
@@ -209,7 +183,7 @@ class APIDocumentVersionPageListView(
             )
         }
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         # This method is only called during GET, therefore filter only by
         # the view permission.
         return self.get_document_version(

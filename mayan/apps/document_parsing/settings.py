@@ -7,9 +7,12 @@ from .literals import (
     DEFAULT_DOCUMENT_PARSING_PDFTOTEXT_PATH
 )
 
-namespace = SettingNamespace(label=_('Document parsing'), name='document_parsing')
+namespace = SettingNamespace(
+    label=_('Document parsing'), name='document_parsing'
+)
 
 setting_auto_parsing = namespace.add_setting(
+    choices=('false', 'true'),
     default=DEFAULT_DOCUMENT_PARSING_AUTO_PARSING,
     global_name='DOCUMENT_PARSING_AUTO_PARSING', help_text=_(
         'Set new document types to perform parsing automatically by default.'

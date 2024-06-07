@@ -6,19 +6,32 @@ from django.conf.urls import include, url
 from django.template import loader
 from django.template.base import Template
 from django.template.context import Context
-from django.utils.encoding import force_text
 from django.utils.html import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from mayan.apps.backends.classes import BaseBackend
+from mayan.apps.common.menus import menu_tools
 from mayan.apps.common.serialization import yaml_dump, yaml_load
-from mayan.apps.databases.classes import BaseBackend
 from mayan.apps.task_manager.classes import Worker
 from mayan.settings.literals import (
     DEFAULT_DATABASE_NAME, DEFAULT_DATABASE_PASSWORD, DEFAULT_DATABASE_USER,
     DEFAULT_DIRECTORY_INSTALLATION, DEFAULT_OS_USERNAME,
     DEFAULT_USER_SETTINGS_FOLDER, DOCKER_DIND_IMAGE_VERSION,
     DOCKER_LINUX_IMAGE_VERSION, DOCKER_MYSQL_IMAGE_VERSION,
-    DOCKER_POSTGRES_IMAGE_VERSION, GUNICORN_LIMIT_REQUEST_LINE,
+    DOCKER_POSTGRES_IMAGE_VERSION, GITLAB_CI_BRANCH_BUILDS_DOCKER,
+    GITLAB_CI_BRANCH_BUILDS_DOCUMENTATION, GITLAB_CI_BRANCH_BUILDS_PYTHON,
+    GITLAB_CI_BRANCH_DEPLOYMENTS_DEMO, GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING,
+    GITLAB_CI_BRANCH_RELEASES_ALL_MAJOR, GITLAB_CI_BRANCH_RELEASES_ALL_MINOR,
+    GITLAB_CI_BRANCH_RELEASES_DOCKER_MAJOR,
+    GITLAB_CI_BRANCH_RELEASES_DOCKER_MINOR,
+    GITLAB_CI_BRANCH_RELEASES_DOCUMENTATION,
+    GITLAB_CI_BRANCH_RELEASES_NIGHTLY,
+    GITLAB_CI_BRANCH_RELEASES_PYTHON_MAJOR,
+    GITLAB_CI_BRANCH_RELEASES_PYTHON_MINOR,
+    GITLAB_CI_BRANCH_RELEASES_STAGING, GITLAB_CI_BRANCH_RELEASES_TESTING,
+    GITLAB_CI_BRANCH_TESTS_ALL, GITLAB_CI_BRANCH_TESTS_DOCKER,
+    GITLAB_CI_BRANCH_TESTS_PYTHON_ALL, GITLAB_CI_BRANCH_TESTS_PYTHON_BASE,
+    GITLAB_CI_BRANCH_TESTS_PYTHON_UPGRADE, GUNICORN_LIMIT_REQUEST_LINE,
     GUNICORN_MAX_REQUESTS, GUNICORN_REQUESTS_JITTER, GUNICORN_TIMEOUT,
     GUNICORN_WORKER_CLASS, GUNICORN_WORKERS
 )
@@ -35,18 +48,29 @@ class ClientBackend(BaseBackend):
     @classmethod
     def get_backend_instance(cls, name):
         backend_class = cls.get(name=name)
-        kwargs = setting_client_backend_arguments.value.get(name, {})
+        kwargs = setting_client_backend_arguments.value.get(
+            name, {}
+        )
         return backend_class(**kwargs)
 
     @classmethod
     def post_load_modules(cls):
         cls.register_url_patterns()
+        cls.register_links()
         cls.launch_backends()
 
     @classmethod
     def launch_backends(cls):
         for backend_name in setting_client_backend_enabled.value:
             cls.get_backend_instance(name=backend_name).launch()
+
+    @classmethod
+    def register_links(cls):
+        for backend_name in setting_client_backend_enabled.value:
+            backend_instance = cls.get_backend_instance(name=backend_name)
+            menu_tools.bind_links(
+                links=backend_instance.get_links()
+            )
 
     @classmethod
     def register_url_patterns(cls):
@@ -57,7 +81,10 @@ class ClientBackend(BaseBackend):
             backend_instance = cls.get_backend_instance(name=backend_name)
 
             top_url = '{}/'.format(
-                getattr(backend_instance, '_url_namespace', backend_instance.__class__.__name__)
+                getattr(
+                    backend_instance, '_url_namespace',
+                    backend_instance.__class__.__name__
+                )
             )
 
             urlpatterns += (
@@ -71,6 +98,9 @@ class ClientBackend(BaseBackend):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
 
+    def get_links(self):
+        return ()
+
 
 class Variable:
     def __init__(self, name, default, environment_name):
@@ -82,7 +112,9 @@ class Variable:
         return os.environ.get(self.environment_name, self.default)
 
     def get_value(self):
-        return mark_safe(self._get_value())
+        return mark_safe(
+            s=self._get_value()
+        )
 
 
 class YAMLVariable(Variable):
@@ -94,7 +126,8 @@ class YAMLVariable(Variable):
             value = self.default
 
         return yaml_dump(
-            data=value, allow_unicode=True, default_flow_style=True, width=999
+            data=value, allow_unicode=True, default_flow_style=True,
+            width=999
         ).replace('...\n', '').replace('\n', '')
 
 
@@ -122,7 +155,9 @@ class PlatformTemplate:
         cls._registry[klass.name] = klass
 
     def __str__(self):
-        return force_text(s=self.get_label())
+        return str(
+            self.get_label()
+        )
 
     def get_context(self):
         return self.context
@@ -158,11 +193,19 @@ class PlatformTemplate:
         """
         context = {}
 
-        context.update(self.get_context_defaults())
-        context.update(self.get_settings_context())
-        context.update(self.get_variables_context())
+        context.update(
+            self.get_context_defaults()
+        )
+        context.update(
+            self.get_settings_context()
+        )
+        context.update(
+            self.get_variables_context()
+        )
         # get_context goes last to server as the override
-        context.update(self.get_context())
+        context.update(
+            self.get_context()
+        )
 
         if context_string:
             context.update(
@@ -171,11 +214,12 @@ class PlatformTemplate:
 
         if self.template_string:
             template = Template(template_string=self.template_string)
-            return template.render(context=Context(dict_=context))
+            return template.render(
+                context=Context(dict_=context)
+            )
         else:
             return loader.render_to_string(
-                template_name=self.get_template_name(),
-                context=context
+                context=context, template_name=self.get_template_name()
             )
 
 
@@ -186,7 +230,11 @@ class PlatformTemplateDockerEntrypoint(PlatformTemplate):
 
     def get_context(self):
         context = load_env_file()
-        context.update({'workers': Worker.all()})
+        context.update(
+            {
+                'workers': Worker.all()
+            }
+        )
         return context
 
 
@@ -264,6 +312,106 @@ class PlatformTemplateGitLabCI(PlatformTemplate):
                 default=DOCKER_POSTGRES_IMAGE_VERSION,
                 environment_name='MAYAN_DOCKER_POSTGRES_IMAGE_VERSION'
             ),
+            Variable(
+                name='GITLAB_CI_BRANCH_BUILDS_DOCKER',
+                default=GITLAB_CI_BRANCH_BUILDS_DOCKER,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_BUILDS_DOCKER'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_BUILDS_DOCUMENTATION',
+                default=GITLAB_CI_BRANCH_BUILDS_DOCUMENTATION,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_BUILDS_DOCUMENTATION'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_BUILDS_PYTHON',
+                default=GITLAB_CI_BRANCH_BUILDS_PYTHON,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_BUILDS_PYTHON'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_DEPLOYMENTS_DEMO',
+                default=GITLAB_CI_BRANCH_DEPLOYMENTS_DEMO,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_DEPLOYMENTS_DEMO'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING',
+                default=GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_ALL_MAJOR',
+                default=GITLAB_CI_BRANCH_RELEASES_ALL_MAJOR,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_ALL_MAJOR'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_ALL_MINOR',
+                default=GITLAB_CI_BRANCH_RELEASES_ALL_MINOR,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_ALL_MINOR'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_DOCKER_MAJOR',
+                default=GITLAB_CI_BRANCH_RELEASES_DOCKER_MAJOR,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_DOCKER_MAJOR'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_DOCKER_MINOR',
+                default=GITLAB_CI_BRANCH_RELEASES_DOCKER_MINOR,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_DOCKER_MINOR'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_DOCUMENTATION',
+                default=GITLAB_CI_BRANCH_RELEASES_DOCUMENTATION,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_DOCUMENTATION'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_NIGHTLY',
+                default=GITLAB_CI_BRANCH_RELEASES_NIGHTLY,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_NIGHTLY'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_PYTHON_MAJOR',
+                default=GITLAB_CI_BRANCH_RELEASES_PYTHON_MAJOR,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_PYTHON_MAJOR'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_PYTHON_MINOR',
+                default=GITLAB_CI_BRANCH_RELEASES_PYTHON_MINOR,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_PYTHON_MINOR'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_STAGING',
+                default=GITLAB_CI_BRANCH_RELEASES_STAGING,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_STAGING'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_RELEASES_TESTING',
+                default=GITLAB_CI_BRANCH_RELEASES_TESTING,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_RELEASES_TESTING'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_TESTS_ALL',
+                default=GITLAB_CI_BRANCH_TESTS_ALL,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_TESTS_ALL'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_TESTS_DOCKER',
+                default=GITLAB_CI_BRANCH_TESTS_DOCKER,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_TESTS_DOCKER'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_TESTS_PYTHON_ALL',
+                default=GITLAB_CI_BRANCH_TESTS_PYTHON_ALL,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_TESTS_PYTHON_ALL'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_TESTS_PYTHON_BASE',
+                default=GITLAB_CI_BRANCH_TESTS_PYTHON_BASE,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_TESTS_PYTHON_BASE'
+            ),
+            Variable(
+                name='GITLAB_CI_BRANCH_TESTS_PYTHON_UPGRADE',
+                default=GITLAB_CI_BRANCH_TESTS_PYTHON_UPGRADE,
+                environment_name='MAYAN_GITLAB_CI_BRANCH_TESTS_PYTHON_UPGRADE'
+            )
         )
 
 
@@ -309,7 +457,8 @@ class PlatformTemplateSupervisord(PlatformTemplate):
                 environment_name='MAYAN_GUNICORN_TIMEOUT'
             ),
             Variable(
-                name='INSTALLATION_PATH', default=DEFAULT_DIRECTORY_INSTALLATION,
+                name='INSTALLATION_PATH',
+                default=DEFAULT_DIRECTORY_INSTALLATION,
                 environment_name='MAYAN_INSTALLATION_PATH'
             ),
             Variable(
@@ -336,7 +485,7 @@ class PlatformTemplateSupervisord(PlatformTemplate):
             'user_settings_folder': Path(
                 media_root.get_value()
             ) / user_settings_folder.get_value(),
-            'workers': Worker.all(),
+            'workers': Worker.all()
         }
 
 
@@ -356,7 +505,9 @@ class PlatformTemplateWorkerQueues(PlatformTemplate):
         try:
             queues = Worker.get(name=worker_name).queues
         except KeyError:
-            raise KeyError('Worker name "{}" not found.'.format(worker_name))
+            raise KeyError(
+                'Worker name "{}" not found.'.format(worker_name)
+            )
 
         return {
             'queues': queues, 'queue_names': sorted(

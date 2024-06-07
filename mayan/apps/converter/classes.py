@@ -12,12 +12,10 @@ from django.apps import apps
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
-from django.utils.encoding import force_text
 from django.utils.functional import cached_property
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 
-from mayan.apps.appearance.classes import Icon
 from mayan.apps.mime_types.classes import MIMETypeBackend
 from mayan.apps.navigation.classes import Link
 from mayan.apps.storage.compressed_files import MsgArchive
@@ -32,7 +30,8 @@ from .exceptions import (
 )
 from .literals import (
     CONVERTER_OFFICE_FILE_MIMETYPES, DEFAULT_LIBREOFFICE_PATH,
-    DEFAULT_PAGE_NUMBER, DEFAULT_PILLOW_FORMAT
+    DEFAULT_PAGE_NUMBER, DEFAULT_PILLOW_FORMAT,
+    MAP_PILLOW_FORMAT_TO_MIME_TYPE
 )
 from .settings import (
     setting_graphics_backend, setting_graphics_backend_arguments
@@ -50,6 +49,10 @@ logger = logging.getLogger(name=__name__)
 
 class AppImageErrorImage:
     _registry = {}
+
+    @classmethod
+    def all(cls):
+        return cls._registry.values()
 
     @classmethod
     def get(cls, name):
@@ -76,6 +79,14 @@ class ConverterBase:
     def get_converter_class():
         return import_string(dotted_path=setting_graphics_backend.value)
 
+    @staticmethod
+    def get_output_content_type():
+        output_format = setting_graphics_backend_arguments.value.get(
+            'pillow_format', DEFAULT_PILLOW_FORMAT
+        )
+
+        return MAP_PILLOW_FORMAT_TO_MIME_TYPE.get(output_format)
+
     def __init__(self, file_object, mime_type=None):
         self.file_object = file_object
         self.image = None
@@ -86,7 +97,9 @@ class ConverterBase:
         self.soffice_file = None
         Image.init()
         try:
-            self.command_libreoffice = sh.Command(path=libreoffice_path).bake(
+            self.command_libreoffice = sh.Command(
+                path=libreoffice_path
+            ).bake(
                 '--headless', '--convert-to', 'pdf:writer_pdf_Export'
             )
         except sh.CommandNotFound:
@@ -111,7 +124,9 @@ class ConverterBase:
             # RGB. Removes modes: P and RGBA.
             new_mode = 'RGB'
 
-        self.image.convert(new_mode).save(image_buffer, format=output_format)
+        self.image.convert(
+            mode=new_mode
+        ).save(fp=image_buffer, format=output_format)
 
         image_buffer.seek(0)
 
@@ -139,14 +154,14 @@ class ConverterBase:
             self.image = self.convert(page_number=page_number)
         except PIL.Image.DecompressionBombError as exception:
             logger.error(
-                'Unable to seek document page. Increase the value of '
+                msg='Unable to seek document page. Increase the value of '
                 'the argument "pillow_maximum_image_pixels" in the '
                 'CONVERTER_GRAPHICS_BACKEND_ARGUMENTS setting; %s',
-                exception
+                args=(exception,)
             )
             raise
         else:
-            self.image.seek(page_number)
+            self.image.seek(frame=page_number)
             self.image.load()
 
     def soffice(self):
@@ -174,12 +189,15 @@ class ConverterBase:
                     temporary_file_object.name, '--outdir', setting_temporary_directory.value,
                     '-env:UserInstallation=file://{}'.format(
                         os.path.join(
-                            libreoffice_home_directory, 'LibreOffice_Conversion'
+                            libreoffice_home_directory,
+                            'LibreOffice_Conversion'
                         )
                     ),
                 )
 
-                kwargs = {'_env': {'HOME': libreoffice_home_directory}}
+                kwargs = {
+                    '_env': {'HOME': libreoffice_home_directory}
+                }
 
                 if self.mime_type == 'text/plain':
                     kwargs.update(
@@ -228,7 +246,8 @@ class ConverterBase:
         # and delete the converted file.
         with open(file=converted_file_path, mode='rb') as converted_file_object:
             shutil.copyfileobj(
-                fsrc=converted_file_object, fdst=temporary_converted_file_object
+                fsrc=converted_file_object,
+                fdst=temporary_converted_file_object
             )
         fs_cleanup(filename=converted_file_path)
         temporary_converted_file_object.seek(0)
@@ -256,7 +275,9 @@ class ConverterBase:
         if self.mime_type in CONVERTER_OFFICE_FILE_MIMETYPES:
             return self.soffice()
         else:
-            raise InvalidOfficeFormat(_('Not an office file format.'))
+            raise InvalidOfficeFormat(
+                _('Not an office file format.')
+            )
 
     def transform(self, transformation):
         if not self.image:
@@ -301,7 +322,7 @@ class Layer:
 
     def __init__(
         self, label, name, order, permissions, default=False,
-        empty_results_text=None, symbol=None,
+        empty_results_text=None, icon=None
     ):
         self.default = default
         self.empty_results_text = empty_results_text
@@ -309,14 +330,15 @@ class Layer:
         self.name = name
         self.order = order
         self.permissions = permissions
-        self.symbol = symbol
+        self.icon = icon
 
         # Check order
         layer = self.__class__.get_by_value(key='order', value=self.order)
 
         if layer:
             raise ImproperlyConfigured(
-                'Layer "{}" already has order "{}" requested by layer "{}"'.format(
+                'Layer "{}" already has order "{}" requested by '
+                'layer "{}"'.format(
                     layer.name, order, self.name
                 )
             )
@@ -334,7 +356,7 @@ class Layer:
         self.__class__._registry[name] = self
 
     def __str__(self):
-        return force_text(s=self.label)
+        return str(self.label)
 
     def add_transformation_to(
         self, obj, transformation_class, arguments=None, order=None
@@ -382,7 +404,7 @@ class Layer:
                     object_layer.transformations.create(
                         order=transformation.order,
                         name=transformation.name,
-                        arguments=transformation.arguments,
+                        arguments=transformation.arguments
                     )
 
     def get_empty_results_text(self):
@@ -394,9 +416,6 @@ class Layer:
                 'of documents without making permanent changes to the '
                 'document file themselves.'
             )
-
-    def get_icon(self):
-        return Icon(driver_name='fontawesome', symbol=self.symbol)
 
     def get_model_instance(self):
         StoredLayer = apps.get_model(
@@ -421,7 +440,7 @@ class Layer:
         )
 
         return LayerTransformation.objects.get_for_object(
-            obj=obj, as_classes=as_classes,
+            as_classes=as_classes, obj=obj,
             only_stored_layer=self.stored_layer
         )
 
@@ -431,76 +450,87 @@ class Layer:
 
 
 class LayerLink(Link):
-    @staticmethod
-    def set_icon(instance, layer):
-        if instance.action == 'list':
-            if layer.symbol:
-                instance.icon = layer.get_icon()
-
-    def __init__(self, action, layer, object_name=None, **kwargs):
+    def __init__(self, action, layer=None, **kwargs):
         super().__init__(**kwargs)
         self.action = action
         self.layer = layer
-        self.object_name = object_name or _('transformation')
 
-        permission = layer.get_permission(action=action)
-        if permission:
-            self.permissions = (permission,)
-
-        if action == 'list':
-            self.kwargs = LayerLinkKwargsFactory(
-                layer_name=layer.name
-            ).get_kwargs_function()
-
-        if action in ('create', 'select'):
-            self.kwargs = LayerLinkKwargsFactory().get_kwargs_function()
-
-        LayerLink.set_icon(instance=self, layer=layer)
+    def __repr__(self):
+        return '<LayerLink ({} | {})>'.format(
+            self.layer, self.action
+        )
 
     def copy(self, layer):
         result = copy.copy(self)
-        result.kwargs = LayerLinkKwargsFactory(
-            layer_name=layer.name
-        ).get_kwargs_function()
-        result._layer_name = layer.name
-
-        LayerLink.set_icon(instance=result, layer=layer)
+        result.layer = layer
 
         return result
 
-    @cached_property
-    def layer_name(self):
-        return getattr(
-            self, '_layer_name', Layer.get_by_value(
-                key='default', value=True
-            ).name
+    def get_icon(self, context):
+        if self.action == 'view':
+            layer = self.get_layer(context=context)
+            if layer and layer.icon:
+                return layer.icon
+
+        return super().get_icon(context=context)
+
+    def get_kwargs(self, context):
+        ContentType = apps.get_model(
+            app_label='contenttypes', model_name='ContentType'
         )
 
+        if 'content_object' in context:
+            content_object_variable = 'content_object'
+        else:
+            content_object_variable = 'resolved_object'
 
-class LayerLinkKwargsFactory:
-    def __init__(self, layer_name=None, variable_name='resolved_object'):
-        self.layer_name = layer_name
-        self.variable_name = variable_name
+        content_type = ContentType.objects.get_for_model(
+            context[content_object_variable]
+        )
+        layer = self.get_layer(context=context)
 
-    def get_kwargs_function(self):
-        def get_kwargs(context):
-            ContentType = apps.get_model(
-                app_label='contenttypes', model_name='ContentType'
-            )
+        layer_name = layer.name
 
-            content_type = ContentType.objects.get_for_model(
-                context[self.variable_name]
-            )
-            default_layer = Layer.get_by_value(key='default', value=True)
-            return {
-                'app_label': '"{}"'.format(content_type.app_label),
-                'model_name': '"{}"'.format(content_type.model),
-                'object_id': '{}.pk'.format(self.variable_name),
-                'layer_name': '"{}"'.format(
-                    self.layer_name or context.get(
-                        'layer_name', default_layer.name
-                    )
-                )
-            }
+        result = {
+            'app_label': '"{}"'.format(content_type.app_label),
+            'model_name': '"{}"'.format(content_type.model),
+            'object_id': '{}.pk'.format(content_object_variable),
+            'layer_name': '"{}"'.format(layer_name)
+        }
 
-        return get_kwargs
+        if self.action in ('delete', 'edit'):
+            result['transformation_id'] = 'object.pk'
+
+        return result
+
+    def get_layer(self, context=None):
+        context = context or {}
+
+        if self.layer:
+            return self.layer
+        elif 'layer' in context:
+            return context['layer']
+        else:
+            layer_name = context.get('layer_name', None)
+            if layer_name:
+                return Layer.get(name=layer_name)
+            else:
+                return Layer.get_by_value(key='default', value=True)
+
+    def get_permission_object(self, context):
+        try:
+            return context['content_object']
+        except KeyError:
+            try:
+                return context['resolved_object']
+            except KeyError:
+                return None
+
+    def get_permissions(self, context):
+        layer = self.get_layer(context=context)
+        permission = layer.get_permission(action=self.action)
+
+        if permission:
+            return (permission,)
+        else:
+            return ()

@@ -6,11 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.views.generics import FormView, SingleObjectListView
 
-from .classes import SettingNamespace, Setting
+from .classes import Setting, SettingNamespace
 from .forms import SettingForm
 from .icons import (
-    icon_setting_namespace_detail, icon_setting_namespace_list,
-    icon_setting_edit
+    icon_setting_edit, icon_setting_namespace_detail,
+    icon_setting_namespace_list
 )
 from .permissions import permission_settings_edit, permission_settings_view
 
@@ -29,10 +29,12 @@ class SettingEditView(FormView):
                 ), request=self.request
             )
 
+        self.object = self.get_object()
+
         return super().dispatch(request=request, *args, **kwargs)
 
     def form_valid(self, form):
-        self.get_object().value = form.cleaned_data['value']
+        self.object.value = form.cleaned_data['value']
         Setting.save_configuration()
         messages.success(
             message=_('Setting updated successfully.'),
@@ -43,20 +45,24 @@ class SettingEditView(FormView):
     def get_extra_context(self):
         return {
             'hide_link': True,
-            'object': self.get_object(),
-            'title': _('Edit setting: %s') % self.get_object(),
+            'navigation_object_list': ('object', 'setting_namespace'),
+            'object': self.object,
+            'setting_namespace': self.object.namespace,
+            'title': _('Edit setting: %s') % self.object
         }
 
     def get_initial(self):
-        return {'setting': self.get_object()}
+        return {'setting': self.object}
 
     def get_object(self):
-        return Setting.get(self.kwargs['setting_global_name'])
+        return Setting.get(
+            global_name=self.kwargs['setting_global_name']
+        )
 
     def get_post_action_redirect(self):
         return reverse(
             viewname='settings:setting_namespace_detail', kwargs={
-                'namespace_name': self.get_object().namespace.name
+                'namespace_name': self.object.namespace.name
             }
         )
 
@@ -73,12 +79,14 @@ class SettingNamespaceDetailView(SingleObjectListView):
                 'Settings inherited from an environment variable take '
                 'precedence and cannot be changed in this view. '
             ),
-            'title': _('Settings in namespace: %s') % self.get_namespace(),
+            'title': _('Settings in namespace: %s') % self.get_namespace()
         }
 
     def get_namespace(self):
         try:
-            return SettingNamespace.get(name=self.kwargs['namespace_name'])
+            return SettingNamespace.get(
+                name=self.kwargs['namespace_name']
+            )
         except KeyError:
             raise Http404(
                 _('Namespace: %s, not found') % self.kwargs['namespace_name']
@@ -91,7 +99,7 @@ class SettingNamespaceDetailView(SingleObjectListView):
 class SettingNamespaceListView(SingleObjectListView):
     extra_context = {
         'hide_link': True,
-        'title': _('Setting namespaces'),
+        'title': _('Setting namespaces')
     }
     view_icon = icon_setting_namespace_list
     view_permission = permission_settings_view

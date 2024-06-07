@@ -14,10 +14,9 @@ from mayan.apps.converter.transformations import TransformationResize
 from mayan.apps.sources.links import link_document_file_upload
 from mayan.apps.views.generics import (
     FormView, MultipleObjectConfirmActionView, MultipleObjectDeleteView,
-    SingleObjectDetailView, SingleObjectDownloadView, SingleObjectEditView,
-    SingleObjectListView
+    SingleObjectDetailView, SingleObjectEditView, SingleObjectListView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from ..events import event_document_viewed
 from ..forms.document_file_forms import (
@@ -25,27 +24,26 @@ from ..forms.document_file_forms import (
 )
 from ..forms.misc_forms import PageNumberForm
 from ..icons import (
-    icon_document_file_delete, icon_document_file_download_quick,
-    icon_document_file_edit, icon_document_file_list,
-    icon_document_file_preview, icon_document_file_properties_detail,
-    icon_document_file_print, icon_document_file_transformation_list_clear,
+    icon_document_file_delete, icon_document_file_edit,
+    icon_document_file_introspect, icon_document_file_list,
+    icon_document_file_preview, icon_document_file_print,
+    icon_document_file_properties_detail,
+    icon_document_file_transformation_list_clear,
     icon_document_file_transformation_list_clone
 )
-from ..models.document_models import Document
+from ..literals import DEFAULT_DOCUMENT_FILE_ACTION_NAME
 from ..models.document_file_models import DocumentFile
+from ..models.document_models import Document
 from ..permissions import (
-    permission_document_file_delete, permission_document_file_download,
-    permission_document_file_edit, permission_document_file_print,
+    permission_document_file_delete, permission_document_file_edit,
+    permission_document_file_print, permission_document_file_tools,
     permission_document_file_view
 )
 from ..settings import setting_preview_height, setting_preview_width
+from ..tasks import task_document_file_delete, task_document_file_size_update
 
-from .misc_views import PrintFormView, DocumentPrintBaseView
+from .misc_views import DocumentPrintBaseView, PrintFormView
 
-__all__ = (
-    'DocumentFileDeleteView', 'DocumentFileDownloadView',
-    'DocumentFileListView', 'DocumentFilePreviewView'
-)
 logger = logging.getLogger(name=__name__)
 
 
@@ -57,13 +55,13 @@ class DocumentFileDeleteView(MultipleObjectDeleteView):
     pk_url_kwarg = 'document_file_id'
     source_queryset = DocumentFile.valid.all()
     success_message_single = _(
-        'Document file "%(object)s" deleted successfully.'
+        'Document file "%(object)s" deletion queued successfully.'
     )
     success_message_singular = _(
-        '%(count)d document file deleted successfully.'
+        '%(count)d document file deletion queued successfully.'
     )
     success_message_plural = _(
-        '%(count)d document files deleted successfully.'
+        '%(count)d document files deletions queued successfully.'
     )
     title_single = _('Delete document file: %(object)s.')
     title_singular = _('Delete the %(count)d selected document file.')
@@ -74,7 +72,8 @@ class DocumentFileDeleteView(MultipleObjectDeleteView):
         context = {
             'message': _(
                 'All document files pages from this document file and the '
-                'document version pages linked to them will be deleted too.'
+                'document version pages linked to them will be deleted too. '
+                'The process will be performed in the background.'
             )
         }
 
@@ -87,11 +86,6 @@ class DocumentFileDeleteView(MultipleObjectDeleteView):
 
         return context
 
-    def get_instance_extra_data(self):
-        return {
-            '_event_actor': self.request.user
-        }
-
     def get_post_action_redirect(self):
         return reverse(
             viewname='documents:document_file_list', kwargs={
@@ -99,24 +93,13 @@ class DocumentFileDeleteView(MultipleObjectDeleteView):
             }
         )
 
-
-class DocumentFileDownloadView(SingleObjectDownloadView):
-    object_permission = permission_document_file_download
-    pk_url_kwarg = 'document_file_id'
-    source_queryset = DocumentFile.valid.all()
-    view_icon = icon_document_file_download_quick
-
-    def get_download_file_object(self):
-        instance = self.get_object()
-        instance._event_action_object = instance.document
-        instance._event_actor = self.request.user
-        return instance.get_download_file_object()
-
-    def get_download_filename(self):
-        return self.object.filename
-
-    def get_download_mime_type_and_encoding(self, file_object):
-        return self.object.mimetype, self.object.encoding
+    def object_action(self, instance, form=None):
+        task_document_file_delete.apply_async(
+            kwargs={
+                'document_file_id': instance.pk,
+                'user_id': self.request.user.pk
+            }
+        )
 
 
 class DocumentFileEditView(SingleObjectEditView):
@@ -128,12 +111,12 @@ class DocumentFileEditView(SingleObjectEditView):
 
     def get_extra_context(self):
         return {
-            'title': _('Edit document file: %s') % self.object,
+            'title': _('Edit document file: %s') % self.object
         }
 
     def get_instance_extra_data(self):
         return {
-            '_event_actor': self.request.user,
+            '_event_actor': self.request.user
         }
 
     def get_post_action_redirect(self):
@@ -144,11 +127,85 @@ class DocumentFileEditView(SingleObjectEditView):
         )
 
 
+class DocumentFileIntrospectView(MultipleObjectConfirmActionView):
+    object_permission = permission_document_file_tools
+    pk_url_kwarg = 'document_file_id'
+    source_queryset = DocumentFile.valid.all()
+    success_message = _(
+        '%(count)d document file queued for introspection.'
+    )
+    success_message_plural = _(
+        '%(count)d document files queued for introspection.'
+    )
+    view_icon = icon_document_file_introspect
+
+    def get_extra_context(self):
+        queryset = self.object_list
+
+        result = {
+            'title': ungettext(
+                singular='Introspect the selected document file?',
+                plural='Introspect the selected document files?',
+                number=queryset.count()
+            )
+        }
+
+        if queryset.count() == 1:
+            result.update(
+                {
+                    'object': queryset.first(),
+                    'title': _(
+                        'Introspect the document file: %s?'
+                    ) % queryset.first()
+                }
+            )
+
+        result['message'] = _(
+            'The document file will be re-examined for file size, page '
+            'count, checksum, and its related document version pages '
+            're-created. All transformations will be lost.'
+        )
+
+        return result
+
+    def object_action(self, form, instance):
+        task_document_file_size_update.apply_async(
+            kwargs={
+                'action_name': DEFAULT_DOCUMENT_FILE_ACTION_NAME,
+                'document_file_id': instance.pk,
+                'is_document_upload_sequence': True,
+                'user_id': self.request.user.pk
+            }
+        )
+
+
 class DocumentFileListView(ExternalObjectViewMixin, SingleObjectListView):
     external_object_permission = permission_document_file_view
     external_object_pk_url_kwarg = 'document_id'
     external_object_queryset = Document.valid.all()
     view_icon = icon_document_file_list
+
+    @staticmethod
+    def get_no_results_context(document=None, request=None):
+        context = {
+            'no_results_icon': icon_document_file_list,
+            'no_results_text': _(
+                'File are the actual files that were uploaded for each '
+                'document. Their contents needs to be mapped to a version '
+                'before it can be used.'
+            ),
+            'no_results_title': _('No files available')
+        }
+
+        if document:
+            context['no_results_main_link'] = link_document_file_upload.resolve(
+                context=RequestContext(
+                    dict_={'object': document},
+                    request=request
+                )
+            )
+
+        return context
 
     def get_document(self):
         document = self.external_object
@@ -157,26 +214,19 @@ class DocumentFileListView(ExternalObjectViewMixin, SingleObjectListView):
 
     def get_extra_context(self):
         document = self.get_document()
-        return {
+        context = {
             'hide_object': True,
             'list_as_items': True,
-            'no_results_icon': icon_document_file_list,
-            'no_results_main_link': link_document_file_upload.resolve(
-                context=RequestContext(
-                    dict_={'object': document},
-                    request=self.request
-                )
-            ),
-            'no_results_text': _(
-                'File are the actual files that were uploaded for each '
-                'document. Their contents needs to be mapped to a version '
-                'before it can be used.'
-            ),
-            'no_results_title': _('No files available'),
             'object': document,
             'table_cell_container_classes': 'td-container-thumbnail',
-            'title': _('Files of document: %s') % document,
+            'title': _('Files of document: %s') % document
         }
+        context.update(
+            DocumentFileListView.get_no_results_context(
+                document=document, request=self.request
+            )
+        )
+        return context
 
     def get_source_queryset(self):
         return self.get_document().files.order_by('-timestamp')
@@ -205,7 +255,7 @@ class DocumentFilePreviewView(SingleObjectDetailView):
         return {
             'hide_labels': True,
             'object': self.object,
-            'title': _('Preview of document file: %s') % self.object,
+            'title': _('Preview of document file: %s') % self.object
         }
 
     def get_form_extra_kwargs(self):
@@ -265,7 +315,7 @@ class DocumentFilePropertiesView(SingleObjectDetailView):
         return {
             'document_file': self.object,
             'object': self.object,
-            'title': _('Properties of document file: %s') % self.object,
+            'title': _('Properties of document file: %s') % self.object
         }
 
 

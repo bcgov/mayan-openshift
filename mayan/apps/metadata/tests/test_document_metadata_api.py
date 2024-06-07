@@ -13,15 +13,14 @@ from ..permissions import (
 )
 
 from .literals import TEST_METADATA_TYPE_DEFAULT_VALUE
-from .mixins import (
-    DocumentMetadataAPIViewTestMixin, DocumentMetadataMixin,
-    MetadataTypeTestMixin
+from .mixins.document_metadata_mixins import (
+    DocumentMetadataAPIViewTestMixin, DocumentMetadataMixin
 )
 
 
 class DocumentMetadataAPIViewTestCase(
     DocumentMetadataAPIViewTestMixin, DocumentMetadataMixin,
-    DocumentTestMixin, MetadataTypeTestMixin, BaseAPITestCase
+    DocumentTestMixin, BaseAPITestCase
 ):
     auto_upload_test_document = False
 
@@ -188,7 +187,11 @@ class DocumentMetadataAPIViewTestCase(
 
         response = self._request_document_metadata_create_api_view()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(list(response.data.keys())[0], 'non_field_errors')
+        self.assertEqual(
+            list(
+                response.data.keys()
+            )[0], 'non_field_errors'
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -202,7 +205,23 @@ class DocumentMetadataAPIViewTestCase(
 
         response = self._request_document_metadata_create_api_view()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(list(response.data.keys())[0], 'non_field_errors')
+        self.assertEqual(
+            list(
+                response.data.keys()
+            )[0], 'non_field_errors'
+        )
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 0)
+
+    def test_document_metadata_create_api_view_invalid_metadata_type_with_access(self):
+        self._create_test_metadata_type()
+        self.grant_permission(permission=permission_document_metadata_add)
+
+        self._clear_events()
+
+        response = self._request_document_metadata_create_api_view()
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
@@ -346,7 +365,9 @@ class DocumentMetadataAPIViewTestCase(
 
         response = self._request_document_metadata_list_api_view()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['count'], 0)
+        self.assertEqual(
+            response.data['count'], 0
+        )
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)

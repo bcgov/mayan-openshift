@@ -4,8 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from actstream.models import Action
 
 from mayan.apps.databases.classes import QuerysetParametersSerializer
+from mayan.apps.organizations.utils import get_organization_installation_url
 from mayan.apps.views.generics import ConfirmView
-from mayan.apps.views.mixins import ExternalContentTypeObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalContentTypeObjectViewMixin
 
 from ..icons import (
     icon_event_list_export, icon_object_event_list_export,
@@ -14,7 +15,7 @@ from ..icons import (
 from ..permissions import permission_events_export
 from ..tasks import task_event_queryset_export
 
-from .mixins import VerbEventViewMixin
+from .view_mixins import VerbEventViewMixin
 
 
 class EventExportBaseView(ConfirmView):
@@ -25,7 +26,8 @@ class EventExportBaseView(ConfirmView):
         return {
             'message': _(
                 'The process will be performed in the background. '
-                'The exported events will be available in the downloads area.'
+                'The exported events will be available in the downloads '
+                'area.'
             )
         }
 
@@ -37,14 +39,17 @@ class EventExportBaseView(ConfirmView):
         task_event_queryset_export.apply_async(
             kwargs={
                 'decomposed_queryset': decomposed_queryset,
+                'organization_installation_url': get_organization_installation_url(
+                    request=self.request
+                ),
                 'user_id': self.request.user.pk
             }
         )
 
         messages.success(
-            request=self.request, message=_(
+            message=_(
                 'Event list export task queued successfully.'
-            )
+            ), request=self.request
         )
 
 

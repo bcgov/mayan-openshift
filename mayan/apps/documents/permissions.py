@@ -2,10 +2,15 @@ from django.utils.translation import ugettext_lazy as _
 
 from mayan.apps.permissions import PermissionNamespace
 
-namespace = PermissionNamespace(label=_('Documents'), name='documents')
+namespace = PermissionNamespace(
+    label=_('Documents'), name='documents'
+)
 
 # Document
 
+permission_document_change_type = namespace.add_permission(
+    label=_('Change type of documents'), name='document_change_type'
+)
 permission_document_create = namespace.add_permission(
     label=_('Create documents'), name='document_create'
 )
@@ -29,9 +34,6 @@ permission_document_file_delete = namespace.add_permission(
 )
 permission_document_file_edit = namespace.add_permission(
     label=_('Edit document files'), name='document_file_edit'
-)
-permission_document_file_download = namespace.add_permission(
-    label=_('Download document files'), name='document_file_download'
 )
 permission_document_file_new = namespace.add_permission(
     label=_('Create new document files'), name='document_file_new'
@@ -61,10 +63,6 @@ permission_document_version_delete = namespace.add_permission(
 permission_document_version_edit = namespace.add_permission(
     label=_('Edit document versions'),
     name='document_version_edit'
-)
-permission_document_version_export = namespace.add_permission(
-    label=_('Export document versions'),
-    name='document_version_export'
 )
 permission_document_version_print = namespace.add_permission(
     label=_('Print document versions'), name='document_version_print'

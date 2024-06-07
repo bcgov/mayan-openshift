@@ -4,31 +4,23 @@ import logging
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.utils.encoding import force_text
 from django.utils.timezone import now
 
 from mayan.apps.databases.classes import ModelQueryFields
 
 from .settings import (
     setting_favorite_count, setting_recently_accessed_document_count,
-    setting_recently_created_document_count, setting_stub_expiration_interval
+    setting_recently_created_document_count
 )
 
 logger = logging.getLogger(name=__name__)
 
 
 class DocumentManager(models.Manager):
-    def delete_stubs(self):
-        stale_stub_documents = self.filter(
-            is_stub=True, datetime_created__lt=now() - timedelta(
-                seconds=setting_stub_expiration_interval.value
-            )
-        )
-        for stale_stub_document in stale_stub_documents:
-            stale_stub_document.delete(to_trash=False)
-
     def get_by_natural_key(self, uuid):
-        return self.get(uuid=force_text(s=uuid))
+        return self.get(
+            uuid=str(uuid)
+        )
 
 
 class DocumentFileManager(models.Manager):
@@ -37,7 +29,9 @@ class DocumentFileManager(models.Manager):
             app_label='documents', model_name='Document'
         )
         try:
-            document = Document.objects.get_by_natural_key(*document_natural_key)
+            document = Document.objects.get_by_natural_key(
+                *document_natural_key
+            )
         except Document.DoesNotExist:
             raise self.model.DoesNotExist
 
@@ -50,7 +44,9 @@ class DocumentFilePageManager(models.Manager):
             app_label='documents', model_name='DocumentFile'
         )
         try:
-            document_file = DocumentFile.objects.get_by_natural_key(*document_file_natural_key)
+            document_file = DocumentFile.objects.get_by_natural_key(
+                *document_file_natural_key
+            )
         except DocumentFile.DoesNotExist:
             raise self.model.DoesNotExist
 
@@ -65,7 +61,8 @@ class DocumentTypeManager(models.Manager):
 
         for document_type in self.all():
             logger.info(
-                'Checking deletion period of document type: %s', document_type
+                'Checking deletion period of document type: %s',
+                document_type
             )
             if document_type.delete_time_period and document_type.delete_time_unit:
                 delta = timedelta(
@@ -83,10 +80,17 @@ class DocumentTypeManager(models.Manager):
                         'delete period', document, document.pk,
                         document.trashed_date_time
                     )
-                    document.delete()
+                    try:
+                        document.delete()
+                    except Exception as exception:
+                        logger.error(
+                            'Unable to delete trashed document ID: %d; %s',
+                            document.pk, exception
+                        )
             else:
                 logger.info(
-                    'Document type: %s, has a no retention delta', document_type
+                    'Document type: %s, has a no retention delta',
+                    document_type
                 )
 
         logger.info(msg='Finished')
@@ -117,8 +121,32 @@ class DocumentTypeManager(models.Manager):
                     document.delete()
             else:
                 logger.info(
-                    'Document type: %s, has a no retention delta', document_type
+                    'Document type: %s, has a no retention delta',
+                    document_type
                 )
+
+        logger.info(msg='Finished')
+
+    def document_stubs_delete(self):
+        logger.info(msg='Executing')
+
+        for document_type in self.all():
+            logger.info(
+                'Checking expired document stubs of document type: %s',
+                document_type
+            )
+
+            if document_type.document_stub_pruning_enabled:
+                stale_stub_documents = document_type.documents.filter(
+                    is_stub=True, datetime_created__lt=now() - timedelta(
+                        seconds=document_type.document_stub_expiration_interval
+                    )
+                )
+                logger.debug(
+                    'Deleting %d document stubs', stale_stub_documents.count()
+                )
+                for stale_stub_document in stale_stub_documents:
+                    stale_stub_document.delete(to_trash=False)
 
         logger.info(msg='Finished')
 
@@ -275,7 +303,9 @@ class ValidRecentlyAccessedDocumentManager(models.Manager):
             if not created:
                 # Document already in the recent list, just save to force
                 # accessed date and time update.
-                new_recent.save(update_fields=('datetime_accessed',))
+                new_recent.save(
+                    update_fields=('datetime_accessed',)
+                )
 
             recent_to_delete = self.filter(user=user).values_list(
                 'pk', flat=True
@@ -283,7 +313,9 @@ class ValidRecentlyAccessedDocumentManager(models.Manager):
                 setting_recently_accessed_document_count.value:
             ]
 
-            self.filter(pk__in=list(recent_to_delete)).delete()
+            self.filter(
+                pk__in=list(recent_to_delete)
+            ).delete()
         return new_recent
 
     def get_for_user(self, user):

@@ -442,7 +442,7 @@ level scoped search.
 
 The ``UUID`` field to ElasticSearch field mapping was changed from ``Keyword``
 to ``Text`` to avoid search indexing error when processing document
-ontainers with more than 910 documents. ElasticSearch's ``Keyword`` field
+containers with more than 910 documents. ElasticSearch's ``Keyword`` field
 is limited to 32766 bytes and attempting to index a container with more
 than 910 documents would exceed this limit.
 
@@ -550,7 +550,7 @@ unittest.mock in Python 3.3 and onward.
 Views
 ^^^^^
 
-Added support for form fieldsets. Fieldset crate groups of fields.
+Added support for form fieldsets. Fieldset create groups of fields.
 
 Fieldsets were added to the following forms:
 
@@ -709,20 +709,7 @@ Removals
 Upgrade process
 ---------------
 
-.. important::
-
-  If using a direct deployment, Supervisord must be upgraded to version
-  4.2.2. See troubleshooting section: :ref:`troubleshooting-version-4.1`
-
-
 .. include:: partials/upgrade-3.5-4.0.txt
-
-
-Troubleshooting
----------------
-
-Follow the solutions outlined in the troubleshooting section:
-:ref:`troubleshooting-version-4.1`
 
 
 Backward incompatible changes
@@ -748,7 +735,7 @@ Deprecations
 - The ``WorkflowInstanceSerializer`` field named ``workflow_template_url``
   will be removed in version 5.0. Use the ``url`` attribute of the
   ``workflow_template`` instead.
-- Several management command will be remove in the next minor release. Use
+- Several management command will be removed in the next minor release. Use
   the corresponding replacement commands instead:
 
     - ``checkdependencies`` replaced by ``dependencies_check``.

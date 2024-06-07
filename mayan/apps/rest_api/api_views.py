@@ -9,19 +9,19 @@ from mayan.apps.organizations.settings import setting_organization_url_base_path
 from mayan.apps.rest_api import generics
 
 from .classes import BatchRequestCollection, Endpoint
-from .generics import RetrieveAPIView, ListAPIView
+from .generics import ListAPIView, RetrieveAPIView
+from .schemas import openapi_info
 from .serializers import (
     BatchAPIRequestResponseSerializer, EndpointSerializer,
     ProjectInformationSerializer
 )
-from .schemas import openapi_info
 
 
 class APIRoot(ListAPIView):
-    swagger_schema = None
     serializer_class = EndpointSerializer
+    swagger_schema = None
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         """
         get: Return a list of all API root endpoints. This includes the
         API version root and root services.
@@ -53,10 +53,10 @@ class APIRoot(ListAPIView):
 
 
 class APIVersionRoot(ListAPIView):
-    swagger_schema = None
     serializer_class = EndpointSerializer
+    swagger_schema = None
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         """
         get: Return a list of the API version resources and endpoint.
         """
@@ -96,7 +96,7 @@ class BatchRequestAPIView(mixins.ListModelMixin, generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         serializer = self.get_serializer(data=self.request.data)
         serializer.is_valid(raise_exception=True)
         batch_request_collection = BatchRequestCollection(
@@ -111,7 +111,9 @@ class BrowseableObtainAuthToken(ObtainAuthToken):
     """
     Obtain an API authentication token.
     """
-    renderer_classes = (renderers.BrowsableAPIRenderer, renderers.JSONRenderer)
+    renderer_classes = (
+        renderers.BrowsableAPIRenderer, renderers.JSONRenderer
+    )
 
 
 class ProjectInformationAPIView(RetrieveAPIView):

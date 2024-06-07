@@ -6,8 +6,8 @@ from django.urls import reverse
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-from mayan.apps.events.classes import EventManagerSave
 from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import EventManagerSave
 
 from .events import (
     event_theme_created, event_theme_edited, event_user_theme_settings_edited
@@ -45,11 +45,11 @@ class Theme(models.Model):
         event_manager_class=EventManagerSave,
         created={
             'event': event_theme_created,
-            'target': 'self',
+            'target': 'self'
         },
         edited={
             'event': event_theme_edited,
-            'target': 'self',
+            'target': 'self'
         }
     )
     def save(self, *args, **kwargs):

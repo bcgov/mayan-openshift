@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from mayan.apps.events.classes import EventManagerSave
 from mayan.apps.events.decorators import method_event
+from mayan.apps.events.event_managers import EventManagerSave
 
 from .events import event_user_edited
 from .managers import UserOptionsManager
@@ -20,8 +20,9 @@ class UserOptions(models.Model):
         to=settings.AUTH_USER_MODEL, unique=True, verbose_name=_('User')
     )
     block_password_change = models.BooleanField(
-        default=False,
-        verbose_name=_('Forbid this user from changing their password.')
+        default=False, verbose_name=_(
+            'Forbid this user from changing their password.'
+        )
     )
 
     objects = UserOptionsManager()

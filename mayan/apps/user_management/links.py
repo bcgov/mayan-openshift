@@ -5,14 +5,14 @@ from mayan.apps.navigation.classes import Link, Separator, Text
 from mayan.apps.navigation.utils import factory_condition_queryset_access
 
 from .icons import (
-    icon_current_user_detail, icon_group_create, icon_group_single_delete,
-    icon_group_multiple_delete, icon_group_edit, icon_group_list,
-    icon_group_setup, icon_group_user_list, icon_user_create,
+    icon_current_user_detail, icon_group_create, icon_group_edit,
+    icon_group_list, icon_group_multiple_delete, icon_group_setup,
+    icon_group_single_delete, icon_group_user_list, icon_user_create,
     icon_user_edit, icon_user_group_list, icon_user_list,
-    icon_user_single_delete, icon_user_multiple_delete,
-    icon_user_set_options, icon_user_setup
+    icon_user_multiple_delete, icon_user_set_options, icon_user_setup,
+    icon_user_single_delete
 )
-from .link_conditions import condition_user_is_not_superuser
+from .link_conditions import condition_user_is_not_super_user
 from .permissions import (
     permission_group_create, permission_group_delete, permission_group_edit,
     permission_group_view, permission_user_create, permission_user_delete,
@@ -50,10 +50,7 @@ link_group_edit = Link(
     view='user_management:group_edit'
 )
 link_group_list = Link(
-    condition=factory_condition_queryset_access(
-        app_label='auth', model_name='Group',
-        object_permission=permission_group_view,
-    ), icon=icon_group_list, text=_('Groups'),
+    icon=icon_group_list, text=_('Groups'),
     view='user_management:group_list'
 )
 link_group_user_list = Link(
@@ -64,7 +61,7 @@ link_group_user_list = Link(
 link_group_setup = Link(
     condition=factory_condition_queryset_access(
         app_label='auth', model_name='Group',
-        callback=condition_user_is_not_superuser,
+        callback=condition_user_is_not_super_user,
         object_permission=permission_group_view,
         view_permission=permission_group_create
     ), icon=icon_group_setup, text=_('Groups'),
@@ -99,13 +96,7 @@ link_user_group_list = Link(
     text=_('Groups'), view='user_management:user_groups'
 )
 link_user_list = Link(
-    icon=icon_user_list, text=_('Users'),
-    condition=factory_condition_queryset_access(
-        app_label='auth', model_name='User',
-        callback=condition_user_is_authenticated,
-        object_permission=permission_user_view,
-        view_permission=permission_user_create
-    ), view='user_management:user_list'
+    icon=icon_user_list, text=_('Users'), view='user_management:user_list'
 )
 link_user_set_options = Link(
     args='object.id', condition=condition_user_is_authenticated,

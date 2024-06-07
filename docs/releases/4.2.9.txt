@@ -21,8 +21,8 @@ multiple frontend processes or load balancers are used.
 Settings
 ^^^^^^^^
 
-The settings app templates caching was disabled. Just like the as with the
-impersonation app, this ensures correct functionality of the settings change
+The settings app templates caching was disabled. Just like the impersonation
+app, this ensures correct functionality of the settings change
 banner in all edge cases.
 
 
@@ -53,20 +53,7 @@ Removals
 Upgrade process
 ---------------
 
-.. important::
-
-  If using a direct deployment, Supervisord must be upgraded to version
-  4.2.2. See troubleshooting section: :ref:`troubleshooting-version-4.1`
-
-
 .. include:: partials/upgrade-3.5-4.0.txt
-
-
-Troubleshooting
----------------
-
-Follow the solutions outlined in the troubleshooting section:
-:ref:`troubleshooting-version-4.1`
 
 
 Backward incompatible changes

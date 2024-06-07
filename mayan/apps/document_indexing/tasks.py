@@ -15,7 +15,9 @@ logger = logging.getLogger(name=__name__)
     bind=True, ignore_result=True, max_retries=None, retry_backoff=True,
     retry_backoff_max=60
 )
-def task_index_instance_document_add(self, document_id, index_instance_id=None):
+def task_index_instance_document_add(
+    self, document_id, index_instance_id=None
+):
     Document = apps.get_model(
         app_label='documents', model_name='Document'
     )
@@ -32,7 +34,9 @@ def task_index_instance_document_add(self, document_id, index_instance_id=None):
     else:
         try:
             if index_instance_id:
-                index_instance = IndexInstance.objects.get(pk=index_instance_id)
+                index_instance = IndexInstance.objects.get(
+                    pk=index_instance_id
+                )
                 index_instance.document_add(document=document)
             else:
                 IndexInstance.objects.document_add(document=document)
@@ -76,20 +80,6 @@ def task_index_instance_document_remove(self, document_id):
             IndexInstance.objects.document_remove(document=document)
         except LockError as exception:
             raise self.retry(exc=exception)
-
-
-@app.task(
-    bind=True, ignore_result=True, max_retries=None, retry_backoff=True
-)
-def task_index_instance_node_delete_empty(self):
-    IndexInstance = apps.get_model(
-        app_label='document_indexing', model_name='IndexInstance'
-    )
-
-    try:
-        IndexInstance.objects.delete_empty_nodes()
-    except LockError as exception:
-        raise self.retry(exc=exception)
 
 
 # Index template

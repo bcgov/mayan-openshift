@@ -1,10 +1,9 @@
+import functools
 import hashlib
 
-from django.template import Context, Engine, Template as DjangoTemplate
 from django.template.response import TemplateResponse
+from django.template.utils import EngineHandler
 from django.urls import reverse
-
-from mayan.apps.common.settings import setting_home_view
 
 
 class AJAXTemplate:
@@ -17,14 +16,17 @@ class AJAXTemplate:
         else:
             result = []
             for template in cls._registry.values():
-                result.append(template.render(request=request))
+                result.append(
+                    template.render(request=request)
+                )
             return result
 
     @classmethod
     def get(cls, name):
         return cls._registry[name]
 
-    def __init__(self, name, template_name):
+    def __init__(self, name, template_name, context=None):
+        self.context = context or None
         self.name = name
         self.template_name = template_name
         self.__class__._registry[name] = self
@@ -35,36 +37,44 @@ class AJAXTemplate:
         )
 
     def render(self, request):
-        context = {
-            'home_view': setting_home_view.value,
-        }
         result = TemplateResponse(
-            request=request,
-            template=self.template_name,
-            context=context,
+            context=self.context, request=request,
+            template=self.template_name
         ).render()
 
         # Calculate the hash of the bytes version but return the unicode
-        # version
+        # version.
         self.html = result.rendered_content.replace('\n', '')
-        self.hex_hash = hashlib.sha256(result.content).hexdigest()
+        self.hex_hash = hashlib.sha256(string=result.content).hexdigest()
         return self
 
 
 class Template:
-    def __init__(self, template_string):
-        engine = Engine(
-            builtins=[
-                'mathfilters.templatetags.mathfilters',
-                'mayan.apps.templating.templatetags.templating_tags',
-            ]
+    @classmethod
+    @functools.cache
+    def get_backend(cls):
+        engine_handler = EngineHandler(
+            templates=(
+                {
+                    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                    'OPTIONS': {
+                        'builtins': [
+                            'mathfilters.templatetags.mathfilters',
+                            'mayan.apps.templating.templatetags.templating_tags'
+                        ]
+                    }
+                },
+            )
         )
+        return engine_handler['django']
 
-        self._template = DjangoTemplate(
-            engine=engine, template_string=template_string
+    def __init__(self, template_string):
+        self._template = Template.get_backend().from_string(
+            template_code=template_string
         )
 
     def render(self, context=None):
-        context_object = Context(dict_=context or {})
+        if context is None:
+            context = {}
 
-        return self._template.render(context=context_object)
+        return self._template.render(context=context)

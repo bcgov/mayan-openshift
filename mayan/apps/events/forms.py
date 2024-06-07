@@ -8,17 +8,21 @@ from .models import EventSubscription, ObjectEventSubscription
 class EventTypeUserRelationshipForm(forms.Form):
     namespace = forms.CharField(
         label=_('Namespace'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     label = forms.CharField(
         label=_('Label'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     subscription = forms.ChoiceField(
         label=_('Subscription'),
         widget=forms.RadioSelect(), choices=(
             ('none', _('No')),
-            ('subscribed', _('Subscribed')),
+            ('subscribed', _('Subscribed'))
         )
     )
 
@@ -65,17 +69,21 @@ EventTypeUserRelationshipFormSet = formset_factory(
 class ObjectEventTypeUserRelationshipForm(forms.Form):
     namespace = forms.CharField(
         label=_('Namespace'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     label = forms.CharField(
         label=_('Label'), required=False,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+        widget=forms.TextInput(
+            attrs={'readonly': 'readonly'}
+        )
     )
     subscription = forms.ChoiceField(
         label=_('Subscription'),
         widget=forms.RadioSelect(), choices=(
             ('none', _('No')),
-            ('subscribed', _('Subscribed')),
+            ('subscribed', _('Subscribed'))
         )
     )
 

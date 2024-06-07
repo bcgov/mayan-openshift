@@ -4,25 +4,27 @@
 # 
 # Translators:
 # Translators:
-# Ford Guo <agile.guo@gmail.com>, 2022
-# yan songwei <yansw@vip.163.com>, 2022
-# Roberto Rosario, 2022
+# bo feng <87289884@qq.com>, 2023
+# Leon Chu, 2023
+# yan songwei <yansw@vip.163.com>, 2023
+# Ford Guo <agile.guo@gmail.com>, 2023
+# Roberto Rosario, 2023
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-21 06:40+0000\n"
-"PO-Revision-Date: 2022-07-27 05:32+0000\n"
-"Last-Translator: Roberto Rosario, 2022\n"
-"Language-Team: Chinese Simplified (https://www.transifex.com/rosarior/teams/13584/zh-Hans/)\n"
+"POT-Creation-Date: 2024-06-02 14:05+0000\n"
+"PO-Revision-Date: 2023-09-06 21:36+0000\n"
+"Last-Translator: Roberto Rosario, 2023\n"
+"Language-Team: Chinese Simplified (https://app.transifex.com/rosarior/teams/13584/zh-Hans/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh-Hans\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:57 events.py:5 permissions.py:5 settings.py:10
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
 msgid "Appearance"
 msgstr "外观"
 
@@ -36,15 +38,15 @@ msgstr "引导程序"
 
 #: dependencies.py:16
 msgid "Bootswatch"
-msgstr ""
+msgstr "啟動監控"
 
 #: dependencies.py:30
 msgid "Fancybox"
-msgstr ""
+msgstr "Fancybox套件"
 
 #: dependencies.py:34
 msgid "FontAwesome"
-msgstr ""
+msgstr "FontAwesome 套件"
 
 #: dependencies.py:38
 msgid "jQuery"
@@ -56,7 +58,7 @@ msgstr "jQuery表单"
 
 #: dependencies.py:46
 msgid "jQuery Lazy Load"
-msgstr ""
+msgstr "jQuery Lazy Load 延遲讀取"
 
 #: dependencies.py:50
 msgid "JQuery Match Height"
@@ -68,51 +70,51 @@ msgstr "选择2"
 
 #: dependencies.py:58
 msgid "Toastr"
-msgstr ""
+msgstr "Toastr 套件"
 
 #: dependencies.py:62
 msgid "URI.js"
 msgstr "URI.js"
 
-#: events.py:8
+#: events.py:10
 msgid "Theme created"
-msgstr ""
+msgstr "已製作之佈景"
 
-#: events.py:11
+#: events.py:13
 msgid "Theme edited"
-msgstr ""
+msgstr "已編輯之佈景"
 
-#: events.py:14
+#: events.py:16
 msgid "User theme edited"
 msgstr ""
 
-#: links.py:18
+#: links.py:20
 msgid "Theme settings"
-msgstr ""
+msgstr "佈景設定"
 
-#: links.py:25
+#: links.py:27
 msgid "Edit theme settings"
-msgstr ""
+msgstr "編輯佈景設定"
 
-#: links.py:31 views.py:31
+#: links.py:33 views.py:32
 msgid "Create new theme"
-msgstr ""
+msgstr "建立新的佈景"
 
-#: links.py:36
+#: links.py:38
 msgid "Delete"
 msgstr "删除"
 
-#: links.py:40
+#: links.py:42
 msgid "Edit"
 msgstr "编辑"
 
-#: links.py:44 links.py:49 models.py:32 views.py:99
+#: links.py:46 links.py:54 models.py:32 views.py:101
 msgid "Themes"
-msgstr ""
+msgstr "佈景"
 
 #: models.py:19
 msgid "A short text describing the theme."
-msgstr ""
+msgstr "有關此佈景之簡述"
 
 #: models.py:20
 msgid "Label"
@@ -122,15 +124,15 @@ msgstr "标签"
 msgid ""
 "The CSS stylesheet to change the appearance of the different user interface "
 "elements."
-msgstr ""
+msgstr "用來更改不同使用者介面顯示項目的 CSS 樣式表"
 
 #: models.py:26
 msgid "Stylesheet"
-msgstr ""
+msgstr "文件樣式表"
 
 #: models.py:31 models.py:69
 msgid "Theme"
-msgstr ""
+msgstr "佈景"
 
 #: models.py:65
 msgid "User"
@@ -138,45 +140,54 @@ msgstr "用户"
 
 #: models.py:73
 msgid "User theme setting"
-msgstr ""
+msgstr "使用者佈景設定"
 
 #: models.py:74
 msgid "User theme settings"
-msgstr ""
+msgstr "使用者佈景設定"
 
-#: permissions.py:8
+#: permissions.py:10
 msgid "Create new themes"
-msgstr ""
+msgstr "建立複數佈景"
 
-#: permissions.py:11
+#: permissions.py:13
 msgid "Delete themes"
-msgstr ""
+msgstr "刪除複數佈景"
 
-#: permissions.py:14
+#: permissions.py:16
 msgid "Edit themes"
-msgstr ""
+msgstr "編輯複數佈景"
 
-#: permissions.py:17
+#: permissions.py:19
 msgid "View existing themes"
-msgstr ""
+msgstr "瀏覽所有已存佈景"
 
-#: settings.py:15
+#: settings.py:18
 msgid "Custom HTTP response code for AJAX redirections."
 msgstr ""
 
-#: settings.py:21
+#: settings.py:24
 msgid "Maximum number of characters that will be displayed as the view title."
 msgstr "显示视图标题的最大字符数。"
 
-#: settings.py:28
-msgid ""
-"Position where the system message will be displayed. Options are: top-left, "
-"top-center, top-right, bottom-left, bottom-center, bottom-right."
-msgstr "显示系统消息的位置。选项包括：左上，顶部居中，右上，左下，底部居中，右下。"
+#: settings.py:34
+msgid "Position where the system messages will be displayed."
+msgstr ""
 
-#: settings.py:36
+#: settings.py:40
 msgid ""
 "Delay in milliseconds after which the menus will be checked for updates."
+msgstr "在選單被選擇更新後延遲幾微秒"
+
+#: settings.py:47
+msgid ""
+"Maximum number of requests that can be made before throttling is enabled."
+msgstr ""
+
+#: settings.py:54
+msgid ""
+"Time in milliseconds after which a throttled request will clear allowing an "
+"additional request to be performed."
 msgstr ""
 
 #: templates/403.html:5 templates/403.html:30
@@ -214,7 +225,7 @@ msgid ""
 msgstr "位置正确，但是您的帐户没有访问权限。"
 
 #: templates/500.html:5 templates/500.html:30
-#: templates/appearance/root.html:47
+#: templates/appearance/root.html:46
 msgid "Server error"
 msgstr "服务器错误"
 
@@ -245,37 +256,26 @@ msgstr "检查日志中是否带有标签“ ERROR”-错误，“ CRITICAL”-�
 #: templates/500.html:48
 #, python-format
 msgid "Open a ticket using the <a href=\"%(issue_url)s\">issue tracker</a>."
-msgstr ""
+msgstr "開啟一個<a href=\"%(issue_url)s\">問題追蹤</a>的項目"
 
-#: templates/appearance/about.html:10
+#: templates/appearance/about.html:9
 msgid "About"
 msgstr "关于"
 
-#: templates/appearance/about.html:72
-#, python-format
-msgid ""
-"\n"
-"                    %(setting_project_title)s is based on %(project_title)s\n"
-"                "
-msgstr ""
-"\n"
-"                    %(setting_project_title)s基于%(project_title)s\n"
-"                "
-
-#: templates/appearance/about.html:77
+#: templates/appearance/about.html:67
 msgid "Version"
 msgstr "版本"
 
-#: templates/appearance/about.html:79
+#: templates/appearance/about.html:69
 #, python-format
 msgid "Build number: %(build_number)s"
 msgstr "版本号：%(build_number)s"
 
-#: templates/appearance/about.html:92
+#: templates/appearance/about.html:82
 msgid "Released under the license:"
 msgstr "根据许可证发布："
 
-#: templates/appearance/about.html:98
+#: templates/appearance/about.html:88
 #, python-format
 msgid ""
 "\n"
@@ -286,15 +286,18 @@ msgstr ""
 "                完整的更改列表可见于<a class=\"new_window\" href=\"https://docs.mayan-edms.com/releases/index.html\">发行说明%(icon_documentation)s </a>或简短版本<a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms/blob/master/HISTORY.rst\">更改日志%(icon_documentation)s </a>。\n"
 "            "
 
-#: templates/appearance/about.html:104
+#: templates/appearance/about.html:94
 #, python-format
 msgid ""
 "\n"
 "                For questions check the <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">Documentation %(icon_documentation)s</a>.\n"
 "            "
 msgstr ""
+"\n"
+"                可以查找問題解說於此 <a class=\"new_window\" href=\"https://docs.mayan-edms.com\">Documentation %(icon_documentation)s</a>.\n"
+"            "
 
-#: templates/appearance/about.html:110
+#: templates/appearance/about.html:100
 #, python-format
 msgid ""
 "\n"
@@ -304,14 +307,6 @@ msgstr ""
 "\n"
 "                如果您发现了bug或有功能创意，请访问<a class=\"new_window\" href=\"https://forum.mayan-edms.com\">论坛%(icon_forum)s </a>或在<a class=\"new_window\" href=\"https://gitlab.com/mayan-edms/mayan-edms\">源代码仓库%(icon_source_code)s </a>提交问题。\n"
 "            "
-
-#: templates/appearance/about.html:115
-#, python-format
-msgid ""
-"\n"
-"                Spread the word. Talk to your friends and colleagues about how awesome %(project_title)s is!\n"
-"            "
-msgstr ""
 
 #: templates/appearance/base.html:73
 msgid "Object"
@@ -336,21 +331,21 @@ msgstr "否"
 msgid "required"
 msgstr "需要的"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Save"
 msgstr "保存"
 
-#: templates/appearance/generic_form_subtemplate.html:84
-#: templates/appearance/generic_form_subtemplate.html:94
-#: templates/appearance/generic_form_subtemplate.html:108
+#: templates/appearance/generic_form_subtemplate.html:85
+#: templates/appearance/generic_form_subtemplate.html:95
+#: templates/appearance/generic_form_subtemplate.html:109
 #: templates/appearance/generic_multiform_subtemplate.html:62
 msgid "Submit"
 msgstr "提交"
 
-#: templates/appearance/generic_form_subtemplate.html:98
+#: templates/appearance/generic_form_subtemplate.html:99
 #: templates/appearance/generic_multiform_subtemplate.html:66
 msgid "Cancel"
 msgstr "取消"
@@ -359,9 +354,15 @@ msgstr "取消"
 msgid "Identifier"
 msgstr "识别码"
 
-#: templates/appearance/generic_list_subtemplate.html:134
-msgid "Facets"
-msgstr ""
+#: templates/appearance/generic_list_subtemplate.html:85
+#: templates/appearance/partials/list_object_facet_links_column.html:8
+#: templates/appearance/partials/list_object_facet_links_column.html:39
+msgid "Views"
+msgstr "视图"
+
+#: templates/appearance/generic_list_subtemplate.html:91
+msgid "Actions"
+msgstr "操作"
 
 #: templates/appearance/home.html:27
 msgid "Getting started"
@@ -401,16 +402,16 @@ msgstr "全选/全不选"
 msgid "Toggle list display mode"
 msgstr "切换列表显示模式"
 
-#: templates/appearance/partials/list_toolbar.html:63
+#: templates/appearance/partials/list_toolbar.html:31
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr "选择项目激活批量操作。使用Shift +单击以选择多个。"
 
-#: templates/appearance/partials/list_toolbar.html:68
+#: templates/appearance/partials/list_toolbar.html:36
 msgid "Bulk actions"
 msgstr "批量操作"
 
-#: templates/appearance/partials/list_toolbar.html:70
+#: templates/appearance/partials/list_toolbar.html:38
 msgid "Toggle Dropdown"
 msgstr "切换下拉列表"
 
@@ -418,47 +419,57 @@ msgstr "切换下拉列表"
 msgid "No results"
 msgstr "没有结果"
 
-#: templates/appearance/root.html:52
+#: templates/appearance/partials/pagination.html:12
+#: templates/appearance/partials/pagination.html:14
+msgid "Previous page"
+msgstr "上一页"
+
+#: templates/appearance/partials/pagination.html:30
+#: templates/appearance/partials/pagination.html:32
+msgid "Next page"
+msgstr "下一页"
+
+#: templates/appearance/root.html:51
 msgid "Close"
 msgstr "关闭"
 
-#: templates/appearance/root.html:60
+#: templates/appearance/root.html:59
 msgid "Server communication error"
 msgstr "服务器通信错误"
 
-#: templates/appearance/root.html:62
+#: templates/appearance/root.html:61
 msgid "Check you network connection and try again in a few moments."
 msgstr "检查网络连接，并稍后再试。"
 
-#: templatetags/appearance_tags.py:61
+#: templatetags/appearance_tags.py:77
 msgid "None"
 msgstr "没有"
 
-#: views.py:55
+#: views.py:57
 #, python-format
 msgid "Delete theme: %s"
-msgstr ""
+msgstr "刪除佈景 : %s"
 
-#: views.py:72
+#: views.py:74
 #, python-format
 msgid "Edit theme: %s"
-msgstr ""
+msgstr "編輯佈景 : %s"
 
-#: views.py:93
+#: views.py:95
 msgid ""
 "Themes allow changing the visual appearance without requiring code changes."
-msgstr ""
+msgstr "佈景可以讓你修改畫面的顯示但不需要改變原始碼."
 
-#: views.py:97
+#: views.py:99
 msgid "There are no themes"
-msgstr ""
+msgstr "沒有佈景可以使用"
 
-#: views.py:122
+#: views.py:124
 #, python-format
 msgid "Theme settings for user: %s"
 msgstr ""
 
-#: views.py:144
+#: views.py:146
 #, python-format
 msgid "Edit theme settings for user: %s"
 msgstr ""

@@ -2,12 +2,11 @@ from mayan.apps.documents.tests.base import GenericDocumentViewTestCase
 
 from ..models import LayerTransformation
 
-from .mixins import TransformationTestMixin, TransformationViewTestMixin
+from .mixins import TransformationViewTestMixin
 
 
 class TransformationViewTestCase(
-    TransformationTestMixin, TransformationViewTestMixin,
-    GenericDocumentViewTestCase
+    TransformationViewTestMixin, GenericDocumentViewTestCase
 ):
     def test_transformation_create_post_view_no_permission(self):
         transformation_count = LayerTransformation.objects.count()
@@ -26,8 +25,8 @@ class TransformationViewTestCase(
 
     def test_transformation_create_post_view_with_permission(self):
         self.grant_access(
-            obj=self._test_document,
-            permission=self._test_layer.permissions['create']
+            obj=self._test_transformation_object_parent,
+            permission=self._test_layer_permission_create
         )
         transformation_count = LayerTransformation.objects.count()
 
@@ -60,8 +59,8 @@ class TransformationViewTestCase(
 
     def test_transformation_create_get_view_with_permission(self):
         self.grant_access(
-            obj=self._test_document,
-            permission=self._test_layer.permissions['create']
+            obj=self._test_transformation_object_parent,
+            permission=self._test_layer_permission_create
         )
         transformation_count = LayerTransformation.objects.count()
 
@@ -96,8 +95,8 @@ class TransformationViewTestCase(
     def test_transformation_delete_view_with_access(self):
         self._create_test_transformation()
         self.grant_access(
-            obj=self._test_document,
-            permission=self._test_layer.permissions['delete']
+            obj=self._test_transformation_object_parent,
+            permission=self._test_layer_permission_delete
         )
         transformation_count = LayerTransformation.objects.count()
 
@@ -133,8 +132,8 @@ class TransformationViewTestCase(
     def test_transformation_edit_view_with_access(self):
         self._create_test_transformation()
         self.grant_access(
-            obj=self._test_document,
-            permission=self._test_layer.permissions['edit']
+            obj=self._test_transformation_object_parent,
+            permission=self._test_layer_permission_edit
         )
         transformation_arguments = self._test_transformation.arguments
 
@@ -158,7 +157,7 @@ class TransformationViewTestCase(
 
         response = self._request_transformation_list_view()
         self.assertNotContains(
-            response=response, text=self._test_document.label,
+            response=response, text=str(self._test_transformation_object),
             status_code=404
         )
         self.assertNotContains(
@@ -173,15 +172,15 @@ class TransformationViewTestCase(
     def test_transformation_list_view_with_access(self):
         self._create_test_transformation()
         self.grant_access(
-            obj=self._test_document,
-            permission=self._test_layer.permissions['view']
+            obj=self._test_transformation_object_parent,
+            permission=self._test_layer_permission_view
         )
 
         self._clear_events()
 
         response = self._request_transformation_list_view()
         self.assertContains(
-            response=response, text=self._test_document.label,
+            response=response, text=str(self._test_transformation_object),
             status_code=200
         )
         self.assertContains(
@@ -210,8 +209,8 @@ class TransformationViewTestCase(
 
     def test_transformation_select_get_view_with_access(self):
         self.grant_access(
-            obj=self._test_document,
-            permission=self._test_layer.permissions['select']
+            obj=self._test_transformation_object_parent,
+            permission=self._test_layer_permission_create
         )
         transformation_count = LayerTransformation.objects.count()
 
@@ -244,8 +243,8 @@ class TransformationViewTestCase(
 
     def test_transformation_select_post_view_with_access(self):
         self.grant_access(
-            obj=self._test_document,
-            permission=self._test_layer.permissions['select']
+            obj=self._test_transformation_object_parent,
+            permission=self._test_layer_permission_create
         )
         transformation_count = LayerTransformation.objects.count()
 

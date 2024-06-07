@@ -1,30 +1,169 @@
 import os
 
 from django.conf import settings
-from django.db.models import Q
 
 from mayan.apps.converter.classes import Layer
 
 from ...literals import PAGE_RANGE_ALL
-from ...models import Document, DocumentType
+from ...models import Document
 
 from ..literals import (
     DEFAULT_DOCUMENT_STUB_LABEL, TEST_DOCUMENT_DESCRIPTION,
-    TEST_DOCUMENT_DESCRIPTION_EDITED, TEST_DOCUMENT_TYPE_LABEL,
+    TEST_DOCUMENT_DESCRIPTION_EDITED, TEST_DOCUMENT_LABEL,
     TEST_FILE_SMALL_FILENAME, TEST_FILE_SMALL_PATH
 )
 
+from .document_type_mixins import DocumentTypeTestMixin
 
-class DocumentAPIViewTestMixin:
+
+class DocumentTestMixin(DocumentTypeTestMixin):
+    _test_document_count = 1
+    _test_document_file_filename = TEST_FILE_SMALL_FILENAME
+    _test_document_file_path = None
+    _test_document_filename = TEST_FILE_SMALL_FILENAME
+    _test_document_language = None
+    _test_document_path = None
+    _test_object_model = Document
+    _test_object_name = '_test_document'
+    auto_create_test_document_stub = False
+    auto_upload_test_document = True
+
+    def setUp(self):
+        super().setUp()
+        Layer.invalidate_cache()
+
+        self._test_documents = []
+        self._test_document_file_list = []
+        self._test_document_file_page_list = []
+        self._test_document_id_list = []
+        self._test_document_id_list_string = []
+        self._test_document_version_list = []
+        self._test_document_version_page_list = []
+
+        if self.auto_create_test_document_type:
+            if self._test_document_count > 1:
+                if self.auto_upload_test_document:
+                    self._upload_test_documents()
+                elif self.auto_create_test_document_stub:
+                    self._create_test_document_stubs()
+            else:
+                if self.auto_upload_test_document:
+                    self._upload_test_document()
+                elif self.auto_create_test_document_stub:
+                    self._create_test_document_stub()
+
+    def _calculate_test_document_file_path(self):
+        if not self._test_document_file_path:
+            self._test_document_file_path = os.path.join(
+                settings.BASE_DIR, 'apps', 'documents', 'tests', 'contrib',
+                'sample_documents', self._test_document_file_filename
+            )
+
+    def _calculate_test_document_path(self):
+        if not self._test_document_path:
+            self._test_document_path = os.path.join(
+                settings.BASE_DIR, 'apps', 'documents', 'tests', 'contrib',
+                'sample_documents', self._test_document_filename
+            )
+
+    def _create_test_document_stub(self, document_type=None, label=None):
+        if label is None:
+            label = '{}_{}'.format(
+                DEFAULT_DOCUMENT_STUB_LABEL, len(self._test_documents)
+            )
+
+        self._test_document_stub = Document.objects.create(
+            document_type=document_type or self._test_document_type,
+            label=label
+        )
+        self._test_document = self._test_document_stub
+        self._test_documents.append(self._test_document)
+        self._test_document_id_list.append(self._test_document.pk)
+        self._test_document_id_list_string.append(
+            str(self._test_document.pk)
+        )
+
+    def _create_test_document_stubs(self, count=None):
+        for index in range(count or self._test_document_count):
+            self._create_test_document_stub()
+
+    def _create_test_documents(self, count=None):
+        for index in range(count or self._test_document_count):
+            self._upload_test_document(
+                label='{}_{}'.format(
+                    TEST_DOCUMENT_LABEL,
+                    len(self._test_documents)
+                )
+            )
+
+    def _upload_test_document(
+        self, description=None, document_file_attributes=None,
+        document_type=None, document_version_attributes=None, label=None,
+        user=None
+    ):
+        self._calculate_test_document_path()
+
+        if not label:
+            label = self._test_document_filename
+
+        test_document_description = description or '{}_{}'.format(
+            TEST_DOCUMENT_DESCRIPTION, len(self._test_documents)
+        )
+
+        document_type = document_type or self._test_document_type
+
+        with open(file=self._test_document_path, mode='rb') as file_object:
+            document = document_type.documents_upload(
+                description=test_document_description,
+                file_object=file_object, label=label,
+                language=self._test_document_language, user=user
+            )
+
+        self._test_document = document
+        self._test_documents.append(self._test_document)
+        self._test_document_id_list.append(self._test_document.pk)
+        self._test_document_id_list_string.append(
+            str(self._test_document.pk)
+        )
+
+        self._test_document_file = document.file_latest
+        self._test_document_file_list.append(self._test_document_file)
+        self._test_document_file_page_list = list(
+            self._test_document_file.file_pages.all()
+        )
+        self._test_document_file_page = self._test_document_file.file_pages.first()
+        self._test_document_version = self._test_document.version_active
+        self._test_document_version_list.append(self._test_document_version)
+        self._test_document_version_page_list = list(
+            self._test_document_version.version_pages.all()
+        )
+        self._test_document_version_page = self._test_document_version.version_pages.first()
+
+        if document_file_attributes:
+            for key, value in document_file_attributes.items():
+                setattr(self._test_document_file, key, value)
+
+            self._test_document_file.save()
+
+        if document_version_attributes:
+            for key, value in document_version_attributes.items():
+                setattr(self._test_document_version, key, value)
+
+            self._test_document_version.save()
+
+
+class DocumentAPIViewTestMixin(DocumentTestMixin):
     def _request_test_document_change_type_api_view(self):
         return self.post(
             viewname='rest_api:document-change-type', kwargs={
                 'document_id': self._test_document.pk
-            }, data={'document_type_id': self._test_document_types[1].pk}
+            }, data={
+                'document_type_id': self._test_document_types[1].pk
+            }
         )
 
     def _request_test_document_create_api_view(self):
-        pk_list = list(Document.objects.values_list('pk', flat=True))
+        self._test_object_track()
 
         response = self.post(
             viewname='rest_api:document-list', data={
@@ -32,12 +171,7 @@ class DocumentAPIViewTestMixin:
             }
         )
 
-        try:
-            self._test_document = Document.objects.get(
-                ~Q(pk__in=pk_list)
-            )
-        except Document.DoesNotExist:
-            self._test_document = None
+        self._test_object_set()
 
         return response
 
@@ -66,7 +200,7 @@ class DocumentAPIViewTestMixin:
         return self.get(viewname='rest_api:document-list')
 
     def _request_test_document_upload_api_view(self):
-        pk_list = list(Document.objects.values_list('pk', flat=True))
+        self._test_object_track()
 
         with open(file=TEST_FILE_SMALL_PATH, mode='rb') as file_object:
             response = self.post(
@@ -76,131 +210,14 @@ class DocumentAPIViewTestMixin:
                 }
             )
 
-        try:
-            self._test_document = Document.objects.get(
-                ~Q(pk__in=pk_list)
-            )
-        except Document.DoesNotExist:
-            self._test_document = None
+        self._test_object_set()
 
         return response
 
 
-class DocumentTestMixin:
-    auto_create_test_document_stub = False
-    auto_create_test_document_type = True
-    auto_upload_test_document = True
-    _test_document_file_filename = TEST_FILE_SMALL_FILENAME
-    _test_document_file_path = None
-    _test_document_filename = TEST_FILE_SMALL_FILENAME
-    _test_document_language = None
-    _test_document_path = None
-    auto_delete_test_document_type = True
-
-    def setUp(self):
-        super().setUp()
-        Layer.invalidate_cache()
-
-        self._test_documents = []
-        self._test_document_files = []
-        self._test_document_file_pages = []
-        self._test_document_types = []
-
-        if self.auto_create_test_document_type:
-            self._create_test_document_type()
-
-            if self.auto_upload_test_document:
-                self._upload_test_document()
-            elif self.auto_create_test_document_stub:
-                self._create_test_document_stub()
-
-    def tearDown(self):
-        if self.auto_delete_test_document_type:
-            for document_type in DocumentType.objects.all():
-                document_type.delete()
-        super().tearDown()
-
-    def _create_test_document_stub(self, document_type=None, label=None):
-        self._test_document_stub = Document.objects.create(
-            document_type=document_type or self._test_document_type,
-            label=label or '{}_{}'.format(
-                DEFAULT_DOCUMENT_STUB_LABEL, len(self._test_documents)
-            )
-        )
-        self._test_document = self._test_document_stub
-        self._test_documents.append(self._test_document)
-
-    def _create_test_document_type(self, label=None):
-        label = label or '{}_{}'.format(
-            TEST_DOCUMENT_TYPE_LABEL, len(self._test_document_types)
-        )
-
-        self._test_document_type = DocumentType.objects.create(label=label)
-        self._test_document_types.append(self._test_document_type)
-
-    def _calculate_test_document_path(self):
-        if not self._test_document_path:
-            self._test_document_path = os.path.join(
-                settings.BASE_DIR, 'apps', 'documents', 'tests', 'contrib',
-                'sample_documents', self._test_document_filename
-            )
-
-    def _calculate_test_document_file_path(self):
-        if not self._test_document_file_path:
-            self._test_document_file_path = os.path.join(
-                settings.BASE_DIR, 'apps', 'documents', 'tests', 'contrib',
-                'sample_documents', self._test_document_file_filename
-            )
-
-    def _upload_test_document(
-        self, description=None, document_file_attributes=None,
-        document_type=None, document_version_attributes=None, label=None,
-        _user=None
-    ):
-        self._calculate_test_document_path()
-
-        if not label:
-            label = self._test_document_filename
-
-        test_document_description = description or '{}_{}'.format(
-            TEST_DOCUMENT_DESCRIPTION, len(self._test_documents)
-        )
-
-        document_type = document_type or self._test_document_type
-
-        with open(file=self._test_document_path, mode='rb') as file_object:
-            document, document_file = document_type.new_document(
-                description=test_document_description,
-                file_object=file_object, label=label,
-                language=self._test_document_language, _user=_user
-            )
-
-        self._test_document = document
-        self._test_documents.append(document)
-
-        self._test_document_file = document_file
-        self._test_document_files.append(document_file)
-        self._test_document_file_pages = list(document_file.file_pages.all())
-        self._test_document_file_page = document_file.file_pages.first()
-        self._test_document_version = self._test_document.version_active
-        self._test_document_version_page = self._test_document_version.version_pages.first()
-
-        if document_file_attributes:
-            for key, value in document_file_attributes.items():
-                setattr(self._test_document_file, key, value)
-
-            self._test_document_file.save()
-
-        if document_version_attributes:
-            for key, value in document_version_attributes.items():
-                setattr(self._test_document_version, key, value)
-
-            self._test_document_version.save()
-
-
-class DocumentViewTestMixin:
-    def _request_test_document_list_view(self):
-        return self.get(viewname='documents:document_list')
+class DocumentViewTestMixin(DocumentTestMixin):
+    def _request_test_document_list_view(self, data=None):
+        return self.get(viewname='documents:document_list', data=data)
 
     def _request_test_document_preview_view(self):
         return self.get(
@@ -212,7 +229,7 @@ class DocumentViewTestMixin:
     def _request_test_document_print_form_view(self):
         return self.get(
             viewname='documents:document_print_form', kwargs={
-                'document_id': self._test_document.pk,
+                'document_id': self._test_document.pk
             }, data={
                 'page_group': PAGE_RANGE_ALL
             }
@@ -221,7 +238,7 @@ class DocumentViewTestMixin:
     def _request_test_document_print_view(self):
         return self.get(
             viewname='documents:document_print_view', kwargs={
-                'document_id': self._test_document.pk,
+                'document_id': self._test_document.pk
             }, query={
                 'page_group': PAGE_RANGE_ALL
             }

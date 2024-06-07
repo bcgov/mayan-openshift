@@ -14,7 +14,7 @@ logger = logging.getLogger(name=__name__)
 
 
 class WorkflowActionMessageSend(WorkflowAction):
-    fields = {
+    form_fields = {
         'username_list': {
             'label': _('Username list'),
             'class': 'mayan.apps.templating.fields.ModelTemplateField',
@@ -23,7 +23,7 @@ class WorkflowActionMessageSend(WorkflowAction):
                     format_lazy(
                         '{}. {}',
                         _(
-                            'Comma separated list of username that will '
+                            'Comma separated list of usernames that will '
                             'receive the message.'
                         ),
                         BASE_WORKFLOW_TEMPLATE_STATE_ACTION_HELP_TEXT
@@ -32,7 +32,7 @@ class WorkflowActionMessageSend(WorkflowAction):
                 'model': WorkflowInstance,
                 'model_variable': 'workflow_instance',
                 'required': True
-            },
+            }
         },
         'subject': {
             'label': _('Subject'),
@@ -42,14 +42,14 @@ class WorkflowActionMessageSend(WorkflowAction):
                     format_lazy(
                         '{}. {}',
                         _(
-                            'Topic of the message to be sent.'
+                            'Subject of the message to be sent.'
                         ), BASE_WORKFLOW_TEMPLATE_STATE_ACTION_HELP_TEXT
                     )
                 ),
                 'model': WorkflowInstance,
                 'model_variable': 'workflow_instance',
                 'required': True
-            },
+            }
         },
         'body': {
             'label': _('Body'),
@@ -66,11 +66,27 @@ class WorkflowActionMessageSend(WorkflowAction):
                 'model': WorkflowInstance,
                 'model_variable': 'workflow_instance',
                 'required': True
-            },
-        },
+            }
+        }
     }
-    field_order = ('username_list', 'subject', 'body')
     label = _('Send user message')
+
+    @classmethod
+    def get_form_fieldsets(cls):
+        fieldsets = super().get_form_fieldsets()
+
+        fieldsets += (
+            (
+                _('Recipients'), {
+                    'fields': ('username_list',)
+                },
+            ), (
+                _('Content'), {
+                    'fields': ('subject', 'body')
+                }
+            )
+        )
+        return fieldsets
 
     def execute(self, context):
         username_list = self.render_field(

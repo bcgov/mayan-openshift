@@ -18,13 +18,13 @@ class DocumentTypesQuotaMixin:
                     'class': 'django.forms.BooleanField', 'default': False,
                     'help_text': _(
                         'Apply to all document types. Enabling this, '
-                        'the quota will ignore the indiviual document type'
+                        'the quota will ignore the individual document type'
                         ' selection.'
                     ), 'required': False,
                 },
                 'document_type_ids': {
                     'label': _('Document types'),
-                    'class': 'mayan.apps.views.fields.FilteredModelMultipleChoiceField',
+                    'class': 'mayan.apps.views.fields.ModelFormFieldFilteredModelMultipleChoice',
                     'kwargs': {
                         'permission': permission_quota_edit,
                         'required': False,
@@ -51,7 +51,7 @@ class DocumentTypesQuotaMixin:
                     'kwargs': {
                         'attrs': {'class': 'select2', 'size': 10}
                     }
-                },
+                }
             }
         )
 
@@ -92,7 +92,7 @@ class GroupsUsersQuotaMixin:
             {
                 'group_ids': {
                     'label': _('Groups'),
-                    'class': 'mayan.apps.views.fields.FilteredModelMultipleChoiceField',
+                    'class': 'mayan.apps.views.fields.ModelFormFieldFilteredModelMultipleChoice',
                     'kwargs': {
                         'permission': permission_quota_edit,
                         'required': False,
@@ -109,11 +109,11 @@ class GroupsUsersQuotaMixin:
                         'excluding admins and staff. '
                         'Enabling this option, the quota will ignore the '
                         'indiviual user and group selection.'
-                    ), 'required': False,
+                    ), 'required': False
                 },
                 'user_ids': {
                     'label': _('Users'),
-                    'class': 'mayan.apps.views.fields.FilteredModelMultipleChoiceField',
+                    'class': 'mayan.apps.views.fields.ModelFormFieldFilteredModelMultipleChoice',
                     'kwargs': {
                         'permission': permission_quota_edit,
                         'required': False,

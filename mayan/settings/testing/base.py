@@ -1,4 +1,15 @@
+from tempfile import mkdtemp
+
 from .. import *  # NOQA
+
+MEDIA_ROOT_TEMPORARY = mkdtemp()
+MEDIA_ROOT = MEDIA_ROOT_TEMPORARY
+setting_namespace.get_setting(name='MEDIA_ROOT').set_value(
+    value=MEDIA_ROOT_TEMPORARY
+)
+setting_namespace.update_globals(
+    global_symbol_table=globals()
+)
 
 AUTHENTICATION_BACKEND = 'mayan.apps.authentication.authentication_backends.AuthenticationBackendModelDjangoDefault'
 
@@ -13,7 +24,7 @@ DOCUMENT_PARSING_AUTO_PARSING = False
 FILE_METADATA_AUTO_PROCESS = False
 
 INSTALLED_APPS = [
-    cls for cls in INSTALLED_APPS if cls != 'whitenoise.runserver_nostatic'
+    cls for cls in INSTALLED_APPS if cls != 'whitenoise.runserver_nostatic'  # NOQA: F405
 ]
 
 LOGGING_LOG_FILE_PATH = '/tmp/mayan-errors.log'
@@ -23,7 +34,7 @@ LOGGING_LEVEL = 'WARNING'
 # Remove whitenoise from middlewares. Causes out of memory errors during test
 # suit.
 MIDDLEWARE = [
-    cls for cls in MIDDLEWARE if cls not in [
+    cls for cls in MIDDLEWARE if cls not in [  # NOQA: F405
         'common.middleware.error_logging.ErrorLoggingMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'corsheaders.middleware.CorsMiddleware',
@@ -42,7 +53,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
 
-SEARCH_BACKEND = 'mayan.apps.dynamic_search.tests.backends.TestSearchBackend'
+SEARCH_BACKEND = 'mayan.apps.dynamic_search.tests.backends.TestSearchBackendProxy'
 
 STATICFILES_STORAGE = None
 

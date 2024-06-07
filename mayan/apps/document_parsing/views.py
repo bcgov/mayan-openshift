@@ -13,40 +13,39 @@ from mayan.apps.views.generics import (
     FormView, MultipleObjectConfirmActionView, MultipleObjectDeleteView,
     SingleObjectDetailView, SingleObjectDownloadView, SingleObjectEditView
 )
-from mayan.apps.views.mixins import ExternalObjectViewMixin
+from mayan.apps.views.view_mixins import ExternalObjectViewMixin
 
 from .forms import DocumentFileContentForm, DocumentFilePageContentForm
 from .icons import (
     icon_document_file_content_single_delete,
-    icon_document_file_content_detail,
-    icon_document_file_content_download,
+    icon_document_file_content_detail, icon_document_file_content_download,
     icon_document_file_parsing_single_submit,
     icon_document_file_page_content_detail,
-    icon_document_type_parsing_settings,
-    icon_document_type_parsing_submit
+    icon_document_type_parsing_settings, icon_document_type_parsing_submit
 )
 from .models import DocumentFilePageContent
 from .permissions import (
-    permission_document_file_content_view, permission_document_type_parsing_setup,
-    permission_document_file_parse
+    permission_document_file_content_view,
+    permission_document_type_parsing_setup, permission_document_file_parse
 )
 
 
 class DocumentFileContentDeleteView(MultipleObjectDeleteView):
     error_message = _(
-        'Error deleting document version content "%(instance)s"; %(exception)s'
+        'Error deleting document version content "%(instance)s"; '
+        '%(exception)s'
     )
     object_permission = permission_document_file_parse
     pk_url_kwarg = 'document_file_id'
     source_queryset = DocumentFile.valid.all()
+    success_message_plural = _(
+        'Content of %(count)d document versions deleted successfully.'
+    )
     success_message_single = _(
         'Content of "%(object)s" deleted successfully.'
     )
     success_message_singular = _(
         'Content of %(count)d document version deleted successfully.'
-    )
-    success_message_plural = _(
-        'Content of %(count)d document versions deleted successfully.'
     )
     title_single = _('Delete the content of: %(object)s.')
     title_singular = _(
@@ -116,13 +115,13 @@ class DocumentFilePageContentView(SingleObjectDetailView):
         return {
             'hide_labels': True,
             'object': self.object,
-            'title': _('Content for document file page: %s') % self.object,
+            'title': _('Content for document file page: %s') % self.object
         }
 
     def get_source_queryset(self):
-        document_file_queryset = DocumentFile.valid.all()
+        queryset_document_files = DocumentFile.valid.all()
         return DocumentFilePage.objects.filter(
-            document_file_id__in=document_file_queryset.values('pk')
+            document_file_id__in=queryset_document_files.values('pk')
         )
 
 
@@ -147,7 +146,7 @@ class DocumentFileSubmitView(MultipleObjectConfirmActionView):
                 plural='Submit %(count)d documents files to the parsing queue?',
                 number=queryset.count()
             ) % {
-                'count': queryset.count(),
+                'count': queryset.count()
             }
         }
 
@@ -164,10 +163,12 @@ class DocumentFileSubmitView(MultipleObjectConfirmActionView):
         return result
 
     def object_action(self, instance, form=None):
-        instance.submit_for_parsing(_user=self.request.user)
+        instance.submit_for_parsing(user=self.request.user)
 
 
-class DocumentTypeSettingsEditView(ExternalObjectViewMixin, SingleObjectEditView):
+class DocumentTypeSettingsEditView(
+    ExternalObjectViewMixin, SingleObjectEditView
+):
     external_object_class = DocumentType
     external_object_permission = permission_document_type_parsing_setup
     external_object_pk_url_kwarg = 'document_type_id'
@@ -211,15 +212,17 @@ class DocumentTypeSubmitView(FormView):
         count = 0
         for document_type in form.cleaned_data['document_type']:
             for document in document_type.documents.all():
-                document.submit_for_parsing(_user=self.request.user)
+                document.submit_for_parsing(user=self.request.user)
                 count += 1
 
         messages.success(
             message=_(
                 '%(count)d documents added to the parsing queue.'
             ) % {
-                'count': count,
+                'count': count
             }, request=self.request
         )
 
-        return HttpResponseRedirect(redirect_to=self.get_success_url())
+        return HttpResponseRedirect(
+            redirect_to=self.get_success_url()
+        )

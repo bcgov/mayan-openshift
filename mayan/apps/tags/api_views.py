@@ -1,4 +1,4 @@
-from mayan.apps.documents.models import Document
+from mayan.apps.documents.models.document_models import Document
 from mayan.apps.documents.permissions import permission_document_view
 from mayan.apps.documents.serializers.document_serializers import (
     DocumentSerializer
@@ -12,8 +12,7 @@ from .permissions import (
     permission_tag_edit, permission_tag_remove, permission_tag_view
 )
 from .serializers import (
-    DocumentTagAttachSerializer, DocumentTagRemoveSerializer,
-    TagSerializer
+    DocumentTagAttachSerializer, DocumentTagRemoveSerializer, TagSerializer
 )
 
 
@@ -31,8 +30,8 @@ class APITagDetailView(generics.RetrieveUpdateDestroyAPIView):
         'PATCH': (permission_tag_edit,),
         'PUT': (permission_tag_edit,)
     }
-    queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    source_queryset = Tag.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -45,11 +44,15 @@ class APITagListView(generics.ListCreateAPIView):
     get: Returns a list of all the tags.
     post: Create a new tag.
     """
-    mayan_object_permissions = {'GET': (permission_tag_view,)}
-    mayan_view_permissions = {'POST': (permission_tag_create,)}
+    mayan_object_permissions = {
+        'GET': (permission_tag_view,)
+    }
+    mayan_view_permissions = {
+        'POST': (permission_tag_create,)
+    }
     ordering_fields = ('id', 'label')
-    queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    source_queryset = Tag.objects.all()
 
     def get_instance_extra_data(self):
         return {
@@ -65,13 +68,17 @@ class APITagDocumentListView(
     """
     external_object_class = Tag
     external_object_pk_url_kwarg = 'tag_id'
-    mayan_external_object_permissions = {'GET': (permission_tag_view,)}
-    mayan_object_permissions = {'GET': (permission_document_view,)}
+    mayan_external_object_permissions = {
+        'GET': (permission_tag_view,)
+    }
+    mayan_object_permissions = {
+        'GET': (permission_document_view,)
+    }
     serializer_class = DocumentSerializer
 
-    def get_queryset(self):
+    def get_source_queryset(self):
         return Document.valid.filter(
-            pk__in=self.external_object.documents.only('pk')
+            pk__in=self.get_external_object().documents.only('pk')
         )
 
 
@@ -84,12 +91,11 @@ class APIDocumentTagAttachView(generics.ObjectActionAPIView):
         'POST': (permission_tag_attach,)
     }
     serializer_class = DocumentTagAttachSerializer
-    queryset = Document.valid.all()
+    source_queryset = Document.valid.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         tag = serializer.validated_data['tag']
-        tag._event_actor = self.request.user
-        tag.attach_to(document=self.object)
+        tag.attach_to(document=obj, user=self.request.user)
 
 
 class APIDocumentTagRemoveView(generics.ObjectActionAPIView):
@@ -101,12 +107,11 @@ class APIDocumentTagRemoveView(generics.ObjectActionAPIView):
         'POST': (permission_tag_remove,)
     }
     serializer_class = DocumentTagRemoveSerializer
-    queryset = Document.valid.all()
+    source_queryset = Document.valid.all()
 
-    def object_action(self, request, serializer):
+    def object_action(self, obj, request, serializer):
         tag = serializer.validated_data['tag']
-        tag._event_actor = self.request.user
-        tag.remove_from(document=self.object)
+        tag.remove_from(document=obj, user=self.request.user)
 
 
 class APIDocumentTagListView(
@@ -121,9 +126,9 @@ class APIDocumentTagListView(
         'GET': (permission_tag_view,)
     }
     mayan_object_permissions = {
-        'GET': (permission_tag_view,),
+        'GET': (permission_tag_view,)
     }
     serializer_class = TagSerializer
 
-    def get_queryset(self):
-        return self.external_object.tags.all()
+    def get_source_queryset(self):
+        return self.get_external_object().tags.all()

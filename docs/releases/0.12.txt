@@ -3,7 +3,7 @@ Version 0.12
 
 *February 2012*
 
-This release commemorates Mayan EDMS first aniversary!
+This release commemorates Mayan EDMS first anniversary!
 
 Overview
 --------
@@ -19,17 +19,17 @@ most of these are not visible to the end user, but make the code cleaner
 and more manageable so that more and better features can be added in future
 releases:
 
-* Absolute imports used throught the code
+* Absolute imports used through the code
 * All app permissions have been move to a separate permissions.py file
   per app
 * Complete permission system refactor.
 * Document signing code moved to it's own app
 * Initial unit tests
-* A lot of logging used throught the entire project.
+* A lot of logging used through the entire project.
 * Much functionality moved to model managers.
 * A lot of code converted into classes.
 * Coding style improvements.
-* Template user authentication state logic improvements, for stonger
+* Template user authentication state logic improvements, for stronger
   prevention against intrusion or unintentional display or access
   of restricted data.
 * Removal of remarked code.
@@ -45,12 +45,12 @@ ACL support
   tags and smart links.  What this means is that administrators can now
   grant permissions to users, groups or roles on for specific objects.
   A more in-depth explanation of how this new ACL system can be found in
-  the :doc:`3 tier access control <../chapters/permissions>` section of the
+  the :ref:`3 tier access control<apps-permissions>` section of the
   permissions chapter.
 
 * Default class ACL support.  Administrators can setup the access control
-  lists that new documents, folders and tags will automatically inheric
-  when created.  Aside from asigning permission to users, groups and roles
+  lists that new documents, folders and tags will automatically inherit
+  when created.  Aside from assigning permission to users, groups and roles
   to specific objects, there is a special user called `Creator`, use to
   allow the access control list that the actual creator of an object will
   inherit.
@@ -120,7 +120,7 @@ in the Initial data loading chapter.
 Refactored document indexing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:doc:`The document indexing  <../chapters/indexes/index>` functionality has been
+:ref:`The document indexing<apps-document_indexing>` functionality has been
 improved and moved from experimental
 stage to beta stage.  Index configuration menus are now available on the
 ``Setup`` menu and allows administrators to create skeleton trees that will

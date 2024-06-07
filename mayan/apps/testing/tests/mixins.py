@@ -15,13 +15,14 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection, connections, models
+from django.db.models import Q
 from django.db.models.signals import post_save, pre_save
 from django.http import HttpResponse
 from django.http.response import FileResponse
 from django.template import Context, Template
 from django.test.utils import ContextList
 from django.urls import clear_url_caches, reverse
-from django.utils.encoding import DjangoUnicodeDecodeError, force_text
+from django.utils.encoding import force_bytes
 
 from stronghold.decorators import public
 
@@ -47,7 +48,9 @@ class ClientMethodsTestCaseMixin:
         path = furl(url=path)
         path.args.update(query)
 
-        result = {'follow': follow, 'data': data, 'path': path.tostr()}
+        result = {
+            'follow': follow, 'data': data, 'path': path.tostr()
+        }
         result.update(headers)
         return result
 
@@ -98,7 +101,9 @@ class ConnectionsCheckTestCaseMixin:
     _open_connections_check_enable = True
 
     def _get_open_connections_count(self):
-        return len(connections.all())
+        return len(
+            connections.all()
+        )
 
     def setUp(self):
         super().setUp()
@@ -110,8 +115,8 @@ class ConnectionsCheckTestCaseMixin:
             self.assertEqual(
                 self._connections_count, self._get_open_connections_count(),
                 msg='Database connection leak. The number of database '
-                'connections at the start and at the end of the test are not '
-                'the same.'
+                'connections at the start and at the end of the test '
+                'are not the same.'
             )
 
         super().tearDown()
@@ -169,7 +174,9 @@ class DescriptorLeakCheckTestCaseMixin:
 
     def _get_process_descriptors(self):
         process = psutil.Process()._proc
-        return os.listdir("{}/{}/fd".format(process._procfs_path, process.pid))
+        return os.listdir(
+            path='{}/{}/fd'.format(process._procfs_path, process.pid)
+        )
 
     def setUp(self):
         super().setUp()
@@ -200,19 +207,19 @@ class DownloadTestCaseMixin:
         self, response, content=None, filename=None, is_attachment=None,
         mime_type=None
     ):
-        self.assertTrue(isinstance(response, FileResponse))
+        self.assertTrue(
+            isinstance(response, FileResponse)
+        )
 
         if filename:
             self.assertEqual(response.filename, filename)
 
         if content:
-            response_content = b''.join(list(response))
-
-            try:
-                response_content = force_text(s=response_content)
-            except DjangoUnicodeDecodeError:
-                """Leave as bytes"""
-
+            response_content = b''.join(
+                [
+                    force_bytes(s=block) for block in response
+                ]
+            )
             self.assertEqual(response_content, content)
 
         if is_attachment is not None:
@@ -271,10 +278,10 @@ class OpenFileCheckTestCaseMixin:
 
 
 class RandomPrimaryKeyModelMonkeyPatchMixin:
-    random_primary_key_random_floor = 100
-    random_primary_key_random_ceiling = 10000
-    random_primary_key_maximum_attempts = 100
     random_primary_key_enable = True
+    random_primary_key_maximum_attempts = 100
+    random_primary_key_random_ceiling = 10000
+    random_primary_key_random_floor = 100
 
     @staticmethod
     def get_unique_primary_key(model):
@@ -290,7 +297,7 @@ class RandomPrimaryKeyModelMonkeyPatchMixin:
             if not manager.filter(pk=primary_key).exists():
                 break
 
-            attempts = attempts + 1
+            attempts += 1
 
             if attempts > RandomPrimaryKeyModelMonkeyPatchMixin.random_primary_key_maximum_attempts:
                 raise ValueError(
@@ -307,11 +314,13 @@ class RandomPrimaryKeyModelMonkeyPatchMixin:
 
     def setUp(self):
         if self.random_primary_key_enable:
-            self.method_save_original = models.Model.save
+            self.method_original_save = models.Model.save
 
-            def method_save_new(instance, *args, **kwargs):
+            def method_new_save(instance, *args, **kwargs):
                 if instance.pk:
-                    return self.method_save_original(instance, *args, **kwargs)
+                    return self.method_original_save(
+                        instance, *args, **kwargs
+                    )
                 else:
                     # Set meta.auto_created to True to have the original save_base
                     # not send the pre_save signal which would normally send
@@ -324,8 +333,8 @@ class RandomPrimaryKeyModelMonkeyPatchMixin:
                     # This hack work with Django 1.11 .save_base() but can break
                     # in future versions if that method is updated.
                     pre_save.send(
-                        sender=instance.__class__, instance=instance, raw=False,
-                        update_fields=None,
+                        sender=instance.__class__, instance=instance,
+                        raw=False, update_fields=None
                     )
                     instance._meta.auto_created = True
                     instance.pk = RandomPrimaryKeyModelMonkeyPatchMixin.get_unique_primary_key(
@@ -339,18 +348,19 @@ class RandomPrimaryKeyModelMonkeyPatchMixin:
                     instance._meta.auto_created = False
 
                     post_save.send(
-                        sender=instance.__class__, instance=instance, created=True,
-                        update_fields=None, raw=False
+                        created=True, instance=instance, raw=False,
+                        sender=instance.__class__, update_fields=None
                     )
 
                     return result
 
-            setattr(models.Model, 'save', method_save_new)
+            setattr(models.Model, 'save', method_new_save)
+
         super().setUp()
 
     def tearDown(self):
         if self.random_primary_key_enable:
-            models.Model.save = self.method_save_original
+            models.Model.save = self.method_original_save
         super().tearDown()
 
 
@@ -492,7 +502,8 @@ class TestModelTestCaseMixin(ContentTypeTestCaseMixin, PermissionTestMixin):
         # Only attempt to delete if the model was not deleted as part
         # of the previous main test model deletion.
         TestModelTestCaseMixin._unregister_model(
-            app_label=model._meta.app_label, model_name=model._meta.model_name
+            app_label=model._meta.app_label,
+            model_name=model._meta.model_name
         )
 
         ContentType.objects.clear_cache()
@@ -658,6 +669,28 @@ class TestModelTestCaseMixin(ContentTypeTestCaseMixin, PermissionTestMixin):
         return Meta
 
 
+class TestMixinObjectCreationTrack:
+    _test_object_model = None
+    _test_object_name = None
+
+    def _test_object_set(self, test_object_name=None):
+        test_object_name = test_object_name or self._test_object_name
+
+        try:
+            _test_object = self._test_object_model.objects.get(
+                ~Q(pk__in=self._test_object_pk_list)
+            )
+        except self._test_object_model.DoesNotExist:
+            _test_object = None
+
+        setattr(self, test_object_name, _test_object)
+
+    def _test_object_track(self):
+        self._test_object_pk_list = list(
+            self._test_object_model.objects.values_list('pk', flat=True)
+        )
+
+
 class TestServerTestCaseMixin:
     def setUp(self):
         super().setUp()
@@ -714,11 +747,15 @@ class TestViewTestCaseMixin:
             # ContextList rather than RequestContext. Typecast to dictionary
             # before updating.
             result = dict(response.context).copy()
-            result.update({'request': response.wsgi_request})
+            result.update(
+                {'request': response.wsgi_request}
+            )
             context = Context(result)
         else:
             result = response.context or {}
-            result.update({'request': response.wsgi_request})
+            result.update(
+                {'request': response.wsgi_request}
+            )
             context = Context(result)
 
         context.request = response.wsgi_request
@@ -730,7 +767,9 @@ class TestViewTestCaseMixin:
             context = Context(
                 dict_={'object': test_object, 'resolved_object': test_object}
             )
-            return HttpResponse(content=template.render(context=context))
+            return HttpResponse(
+                content=template.render(context=context)
+            )
 
         if self.test_view_is_public:
             return public(function=test_view)
@@ -738,7 +777,9 @@ class TestViewTestCaseMixin:
             return test_view
 
     def _get_test_view_urlpatterns(self):
-        return importlib.import_module(settings.ROOT_URLCONF).urlpatterns
+        return importlib.import_module(
+            name=settings.ROOT_URLCONF
+        ).urlpatterns
 
     def add_test_view(
         self, test_object=None, test_view_factory=None, test_view_name=None,

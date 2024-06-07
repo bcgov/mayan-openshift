@@ -1,18 +1,16 @@
 from django.conf.urls import url
 
-from .views.document_views import MailDocumentLinkView
 from .views.document_file_views import (
-    MailDocumentFileLinkView, MailDocumentFileAttachmentView
+    MailDocumentFileAttachmentView, MailDocumentFileLinkView
 )
 from .views.document_version_views import (
-    MailDocumentVersionLinkView, MailDocumentVersionAttachmentView
+    MailDocumentVersionAttachmentView, MailDocumentVersionLinkView
 )
+from .views.document_views import MailDocumentLinkView
 from .views.mailing_profile_views import (
-    UserMailerBackendSelectionView, UserMailingCreateView,
-    UserMailingDeleteView, UserMailingEditView, UserMailerTestView,
-    UserMailerListView
+    UserMailerBackendSelectionView, UserMailerListView, UserMailerTestView,
+    UserMailingCreateView, UserMailingDeleteView, UserMailingEditView
 )
-
 
 urlpatterns_document = [
     url(
@@ -80,7 +78,7 @@ urlpatterns_user_mailers = [
         view=UserMailerBackendSelectionView.as_view()
     ),
     url(
-        regex=r'^user_mailers/(?P<class_path>[a-zA-Z0-9_.]+)/create/$',
+        regex=r'^user_mailers/(?P<backend_path>[a-zA-Z0-9_.]+)/create/$',
         name='user_mailer_create', view=UserMailingCreateView.as_view()
     ),
     url(
