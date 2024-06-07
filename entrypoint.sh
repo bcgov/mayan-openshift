@@ -190,15 +190,15 @@ run_frontend)
     exec /usr/local/bin/run_frontend.sh
     ;;
 
-run_initialsetup)
+run_initial_setup)
     initial_setup
     ;;
 
-run_performupgrade)
+run_perform_upgrade)
     perform_upgrade
     ;;
 
-run_initialsetup_or_performupgrade)
+run_initial_setup_or_perform_upgrade)
     make_ready
     ;;
 
