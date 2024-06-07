@@ -5,9 +5,20 @@
 #              Mayan EDMS.
 ####
 
-FROM debian:11.4-slim as base_image
+FROM debian:12.5-slim as base_image
 
+LABEL io.artifacthub.package.keywords="Python,Django,document management,OCR,PDF"
+LABEL io.artifacthub.package.readme-url="https://gitlab.com/mayan-edms/mayan-edms/-/raw/master/README.md"
 LABEL maintainer="Roberto Rosario roberto.rosario@mayan-edms.com"
+LABEL org.opencontainers.image.authors="Roberto Rosario roberto.rosario@mayan-edms.com, https://forum.mayan-edms.com"
+LABEL org.opencontainers.image.base.name="{{ DOCKER_LINUX_IMAGE_VERSION }}"
+LABEL org.opencontainers.image.description="Free Open Source Electronic Document Management System"
+LABEL org.opencontainers.image.documentation="https://docs.mayan-edms.com/chapters/docker/index.html"
+LABEL org.opencontainers.image.licenses="Apache-2.0"
+LABEL org.opencontainers.image.source="https://gitlab.com/mayan-edms/mayan-edms/-/blob/master/mayan/apps/platform/templates/platform/docker/dockerfile.tmpl"
+LABEL org.opencontainers.image.url="https://hub.docker.com/r/mayanedms/mayanedms"
+LABEL org.opencontainers.image.vendor="Roberto Rosario"
+LABEL org.opencontainers.image.title="Mayan EDMS"
 
 COPY config.env /config.env
 
@@ -20,7 +31,8 @@ ENV MAYAN_MEDIA_ROOT=/var/lib/mayan \
 
 # Debian package caching.
 ARG APT_PROXY
-RUN set -x \
+RUN --mount=type=cache,target=/var/cache/apt \
+  set -x \
   && if [ "${APT_PROXY}" ]; \
   then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy \
   ; fi \
@@ -29,32 +41,27 @@ RUN set -x \
   apt-get update \
   && apt-get install --no-install-recommends --yes \
   ca-certificates \
-  exiftool \
   file \
   fonts-arphic-uming \
   fonts-arphic-ukai \
   fonts-unfonts-core \
   fuse \
   ghostscript \
-  git-core \
+  git \
   gpgv \
   gnupg1 \
   graphviz \
   libarchive-zip-perl \
+  libfile-mimeinfo-perl \
+  libimage-exiftool-perl \
+  libmariadb3 \
+  libpq5 \
   libreoffice-calc-nogui \
   libreoffice-draw-nogui \
   libreoffice-impress-nogui \
   libreoffice-math-nogui \
   libreoffice-writer-nogui \
-  libfile-mimeinfo-perl \
-  libfuse2 \
-  libldap-2.4-2 \
-  libmagic1 \
-  libmariadb3 \
-  libpq5 \
-  libsasl2-2 \
   poppler-utils \
-  python3-distutils \
   sane-utils \
   sudo \
   supervisor \
@@ -116,7 +123,8 @@ COPY --chown=mayan:0 \
 COPY --chown=mayan:0 mayan /src/mayan
 
 # Install development packages needed to build the Python packages.
-RUN DEBIAN_FRONTEND=noninteractive \
+RUN --mount=type=cache,target=/var/cache/apt \
+  DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends --yes \
   default-libmysqlclient-dev \
   g++ \
