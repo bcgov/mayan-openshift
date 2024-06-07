@@ -40,29 +40,29 @@ RUN set -x \
   apt-get update \
   && apt-get install --no-install-recommends --yes \
   ca-certificates \
-  clamav \
+  exiftool \
   file \
   fonts-arphic-uming \
   fonts-arphic-ukai \
   fonts-unfonts-core \
   fuse \
   ghostscript \
-  git \
+  git-core \
   gpgv \
   gnupg1 \
   graphviz \
   libarchive-zip-perl \
-  libreoffice-calc-nogui \
-  libreoffice-draw-nogui \
-  libreoffice-impress-nogui \
-  libreoffice-math-nogui \
-  libreoffice-writer-nogui \
   libfile-mimeinfo-perl \
   libfuse2 \
   libldap-2.4-2 \
   libmagic1 \
   libmariadb3 \
   libpq5 \
+  libreoffice-calc-nogui \
+  libreoffice-draw-nogui \
+  libreoffice-impress-nogui \
+  libreoffice-math-nogui \
+  libreoffice-writer-nogui \
   libsasl2-2 \
   poppler-utils \
   sane-utils \
@@ -161,7 +161,7 @@ RUN set -a \
   pip==${PYTHON_PIP_VERSION} \
   amqp==${PYTHON_AMQP_VERSION} \
   mysqlclient==${PYTHON_MYSQL_VERSION} \
-  psycopg==${PYTHON_PSYCOPG_VERSION} \
+  psycopg2==${PYTHON_PSYCOPG2_VERSION} \
   redis==${PYTHON_REDIS_VERSION} \
   # psutil is needed by ARM builds otherwise gevent and gunicorn fail to start.
   && UNAME=`uname -m` && if [ "${UNAME#*arm}" != ${UNAME} ]; then \
