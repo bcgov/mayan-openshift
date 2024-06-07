@@ -55,32 +55,6 @@ pip_installs() {
     fi
 }
 
-update_uid_gid() {
-    result="$(any_to_bool ${MAYAN_COMMON_DISABLE_LOCAL_STORAGE})"
-
-    if [ "${result}" ]; then
-        echo "mayan: skipping uid and gid update."
-    else 
-        # Change the owner of the /var/lib/mayan always to allow adding the
-        # initial files. Top level only.
-        chown mayan:mayan ${MAYAN_MEDIA_ROOT}
-
-        echo "mayan: update_uid_gid()"
-        groupmod mayan --gid ${MAYAN_USER_GID} --non-unique
-        usermod mayan --uid ${MAYAN_USER_UID} --non-unique
-
-        if [ ${MAYAN_USER_UID} -ne ${DEFAULT_USER_UID} ] || [ ${MAYAN_USER_GID} -ne ${DEFAULT_USER_GID} ]; then
-            echo "mayan: Updating file ownership. This might take a while if there are many documents."
-            chown --recursive mayan:mayan ${MAYAN_INSTALL_DIR} ${MAYAN_STATIC_ROOT}
-            if [ "${MAYAN_SKIP_CHOWN_ON_STARTUP}" = "true" ]; then
-                echo "mayan: skipping chown on startup"
-            else
-                chown --recursive mayan:mayan ${MAYAN_MEDIA_ROOT}
-            fi
-        fi
-    fi
-}
-
 # Start execution here.
 echo "mayan: starting entrypoint.sh"
 INSTALL_FLAG=/var/lib/mayan/system/SECRET_KEY
@@ -116,34 +90,115 @@ export MAYAN_PIP_BIN=${MAYAN_PYTHON_BIN_DIR}pip
 export MAYAN_STATIC_ROOT=${MAYAN_INSTALL_DIR}/static
 
 # Setup worker environment variables.
-{% for worker in workers %}
-MAYAN_{{ worker.name|upper }}_CONCURRENCY=${MAYAN_{{ worker.name|upper }}_CONCURRENCY:-{{ worker.concurrency }}}
 
-if [ "$MAYAN_{{ worker.name|upper }}_CONCURRENCY" -eq 0 ]; then
-    MAYAN_{{ worker.name|upper }}_CONCURRENCY=
+MAYAN_WORKER_A_CONCURRENCY=${MAYAN_WORKER_A_CONCURRENCY:-0}
+
+if [ "$MAYAN_WORKER_A_CONCURRENCY" -eq 0 ]; then
+    MAYAN_WORKER_A_CONCURRENCY=
 else
-    MAYAN_{{ worker.name|upper }}_CONCURRENCY="${CELERY_CONCURRENCY_ARGUMENT}${MAYAN_{{ worker.name|upper }}_CONCURRENCY}"
+    MAYAN_WORKER_A_CONCURRENCY="${CELERY_CONCURRENCY_ARGUMENT}${MAYAN_WORKER_A_CONCURRENCY}"
 fi
-export MAYAN_{{ worker.name|upper }}_CONCURRENCY
+export MAYAN_WORKER_A_CONCURRENCY
 
-MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD=${MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD:-{{ worker.maximum_memory_per_child }}}
+MAYAN_WORKER_A_MAX_MEMORY_PER_CHILD=${MAYAN_WORKER_A_MAX_MEMORY_PER_CHILD:-300000}
 
-if [ "$MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD" -eq 0 ]; then
-    MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD=
+if [ "$MAYAN_WORKER_A_MAX_MEMORY_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_A_MAX_MEMORY_PER_CHILD=
 else
-    MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD="${CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT}${MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD}"
+    MAYAN_WORKER_A_MAX_MEMORY_PER_CHILD="${CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT}${MAYAN_WORKER_A_MAX_MEMORY_PER_CHILD}"
 fi
-export MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD
+export MAYAN_WORKER_A_MAX_MEMORY_PER_CHILD
 
-MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD=${MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD:-{{ worker.maximum_tasks_per_child }}}
+MAYAN_WORKER_A_MAX_TASKS_PER_CHILD=${MAYAN_WORKER_A_MAX_TASKS_PER_CHILD:-100}
 
-if [ "$MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD" -eq 0 ]; then
-    MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD=
+if [ "$MAYAN_WORKER_A_MAX_TASKS_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_A_MAX_TASKS_PER_CHILD=
 else
-    MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD="${CELERY_MAX_TASKS_PER_CHILD_ARGUMENT}${MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD}"
+    MAYAN_WORKER_A_MAX_TASKS_PER_CHILD="${CELERY_MAX_TASKS_PER_CHILD_ARGUMENT}${MAYAN_WORKER_A_MAX_TASKS_PER_CHILD}"
 fi
-export MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD
-{% endfor %}
+export MAYAN_WORKER_A_MAX_TASKS_PER_CHILD
+
+MAYAN_WORKER_B_CONCURRENCY=${MAYAN_WORKER_B_CONCURRENCY:-0}
+
+if [ "$MAYAN_WORKER_B_CONCURRENCY" -eq 0 ]; then
+    MAYAN_WORKER_B_CONCURRENCY=
+else
+    MAYAN_WORKER_B_CONCURRENCY="${CELERY_CONCURRENCY_ARGUMENT}${MAYAN_WORKER_B_CONCURRENCY}"
+fi
+export MAYAN_WORKER_B_CONCURRENCY
+
+MAYAN_WORKER_B_MAX_MEMORY_PER_CHILD=${MAYAN_WORKER_B_MAX_MEMORY_PER_CHILD:-300000}
+
+if [ "$MAYAN_WORKER_B_MAX_MEMORY_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_B_MAX_MEMORY_PER_CHILD=
+else
+    MAYAN_WORKER_B_MAX_MEMORY_PER_CHILD="${CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT}${MAYAN_WORKER_B_MAX_MEMORY_PER_CHILD}"
+fi
+export MAYAN_WORKER_B_MAX_MEMORY_PER_CHILD
+
+MAYAN_WORKER_B_MAX_TASKS_PER_CHILD=${MAYAN_WORKER_B_MAX_TASKS_PER_CHILD:-100}
+
+if [ "$MAYAN_WORKER_B_MAX_TASKS_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_B_MAX_TASKS_PER_CHILD=
+else
+    MAYAN_WORKER_B_MAX_TASKS_PER_CHILD="${CELERY_MAX_TASKS_PER_CHILD_ARGUMENT}${MAYAN_WORKER_B_MAX_TASKS_PER_CHILD}"
+fi
+export MAYAN_WORKER_B_MAX_TASKS_PER_CHILD
+
+MAYAN_WORKER_C_CONCURRENCY=${MAYAN_WORKER_C_CONCURRENCY:-0}
+
+if [ "$MAYAN_WORKER_C_CONCURRENCY" -eq 0 ]; then
+    MAYAN_WORKER_C_CONCURRENCY=
+else
+    MAYAN_WORKER_C_CONCURRENCY="${CELERY_CONCURRENCY_ARGUMENT}${MAYAN_WORKER_C_CONCURRENCY}"
+fi
+export MAYAN_WORKER_C_CONCURRENCY
+
+MAYAN_WORKER_C_MAX_MEMORY_PER_CHILD=${MAYAN_WORKER_C_MAX_MEMORY_PER_CHILD:-300000}
+
+if [ "$MAYAN_WORKER_C_MAX_MEMORY_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_C_MAX_MEMORY_PER_CHILD=
+else
+    MAYAN_WORKER_C_MAX_MEMORY_PER_CHILD="${CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT}${MAYAN_WORKER_C_MAX_MEMORY_PER_CHILD}"
+fi
+export MAYAN_WORKER_C_MAX_MEMORY_PER_CHILD
+
+MAYAN_WORKER_C_MAX_TASKS_PER_CHILD=${MAYAN_WORKER_C_MAX_TASKS_PER_CHILD:-100}
+
+if [ "$MAYAN_WORKER_C_MAX_TASKS_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_C_MAX_TASKS_PER_CHILD=
+else
+    MAYAN_WORKER_C_MAX_TASKS_PER_CHILD="${CELERY_MAX_TASKS_PER_CHILD_ARGUMENT}${MAYAN_WORKER_C_MAX_TASKS_PER_CHILD}"
+fi
+export MAYAN_WORKER_C_MAX_TASKS_PER_CHILD
+
+MAYAN_WORKER_D_CONCURRENCY=${MAYAN_WORKER_D_CONCURRENCY:-1}
+
+if [ "$MAYAN_WORKER_D_CONCURRENCY" -eq 0 ]; then
+    MAYAN_WORKER_D_CONCURRENCY=
+else
+    MAYAN_WORKER_D_CONCURRENCY="${CELERY_CONCURRENCY_ARGUMENT}${MAYAN_WORKER_D_CONCURRENCY}"
+fi
+export MAYAN_WORKER_D_CONCURRENCY
+
+MAYAN_WORKER_D_MAX_MEMORY_PER_CHILD=${MAYAN_WORKER_D_MAX_MEMORY_PER_CHILD:-300000}
+
+if [ "$MAYAN_WORKER_D_MAX_MEMORY_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_D_MAX_MEMORY_PER_CHILD=
+else
+    MAYAN_WORKER_D_MAX_MEMORY_PER_CHILD="${CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT}${MAYAN_WORKER_D_MAX_MEMORY_PER_CHILD}"
+fi
+export MAYAN_WORKER_D_MAX_MEMORY_PER_CHILD
+
+MAYAN_WORKER_D_MAX_TASKS_PER_CHILD=${MAYAN_WORKER_D_MAX_TASKS_PER_CHILD:-10}
+
+if [ "$MAYAN_WORKER_D_MAX_TASKS_PER_CHILD" -eq 0 ]; then
+    MAYAN_WORKER_D_MAX_TASKS_PER_CHILD=
+else
+    MAYAN_WORKER_D_MAX_TASKS_PER_CHILD="${CELERY_MAX_TASKS_PER_CHILD_ARGUMENT}${MAYAN_WORKER_D_MAX_TASKS_PER_CHILD}"
+fi
+export MAYAN_WORKER_D_MAX_TASKS_PER_CHILD
+
 
 if mount | grep '/dev/shm' > /dev/null; then
     export MAYAN_GUNICORN_TEMPORARY_DIRECTORY="--worker-tmp-dir /dev/shm"
@@ -159,7 +214,6 @@ if [ "${MAYAN_DOCKER_SCRIPT_PRE_SETUP}" ]; then
 fi
 
 ${MAYAN_PYTHON_BIN_DIR}python3 /usr/local/bin/wait.py ${MAYAN_DOCKER_WAIT}
-update_uid_gid
 os_package_installs || true
 pip_installs || true
 
