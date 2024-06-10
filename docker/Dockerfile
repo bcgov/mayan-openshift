@@ -234,6 +234,8 @@ RUN mkdir -p /var/lib/mayan \
   && fix_permissions /opt/mayan-edms/lib \
   && fix_permissions /opt/mayan-edms/bin \
   && fix_permissions /usr/local/bin/ \
+  && fix_permissions /usr/bin/ \
+  && fix_permissions /usr/share/ \
   && chmod 777 /usr/local/bin/entrypoint.sh \
   && sed -i 's/chmod=0700/chmod=0777/g' /etc/supervisor/supervisord.conf
 
