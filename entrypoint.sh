@@ -50,7 +50,7 @@ perform_upgrade() {
 pip_installs() {
     echo "mayan: pip_installs()"
     if [ "${MAYAN_PIP_INSTALLS}" ]; then
-        ${MAYAN_PIP_BIN} install $MAYAN_PIP_INSTALLS
+        ${MAYAN_PIP_BIN} install $MAYAN_PIP_INSTALLS --no-cache-dir
     fi
 }
 
