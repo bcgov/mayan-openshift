@@ -4,7 +4,7 @@ from mayan.apps.common.utils import parse_range
 
 from ...search_models import SearchModel
 from ...tasks import task_index_instances
-from ...settings import setting_disable_search
+from ...settings import setting_search_disable
 
 
 class Command(BaseCommand):
@@ -22,7 +22,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, model_name, id_range_string, **options):
-        if not setting_disable_search.value:
+        if not setting_search_disable.value:
             try:
                 search_model = SearchModel.get(name=model_name)
             except KeyError:

@@ -19,7 +19,7 @@ setting_namespace = setting_cluster.do_namespace_add(
     label=_(message='Search'), name='search'
 )
 
-setting_disable_search = setting_namespace.do_setting_add(
+setting_search_disable = setting_namespace.do_setting_add(
     choices=('false', 'true'),
     default=DEFAULT_SEARCH_DISABLE, global_name='SEARCH_DISABLE', help_text=_(
         message='Disable all search functionality.'

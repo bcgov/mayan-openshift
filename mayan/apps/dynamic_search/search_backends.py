@@ -14,7 +14,7 @@ from .literals import MESSAGE_FEATURE_NO_STATUS
 from .search_interpreters import SearchInterpreter
 from .search_models import SearchModel
 from .settings import (
-    setting_backend, setting_backend_arguments, setting_results_limit, setting_disable_search
+    setting_backend, setting_backend_arguments, setting_results_limit, setting_search_disable
 )
 
 logger = logging.getLogger(name=__name__)
@@ -195,7 +195,7 @@ class SearchBackend:
                     }
                     task_kwargs.update(exclude_kwargs)
 
-                    if not setting_disable_search.value:
+                    if not setting_search_disable.value:
                         task_index_instance.apply_async(
                             kwargs=task_kwargs
                         )
@@ -225,7 +225,7 @@ class SearchBackend:
                         }
                         task_kwargs.update(exclude_kwargs)
 
-                        if not setting_disable_search.value:
+                        if not setting_search_disable.value:
                             task_index_instance.apply_async(
                                 kwargs=task_kwargs
                             )
