@@ -4,6 +4,7 @@ from mayan.apps.common.utils import parse_range
 
 from ...search_models import SearchModel
 from ...tasks import task_index_instances
+from ...settings import setting_disable_search
 
 
 class Command(BaseCommand):
@@ -21,36 +22,37 @@ class Command(BaseCommand):
         )
 
     def handle(self, model_name, id_range_string, **options):
-        try:
-            search_model = SearchModel.get(name=model_name)
-        except KeyError:
-            self.stderr.write(
-                msg='Unknown search model `{}`'.format(model_name)
-            )
-            exit(1)
+        if not setting_disable_search.value:
+            try:
+                search_model = SearchModel.get(name=model_name)
+            except KeyError:
+                self.stderr.write(
+                    msg='Unknown search model `{}`'.format(model_name)
+                )
+                exit(1)
 
-        try:
-            id_range = parse_range(range_string=id_range_string)
-        except Exception as exception:
-            self.stderr.write(
-                msg='Unknown or invalid range format `{}`; {}'.format(
-                    id_range_string, exception
+            try:
+                id_range = parse_range(range_string=id_range_string)
+            except Exception as exception:
+                self.stderr.write(
+                    msg='Unknown or invalid range format `{}`; {}'.format(
+                        id_range_string, exception
+                    )
+                )
+                exit(1)
+
+            for id_list in search_model.get_id_groups(range_string=id_range_string):
+                task_index_instances.apply_async(
+                    kwargs={
+                        'id_list': id_list,
+                        'search_model_full_name': search_model.full_name
+                    }
+                )
+
+            self.stdout.write(
+                msg='\nInstances queued for indexing: {}'.format(
+                    len(
+                        list(id_range)
+                    )
                 )
             )
-            exit(1)
-
-        for id_list in search_model.get_id_groups(range_string=id_range_string):
-            task_index_instances.apply_async(
-                kwargs={
-                    'id_list': id_list,
-                    'search_model_full_name': search_model.full_name
-                }
-            )
-
-        self.stdout.write(
-            msg='\nInstances queued for indexing: {}'.format(
-                len(
-                    list(id_range)
-                )
-            )
-        )

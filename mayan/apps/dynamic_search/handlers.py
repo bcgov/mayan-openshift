@@ -8,75 +8,78 @@ from .tasks import (
     task_deindex_instance, task_index_instance,
     task_index_related_instance_m2m
 )
-
+from .settings import setting_disable_search
 
 def handler_deindex_instance(sender, **kwargs):
     instance = kwargs['instance']
 
-    task_deindex_instance.apply_async(
-        kwargs={
-            'app_label': instance._meta.app_label,
-            'model_name': instance._meta.model_name,
-            'object_id': instance.pk
-        }
-    )
+    if not setting_disable_search.value:
+        task_deindex_instance.apply_async(
+            kwargs={
+                'app_label': instance._meta.app_label,
+                'model_name': instance._meta.model_name,
+                'object_id': instance.pk
+            }
+        )
 
 
 def handler_factory_index_related_instance_delete(reverse_field_path):
     def handler_index_by_related_to_delete_instance(sender, **kwargs):
-        related_instance = kwargs['instance']
+        if not setting_disable_search.value:
+            related_instance = kwargs['instance']
 
-        result = ResolverPipelineModelAttribute.resolve(
-            attribute=reverse_field_path, obj=related_instance
-        )
-
-        entries = flatten_list(value=result)
-
-        def call_task(instance):
-            task_index_instance.apply_async(
-                kwargs={
-                    'app_label': instance._meta.app_label,
-                    'exclude_app_label': related_instance._meta.app_label,
-                    'exclude_kwargs': {'id': related_instance.pk},
-                    'exclude_model_name': related_instance._meta.model_name,
-                    'model_name': instance._meta.model_name,
-                    'object_id': instance.pk
-                }
+            result = ResolverPipelineModelAttribute.resolve(
+                attribute=reverse_field_path, obj=related_instance
             )
 
-        if isinstance(entries, Iterable):
-            for instance in entries:
-                call_task(instance=instance)
-        else:
-            call_task(instance=result)
+            entries = flatten_list(value=result)
+
+            def call_task(instance):
+                task_index_instance.apply_async(
+                    kwargs={
+                        'app_label': instance._meta.app_label,
+                        'exclude_app_label': related_instance._meta.app_label,
+                        'exclude_kwargs': {'id': related_instance.pk},
+                        'exclude_model_name': related_instance._meta.model_name,
+                        'model_name': instance._meta.model_name,
+                        'object_id': instance.pk
+                    }
+                )
+
+            if isinstance(entries, Iterable):
+                for instance in entries:
+                    call_task(instance=instance)
+            else:
+                call_task(instance=result)
 
     return handler_index_by_related_to_delete_instance
 
 
 def handler_factory_index_related_instance_save(reverse_field_path):
     def handler_index_by_related_instance(sender, **kwargs):
-        related_instance = kwargs['instance']
+        if not setting_disable_search.value:
+            related_instance = kwargs['instance']
 
-        result = ResolverPipelineModelAttribute.resolve(
-            attribute=reverse_field_path, obj=related_instance
-        )
-
-        entries = flatten_list(value=result)
-
-        def call_task(instance):
-            task_index_instance.apply_async(
-                kwargs={
-                    'app_label': instance._meta.app_label,
-                    'model_name': instance._meta.model_name,
-                    'object_id': instance.pk
-                }
+            result = ResolverPipelineModelAttribute.resolve(
+                attribute=reverse_field_path, obj=related_instance
             )
 
-        if isinstance(entries, Iterable):
-            for instance in entries:
-                call_task(instance=instance)
-        else:
-            call_task(instance=result)
+            entries = flatten_list(value=result)
+
+            def call_task(instance):
+                task_index_instance.apply_async(
+                    kwargs={
+                        'app_label': instance._meta.app_label,
+                        'model_name': instance._meta.model_name,
+                        'object_id': instance.pk
+                    }
+                )
+
+            if isinstance(entries, Iterable):
+                for instance in entries:
+                    call_task(instance=instance)
+            else:
+                call_task(instance=result)
 
     return handler_index_by_related_instance
 
@@ -107,10 +110,10 @@ def handler_factory_index_related_instance_m2m(data):
             ),
             'serialized_search_model_related_paths': serialized_search_model_related_paths
         }
-
-        task_index_related_instance_m2m.apply_async(
-            kwargs=kwargs
-        )
+        if not setting_disable_search.value:
+            task_index_related_instance_m2m.apply_async(
+                kwargs=kwargs
+            )
 
     return handler_index_related_instance_m2m
 
@@ -118,13 +121,14 @@ def handler_factory_index_related_instance_m2m(data):
 def handler_index_instance(sender, **kwargs):
     instance = kwargs['instance']
 
-    task_index_instance.apply_async(
-        kwargs={
-            'app_label': instance._meta.app_label,
-            'model_name': instance._meta.model_name,
-            'object_id': instance.pk
-        }
-    )
+    if not setting_disable_search.value:
+        task_index_instance.apply_async(
+            kwargs={
+                'app_label': instance._meta.app_label,
+                'model_name': instance._meta.model_name,
+                'object_id': instance.pk
+            }
+        )
 
 
 def handler_search_backend_initialize(sender, **kwargs):

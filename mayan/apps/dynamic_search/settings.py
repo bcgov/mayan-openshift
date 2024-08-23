@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from mayan.apps.smart_settings.settings import setting_cluster
 
 from .literals import (
-    DEFAULT_SEARCH_BACKEND, DEFAULT_SEARCH_BACKEND_ARGUMENTS,
+    DEFAULT_SEARCH_DISABLE, DEFAULT_SEARCH_BACKEND, DEFAULT_SEARCH_BACKEND_ARGUMENTS,
     DEFAULT_SEARCH_DEFAULT_OPERATOR, DEFAULT_SEARCH_DISABLE_SIMPLE_SEARCH,
     DEFAULT_SEARCH_INDEXING_CHUNK_SIZE,
     DEFAULT_SEARCH_MATCH_ALL_DEFAULT_VALUE,
@@ -19,6 +19,12 @@ setting_namespace = setting_cluster.do_namespace_add(
     label=_(message='Search'), name='search'
 )
 
+setting_disable_search = setting_namespace.do_setting_add(
+    choices=('false', 'true'),
+    default=DEFAULT_SEARCH_DISABLE, global_name='SEARCH_DISABLE', help_text=_(
+        message='Disable all search functionality.'
+    )
+)
 setting_backend = setting_namespace.do_setting_add(
     default=DEFAULT_SEARCH_BACKEND, global_name='SEARCH_BACKEND', help_text=_(
         message='Full path to the backend to be used to handle the search.'
