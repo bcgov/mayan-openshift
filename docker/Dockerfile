@@ -67,6 +67,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
   supervisor \
   tesseract-ocr \
   procps \
+  tini \
   # Remove make and build dependencies.
   && apt-get remove --purge --yes \
   libproxy-tools \
@@ -241,7 +242,7 @@ RUN mkdir -p /var/lib/mayan \
 
 VOLUME ["/var/lib/mayan"]
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 
 EXPOSE 8000
 CMD ["run_all"]
