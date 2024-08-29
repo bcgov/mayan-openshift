@@ -3,6 +3,15 @@
 # -e  Exit immediately if a command exits with a non-zero status.
 set -e
 
+any_to_bool () {
+    local argument="$(echo ${1} | tr '[:upper:]' '[:lower:]')"
+
+    if [ "${argument}" = true ] || [ "${argument}" = t ] || [ "${argument}" = yes ] || [ "${argument}" = y ] || [ "${argument}" = 1 ]; then
+        local function_result=True
+        echo "$function_result"
+    fi
+}
+
 apt_get_install() {
     apt-get update
     apt-get install --auto-remove --force-yes --no-install-recommends --yes "$@"
@@ -10,10 +19,10 @@ apt_get_install() {
     rm --force --recursive /var/lib/apt/lists/*
 }
 
-initialsetup() {
-    echo "mayan: initialsetup()"
+initial_setup() {
+    echo "mayan: initial_setup()"
 
-    ${MAYAN_BIN} initialsetup --force --no-dependencies
+    ${MAYAN_BIN} common_initial_setup --force --no-dependencies
 }
 
 make_ready() {
@@ -33,15 +42,41 @@ os_package_installs() {
     fi
 }
 
-performupgrade() {
-    echo "mayan: performupgrade()"
-    ${MAYAN_BIN} performupgrade --no-dependencies
+perform_upgrade() {
+    echo "mayan: perform_upgrade()"
+    ${MAYAN_BIN} common_perform_upgrade --no-dependencies
 }
 
 pip_installs() {
     echo "mayan: pip_installs()"
     if [ "${MAYAN_PIP_INSTALLS}" ]; then
         ${MAYAN_PIP_BIN} install $MAYAN_PIP_INSTALLS
+    fi
+}
+
+update_uid_gid() {
+    result="$(any_to_bool ${MAYAN_COMMON_DISABLE_LOCAL_STORAGE})"
+
+    if [ "${result}" ]; then
+        echo "mayan: skipping uid and gid update."
+    else
+        # Change the owner of the /var/lib/mayan always to allow adding the
+        # initial files. Top level only.
+        chown mayan:mayan ${MAYAN_MEDIA_ROOT}
+
+        echo "mayan: update_uid_gid()"
+        groupmod mayan --gid ${MAYAN_USER_GID} --non-unique
+        usermod mayan --uid ${MAYAN_USER_UID} --non-unique
+
+        if [ ${MAYAN_USER_UID} -ne ${DEFAULT_USER_UID} ] || [ ${MAYAN_USER_GID} -ne ${DEFAULT_USER_GID} ]; then
+            echo "mayan: Updating file ownership. This might take a while if there are many documents."
+            chown --recursive mayan:mayan ${MAYAN_INSTALL_DIR} ${MAYAN_STATIC_ROOT}
+            if [ "${MAYAN_SKIP_CHOWN_ON_STARTUP}" = "true" ]; then
+                echo "mayan: skipping chown on startup"
+            else
+                chown --recursive mayan:mayan ${MAYAN_MEDIA_ROOT}
+            fi
+        fi
     fi
 }
 
@@ -70,12 +105,6 @@ export MAYAN_SETTINGS_MODULE=${MAYAN_SETTINGS_MODULE:-mayan.settings.production}
 export DJANGO_SETTINGS_MODULE=${MAYAN_SETTINGS_MODULE}
 
 export MAYAN_GUNICORN_BIN=${MAYAN_PYTHON_BIN_DIR}gunicorn
-export MAYAN_GUNICORN_REQUESTS_JITTER=${MAYAN_GUNICORN_REQUESTS_JITTER:-50}
-export MAYAN_GUNICORN_LIMIT_REQUEST_LINE=${MAYAN_GUNICORN_LIMIT_REQUEST_LINE:-4094}
-export MAYAN_GUNICORN_MAX_REQUESTS=${MAYAN_GUNICORN_MAX_REQUESTS:-500}
-export MAYAN_GUNICORN_WORKER_CLASS=${MAYAN_GUNICORN_WORKER_CLASS:-sync}
-export MAYAN_GUNICORN_WORKERS=${MAYAN_GUNICORN_WORKERS:-3}
-export MAYAN_GUNICORN_TIMEOUT=${MAYAN_GUNICORN_TIMEOUT:-120}
 export MAYAN_PIP_BIN=${MAYAN_PYTHON_BIN_DIR}pip
 export MAYAN_STATIC_ROOT=${MAYAN_INSTALL_DIR}/static
 
@@ -232,15 +261,15 @@ run_frontend)
     exec /usr/local/bin/run_frontend.sh
     ;;
 
-run_initialsetup)
-    initialsetup
+run_initial_setup)
+    initial_setup
     ;;
 
-run_performupgrade)
-    performupgrade
+run_perform_upgrade)
+    perform_upgrade
     ;;
 
-run_initialsetup_or_performupgrade)
+run_initial_setup_or_perform_upgrade)
     make_ready
     ;;
 

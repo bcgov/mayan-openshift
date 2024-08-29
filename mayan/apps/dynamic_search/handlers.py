@@ -8,10 +8,13 @@ from .tasks import (
     task_deindex_instance, task_index_instance,
     task_index_related_instance_m2m
 )
-
+from .settings import setting_search_disable
 
 def handler_deindex_instance(sender, **kwargs):
     instance = kwargs['instance']
+
+    if not setting_search_disable.value:
+        return;
 
     task_deindex_instance.apply_async(
         kwargs={
@@ -24,6 +27,8 @@ def handler_deindex_instance(sender, **kwargs):
 
 def handler_factory_index_related_instance_delete(reverse_field_path):
     def handler_index_by_related_to_delete_instance(sender, **kwargs):
+        if not setting_search_disable.value:
+            return;
         related_instance = kwargs['instance']
 
         result = ResolverPipelineModelAttribute.resolve(
@@ -55,6 +60,8 @@ def handler_factory_index_related_instance_delete(reverse_field_path):
 
 def handler_factory_index_related_instance_save(reverse_field_path):
     def handler_index_by_related_instance(sender, **kwargs):
+        if not setting_search_disable.value:
+            return;
         related_instance = kwargs['instance']
 
         result = ResolverPipelineModelAttribute.resolve(
@@ -107,7 +114,8 @@ def handler_factory_index_related_instance_m2m(data):
             ),
             'serialized_search_model_related_paths': serialized_search_model_related_paths
         }
-
+        if not setting_search_disable.value:
+            return;
         task_index_related_instance_m2m.apply_async(
             kwargs=kwargs
         )
@@ -117,6 +125,9 @@ def handler_factory_index_related_instance_m2m(data):
 
 def handler_index_instance(sender, **kwargs):
     instance = kwargs['instance']
+
+    if not setting_search_disable.value:
+        return;
 
     task_index_instance.apply_async(
         kwargs={
