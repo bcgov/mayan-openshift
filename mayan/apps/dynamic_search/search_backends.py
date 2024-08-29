@@ -14,7 +14,7 @@ from .literals import MESSAGE_FEATURE_NO_STATUS
 from .search_interpreters import SearchInterpreter
 from .search_models import SearchModel
 from .settings import (
-    setting_backend, setting_backend_arguments, setting_results_limit
+    setting_backend, setting_backend_arguments, setting_results_limit, setting_search_disable
 )
 
 logger = logging.getLogger(name=__name__)
@@ -195,9 +195,10 @@ class SearchBackend:
                     }
                     task_kwargs.update(exclude_kwargs)
 
-                    task_index_instance.apply_async(
-                        kwargs=task_kwargs
-                    )
+                    if not setting_search_disable.value:
+                        task_index_instance.apply_async(
+                            kwargs=task_kwargs
+                        )
 
             if action == 'pre_remove':
                 exclude_kwargs = {
@@ -224,9 +225,10 @@ class SearchBackend:
                         }
                         task_kwargs.update(exclude_kwargs)
 
-                        task_index_instance.apply_async(
-                            kwargs=task_kwargs
-                        )
+                        if not setting_search_disable.value:
+                            task_index_instance.apply_async(
+                                kwargs=task_kwargs
+                            )
 
     def __init__(self, _test_mode=False):
         self._test_mode = _test_mode
