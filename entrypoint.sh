@@ -29,9 +29,9 @@ make_ready() {
     # Check if this is a new install, otherwise try to upgrade the existing
     # installation on subsequent starts.
     if [ ! -f $INSTALL_FLAG ]; then
-        initialsetup
+        initial_setup
     else
-        performupgrade
+        perform_upgrade
     fi
 }
 
