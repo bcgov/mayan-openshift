@@ -38,6 +38,7 @@
   - importlib-metadata from 7.0.2 to 7.2.1
   - jsonschema from 4.21.1 to 4.25.1
   - mozilla-django-oidc from 3.0.0 to 4.0.1
+  - psutil from 5.8.0 to 5.9.8
   - pycryptodome from 3.20.0 to 3.23.0
   - pypdf from 3.17.4 to 6.1.3
   - python_gnupg from 0.4.9 to 0.5.5
@@ -49,6 +50,7 @@
 
 - Silence document indexing error during checkout test to avoid confusion.
 - Split the file metadata app views tests and test mixins modules.
+- Retrieve the `psutil` version from the `config.env` file.
 
 4.6.10 (2025-09-24)
 ===================

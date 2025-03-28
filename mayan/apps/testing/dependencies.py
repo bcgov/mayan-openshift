@@ -31,7 +31,3 @@ PythonDependency(
     environment=environment_testing, module=__name__, name='tox',
     version_string='==3.27.0'
 )
-PythonDependency(
-    environment=environment_testing, module=__name__, name='psutil',
-    version_string='==5.9.8'
-)
