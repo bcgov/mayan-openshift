@@ -40,6 +40,8 @@
   - swagger-spec-validator from 3.0.3 to 3.0.4
   - whitenoise from 6.6.0 to 6.11.0
 
+- Silence document indexing error during checkout test to avoid confusion.
+
 4.6.10 (2025-09-24)
 ===================
 - Fix base search class `_search` interface.
