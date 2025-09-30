@@ -26,7 +26,7 @@
 - Update dependency version:
 
   - devpi-server from 6.5.0 to 6.17.0
-  - django from 4.2.23 to 4.2.24
+  - django from 4.2.23 to 4.2.24 (CVE-2025-57833)
   - ipython from 8.21.0 to 9.5.0
   - packaging from 21.3 to 25.0
   - pip from 24.3 to 25.2
