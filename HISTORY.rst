@@ -2,13 +2,20 @@
 ===================
 - Add new languages, and language variants.
 
-  - Tibetan
-  - Spanish (Ecuador)
-  - Persian (Iran)
+  - Armenian (Armenia)
+  - Bulgarian (Bulgaria)
   - French (France)
+  - German
+  - Greek (Greece)
   - Hungarian (Slovakia)
   - Hungarian (Hungary)
-  - Armenian (Armenia)
+  - Japanese
+  - Persian (Iran)
+  - Russian (Russia)
+  - Spanish (Ecuador)
+  - Spanish (Spain)
+  - Tibetan
+  - Ukrainian (Ukraine)
 
 - Dependency version updates:
 
