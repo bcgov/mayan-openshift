@@ -63,7 +63,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
   libreoffice-writer-nogui \
   poppler-utils \
   sane-utils \
-  sudo \
+  sudo=1.9.17p1* \
   supervisor \
   tesseract-ocr \
   procps \
