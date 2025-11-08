@@ -1,4 +1,4 @@
-4.6.11 (XXXX-XX-XX)
+4.6.11 (2025-11-08)
 ===================
 - Add new languages, and language variants.
 
