@@ -10,6 +10,7 @@ BinaryDependency(
     module=__name__, name='geckodriver',
     path=DEFAULT_FIREFOX_GECKODRIVER_PATH
 )
+
 PythonDependency(
     environment=environment_testing, module=__name__, name='coverage',
     version_string='==6.5.0'

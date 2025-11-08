@@ -10,6 +10,36 @@
   - Hungarian (Hungary)
   - Armenian (Armenia)
 
+- Dependency version updates:
+
+  - CairoSVG from 2.7.1 to 2.8.2
+  - Pillow from 10.3.0 to 10.4.0
+  - PyYAML from 6.0.2 to 6.0.3
+  - bleach from 6.2.0 to 6.3.0
+  - django from 4.2.24 to 4.2.26
+  - django-auth-ldap from 4.6.0 to 4.8.0
+  - django-cors-headers from 4.3.1 to 4.9.0
+  - django-debug-toolbar from 4.2.0 to 4.4.6
+  - django-model-utils from 4.3.1 to 4.5.1
+  - django-mptt from 0.16.0 to 0.18.0
+  - django-silk from 5.1.0 to 5.3.2
+  - django-solo from 2.2.0 to 2.4.0
+  - drf-yasg from 1.21.7 to 1.21.11
+  - elasticsearch from 7.17.9 to 7.17.12
+  - extract-msg from 0.48.7 to 0.55.0
+  - graphviz from 0.20.3 to 0.21
+  - importlib-metadata from 7.0.2 to 7.2.1
+  - jsonschema from 4.21.1 to 4.25.1
+  - mozilla-django-oidc from 3.0.0 to 4.0.1
+  - pycryptodome from 3.20.0 to 3.23.0
+  - pypdf from 3.17.4 to 6.1.3
+  - python_gnupg from 0.4.9 to 0.5.5
+  - qrcode from 7.4.2 to 8.2
+  - sentry-sdk from 2.38.0 to 2.43.0
+  - sh from 2.0.7 to 2.2.2
+  - swagger-spec-validator from 3.0.3 to 3.0.4
+  - whitenoise from 6.6.0 to 6.11.0
+
 4.6.10 (2025-09-24)
 ===================
 - Fix base search class `_search` interface.
