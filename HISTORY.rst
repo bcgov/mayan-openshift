@@ -41,6 +41,7 @@
   - whitenoise from 6.6.0 to 6.11.0
 
 - Silence document indexing error during checkout test to avoid confusion.
+- Split the file metadata app views tests and test mixins modules.
 
 4.6.10 (2025-09-24)
 ===================
