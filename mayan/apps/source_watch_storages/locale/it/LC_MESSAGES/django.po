@@ -3,12 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
+# piera.daraio, 2025
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-02 14:06+0000\n"
 "PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,8 +22,8 @@ msgstr ""
 
 #: apps.py:11
 msgid "Watch storages"
-msgstr ""
+msgstr "Archivi watch"
 
 #: source_backends.py:18
 msgid "Watch storage"
-msgstr ""
+msgstr "Archivio watch"

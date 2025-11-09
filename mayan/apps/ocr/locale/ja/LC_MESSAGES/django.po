@@ -1,0 +1,276 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Translators:
+# lockdlock, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mayan EDMS\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: lockdlock, 2025\n"
+"Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps.py:55 events.py:6 links.py:54 links.py:80 permissions.py:6 queues.py:6
+#: search.py:18 settings.py:11 workflow_actions.py:50
+msgid "OCR"
+msgstr "OCR"
+
+#: apps.py:116
+msgid "The OCR content."
+msgstr "OCRの内容"
+
+#: apps.py:121
+msgid "A generator returning the document's version pages OCR content."
+msgstr "文書バージョン内の各ページのOCR内容を返すジェネレーター"
+
+#: apps.py:123
+msgid "OCR content"
+msgstr "OCR内容"
+
+#: backends/tesseract.py:84
+msgid "Tesseract OCR not found."
+msgstr "Tesseract OCR が見つかりません。"
+
+#: dependencies.py:24
+msgid "Free Open Source OCR Engine"
+msgstr "無料のオープンソースOCRエンジン"
+
+#: events.py:10
+msgid "Document version OCR content deleted"
+msgstr "文書バージョンのOCR内容を削除しました。"
+
+#: events.py:14
+msgid "Document version page OCR content edited"
+msgstr "文書バージョンページのOCR内容を編集しました。"
+
+#: events.py:18
+msgid "Document version submitted for OCR"
+msgstr "文書バージョンをOCR処理に送信しました。"
+
+#: events.py:22
+msgid "Document version OCR finished"
+msgstr "文書バージョンのOCRが完了しました。"
+
+#: forms.py:13 forms.py:44 forms.py:64
+msgid "Contents"
+msgstr "コンテンツ一覧"
+
+#: forms.py:99
+#, python-format
+msgid "Page %(page_number)d"
+msgstr "ページ %(page_number)d"
+
+#: links.py:27
+msgid "Setup OCR"
+msgstr "OCRの設定"
+
+#: links.py:33
+msgid "OCR documents per type"
+msgstr "文書タイプ別OCR"
+
+#: links.py:40 links.py:47
+msgid "Delete OCR content"
+msgstr "OCR内容を削除"
+
+#: links.py:60
+msgid "Download OCR text"
+msgstr "OCRテキストをダウンロード"
+
+#: links.py:65 links.py:70
+msgid "Submit for OCR"
+msgstr "OCRを実行"
+
+#: links.py:86
+msgid "Edit OCR"
+msgstr "OCRを編集"
+
+#: models.py:22
+msgid "Document type"
+msgstr "文書タイプ"
+
+#: models.py:26
+msgid "Automatically queue newly created documents for OCR."
+msgstr "新しく作成された文書を自動的にOCRキューに追加します。"
+
+#: models.py:27
+msgid "Auto OCR"
+msgstr "自動OCR"
+
+#: models.py:33
+msgid "Document type settings"
+msgstr "文書タイプ設定"
+
+#: models.py:34
+msgid "Document types settings"
+msgstr "文書タイプ設定（複数形だがUIでは同一表現で可）"
+
+#: models.py:47
+msgid "Document version page"
+msgstr "文書バージョンのペー"
+
+#: models.py:51
+msgid "The actual text content extracted by the OCR backend."
+msgstr "OCRバックエンドによって抽出された実際のテキスト内容"
+
+#: models.py:52
+msgid "Content"
+msgstr "コンテンツ"
+
+#: models.py:58
+msgid "Document version page OCR content"
+msgstr "文書バージョンページのOCR内容"
+
+#: models.py:59
+msgid "Document version pages OCR contents"
+msgstr "文書バージョン内の複数ページのOCR内容"
+
+#: permissions.py:10
+msgid "Submit documents for OCR"
+msgstr "文書をOCRに送信"
+
+#: permissions.py:13
+msgid "Edit the transcribed text from document"
+msgstr "文書から抽出されたテキストを編集"
+
+#: permissions.py:17
+msgid "View the transcribed text from document"
+msgstr "文書から抽出されたテキストを表示"
+
+#: permissions.py:21
+msgid "Change document type OCR settings"
+msgstr "文書タイプのOCR設定を変更"
+
+#: queues.py:10
+msgid "Finish document version OCR"
+msgstr "文書バージョンのOCRを完了"
+
+#: queues.py:14
+msgid "Document version page OCR"
+msgstr "文書バージョンページのOCR"
+
+#: queues.py:18 search.py:12 search.py:24
+msgid "Document version OCR"
+msgstr "文書バージョンのOCR"
+
+#: settings.py:18
+msgid "Set new document types to perform OCR automatically by default."
+msgstr "新しい文書タイプに対して、既定で自動的にOCRを実行するよう設定します。"
+
+#: settings.py:23
+msgid "Full path to the backend to be used to do OCR."
+msgstr "使用するOCRバックエンドのフルパス"
+
+#: views.py:57
+#, python-format
+msgid "Edit OCR settings for document type: %s."
+msgstr "文書タイプ「%s」のOCR設定を編集。"
+
+#: views.py:67
+msgid "Submit all documents of a type for OCR"
+msgstr "指定した文書タイプのすべての文書をOCRに送信"
+
+#: views.py:88
+#, python-format
+msgid "%(count)d documents added to the OCR queue."
+msgstr "%(count)d件の文書をOCRキューに追加しました。"
+
+#: views.py:111
+#, python-format
+msgid "Error deleting document version OCR \"%(instance)s\"; %(exception)s"
+msgstr "文書バージョンOCR「%(instance)s」の削除中にエラーが発生しました：%(exception)s"
+
+#: views.py:117
+#, python-format
+msgid "OCR content of %(count)d document versions deleted successfully."
+msgstr "%(count)d件の文書バージョンのOCR内容を削除しました"
+
+#: views.py:120
+#, python-format
+msgid "OCR content of \"%(object)s\" deleted successfully."
+msgstr "「%(object)s」のOCR内容を削除しました。"
+
+#: views.py:123
+#, python-format
+msgid "OCR content of %(count)d document version deleted successfully."
+msgstr "%(count)d件の文書バージョンのOCR内容を削除しました。"
+
+#: views.py:126
+#, python-format
+msgid "Delete the OCR content of the %(count)d selected document versions."
+msgstr "選択した%(count)d件の文書バージョンのOCR内容を削除します。"
+
+#: views.py:128
+#, python-format
+msgid "Delete the OCR content of: %(object)s."
+msgstr "OCR内容を削除：%(object)s"
+
+#: views.py:130
+#, python-format
+msgid "Delete the OCR content of the %(count)d selected document version."
+msgstr "選択した%(count)d件の文書バージョンのOCR内容を削除します。"
+
+#: views.py:161
+#, python-format
+msgid "OCR result for document: %s"
+msgstr "文書のOCR結果: %s"
+
+#: views.py:183
+#, python-format
+msgid "%(count)d document version submitted to the OCR queue."
+msgstr "%(count)d件の文書バージョンをOCRキューに送信しました。"
+
+#: views.py:186
+#, python-format
+msgid "%(count)d document versions submitted to the OCR queue."
+msgstr "%(count)d件の文書バージョンをOCRキューに送信しました。"
+
+#: views.py:195
+msgid "Submit the selected document version to the OCR queue?"
+msgid_plural "Submit the selected document versions to the OCR queue?"
+msgstr[0] "選択した文書バージョンをOCRキューに送信しますか？"
+
+#: views.py:231
+#, python-format
+msgid "OCR result for document version page: %s"
+msgstr "文書バージョンページのOCR結果: %s"
+
+#: views.py:259
+#, python-format
+msgid "Edit OCR for document version page: %s"
+msgstr "文書バージョンページ「%s」のOCRを編集"
+
+#: workflow_actions.py:15
+msgid "Page condition"
+msgstr "ページ条件"
+
+#: workflow_actions.py:19
+msgid ""
+"The condition that will determine if a document page's OCR content will be "
+"modified or not. The condition is evaluated against the iterated document "
+"page. Conditions that do not return any value, that return the Python "
+"logical None, or an empty string ('') are considered to be logical false, "
+"any other value is considered to be the logical true."
+msgstr ""
+"文書ページのOCR内容を変更するかどうかを判定する条件。この条件は、処理中の各文書ページに対して評価されます。値を返さない場合、PythonのNoneまたは空文字列（''）を返す場合は偽と見なされ、それ以外の値は真と見なされます。"
+
+#: workflow_actions.py:31
+msgid "Page content"
+msgstr "ページ内容"
+
+#: workflow_actions.py:35
+msgid "A template that will generate the OCR content to be saved."
+msgstr "保存されるOCR内容を生成するテンプレート。"
+
+#: workflow_actions.py:42
+msgid "Update document page OCR content"
+msgstr "文書ページのOCR内容を更新"

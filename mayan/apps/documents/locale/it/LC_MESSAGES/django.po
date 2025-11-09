@@ -9,6 +9,7 @@
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # Roberto Rosario, 2024
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-04 17:04+0000\n"
 "PO-Revision-Date: 2024-01-02 18:58+0000\n"
-"Last-Translator: Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,7 +113,7 @@ msgstr "Data e ora aggiunte"
 
 #: apps.py:590
 msgid "Access date and time"
-msgstr ""
+msgstr "Data e ora di accesso"
 
 #: classes.py:65 forms/document_file_forms.py:40
 msgid "Original"
@@ -185,7 +186,7 @@ msgstr "Sostituire. Crea una nuova versione e usa le nuove pagine di file."
 
 #: document_version_modifications.py:11
 msgid "Append all file pages"
-msgstr ""
+msgstr "Accoda tutte le pagine"
 
 #: document_version_modifications.py:13
 msgid ""
@@ -195,11 +196,11 @@ msgstr ""
 
 #: document_version_modifications.py:29
 msgid "Reset pages to latest file"
-msgstr ""
+msgstr "Ripristina le pagine dall'ultimo file."
 
 #: document_version_modifications.py:30
 msgid "Match all pages to that of the latest document file."
-msgstr ""
+msgstr "Confronta tutte le pagine con quelle dell'ultimo file del documento."
 
 #: events.py:12
 msgid "Document created"
@@ -303,7 +304,7 @@ msgstr "Versione documento caricata (storica)"
 
 #: forms/document_file_forms.py:44
 msgid "Detected"
-msgstr ""
+msgstr "Eliminato"
 
 #: forms/document_file_forms.py:48
 msgid "Storage"
@@ -311,7 +312,7 @@ msgstr "Magazzino "
 
 #: forms/document_file_forms.py:52
 msgid "Other"
-msgstr ""
+msgstr "Altro"
 
 #: forms/document_file_forms.py:61
 msgid "Date added"
@@ -570,7 +571,7 @@ msgstr "Versioni"
 
 #: links/document_version_links.py:57
 msgid "Modify"
-msgstr ""
+msgstr "Modifica"
 
 #: links/document_version_page_links.py:55
 msgid "Remap pages"
@@ -690,6 +691,7 @@ msgstr "Etichetta"
 #: models/document_file_model_mixins.py:457
 msgid "Controls what happens when a new document file is uploaded."
 msgstr ""
+"Controlla cosa accade quando viene caricato un nuovo file di documento."
 
 #: models/document_file_models.py:61
 msgid "The server date and time when the document file was processed."
@@ -755,7 +757,7 @@ msgstr "Documento troncato, ID: %d"
 
 #: models/document_models.py:47
 msgid "Latest document file"
-msgstr ""
+msgstr "Ultimo file documento"
 
 #: models/document_models.py:52
 msgid ""
@@ -829,11 +831,11 @@ msgstr "Documento troncato?"
 
 #: models/document_models.py:105
 msgid "Active document version"
-msgstr ""
+msgstr "Versione del documento attivo"
 
 #: models/document_type_models.py:40
 msgid "A short text identifying the document type."
-msgstr ""
+msgstr "Breve descrizione per l'identificazione del documento"
 
 #: models/document_type_models.py:45
 msgid ""
@@ -1104,7 +1106,7 @@ msgstr ""
 
 #: queues.py:17
 msgid "Documents file"
-msgstr ""
+msgstr "File dei documenti"
 
 #: queues.py:20
 msgid "Documents file slow"
@@ -1247,7 +1249,7 @@ msgstr ""
 
 #: serializers/document_file_serializers.py:76
 msgid "Download URL"
-msgstr ""
+msgstr "URL per il download"
 
 #: serializers/document_file_serializers.py:88
 msgid "Binary content for the new file."
@@ -1279,7 +1281,7 @@ msgstr "ID del tipo di documento per il nuovo documento."
 #: serializers/document_serializers.py:32
 #: serializers/document_serializers.py:78
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: serializers/document_serializers.py:35
 msgid "Document change type URL"
@@ -1340,7 +1342,7 @@ msgstr "ID del documento per il nuovo documento preferito."
 
 #: serializers/favorite_document_serializers.py:17
 msgid "Document ID"
-msgstr ""
+msgstr "ID Documetno"
 
 #: serializers/trashed_document_serializers.py:16
 msgid "Restore URL"
@@ -1774,11 +1776,11 @@ msgstr "Clona le trasformazioni della pagina del file del documento: %s"
 
 #: views/document_type_retention_policy_views.py:23
 msgid "Trashing"
-msgstr ""
+msgstr "Invio al cestino"
 
 #: views/document_type_retention_policy_views.py:27
 msgid "Deletion"
-msgstr ""
+msgstr "Eliminazione"
 
 #: views/document_type_retention_policy_views.py:31
 msgid "Stub pruning"
@@ -2297,7 +2299,7 @@ msgstr ""
 
 #: workflow_actions.py:26
 msgid "Change document type"
-msgstr ""
+msgstr "Cambia il tipo di documento"
 
 #: workflow_actions.py:53
 msgid "Send document to trash"

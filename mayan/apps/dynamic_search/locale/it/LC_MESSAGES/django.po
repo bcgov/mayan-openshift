@@ -9,6 +9,7 @@
 # Giovanni Tricarico <gtricarico92@gmail.com>, 2024
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # Roberto Rosario, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-23 17:54+0000\n"
 "PO-Revision-Date: 2024-01-02 18:58+0000\n"
-"Last-Translator: Roberto Rosario, 2024\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,20 +35,20 @@ msgstr "Corrisponde a tutti"
 
 #: forms.py:20
 msgid "Return only results that match all fields."
-msgstr ""
+msgstr "Restituisci solo i risultati che corrispondono a tutti i campi."
 
 #: forms.py:52
 msgid "Search logic"
-msgstr ""
+msgstr "Logica di ricerca"
 
 #: forms.py:72 templates/dynamic_search/search_box.html:43
 #: templates/dynamic_search/search_box_toolbar.html:25
 msgid "Search terms"
-msgstr "Cerca termini "
+msgstr "Termini di ricerca"
 
 #: links.py:20
 msgid "Basic search"
-msgstr ""
+msgstr "Ricerca di base"
 
 #: links.py:24 templates/dynamic_search/search_box.html:49
 #: templates/dynamic_search/search_box_toolbar.html:33
@@ -121,7 +122,7 @@ msgstr ""
 
 #: search_fields.py:313
 msgid "Any"
-msgstr ""
+msgstr "Qualsiasi"
 
 #: search_models.py:44
 #, python-format
@@ -130,39 +131,39 @@ msgstr ""
 
 #: search_models.py:114
 msgid "All content"
-msgstr ""
+msgstr "Tutti i contenuti"
 
 #: search_query_types.py:169
 msgid "Exact"
-msgstr ""
+msgstr "Esatta"
 
 #: search_query_types.py:175
 msgid "Fuzzy"
-msgstr ""
+msgstr "Approssimativa"
 
 #: search_query_types.py:181
 msgid "Greater than"
-msgstr ""
+msgstr "Maggiore di"
 
 #: search_query_types.py:187
 msgid "Greater than or equal"
-msgstr ""
+msgstr "Maggiore o uguale"
 
 #: search_query_types.py:193
 msgid "Less than"
-msgstr ""
+msgstr "Minore di"
 
 #: search_query_types.py:199
 msgid "Less than or equal"
-msgstr ""
+msgstr "Minore o uguale"
 
 #: search_query_types.py:205
 msgid "Partial"
-msgstr ""
+msgstr "Parziale"
 
 #: search_query_types.py:211
 msgid "Range"
-msgstr ""
+msgstr "Intervallo"
 
 #: search_query_types.py:246
 msgid "Range exclusive"
@@ -170,11 +171,11 @@ msgstr ""
 
 #: search_query_types.py:252
 msgid "Regular expression"
-msgstr ""
+msgstr "Espressione regolare"
 
 #: serializers.py:14
 msgid "Field name"
-msgstr ""
+msgstr "Nome campo"
 
 #: serializers.py:17
 msgid "Label"
@@ -190,11 +191,11 @@ msgstr ""
 
 #: serializers.py:29
 msgid "Primary key"
-msgstr ""
+msgstr "Chiave primaria"
 
 #: serializers.py:32
 msgid "Search fields"
-msgstr ""
+msgstr "Campi di ricerca"
 
 #: settings.py:22
 msgid "Full path to the backend to be used to handle the search."
@@ -243,7 +244,7 @@ msgstr ""
 
 #: templates/dynamic_search/app/list_toolbar.html:18
 msgid "Filter terms"
-msgstr ""
+msgstr "Criteri di filtro"
 
 #: templates/dynamic_search/search_box.html:49
 #: templates/dynamic_search/search_box_toolbar.html:33

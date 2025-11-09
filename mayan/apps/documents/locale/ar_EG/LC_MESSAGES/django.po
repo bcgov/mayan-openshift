@@ -13,6 +13,7 @@
 # Mohammed ALDOUB <voulnet@gmail.com>, 2024
 # Marwan Rahhal <Marwanr@sssit.net>, 2024
 # Mohamad Ashmar, 2025
+# GM_327, 2025
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-04 17:04+0000\n"
 "PO-Revision-Date: 2024-01-02 18:58+0000\n"
-"Last-Translator: Mohamad Ashmar, 2025\n"
+"Last-Translator: GM_327, 2025\n"
 "Language-Team: Arabic (Egypt) (https://app.transifex.com/rosarior/teams/13584/ar_EG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1653,12 +1654,12 @@ msgstr "تم إدراج %(count)d ملف وثيقة للفحص الداخلي"
 #: views/document_file_views.py:147
 msgid "Introspect the selected document file?"
 msgid_plural "Introspect the selected document files?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "فحص ملفات المحددة؟"
+msgstr[1] "فحص الملف المحدد؟"
+msgstr[2] "فحص ملفين المحددين؟"
+msgstr[3] "فحص بعض الملفات المحددة؟"
+msgstr[4] "فحص أغلب الملفات المحددة؟"
+msgstr[5] "فحص الملفات المحددة؟"
 
 #: views/document_file_views.py:158
 #, python-format
@@ -2141,12 +2142,12 @@ msgstr "%(count)d تمت الغاء الوثائق من المفضلة."
 #: views/favorite_document_views.py:92
 msgid "Remove the selected document from favorites?"
 msgid_plural "Remove the selected documents from favorites?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "حذف الملفات المحددة من القائمة المفضلة؟"
+msgstr[1] "حذف الملف المحدد من القائمة المفضلة؟"
+msgstr[2] "حذف الملفين المحددين من القائمة المفضلة؟"
+msgstr[3] "حذف بعض الملفات المحددة من القائمة المفضلة؟"
+msgstr[4] "حذف أغلب الملفات المحددة من القائمة المفضلة؟"
+msgstr[5] "حذف الملفات المحددة من القائمة المفضلة؟"
 
 #: views/misc_views.py:44
 #, python-format
