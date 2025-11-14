@@ -41,7 +41,7 @@ msgstr ""
 
 #: links.py:15 views.py:36
 msgid "Global error log"
-msgstr ""
+msgstr "Registro errori globali"
 
 #: links.py:26
 msgid "Delete"

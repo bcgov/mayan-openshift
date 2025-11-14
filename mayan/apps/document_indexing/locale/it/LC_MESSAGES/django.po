@@ -9,6 +9,7 @@
 # Roberto Rosario, 2024
 # Daniele Bortoluzzi <daniele@elkos.it>, 2024
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -43,11 +44,11 @@ msgstr "Livello"
 
 #: apps.py:163 apps.py:194 serializers.py:20 serializers.py:60
 msgid "Depth"
-msgstr ""
+msgstr "Profondità"
 
 #: apps.py:167
 msgid "Total nodes"
-msgstr ""
+msgstr "Totale nodi"
 
 #: apps.py:174
 msgid "Total documents"
@@ -381,7 +382,7 @@ msgstr ""
 
 #: serializers.py:63
 msgid "Documents URL"
-msgstr ""
+msgstr "URL dei documenti"
 
 #: serializers.py:66 serializers.py:140 serializers.py:200
 msgid "Index URL"
@@ -393,11 +394,11 @@ msgstr ""
 
 #: serializers.py:137 serializers.py:197
 msgid "Children"
-msgstr ""
+msgstr "Sottocartella"
 
 #: serializers.py:203
 msgid "Parent"
-msgstr ""
+msgstr "Cartella padre"
 
 #: serializers.py:271
 msgid ""
@@ -407,7 +408,7 @@ msgstr ""
 
 #: serializers.py:273
 msgid "Document types URL"
-msgstr ""
+msgstr "URL per i Tipi documento"
 
 #: serializers.py:279
 msgid "URL of the API endpoint to add document types to this index template."
@@ -415,7 +416,7 @@ msgstr ""
 
 #: serializers.py:281
 msgid "Document types add URL"
-msgstr ""
+msgstr "URL per aggiungere i Tipi documento"
 
 #: serializers.py:287
 msgid ""
@@ -424,7 +425,7 @@ msgstr ""
 
 #: serializers.py:289
 msgid "Document types remove URL"
-msgstr ""
+msgstr "URL per rimuovere i Tipi documento"
 
 #: serializers.py:294
 msgid "Index template root node ID"
@@ -444,7 +445,7 @@ msgstr ""
 
 #: serializers.py:355 serializers.py:365
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: serializers.py:363
 msgid "Primary key of the document type to remove from the index template."

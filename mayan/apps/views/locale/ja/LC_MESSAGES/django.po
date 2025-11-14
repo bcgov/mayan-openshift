@@ -1,0 +1,239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# lockdlock, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-03 22:29+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: lockdlock, 2025\n"
+"Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps.py:21 settings.py:11
+msgid "Views"
+msgstr "ビュー"
+
+#: forms.py:35
+msgid "Search"
+msgstr "検索"
+
+#: forms.py:53
+msgid "Selection"
+msgstr "選択"
+
+#: forms.py:233
+msgid "Label"
+msgstr "ラベル"
+
+#: forms.py:239
+msgid "Relationship"
+msgstr "関連"
+
+#: generics.py:168
+msgid ""
+"Select entries to be removed. Hold Control to select multiple entries. Once "
+"the selection is complete, click the button below or double click the list "
+"to activate the action."
+msgstr ""
+"削除する項目を選択してください。複数選択する場合は Control "
+"キーを押しながら選択します。選択が完了したら、下のボタンをクリックするか、リストをダブルクリックしてアクションを実行してください。"
+
+#: generics.py:173
+msgid ""
+"Select entries to be added. Hold Control to select multiple entries. Once "
+"the selection is complete, click the button below or double click the list "
+"to activate the action."
+msgstr ""
+"追加する項目を選択してください。複数選択する場合は Control "
+"キーを押しながら選択します。選択が完了したら、下のボタンをクリックするか、リストをダブルクリックしてアクションを実行してください。"
+
+#: generics.py:327
+msgid "Add all"
+msgstr "すべて追加"
+
+#: generics.py:334
+msgid "Add"
+msgstr "追加"
+
+#: generics.py:345
+msgid "Remove all"
+msgstr "すべて削除"
+
+#: generics.py:352
+msgid "Remove"
+msgstr "削除"
+
+#: generics.py:581
+#, python-format
+msgid "Error updating relationship; %s"
+msgstr "関係の更新エラー: %s"
+
+#: generics.py:588
+msgid "Relationships updated successfully"
+msgstr "関係を正常に更新しました。"
+
+#: generics.py:651
+#, python-format
+msgid "Duplicate data error: %(error)s"
+msgstr "重複データエラー: %(error)s"
+
+#: generics.py:670
+#, python-format
+msgid "%(object)s not created, error: %(error)s"
+msgstr "%(object)s の作成に失敗しました。エラー: %(error)s"
+
+#: generics.py:681
+#, python-format
+msgid "%(object)s created successfully."
+msgstr "%(object)s を正常に作成しました。"
+
+#: generics.py:725
+#, python-format
+msgid "%(object)s not deleted, error: %(error)s."
+msgstr "%(object)s は削除されませんでした。エラー: %(error)s。"
+
+#: generics.py:735
+#, python-format
+msgid "%(object)s deleted successfully."
+msgstr "%(object)s を正常に削除しました。"
+
+#: generics.py:798
+#, python-format
+msgid "Error retrieving %(object)s; %(error)s"
+msgstr "%(object)s の取得エラー: %(error)s"
+
+#: generics.py:910
+#, python-format
+msgid "%(object)s not updated, error: %(error)s."
+msgstr "%(object)s の更新に失敗しました。エラー: %(error)s"
+
+#: generics.py:920
+#, python-format
+msgid "%(object)s updated successfully."
+msgstr "%(object)s を正常に更新しました。"
+
+#: generics.py:987
+#, python-format
+msgid "%(count)d objects deleted successfully."
+msgstr "%(count)d 件のオブジェクトを正常に削除しました。"
+
+#: generics.py:988
+#, python-format
+msgid "\"%(object)s\" deleted successfully."
+msgstr "\"%(object)s\" を正常に削除しました。"
+
+#: generics.py:989
+#, python-format
+msgid "%(count)d object deleted successfully."
+msgstr "%(count)d 件のオブジェクトを正常に削除しました。"
+
+#: generics.py:990
+#, python-format
+msgid "Delete %(count)d objects."
+msgstr "%(count)d 件のオブジェクトを削除します。"
+
+#: generics.py:991
+#, python-format
+msgid "Delete \"%(object)s\"."
+msgstr "\"%(object)s\" を削除します。"
+
+#: generics.py:992
+#, python-format
+msgid "Delete %(count)d object."
+msgstr "%(count)d 件のオブジェクトを削除"
+
+#: settings.py:17
+msgid "The number objects that will be displayed per page."
+msgstr "1ページあたりに表示されるオブジェクト数。"
+
+#: settings.py:23
+msgid "A string specifying the name to use for the paging parameter."
+msgstr "ページングパラメータに使用する名前を指定する文字列。"
+
+#: settings.py:29
+msgid ""
+"Display a submit button and wait for the submit button to be pressed before "
+"processing up the upload."
+msgstr "アップロード処理を行う前に、送信ボタンを表示して押されるのを待ちます。"
+
+#: templatetags/views_tags.py:30
+msgid "Confirm delete"
+msgstr "削除の確認"
+
+#: templatetags/views_tags.py:35
+#, python-format
+msgid "Edit %s"
+msgstr "%s を編集"
+
+#: templatetags/views_tags.py:38
+msgid "Confirm"
+msgstr "確認"
+
+#: templatetags/views_tags.py:42
+#, python-format
+msgid "Details for: %s"
+msgstr "詳細: %s"
+
+#: templatetags/views_tags.py:46
+#, python-format
+msgid "Edit: %s"
+msgstr "編集: %s"
+
+#: templatetags/views_tags.py:50
+msgid "Create"
+msgstr "作成"
+
+#: view_mixins.py:417
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "クエリに一致する %(verbose_name)s は見つかりません。"
+
+#: view_mixins.py:443
+#, python-format
+msgid "Unable to perform operation on object %(instance)s; %(exception)s."
+msgstr "オブジェクト %(instance)s に対して操作を実行できません: %(exception)s。"
+
+#: view_mixins.py:447
+#, python-format
+msgid "Operation performed on %(count)d objects."
+msgstr "%(count)d 件のオブジェクトに対して操作を実行しました。"
+
+#: view_mixins.py:449
+#, python-format
+msgid "Operation performed on %(object)s."
+msgstr "%(object)s に対して操作を実行しました。"
+
+#: view_mixins.py:451
+#, python-format
+msgid "Operation performed on %(count)d object."
+msgstr "%(count)d 件のオブジェクトに対して操作を実行しました。"
+
+#: view_mixins.py:453
+#, python-format
+msgid "Perform operation on %(count)d objects."
+msgstr "%(count)d 件のオブジェクトに対して操作を実行します。"
+
+#: view_mixins.py:454
+#, python-format
+msgid "Perform operation on %(object)s."
+msgstr "%(object)s に対して操作を実行します。"
+
+#: view_mixins.py:455
+#, python-format
+msgid "Perform operation on %(count)d object."
+msgstr "%(count)d 件のオブジェクトに対して操作を実行します。"
+
+#: view_mixins.py:540
+msgid "Object"
+msgstr "オブジェクト"

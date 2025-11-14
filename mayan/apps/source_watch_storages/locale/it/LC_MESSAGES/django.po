@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
+# piera.daraio, 2025
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
@@ -18,8 +21,8 @@ msgstr ""
 
 #: apps.py:11
 msgid "Watch storages"
-msgstr ""
+msgstr "Archivi watch"
 
 #: source_backends.py:28
 msgid "Watch storage"
-msgstr ""
+msgstr "Archivio watch"

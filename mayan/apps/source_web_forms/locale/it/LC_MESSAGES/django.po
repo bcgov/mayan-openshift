@@ -6,6 +6,7 @@
 # Translators:
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 
 #: apps.py:12
 msgid "Web form sources"
-msgstr ""
+msgstr "Sorgenti dei moduli web"
 
 #: handlers.py:25
 msgid "Default"

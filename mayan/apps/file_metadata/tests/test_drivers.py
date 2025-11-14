@@ -13,7 +13,7 @@ from .literals import (
     TEST_MSG_FILE_METADATA_VALUE_SUBJECT, TEST_MSG_FILE_METADATA_VALUE_TO,
     TEST_PDF_FILE_METADATA_DOTTED_NAME, TEST_PDF_FILE_METADATA_VALUE
 )
-from .mixins import DocumentFileMetadataTestMixin
+from .mixins.document_file_mixins import DocumentFileMetadataTestMixin
 
 
 class EXIFToolDriverTestCase(

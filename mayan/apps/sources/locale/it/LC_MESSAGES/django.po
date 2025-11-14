@@ -327,7 +327,7 @@ msgstr ""
 
 #: source_backends/base.py:101
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: source_backends/base.py:134
 msgid "Null backend"

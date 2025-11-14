@@ -5,7 +5,7 @@ from mayan.apps.documents.tests.base import GenericDocumentTestCase
 from .literals import (
     TEST_FILE_METADATA_INDEX_NODE_TEMPLATE, TEST_FILE_METADATA_VALUE
 )
-from .mixins import FileMetadataTestMixin
+from .mixins.file_metadata_mixins import FileMetadataTestMixin
 
 
 class IndexingTestCase(

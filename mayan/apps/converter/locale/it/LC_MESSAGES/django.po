@@ -393,7 +393,7 @@ msgstr "Ingrandimento"
 
 #: transformation_mixins.py:114
 msgid "Paste an image"
-msgstr ""
+msgstr "Incolla un'immagine"
 
 #: transformation_mixins.py:120
 msgid "Horizontal position in pixels from the left."
@@ -403,7 +403,7 @@ msgstr ""
 #: transformation_mixins.py:231 transformations.py:238 transformations.py:340
 #: transformations.py:438
 msgid "Left"
-msgstr ""
+msgstr "Sinistra"
 
 #: transformation_mixins.py:124
 msgid "Vertical position in pixels from the top."
@@ -442,7 +442,7 @@ msgstr ""
 #: transformation_mixins.py:236 transformations.py:247 transformations.py:348
 #: transformations.py:446
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
 #: transformation_mixins.py:240
 msgid "Vertical start position in pixels from the top."

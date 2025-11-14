@@ -1,0 +1,339 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Translators:
+# lockdlock, 2025
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mayan EDMS\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-23 17:54+0000\n"
+"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"Last-Translator: lockdlock, 2025\n"
+"Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: apps.py:27
+msgid "Dynamic search"
+msgstr "動的検索"
+
+#: forms.py:19
+msgid "Match all"
+msgstr "すべて一致"
+
+#: forms.py:20
+msgid "Return only results that match all fields."
+msgstr "すべてのフィールドに一致する結果のみ返す"
+
+#: forms.py:52
+msgid "Search logic"
+msgstr "検索ロジック"
+
+#: forms.py:72 templates/dynamic_search/search_box.html:43
+#: templates/dynamic_search/search_box_toolbar.html:25
+msgid "Search terms"
+msgstr "検索語"
+
+#: links.py:20
+msgid "Basic search"
+msgstr "基本検索"
+
+#: links.py:24 templates/dynamic_search/search_box.html:49
+#: templates/dynamic_search/search_box_toolbar.html:33
+msgid "Advanced search"
+msgstr "高度な検索"
+
+#: links.py:28
+msgid "Search again"
+msgstr "再検索"
+
+#: links.py:33 views.py:62
+msgid "Reindex search backend"
+msgstr "検索バックエンドを再インデックス"
+
+#: literals.py:22
+msgid "Yes"
+msgstr "はい"
+
+#: literals.py:23
+msgid "No"
+msgstr "いいえ"
+
+#: permissions.py:6 queues.py:7 settings.py:16
+#: templates/dynamic_search/search_box.html:47
+#: templates/dynamic_search/search_box_toolbar.html:30 views.py:108
+msgid "Search"
+msgstr "検索"
+
+#: permissions.py:10
+msgid "Execute search tools"
+msgstr "検索ツールを実行"
+
+#: queues.py:10
+msgid "Search slow"
+msgstr "検索（低速）"
+
+#: queues.py:15
+msgid "Remove a model instance from the search engine."
+msgstr "デルインスタンスを検索エンジンから削除"
+
+#: queues.py:20
+msgid "Index a model instance to the search engine."
+msgstr "デルインスタンスを検索エンジンに登録"
+
+#: queues.py:25
+msgid "Index all instances of a search model to the search engine."
+msgstr "モデルの全インスタンスを検索エンジンに登録"
+
+#: queues.py:31
+msgid ""
+"Index all related instances of a search model after a many to many event."
+msgstr "多対多イベント後に関連するすべてのインスタンスを検索エンジンに登録"
+
+#: queues.py:39
+msgid "Reset the search backend indices and index all instances again."
+msgstr "検索バックエンドのインデックスをリセットし、全インスタンスを再登録"
+
+#: scoped_queries.py:353
+msgid ""
+"Search results exceed limit setting. Results might not be reliable if "
+"multiple scopes are used. Narrow down the search criteria or increase the "
+"value of the results limit setting."
+msgstr ""
+"検索結果が制限値を超えました。複数のスコープを使用すると結果が信頼できない場合があります。検索条件を絞り込むか、結果の上限値を増やしてください。"
+
+#: scoped_queries.py:375
+#, python-format
+msgid ""
+"Search backend error. Verify that the search service is available and that "
+"the search syntax is valid for the active search backend; %s"
+msgstr ""
+"検索バックエンドでエラーが発生しました。検索サービスが利用可能であること、アクティブな検索バックエンドで検索構文が有効であることを確認してください; "
+"%s "
+
+#: search_fields.py:313
+msgid "Any"
+msgstr "すべて "
+
+#: search_models.py:44
+#, python-format
+msgid "Unknown search model `%s`."
+msgstr "未知の検索モデル `%s`"
+
+#: search_models.py:114
+msgid "All content"
+msgstr "すべてのコンテンツ"
+
+#: search_query_types.py:169
+msgid "Exact"
+msgstr "完全一致"
+
+#: search_query_types.py:175
+msgid "Fuzzy"
+msgstr "あいまい"
+
+#: search_query_types.py:181
+msgid "Greater than"
+msgstr "より大きい"
+
+#: search_query_types.py:187
+msgid "Greater than or equal"
+msgstr "以上"
+
+#: search_query_types.py:193
+msgid "Less than"
+msgstr "より小さい"
+
+#: search_query_types.py:199
+msgid "Less than or equal"
+msgstr "以下"
+
+#: search_query_types.py:205
+msgid "Partial"
+msgstr "部分一致"
+
+#: search_query_types.py:211
+msgid "Range"
+msgstr "範囲"
+
+#: search_query_types.py:246
+msgid "Range exclusive"
+msgstr "範囲（排他） "
+
+#: search_query_types.py:252
+msgid "Regular expression"
+msgstr "正規表現"
+
+#: serializers.py:14
+msgid "Field name"
+msgstr "フィールド名"
+
+#: serializers.py:17
+msgid "Label"
+msgstr "ラベル"
+
+#: serializers.py:23
+msgid "App label"
+msgstr "アプリラベル"
+
+#: serializers.py:26
+msgid "Model name"
+msgstr "モデル名"
+
+#: serializers.py:29
+msgid "Primary key"
+msgstr "主キー"
+
+#: serializers.py:32
+msgid "Search fields"
+msgstr "検索フィールド"
+
+#: settings.py:22
+msgid "Full path to the backend to be used to handle the search."
+msgstr "検索を処理するバックエンドのフルパス"
+
+#: settings.py:29
+msgid ""
+"Arguments to pass to the search backend. For example values to change the "
+"behavior, host names, or authentication arguments."
+msgstr "検索バックエンドに渡す引数（動作変更やホスト名、認証引数など）"
+
+#: settings.py:38
+msgid "The search operator to use when none is specified."
+msgstr "指定がない場合に使用する検索演算子"
+
+#: settings.py:45
+msgid ""
+"Disables the single term bar search leaving only the advanced search button."
+msgstr "単一検索バーを無効にし、高度な検索ボタンのみを表示"
+
+#: settings.py:53
+msgid "Amount of objects to process when performing bulk indexing."
+msgstr "バルクインデックス処理時の対象オブジェクト数 "
+
+#: settings.py:59
+msgid "Sets the default state of the \"Match all\" checkbox."
+msgstr "「すべて一致」チェックボックスの初期状態を設定"
+
+#: settings.py:65
+msgid ""
+"Maximum number of search results to fetch and display per search query unit."
+msgstr "1回の検索クエリで取得・表示する最大検索結果数"
+
+#: settings.py:72
+msgid ""
+"Raise an error when the number of search results exceed the value of "
+"`SEARCH_QUERY_RESULTS_LIMIT`."
+msgstr "検索結果が SEARCH_QUERY_RESULTS_LIMIT を超えた場合にエラーを発生させます"
+
+#: settings.py:78
+msgid "Maximum number of search results to fetch and display."
+msgstr " 取得・表示する最大検索結果数"
+
+#: templates/dynamic_search/app/list_toolbar.html:18
+msgid "Filter terms"
+msgstr "フィルター語"
+
+#: templates/dynamic_search/search_box.html:49
+#: templates/dynamic_search/search_box_toolbar.html:33
+msgid "Advanced"
+msgstr "高度"
+
+#: value_transformations.py:38
+msgid "Replace accents"
+msgstr "アクセント記号を置換"
+
+#: value_transformations.py:50
+msgid "@ sign replace"
+msgstr "@記号を置換"
+
+#: value_transformations.py:60
+msgid "Case fold"
+msgstr "大文字小文字を無視 "
+
+#: value_transformations.py:70 value_transformations.py:80
+msgid "Hyphen replace"
+msgstr "ハイフンを置換"
+
+#: value_transformations.py:90
+msgid "To boolean"
+msgstr "ブール値に変換 "
+
+#: value_transformations.py:105
+msgid "To date time"
+msgstr "日時に変換"
+
+#: value_transformations.py:132
+msgid "Date time ISO format"
+msgstr "日時（ISO形式）"
+
+#: value_transformations.py:146
+msgid "Date time simple format"
+msgstr "日時（簡易形式）"
+
+#: value_transformations.py:158
+msgid "Date time timestamp format"
+msgstr "日時（タイムスタンプ形式）"
+
+#: value_transformations.py:174
+msgid "To integer"
+msgstr "整数に変換"
+
+#: value_transformations.py:184
+msgid "To string"
+msgstr "文字列に変換"
+
+#: views.py:59
+msgid "This tool erases and populates the search backend's internal index."
+msgstr "このツールは検索バックエンドの内部インデックスを消去し、再作成します"
+
+#: views.py:69
+msgid ""
+"This tool is required only for some search backends. Search results will be "
+"affected while the backend is being reindexed."
+msgstr "このツールは一部の検索バックエンドでのみ必要です。再インデックス中は検索結果に影響があります"
+
+#: views.py:75
+msgid ""
+"The currently selected search backend does not support or requires "
+"reindexing."
+msgstr "現在選択中の検索バックエンドは、再インデックスをサポートしていないか、必要とします"
+
+#: views.py:88
+msgid "Search backend reindexing queued."
+msgstr "検索バックエンドの再インデックスをキューに登録しました"
+
+#: views.py:110
+#, python-format
+msgid "Search for: %s"
+msgstr "検索: %s "
+
+#: views.py:139
+#, python-format
+msgid "Advanced search for: %s"
+msgstr "高度な検索: %s"
+
+#: views.py:174
+msgid "Try again using different terms. "
+msgstr "別の検索語で再試行してください"
+
+#: views.py:176
+msgid "No search results"
+msgstr "検索結果はありません"
+
+#: views.py:179
+#, python-format
+msgid "Search query: %s"
+msgstr "検索クエリ: %s"
+
+#: views.py:181
+#, python-format
+msgid "Search results for: %s"
+msgstr "検索結果: %s"

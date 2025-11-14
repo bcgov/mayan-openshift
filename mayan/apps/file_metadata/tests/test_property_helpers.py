@@ -1,7 +1,7 @@
 from mayan.apps.common.tests.mixins import PropertyHelperTestMixin
 from mayan.apps.testing.tests.base import BaseTestCase
 
-from .mixins import DocumentFileMetadataTestMixin
+from .mixins.document_file_mixins import DocumentFileMetadataTestMixin
 
 
 class DocumentPropertyHelperTestCase(

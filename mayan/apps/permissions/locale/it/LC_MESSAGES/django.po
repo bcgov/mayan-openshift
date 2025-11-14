@@ -130,7 +130,7 @@ msgstr "Nome del gruppo"
 
 #: serializers.py:17
 msgid "Primary key"
-msgstr ""
+msgstr "Chiave primaria"
 
 #: serializers.py:36
 msgid "Primary key of the group to add to the role."
@@ -150,7 +150,7 @@ msgstr ""
 
 #: serializers.py:53 serializers.py:61
 msgid "Permission ID"
-msgstr ""
+msgstr "ID Autorizzazione"
 
 #: serializers.py:60
 msgid "Primary key of the permission to remove from the role."
@@ -158,7 +158,7 @@ msgstr ""
 
 #: serializers.py:67
 msgid "Groups URL"
-msgstr ""
+msgstr "URL per i gruppi"
 
 #: serializers.py:71
 msgid "Groups add URL"
@@ -170,15 +170,15 @@ msgstr ""
 
 #: serializers.py:79
 msgid "Permissions URL"
-msgstr ""
+msgstr "URL delle autorizzazioni"
 
 #: serializers.py:83
 msgid "Permissions add URL"
-msgstr ""
+msgstr "URL per aggiungere autorizzazioni"
 
 #: serializers.py:87
 msgid "Permissions remove URL"
-msgstr ""
+msgstr "URL per rimuovere autorizzazioni"
 
 #: serializers.py:94
 msgid "URL"

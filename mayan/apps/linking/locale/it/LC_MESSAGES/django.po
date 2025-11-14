@@ -7,6 +7,7 @@
 # Giovanni Tricarico <gtricarico92@gmail.com>, 2024
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # Roberto Rosario, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -259,7 +260,7 @@ msgstr ""
 
 #: serializers.py:51 serializers.py:61
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: serializers.py:59
 msgid "Primary key of the document type to remove from the smart link."
@@ -271,15 +272,15 @@ msgstr ""
 
 #: serializers.py:72
 msgid "Document types URL"
-msgstr ""
+msgstr "URL per i Tipi documento"
 
 #: serializers.py:77
 msgid "Document types add URL"
-msgstr ""
+msgstr "URL per aggiungere i Tipi documento"
 
 #: serializers.py:82
 msgid "Document types remove URL"
-msgstr ""
+msgstr "URL per rimuovere i Tipi documento"
 
 #: serializers.py:109
 msgid "Resolved smart link URL"
@@ -287,7 +288,7 @@ msgstr ""
 
 #: serializers.py:130
 msgid "Documents URL"
-msgstr ""
+msgstr "URL dei documenti"
 
 #: views/smart_link_condition_views.py:47
 msgid ""
