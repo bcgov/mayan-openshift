@@ -1,6 +1,16 @@
+4.7.7 (2025-11-14)
+==================
+- Improvements and changes from version 4.6.11.
+- Update dependency versions:
+
+  - django-model-utils from 4.5.1 to 5.0.0
+  - pypdf from 6.1.3 to 6.2.0
+  - requests from 2.32.4 to 2.32.5
+  - sentry-sdk from 2.43.0 to 2.44.0
+
 4.7.6 (2025-09-26)
 ==================
-- Improvements and changes from version 4.6.10 and 4.6.11.
+- Improvements and changes from version 4.6.10 and 4.6.11dev.
 - Update `gunicorn` from version 22.0.0 to 23.0.0 due to CVE-2024-6827.
 - Update `pypdf` from version 4.2.0 to 6.0.0 due to CVE-2025-55197.
 - Backport timezone updates from version 4.9 and 4.10. Update `pytz` from

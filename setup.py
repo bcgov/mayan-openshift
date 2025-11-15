@@ -80,7 +80,7 @@ django-celery-beat==2.6.0
 django-cors-headers==4.9.0
 django-formtools==2.3
 django-mathfilters==1.0.0
-django-model-utils==4.5.1
+django-model-utils==5.0.0
 django-mptt==0.18.0
 django-qsstats-magic==1.1.0
 django-solo==2.4.0
@@ -108,14 +108,14 @@ node-semver==0.9.0
 pycountry==24.6.1
 pycryptodome==3.23.0
 pyotp==2.9.0
-pypdf==6.1.3
+pypdf==6.2.0
 python-dateutil==2.9.0.post0
 python-magic==0.4.27
 python_gnupg==0.5.5
 pytz==2025.2
 qrcode==8.2
-requests==2.32.4
-sentry-sdk==2.43.0
+requests==2.32.5
+sentry-sdk==2.44.0
 sh==2.2.2
 swagger-spec-validator==3.0.4
 whitenoise==6.11.0
