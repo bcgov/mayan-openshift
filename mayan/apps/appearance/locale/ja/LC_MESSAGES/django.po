@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2025-08-07 16:19+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
+#: apps.py:59 events.py:6 permissions.py:6 settings.py:12
 msgid "Appearance"
 msgstr "表示設定"
 
@@ -53,24 +53,16 @@ msgid "JQuery Form"
 msgstr "jQueryフォーム"
 
 #: dependencies.py:46
-msgid "jQuery Lazy Load"
-msgstr "jQuery レイジーロード"
-
-#: dependencies.py:50
 msgid "JQuery Match Height"
 msgstr "JQuery 高さ揃え"
 
-#: dependencies.py:54
+#: dependencies.py:50
 msgid "Select 2"
 msgstr "Select 2"
 
-#: dependencies.py:58
+#: dependencies.py:54
 msgid "Toastr"
 msgstr "Toastr（通知メッセージ）"
-
-#: dependencies.py:62
-msgid "URI.js"
-msgstr "URI.js"
 
 #: events.py:10
 msgid "Theme created"
@@ -84,49 +76,49 @@ msgstr "テーマを編集しました"
 msgid "User theme edited"
 msgstr "ユーザーのテーマを編集しました"
 
-#: links.py:20
+#: links.py:26
 msgid "Theme settings"
 msgstr "テーマ設定"
 
-#: links.py:27
+#: links.py:33
 msgid "Edit theme settings"
 msgstr "テーマ設定の編集"
 
-#: links.py:33 views.py:32
+#: links.py:39 views.py:34
 msgid "Create new theme"
 msgstr "新規テーマの作成"
 
-#: links.py:38
+#: links.py:44
 msgid "Delete"
 msgstr "削除"
 
-#: links.py:42
+#: links.py:48
 msgid "Edit"
 msgstr "編集"
 
-#: links.py:46 links.py:54 models.py:32 views.py:101
+#: links.py:52 links.py:60 models.py:33 views.py:103
 msgid "Themes"
 msgstr "テーマ"
 
-#: models.py:19
+#: models.py:20
 msgid "A short text describing the theme."
 msgstr "テーマの簡単な説明文"
 
-#: models.py:20
+#: models.py:21
 msgid "Label"
 msgstr "ラベル"
 
-#: models.py:24
+#: models.py:25
 msgid ""
 "The CSS stylesheet to change the appearance of the different user interface "
 "elements."
 msgstr "UI要素の見た目を変更するCSSスタイルシート"
 
-#: models.py:26
+#: models.py:27
 msgid "Stylesheet"
 msgstr "スタイルシート"
 
-#: models.py:31 models.py:69
+#: models.py:32 models.py:69
 msgid "Theme"
 msgstr "テーマ"
 
@@ -186,70 +178,70 @@ msgid ""
 "additional request to be performed."
 msgstr "スロットルされたリクエストが解除され、追加のリクエストが可能になるまでの遅延時間（ミリ秒）"
 
-#: templates/403.html:5 templates/403.html:30
+#: templates/403.html:5 templates/403.html:18
 msgid "Insufficient permission"
 msgstr "権限が不十分です"
 
-#: templates/403.html:32
+#: templates/403.html:20
 msgid "You don't have enough permissions for this operation."
 msgstr "この操作を行うための十分な権限がありません"
 
-#: templates/404.html:5 templates/404.html:30
+#: templates/404.html:5 templates/404.html:18
 msgid "Page not found"
 msgstr "ページがありません"
 
-#: templates/404.html:32
+#: templates/404.html:20
 msgid "The requested page could not be found."
 msgstr "要求されたページが見つかりませんでした。"
 
-#: templates/404.html:40
+#: templates/404.html:28
 msgid "Possible reasons"
 msgstr "考えられる理由"
 
-#: templates/404.html:44
+#: templates/404.html:32
 msgid "The location of the item is incorrect."
 msgstr "アイテムの場所が正しくありません。"
 
-#: templates/404.html:45
+#: templates/404.html:33
 msgid "The location is correct, but the item no longer exists."
 msgstr "場所は正しいですが、アイテムはすでに存在していません。"
 
-#: templates/404.html:46
+#: templates/404.html:34
 msgid ""
 "The location is be correct, but your account does not have the required "
 "permission to access it."
 msgstr "場所は正しいですが、この場所にアクセスするための必要な権限が、あなたのアカウントにはありません。"
 
-#: templates/500.html:5 templates/500.html:30
+#: templates/500.html:5 templates/500.html:18
 #: templates/appearance/root.html:46
 msgid "Server error"
 msgstr "サーバーエラー"
 
-#: templates/500.html:32
+#: templates/500.html:20
 msgid "There's been an unexpected error."
 msgstr "予期しないエラーが発生しました。"
 
-#: templates/500.html:40
+#: templates/500.html:28
 msgid "What to do next?"
 msgstr "次に行うべきことは何ですか？"
 
-#: templates/500.html:44
+#: templates/500.html:32
 msgid "Refresh the page."
 msgstr "ページを更新してください。"
 
-#: templates/500.html:45
+#: templates/500.html:33
 msgid "Wait a bit. The system might be overloaded."
 msgstr "少々お待ち下さい。システムが過負荷になっている可能性があります。"
 
-#: templates/500.html:46
+#: templates/500.html:34
 msgid "Contact your system administrator."
 msgstr "システム管理者に連絡してください。"
 
-#: templates/500.html:47
+#: templates/500.html:35
 msgid "Check the logs for messages with the tags \"ERROR\", \"CRITICAL\" or \"FATAL\"."
 msgstr "ログを確認し、「ERROR」「CRITICAL」「FATAL」のタグが付いたメッセージを探してください。"
 
-#: templates/500.html:48
+#: templates/500.html:36
 #, python-format
 msgid "Open a ticket using the <a href=\"%(issue_url)s\">issue tracker</a>."
 msgstr "<a href=\"%(issue_url)s\">課題管理ツール(issue tracker)</a>を使ってチケットを作成してください。"
@@ -399,7 +391,7 @@ msgstr "キャンセル"
 msgid "Views"
 msgstr "ビュー"
 
-#: templates/appearance/partials/list/header.html:11
+#: templates/appearance/partials/list/header.html:12
 #, python-format
 msgid ""
 "Total (%(start)s - %(end)s out of %(total)s) (Page %(page_number)s of "
@@ -408,8 +400,8 @@ msgstr ""
 "合計（%(start)s ～ %(end)s 件／全 %(total)s 件） （%(page_number)s ページ／全 "
 "%(total_pages)s ページ）"
 
-#: templates/appearance/partials/list/header.html:13
-#: templates/appearance/partials/list/header.html:16
+#: templates/appearance/partials/list/header.html:14
+#: templates/appearance/partials/list/header.html:17
 #, python-format
 msgid "Total: %(total)s"
 msgstr "合計: %(total)s"
@@ -440,22 +432,18 @@ msgstr "アクション"
 msgid "Select/Deselect all"
 msgstr "すべて選択／すべて選択解除"
 
-#: templates/appearance/partials/list/toolbar.html:18
+#: templates/appearance/partials/list/toolbar.html:22
 msgid "Toggle list display mode"
 msgstr "リスト表示モードを切り替え"
 
-#: templates/appearance/partials/list/toolbar.html:31
+#: templates/appearance/partials/list/toolbar.html:34
 msgid ""
 "Select items to activate bulk actions. Use Shift + click to select many."
 msgstr "一括操作を有効にするにはアイテムを選択してください。複数選択するには Shift キーを押しながらクリックします。"
 
-#: templates/appearance/partials/list/toolbar.html:36
+#: templates/appearance/partials/list/toolbar.html:38
 msgid "Bulk actions"
 msgstr "一括操作"
-
-#: templates/appearance/partials/list/toolbar.html:38
-msgid "Toggle Dropdown"
-msgstr "トグルドロップダウン"
 
 #: templates/appearance/partials/sidebar.html:17
 msgid "Object"
@@ -481,31 +469,31 @@ msgstr "ットワーク接続を確認し、しばらくしてからもう一度
 msgid "None"
 msgstr "なし"
 
-#: views.py:57
+#: views.py:59
 #, python-format
 msgid "Delete theme: %s"
 msgstr "テーマを削除: %s"
 
-#: views.py:74
+#: views.py:76
 #, python-format
 msgid "Edit theme: %s"
 msgstr "テーマを編集: %s"
 
-#: views.py:95
+#: views.py:97
 msgid ""
 "Themes allow changing the visual appearance without requiring code changes."
 msgstr "テーマを変更することで、コードを編集せずに外観を変更できます"
 
-#: views.py:99
+#: views.py:101
 msgid "There are no themes"
 msgstr "テーマは存在しません"
 
-#: views.py:125
+#: views.py:127
 #, python-format
 msgid "Theme settings for user: %s"
 msgstr "ユーザー向けテーマ設定: %s"
 
-#: views.py:148
+#: views.py:150
 #, python-format
 msgid "Edit theme settings for user: %s"
 msgstr "ユーザー向けテーマ設定を編集: %s"

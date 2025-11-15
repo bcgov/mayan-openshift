@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "長さ"
 msgid "User ID"
 msgstr "ユーザー ID"
 
-#: dependencies.py:11
+#: dependencies.py:9
 msgid "GNU privacy guard - a PGP implementation."
 msgstr "GNU Privacy Guard（PGP 実装）"
 
@@ -112,11 +112,11 @@ msgstr "インポート"
 msgid "Upload key"
 msgstr "キーをアップロード"
 
-#: links.py:50 views.py:215
+#: links.py:50 views.py:213
 msgid "Private keys"
 msgstr "秘密鍵"
 
-#: links.py:54 views.py:240
+#: links.py:54 views.py:238
 msgid "Public keys"
 msgstr "公開鍵"
 
@@ -279,17 +279,17 @@ msgstr "キーサーバーを検索"
 msgid "Upload new key"
 msgstr "新規鍵をアップロード"
 
-#: views.py:208
+#: views.py:206
 msgid ""
 "Private keys are used to signed documents. Private keys can only be uploaded"
 " by the user. The view to upload private and public keys is the same."
 msgstr "秘密鍵は文書に署名するために使用されます。秘密鍵はユーザーのみがアップロード可能です。秘密鍵と公開鍵をアップロードする画面は同じです。"
 
-#: views.py:213
+#: views.py:211
 msgid "There no private keys"
 msgstr "秘密鍵はありません"
 
-#: views.py:232
+#: views.py:230
 msgid ""
 "Public keys are used to verify signed documents. Public keys can be uploaded"
 " by the user or downloaded from keyservers. The view to upload private and "
@@ -297,6 +297,6 @@ msgid ""
 msgstr ""
 "公開鍵は署名された文書を検証するために使用されます。公開鍵はユーザーがアップロードするか、キーサーバーからダウンロードできます。秘密鍵と公開鍵をアップロードする画面は同じです。"
 
-#: views.py:238
+#: views.py:236
 msgid "There no public keys"
 msgstr "公開鍵はありません"

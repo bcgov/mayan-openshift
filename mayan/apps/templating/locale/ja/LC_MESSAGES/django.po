@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:06+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,15 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:19 permissions.py:6
+#: apps.py:21 permissions.py:6
 msgid "Templating"
 msgstr "テンプレート"
 
-#: fields.py:21
+#: apps.py:39
+msgid "Current date and time"
+msgstr "現在の日付と時刻"
+
+#: fields.py:28
 #, python-format
 msgid ""
 "Use Django's default templating language "
@@ -33,13 +37,10 @@ msgid ""
 msgstr ""
 "Djangoの標準テンプレート言語を使用してください（https://docs.djangoproject.com/en/%(django_version)s/ref/templates/builtins/）"
 
-#: fields.py:41
+#: fields.py:43
 #, python-format
-msgid ""
-"Use Django's default templating language "
-"(https://docs.djangoproject.com/en/%(django_version)s/ref/templates/builtins/)."
-" The {{ %(variable)s }} variable is available to the template."
-msgstr ""
+msgid "Available template context variables: %s"
+msgstr "利用可能なテンプレートコンテキスト変数: %s"
 
 #: forms.py:9
 msgid "Resulting text from the evaluated template."
@@ -81,12 +82,12 @@ msgstr "HTML"
 msgid "URL"
 msgstr "URL"
 
-#: views.py:44
+#: views.py:45
 #, python-format
 msgid "Template sandbox for: %s"
 msgstr "対象テンプレートサンドボックス:%s"
 
-#: views.py:65
+#: views.py:67
 #, python-format
 msgid "Template error; %(exception)s"
 msgstr "テンプレートエラー: %(exception)s"

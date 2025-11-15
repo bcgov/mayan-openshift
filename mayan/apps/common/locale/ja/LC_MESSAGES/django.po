@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-31 12:27+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2025-09-01 10:33+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,23 +20,15 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:147 permissions.py:6 settings.py:15
+#: apps.py:149 permissions.py:6 settings.py:15
 msgid "Common"
 msgstr "共通"
 
-#: dependencies.py:194
-msgid "Used to allow offline translation of the code text strings."
-msgstr "コード内のテキスト文字列をオフラインで翻訳できるようにするために使用されます。"
-
-#: dependencies.py:203
-msgid "Provides style checking."
-msgstr "スタイルチェックを提供します。"
-
-#: dependencies.py:208
+#: dependencies.py:198
 msgid "Command line environment with autocompletion."
 msgstr "オートコンプリート付きのコマンドライン環境"
 
-#: dependencies.py:217
+#: dependencies.py:203
 msgid "Checks proper formatting of the README file."
 msgstr "README ファイルの書式を確認します"
 

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -48,27 +48,27 @@ msgstr "削除"
 msgid "Edit"
 msgstr "編集"
 
-#: links.py:31 models.py:47 permissions.py:6 search.py:8
+#: links.py:31 models.py:48 permissions.py:6 search.py:8
 msgid "Comments"
 msgstr "コメント"
 
-#: model_mixins.py:10 models.py:33
+#: model_mixins.py:10 models.py:34
 msgid "User"
 msgstr "ユーザー"
 
-#: models.py:29
+#: models.py:30
 msgid "Document"
 msgstr "文書"
 
-#: models.py:36
+#: models.py:37
 msgid "Text"
 msgstr "テキスト"
 
-#: models.py:40
+#: models.py:41
 msgid "Date time submitted"
 msgstr "投稿日時"
 
-#: models.py:46
+#: models.py:47
 msgid "Comment"
 msgstr "コメント"
 
@@ -92,37 +92,37 @@ msgstr "コメントを表示"
 msgid "URL"
 msgstr "URL"
 
-#: views.py:37
+#: views.py:38
 #, python-format
 msgid "Add comment to document: %s"
 msgstr "文書にコメントを追加: %s"
 
-#: views.py:67
+#: views.py:69
 #, python-format
 msgid "Delete comment: %s?"
 msgstr "コメントを削除しますか？: %s"
 
-#: views.py:99
+#: views.py:98
 #, python-format
 msgid "Details for comment: %s?"
 msgstr "コメントの詳細を表示しますか？: %s?"
 
-#: views.py:119
+#: views.py:118
 #, python-format
 msgid "Edit comment: %s?"
 msgstr "コメントを編集しますか？:%s"
 
-#: views.py:158
+#: views.py:154
 msgid ""
 "Document comments are timestamped text entries from users. They are great "
 "for collaboration."
 msgstr "文書コメントはユーザーによるタイムスタンプ付きのテキスト入力です。共同作業に役立ちます。"
 
-#: views.py:161
+#: views.py:157
 msgid "There are no comments"
 msgstr "コメントは存在しません"
 
-#: views.py:163
+#: views.py:160
 #, python-format
 msgid "Comments for document: %s"
 msgstr "文書のコメント: %s"

@@ -9,6 +9,7 @@
 # Roberto Rosario, 2024
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-26 15:20+0000\n"
 "PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,14 +43,16 @@ msgstr ""
 #: forms.py:13
 msgid "Store the search results to speed up paging and for later browsing."
 msgstr ""
+"Memorizza i risultati della ricerca per velocizzare la paginazione e per la "
+"consultazione successiva."
 
 #: forms.py:16
 msgid "Save results"
-msgstr ""
+msgstr "Salva risultati"
 
 #: forms.py:22
 msgid "Persistency"
-msgstr ""
+msgstr "Persistenza"
 
 #: forms.py:38
 msgid "Match all"
@@ -70,11 +73,11 @@ msgstr "Termini di ricerca"
 
 #: forms.py:111
 msgid "Criteria"
-msgstr ""
+msgstr "Criteri"
 
 #: links.py:20 models.py:61 views/saved_resultset_views.py:72
 msgid "Saved resultsets"
-msgstr ""
+msgstr "Risultati salvati"
 
 #: links.py:25
 msgid "Delete"
@@ -141,7 +144,7 @@ msgstr ""
 
 #: models.py:43
 msgid "Search query"
-msgstr ""
+msgstr "Query di ricerca"
 
 #: models.py:46
 msgid "Search explainer text"
@@ -153,7 +156,7 @@ msgstr ""
 
 #: models.py:50
 msgid "Result count"
-msgstr ""
+msgstr "Numero di risultati"
 
 #: models.py:53
 msgid "User for which the resultset was created."
@@ -165,7 +168,7 @@ msgstr "Utente"
 
 #: models.py:60 models.py:95
 msgid "Saved resultset"
-msgstr ""
+msgstr "Risultati salvati"
 
 #: models.py:101
 msgid "Saved resultset entry"
@@ -177,11 +180,11 @@ msgstr ""
 
 #: permissions.py:10
 msgid "Delete resultsets"
-msgstr ""
+msgstr "Cancella risultati"
 
 #: permissions.py:13
 msgid "View resultsets"
-msgstr ""
+msgstr "Visualizza set di risultati"
 
 #: permissions.py:17
 msgid "Execute search tools"
@@ -294,7 +297,7 @@ msgstr "URL"
 
 #: serializers.py:53
 msgid "User must be authenticated."
-msgstr ""
+msgstr "L'utente deve essere autenticato."
 
 #: serializers.py:61
 msgid "Field name"

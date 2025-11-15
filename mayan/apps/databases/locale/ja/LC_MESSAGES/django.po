@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-02 18:57+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,14 @@ msgstr ""
 #: apps.py:16
 msgid "Databases"
 msgstr "データベース"
+
+#: class_mixins.py:34
+msgid "The object will be executed, depending on the condition return value."
+msgstr "オブジェクトは条件の戻り値に応じて実行されます。"
+
+#: class_mixins.py:37
+msgid "Has a condition?"
+msgstr "条件はありますか？"
 
 #: classes.py:82
 msgid "Model fields"
@@ -40,14 +48,14 @@ msgstr "モデルプロパティ"
 msgid "Model reverse fields"
 msgstr "モデル逆参照フィールド"
 
-#: literals.py:10
+#: literals.py:12
 msgid ""
 "Your database backend is set to use SQLite. SQLite should only be used for "
 "development and testing, not for production."
 msgstr ""
 "データベースのバックエンドが SQLite に設定されています。SQLite は開発やテスト用にのみ使用すべきで、本番環境では使用しないでください。"
 
-#: model_mixins.py:26
+#: model_mixins.py:39
 msgid ""
 "The condition that will determine if this object is executed or not. "
 "Conditions that do not return any value, that return the Python logical "
@@ -57,17 +65,9 @@ msgstr ""
 "このオブジェクトが実行されるかどうかを決定する条件です。値を返さない条件、Python の論理値 None "
 "を返す条件、または空文字列（''）は論理的に偽と見なされ、それ以外の値は論理的に真と見なされます。"
 
-#: model_mixins.py:31
+#: model_mixins.py:47
 msgid "Condition"
 msgstr "条件"
-
-#: model_mixins.py:52
-msgid "The object will be executed, depending on the condition return value."
-msgstr "オブジェクトは条件の戻り値に応じて実行されます。"
-
-#: model_mixins.py:55
-msgid "Has a condition?"
-msgstr "条件はありますか？"
 
 #: templates/databases/app/viewport.html:11
 msgid "Warning"

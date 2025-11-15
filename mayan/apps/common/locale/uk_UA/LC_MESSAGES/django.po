@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-31 12:27+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2025-09-01 10:33+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
@@ -21,24 +21,15 @@ msgstr ""
 "Language: uk_UA\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: apps.py:147 permissions.py:6 settings.py:15
+#: apps.py:149 permissions.py:6 settings.py:15
 msgid "Common"
 msgstr "Загальне"
 
-#: dependencies.py:194
-msgid "Used to allow offline translation of the code text strings."
-msgstr ""
-"Використовується для дозволу офлайнового перекладу текстових рядків коду."
-
-#: dependencies.py:203
-msgid "Provides style checking."
-msgstr "Забезпечує перевірку стилю."
-
-#: dependencies.py:208
+#: dependencies.py:198
 msgid "Command line environment with autocompletion."
 msgstr "Середовище командного рядка з автозавершенням."
 
-#: dependencies.py:217
+#: dependencies.py:203
 msgid "Checks proper formatting of the README file."
 msgstr "Перевіряє правильність форматування файлу README."
 
@@ -208,9 +199,9 @@ msgid ""
 msgstr ""
 "Список рядків, що вказують на всі програми, які встановлені поза тими, що "
 "зазвичай встановлюються Mayan EDMS. Кожен рядок повинен бути шляхом Python "
-"до: конфігурації класу програми, або пакету, що містить програму. Ці "
-"програми будуть встановлені перед типовими програмами. Приклад: ['app_1', "
-"'app_2']"
+"до: конфігурації класу програми (переважно), або пакету, що містить "
+"програму. Ці програми будуть встановлені перед типовими програмами. Приклад:"
+" ['app_1', 'app_2']"
 
 #: settings.py:81
 msgid ""
@@ -226,7 +217,7 @@ msgstr "Назва панелі управління для відображен
 
 #: settings.py:95
 msgid "Sets the project's name."
-msgstr "Встановлює назву проекту."
+msgstr "Встановіть назву проекту."
 
 #: templates/common/app/viewport.html:15
 msgid "Click here to fix this."

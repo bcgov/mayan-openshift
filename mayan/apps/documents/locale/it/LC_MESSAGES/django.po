@@ -9,6 +9,7 @@
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
 # Daniele Bortoluzzi <daniele@elkos.it>, 2024
 # Roberto Rosario, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-07 07:29+0000\n"
 "PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Roberto Rosario, 2024\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1105,7 +1106,7 @@ msgstr ""
 
 #: queues.py:20
 msgid "Documents file"
-msgstr ""
+msgstr "File dei documenti"
 
 #: queues.py:23
 msgid "Documents file slow"
@@ -1206,7 +1207,7 @@ msgstr ""
 #: search.py:32 serializers/document_serializers.py:32
 #: serializers/document_serializers.py:78
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: search.py:35 search.py:66 search.py:103 search.py:141 search.py:173
 msgid "Document type label"
@@ -1222,7 +1223,7 @@ msgstr ""
 
 #: search.py:74 search.py:146 serializers/favorite_document_serializers.py:17
 msgid "Document ID"
-msgstr ""
+msgstr "ID Documetno"
 
 #: search.py:77 search.py:106 search.py:149 search.py:176
 msgid "Document label"
@@ -1326,7 +1327,7 @@ msgstr ""
 #: serializers/document_type_serializers.py:35
 #: serializers/document_type_serializers.py:47
 msgid "Documents URL"
-msgstr ""
+msgstr "URL dei documenti"
 
 #: serializers/document_type_serializers.py:39
 msgid "Quick label list URL"

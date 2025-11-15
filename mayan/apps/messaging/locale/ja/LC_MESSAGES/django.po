@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-07 11:57+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -40,27 +40,27 @@ msgstr "メッセージを作成しました"
 msgid "Message edited"
 msgstr "メッセージを編集しました"
 
-#: forms.py:26 models.py:37 workflow_actions.py:55
+#: forms.py:26 models.py:40 workflow_actions.py:79
 msgid "Body"
 msgstr "本文"
 
-#: links.py:49 views.py:38
+#: links.py:51 views.py:38
 msgid "Create message"
 msgstr "メッセージを作成"
 
-#: links.py:52 links.py:58
+#: links.py:54 links.py:60
 msgid "Delete"
 msgstr "削除"
 
-#: links.py:68 links.py:79
+#: links.py:70 links.py:81
 msgid "Mark as read"
 msgstr "既読にする"
 
-#: links.py:74 links.py:83
+#: links.py:76 links.py:85
 msgid "Mark as unread"
 msgstr "未読にする"
 
-#: links.py:87
+#: links.py:89
 msgid "Mark all as read"
 msgstr "すべて既読にする"
 
@@ -68,51 +68,51 @@ msgstr "すべて既読にする"
 msgid "Label"
 msgstr "ラベル"
 
-#: models.py:19
+#: models.py:21
 msgid "Sender content type"
 msgstr "送信者コンテンツタイプ"
 
-#: models.py:22
+#: models.py:24
 msgid "Sender object ID"
 msgstr "送信者オブジェクトID"
 
-#: models.py:29
+#: models.py:31
 msgid "User"
 msgstr "ユーザー"
 
-#: models.py:32
+#: models.py:35
 msgid "Short description of this message."
 msgstr "このメッセージの簡単な説明"
 
-#: models.py:33 workflow_actions.py:38
+#: models.py:36 workflow_actions.py:64
 msgid "Subject"
 msgstr "件名"
 
-#: models.py:36
+#: models.py:39
 msgid "The actual content of the message."
 msgstr "メッセージの内容"
 
-#: models.py:41
+#: models.py:44
 msgid "This field determines if the message has been read or not."
 msgstr "メッセージが既読かどうかを示すフィールド"
 
-#: models.py:42
+#: models.py:46
 msgid "Read"
 msgstr "読む"
 
-#: models.py:46
+#: models.py:50
 msgid "Date and time of the message creation."
 msgstr "メッセージ作成日時"
 
-#: models.py:47
+#: models.py:51
 msgid "Creation date and time"
 msgstr "作成日時"
 
-#: models.py:52
+#: models.py:56
 msgid "Message"
 msgstr "メッセージ"
 
-#: models.py:53 views.py:128
+#: models.py:57 views.py:128
 msgid "Messages"
 msgstr "メッセージ一覧"
 
@@ -282,30 +282,53 @@ msgstr "メッセージ \"%(object)s\" を未読に設定する"
 msgid "Mark the %(count)d selected message as unread."
 msgstr "選択した %(count)d 件のメッセージを未読に設定する"
 
-#: workflow_actions.py:19
+#: workflow_actions.py:20
+msgid "Group name list"
+msgstr "グループ名リスト"
+
+#: workflow_actions.py:24
+msgid ""
+"Comma separated list of user group names that will receive the message. Can "
+"be a static value or a template."
+msgstr "メッセージを受信するユーザーグループ名のカンマ区切りリスト。静的値またはテンプレートを使用可能"
+
+#: workflow_actions.py:34
+msgid "Role name list"
+msgstr "役割名リスト"
+
+#: workflow_actions.py:38
+msgid ""
+"Comma separated list of role labels that will receive the message. Can be a "
+"static value or a template."
+msgstr "メッセージを受信するロールラベルのカンマ区切りリスト。静的値またはテンプレートを使用可能"
+
+#: workflow_actions.py:48
 msgid "Username list"
 msgstr "ユーザー名リスト"
 
-#: workflow_actions.py:26
-msgid "Comma separated list of usernames that will receive the message."
-msgstr "メッセージを受け取るユーザー名のカンマ区切りリスト"
+#: workflow_actions.py:53
+msgid ""
+"Comma separated list of usernames that will receive the message. Can be a "
+"static value or a template."
+msgstr "メッセージを受信するユーザー名のカンマ区切りリスト。静的値またはテンプレートを使用可能"
 
-#: workflow_actions.py:45
-msgid "Subject of the message to be sent."
-msgstr "送信するメッセージの件名"
+#: workflow_actions.py:69
+msgid ""
+"Subject of the message to be sent. Can be a static value or a template."
+msgstr "送信するメッセージの件名。静的値またはテンプレートを使用可能"
 
-#: workflow_actions.py:62
-msgid "The actual text to send."
-msgstr "送信するメッセージの本文"
+#: workflow_actions.py:84
+msgid "The actual text to send. Can be a static value or a template."
+msgstr "送信するメッセージ本文。静的値またはテンプレートを使用可能"
 
-#: workflow_actions.py:72
+#: workflow_actions.py:94
 msgid "Send user message"
 msgstr "ユーザーメッセージを送信"
 
-#: workflow_actions.py:80
+#: workflow_actions.py:102
 msgid "Recipients"
 msgstr "受信者"
 
-#: workflow_actions.py:84
+#: workflow_actions.py:108
 msgid "Content"
 msgstr "コンテンツ"

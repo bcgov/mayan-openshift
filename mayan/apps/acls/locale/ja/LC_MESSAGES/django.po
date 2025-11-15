@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgstr "ACLを削除しました"
 msgid "ACL edited"
 msgstr "ACLを編集しました"
 
-#: forms.py:13 models.py:56 serializers.py:79 views.py:73
+#: forms.py:13 models.py:58 serializers.py:79 views.py:73
 msgid "Role"
 msgstr "ロール"
 
@@ -62,7 +62,7 @@ msgstr "新しいACL"
 msgid "Delete"
 msgstr "削除"
 
-#: links.py:31 models.py:50 workflow_actions.py:68 workflow_actions.py:204
+#: links.py:31 models.py:52 workflow_actions.py:68 workflow_actions.py:204
 msgid "Permissions"
 msgstr "権限"
 
@@ -84,27 +84,27 @@ msgstr "アクセス権が不足しています: %s"
 msgid "Permission count"
 msgstr "権限の数"
 
-#: models.py:40 serializers.py:16
+#: models.py:42 serializers.py:16
 msgid "Content type"
 msgstr "コンテンツタイプ"
 
-#: models.py:43 workflow_actions.py:54
+#: models.py:45 workflow_actions.py:54
 msgid "Object ID"
 msgstr "オブジェクト ID"
 
-#: models.py:54
+#: models.py:56
 msgid "Role to which the access is granted for the specified object."
 msgstr "指定されたオブジェクトにアクセス権が付与されるロール"
 
-#: models.py:64
+#: models.py:66
 msgid "Access entry"
 msgstr "アクセスエントリ"
 
-#: models.py:65
+#: models.py:67
 msgid "Access entries"
 msgstr "アクセスエントリ"
 
-#: models.py:69
+#: models.py:71
 #, python-format
 msgid "Role \"%(role)s\" permission's for \"%(object)s\""
 msgstr "ロール「%(role)s」の「%(object)s」に対する権限"
@@ -168,11 +168,11 @@ msgstr "新しいアクセス制御リスト: %s"
 msgid "Delete ACL: %s"
 msgstr "ACLを削除: %s"
 
-#: views.py:149
+#: views.py:147
 msgid "There are no ACLs for this object"
 msgstr "このオブジェクトには ACL が存在しません"
 
-#: views.py:152 views.py:277
+#: views.py:150 views.py:273
 msgid ""
 "ACL stands for Access Control List and is a precise method to control user "
 "access to objects in the system. ACLs allow granting a permission to a role "
@@ -181,25 +181,25 @@ msgstr ""
 "ACL（アクセス制御リスト）は、システム内のオブジェクトに対するユーザーのアクセスを正確に制御する方法です。ACL "
 "により、権限をロールに付与できますが、特定のオブジェクトまたはオブジェクトの集合にのみ適用されます。"
 
-#: views.py:159
+#: views.py:157
 #, python-format
 msgid "Access control lists for: %s"
 msgstr "アクセス制御リスト: %s"
 
-#: views.py:168
+#: views.py:166
 msgid "Granted permissions"
 msgstr "付与された権限"
 
-#: views.py:169
+#: views.py:167
 msgid "Available permissions"
 msgstr "利用可能な権限"
 
-#: views.py:223
+#: views.py:221
 #, python-format
 msgid "Role \"%(role)s\" permission's for \"%(object)s\"."
 msgstr "ロール「%(role)s」の「%(object)s」に対する権限"
 
-#: views.py:233
+#: views.py:231
 msgid ""
 "Disabled permissions are inherited from a parent object or directly granted "
 "to the role and can't be removed from this view. Inherited permissions need "
@@ -209,11 +209,11 @@ msgstr ""
 "無効化された権限は、親オブジェクトから継承されるか、ロールに直接付与されたものであり、この画面から削除することはできません。継承された権限は、親オブジェクトの"
 " ACL または設定メニューからロールに対して削除する必要があります。"
 
-#: views.py:274
+#: views.py:271
 msgid "There are no ACLs"
 msgstr "ACL が存在しません"
 
-#: views.py:283
+#: views.py:278
 msgid "Global access control lists"
 msgstr "グローバルアクセス制御リスト"
 

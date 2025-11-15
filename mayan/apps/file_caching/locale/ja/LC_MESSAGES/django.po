@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,22 @@ msgstr "キャッシュをパージしました "
 #: events.py:19
 msgid "Cache partition purged"
 msgstr "古いエントリを削除し始めるキャッシュサイズ"
+
+#: forms.py:11
+msgid "Identification"
+msgstr "識別情報"
+
+#: forms.py:15
+msgid "Storage"
+msgstr "ストレージ"
+
+#: forms.py:19
+msgid "Configuration"
+msgstr "設定"
+
+#: forms.py:25
+msgid "Objects"
+msgstr "オブジェクト"
 
 #: links.py:27 links.py:50
 msgid "File caches"
@@ -84,7 +100,7 @@ msgstr "パーティション内ファイル数"
 msgid "Total cached files."
 msgstr "キャッシュされたファイル合計"
 
-#: model_mixins.py:113 model_mixins.py:324
+#: model_mixins.py:113 model_mixins.py:326
 msgid "Current size"
 msgstr "現在のサイズ"
 
@@ -92,7 +108,11 @@ msgstr "現在のサイズ"
 msgid "Current size of the cache."
 msgstr "キャッシュの現在のサイズ"
 
-#: model_mixins.py:326
+#: model_mixins.py:123
+msgid "Label"
+msgstr "ラベル"
+
+#: model_mixins.py:328
 msgid "Current size of the cache partition."
 msgstr "キャッシュパーティションの現在のサイズ"
 
@@ -108,7 +128,7 @@ msgstr "定義されたストレージ名"
 msgid "Maximum size of the cache in bytes."
 msgstr "キャッシュの最大サイズ（バイト単位）"
 
-#: models.py:36 models.py:76
+#: models.py:36 models.py:75
 msgid "Cache"
 msgstr "キャッシュ"
 
@@ -116,39 +136,39 @@ msgstr "キャッシュ"
 msgid "Caches"
 msgstr "キャッシュ一覧"
 
-#: models.py:79
+#: models.py:78
 msgid "Name"
 msgstr "名前"
 
-#: models.py:84 models.py:107
+#: models.py:83 models.py:105
 msgid "Cache partition"
 msgstr "キャッシュパーティション"
 
-#: models.py:85
+#: models.py:84
 msgid "Cache partitions"
 msgstr "キャッシュパーティション一覧"
 
-#: models.py:110
+#: models.py:108
 msgid "Date time"
 msgstr "日付と時刻"
 
-#: models.py:113
+#: models.py:111
 msgid "Filename"
 msgstr "ファイル名"
 
-#: models.py:116
+#: models.py:114
 msgid "File size"
 msgstr "ファイルサイズ"
 
-#: models.py:120
+#: models.py:118
 msgid "Times this cache partition file has been accessed."
 msgstr "このキャッシュパーティションファイルへのアクセス回数"
 
-#: models.py:127
+#: models.py:125
 msgid "Cache partition file"
 msgstr "キャッシュパーティションファイル"
 
-#: models.py:128
+#: models.py:126
 msgid "Cache partition files"
 msgstr "キャッシュパーティションファイル一覧"
 
@@ -184,40 +204,40 @@ msgid ""
 " a file being requested, before giving up."
 msgstr "新しいファイル用に空き容量を確保するため、削除を試みる回数"
 
-#: views.py:49
+#: views.py:36
 #, python-format
 msgid "Details of cache: %s"
 msgstr "キャッシュ詳細：%s"
 
-#: views.py:61
+#: views.py:48
 msgid "File caches list"
 msgstr "ファイルキャッシュ一覧"
 
-#: views.py:82
+#: views.py:69
 #, python-format
 msgid "Details of cache partition: %s"
 msgstr "キャッシュパーティション詳細：%s"
 
-#: views.py:100
+#: views.py:87
 #, python-format
 msgid "Purge cache partitions of \"%s\"?"
 msgstr "「%s」のキャッシュパーティションをパージしますか？"
 
-#: views.py:117
+#: views.py:104
 msgid "Object cache partitions submitted for purging."
 msgstr "オブジェクトキャッシュパーティションを削除キューに追加しました"
 
-#: views.py:127
+#: views.py:114
 #, python-format
 msgid "%(count)d caches submitted for purging."
 msgstr "%(count)d件のキャッシュを削除キューに追加しました"
 
-#: views.py:130
+#: views.py:117
 #, python-format
 msgid "%(count)d cache submitted for purging."
 msgstr "%(count)d件のキャッシュを削除キューに追加しました"
 
-#: views.py:139
+#: views.py:126
 msgid "Submit the selected cache for purging?"
 msgid_plural "Submit the selected caches for purging?"
 msgstr[0] "選択したキャッシュを削除キューに追加しますか？"

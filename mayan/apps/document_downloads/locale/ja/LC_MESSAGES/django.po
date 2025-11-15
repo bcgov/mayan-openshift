@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:24 permissions.py:6 settings.py:12
+#: apps.py:23 permissions.py:6 settings.py:14
 msgid "Document downloads"
 msgstr "文書ダウンロード"
 
@@ -28,7 +28,7 @@ msgstr "文書ダウンロード"
 msgid "Document_file_bundle.zip"
 msgstr "Document_file_bundle.zip"
 
-#: classes.py:52
+#: classes.py:53
 msgid "Compressed document files"
 msgstr "圧縮された文書ファイル"
 
@@ -64,7 +64,7 @@ msgstr "ファイルのダウンロード"
 msgid "Quick download"
 msgstr "クイックダウンロード"
 
-#: literals.py:4
+#: literals.py:7
 msgid ""
 "The document files have been compressed and are available for download using"
 " the link: {{ download_url }} or from the downloads area ({{ "
@@ -73,7 +73,7 @@ msgstr ""
 "文書ファイルは圧縮されており、次のリンク {{ download_url }} から、またはダウンロードエリア ({{ "
 "download_list_url }}) からダウンロード可能です。"
 
-#: literals.py:10
+#: literals.py:13
 msgid "Document files ready for download."
 msgstr "文書ファイルがダウンロード可能です。"
 
@@ -85,55 +85,64 @@ msgstr "文書ファイルをダウンロード"
 msgid "Generate a compressed document file bundle"
 msgstr "圧縮文書ファイルバンドルを作成"
 
-#: settings.py:18
+#: settings.py:21
+msgid "Path to the download subclass to use when downloading document files."
+msgstr "文書ファイルをダウンロードする際に使用するダウンロードサブクラスのパス"
+
+#: settings.py:29
+msgid ""
+"Arguments to pass to the DOCUMENT_DOWNLOADS_DOCUMENT_FILE_DOWNLOAD_BACKEND."
+msgstr "DOCUMENT_DOWNLOADS_DOCUMENT_FILE_DOWNLOAD_BACKEND に渡す引数"
+
+#: settings.py:36
 msgid ""
 "Template for the document download message body text. Can include HTML. "
 "Available variables: {}"
 msgstr "文書ダウンロードメッセージ本文のテンプレート。HTMLを含めることが可能です。使用可能な変数: {}"
 
-#: settings.py:27
+#: settings.py:45
 msgid ""
 "Template for the document download message subject line. Can't include HTML."
 " Available variables: {}"
 msgstr "文書ダウンロードメッセージ件名のテンプレート。HTMLは含められません。使用可能な変数: {}"
 
-#: views.py:24
+#: views.py:32
 #, python-format
 msgid ""
 "Unable to queued document \"%(instance)s\" for file download; %(exception)s."
 msgstr "文書 \"%(instance)s\" をファイルダウンロード用にキューに登録できませんでした: %(exception)s"
 
-#: views.py:33
+#: views.py:41
 #, python-format
 msgid "%(count)d document files queued for download."
 msgstr "%(count)d 件の文書ファイルがダウンロード用にキューに登録されました"
 
-#: views.py:36
+#: views.py:44
 #, python-format
 msgid "Document file \"%(object)s\" queued for download."
 msgstr "文書ファイル \"%(object)s\" がダウンロード用にキューに登録されました"
 
-#: views.py:39
+#: views.py:47
 #, python-format
 msgid "%(count)d document file queued for download."
 msgstr "%(count)d 件の文書ファイルがダウンロード用にキューに登録されました"
 
-#: views.py:41
+#: views.py:49
 #, python-format
 msgid "Download files of %(count)d documents"
 msgstr "%(count)d 件の文書ファイルをダウンロード"
 
-#: views.py:42
+#: views.py:50
 #, python-format
 msgid "Download files of document: %(object)s"
 msgstr "文書 \"%(object)s\" のファイルをダウンロード"
 
-#: views.py:43
+#: views.py:51
 #, python-format
 msgid "Download files of %(count)d document"
 msgstr "%(count)d 件の文書ファイルをダウンロード"
 
-#: views.py:50
+#: views.py:58
 msgid ""
 "The process will be performed in the background. The document files will be "
 "available in the downloads area."

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
@@ -23,43 +23,43 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #: apps.py:53 apps.py:173 apps.py:177 apps.py:182 apps.py:187 apps.py:192
-#: events.py:6 forms.py:14 links.py:30 menus.py:14 models.py:52 models.py:159
-#: permissions.py:6 search.py:48 views.py:169 workflow_actions.py:39
+#: events.py:6 forms.py:14 links.py:30 menus.py:14 models.py:54 models.py:160
+#: permissions.py:6 search.py:54 views.py:169 workflow_actions.py:39
 #: workflow_actions.py:53
 msgid "Cabinets"
-msgstr "Кабінети"
+msgstr "Шафи"
 
-#: apps.py:164 models.py:41
+#: apps.py:164 models.py:43
 msgid "Documents"
 msgstr "Документи"
 
 #: events.py:11
 msgid "Cabinet created"
-msgstr "Кабінет створено"
+msgstr "Шафу створено"
 
 #: events.py:14
 msgid "Cabinet deleted"
-msgstr "Кабінет видалено"
+msgstr "Шафу видалено"
 
 #: events.py:17
 msgid "Cabinet edited"
-msgstr "Кабінет відредаговано"
+msgstr "Шафу відредаговано"
 
 #: events.py:20
 msgid "Document added to cabinet"
-msgstr "Документ додано до кабінету"
+msgstr "Документ додано до шафи"
 
 #: events.py:23
 msgid "Document removed from cabinet"
-msgstr "Документ вилучено з кабінету"
+msgstr "Документ вилучено з шафи"
 
 #: links.py:36 links.py:48 workflow_actions.py:75
 msgid "Remove from cabinets"
-msgstr "Вилучити з кабінетів"
+msgstr "Вилучити з шаф"
 
 #: links.py:41 links.py:44 workflow_actions.py:21
 msgid "Add to cabinets"
-msgstr "Додати до кабінетів"
+msgstr "Додати до шаф"
 
 #: links.py:59
 msgid "Add new level"
@@ -67,7 +67,7 @@ msgstr "Додати новий рівень"
 
 #: links.py:64 views.py:47
 msgid "Create cabinet"
-msgstr "Створити кабінет"
+msgstr "Створити шафу"
 
 #: links.py:69
 msgid "Delete"
@@ -87,7 +87,7 @@ msgstr "Подробиці"
 
 #: methods.py:21
 msgid "Return a list of cabinets containing the document."
-msgstr "Повернути список кабінетів, що містять документ."
+msgstr "Повернути список шаф, що містять документ."
 
 #: methods.py:23
 msgid "get_cabinets()"
@@ -95,98 +95,106 @@ msgstr "get_cabinets()"
 
 #: model_mixins.py:64
 msgid "The path to the cabinet including all ancestors."
-msgstr "Шлях до кабінету, включаючи всіх предків."
+msgstr "Шлях до шафи, включаючи всіх предків."
 
 #: model_mixins.py:66 serializers.py:32
 msgid "Full path"
 msgstr "Повний шлях"
 
-#: models.py:33 serializers.py:41
+#: models.py:35 serializers.py:41
 msgid "Parent"
-msgstr "Родич"
+msgstr "Батько"
 
-#: models.py:36
+#: models.py:38
 msgid "A short text used to identify the cabinet."
-msgstr "Короткий текст, який використовується для ідентифікації кабінету."
+msgstr "Короткий текст, який використовується для ідентифікації шафи."
 
-#: models.py:37
+#: models.py:39
 msgid "Label"
 msgstr "Мітка"
 
-#: models.py:51 models.py:133 models.py:158
+#: models.py:53 models.py:135 models.py:159
 msgid "Cabinet"
-msgstr "Кабінет"
+msgstr "Шафа"
 
 #: models.py:134
 msgid "Parent and Label"
 msgstr "Батьківський клас і Мітка"
 
-#: models.py:141
+#: models.py:142
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
 msgstr "%(model_name)sз цим %(field_labels)s уже існує."
 
-#: models.py:170
-msgid "Document cabinet"
-msgstr "Кабінет документів"
-
 #: models.py:171
+msgid "Document cabinet"
+msgstr "Шафа документів"
+
+#: models.py:172
 msgid "Document cabinets"
-msgstr "Кабінети документів"
+msgstr "Шафи документів"
 
 #: permissions.py:12
 msgid "Add documents to cabinets"
-msgstr "Додати документи до кабінетів"
+msgstr "Додати документи до шаф"
 
 #: permissions.py:15
 msgid "Create cabinets"
-msgstr "Створити кабінети"
+msgstr "Створити шафи"
 
 #: permissions.py:18
 msgid "Delete cabinets"
-msgstr "Видалити кабінети"
+msgstr "Видалити шафи"
 
 #: permissions.py:21
 msgid "Edit cabinets"
-msgstr "Редагувати кабінети"
+msgstr "Редагувати шафи"
 
 #: permissions.py:24
 msgid "Remove documents from cabinets"
-msgstr "Видалити документи з кабінетів"
+msgstr "Видалити документи з шаф"
 
 #: permissions.py:27
 msgid "View cabinets"
-msgstr "Переглянути кабінети"
+msgstr "Переглянути шафи"
 
-#: search.py:24
+#: search.py:25
 msgid "Document type"
 msgstr "Тип документа"
 
-#: search.py:27
+#: search.py:28
 msgid "Document label"
 msgstr "Мітка документа"
 
-#: search.py:30
+#: search.py:31
 msgid "Document description"
 msgstr "Опис документа"
 
-#: search.py:33
+#: search.py:34
 msgid "Document UUID"
 msgstr "Документ UUID"
 
-#: search.py:39
+#: search.py:40
 msgid "Document file checksum"
 msgstr "Контрольна сума файлу документа"
 
-#: search.py:42
+#: search.py:43
 msgid "Document file MIME type"
 msgstr "Тип файлу документа MIME"
+
+#: search.py:50
+msgid "The database ID of the cabinet."
+msgstr ""
+
+#: search.py:51
+msgid "Cabinet ID"
+msgstr ""
 
 #: serializers.py:18
 msgid "List of children cabinets."
 msgstr "Список кабінетів-наслідників."
 
-#: serializers.py:18
+#: serializers.py:19
 msgid "Children"
 msgstr "Дитина"
 
@@ -215,16 +223,15 @@ msgstr "URL"
 
 #: serializers.py:84
 msgid "Primary key of the document to add to the cabinet."
-msgstr ""
-"Первинний ключ \"Primary key\" документа, який потрібно додати до кабінету."
+msgstr "Первинний ключ \"Primary key\" документа, який потрібно додати до шафи."
 
-#: serializers.py:85 serializers.py:94
+#: serializers.py:85 serializers.py:95
 msgid "Document ID"
 msgstr "ID документа"
 
-#: serializers.py:93
+#: serializers.py:94
 msgid "Primary key of the document to remove from the cabinet."
-msgstr "Первинний ключ \"Primary key\" документа для вилучення з кабінету."
+msgstr "Первинний ключ \"Primary key\" документа для вилучення з шафи."
 
 #: templates/cabinets/cabinet_details.html:17
 msgid "Navigation:"
@@ -238,7 +245,7 @@ msgstr "Додати новий рівень до: %s"
 #: views.py:89
 #, python-format
 msgid "Delete the cabinet: %s?"
-msgstr "Видалити кабінет: %s ?"
+msgstr "Видалити шафу: %s?"
 
 #: views.py:128
 msgid ""
@@ -255,12 +262,12 @@ msgstr "Цей рівень кабінету порожній"
 #: views.py:135
 #, python-format
 msgid "Details of cabinet: %s"
-msgstr "Деталі кабінету: %s"
+msgstr "Деталі шафи: %s"
 
 #: views.py:154
 #, python-format
 msgid "Edit cabinet: %s"
-msgstr "Редагувати кабінет: %s"
+msgstr "Редагувати шафу: %s"
 
 #: views.py:175
 msgid ""
@@ -344,7 +351,7 @@ msgstr "Видалити %(count)d документів із шаф."
 #: views.py:298
 #, python-format
 msgid "Remove document \"%(object)s\" from cabinets."
-msgstr "Вилучіть документ \"%(object)s\" із шаф."
+msgstr "Видалити документ \"%(object)s\" із шаф."
 
 #: views.py:299
 #, python-format
@@ -355,11 +362,11 @@ msgstr "Вилучити документ %(count)d із шаф."
 msgid "Cabinets from which the selected documents will be removed."
 msgstr "Шафи, з яких будуть вилучені вибрані документи."
 
-#: wizard_steps.py:18
+#: wizard_steps.py:20
 msgid "Select cabinets"
 msgstr "Оберіть шафи"
 
-#: wizard_steps.py:77 workflow_actions.py:33
+#: wizard_steps.py:80 workflow_actions.py:33
 msgid "Cabinets to which the document will be added."
 msgstr "Шафи, до яких буде додано документ."
 

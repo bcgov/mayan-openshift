@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,15 +20,15 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:51 events.py:6 permissions.py:6 settings.py:11
+#: apps.py:53 apps.py:89 events.py:6 permissions.py:6 settings.py:11
 msgid "Document parsing"
 msgstr "文書解析"
 
-#: apps.py:107
+#: apps.py:113
 msgid "A generator returning the document file's pages parsed content."
 msgstr "文書ファイルのページごとの解析済みコンテンツを返すジェネレーター"
 
-#: apps.py:108 links.py:26 links.py:49 models.py:25 search.py:18
+#: apps.py:114 links.py:26 links.py:49 models.py:27 search.py:18
 msgid "Content"
 msgstr "コンテンツ"
 
@@ -79,39 +79,39 @@ msgstr "解析設定"
 msgid "Parse documents per type"
 msgstr "文書タイプごとの解析"
 
-#: models.py:19
+#: models.py:21
 msgid "Document file page"
 msgstr "文書ファイルのページ"
 
-#: models.py:23
+#: models.py:25
 msgid "The actual text content as extracted by the document parsing backend."
 msgstr "文書解析バックエンドによって抽出された実際のテキストコンテンツ"
 
-#: models.py:31 search.py:24
+#: models.py:33 search.py:24
 msgid "Document file page content"
 msgstr "文書ファイルページのコンテンツ"
 
-#: models.py:32
+#: models.py:34
 msgid "Document file page contents"
 msgstr "文書ファイルページのコンテンツ一覧"
 
-#: models.py:44
+#: models.py:46
 msgid "Document type"
 msgstr "文書タイプ"
 
-#: models.py:48
+#: models.py:50
 msgid "Automatically queue newly created documents for parsing."
 msgstr "新規作成された文書を自動的に解析キューに追加"
 
-#: models.py:49
+#: models.py:51
 msgid "Auto parsing"
 msgstr "自動解析"
 
-#: models.py:59
+#: models.py:61
 msgid "Document type settings"
 msgstr "文書タイプ設定"
 
-#: models.py:60
+#: models.py:62
 msgid "Document types settings"
 msgstr "文書タイプ設定（複数形だがUIでは同一表現で可）"
 
@@ -159,82 +159,82 @@ msgid ""
 "files."
 msgstr "PDFファイルからテキストを抽出するために使用される poppler の pdftotext プログラムのファイルパス"
 
-#: views.py:35
+#: views.py:38
 #, python-format
 msgid "Error deleting document version content \"%(instance)s\"; %(exception)s"
 msgstr "文書バージョン\"%(instance)s\"のコンテンツ削除時にエラー: %(exception)s"
 
-#: views.py:42
+#: views.py:45
 #, python-format
 msgid "Content of %(count)d document versions deleted successfully."
 msgstr "%(count)d 件の文書バージョンのコンテンツを正常に削除しました。"
 
-#: views.py:45
+#: views.py:48
 #, python-format
 msgid "Content of \"%(object)s\" deleted successfully."
 msgstr "\"%(object)s\"のコンテンツを正常に削除しました"
 
-#: views.py:48
+#: views.py:51
 #, python-format
 msgid "Content of %(count)d document version deleted successfully."
 msgstr "%(count)d 件の文書バージョンのコンテンツを正常に削除しました。"
 
-#: views.py:50
+#: views.py:53
 #, python-format
 msgid "Delete the content of: %(object)s."
 msgstr "%(object)s のコンテンツを削除"
 
-#: views.py:52
+#: views.py:55
 #, python-format
 msgid "Delete the content of the %(count)d selected document version."
 msgstr "選択された %(count)d 件の文書バージョンのコンテンツを削除"
 
-#: views.py:55
+#: views.py:58
 #, python-format
 msgid "Delete the content of the %(count)d selected document versions."
 msgstr "選択された %(count)d 件の文書バージョンのコンテンツを削除"
 
-#: views.py:96
+#: views.py:99
 #, python-format
 msgid "Content for document file: %s"
 msgstr "文書ファイル \"%s\" のコンテンツ"
 
-#: views.py:118
+#: views.py:121
 #, python-format
 msgid "Content for document file page: %s"
 msgstr "文書ファイルページ \"%s\" のコンテンツ"
 
-#: views.py:133
+#: views.py:136
 #, python-format
 msgid "%(count)d document file added to the parsing queue"
 msgstr "%(count)d 件の文書ファイルを解析キューに追加"
 
-#: views.py:136
+#: views.py:139
 #, python-format
 msgid "%(count)d documents files added to the parsing queue"
 msgstr "%(count)d 件の文書ファイルを解析キューに追加"
 
-#: views.py:145
+#: views.py:148
 #, python-format
 msgid "Submit %(count)d document file to the parsing queue?"
 msgid_plural "Submit %(count)d documents files to the parsing queue?"
 msgstr[0] "%(count)d 件の文書ファイルを解析キューに送信しますか？"
 
-#: views.py:158
+#: views.py:161
 #, python-format
 msgid "Submit document file \"%s\" to the parsing queue"
 msgstr "文書ファイル \"%s\" を解析キューに送信"
 
-#: views.py:188
+#: views.py:191
 #, python-format
 msgid "Edit parsing settings for document type: %s."
 msgstr "文書タイプ \"%s\" の解析設定を編集"
 
-#: views.py:198
+#: views.py:201
 msgid "Submit all documents of a type for parsing"
 msgstr "指定された文書タイプのすべての文書を解析に送信"
 
-#: views.py:220
+#: views.py:223
 #, python-format
 msgid "%(count)d documents added to the parsing queue."
 msgstr "%(count)d 件の文書を解析キューに追加"

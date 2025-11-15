@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 04:57+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,16 +20,16 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:56 events.py:6 links.py:152 links.py:159 menus.py:6 models.py:62
-#: queues.py:9 settings.py:12 views/source_views.py:285
+#: apps.py:57 apps.py:99 events.py:6 links.py:154 links.py:161 menus.py:6
+#: models.py:65 queues.py:9 settings.py:14 views/source_views.py:279
 msgid "Sources"
 msgstr "ソース"
 
-#: apps.py:104
+#: apps.py:109
 msgid "Create a document source"
 msgstr "ドキュメントソースを作成"
 
-#: apps.py:106
+#: apps.py:111
 msgid ""
 "Document sources are the way in which new documents are feed to Mayan EDMS, "
 "create at least a web form source to be able to upload documents from a "
@@ -38,21 +38,21 @@ msgstr ""
 "ドキュメントソースは、新しいドキュメントを Mayan EDMS "
 "に取り込む方法です。ブラウザからドキュメントをアップロードできるようにするには、少なくとも Web フォームソースを作成してください。"
 
-#: apps.py:130
+#: apps.py:135
 msgid ""
 "Return the value of a specific source metadata for the document's latest "
 "file."
 msgstr "ドキュメントの最新ファイルに対する特定のソースメタデータの値を返す"
 
-#: apps.py:132 apps.py:139
+#: apps.py:137 apps.py:144
 msgid "Source metadata value of"
 msgstr "ソースメタデータの値（対象:）"
 
-#: apps.py:138
+#: apps.py:143
 msgid "Return the value of a specific source metadata."
 msgstr "特定のソースメタデータの値を返す"
 
-#: apps.py:157
+#: apps.py:167
 msgid "Type"
 msgstr "タイプ"
 
@@ -93,73 +93,73 @@ msgstr "バックエンド"
 msgid "File"
 msgstr "ファイル"
 
-#: links.py:116
+#: links.py:118
 msgid "New document"
 msgstr "新規ドキュメント"
 
-#: links.py:122
+#: links.py:124
 msgid "Upload new file"
 msgstr "新規ファイルをアップロ新しいファイルをアップロードード"
 
-#: links.py:130
+#: links.py:132
 msgid "Source metadata"
 msgstr "ソースメタデータ"
 
-#: links.py:139
+#: links.py:141
 msgid "Create source"
 msgstr "ソースを作成"
 
-#: links.py:144
+#: links.py:146
 msgid "Delete"
 msgstr "削除"
 
-#: links.py:148
+#: links.py:150
 msgid "Edit"
 msgstr "編集"
 
-#: links.py:165
+#: links.py:167
 msgid "Test"
 msgstr "テスト"
 
-#: models.py:19 models.py:61
-msgid "Source"
-msgstr "ソース"
-
-#: models.py:23
+#: models.py:21 serializers.py:19
 msgid "Document file"
 msgstr "文書ファイル"
 
-#: models.py:26
+#: models.py:25
 msgid "Name of the source metadata entry."
 msgstr "ソースメタデータ項目の名前"
 
-#: models.py:27
+#: models.py:26
 msgid "Key"
 msgstr "技"
 
-#: models.py:31
+#: models.py:30
 msgid "The actual value stored in the source metadata for the document file."
 msgstr "ドキュメントファイルのソースメタデータに格納された実際の値"
 
-#: models.py:33
+#: models.py:32
 msgid "Value"
 msgstr "値"
 
-#: models.py:39 models.py:40
+#: models.py:40 models.py:41
 msgid "Document file source metadata"
 msgstr "文書ファイルのソースメタデータ"
 
-#: models.py:50
+#: models.py:53
 msgid "A short text to describe this source."
 msgstr "このソースを説明する短いテキスト"
 
-#: models.py:51
+#: models.py:54
 msgid "Label"
 msgstr "ラベル"
 
-#: models.py:54
+#: models.py:57
 msgid "Enabled"
 msgstr "有効"
+
+#: models.py:64
+msgid "Source"
+msgstr "ソース"
 
 #: permissions.py:6
 msgid "Sources setup"
@@ -173,15 +173,15 @@ msgstr "文書ファイルのソースメタデータを表示"
 msgid "Create new document sources"
 msgstr "新しい文書ソースを作成"
 
-#: permissions.py:22
+#: permissions.py:23
 msgid "Delete document sources"
 msgstr "文書ソースを削除"
 
-#: permissions.py:25
+#: permissions.py:26
 msgid "Edit document sources"
 msgstr "文書ソースを編集"
 
-#: permissions.py:28
+#: permissions.py:29
 msgid "View existing document sources"
 msgstr "既存の文書ソースを表示"
 
@@ -197,79 +197,94 @@ msgstr "ソースバックエンドのアクションをバックグラウンド
 msgid "Check interval source"
 msgstr "ソースのチェック間隔"
 
-#: serializers.py:13
-msgid "Default"
-msgstr "デフォルト"
+#: search.py:11 search.py:23
+msgid "Source metadata key"
+msgstr "ソースメタデータキー"
 
-#: serializers.py:16
-msgid "Has default?"
-msgstr "既定値はありますか？"
+#: search.py:16 search.py:26
+msgid "Source metadata value"
+msgstr "ソースメタデータ値"
 
-#: serializers.py:19
-msgid "Help text"
-msgstr "ヘルプテキスト"
-
-#: serializers.py:22 serializers.py:41
-msgid "Name"
-msgstr "名前"
-
-#: serializers.py:25
-msgid "Required"
-msgstr "必須"
-
-#: serializers.py:37 serializers.py:52
-msgid "Arguments"
-msgstr "引数"
-
-#: serializers.py:47
-msgid "Accept files"
-msgstr "ファイルを受け入れる"
-
-#: serializers.py:51
-msgid "Optional arguments for the action. Must be JSON formatted."
-msgstr "アクション用の任意の引数。JSON 形式で指定してください。"
-
-#: serializers.py:56
-msgid "Confirmation"
-msgstr "確認"
-
-#: serializers.py:59
-msgid "Execute URL"
-msgstr "URL を実行"
-
-#: serializers.py:62
-msgid "Interfaces"
-msgstr "インターフェース"
-
-#: serializers.py:66
-msgid "name"
-msgstr "名前"
-
-#: serializers.py:69
-msgid "Permission"
-msgstr "権限"
-
-#: serializers.py:74
+#: serializers.py:22 serializers.py:107
 msgid "URL"
 msgstr "URL"
 
-#: serializers.py:85
+#: serializers.py:46
+msgid "Default"
+msgstr "デフォルト"
+
+#: serializers.py:49
+msgid "Has default?"
+msgstr "既定値はありますか？"
+
+#: serializers.py:52
+msgid "Help text"
+msgstr "ヘルプテキスト"
+
+#: serializers.py:55 serializers.py:74
+msgid "Name"
+msgstr "名前"
+
+#: serializers.py:58
+msgid "Required"
+msgstr "必須"
+
+#: serializers.py:70 serializers.py:85
+msgid "Arguments"
+msgstr "引数"
+
+#: serializers.py:80
+msgid "Accept files"
+msgstr "ファイルを受け入れる"
+
+#: serializers.py:84
+msgid "Optional arguments for the action. Must be JSON formatted."
+msgstr "アクション用の任意の引数。JSON 形式で指定してください。"
+
+#: serializers.py:89
+msgid "Confirmation"
+msgstr "確認"
+
+#: serializers.py:92
+msgid "Execute URL"
+msgstr "URL を実行"
+
+#: serializers.py:95
+msgid "Interfaces"
+msgstr "インターフェース"
+
+#: serializers.py:99
+msgid "name"
+msgstr "名前"
+
+#: serializers.py:102
+msgid "Permission"
+msgstr "権限"
+
+#: serializers.py:118
 msgid "Binary content for the new file."
 msgstr "新しいファイルのバイナリコンテンツ"
 
-#: serializers.py:121
+#: serializers.py:154
 msgid "Actions URL"
 msgstr "アクション URL"
 
-#: settings.py:19
+#: settings.py:21
 msgid "Arguments to use when creating source backends."
 msgstr "ソースバックエンドを作成する際に使用する引数"
 
-#: settings.py:25
+#: settings.py:29
+msgid ""
+"The threshold at which the SOURCES_CACHE_STORAGE_BACKEND will start deleting"
+" the oldest source cache files. Specify the size in bytes."
+msgstr ""
+"SOURCES_CACHE_STORAGE_BACKEND が最も古いソースキャッシュファイルを削除し始める閾値。バイト単位で指定してください。"
+
+#: settings.py:37
 msgid "Path to the Storage subclass used to store cached source image files."
 msgstr "キャッシュされたソース画像ファイルを保存するために使用される Storage サブクラスのパス"
 
-#: settings.py:33
+#: settings.py:44
 msgid "Arguments to pass to the SOURCES_SOURCE_CACHE_STORAGE_BACKEND."
 msgstr "SOURCES_SOURCE_CACHE_STORAGE_BACKEND に渡す引数"
 
@@ -290,19 +305,19 @@ msgid ""
 msgstr ""
 "有効にすると、文書スタブが即座に作成され返されます。文書ファイルは非同期で処理されます。無効にすると、全プロセスが非同期で行われ、データは返されません。即時モードを有効にすると、圧縮ファイル処理は無効になります。"
 
-#: source_backend_actions/mixins/arguments.py:29
+#: source_backend_actions/mixins/arguments.py:31
 msgid "ID of the document to which a new file will be uploaded to."
 msgstr "新しいファイルがアップロードされる文書のID"
 
-#: source_backend_actions/mixins/arguments.py:57
+#: source_backend_actions/mixins/arguments.py:59
 msgid "ID of the document type."
 msgstr "文書タイプのID"
 
-#: source_backend_actions/mixins/arguments.py:74
+#: source_backend_actions/mixins/arguments.py:76
 msgid "User that will feature as the actor in the events."
 msgstr "イベントの実行者として表示されるユーザー"
 
-#: source_backend_actions/mixins/arguments.py:79
+#: source_backend_actions/mixins/arguments.py:81
 msgid "ID of the user that will feature as the actor in the events."
 msgstr "イベントの実行者として表示されるユーザーのID"
 
@@ -314,41 +329,41 @@ msgstr "一般"
 msgid "Null backend"
 msgstr "無効バックエンド"
 
-#: source_backends/mixins.py:27
+#: source_backends/mixins.py:28
 msgid "Regular expression used to select which files to upload."
 msgstr "アップロードするファイルを選択するために使用される正規表現"
 
-#: source_backends/mixins.py:30
+#: source_backends/mixins.py:32
 msgid "Include regular expression"
 msgstr "正規表現を含める"
 
-#: source_backends/mixins.py:37
+#: source_backends/mixins.py:40
 msgid "Regular expression used to exclude which files to upload."
 msgstr "アップロードするファイルを除外するために使用される正規表現"
 
-#: source_backends/mixins.py:40
+#: source_backends/mixins.py:44
 msgid "Exclude regular expression"
 msgstr "正規表現を除外"
 
-#: source_backends/mixins.py:54
+#: source_backends/mixins.py:58
 msgid "Content selection"
 msgstr "コンテンツ選択"
 
-#: storages.py:14
+#: storages.py:13
 msgid ""
 "Unable to initialize the staging folder file image storage. Check the "
 "settings {} and {} for formatting errors."
 msgstr "テージングフォルダのファイル画像ストレージを初期化できません。設定 {} および {} にフォーマットエラーがないか確認してください。"
 
-#: storages.py:21
-msgid "Staging folder files"
-msgstr "準備フォルダー内のファイル"
+#: storages.py:20
+msgid "Sources cache"
+msgstr "ソースキャッシュ"
 
-#: tests/arguments.py:6
+#: tests/arguments.py:8
 msgid "Python file like object."
 msgstr "Python のファイルライクオブジェクト"
 
-#: tests/arguments.py:10
+#: tests/arguments.py:12
 msgid "ID of the shared uploaded file to be processed."
 msgstr "処理対象の共有アップロードファイルの ID"
 
@@ -358,41 +373,41 @@ msgid ""
 "or enable and existing one."
 msgstr "この操作をサポートする有効なソースが存在しません。新しいソースを作成するか、既存のソースを有効にしてください。"
 
-#: views/document_file_views.py:43
+#: views/document_file_views.py:41
 msgid ""
 "This means that the sources system did not record any information about the "
 "creation of the document file."
 msgstr "これは、ソースシステムが文書ファイル作成に関する情報を記録していないことを意味します。"
 
-#: views/document_file_views.py:47
+#: views/document_file_views.py:45
 msgid "No source metadata available for this document file."
 msgstr "この文書ファイルに利用可能なソースメタデータはありません"
 
-#: views/document_file_views.py:51
+#: views/document_file_views.py:49
 #, python-format
 msgid "Source metadata for: %(document_file)s"
 msgstr "ソースメタデータ: %(document_file)s"
 
-#: views/document_file_views.py:96
+#: views/document_file_views.py:82
 #, python-format
 msgid "Unable to upload new files for document \"%(document)s\". %(exception)s"
 msgstr "文書 \"%(document)s\" に新しいファイルをアップロードできません。 %(exception)s"
 
-#: views/document_file_views.py:141
+#: views/document_file_views.py:126
 #, python-format
 msgid "Error executing document file upload task; %(exception)s"
 msgstr "文書ファイルアップロードタスクの実行中にエラーが発生しました; %(exception)s"
 
-#: views/document_file_views.py:162
+#: views/document_file_views.py:145
 msgid "New document file queued for upload and will be available shortly."
 msgstr "新しい文書ファイルがアップロードキューに追加され、まもなく利用可能になります。"
 
-#: views/document_file_views.py:187
+#: views/document_file_views.py:169
 #, python-format
 msgid "Upload a new file for document \"%(document)s\" from source: %(source)s"
 msgstr "文書 \"%(document)s\" に新しいファイルをアップロード: ソース %(source)s から"
 
-#: views/document_file_views.py:193
+#: views/document_file_views.py:175
 msgid "Submit"
 msgstr "送信"
 
@@ -433,17 +448,17 @@ msgstr "新しいソースバックエンドの選択"
 msgid "Create a \"%s\" source"
 msgstr "\"%s\" ソースを作成"
 
-#: views/source_views.py:235
+#: views/source_views.py:233
 #, python-format
 msgid "Delete the source: %s?"
 msgstr "ソースを削除しますか: %s?"
 
-#: views/source_views.py:251
+#: views/source_views.py:249
 #, python-format
 msgid "Edit source: %s"
 msgstr "ソースを編集: %s"
 
-#: views/source_views.py:279
+#: views/source_views.py:273
 msgid ""
 "Sources provide the means to upload documents. Some sources are interactive "
 "and require user input to operate. Others are automatic and run in the "
@@ -451,18 +466,18 @@ msgid ""
 msgstr ""
 "ソースは文書をアップロードする手段を提供します。インタラクティブなソースは操作にユーザー入力が必要です。自動ソースはバックグラウンドでユーザー操作なしに実行されます。"
 
-#: views/source_views.py:284
+#: views/source_views.py:278
 msgid "No sources available"
 msgstr "利用可能なソースはありません。"
 
-#: views/source_views.py:309
+#: views/source_views.py:303
 #, python-format
 msgid ""
 "The selected action \"%s\" does not require confirmation and cannot be "
 "tested."
 msgstr "選択されたアクション \"%s\" は確認を必要とせず、テストできません。"
 
-#: views/source_views.py:331
+#: views/source_views.py:323
 msgid ""
 "This will execute the source code even if the source is not enabled. Sources"
 " that delete content after downloading will not do so while being tested. "
@@ -471,18 +486,18 @@ msgid ""
 msgstr ""
 "この操作を実行すると、ソースが有効でなくてもソースコードが実行されます。ダウンロード後にコンテンツを削除するソースは、テスト中は削除されません。テスト中の情報はソースのエラーログを確認してください。テストが成功すると、エラーログはクリアされます。"
 
-#: views/source_views.py:337
+#: views/source_views.py:329
 #, python-format
 msgid "Trigger check for source \"%s\"?"
 msgstr "ソース \"%s\" の確認をトリガーしますか?"
 
-#: views/source_views.py:353
+#: views/source_views.py:345
 msgid ""
 "Source test queued. Check for newly created documents or for error log "
 "entries."
 msgstr "ソース \"%s\" の確認をトリガーしますか?"
 
-#: wizard_steps.py:11
+#: wizard_steps.py:13
 msgid "Select document type"
 msgstr "文書タイプを選択"
 

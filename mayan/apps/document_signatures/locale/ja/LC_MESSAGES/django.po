@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "文書署名"
 msgid "Date and time"
 msgstr "日付と時刻"
 
-#: apps.py:114 models.py:52 serializers.py:61
+#: apps.py:114 models.py:53 serializers.py:61
 msgid "Key ID"
 msgstr "Key ID"
 
@@ -36,7 +36,7 @@ msgstr "Key ID"
 msgid "None"
 msgstr "なし"
 
-#: apps.py:119 forms.py:65 models.py:57
+#: apps.py:119 forms.py:65 models.py:58
 msgid "Signature ID"
 msgstr "署名ID"
 
@@ -178,47 +178,47 @@ msgstr "文書ファイル"
 msgid "Date and time signed"
 msgstr "署名日時"
 
-#: models.py:51
+#: models.py:52
 msgid "ID of the key that will be used to sign the document."
 msgstr "文書の署名に使用される鍵のID"
 
-#: models.py:61
+#: models.py:62
 msgid "Public key fingerprint"
 msgstr "公開鍵のフィンガープリント"
 
-#: models.py:68
+#: models.py:69
 msgid "Document file signature"
 msgstr "文書ファイルの署名"
 
-#: models.py:69
+#: models.py:70
 msgid "Document file signatures"
 msgstr "文書ファイルの署名一覧"
 
-#: models.py:86
+#: models.py:87
 msgid "Signature file previously generated."
 msgstr "以前に生成された署名ファイル"
 
-#: models.py:89
+#: models.py:90
 msgid "Signature file"
 msgstr "署名ファイル"
 
-#: models.py:95
+#: models.py:96
 msgid "Document file detached signature"
 msgstr "文書ファイルの分離署名"
 
-#: models.py:96
+#: models.py:97
 msgid "Document file detached signatures"
 msgstr "文書ファイルの分離署名一覧"
 
-#: models.py:100
+#: models.py:101
 msgid "signature"
 msgstr "署名"
 
-#: models.py:151
+#: models.py:152
 msgid "Document file embedded signature"
 msgstr "文書ファイルの埋め込み署名"
 
-#: models.py:152
+#: models.py:153
 msgid "Document file embedded signatures"
 msgstr "文書ファイルの埋め込み署名"
 

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-29 01:48+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-06-04 06:21+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:28 events.py:6
+#: apps.py:28 events.py:6 settings.py:9
 msgid "Locales"
 msgstr "言語設定"
 
-#: dependencies.py:12
+#: dependencies.py:10
 msgid "Transifex Client"
 msgstr "Transifex クライアント"
 
@@ -60,16 +60,25 @@ msgstr "ユーザーロケールプロファイル"
 msgid "User locale profiles"
 msgstr "ユーザーロケールプロファイル一覧"
 
-#: models.py:39
+#: models.py:38 models.py:39
 msgid "None"
 msgstr "なし"
 
-#: views.py:49
+#: settings.py:15
+msgid ""
+"Default profile language for new user accounts. Must be in ISO639-3 format."
+msgstr "新規ユーザーアカウントのデフォルト言語。ISO639-3形式で指定する必要があります"
+
+#: settings.py:22
+msgid "Default profile timezone for new user accounts."
+msgstr "新規ユーザーアカウントのデフォルトタイムゾーン"
+
+#: views.py:52
 #, python-format
 msgid "Locale profile for user: %s"
 msgstr "ユーザー「%s」のロケールプロファイル"
 
-#: views.py:82
+#: views.py:86
 #, python-format
 msgid "Edit locale profile for user: %s"
 msgstr "ユーザー「%s」のロケールプロファイルを編集"

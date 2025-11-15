@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:05+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid ""
 "path and arguments."
 msgstr "ストレージ %(name)s の初期化に失敗しました。ストレージバックエンドのドット区切りパスおよび引数を確認してください。"
 
-#: events.py:6 links.py:20 models.py:54 storages.py:22
+#: events.py:6 links.py:20 models.py:55 storages.py:22
 msgid "Download files"
 msgstr "ファイルのダウンロード"
 
@@ -78,15 +78,15 @@ msgstr "ストレージパイプラインの変換を元に戻すため、ファ
 msgid "Name of the storage to process."
 msgstr "処理するストレージの名前"
 
-#: model_mixins.py:18 models.py:93
+#: model_mixins.py:67 models.py:96
 msgid "Filename"
 msgstr "ファイル名"
 
-#: model_mixins.py:21
+#: model_mixins.py:70
 msgid "Date time"
 msgstr "日付と時刻"
 
-#: model_mixins.py:83
+#: model_mixins.py:91
 msgid "Unnamed file"
 msgstr "名前のないファイル"
 
@@ -94,27 +94,27 @@ msgstr "名前のないファイル"
 msgid "Size"
 msgstr "サイズ"
 
-#: model_mixins.py:110 models.py:46 serializers.py:15
+#: model_mixins.py:110 models.py:47 serializers.py:15
 msgid "User"
 msgstr "ユーザー"
 
-#: models.py:38 models.py:90
+#: models.py:39 models.py:92
 msgid "File"
 msgstr "ファイル"
 
-#: models.py:41
+#: models.py:42
 msgid "Label"
 msgstr "ラベル"
 
-#: models.py:53
+#: models.py:54
 msgid "Download file"
 msgstr "ダウンロードファイル"
 
-#: models.py:99
+#: models.py:102
 msgid "Shared uploaded file"
 msgstr "共有アップロードファイル"
 
-#: models.py:100 storages.py:36
+#: models.py:103 storages.py:36
 msgid "Shared uploaded files"
 msgstr "共有アップロードファイル群"
 
@@ -190,7 +190,7 @@ msgid ""
 " and {} for formatting errors."
 msgstr "共有アップロードファイルストレージの初期化に失敗しました。設定 {} および {} を確認してフォーマットエラーがないか確認してください。"
 
-#: views/download_file_views.py:68
+#: views/download_file_views.py:69
 msgid ""
 "Download files are created as a results of a an external process like an "
 "export. Download files are retained over a span of time and then removed "
@@ -198,10 +198,10 @@ msgid ""
 msgstr ""
 "ダウンロードファイルは、エクスポートなど外部プロセスの結果として作成されます。ダウンロードファイルは一定期間保持された後、自動的に削除されます。"
 
-#: views/download_file_views.py:72
+#: views/download_file_views.py:73
 msgid "There are no files to download."
 msgstr "ダウンロード可能なファイルはありません。"
 
-#: views/download_file_views.py:73
+#: views/download_file_views.py:74
 msgid "Downloads"
 msgstr "ダウンロード"

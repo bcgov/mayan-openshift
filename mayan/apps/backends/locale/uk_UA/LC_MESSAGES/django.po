@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-11 08:30+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Дані в кодуванні JSON для backend класу."
 
 #: model_mixins.py:28
 msgid "Backend data"
-msgstr "Серверні (Backend) дані"
+msgstr "Серверні \"Backend\" дані"
 
 #: model_mixins.py:72
 #, python-format

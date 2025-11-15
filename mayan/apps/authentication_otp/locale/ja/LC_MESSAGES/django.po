@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:28+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -32,46 +32,46 @@ msgstr "OTP無効"
 msgid "OTP enabled"
 msgstr "OTP有効"
 
-#: forms.py:20
+#: forms.py:22
 msgid "Token is either invalid or expired."
 msgstr "トークンが無効、または期限切れです"
 
-#: forms.py:25
+#: forms.py:27
 msgid "TOTP token"
 msgstr "TOTP トークン"
 
-#: forms.py:86
+#: forms.py:88
 msgid "OTP enabled?"
 msgstr "OTP は有効ですか？"
 
-#: forms.py:87
+#: forms.py:89
 msgid "Yes"
 msgstr "はい"
 
-#: forms.py:87
+#: forms.py:89
 msgid "No"
 msgstr "いいえ"
 
-#: forms.py:104
+#: forms.py:106
 msgid ""
 "Scan the QR code or enter the secret in your authentication device. Do not "
 "share this secret, treat it like a password."
 msgstr "QRコードをスキャンするか認証デバイスに秘密キーを入力してください。この秘密キーはパスワードと同様に扱い、他人と共有しないでください"
 
-#: forms.py:106 forms.py:111
+#: forms.py:108 forms.py:113
 msgid "Secret"
 msgstr "シークレット"
 
-#: forms.py:117
+#: forms.py:119
 msgid ""
 "Enter the corresponding token to validate that the secret was saved correct."
 msgstr "対応するトークンを入力して、秘密キーが正しく保存されたか確認してください"
 
-#: forms.py:120
+#: forms.py:122
 msgid "Token"
 msgstr "トークン"
 
-#: forms.py:155
+#: forms.py:158
 msgid "Token is incorrect for the specified secret."
 msgstr "指定された秘密キーに対するトークンが無効です。"
 
@@ -121,15 +121,15 @@ msgstr "OTPを無効化しました。"
 msgid "OTP is already enabled."
 msgstr "OTPはすでに有効です。"
 
-#: views.py:96
+#: views.py:97
 msgid "OTP enabled successfully."
 msgstr "OTPを有効化しました。"
 
-#: views.py:105
+#: views.py:107
 #, python-format
 msgid "Enable one time pad for user: %s"
 msgstr "ユーザーのワンタイムパッドを有効にする: %s"
 
-#: views.py:117
+#: views.py:119
 msgid "OTP secret validation error."
 msgstr "OTP秘密キーの検証に失敗しました"

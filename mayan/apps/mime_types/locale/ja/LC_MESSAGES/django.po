@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 04:57+0000\n"
-"PO-Revision-Date: 2024-01-02 18:58+0000\n"
+"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -32,14 +32,14 @@ msgstr "ファイルコマンドがインストールされていないか、見
 msgid "mimetype not installed or not found."
 msgstr "MIMEタイプがインストールされていないか、見つかりません"
 
-#: dependencies.py:11
+#: dependencies.py:9
 msgid ""
 "This module can be used to determine the MIME type of a file. It tries to "
 "implement the freedesktop specification for a shared MIME database."
 msgstr ""
 "このモジュールは、ファイルの MIME タイプを判定するために使用できます。freedesktop の共有 MIME データベース仕様の実装を試みます。"
 
-#: dependencies.py:19
+#: dependencies.py:17
 msgid "determine file type using content tests"
 msgstr "コンテンツのテストを使用してファイルタイプを判定します。"
 
