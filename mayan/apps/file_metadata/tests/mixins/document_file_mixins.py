@@ -6,6 +6,7 @@ from mayan.apps.documents.tests.mixins.document_mixins import (
 
 from ..literals import TEST_FILE_METADATA_KEY, TEST_FILE_METADATA_VALUE
 
+
 from .document_type_mixins import DocumentTypeFileMetadataTestMixin
 
 
@@ -111,8 +112,6 @@ class DocumentFileMetadataViewTestMixin(DocumentFileMetadataTestMixin):
 
     def _request_document_file_multiple_submit_view(self):
         return self.post(
-            data={
-                'id_list': self._test_document_file.pk
-            },
+            data={'id_list': self._test_document_file.pk},
             viewname='file_metadata:document_file_metadata_multiple_submit'
         )

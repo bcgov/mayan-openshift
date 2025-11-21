@@ -38,7 +38,7 @@ PythonDependency(
         ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django', version_string='==4.2.24'
+    ''', module=__name__, name='django', version_string='==4.2.26'
 )
 PythonDependency(
     legal_text='''
@@ -61,7 +61,7 @@ PythonDependency(
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
-    ''', module=__name__, name='PyYAML', version_string='==6.0.2'
+    ''', module=__name__, name='PyYAML', version_string='==6.0.3'
 )
 PythonDependency(
     legal_text='''
@@ -93,7 +93,7 @@ PythonDependency(
         THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
         OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django-model-utils', version_string='==4.5.1'
+    ''', module=__name__, name='django-model-utils', version_string='==5.0.0'
 )
 PythonDependency(
     legal_text='''
@@ -118,7 +118,7 @@ PythonDependency(
         COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
         IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
         CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    ''', module=__name__, name='django-mptt', version_string='==0.16.0'
+    ''', module=__name__, name='django-mptt', version_string='==0.18.0'
 )
 PythonDependency(
     module=__name__, name='importlib-metadata', version_string='==8.0.0'
@@ -130,7 +130,7 @@ PythonDependency(
     ''', module=__name__, name='pycountry', version_string='==24.6.1'
 )
 PythonDependency(
-    module=__name__, name='requests', version_string='==2.32.4'
+    module=__name__, name='requests', version_string='==2.32.5'
 )
 PythonDependency(
     legal_text='''
@@ -153,7 +153,7 @@ PythonDependency(
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
-    ''', module=__name__, name='sh', version_string='==2.0.7'
+    ''', module=__name__, name='sh', version_string='==2.2.2'
 )
 
 # Build
@@ -179,7 +179,7 @@ PythonDependency(
 
 PythonDependency(
     environment=environment_development, module=__name__,
-    name='django-debug-toolbar', version_string='==4.4.5'
+    name='django-debug-toolbar', version_string='==4.4.6'
 )
 PythonDependency(
     environment=environment_development, module=__name__,
@@ -187,7 +187,7 @@ PythonDependency(
 )
 PythonDependency(
     environment=environment_development, module=__name__,
-    name='django-silk', version_string='==5.2.0'
+    name='django-silk', version_string='==5.3.2'
 )
 PythonDependency(
     environment=environment_development, help_text=_(

@@ -27,7 +27,7 @@ msgstr ""
 #: apps.py:41 events.py:6 links.py:34 models.py:71 permissions.py:6
 #: settings.py:13
 msgid "Signature captures"
-msgstr ""
+msgstr "Acquisizione delle firme"
 
 #: events.py:11
 msgid "Signature capture created"
@@ -118,7 +118,7 @@ msgstr "Nome interno"
 
 #: models.py:70
 msgid "Signature capture"
-msgstr ""
+msgstr "Acquisizione della firma"
 
 #: permissions.py:10
 msgid "Create signature captures"
@@ -162,15 +162,15 @@ msgstr "Etichetta del documento"
 
 #: search.py:41
 msgid "User first name"
-msgstr ""
+msgstr "Nome utente"
 
 #: search.py:44
 msgid "User last name"
-msgstr ""
+msgstr "Cognome utente"
 
 #: search.py:47
 msgid "User username"
-msgstr ""
+msgstr "Username"
 
 #: serializers.py:11
 msgid "Document URL"

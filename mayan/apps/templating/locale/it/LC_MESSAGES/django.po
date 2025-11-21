@@ -7,6 +7,7 @@
 # Giovanni Tricarico <gtricarico92@gmail.com>, 2024
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2024
 # Roberto Rosario, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -24,11 +25,11 @@ msgstr ""
 
 #: apps.py:21 permissions.py:6 settings.py:94
 msgid "Templating"
-msgstr ""
+msgstr "Data e ora correnti"
 
 #: apps.py:39
 msgid "Current date and time"
-msgstr ""
+msgstr "Data e ora correnti"
 
 #: fields.py:28
 msgid "Use Django's default templating language. "
@@ -37,11 +38,11 @@ msgstr ""
 #: fields.py:42
 #, python-format
 msgid "Available template context variables: %s"
-msgstr ""
+msgstr "Variabili di contesto disponibili nel modello: %s"
 
 #: forms.py:10
 msgid "Resulting text from the evaluated template."
-msgstr ""
+msgstr "Testo risultante dal modello valutato."
 
 #: forms.py:11
 msgid "Result"
@@ -49,7 +50,7 @@ msgstr "Risultato"
 
 #: forms.py:25
 msgid "The template string to be evaluated."
-msgstr ""
+msgstr "Stringa del template da valutare."
 
 #: forms.py:26
 msgid "Template"
@@ -57,15 +58,15 @@ msgstr "Modello"
 
 #: links.py:10
 msgid "Sandbox"
-msgstr ""
+msgstr "Sandbox"
 
 #: permissions.py:10
 msgid "Use the template sandbox"
-msgstr ""
+msgstr "Usa il template della sandbox"
 
 #: serializers.py:8
 msgid "Hex hash"
-msgstr ""
+msgstr "Hash esadecimale"
 
 #: serializers.py:11
 msgid "Name"
@@ -73,7 +74,7 @@ msgstr "Nome "
 
 #: serializers.py:14
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: serializers.py:17
 msgid "URL"
@@ -88,16 +89,16 @@ msgstr ""
 #: views.py:44
 #, python-format
 msgid "Template sandbox for: %s"
-msgstr ""
+msgstr "Template di sandbox per: %s"
 
 #: views.py:66
 #, python-format
 msgid "Template error; %(exception)s"
-msgstr ""
+msgstr "Errore del template; %(exception)s"
 
 #: widgets.py:42
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: widgets.py:49
 msgid "Tags"
@@ -105,8 +106,8 @@ msgstr "Etichette"
 
 #: widgets.py:56
 msgid "<Filters and tags>"
-msgstr ""
+msgstr "<Filters and tags>"
 
 #: widgets.py:129
 msgid "<Model attributes>"
-msgstr ""
+msgstr "<Model attributes>"

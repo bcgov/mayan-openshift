@@ -36,19 +36,19 @@ msgstr ""
 
 #: events.py:6 links.py:20 models.py:55 storages.py:22
 msgid "Download files"
-msgstr ""
+msgstr "Scarica i file"
 
 #: events.py:10
 msgid "Download file created"
-msgstr ""
+msgstr "Creato il file per il download"
 
 #: events.py:13
 msgid "Download file deleted"
-msgstr ""
+msgstr "Eliminato il file per il download"
 
 #: events.py:16
 msgid "Download file downloaded"
-msgstr ""
+msgstr "Scaricato il file di download"
 
 #: links.py:12
 msgid "Delete"
@@ -91,7 +91,7 @@ msgstr "Data e ora"
 
 #: model_mixins.py:91
 msgid "Unnamed file"
-msgstr ""
+msgstr "File senza nome"
 
 #: model_mixins.py:103
 msgid "Size"
@@ -111,7 +111,7 @@ msgstr "Etichetta"
 
 #: models.py:54
 msgid "Download file"
-msgstr ""
+msgstr "Scarica file"
 
 #: models.py:102
 msgid "Shared uploaded file"
@@ -123,15 +123,15 @@ msgstr "Condividi files caricati"
 
 #: permissions.py:10
 msgid "Delete user files"
-msgstr ""
+msgstr "Elimina i file utente"
 
 #: permissions.py:13
 msgid "Download user files"
-msgstr ""
+msgstr "Scarica i file utente"
 
 #: permissions.py:16
 msgid "View user files"
-msgstr ""
+msgstr "Visualizza i file utente"
 
 #: queues.py:16
 msgid "Storage periodic"
@@ -151,7 +151,7 @@ msgstr ""
 
 #: serializers.py:11
 msgid "Download URL"
-msgstr ""
+msgstr "URL per il download"
 
 #: serializers.py:21
 msgid "URL"

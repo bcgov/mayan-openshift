@@ -149,10 +149,14 @@ msgid ""
 "the operating system user account being used for Mayan EDMS doesn't have the"
 " necessary file system permissions to access the source files."
 msgstr ""
+"Questo potrebbe significare che l’elenco dei file sorgente è vuoto. Potrebbe"
+" anche significare che l’account utente del sistema operativo utilizzato per"
+" Mayan EDMS non dispone dei necessari permessi del file system per accedere "
+"ai file sorgente."
 
 #: source_backends/stored_file_mixins.py:97
 msgid "No source files available"
-msgstr ""
+msgstr "Nessuna sorgente file disponibile"
 
 #: source_backends/stored_file_mixins.py:191
 msgid "Width value to be passed to the image converter backend."

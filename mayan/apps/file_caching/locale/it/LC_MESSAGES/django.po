@@ -33,7 +33,7 @@ msgstr ""
 
 #: dashboard_widgets.py:45
 msgid "Total cache used"
-msgstr ""
+msgstr "Cache totale utilizzata"
 
 #: events.py:10
 msgid "Cache created"
@@ -73,7 +73,7 @@ msgstr ""
 
 #: links.py:33 links.py:39 links.py:43
 msgid "Purge cache"
-msgstr ""
+msgstr "Svuota cache"
 
 #: model_mixins.py:39
 msgid "Unknown"
@@ -133,7 +133,7 @@ msgstr ""
 
 #: models.py:36 models.py:75
 msgid "Cache"
-msgstr ""
+msgstr "Cache"
 
 #: models.py:37
 msgid "Caches"

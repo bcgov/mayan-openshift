@@ -275,9 +275,19 @@
   The workflow state action context is now composed of the keys:
   `workflow_instance`, `workflow_instance_context`, `action`, and `log_entry`.
 
+4.7.7 (2025-11-14)
+==================
+- Improvements and changes from version 4.6.11.
+- Update dependency versions:
+
+  - django-model-utils from 4.5.1 to 5.0.0
+  - pypdf from 6.1.3 to 6.2.0
+  - requests from 2.32.4 to 2.32.5
+  - sentry-sdk from 2.43.0 to 2.44.0
+
 4.7.6 (2025-09-26)
 ==================
-- Improvements and changes from version 4.6.10 and 4.6.11.
+- Improvements and changes from version 4.6.10 and 4.6.11dev.
 - Update `gunicorn` from version 22.0.0 to 23.0.0 due to CVE-2024-6827.
 - Update `pypdf` from version 4.2.0 to 6.0.0 due to CVE-2025-55197.
 - Backport timezone updates from version 4.9 and 4.10. Update `pytz` from
@@ -568,17 +578,59 @@
 - Expose the document index instance depth and node count values via the API.
 - Add a document type API view to return all documents of that type.
 
-4.6.11 (XXXX-XX-XX)
+4.6.11 (2025-11-08)
 ===================
 - Add new languages, and language variants.
 
-  - Tibetan
-  - Spanish (Ecuador)
-  - Persian (Iran)
+  - Armenian (Armenia)
+  - Bulgarian (Bulgaria)
   - French (France)
+  - German
+  - Greek (Greece)
   - Hungarian (Slovakia)
   - Hungarian (Hungary)
-  - Armenian (Armenia)
+  - Japanese
+  - Persian (Iran)
+  - Russian (Russia)
+  - Spanish (Ecuador)
+  - Spanish (Spain)
+  - Tibetan
+  - Ukrainian (Ukraine)
+
+- Dependency version updates:
+
+  - CairoSVG from 2.7.1 to 2.8.2
+  - Pillow from 10.3.0 to 10.4.0
+  - PyYAML from 6.0.2 to 6.0.3
+  - bleach from 6.2.0 to 6.3.0
+  - django from 4.2.24 to 4.2.26
+  - django-auth-ldap from 4.6.0 to 4.8.0
+  - django-cors-headers from 4.3.1 to 4.9.0
+  - django-debug-toolbar from 4.2.0 to 4.4.6
+  - django-model-utils from 4.3.1 to 4.5.1
+  - django-mptt from 0.16.0 to 0.18.0
+  - django-silk from 5.1.0 to 5.3.2
+  - django-solo from 2.2.0 to 2.4.0
+  - drf-yasg from 1.21.7 to 1.21.11
+  - elasticsearch from 7.17.9 to 7.17.12
+  - extract-msg from 0.48.7 to 0.55.0
+  - graphviz from 0.20.3 to 0.21
+  - importlib-metadata from 7.0.2 to 7.2.1
+  - jsonschema from 4.21.1 to 4.25.1
+  - mozilla-django-oidc from 3.0.0 to 4.0.1
+  - psutil from 5.8.0 to 5.9.8
+  - pycryptodome from 3.20.0 to 3.23.0
+  - pypdf from 3.17.4 to 6.1.3
+  - python_gnupg from 0.4.9 to 0.5.5
+  - qrcode from 7.4.2 to 8.2
+  - sentry-sdk from 2.38.0 to 2.43.0
+  - sh from 2.0.7 to 2.2.2
+  - swagger-spec-validator from 3.0.3 to 3.0.4
+  - whitenoise from 6.6.0 to 6.11.0
+
+- Silence document indexing error during checkout test to avoid confusion.
+- Split the file metadata app views tests and test mixins modules.
+- Retrieve the `psutil` version from the `config.env` file.
 
 4.6.10 (2025-09-24)
 ===================

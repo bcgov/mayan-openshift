@@ -306,7 +306,7 @@ msgstr ""
 
 #: workflow_actions.py:48
 msgid "Username list"
-msgstr ""
+msgstr "Elenco nomi utente"
 
 #: workflow_actions.py:53
 msgid ""

@@ -41,7 +41,7 @@ msgstr "Cartella creata"
 
 #: events.py:14
 msgid "Cabinet deleted"
-msgstr ""
+msgstr "Cartella eliminata"
 
 #: events.py:17
 msgid "Cabinet edited"
@@ -105,7 +105,7 @@ msgstr "Percorso completo"
 
 #: models.py:35 serializers.py:41
 msgid "Parent"
-msgstr ""
+msgstr "Cartella padre"
 
 #: models.py:38
 msgid "A short text used to identify the cabinet."
@@ -186,11 +186,11 @@ msgstr "Tipo MIME di file di documento"
 
 #: search.py:50
 msgid "The database ID of the cabinet."
-msgstr ""
+msgstr "L'ID di database della cartella."
 
 #: search.py:51
 msgid "Cabinet ID"
-msgstr ""
+msgstr "Id Cartella"
 
 #: serializers.py:18
 msgid "List of children cabinets."
@@ -198,7 +198,7 @@ msgstr "Elenco delle cartelle figlie."
 
 #: serializers.py:19
 msgid "Children"
-msgstr ""
+msgstr "Sottocartella"
 
 #: serializers.py:23
 msgid ""
@@ -208,7 +208,7 @@ msgstr ""
 
 #: serializers.py:25
 msgid "Documents URL"
-msgstr ""
+msgstr "URL dei documenti"
 
 #: serializers.py:30
 msgid "The name of this cabinet level appended to the names of its ancestors."
@@ -216,7 +216,7 @@ msgstr "Il nome di questa cartella aggiunto ai nomi delle cartelle padre."
 
 #: serializers.py:35
 msgid "Parents URL"
-msgstr ""
+msgstr "URL delle cartelle padre"
 
 #: serializers.py:51
 msgid "URL"
@@ -224,15 +224,15 @@ msgstr "URL"
 
 #: serializers.py:84
 msgid "Primary key of the document to add to the cabinet."
-msgstr ""
+msgstr "Chiave primaria del documento da aggiungere alla cartella."
 
 #: serializers.py:85 serializers.py:95
 msgid "Document ID"
-msgstr ""
+msgstr "ID Documetno"
 
 #: serializers.py:94
 msgid "Primary key of the document to remove from the cabinet."
-msgstr ""
+msgstr "Chiave primaria del documento da rimuovere dalla cartella."
 
 #: templates/cabinets/cabinet_details.html:17
 msgid "Navigation:"
@@ -374,4 +374,4 @@ msgstr "Cartelle alle quali verrà aggiunto il documento."
 
 #: workflow_actions.py:83
 msgid "Cabinets from which the document will be removed"
-msgstr ""
+msgstr "Cartelle dalle quali sarà rimosso il documento"

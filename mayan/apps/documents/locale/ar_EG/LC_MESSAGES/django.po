@@ -13,6 +13,7 @@
 # Marwan Rahhal <Marwanr@sssit.net>, 2024
 # Mohammed ALDOUB <voulnet@gmail.com>, 2024
 # Mohamad Ashmar, 2025
+# GM_327, 2025
 # 
 msgid ""
 msgstr ""
@@ -1677,12 +1678,12 @@ msgstr "تم إدراج %(count)d ملف وثيقة للفحص الداخلي"
 #: views/document_file_views.py:145
 msgid "Introspect the selected document file?"
 msgid_plural "Introspect the selected document files?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "فحص ملفات المحددة؟"
+msgstr[1] "فحص الملف المحدد؟"
+msgstr[2] "فحص ملفين المحددين؟"
+msgstr[3] "فحص بعض الملفات المحددة؟"
+msgstr[4] "فحص أغلب الملفات المحددة؟"
+msgstr[5] "فحص الملفات المحددة؟"
 
 #: views/document_file_views.py:156
 #, python-format
@@ -2173,12 +2174,12 @@ msgstr "%(count)d تمت الغاء الوثائق من المفضلة."
 #: views/favorite_document_views.py:92
 msgid "Remove the selected document from favorites?"
 msgid_plural "Remove the selected documents from favorites?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "حذف الملفات المحددة من القائمة المفضلة؟"
+msgstr[1] "حذف الملف المحدد من القائمة المفضلة؟"
+msgstr[2] "حذف الملفين المحددين من القائمة المفضلة؟"
+msgstr[3] "حذف بعض الملفات المحددة من القائمة المفضلة؟"
+msgstr[4] "حذف أغلب الملفات المحددة من القائمة المفضلة؟"
+msgstr[5] "حذف الملفات المحددة من القائمة المفضلة؟"
 
 #: views/misc_views.py:43
 #, python-format

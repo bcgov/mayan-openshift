@@ -29,7 +29,7 @@ msgstr "Posta"
 
 #: classes.py:23
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: classes.py:41
 msgid "From"

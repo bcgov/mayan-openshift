@@ -60,7 +60,7 @@ msgstr ""
 
 #: links.py:12 links.py:18
 msgid "Download files"
-msgstr ""
+msgstr "Scarica i file"
 
 #: links.py:24
 msgid "Quick download"
