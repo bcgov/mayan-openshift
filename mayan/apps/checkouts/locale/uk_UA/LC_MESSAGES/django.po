@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 10:33+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
@@ -53,31 +53,31 @@ msgstr "Документ не перевірено."
 msgid "Document already checked out."
 msgstr "Документ уже перевірено."
 
-#: forms.py:26
+#: forms.py:25
 msgid "Document status"
 msgstr "Статус документа"
 
-#: forms.py:37 model_mixins.py:9 models.py:47 serializers.py:22
+#: forms.py:36 model_mixins.py:9 models.py:47 serializers.py:22
 msgid "User"
 msgstr "Користувач"
 
-#: forms.py:41
+#: forms.py:40
 msgid "Check out time"
 msgstr "Час перевірки"
 
-#: forms.py:46
+#: forms.py:45
 msgid "Check out expiration"
 msgstr "Термін дії перевірки"
 
-#: forms.py:51
+#: forms.py:50
 msgid "New files allowed?"
 msgstr "Дозволено нові файли?"
 
-#: forms.py:52
+#: forms.py:51
 msgid "Yes"
 msgstr "Так"
 
-#: forms.py:52
+#: forms.py:51
 msgid "No"
 msgstr "Ні"
 
@@ -276,6 +276,6 @@ msgstr "Перевірка документа блокує певні опера
 msgid "No documents have been checked out"
 msgstr "Жодних документів не було перевірено."
 
-#: widgets.py:20
+#: widgets.py:19
 msgid "Amount"
 msgstr "Сума"

@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Сергій Гарашко, 2024
-# olenchenko <olenchenko@gmail.com>, 2024
 # Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
+# olenchenko <olenchenko@gmail.com>, 2024
+# Сергій Гарашко, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 12:51+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
@@ -70,33 +70,33 @@ msgstr "Джерело створено"
 msgid "Source edited"
 msgstr "Джерело відредаговано"
 
-#: forms.py:25
+#: forms.py:24
 msgid "An optional comment to explain the upload."
 msgstr "Додатковий коментар для пояснення завантаження."
 
-#: forms.py:26
+#: forms.py:25
 msgid "Comment"
 msgstr "Коментар"
 
-#: forms.py:32
+#: forms.py:31
 msgid "Action"
 msgstr "Дія"
 
-#: forms.py:33
+#: forms.py:32
 msgid ""
 "The action to take in regards to the pages of the new file being uploaded."
 msgstr ""
 "Дія, яку потрібно виконати щодо сторінок нового файлу, який завантажується."
 
-#: forms.py:54
+#: forms.py:53
 msgid "The backend used to create the new source."
 msgstr "Бекенд, що використовується для створення нового джерела."
 
-#: forms.py:55
+#: forms.py:54
 msgid "Backend"
 msgstr "Backend"
 
-#: forms.py:71
+#: forms.py:70
 msgid "File"
 msgstr "Файл"
 
@@ -540,7 +540,7 @@ msgstr ""
 msgid "Select document type"
 msgstr "Виберати тип документа"
 
-#: wizards.py:68
+#: wizards.py:66
 msgid ""
 "No interactive document sources have been defined or none have been enabled,"
 " create one before proceeding."
@@ -548,23 +548,23 @@ msgstr ""
 "Інтерактивні джерела документів не визначено або не ввімкнено. Перш ніж "
 "продовжити, створіть їх."
 
-#: wizards.py:85
+#: wizards.py:83
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "Крок %(step)d з %(total_steps)d : %(step_label)s"
 
-#: wizards.py:91
+#: wizards.py:89
 msgid "Document upload wizard"
 msgstr "Майстер завантаження документів"
 
-#: wizards.py:100
+#: wizards.py:98
 msgid "First"
 msgstr "Перший"
 
-#: wizards.py:106
+#: wizards.py:104
 msgid "Previous"
 msgstr "Попередній"
 
-#: wizards.py:113
+#: wizards.py:111
 msgid "Next"
 msgstr "Наступний"

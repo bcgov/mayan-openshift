@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-26 15:20+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2025-09-26 19:04+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,37 +20,9 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:14 permissions.py:6 settings.py:11
+#: apps.py:15 permissions.py:6 settings.py:17
 msgid "Platform"
 msgstr "プラットフォーム"
-
-#: classes.py:239
-msgid "Template for entrypoint.sh file inside a Docker image."
-msgstr "Dockerイメージ内の entrypoint.sh ファイル用テンプレート"
-
-#: classes.py:254
-msgid "Template that generates the Docker Compose file."
-msgstr "Docker Compose ファイルを生成するテンプレート"
-
-#: classes.py:419
-msgid "Template for Supervisord inside a Docker image."
-msgstr "Dockerイメージ内の Supervisord 用テンプレート"
-
-#: classes.py:437
-msgid "Template that generates a Dockerfile file."
-msgstr "Dockerfile を生成するテンプレート"
-
-#: classes.py:452
-msgid "Template that generates a GitLab CI config file."
-msgstr "GitLab CI の設定ファイルを生成するテンプレート"
-
-#: classes.py:611
-msgid "Template for Supervisord."
-msgstr "Supervisord 用テンプレート"
-
-#: classes.py:685
-msgid "Template showing the queues of a worker."
-msgstr "ワーカーのキューを表示するテンプレー"
 
 #: client_backends.py:34
 msgid "Sentry test error"
@@ -60,14 +32,54 @@ msgstr "Sentry テストエラー"
 msgid "Trigger tests"
 msgstr "テストをトリガー する"
 
-#: settings.py:17
+#: platform_templates.py:148
+msgid "Template that generates a GitLab CI config file."
+msgstr "GitLab CI の設定ファイルを生成するテンプレート"
+
+#: platform_templates.py:307
+msgid "Template for Supervisord."
+msgstr "Supervisord 用テンプレート"
+
+#: platform_templates.py:381
+msgid "Template showing the queues of a worker."
+msgstr "ワーカーのキューを表示するテンプレー"
+
+#: settings.py:23
 msgid ""
 "List of client backends to launch after startup. Use full dotted path to the"
 " client backend classes."
 msgstr "起動後に実行するクライアントバックエンドの一覧。クラスはフルドットパスで指定してください。"
 
-#: settings.py:24
+#: settings.py:30
 msgid ""
 "Arguments for the client backends. Use the client backend dotted path as the"
 " dictionary key for the arguments in dictionary format."
 msgstr "クライアントバックエンド用の引数。辞書形式で、引数のキーとしてクライアントバックエンドのドットパスを使用してください。"
+
+#: settings.py:40
+msgid "Load an alternate settings file."
+msgstr "代替設定ファイルを読み込む"
+
+#: settings.py:49
+msgid "Allows setting Gunicorn's `workers` value."
+msgstr "Gunicorn の `workers` 値を設定可能"
+
+#: settings.py:55
+msgid "Allows setting Gunicorn's `worker_class` value."
+msgstr "Gunicorn の `worker_class` 値を設定可能"
+
+#: settings.py:62
+msgid "Allows setting Gunicorn's `timeout` value."
+msgstr "Gunicorn の `timeout` 値を設定可能"
+
+#: settings.py:68
+msgid "Allows setting Gunicorn's `max_requests_jitter` value."
+msgstr "Gunicorn の `max_requests_jitter` 値を設定可能"
+
+#: settings.py:74
+msgid "Allows setting Gunicorn's `max_requests` value."
+msgstr "Gunicorn の `max_requests` 値を設定可能"
+
+#: settings.py:80
+msgid "Allows setting Gunicorn's `limit_request_line` value."
+msgstr "Gunicorn の `limit_request_line` 値を設定可能"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-26 15:20+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 10:33+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -35,36 +35,36 @@ msgstr "検索"
 msgid "Resultset created"
 msgstr "結果セット作成済み"
 
-#: forms.py:13
+#: forms.py:12
 msgid "Store the search results to speed up paging and for later browsing."
 msgstr "ページングを高速化し、後で参照できるよう検索結果を保存する"
 
-#: forms.py:16
+#: forms.py:15
 msgid "Save results"
 msgstr "結果を保存"
 
-#: forms.py:22
+#: forms.py:21
 msgid "Persistency"
 msgstr "永続化"
 
-#: forms.py:38
+#: forms.py:37
 msgid "Match all"
 msgstr "すべて一致"
 
-#: forms.py:39
+#: forms.py:38
 msgid "Return only results that match all fields."
 msgstr "すべてのフィールドに一致する結果のみ返す"
 
-#: forms.py:72
+#: forms.py:71
 msgid "Search logic"
 msgstr "検索ロジック"
 
-#: forms.py:100 templates/dynamic_search/search_box.html:43
+#: forms.py:99 templates/dynamic_search/search_box.html:43
 #: templates/dynamic_search/search_box_toolbar.html:25
 msgid "Search terms"
 msgstr "検索語"
 
-#: forms.py:111
+#: forms.py:110
 msgid "Criteria"
 msgstr "検索条件"
 
@@ -374,7 +374,7 @@ msgstr "結果セットにアクセスするたびに有効期限を延長する
 msgid "Sets the default state of the \"Store results\" checkbox."
 msgstr "「結果を保存」チェックボックスの初期状態を設定"
 
-#: templates/dynamic_search/app/list_toolbar.html:18
+#: templates/dynamic_search/app/list_toolbar.html:24
 msgid "Filter terms"
 msgstr "フィルター語"
 

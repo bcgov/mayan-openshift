@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# olenchenko <olenchenko@gmail.com>, 2024
 # Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
+# olenchenko <olenchenko@gmail.com>, 2024
 # Leo Lado, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 12:51+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
@@ -39,11 +39,11 @@ msgstr "Видалити захоплений підпис"
 msgid "Signature capture edited"
 msgstr "Редагувати захоплений підпис"
 
-#: forms.py:27
+#: forms.py:26
 msgid "Asset preview image"
 msgstr "Попередній перегляд ресурс"
 
-#: forms.py:27
+#: forms.py:26
 msgid "Preview"
 msgstr "Попередній перегляд"
 

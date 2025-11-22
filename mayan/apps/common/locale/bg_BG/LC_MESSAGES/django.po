@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-01 10:33+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2025-09-02 13:13+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
 "Language-Team: Bulgarian (Bulgaria) (https://app.transifex.com/rosarior/teams/13584/bg_BG/)\n"
 "MIME-Version: 1.0\n"
@@ -22,15 +22,15 @@ msgstr ""
 "Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:149 permissions.py:6 settings.py:15
+#: apps.py:26 permissions.py:6 settings.py:15
 msgid "Common"
 msgstr "Общи"
 
-#: dependencies.py:198
+#: dependencies.py:194
 msgid "Command line environment with autocompletion."
 msgstr "Команден ред с автоматично довършване."
 
-#: dependencies.py:203
+#: dependencies.py:199
 msgid "Checks proper formatting of the README file."
 msgstr "Проверява правилното форматиране на файла README."
 
@@ -90,42 +90,42 @@ msgstr "Поддръжка"
 msgid "Tools"
 msgstr "Инструменти"
 
-#: literals.py:23
+#: literals.py:21
 msgid ""
 "This feature has been deprecated and will be removed in a future version."
 msgstr "Тази функция е оттеглена и ще бъде премахната в бъдеща версия."
 
-#: literals.py:32
+#: literals.py:30
 msgid "Days"
 msgstr "Дни"
 
-#: literals.py:33
+#: literals.py:31
 msgid "Hours"
 msgstr "Часове"
 
-#: literals.py:34
+#: literals.py:32
 msgid "Minutes"
 msgstr "Минути"
 
-#: menus.py:8
-msgid "System"
-msgstr "Система"
-
-#: menus.py:10 menus.py:11
+#: menus.py:7 menus.py:8
 msgid "Facet"
 msgstr "Аспект"
 
-#: menus.py:14
+#: menus.py:11
 msgid "Actions"
 msgstr "Действия"
 
-#: menus.py:15
+#: menus.py:12
 msgid "Related"
 msgstr "Свързани"
 
-#: menus.py:16
+#: menus.py:13
 msgid "Secondary"
 msgstr "Допълнително"
+
+#: menus.py:16
+msgid "System"
+msgstr "Система"
 
 #: menus.py:18
 msgid "Return"

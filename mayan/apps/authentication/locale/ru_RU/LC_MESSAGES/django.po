@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Translators:
+# mizhgan <i@mizhgan.ru>, 2024
 # Alex Chigrin <chalex84@mail.ru>, 2024
 # lilo.panic, 2024
-# mizhgan <i@mizhgan.ru>, 2024
 # Sergey Glita <gsv70@mail.ru>, 2024
 # Ilya Pavlov <spirkaa@gmail.com>, 2024
 # 
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 10:33+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Ilya Pavlov <spirkaa@gmail.com>, 2024\n"
 "Language-Team: Russian (Russia) (https://app.transifex.com/rosarior/teams/13584/ru_RU/)\n"
 "MIME-Version: 1.0\n"
@@ -44,19 +44,19 @@ msgstr "Пользователь вошел в систему"
 msgid "User logged out"
 msgstr "Пользователь вышел из системы"
 
-#: forms.py:34
+#: forms.py:33
 msgid "Remember me"
 msgstr "Запомнить меня"
 
-#: forms.py:81
+#: forms.py:80
 msgid "Permanent"
 msgstr "Постоянный"
 
-#: forms.py:82
+#: forms.py:81
 msgid "If selected, disables ending impersonation."
 msgstr "Если отмечено, возможность завершить имперсонацию будет отключена."
 
-#: forms.py:93
+#: forms.py:92
 msgid "User"
 msgstr "Пользователь"
 

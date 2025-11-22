@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-04 06:21+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2025-08-25 17:02+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
 "Language-Team: Bulgarian (Bulgaria) (https://app.transifex.com/rosarior/teams/13584/bg_BG/)\n"
 "MIME-Version: 1.0\n"
@@ -22,27 +22,35 @@ msgstr ""
 "Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:71 apps.py:209 apps.py:215 apps.py:219 apps.py:224 apps.py:228
+#: apps.py:74 apps.py:215 apps.py:221 apps.py:225 apps.py:230 apps.py:234
 #: events.py:6 links.py:53 permissions.py:6 queues.py:7
 #: workflow_actions.py:162
 msgid "Metadata"
 msgstr "Метаданни"
 
-#: apps.py:141
+#: apps.py:145
 msgid "Return the value of a specific document metadata."
 msgstr "Връща стойността на отделни метаданни в документа."
 
-#: apps.py:142
+#: apps.py:146
 msgid "Metadata value of"
 msgstr "Метаданни за"
 
-#: apps.py:147
+#: apps.py:151
 msgid "Metadata type name"
 msgstr "Име на типа метаданни"
 
-#: apps.py:151 search.py:14
+#: apps.py:155 search.py:15
 msgid "Metadata value"
 msgstr "Стойност на метаданни"
+
+#: apps.py:253
+msgid "Document link"
+msgstr ""
+
+#: apps.py:259
+msgid "Document thumbnail"
+msgstr ""
 
 #: events.py:10
 msgid "Document metadata added"
@@ -68,76 +76,76 @@ msgstr "Типът метаданни е редактиран"
 msgid "Metadata type relationship updated"
 msgstr "Връзката за типа метаданни е актуализирана"
 
-#: forms.py:15
+#: forms.py:14
 msgid "ID"
 msgstr "ID"
 
-#: forms.py:18 models/metadata_type_models.py:35
+#: forms.py:17 models/metadata_type_models.py:35
 msgid "Name"
 msgstr "Име"
 
-#: forms.py:26 models/metadata_instance_models.py:43 workflow_actions.py:112
+#: forms.py:25 models/metadata_instance_models.py:43 workflow_actions.py:112
 msgid "Value"
 msgstr "Стойност"
 
-#: forms.py:31
+#: forms.py:30
 msgid "Update"
 msgstr "Актуализация"
 
-#: forms.py:51 forms.py:232 models/document_type_metadata_type_models.py:31
+#: forms.py:50 forms.py:233 models/document_type_metadata_type_models.py:31
 msgid "Required"
 msgstr "Задължително"
 
-#: forms.py:83
+#: forms.py:82
 #, python-format
 msgid "Lookup value error: %s"
 msgstr "Грешка в стойността на търсенето: %s"
 
-#: forms.py:96
+#: forms.py:95
 #, python-format
 msgid "Default value error: %s"
 msgstr "Грешка в стойността по подразбиране: %s"
 
-#: forms.py:117 models/metadata_type_models.py:120
+#: forms.py:116 models/metadata_type_models.py:120
 #, python-format
 msgid "\"%s\" is required for this document type."
 msgstr "&quot;%s&quot; е задължително за този тип документ."
 
-#: forms.py:136
+#: forms.py:137
 msgid "Metadata types to be added to the selected documents."
 msgstr "Типове метаданни, които трябва да се добавят към избраните документи."
 
-#: forms.py:137 models/document_type_metadata_type_models.py:28
-#: models/metadata_type_models.py:83 search.py:11 serializers.py:52
+#: forms.py:138 models/document_type_metadata_type_models.py:28
+#: models/metadata_type_models.py:83 search.py:12 serializers.py:52
 #: serializers.py:114 workflow_actions.py:148
 msgid "Metadata type"
 msgstr "Тип метаданни"
 
-#: forms.py:162
+#: forms.py:163
 msgid "Remove"
 msgstr "Премахнете"
 
-#: forms.py:181
+#: forms.py:182
 msgid "Basic"
 msgstr ""
 
-#: forms.py:185
+#: forms.py:186
 msgid "Values"
 msgstr ""
 
-#: forms.py:189
+#: forms.py:190
 msgid "Validation"
 msgstr ""
 
-#: forms.py:193
+#: forms.py:194
 msgid "Parsing"
 msgstr "Анализиране"
 
-#: forms.py:230
+#: forms.py:231
 msgid "None"
 msgstr "Няма"
 
-#: forms.py:231
+#: forms.py:232
 msgid "Optional"
 msgstr "Незадължително"
 
@@ -245,6 +253,7 @@ msgstr ""
 "Действителната стойност, съхранена в полето за тип метаданни за документа."
 
 #: models/metadata_instance_models.py:49 models/metadata_instance_models.py:50
+#: search.py:21
 msgid "Document metadata"
 msgstr "Метаданни за документа"
 
@@ -379,6 +388,18 @@ msgstr "Премахване на тип метаданни"
 msgid "Add required metadata type"
 msgstr "Добавяне на задължителен тип метаданни"
 
+#: search.py:33
+msgid "Document type ID"
+msgstr "ID на типа документ"
+
+#: search.py:37
+msgid "Document type label"
+msgstr "Етикет на типа документ"
+
+#: search.py:40 serializers.py:57 serializers.py:107
+msgid "Metadata type ID"
+msgstr "Идент. № на типа метаданни"
+
 #: serializers.py:32 serializers.py:61 serializers.py:117
 msgid "URL"
 msgstr "URL"
@@ -386,10 +407,6 @@ msgstr "URL"
 #: serializers.py:56
 msgid "Primary key of the metadata type to be added."
 msgstr "Основен ключ на типа метаданни, които трябва да се добавят."
-
-#: serializers.py:57 serializers.py:107
-msgid "Metadata type ID"
-msgstr "Идент. № на типа метаданни"
 
 #: serializers.py:105
 msgid "Primary key of the metadata type to be added to the document."

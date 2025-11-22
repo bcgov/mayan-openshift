@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 12:51+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -64,32 +64,32 @@ msgstr "ソースを作成しました"
 msgid "Source edited"
 msgstr "ソースを編集しました"
 
-#: forms.py:25
+#: forms.py:24
 msgid "An optional comment to explain the upload."
 msgstr "アップロードの説明として任意でコメントを入力"
 
-#: forms.py:26
+#: forms.py:25
 msgid "Comment"
 msgstr "コメント"
 
-#: forms.py:32
+#: forms.py:31
 msgid "Action"
 msgstr "アクション"
 
-#: forms.py:33
+#: forms.py:32
 msgid ""
 "The action to take in regards to the pages of the new file being uploaded."
 msgstr "アップロードされる新しいファイルのページに対して行うアクション"
 
-#: forms.py:54
+#: forms.py:53
 msgid "The backend used to create the new source."
 msgstr "新しいソースを作成する際に使用されるバックエンド"
 
-#: forms.py:55
+#: forms.py:54
 msgid "Backend"
 msgstr "バックエンド"
 
-#: forms.py:71
+#: forms.py:70
 msgid "File"
 msgstr "ファイル"
 
@@ -501,29 +501,29 @@ msgstr "ソース \"%s\" の確認をトリガーしますか?"
 msgid "Select document type"
 msgstr "文書タイプを選択"
 
-#: wizards.py:68
+#: wizards.py:66
 msgid ""
 "No interactive document sources have been defined or none have been enabled,"
 " create one before proceeding."
 msgstr "定義されているインタラクティブな文書ソースがないか、または有効になっていません。先に作成してください。"
 
-#: wizards.py:85
+#: wizards.py:83
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "ステップ %(step)d／%(total_steps)d: %(step_label)s"
 
-#: wizards.py:91
+#: wizards.py:89
 msgid "Document upload wizard"
 msgstr "文書アップロードウィザード"
 
-#: wizards.py:100
+#: wizards.py:98
 msgid "First"
 msgstr "最初"
 
-#: wizards.py:106
+#: wizards.py:104
 msgid "Previous"
 msgstr "前へ"
 
-#: wizards.py:113
+#: wizards.py:111
 msgid "Next"
 msgstr "次へ"

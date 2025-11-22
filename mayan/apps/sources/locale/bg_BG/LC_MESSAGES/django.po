@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Pavlin Koldamov <pkoldamov@gmail.com>, 2024
 # Roberto Rosario, 2024
+# Pavlin Koldamov <pkoldamov@gmail.com>, 2024
 # Lyudmil Antonov <lantonov.here@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 12:51+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
 "Language-Team: Bulgarian (Bulgaria) (https://app.transifex.com/rosarior/teams/13584/bg_BG/)\n"
 "MIME-Version: 1.0\n"
@@ -67,34 +67,34 @@ msgstr "Източникът е създаден"
 msgid "Source edited"
 msgstr "Източникът е редактиран"
 
-#: forms.py:25
+#: forms.py:24
 msgid "An optional comment to explain the upload."
 msgstr "Незадължителен коментар за обяснение на каченото."
 
-#: forms.py:26
+#: forms.py:25
 msgid "Comment"
 msgstr "Коментар"
 
-#: forms.py:32
+#: forms.py:31
 msgid "Action"
 msgstr "Действие"
 
-#: forms.py:33
+#: forms.py:32
 msgid ""
 "The action to take in regards to the pages of the new file being uploaded."
 msgstr ""
 "Действието, което трябва да се предприеме по отношение на страниците на "
 "новия файл, който се качва."
 
-#: forms.py:54
+#: forms.py:53
 msgid "The backend used to create the new source."
 msgstr "Бекендът, използван за създаване на новия източник."
 
-#: forms.py:55
+#: forms.py:54
 msgid "Backend"
 msgstr "Бекенд"
 
-#: forms.py:71
+#: forms.py:70
 msgid "File"
 msgstr "Файл"
 
@@ -521,7 +521,7 @@ msgstr ""
 msgid "Select document type"
 msgstr "Изберете типа документ"
 
-#: wizards.py:68
+#: wizards.py:66
 msgid ""
 "No interactive document sources have been defined or none have been enabled,"
 " create one before proceeding."
@@ -529,23 +529,23 @@ msgstr ""
 "Не са дефинирани интерактивни източници на документи или никой не е "
 "активиран, създайте такъв преди да продължите."
 
-#: wizards.py:85
+#: wizards.py:83
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "Стъпка %(step)d от %(total_steps)d: %(step_label)s"
 
-#: wizards.py:91
+#: wizards.py:89
 msgid "Document upload wizard"
 msgstr "Съветник за качване на документи"
 
-#: wizards.py:100
+#: wizards.py:98
 msgid "First"
 msgstr "Първо"
 
-#: wizards.py:106
+#: wizards.py:104
 msgid "Previous"
 msgstr "Предна"
 
-#: wizards.py:113
+#: wizards.py:111
 msgid "Next"
 msgstr "Следваща"

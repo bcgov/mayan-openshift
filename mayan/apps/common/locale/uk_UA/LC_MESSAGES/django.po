@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-01 10:33+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2025-09-02 13:13+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Leo Lado, 2024\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +21,15 @@ msgstr ""
 "Language: uk_UA\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: apps.py:149 permissions.py:6 settings.py:15
+#: apps.py:26 permissions.py:6 settings.py:15
 msgid "Common"
 msgstr "Загальне"
 
-#: dependencies.py:198
+#: dependencies.py:194
 msgid "Command line environment with autocompletion."
 msgstr "Середовище командного рядка з автозавершенням."
 
-#: dependencies.py:203
+#: dependencies.py:199
 msgid "Checks proper formatting of the README file."
 msgstr "Перевіряє правильність форматування файлу README."
 
@@ -89,42 +89,42 @@ msgstr ""
 msgid "Tools"
 msgstr "Інструменти"
 
-#: literals.py:23
+#: literals.py:21
 msgid ""
 "This feature has been deprecated and will be removed in a future version."
 msgstr "Ця функція застаріла та буде видалена в наступній версії."
 
-#: literals.py:32
+#: literals.py:30
 msgid "Days"
 msgstr "Дні"
 
-#: literals.py:33
+#: literals.py:31
 msgid "Hours"
 msgstr "Години"
 
-#: literals.py:34
+#: literals.py:32
 msgid "Minutes"
 msgstr "Хвилини"
 
-#: menus.py:8
-msgid "System"
-msgstr "Система"
-
-#: menus.py:10 menus.py:11
+#: menus.py:7 menus.py:8
 msgid "Facet"
 msgstr "Грань"
 
-#: menus.py:14
+#: menus.py:11
 msgid "Actions"
 msgstr "Дія"
 
-#: menus.py:15
+#: menus.py:12
 msgid "Related"
 msgstr "Пов'язані"
 
-#: menus.py:16
+#: menus.py:13
 msgid "Secondary"
 msgstr "Другорядний"
+
+#: menus.py:16
+msgid "System"
+msgstr "Система"
 
 #: menus.py:18
 msgid "Return"

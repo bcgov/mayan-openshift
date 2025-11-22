@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-01 10:33+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2025-09-02 13:13+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,15 +20,15 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:149 permissions.py:6 settings.py:15
+#: apps.py:26 permissions.py:6 settings.py:15
 msgid "Common"
 msgstr "共通"
 
-#: dependencies.py:198
+#: dependencies.py:194
 msgid "Command line environment with autocompletion."
 msgstr "オートコンプリート付きのコマンドライン環境"
 
-#: dependencies.py:203
+#: dependencies.py:199
 msgid "Checks proper formatting of the README file."
 msgstr "README ファイルの書式を確認します"
 
@@ -88,42 +88,42 @@ msgstr "サポート"
 msgid "Tools"
 msgstr "ツール"
 
-#: literals.py:23
+#: literals.py:21
 msgid ""
 "This feature has been deprecated and will be removed in a future version."
 msgstr "この機能は非推奨であり、将来のバージョンで削除されます"
 
-#: literals.py:32
+#: literals.py:30
 msgid "Days"
 msgstr "日数"
 
-#: literals.py:33
+#: literals.py:31
 msgid "Hours"
 msgstr "時間"
 
-#: literals.py:34
+#: literals.py:32
 msgid "Minutes"
 msgstr "分"
 
-#: menus.py:8
-msgid "System"
-msgstr "システム"
-
-#: menus.py:10 menus.py:11
+#: menus.py:7 menus.py:8
 msgid "Facet"
 msgstr "絞り込み"
 
-#: menus.py:14
+#: menus.py:11
 msgid "Actions"
 msgstr "アクション"
 
-#: menus.py:15
+#: menus.py:12
 msgid "Related"
 msgstr "関連"
 
-#: menus.py:16
+#: menus.py:13
 msgid "Secondary"
 msgstr "副"
+
+#: menus.py:16
+msgid "System"
+msgstr "システム"
 
 #: menus.py:18
 msgid "Return"

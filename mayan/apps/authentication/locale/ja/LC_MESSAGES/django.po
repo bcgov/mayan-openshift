@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
+"POT-Creation-Date: 2024-07-11 10:33+0000\n"
+"PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -40,19 +40,19 @@ msgstr "ユーザーがログイン"
 msgid "User logged out"
 msgstr "ユーザーがログアウト"
 
-#: forms.py:34
+#: forms.py:33
 msgid "Remember me"
 msgstr "ログイン状態を保持する"
 
-#: forms.py:81
+#: forms.py:80
 msgid "Permanent"
 msgstr "永久"
 
-#: forms.py:82
+#: forms.py:81
 msgid "If selected, disables ending impersonation."
 msgstr "選択すると、ユーザー代理操作の終了を無効にします"
 
-#: forms.py:93
+#: forms.py:92
 msgid "User"
 msgstr "ユーザー"
 
