@@ -1,4 +1,4 @@
-4.8.9 (2025-XX-XX)
+4.8.9 (2025-11-22)
 ==================
 - Improvements and changes from version 4.7.7.
 - Update dependency versions:
