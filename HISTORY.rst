@@ -1,3 +1,17 @@
+4.8.9 (2025-XX-XX)
+==================
+- Improvements and changes from version 4.7.7.
+- Update dependency versions:
+
+  - Markdown from 3.7 to 3.10
+  - Pillow from 10.4.0 to 12.0.0
+  - dateparser from 1.2.0 to 1.2.2
+  - django-celery-beat from 2.6.0 to 2.8.1
+  - nh3 from 0.2.18 to 0.3.2
+  - ollama from 0.2.1 to 0.6.1
+  - pypdf from 6.2.0 to 6.3.0
+  - sentry-sdk from 2.44.0 to 2.45.0
+
 4.8.8 (2025-09-26)
 ==================
 - Improvements and changes from version 4.7.6.

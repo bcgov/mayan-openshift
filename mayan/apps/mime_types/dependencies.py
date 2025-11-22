@@ -17,6 +17,7 @@ BinaryDependency(
         message='determine file type using content tests'
     ), module=__name__, name='file', path=DEFAULT_FILE_PATH
 )
+
 PythonDependency(
     legal_text='''
         The MIT License (MIT)
