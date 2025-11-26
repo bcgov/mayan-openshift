@@ -1,3 +1,7 @@
+4.7.8 (2025-12-13)
+==================
+- Sort storage dependencies.
+
 4.7.7 (2025-11-14)
 ==================
 - Improvements and changes from version 4.6.11.
