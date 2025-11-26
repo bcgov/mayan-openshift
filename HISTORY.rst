@@ -17,6 +17,9 @@
   - safety from 3.2.13 to 3.7.0.
   - sentry-sdk from 2.45.0 to 2.46.0.
 
+- Add 'appearance/node_modules/bootswatch/docs/*' to the appearance app's
+  `static_media_ignore_patterns`.
+
 4.9.5 (2025-09-28)
 ==================
 - Improvements and changes from version 4.8.8.

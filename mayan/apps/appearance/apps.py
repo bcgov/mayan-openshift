@@ -43,6 +43,7 @@ class AppearanceApp(MayanAppConfig):
         'package-lock*', 'test', 'tests', 'variable*', '*.xcf',
         'appearance/node_modules/@fancyapps/fancybox/docs/*',
         'appearance/node_modules/@fancyapps/fancybox/src/*',
+        'appearance/node_modules/bootswatch/docs/*',
         'appearance/node_modules/jquery/src/*',
         'appearance/node_modules/jquery-form/_config.yml',
         'appearance/node_modules/jquery-form/form.jquery.json',
