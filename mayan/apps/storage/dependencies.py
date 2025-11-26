@@ -16,11 +16,12 @@ PythonDependency(
     module=__name__, name='google-cloud-storage', version_string='==2.17.0'
 )
 PythonDependency(
-    module=__name__, name='pycryptodome', version_string='==3.23.0'
-)
-PythonDependency(
     environment=environment_testing, module=__name__, name='psutil',
     version_string='=={}'.format(
         PYTHON_PSUTIL_VERSION
     )
 )
+PythonDependency(
+    module=__name__, name='pycryptodome', version_string='==3.23.0'
+)
+
