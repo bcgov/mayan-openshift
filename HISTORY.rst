@@ -19,6 +19,7 @@
 
 - Add 'appearance/node_modules/bootswatch/docs/*' to the appearance app's
   `static_media_ignore_patterns`.
+- Add a makefile target to clean up all Python libraries.
 
 4.8.9 (2025-11-22)
 ==================
