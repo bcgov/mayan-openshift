@@ -1,7 +1,9 @@
+<<<<<<< HEAD
 4.6.12 (2025-12-14)
 ===================
 - Backports from series 4.10, 4.9, 4.8, 4.7.
 
+  - Sort storage dependencies.
   - Enforce same origin and HTTP only redirection when breaking from an AJAX
     content container and during normal single page app navigation.
 
