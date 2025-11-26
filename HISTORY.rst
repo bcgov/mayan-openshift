@@ -4,8 +4,13 @@
 - Consolidate dynamic filtering field reload code. Add the new
   `FormMixinFilteredFieldsReload` mixin.
 - Improvements and changes from version 4.8.9.
-- Update safety from 3.2.13 to 3.7.0.
 - Add a makefile target to clean up all Python libraries.
+- Update dependency versions:
+
+  - gevent from 24.11.1 to 25.9.1 due to PVE-2025-76839.
+  - greenlet from 3.1.1 to 3.2.4.
+  - pip from version 25.2 to 25.3.
+  - safety from 3.2.13 to 3.7.0.
 
 4.9.5 (2025-09-28)
 ==================
