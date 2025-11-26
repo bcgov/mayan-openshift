@@ -18,6 +18,8 @@
     - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
     - django-auth-ldap from 4.8.0 to 5.2.0.
 
+  - Add a makefile target to clean up all Python libraries.
+
 4.7.7 (2025-11-14)
 ==================
 - Improvements and changes from version 4.6.11.
