@@ -4,6 +4,7 @@
 - Consolidate dynamic filtering field reload code. Add the new
   `FormMixinFilteredFieldsReload` mixin.
 - Improvements and changes from version 4.8.9.
+- Update safety from 3.2.13 to 3.7.0.
 
 4.9.5 (2025-09-28)
 ==================
