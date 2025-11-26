@@ -349,7 +349,7 @@ msgstr ""
 #: views/notification_views.py:30
 #, python-format
 msgid "User \"%(object)s\" deleted successfully."
-msgstr ""
+msgstr "Utente \"%(object)s\" eliminato correttamente."
 
 #: views/notification_views.py:33
 #, python-format

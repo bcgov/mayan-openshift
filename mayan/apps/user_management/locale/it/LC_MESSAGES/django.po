@@ -63,7 +63,7 @@ msgstr ""
 
 #: apps.py:121
 msgid "Last login"
-msgstr ""
+msgstr "Ultimo login"
 
 #: apps.py:124
 msgid "The family name of the user."
@@ -95,11 +95,11 @@ msgstr "La password è utilizzabile?"
 
 #: apps.py:178
 msgid "All the groups"
-msgstr ""
+msgstr "Tutti i gruppi"
 
 #: apps.py:182
 msgid "All the users"
-msgstr ""
+msgstr "Tutti gli utenti"
 
 #: dashboard_widgets.py:14
 msgid "Total users"
@@ -111,7 +111,7 @@ msgstr "Gruppi totali"
 
 #: dashboards.py:6
 msgid "User dashboard"
-msgstr ""
+msgstr "Dashboard utente"
 
 #: events.py:10
 msgid "Group created"
@@ -167,7 +167,7 @@ msgstr "Account"
 
 #: literals.py:12 literals.py:23
 msgid "Personal"
-msgstr ""
+msgstr "Personale"
 
 #: literals.py:16
 msgid "Attributes"
@@ -223,15 +223,15 @@ msgstr ""
 
 #: serializers.py:18
 msgid "Users URL"
-msgstr ""
+msgstr "URL utenti"
 
 #: serializers.py:22
 msgid "Users add URL"
-msgstr ""
+msgstr "URL per aggiungere utenti"
 
 #: serializers.py:26
 msgid "Users remove URL"
-msgstr ""
+msgstr "URL per rimuovere utenti"
 
 #: serializers.py:33 serializers.py:80
 msgid "URL"
@@ -239,7 +239,7 @@ msgstr "URL"
 
 #: serializers.py:48
 msgid "Primary key of the user to add to the group."
-msgstr ""
+msgstr "Chiave primaria dell'utente da aggiungere al gruppo."
 
 #: serializers.py:49 serializers.py:58
 msgid "User ID"
@@ -247,7 +247,7 @@ msgstr "User ID"
 
 #: serializers.py:57
 msgid "Primary key of the user to remove from the group."
-msgstr ""
+msgstr "Chiave primaria dell'utente da rimuovere dal gruppo."
 
 #: serializers.py:66
 msgid "URL of the API endpoint showing the list groups this user belongs to."
@@ -255,7 +255,7 @@ msgstr ""
 
 #: serializers.py:68
 msgid "Groups URL"
-msgstr ""
+msgstr "URL per i gruppi"
 
 #: utils.py:26
 msgid "Anonymous"
@@ -274,32 +274,32 @@ msgstr ""
 #: views/group_views.py:48
 #, python-format
 msgid "Group \"%(object)s\" deleted successfully."
-msgstr ""
+msgstr "Gruppo \"%(object)s\" eliminato correttamente."
 
 #: views/group_views.py:49
 #, python-format
 msgid "%(count)d group deleted successfully."
-msgstr ""
+msgstr "%(count)d gruppo eliminato correttamente."
 
 #: views/group_views.py:50
 #, python-format
 msgid "Delete the %(count)d selected groups."
-msgstr ""
+msgstr "Cancella i %(count)d gruppi selezionati."
 
 #: views/group_views.py:51
 #, python-format
 msgid "Delete group: %(object)s."
-msgstr ""
+msgstr "Cancella gruppo: %(object)s."
 
 #: views/group_views.py:52
 #, python-format
 msgid "Delete the %(count)d selected group."
-msgstr ""
+msgstr "Cancella il %(count)d gruppo selezionato."
 
 #: views/group_views.py:66
 #, python-format
 msgid "Details of group: %s"
-msgstr ""
+msgstr "Dettagli del gruppo: %s"
 
 #: views/group_views.py:83
 #, python-format
@@ -337,37 +337,37 @@ msgstr "Utenti del gruppo: %s"
 #: views/user_views.py:56
 #, python-format
 msgid "Error deleting user \"%(instance)s\"; %(exception)s"
-msgstr ""
+msgstr "Errore nell'eliminazione dell'utente \"%(instance)s\";  %(exception)s"
 
 #: views/user_views.py:64
 #, python-format
 msgid "%(count)d users deleted successfully."
-msgstr ""
+msgstr "%(count)d utenti eliminati con successo."
 
 #: views/user_views.py:67
 #, python-format
 msgid "User \"%(object)s\" deleted successfully."
-msgstr ""
+msgstr "Utente \"%(object)s\" eliminato correttamente."
 
 #: views/user_views.py:70
 #, python-format
 msgid "%(count)d user deleted successfully."
-msgstr ""
+msgstr "%(count)d utente eliminato correttamente."
 
 #: views/user_views.py:72
 #, python-format
 msgid "Delete the %(count)d selected users."
-msgstr ""
+msgstr "Elimina i %(count)d utenti selezionati."
 
 #: views/user_views.py:73
 #, python-format
 msgid "Delete user: %(object)s."
-msgstr ""
+msgstr "Elimina utente: %(object)s."
 
 #: views/user_views.py:74
 #, python-format
 msgid "Delete the %(count)d selected user."
-msgstr ""
+msgstr "Elimina il %(count)d utente selezionato."
 
 #: views/user_views.py:81
 msgid ""

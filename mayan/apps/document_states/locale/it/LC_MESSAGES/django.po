@@ -158,7 +158,7 @@ msgstr "Widget"
 
 #: classes.py:33
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: classes.py:107
 #, python-format
@@ -216,7 +216,7 @@ msgstr ""
 
 #: forms/workflow_template_transition_field_forms.py:17
 msgid "Field"
-msgstr ""
+msgstr "Campo"
 
 #: forms/workflow_template_transition_field_forms.py:21
 msgid "Value"
@@ -903,20 +903,20 @@ msgstr ""
 
 #: serializers/workflow_template_serializers.py:13
 msgid "Document types add URL"
-msgstr ""
+msgstr "URL per aggiungere i Tipi documento"
 
 #: serializers/workflow_template_serializers.py:18
 msgid "Document types remove URL"
-msgstr ""
+msgstr "URL per rimuovere i Tipi documento"
 
 #: serializers/workflow_template_serializers.py:23
 msgid "Document types URL"
-msgstr ""
+msgstr "URL per i Tipi documento"
 
 #: serializers/workflow_template_serializers.py:28
 #: serializers/workflow_template_state_serializers.py:23
 msgid "Documents URL"
-msgstr ""
+msgstr "URL dei documenti"
 
 #: serializers/workflow_template_serializers.py:33
 msgid "Image URL"
@@ -937,7 +937,7 @@ msgstr ""
 #: serializers/workflow_template_serializers.py:71
 #: serializers/workflow_template_serializers.py:80
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: serializers/workflow_template_serializers.py:79
 msgid "Primary key of the document type to remove from the workflow."

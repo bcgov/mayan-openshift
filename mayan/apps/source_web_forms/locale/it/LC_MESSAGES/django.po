@@ -23,7 +23,7 @@ msgstr ""
 
 #: apps.py:12
 msgid "Web form sources"
-msgstr ""
+msgstr "Sorgenti dei moduli web"
 
 #: handlers.py:25
 msgid "Default"

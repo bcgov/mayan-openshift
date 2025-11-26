@@ -155,7 +155,7 @@ msgstr "Firme"
 
 #: links.py:100
 msgid "Refresh all signatures"
-msgstr ""
+msgstr "Aggiorna tutte le firme"
 
 #: links.py:106
 msgid "Verify all documents"
@@ -376,7 +376,7 @@ msgstr ""
 
 #: views.py:358
 msgid "Refresh all signatures information?"
-msgstr ""
+msgstr "Aggiornare le informazioni di tutte le firme?"
 
 #: views.py:370
 msgid "Signature information refresh queued successfully."

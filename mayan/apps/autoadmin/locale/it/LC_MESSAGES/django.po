@@ -33,6 +33,8 @@ msgid ""
 "Welcome Admin! You have been given super user privileges. Use them with "
 "caution."
 msgstr ""
+"Benvenuto, Amministratore! Ti sono stati assegnati i privilegi di "
+"superutente. Usali con cautela."
 
 #: models.py:13
 msgid "Account"

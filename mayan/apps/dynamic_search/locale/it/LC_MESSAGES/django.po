@@ -76,14 +76,16 @@ msgstr ""
 #: forms.py:13
 msgid "Store the search results to speed up paging and for later browsing."
 msgstr ""
+"Memorizza i risultati della ricerca per velocizzare la paginazione e per la "
+"consultazione successiva."
 
 #: forms.py:16
 msgid "Save results"
-msgstr ""
+msgstr "Salva risultati"
 
 #: forms.py:22
 msgid "Persistency"
-msgstr ""
+msgstr "Persistenza"
 
 #: forms.py:38
 msgid "Match all"
@@ -91,24 +93,24 @@ msgstr "Corrisponde a tutti"
 
 #: forms.py:39
 msgid "Return only results that match all fields."
-msgstr ""
+msgstr "Restituisci solo i risultati che corrispondono a tutti i campi."
 
 #: forms.py:76
 msgid "Search logic"
-msgstr ""
+msgstr "Logica di ricerca"
 
 #: forms.py:104 templates/dynamic_search/search_box.html:43
 #: templates/dynamic_search/search_box_toolbar.html:25
 msgid "Search terms"
-msgstr "Cerca termini "
+msgstr "Termini di ricerca"
 
 #: forms.py:115
 msgid "Criteria"
-msgstr ""
+msgstr "Criteri"
 
 #: links.py:21 models.py:61 views/saved_resultset_views.py:72
 msgid "Saved resultsets"
-msgstr ""
+msgstr "Risultati salvati"
 
 #: links.py:26
 msgid "Delete"
@@ -120,7 +122,7 @@ msgstr "Risultati"
 
 #: links.py:36
 msgid "Basic search"
-msgstr ""
+msgstr "Ricerca di base"
 
 #: links.py:40 templates/dynamic_search/search_box.html:49
 #: templates/dynamic_search/search_box_toolbar.html:33
@@ -183,7 +185,7 @@ msgstr ""
 
 #: models.py:43
 msgid "Search query"
-msgstr ""
+msgstr "Query di ricerca"
 
 #: models.py:46
 msgid "Search explainer text"
@@ -195,7 +197,7 @@ msgstr ""
 
 #: models.py:50
 msgid "Result count"
-msgstr ""
+msgstr "Numero di risultati"
 
 #: models.py:53
 msgid "User for which the resultset was created."
@@ -207,7 +209,7 @@ msgstr "Utente"
 
 #: models.py:60 models.py:95
 msgid "Saved resultset"
-msgstr ""
+msgstr "Risultati salvati"
 
 #: models.py:101
 msgid "Saved resultset entry"
@@ -219,11 +221,11 @@ msgstr ""
 
 #: permissions.py:10
 msgid "Delete resultsets"
-msgstr ""
+msgstr "Cancella risultati"
 
 #: permissions.py:13
 msgid "View resultsets"
-msgstr ""
+msgstr "Visualizza set di risultati"
 
 #: permissions.py:17
 msgid "Execute search tools"
@@ -309,7 +311,7 @@ msgstr ""
 
 #: search_fields.py:340
 msgid "Any"
-msgstr ""
+msgstr "Qualsiasi"
 
 #: search_models.py:49
 #, python-format
@@ -318,7 +320,7 @@ msgstr ""
 
 #: search_models.py:145
 msgid "All content"
-msgstr ""
+msgstr "Tutti i contenuti"
 
 #: search_models.py:199
 msgid "Full name"
@@ -326,35 +328,35 @@ msgstr "Nome completo"
 
 #: search_query_types.py:171
 msgid "Exact"
-msgstr ""
+msgstr "Esatta"
 
 #: search_query_types.py:177
 msgid "Fuzzy"
-msgstr ""
+msgstr "Approssimativa"
 
 #: search_query_types.py:183
 msgid "Greater than"
-msgstr ""
+msgstr "Maggiore di"
 
 #: search_query_types.py:189
 msgid "Greater than or equal"
-msgstr ""
+msgstr "Maggiore o uguale"
 
 #: search_query_types.py:195
 msgid "Less than"
-msgstr ""
+msgstr "Minore di"
 
 #: search_query_types.py:201
 msgid "Less than or equal"
-msgstr ""
+msgstr "Minore o uguale"
 
 #: search_query_types.py:207
 msgid "Partial"
-msgstr ""
+msgstr "Parziale"
 
 #: search_query_types.py:213
 msgid "Range"
-msgstr ""
+msgstr "Intervallo"
 
 #: search_query_types.py:248
 msgid "Range exclusive"
@@ -362,7 +364,7 @@ msgstr ""
 
 #: search_query_types.py:254
 msgid "Regular expression"
-msgstr ""
+msgstr "Espressione regolare"
 
 #: serializers.py:20
 msgid "Results URL"
@@ -374,7 +376,7 @@ msgstr "URL"
 
 #: serializers.py:53
 msgid "User must be authenticated."
-msgstr ""
+msgstr "L'utente deve essere autenticato."
 
 #: serializers.py:73
 msgid "Label"
@@ -382,11 +384,11 @@ msgstr "Etichetta"
 
 #: serializers.py:85
 msgid "Primary key"
-msgstr ""
+msgstr "Chiave primaria"
 
 #: serializers.py:88
 msgid "Search fields"
-msgstr ""
+msgstr "Campi di ricerca"
 
 #: settings.py:25
 msgid "Full path to the backend to be used to handle the search."
@@ -463,7 +465,7 @@ msgstr ""
 
 #: templates/dynamic_search/app/list_toolbar.html:24
 msgid "Filter terms"
-msgstr ""
+msgstr "Criteri di filtro"
 
 #: templates/dynamic_search/search_box.html:49
 #: templates/dynamic_search/search_box_toolbar.html:33

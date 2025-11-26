@@ -143,7 +143,7 @@ msgstr ""
 
 #: links.py:33
 msgid "View modes"
-msgstr ""
+msgstr "Modalità di visualizzazione"
 
 #: literals.py:10
 msgid "Items"
@@ -151,7 +151,7 @@ msgstr "Articoli"
 
 #: literals.py:11
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #: model_mixins.py:14 model_mixins.py:23
 msgid "The app to which the view belongs."
@@ -212,7 +212,7 @@ msgstr ""
 
 #: models.py:63
 msgid "User view modes"
-msgstr ""
+msgstr "Modalità di visualizzazione dell'utente"
 
 #: settings.py:16
 msgid "The number objects that will be displayed per page."

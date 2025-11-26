@@ -24,11 +24,11 @@ msgstr ""
 
 #: apps.py:16 permissions.py:6 settings.py:94
 msgid "Templating"
-msgstr ""
+msgstr "Data e ora correnti"
 
 #: apps.py:23
 msgid "Current date and time"
-msgstr ""
+msgstr "Data e ora correnti"
 
 #: classes.py:83
 #, python-format
@@ -37,16 +37,16 @@ msgstr ""
 
 #: fields.py:28
 msgid "Use Django's default templating language. "
-msgstr ""
+msgstr "Utilizza il linguaggio di template predefinito di Django."
 
 #: fields.py:42
 #, python-format
 msgid "Available template context variables: %s"
-msgstr ""
+msgstr "Variabili di contesto disponibili nel modello: %s"
 
 #: forms.py:10
 msgid "Resulting text from the evaluated template."
-msgstr ""
+msgstr "Testo risultante dal modello valutato."
 
 #: forms.py:11 serializers.py:24
 msgid "Result"
@@ -54,7 +54,7 @@ msgstr "Risultato"
 
 #: forms.py:25
 msgid "The template string to be evaluated."
-msgstr ""
+msgstr "Stringa del template da valutare."
 
 #: forms.py:26 serializers.py:27
 msgid "Template"
@@ -62,15 +62,15 @@ msgstr "Modello"
 
 #: links.py:12
 msgid "Sandbox"
-msgstr ""
+msgstr "Sandbox"
 
 #: permissions.py:10
 msgid "Use the template sandbox"
-msgstr ""
+msgstr "Usa il template della sandbox"
 
 #: serializers.py:8
 msgid "Hex hash"
-msgstr ""
+msgstr "Hash esadecimale"
 
 #: serializers.py:11
 msgid "Name"
@@ -78,7 +78,7 @@ msgstr "Nome "
 
 #: serializers.py:14
 msgid "HTML"
-msgstr ""
+msgstr "HTML"
 
 #: serializers.py:17
 msgid "URL"
@@ -89,20 +89,22 @@ msgid ""
 "Theme name of the CSS stylesheet used to change the visual appearance of the"
 " template preview."
 msgstr ""
+"Nome del tema del foglio di stile CSS utilizzato per modificare l’aspetto "
+"visivo del template per l’anteprima."
 
 #: views.py:59
 #, python-format
 msgid "Template sandbox for: %s"
-msgstr ""
+msgstr "Template di sandbox per: %s"
 
 #: views.py:86
 #, python-format
 msgid "Template error; %(exception)s"
-msgstr ""
+msgstr "Errore del template; %(exception)s"
 
 #: widgets.py:42
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: widgets.py:49
 msgid "Tags"
@@ -110,8 +112,8 @@ msgstr "Etichette"
 
 #: widgets.py:56
 msgid "<Filters and tags>"
-msgstr ""
+msgstr "<Filters and tags>"
 
 #: widgets.py:129
 msgid "<Model attributes>"
-msgstr ""
+msgstr "<Model attributes>"

@@ -387,7 +387,7 @@ msgstr "Valore metadata"
 
 #: search.py:33
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: search.py:37
 msgid "Document type label"

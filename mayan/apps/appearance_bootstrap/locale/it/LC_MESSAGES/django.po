@@ -336,16 +336,16 @@ msgstr "Attiva / disattiva la modalità di visualizzazione dell'elenco"
 
 #: templates/navigation/app/list_toolbar.html:25
 msgid "Sort by column"
-msgstr ""
+msgstr "Ordina per colonna"
 
 #: templates/navigation/app/list_toolbar.html:26
 msgid "--- Clear ---"
-msgstr ""
+msgstr "---Pulisci---"
 
 #: templates/navigation/app/list_toolbar.html:29
 msgid "(ascending)"
-msgstr ""
+msgstr "(ascendente)"
 
 #: templates/navigation/app/list_toolbar.html:31
 msgid "(descending)"
-msgstr ""
+msgstr "(discendente)"

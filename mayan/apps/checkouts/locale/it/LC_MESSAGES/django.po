@@ -188,7 +188,7 @@ msgstr "Chiave primaria del documento da prenotare."
 
 #: serializers.py:47
 msgid "Document ID"
-msgstr ""
+msgstr "ID Documetno"
 
 #: views.py:28
 #, python-format

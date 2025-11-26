@@ -55,7 +55,7 @@ msgstr "Miniatura"
 
 #: apps.py:464
 msgid "Access date and time"
-msgstr ""
+msgstr "Data e ora di accesso"
 
 #: apps.py:533
 msgid "Create a document type"
@@ -83,7 +83,7 @@ msgstr ""
 
 #: apps.py:940
 msgid "Active version"
-msgstr ""
+msgstr "Versione attiva"
 
 #: apps.py:990
 msgid "Type"
@@ -160,7 +160,7 @@ msgstr "Sostituire. Crea una nuova versione e usa le nuove pagine di file."
 
 #: document_version_modifications.py:11
 msgid "Append all file pages"
-msgstr ""
+msgstr "Accoda tutte le pagine"
 
 #: document_version_modifications.py:13
 msgid ""
@@ -170,11 +170,11 @@ msgstr ""
 
 #: document_version_modifications.py:29
 msgid "Reset pages to latest file"
-msgstr ""
+msgstr "Ripristina le pagine dall'ultimo file."
 
 #: document_version_modifications.py:30
 msgid "Match all pages to that of the latest document file."
-msgstr ""
+msgstr "Confronta tutte le pagine con quelle dell'ultimo file del documento."
 
 #: events.py:12
 msgid "Document created"
@@ -278,7 +278,7 @@ msgstr "Versione documento caricata (storica)"
 
 #: forms/document_file_forms.py:41
 msgid "Detected"
-msgstr ""
+msgstr "Eliminato"
 
 #: forms/document_file_forms.py:45
 msgid "Storage"
@@ -286,7 +286,7 @@ msgstr "Magazzino "
 
 #: forms/document_file_forms.py:49
 msgid "Other"
-msgstr ""
+msgstr "Altro"
 
 #: forms/document_file_forms.py:58
 msgid "Date added"
@@ -559,7 +559,7 @@ msgstr "Versioni"
 
 #: links/document_version_links.py:58
 msgid "Modify"
-msgstr ""
+msgstr "Modifica"
 
 #: links/document_version_page_links.py:55
 msgid "Remap pages"
@@ -679,6 +679,7 @@ msgstr "Etichetta"
 #: models/document_file_model_mixins.py:524
 msgid "Controls what happens when a new document file is uploaded."
 msgstr ""
+"Controlla cosa accade quando viene caricato un nuovo file di documento."
 
 #: models/document_file_models.py:62
 msgid "The server date and time when the document file was processed."
@@ -749,7 +750,7 @@ msgstr "Documento troncato, ID: %d"
 
 #: models/document_models.py:43
 msgid "Latest document file"
-msgstr ""
+msgstr "Ultimo file documento"
 
 #: models/document_models.py:48
 msgid ""
@@ -823,11 +824,11 @@ msgstr "Documento troncato?"
 
 #: models/document_models.py:101
 msgid "Active document version"
-msgstr ""
+msgstr "Versione del documento attivo"
 
 #: models/document_type_models.py:42
 msgid "A short text identifying the document type."
-msgstr ""
+msgstr "Breve descrizione per l'identificazione del documento"
 
 #: models/document_type_models.py:47
 msgid ""
@@ -1098,7 +1099,7 @@ msgstr ""
 
 #: queues.py:21
 msgid "Documents file"
-msgstr ""
+msgstr "File dei documenti"
 
 #: queues.py:24
 msgid "Documents file slow"
@@ -1199,7 +1200,7 @@ msgstr ""
 #: search.py:32 serializers/document_serializers.py:32
 #: serializers/document_serializers.py:78
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: search.py:35 search.py:67 search.py:104 search.py:142 search.py:174
 msgid "Document type label"
@@ -1215,7 +1216,7 @@ msgstr ""
 
 #: search.py:75 search.py:147 serializers/favorite_document_serializers.py:17
 msgid "Document ID"
-msgstr ""
+msgstr "ID Documetno"
 
 #: search.py:78 search.py:107 search.py:150 search.py:178
 msgid "Document label"
@@ -1319,7 +1320,7 @@ msgstr ""
 #: serializers/document_type_serializers.py:35
 #: serializers/document_type_serializers.py:47
 msgid "Documents URL"
-msgstr ""
+msgstr "URL dei documenti"
 
 #: serializers/document_type_serializers.py:39
 msgid "Quick label list URL"
@@ -1800,11 +1801,11 @@ msgstr "Clona le trasformazioni della pagina del file del documento: %s"
 
 #: views/document_type_retention_policy_views.py:23
 msgid "Trashing"
-msgstr ""
+msgstr "Invio al cestino"
 
 #: views/document_type_retention_policy_views.py:27
 msgid "Deletion"
-msgstr ""
+msgstr "Eliminazione"
 
 #: views/document_type_retention_policy_views.py:31
 msgid "Stub pruning"
@@ -2323,7 +2324,7 @@ msgstr ""
 
 #: workflow_actions.py:26
 msgid "Change document type"
-msgstr ""
+msgstr "Cambia il tipo di documento"
 
 #: workflow_actions.py:53
 msgid "Send document to trash"
