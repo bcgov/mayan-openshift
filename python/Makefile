@@ -54,6 +54,11 @@ generate-setup: generate-requirements
 	@./contrib/scripts/generate_setup.py
 	@echo "Complete."
 
+dev-python-cleanup: ## Clean up all Python libraries.
+	@pip freeze > venv-requirements.txt
+	@pip uninstall -y -r venv-requirements.txt
+	@rm venv-requirements.txt
+
 setup-dev-python-libraries: ## Install the Python libraries needed for development.
 	pip install --requirement requirements.txt --requirement requirements/development.txt --requirement requirements/testing-base.txt --requirement requirements/documentation.txt --requirement requirements/build.txt
 
