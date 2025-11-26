@@ -11,15 +11,15 @@ BinaryDependency(
 
 PythonDependency(
     environment=environment_testing, module=__name__, name='coverage',
-    version_string='==6.5.0'
+    version_string='==7.12.0'
 )
 PythonDependency(
     environment=environment_testing, module=__name__, name='coveralls',
-    version_string='==3.3.1'
+    version_string='==4.0.2'
 )
 PythonDependency(
     environment=environment_testing, module=__name__,
-    name='django-test-migrations', version_string='==1.4.0'
+    name='django-test-migrations', version_string='==1.5.0'
 )
 PythonDependency(
     environment=environment_testing, module=__name__, name='selenium',

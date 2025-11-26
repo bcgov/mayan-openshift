@@ -11,6 +11,7 @@ BinaryDependency(
     ), label='Transifex Client', module=__name__, name='tx',
     path=DEFAULT_TX_PATH
 )
+
 PythonDependency(
     legal_text='''
         Copyright (c) 2003-2005 Stuart Bishop <stuart@stuartbishop.net>

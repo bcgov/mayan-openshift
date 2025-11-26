@@ -7,10 +7,15 @@
 - Add a makefile target to clean up all Python libraries.
 - Update dependency versions:
 
+  - coverage from 6.5.0 to 7.12.0.
+  - coverall from 3.3.1 to 4.0.2.
+  - django-test-migrations from 1.4.0 to 1.5.0.
   - gevent from 24.11.1 to 25.9.1 due to PVE-2025-76839.
   - greenlet from 3.1.1 to 3.2.4.
   - pip from version 25.2 to 25.3.
+  - pypdf from 6.3.0 to 6.4.0.
   - safety from 3.2.13 to 3.7.0.
+  - sentry-sdk from 2.45.0 to 2.46.0.
 
 4.9.5 (2025-09-28)
 ==================
