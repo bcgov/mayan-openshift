@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-27 19:21+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-08-27 11:22+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "権限が不十分です"
 
 #: templates/403.html:20
 msgid "You don't have enough permissions for this operation."
-msgstr "この操作を行うための十分な権限がありません"
+msgstr "この操作を行うための十分な権限がありません。"
 
 #: templates/404.html:5 templates/404.html:18
 msgid "Page not found"
@@ -205,6 +205,10 @@ msgstr "はい"
 msgid "No"
 msgstr "いいえ"
 
+#: templates/appearance/confirm.html:52
+msgid "Do not ask me again."
+msgstr "今後は確認しないでください。"
+
 #: templates/appearance/home.html:27
 msgid "Getting started"
 msgstr "はじめに"
@@ -213,7 +217,7 @@ msgstr "はじめに"
 msgid "Before you can fully use Mayan EDMS you need the following:"
 msgstr "Mayan EDMS を完全に利用する前に、以下の準備が必要です: "
 
-#: templates/appearance/menus/topbar.html:11
+#: templates/appearance/menus/topbar.html:12
 msgid "Toggle navigation"
 msgstr "トグルナビゲーション"
 
@@ -255,7 +259,7 @@ msgid ""
 "Total (%(start)s - %(end)s out of %(total)s) (Page %(page_number)s of "
 "%(total_pages)s)"
 msgstr ""
-"合計（%(start)s ～ %(end)s 件／全 %(total)s 件） （%(page_number)s ページ／全 "
+"合計（%(start)s ～ %(end)s 件／全 %(total)s 件）（%(page_number)s ページ／全 "
 "%(total_pages)s ページ）"
 
 #: templates/appearance/partials/list/header.html:14
@@ -268,15 +272,23 @@ msgstr "合計: %(total)s"
 msgid "No results"
 msgstr "該当する結果なし"
 
-#: templates/appearance/partials/list/pagination.html:12
-#: templates/appearance/partials/list/pagination.html:14
+#: templates/appearance/partials/list/pagination.html:21
+#: templates/appearance/partials/list/pagination.html:23
 msgid "Previous page"
 msgstr "前のページ"
 
-#: templates/appearance/partials/list/pagination.html:30
-#: templates/appearance/partials/list/pagination.html:32
+#: templates/appearance/partials/list/pagination.html:39
+#: templates/appearance/partials/list/pagination.html:41
 msgid "Next page"
 msgstr "次のページ"
+
+#: templates/appearance/partials/list/pagination.html:46
+msgid "Page"
+msgstr "ページ"
+
+#: templates/appearance/partials/list/pagination.html:46
+msgid "Jump to page"
+msgstr "ページへ移動"
 
 #: templates/appearance/partials/list/table/head/row_cell_identifier.html:6
 msgid "Identifier"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 12:51+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -25,19 +25,19 @@ msgstr ""
 msgid "OCR"
 msgstr "OCR"
 
-#: apps.py:121
+#: apps.py:122
 msgid "The OCR content."
 msgstr "OCRの内容"
 
-#: apps.py:126
+#: apps.py:127 apps.py:134
 msgid "A generator returning the document's version pages OCR content."
 msgstr "文書バージョン内の各ページのOCR内容を返すジェネレーター"
 
-#: apps.py:128
+#: apps.py:129 apps.py:136
 msgid "OCR content"
 msgstr "OCR内容"
 
-#: backends/tesseract.py:82
+#: backends/tesseract.py:89
 msgid "Tesseract OCR not found."
 msgstr "Tesseract OCR が見つかりません。"
 
@@ -187,7 +187,7 @@ msgstr "%(count)d件の文書をOCRキューに追加しました。"
 #: views.py:118
 #, python-format
 msgid "Error deleting document version OCR \"%(instance)s\"; %(exception)s"
-msgstr "文書バージョンOCR「%(instance)s」の削除中にエラーが発生しました：%(exception)s"
+msgstr "文書バージョンOCR「%(instance)s」の削除中にエラーが発生：%(exception)s"
 
 #: views.py:124
 #, python-format
@@ -212,7 +212,7 @@ msgstr "選択した%(count)d件の文書バージョンのOCR内容を削除し
 #: views.py:135
 #, python-format
 msgid "Delete the OCR content of: %(object)s."
-msgstr "OCR内容を削除：%(object)s"
+msgstr "OCR内容を削除: %(object)s"
 
 #: views.py:137
 #, python-format

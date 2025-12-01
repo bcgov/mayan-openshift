@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 12:51+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "全ロール数"
 
 #: events.py:10
 msgid "Role created"
-msgstr "ロールが作成されました"
+msgstr "ロールを作成しました"
 
 #: events.py:13
 msgid "Role edited"
@@ -228,7 +228,7 @@ msgstr "選択した %(count)d 件のロールを削除"
 #: views.py:84
 #, python-format
 msgid "Delete the %(count)d selected roles."
-msgstr "択した %(count)d 件のロールを削除"
+msgstr "選択した %(count)d 件のロールを削除"
 
 #: views.py:113
 msgid ""
@@ -260,7 +260,7 @@ msgstr "ロールに追加するグループ。ロールの権限とアクセス
 #: views.py:148
 #, python-format
 msgid "Groups of role: %s"
-msgstr "ロール %s の権限"
+msgstr " ロール %s のグループ"
 
 #: views.py:153
 msgid "Granted permissions"
@@ -273,7 +273,7 @@ msgstr "利用可能な権限"
 #: views.py:199
 msgid ""
 "Permissions granted here will apply to the entire system and all objects."
-msgstr "ロール %s の権限"
+msgstr "ここで付与された権限はシステム全体およびすべてのオブジェクトに適用されます"
 
 #: views.py:202
 #, python-format

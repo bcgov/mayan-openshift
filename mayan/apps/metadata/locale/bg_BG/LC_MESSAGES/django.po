@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2024
-# Pavlin Koldamov <pkoldamov@gmail.com>, 2024
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2024
+# Roberto Rosario, 2025
+# Pavlin Koldamov <pkoldamov@gmail.com>, 2025
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 17:02+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
+"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2025\n"
 "Language-Team: Bulgarian (Bulgaria) (https://app.transifex.com/rosarior/teams/13584/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:74 apps.py:215 apps.py:221 apps.py:225 apps.py:230 apps.py:234
+#: apps.py:74 apps.py:211 apps.py:217 apps.py:221 apps.py:226 apps.py:230
 #: events.py:6 links.py:53 permissions.py:6 queues.py:7
 #: workflow_actions.py:162
 msgid "Metadata"
@@ -36,19 +36,11 @@ msgstr "Връща стойността на отделни метаданни �
 msgid "Metadata value of"
 msgstr "Метаданни за"
 
-#: apps.py:151
-msgid "Metadata type name"
-msgstr "Име на типа метаданни"
-
-#: apps.py:155 search.py:15
-msgid "Metadata value"
-msgstr "Стойност на метаданни"
-
-#: apps.py:253
+#: apps.py:249
 msgid "Document link"
 msgstr ""
 
-#: apps.py:259
+#: apps.py:255
 msgid "Document thumbnail"
 msgstr ""
 
@@ -175,7 +167,7 @@ msgstr "Типове документи"
 msgid "Create new"
 msgstr "Създайте нов"
 
-#: links.py:82 links.py:87
+#: links.py:81 links.py:86
 msgid "Delete"
 msgstr "Изтрийте"
 
@@ -387,6 +379,10 @@ msgstr "Премахване на тип метаданни"
 #: queues.py:15
 msgid "Add required metadata type"
 msgstr "Добавяне на задължителен тип метаданни"
+
+#: search.py:15
+msgid "Metadata value"
+msgstr "Стойност на метаданни"
 
 #: search.py:33
 msgid "Document type ID"

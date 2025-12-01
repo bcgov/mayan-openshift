@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-04 04:33+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "文書解析"
 msgid "A generator returning the document file's pages parsed content."
 msgstr "文書ファイルのページごとの解析済みコンテンツを返すジェネレーター"
 
-#: apps.py:114 links.py:26 links.py:49 models.py:27 search.py:18
+#: apps.py:114 links.py:26 links.py:65 models.py:27 search.py:18
 msgid "Content"
 msgstr "コンテンツ"
 
@@ -36,7 +36,7 @@ msgstr "コンテンツ"
 msgid ""
 "Utility from the poppler-utils package used to extract content from PDF "
 "files."
-msgstr "文書解析"
+msgstr "PDFファイルからコンテンツを抽出するために使用される poppler-utils パッケージのユーティリティ"
 
 #: events.py:10
 msgid "Document file parsed content deleted"
@@ -59,7 +59,7 @@ msgstr "ページ %(page_number)d"
 msgid "Contents"
 msgstr "コンテンツ一覧"
 
-#: links.py:32 links.py:37
+#: links.py:31 links.py:37
 msgid "Delete parsed content"
 msgstr "解析済みコンテンツの削除"
 
@@ -67,15 +67,15 @@ msgstr "解析済みコンテンツの削除"
 msgid "Download content"
 msgstr "コンテンツのダウンロード"
 
-#: links.py:54 links.py:61
+#: links.py:48 links.py:55
 msgid "Submit for parsing"
 msgstr "解析の実行"
 
-#: links.py:71
+#: links.py:75
 msgid "Setup parsing"
 msgstr "解析設定"
 
-#: links.py:80
+#: links.py:84
 msgid "Parse documents per type"
 msgstr "文書タイプごとの解析"
 
@@ -147,7 +147,7 @@ msgstr "文書ファイルの解析"
 
 #: search.py:12
 msgid "Document file content"
-msgstr "文書ファイルの解析"
+msgstr "文書ファイルのコンテンツ"
 
 #: settings.py:18
 msgid "Set new document types to perform parsing automatically by default."

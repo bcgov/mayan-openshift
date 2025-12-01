@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-09-28 14:15+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,14 +20,48 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:36
+#: apps.py:38
 msgid "Dynamic search"
 msgstr "動的検索"
+
+#: apps.py:87
+msgid "The underlying database model whose content is indexed for search."
+msgstr "検索用に内容がインデックスされる基礎データベースモデル"
+
+#: apps.py:89
+msgid "Model"
+msgstr "モデル"
+
+#: apps.py:94
+msgid "The unique name used to reference the search model."
+msgstr "検索モデルを参照するための一意の名前"
+
+#: apps.py:102
+msgid "The underlying database field whose content is indexed for search."
+msgstr "検索用に内容がインデックスされる基礎データベースフィールド"
+
+#: apps.py:105
+msgid "Field"
+msgstr "フィールド"
+
+#: apps.py:116
+msgid ""
+"The underlying database field type. This determines the kind of data that is"
+" stored in the database."
+msgstr "基礎データベースフィールドの型。保存されるデータの種類を決定します"
+
+#: apps.py:119 serializers.py:61
+msgid "Field class"
+msgstr "フィールドクラス"
+
+#: apps.py:123 serializers.py:67
+msgid "Description"
+msgstr "説明"
 
 #: events.py:6 permissions.py:6 queues.py:11 settings.py:20
 #: templates/dynamic_search/search_box.html:47
 #: templates/dynamic_search/search_box_toolbar.html:30
-#: views/search_views.py:110
+#: views/search_views.py:106
 msgid "Search"
 msgstr "検索"
 
@@ -35,73 +69,81 @@ msgstr "検索"
 msgid "Resultset created"
 msgstr "結果セット作成済み"
 
-#: forms.py:12
+#: forms.py:13
 msgid "Store the search results to speed up paging and for later browsing."
 msgstr "ページングを高速化し、後で参照できるよう検索結果を保存する"
 
-#: forms.py:15
+#: forms.py:16
 msgid "Save results"
 msgstr "結果を保存"
 
-#: forms.py:21
+#: forms.py:22
 msgid "Persistency"
 msgstr "永続化"
 
-#: forms.py:37
+#: forms.py:38
 msgid "Match all"
 msgstr "すべて一致"
 
-#: forms.py:38
+#: forms.py:39
 msgid "Return only results that match all fields."
 msgstr "すべてのフィールドに一致する結果のみ返す"
 
-#: forms.py:71
+#: forms.py:76
 msgid "Search logic"
 msgstr "検索ロジック"
 
-#: forms.py:99 templates/dynamic_search/search_box.html:43
+#: forms.py:104 templates/dynamic_search/search_box.html:43
 #: templates/dynamic_search/search_box_toolbar.html:25
 msgid "Search terms"
 msgstr "検索語"
 
-#: forms.py:110
+#: forms.py:115
 msgid "Criteria"
 msgstr "検索条件"
 
-#: links.py:20 models.py:61 views/saved_resultset_views.py:72
+#: links.py:21 models.py:61 views/saved_resultset_views.py:72
 msgid "Saved resultsets"
 msgstr "保存された検索結果"
 
-#: links.py:25
+#: links.py:26
 msgid "Delete"
 msgstr "削除"
 
-#: links.py:30
+#: links.py:31
 msgid "Results"
 msgstr "結果"
 
-#: links.py:35
+#: links.py:36
 msgid "Basic search"
 msgstr "基本検索"
 
-#: links.py:39 templates/dynamic_search/search_box.html:49
+#: links.py:40 templates/dynamic_search/search_box.html:49
 #: templates/dynamic_search/search_box_toolbar.html:33
 msgid "Advanced search"
 msgstr "高度な検索"
 
-#: links.py:43
+#: links.py:44
 msgid "Search again"
 msgstr "再検索"
 
-#: links.py:48 views/search_views.py:65
+#: links.py:49 views/search_views.py:61
 msgid "Reindex search backend"
 msgstr "検索バックエンドを再インデックス"
 
-#: literals.py:27
+#: links.py:57
+msgid "Fields"
+msgstr "フィールド"
+
+#: links.py:60 views/tool_views.py:15
+msgid "Search models"
+msgstr "検索モデル"
+
+#: literals.py:28
 msgid "Yes"
 msgstr "はい"
 
-#: literals.py:28
+#: literals.py:29
 msgid "No"
 msgstr "いいえ"
 
@@ -127,11 +169,11 @@ msgstr "タイムスタンプ"
 msgid "Epoch"
 msgstr "エポック"
 
-#: models.py:37 serializers.py:70
+#: models.py:37 serializers.py:79
 msgid "App label"
 msgstr "アプリラベル"
 
-#: models.py:40 serializers.py:73
+#: models.py:40 serializers.py:82
 msgid "Model name"
 msgstr "モデル名"
 
@@ -145,7 +187,7 @@ msgstr "検索説明文"
 
 #: models.py:49
 msgid "Number of results stored in the resultset."
-msgstr "検索説明文"
+msgstr "結果セットに保存された件数"
 
 #: models.py:50
 msgid "Result count"
@@ -185,7 +227,7 @@ msgstr "検索ツールを実行"
 
 #: queues.py:14
 msgid "Search slow"
-msgstr "検索（低速）"
+msgstr "検索 （低速）"
 
 #: queues.py:19
 msgid "Remove a model instance from the search engine."
@@ -219,8 +261,8 @@ msgid ""
 "if multiple scopes are used. Narrow down the search criteria or increase the"
 " value of the results limit setting `%s`."
 msgstr ""
-"検索結果が現在の上限 %d 件を超えています。複数のスコープを使用している場合、結果は信頼できません。検索条件を絞るか、結果上限 %s "
-"の値を増やしてください"
+"検索結果が現在の上限 %d 件を超えています。複数のスコープを使用している場合、結果は信頼できません。検索条件を絞るか、結果上限 ` %s "
+"`.の値を増やしてください"
 
 #: scoped_queries.py:373
 #, python-format
@@ -231,18 +273,56 @@ msgstr ""
 "検索バックエンドでエラーが発生しました。検索サービスが利用可能であること、アクティブな検索バックエンドで検索構文が有効であることを確認してください; "
 "%s "
 
-#: search_fields.py:312
+#: search_fields.py:100
+msgid "Uniquely identifies the search field."
+msgstr "検索フィールドを一意に識別"
+
+#: search_fields.py:101 serializers.py:64
+msgid "Field name"
+msgstr "フィールド名"
+
+#: search_fields.py:179
+msgid ""
+"The type of search field. This determines how the information will be "
+"handled for search indexing."
+msgstr "検索フィールドの種類。検索インデックスでどのように扱われるかを決定します"
+
+#: search_fields.py:183 serializers.py:70
+msgid "Search field class"
+msgstr "検索フィールドクラス"
+
+#: search_fields.py:223
+msgid "Concrete"
+msgstr "具体的な"
+
+#: search_fields.py:245
+msgid "Direct"
+msgstr "直接"
+
+#: search_fields.py:267
+msgid "Related"
+msgstr "関連"
+
+#: search_fields.py:325
+msgid "Virtual"
+msgstr "仮想"
+
+#: search_fields.py:340
 msgid "Any"
 msgstr "すべて "
 
-#: search_models.py:44
+#: search_models.py:49
 #, python-format
 msgid "Unknown search model `%s`."
 msgstr "未知の検索モデル `%s`"
 
-#: search_models.py:114
+#: search_models.py:145
 msgid "All content"
 msgstr "すべてのコンテンツ"
+
+#: search_models.py:199
+msgid "Full name"
+msgstr "フルネーム"
 
 #: search_query_types.py:171
 msgid "Exact"
@@ -288,7 +368,7 @@ msgstr "正規表現"
 msgid "Results URL"
 msgstr "結果 URL"
 
-#: serializers.py:30 serializers.py:82
+#: serializers.py:30 serializers.py:91
 msgid "URL"
 msgstr "URL"
 
@@ -296,19 +376,15 @@ msgstr "URL"
 msgid "User must be authenticated."
 msgstr "ユーザーは認証されている必要があります"
 
-#: serializers.py:61
-msgid "Field name"
-msgstr "フィールド名"
-
-#: serializers.py:64
+#: serializers.py:73
 msgid "Label"
 msgstr "ラベル"
 
-#: serializers.py:76
+#: serializers.py:85
 msgid "Primary key"
 msgstr "主キー"
 
-#: serializers.py:79
+#: serializers.py:88
 msgid "Search fields"
 msgstr "検索フィールド"
 
@@ -371,6 +447,15 @@ msgid "Amount to increase the time to live on each access of the resultset."
 msgstr "結果セットにアクセスするたびに有効期限を延長する時間"
 
 #: settings.py:110
+msgid ""
+"Specifies the fields from which search model are to be disabled. The format "
+"is a dictionary of lists. The search model name is the dictionary key and "
+"the value is a list of the full search field name. Disabled fields will "
+"neither be available for search nor be indexed by the search backend."
+msgstr ""
+"検索モデルで無効にするフィールドを指定します。形式はリストの辞書です。検索モデル名が辞書キー、値がフィールド名のリストです。無効化されたフィールドは検索できず、検索バックエンドにもインデックスされません"
+
+#: settings.py:120
 msgid "Sets the default state of the \"Store results\" checkbox."
 msgstr "「結果を保存」チェックボックスの初期状態を設定"
 
@@ -472,50 +557,60 @@ msgstr "保存された結果セットは、前回の検索結果を一定時間
 msgid "No saved resultsets available"
 msgstr "保存された結果セットはありません"
 
-#: views/search_views.py:62
+#: views/search_views.py:58
 msgid "This tool erases and populates the search backend's internal index."
 msgstr "このツールは検索バックエンドの内部インデックスを消去し、再作成します"
 
-#: views/search_views.py:72
+#: views/search_views.py:68
 msgid ""
 "This tool is required only for some search backends. Search results will be "
 "affected while the backend is being reindexed."
 msgstr "このツールは一部の検索バックエンドでのみ必要です。再インデックス中は検索結果に影響があります"
 
-#: views/search_views.py:78
+#: views/search_views.py:74
 msgid ""
 "The currently selected search backend does not support or requires "
 "reindexing."
 msgstr "現在選択中の検索バックエンドは、再インデックスをサポートしていないか、必要とします"
 
-#: views/search_views.py:91
+#: views/search_views.py:87
 msgid "Search backend reindexing queued."
 msgstr "検索バックエンドの再インデックスをキューに登録しました"
 
-#: views/search_views.py:112
+#: views/search_views.py:108
 #, python-format
 msgid "Search for: %s"
 msgstr "検索: %s "
 
-#: views/search_views.py:139
+#: views/search_views.py:135
 #, python-format
 msgid "Advanced search for: %s"
 msgstr "高度な検索: %s"
 
-#: views/search_views.py:195
+#: views/search_views.py:191
 msgid "Try again using different terms. "
 msgstr "別の検索語で再試行してください"
 
-#: views/search_views.py:197
+#: views/search_views.py:193
 msgid "No search results"
 msgstr "検索結果はありません"
 
-#: views/search_views.py:200
+#: views/search_views.py:196
 #, python-format
 msgid "Search query: %s"
 msgstr "検索クエリ: %s"
 
-#: views/search_views.py:203
+#: views/search_views.py:199
 #, python-format
 msgid "Search results for: %s"
 msgstr "検索結果: %s"
+
+#: views/tool_views.py:34
+#, python-format
+msgid "Fields for search model: %s"
+msgstr "検索モデル %s のフィールド"
+
+#: views/tool_views.py:45
+#, python-format
+msgid "Search model: %s, not found"
+msgstr "検索モデル:  %s が見つかりません"

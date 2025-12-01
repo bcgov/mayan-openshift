@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Django GPG"
 
 #: apps.py:55 apps.py:61 forms.py:15
 msgid "Key ID"
-msgstr "Key ID"
+msgstr "キー ID"
 
 #: apps.py:65 forms.py:41 models.py:49
 msgid "Type"
@@ -54,7 +54,7 @@ msgstr "ユーザー ID"
 
 #: dependencies.py:9
 msgid "GNU privacy guard - a PGP implementation."
-msgstr "GNU Privacy Guard（PGP 実装）"
+msgstr "GNU Privacy Guard - PGP 実装"
 
 #: events.py:6 links.py:42 permissions.py:6
 msgid "Key management"
@@ -158,7 +158,7 @@ msgstr "文書は署名されていますが、検証用の公開鍵が利用で
 
 #: literals.py:85
 msgid "Document is signed, and signature is good."
-msgstr "文書は署名されています。署名は有効です。"
+msgstr "文書は署名されていて、署名は有効です。"
 
 #: literals.py:88
 msgid "Document is signed with a valid signature."
@@ -174,7 +174,7 @@ msgstr "鍵データ"
 
 #: models.py:55
 msgid "Key"
-msgstr "技"
+msgstr "鍵"
 
 #: models.py:56
 msgid "Keys"
@@ -261,7 +261,7 @@ msgstr "鍵 を正常に取得しました: %(key_id)s"
 msgid ""
 "Use names, last names, key ids or emails to search public keys to import "
 "from the keyserver."
-msgstr "名前、姓、鍵ID、またはメールアドレスを使って、キーサーバーからインポートする公開鍵を検索します"
+msgstr "名前、姓、鍵ID、またはメールアドレスを使って、キーサーバーからインポートする公開鍵を検索します。"
 
 #: views.py:139
 msgid "No results returned"

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 12:51+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "アップロードされたファイルを解凍して個別のファイ
 
 #: source_backends/literals.py:8 source_backends/literals.py:13
 msgid "Always"
-msgstr "常時"
+msgstr "常に"
 
 #: source_backends/literals.py:9 source_backends/literals.py:14
 msgid "Never"
@@ -52,7 +52,7 @@ msgstr "圧縮アーカイブを展開するかどうか"
 
 #: source_backends/mixins.py:59
 msgid "Decompression"
-msgstr "解凍設定"
+msgstr "解凍"
 
 #: source_backends/mixins.py:92
 msgid "Expand compressed files"

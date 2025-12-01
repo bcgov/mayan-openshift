@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Translators:
-# Сергій Гарашко, 2024
-# olenchenko <olenchenko@gmail.com>, 2024
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
-# Leo Lado, 2024
+# olenchenko <olenchenko@gmail.com>, 2025
+# Сергій Гарашко, 2025
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2025
+# Leo Lado, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 17:02+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
-"Last-Translator: Leo Lado, 2024\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
+"Last-Translator: Leo Lado, 2025\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Language: uk_UA\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: apps.py:74 apps.py:215 apps.py:221 apps.py:225 apps.py:230 apps.py:234
+#: apps.py:74 apps.py:211 apps.py:217 apps.py:221 apps.py:226 apps.py:230
 #: events.py:6 links.py:53 permissions.py:6 queues.py:7
 #: workflow_actions.py:162
 msgid "Metadata"
@@ -37,19 +37,11 @@ msgstr "Повернути значення конкретних метадан�
 msgid "Metadata value of"
 msgstr "Метадані значення"
 
-#: apps.py:151
-msgid "Metadata type name"
-msgstr "Метадані назви типу"
-
-#: apps.py:155 search.py:15
-msgid "Metadata value"
-msgstr "Значення метаданих"
-
-#: apps.py:253
+#: apps.py:249
 msgid "Document link"
 msgstr ""
 
-#: apps.py:259
+#: apps.py:255
 msgid "Document thumbnail"
 msgstr ""
 
@@ -176,7 +168,7 @@ msgstr "Тип документа"
 msgid "Create new"
 msgstr "Створити новий"
 
-#: links.py:82 links.py:87
+#: links.py:81 links.py:86
 msgid "Delete"
 msgstr "Видалити"
 
@@ -387,6 +379,10 @@ msgstr "Видалити тип метаданих"
 #: queues.py:15
 msgid "Add required metadata type"
 msgstr "Додати необхідний тип метаданих"
+
+#: search.py:15
+msgid "Metadata value"
+msgstr "Значення метаданих"
 
 #: search.py:33
 msgid "Document type ID"

@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Translators:
-# olenchenko <olenchenko@gmail.com>, 2024
-# Сергій Гарашко, 2024
-# Leo Lado, 2024
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
+# Сергій Гарашко, 2025
+# olenchenko <olenchenko@gmail.com>, 2025
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2025
+# Leo Lado, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-26 19:04+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
-"Last-Translator: Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
+"Last-Translator: Leo Lado, 2025\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,7 +119,7 @@ msgstr "Видалити та створити з нуля всі індекси
 msgid "Rebuild indexes"
 msgstr "Перебудувати індекси"
 
-#: links.py:69 views/index_template_views.py:452
+#: links.py:69 views/index_template_views.py:448
 msgid "Reset indexes"
 msgstr "Скинути індекси"
 
@@ -325,7 +325,7 @@ msgstr "Видалити шаблони індексу"
 msgid "View index templates"
 msgstr "Переглянути шаблони індексу"
 
-#: permissions.py:25 views/index_template_views.py:416
+#: permissions.py:25 views/index_template_views.py:412
 msgid "Rebuild index templates"
 msgstr "Перебудувати шаблони індексу"
 
@@ -580,16 +580,16 @@ msgstr "Типи документів, пов’язані з індексом: 
 msgid "Edit index: %s"
 msgstr "Редагувати індекс: %s"
 
-#: views/index_template_views.py:219
+#: views/index_template_views.py:215
 #, python-format
 msgid "Error updating index template event trigger; %s"
 msgstr "Помилка оновлення тригера події шаблону індексу; %s"
 
-#: views/index_template_views.py:228
+#: views/index_template_views.py:224
 msgid "Index template event triggers updated successfully."
 msgstr "Тригери подій шаблону індексу успішно оновлено."
 
-#: views/index_template_views.py:238
+#: views/index_template_views.py:234
 msgid ""
 "Triggers are document events that cause instances of this index template to "
 "be updated."
@@ -597,41 +597,41 @@ msgstr ""
 "Тригери - це події документа, які спричиняють оновлення екземплярів цього "
 "шаблону індексу."
 
-#: views/index_template_views.py:243
+#: views/index_template_views.py:239
 #, python-format
 msgid "Index template event triggers for: %s"
 msgstr "Індекс шаблону події тригерів для: %s"
 
-#: views/index_template_views.py:288
+#: views/index_template_views.py:284
 #, python-format
 msgid "Tree template nodes for index: %s"
 msgstr "Дерево шаблону вузлів для індексу: %s"
 
-#: views/index_template_views.py:315
+#: views/index_template_views.py:311
 #, python-format
 msgid "Create child node of: %s"
 msgstr "Створити дочірній вузол: %s"
 
-#: views/index_template_views.py:341
+#: views/index_template_views.py:337
 #, python-format
 msgid "Delete the index template node: %s?"
 msgstr "Видалити індекс шаблону вузла: %s ?"
 
-#: views/index_template_views.py:365
+#: views/index_template_views.py:361
 #, python-format
 msgid "Edit the index template node: %s"
 msgstr "Відредагувати індекс шаблону вузла: %s"
 
-#: views/index_template_views.py:386
+#: views/index_template_views.py:382
 #, python-format
 msgid "Rebuild index template: %s"
 msgstr "Перебудувати шаблон індексу: %s"
 
-#: views/index_template_views.py:409
+#: views/index_template_views.py:405
 msgid "Index template queued for rebuild."
 msgstr "Індекс шаблону поставлений у чергу для перебудови."
 
-#: views/index_template_views.py:433
+#: views/index_template_views.py:429
 #, python-format
 msgid "%(count)d index template queued for rebuild."
 msgid_plural "%(count)d index templates queued for rebuild."
@@ -640,7 +640,7 @@ msgstr[1] "%(count)d індексів шаблону поставлено в ч�
 msgstr[2] "%(count)d індекснів шаблону поставлено в чергу для перебудови."
 msgstr[3] "%(count)d індексних шаблонів поставлено в чергу для перебудови."
 
-#: views/index_template_views.py:465
+#: views/index_template_views.py:461
 #, python-format
 msgid "%(count)d index reset."
 msgid_plural "%(count)d indexes reset."
@@ -649,6 +649,6 @@ msgstr[1] "%(count)d індексів скинуто."
 msgstr[2] "%(count)d індексів скинуто."
 msgstr[3] "%(count)d індексів скинуто."
 
-#: views/index_template_views.py:478
+#: views/index_template_views.py:474
 msgid "Index templates for which their instances will be deleted."
 msgstr "Індексні шаблони, для яких будуть видалені їхні екземпляри."

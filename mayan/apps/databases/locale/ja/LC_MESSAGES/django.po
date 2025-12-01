@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-08-27 11:22+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:16
+#: apps.py:22
 msgid "Databases"
 msgstr "データベース"
 
@@ -32,23 +32,67 @@ msgstr "オブジェクトは条件の戻り値に応じて実行されます。
 msgid "Has a condition?"
 msgstr "条件はありますか？"
 
-#: classes.py:82
+#: classes.py:87
+msgid "Description"
+msgstr "説明"
+
+#: classes.py:92 classes.py:277
+msgid "Label"
+msgstr "ラベル"
+
+#: classes.py:97
+msgid "Example usage of the property."
+msgstr "プロパティの使用例"
+
+#: classes.py:98 classes.py:282
+msgid "Name"
+msgstr "名前"
+
+#: classes.py:102
 msgid "Model fields"
 msgstr "モデルフィールド"
 
-#: classes.py:130
+#: classes.py:149
 msgid "Model related fields"
 msgstr "モデル関連フィールド"
 
-#: classes.py:135
+#: classes.py:154
 msgid "Model properties"
 msgstr "モデルプロパティ"
 
-#: classes.py:140
+#: classes.py:159
 msgid "Model reverse fields"
 msgstr "モデル逆参照フィールド"
 
-#: literals.py:12
+#: classes.py:264
+msgid "Name of the app where the model is defined."
+msgstr "モデルが定義されているアプリの名前"
+
+#: classes.py:265
+msgid "App"
+msgstr "App"
+
+#: classes.py:270
+msgid "Complete unique name of the model."
+msgstr "モデルの完全な一意名"
+
+#: classes.py:271
+msgid "Full name"
+msgstr "フルネーム"
+
+#: classes.py:276
+msgid "Human readable name of the model."
+msgstr "モデルのわかりやすい名前"
+
+#: links.py:12
+msgid "Properties"
+msgstr "プロパティ"
+
+#: links.py:15
+msgid "Property models"
+msgstr "プロパティモデル"
+
+#: literals.py:16
 msgid ""
 "Your database backend is set to use SQLite. SQLite should only be used for "
 "development and testing, not for production."
@@ -72,3 +116,16 @@ msgstr "条件"
 #: templates/databases/app/viewport.html:11
 msgid "Warning"
 msgstr "警告"
+
+#: views.py:27
+msgid "No properties available"
+msgstr "利用可能なプロパティはありません"
+
+#: views.py:29
+#, python-format
+msgid "Properties for model: %s"
+msgstr "モデルのプロパティ: %s"
+
+#: views.py:49
+msgid "Models with registered properties"
+msgstr "プロパティが登録されているモデル"

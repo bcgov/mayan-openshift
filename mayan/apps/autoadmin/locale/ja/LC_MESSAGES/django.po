@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-08-27 11:22+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "自動で作成されるスーパーユーザーアカウントのユー
 
 #: templates/autoadmin/credentials.html:13
 msgid "Automatic credentials"
-msgstr "自動資格情報"
+msgstr "自動認証情報"
 
 #: templates/autoadmin/credentials.html:17
 #, python-format

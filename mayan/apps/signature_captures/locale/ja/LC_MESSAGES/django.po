@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 12:51+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -140,11 +140,11 @@ msgstr "署名キャプチャテキスト"
 
 #: search.py:15
 msgid "Signature capture user first name"
-msgstr "署名キャプチャユーザー名（名）"
+msgstr "署名者の名"
 
 #: search.py:19
 msgid "Signature capture user last name"
-msgstr "署名キャプチャユーザー名（姓）"
+msgstr "署名者の姓"
 
 #: search.py:23
 msgid "Signature capture user username"
@@ -188,27 +188,27 @@ msgid ""
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND will start "
 "deleting the oldest signature capture cache files. Specify the size in "
 "bytes."
-msgstr "署名キャプチャキャッシュが古いファイルを削除し始める閾値。サイズはバイト単位で指定。"
+msgstr ""
+"SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND "
+"が最も古い署名キャプチャのキャッシュファイルを削除し始める閾値です。サイズはバイト単位で指定してください。"
 
 #: settings.py:30
 msgid ""
 "Path to the Storage subclass to use when storing the cached signature "
 "capture files."
-msgstr "キャッシュ署名キャプチャファイルを保存する際に使用する Storage サブクラスへのパス"
+msgstr "キャッシュ署名キャプチャファイルを保存する際に使用する ストレージ サブクラスへのパス"
 
 #: settings.py:38
 msgid ""
 "Arguments to pass to the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND."
-msgstr "署名キャプチャキャッシュストレージバックエンドに渡す引数"
+msgstr "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND に渡す引数"
 
 #: storages.py:14
 msgid ""
 "Unable to initialize the converter signature capture cachestorage. Check the"
 " settings {} and {} for formatting errors."
-msgstr ""
-"署名キャプチャキャッシュストレージのコンバーターを初期化できません。設定 {} および {} にフォーマットエラーがないか確認してください\n"
-"44"
+msgstr "署名キャプチャキャッシュストレージのコンバーターを初期化できません。設定 {} および {} にフォーマットエラーがないか確認してください"
 
 #: storages.py:20
 msgid "Signature captures cache"
@@ -250,7 +250,7 @@ msgstr "文書の署名キャプチャを編集: %s"
 msgid ""
 "Signature captures are electronic versions of a persons's handwritten "
 "signature."
-msgstr "署名キャプチャは、手書き署名の電子版です"
+msgstr "署名キャプチャは、個人の手書き署名を電子化したものです。"
 
 #: views.py:143
 msgid "Document has no signature captures"

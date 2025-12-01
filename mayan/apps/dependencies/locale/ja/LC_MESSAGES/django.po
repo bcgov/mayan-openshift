@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr "すでにインストールされています。"
 
 #: classes.py:399 classes.py:406 classes.py:412
 msgid "Complete."
-msgstr "完了しました"
+msgstr "完了しました。"
 
 #: classes.py:439
 msgid "Installed and correct version"
@@ -112,7 +112,7 @@ msgstr "未指定"
 
 #: classes.py:490
 msgid "Patching files... "
-msgstr "ファイルをパッチ適用中…"
+msgstr "パッチ適用中…"
 
 #: classes.py:518
 msgid "Executables that are called directly by the code."
@@ -215,7 +215,7 @@ msgstr "開発者がコード変更を行うための環境です。エンドユ
 
 #: environments.py:26
 msgid "Development"
-msgstr "Development"
+msgstr "開発環境"
 
 #: environments.py:30
 msgid ""
@@ -232,7 +232,8 @@ msgid ""
 "Environment used to specify direct documentation dependencies to workaround "
 "unpinned or immutable dependency bugs in third party libraries. End users "
 "can ignore missing dependencies under this environment."
-msgstr "ドキュメントを作成するための環境です。エンドユーザーは、この環境で不足している依存関係を無視できます。"
+msgstr ""
+"サードパーティライブラリの固定されていない依存関係や変更不可の依存関係に起因する不具合を回避するため、ドキュメント用の直接依存関係を指定する環境です。エンドユーザーは、この環境で不足している依存関係を無視できます。"
 
 #: environments.py:40
 msgid "Documentation (override)"
@@ -285,7 +286,7 @@ msgid ""
 "Your version (%(version_local)s), is more recent than the published version "
 "(%(version_server)s)."
 msgstr ""
-"あなたのバージョン (%(version_local)s) は公開されているバージョン (%(version_server)s) より新しいです。"
+"あなたのバージョン (%(version_local)s) は公開されているバージョン ((%(version_server)s) より新しいです。"
 
 #: literals.py:14
 #, python-format

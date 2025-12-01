@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-08-27 11:22+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:39 events.py:6 links.py:37 links.py:46 models.py:48
+#: apps.py:39 events.py:6 links.py:38 links.py:47 models.py:48
 #: permissions.py:6 templates/announcements/announcements.html:8 views.py:121
 msgid "Announcements"
 msgstr "お知らせ"
@@ -37,15 +37,15 @@ msgstr "お知らせを作成しました"
 msgid "Announcement edited"
 msgstr "お知らせを編集しました"
 
-#: links.py:17 views.py:34
+#: links.py:18 views.py:34
 msgid "Create announcement"
 msgstr "お知らせを作成"
 
-#: links.py:22 links.py:28
+#: links.py:23 links.py:29
 msgid "Delete"
 msgstr "削除"
 
-#: links.py:33
+#: links.py:34
 msgid "Edit"
 msgstr "編集"
 

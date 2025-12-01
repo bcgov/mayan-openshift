@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 12:51+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,15 +20,15 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:38 events.py:6 permissions.py:6
+#: apps.py:39 events.py:6 permissions.py:6
 msgid "Messaging"
 msgstr "メッセージ"
 
-#: apps.py:60
+#: apps.py:61
 msgid "None"
 msgstr "なし"
 
-#: apps.py:66
+#: apps.py:67
 msgid "Sender"
 msgstr "送信者"
 
@@ -56,17 +56,17 @@ msgstr "削除"
 msgid "Messages"
 msgstr "メッセージ一覧"
 
-#: links.py:70 links.py:81
+#: links.py:69
+msgid "Mark all as read"
+msgstr "すべて既読にする"
+
+#: links.py:73 links.py:78
 msgid "Mark as read"
 msgstr "既読にする"
 
-#: links.py:76 links.py:85
+#: links.py:83 links.py:88
 msgid "Mark as unread"
 msgstr "未読にする"
-
-#: links.py:89
-msgid "Mark all as read"
-msgstr "すべて既読にする"
 
 #: model_mixins.py:16
 msgid "Label"
@@ -134,7 +134,7 @@ msgstr "メッセージを表示"
 
 #: serializers.py:15
 msgid "Sender app label"
-msgstr "送信者アプリラベル"
+msgstr "送信者appラベル"
 
 #: serializers.py:18
 msgid "Sender model name"
@@ -212,7 +212,7 @@ msgstr "メッセージ \"%(instance)s\" を既読にする際にエラーが発
 #: views.py:133
 #, python-format
 msgid "%(count)d messages marked as read successfully."
-msgstr "%(count)d 件のメッセージを既読にしました"
+msgstr "%(count)d 件のメッセージを既読に設定しました"
 
 #: views.py:136
 #, python-format
@@ -222,7 +222,7 @@ msgstr "メッセージ \"%(object)s\" を既読にしました"
 #: views.py:139
 #, python-format
 msgid "%(count)d message marked as read successfully."
-msgstr "%(count)d 件のメッセージを既読にしました"
+msgstr "%(count)d 件のメッセージを既読に設定しました"
 
 #: views.py:141
 #, python-format
@@ -294,7 +294,7 @@ msgstr "メッセージを受信するユーザーグループ名のカンマ区
 
 #: workflow_actions.py:34
 msgid "Role name list"
-msgstr "役割名リスト"
+msgstr "ロール名リスト"
 
 #: workflow_actions.py:38
 msgid ""

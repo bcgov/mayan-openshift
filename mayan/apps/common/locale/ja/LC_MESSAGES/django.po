@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-02 13:13+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-09-03 18:22+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,11 @@ msgstr ""
 msgid "Common"
 msgstr "共通"
 
-#: dependencies.py:194
+#: dependencies.py:193
 msgid "Command line environment with autocompletion."
 msgstr "オートコンプリート付きのコマンドライン環境"
 
-#: dependencies.py:199
+#: dependencies.py:198
 msgid "Checks proper formatting of the README file."
 msgstr "README ファイルの書式を確認します"
 
@@ -91,7 +91,7 @@ msgstr "ツール"
 #: literals.py:21
 msgid ""
 "This feature has been deprecated and will be removed in a future version."
-msgstr "この機能は非推奨であり、将来のバージョンで削除されます"
+msgstr "この機能は非推奨であり、将来のバージョンで削除されます。"
 
 #: literals.py:30
 msgid "Days"
@@ -127,7 +127,7 @@ msgstr "システム"
 
 #: menus.py:18
 msgid "Return"
-msgstr "戻る／返却"
+msgstr "戻る"
 
 #: menus.py:22
 msgid "User"
@@ -209,7 +209,7 @@ msgstr "ホームビューに表示するダッシュボードの名前です。
 
 #: settings.py:95
 msgid "Sets the project's name."
-msgstr "プロジェクト名を設定する"
+msgstr "プロジェクト名を設定"
 
 #: templates/common/app/viewport.html:15
 msgid "Click here to fix this."
@@ -217,7 +217,7 @@ msgstr "ここをクリックして修正"
 
 #: validators.py:42
 msgid "Enter a valid JSON value."
-msgstr "ここをクリックして修正 "
+msgstr "有効な JSON 形式の値を入力"
 
 #: validators.py:66
 msgid "Enter a valid YAML value."

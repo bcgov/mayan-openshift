@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr "文書は自動的にチェックインされました。"
 
 #: events.py:14
 msgid "Document checked in"
-msgstr "文書のチェックイン"
+msgstr "文書のチェックインされました。"
 
 #: events.py:17
 msgid "Document checked out"
@@ -110,7 +110,7 @@ msgstr "チェックイン済み／利用可能"
 
 #: model_mixins.py:14
 msgid "Checkout time and date"
-msgstr "チェックアウト日時"
+msgstr "チェックアウト時刻と日付"
 
 #: model_mixins.py:19
 msgid "Checkout expiration"
@@ -211,12 +211,12 @@ msgstr "%(count)d 件の文書をチェックインしました"
 #: views.py:40
 #, python-format
 msgid "Check in %(count)d documents."
-msgstr "%(count)d 件の文書をチェックインする"
+msgstr "%(count)d 件の文書をチェックイン"
 
 #: views.py:41
 #, python-format
 msgid "Check in document \"%(object)s\"."
-msgstr "\"%(object)s\" チェックイン"
+msgstr "文書 \"%(object)s\" チェックイン"
 
 #: views.py:42
 #, python-format

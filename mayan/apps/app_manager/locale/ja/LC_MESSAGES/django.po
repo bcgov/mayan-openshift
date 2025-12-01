@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 13:44+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: apps.py:147
 msgid "App class full path"
-msgstr "アプリクラスの完全パス"
+msgstr "App クラスのフルパス"
 
 #: apps.py:153
 msgid "App URL"
@@ -30,7 +30,7 @@ msgstr "App URL"
 
 #: apps.py:164
 msgid "Has REST API"
-msgstr "REST API を利用可能"
+msgstr "REST API 対応"
 
 #: apps.py:169
 msgid "Has tests"

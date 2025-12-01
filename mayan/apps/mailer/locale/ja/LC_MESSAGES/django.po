@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "本文"
 
 #: forms.py:75
 msgid "The email profile that will be used to send this email."
-msgstr "のメール送信に使用するメールプロファイル"
+msgstr "このメール送信に使用するメールプロファイル"
 
 #: forms.py:76 models.py:49 workflow_action_mixins.py:111
 #: workflow_action_mixins.py:125
@@ -97,15 +97,15 @@ msgstr "メール送信時に使用するドライバー"
 msgid "Backend"
 msgstr "バックエンド"
 
-#: links.py:33 links.py:38
+#: links.py:32 links.py:38
 msgid "Email document link"
 msgstr "文書リンクをメール送信"
 
-#: links.py:48 links.py:53
+#: links.py:46 links.py:53
 msgid "Email document file"
 msgstr "文書ファイルをメール送信"
 
-#: links.py:59 links.py:64
+#: links.py:58 links.py:64
 msgid "Email document file link"
 msgstr "文書ファイルリンクをメール送信"
 
@@ -119,7 +119,7 @@ msgstr "文書バージョンリンクをメール送信"
 
 #: links.py:90
 msgid "Email link version"
-msgstr "リンク付き文書バージョンをメール送信"
+msgstr "リンク付きバージョンをメール送信"
 
 #: links.py:99
 msgid "Create mailing profile"
@@ -133,12 +133,11 @@ msgstr "削除"
 msgid "Edit"
 msgstr "編集"
 
-#: links.py:113 links.py:121 links.py:127 models.py:50
-#: views/mailing_profile_views.py:134
+#: links.py:113 links.py:121 models.py:50 views/mailing_profile_views.py:134
 msgid "Mailing profiles"
 msgstr "メーリングプロファイル"
 
-#: links.py:131 views/mailing_profile_views.py:162
+#: links.py:126 views/mailing_profile_views.py:162
 msgid "Test"
 msgstr "テスト"
 
@@ -288,7 +287,7 @@ msgstr "メーラープロファイルを表示"
 
 #: permissions.py:32
 msgid "Send document link via email"
-msgstr "文書リンクをメール送信"
+msgstr "文書リンクをメールで送信"
 
 #: permissions.py:38
 msgid "Send document file via email"
@@ -437,7 +436,7 @@ msgstr "テストメールを送信しました。"
 #: views/mailing_profile_views.py:164
 #, python-format
 msgid "Test mailing profile: %s"
-msgstr "ーラープロファイルのテスト: %s"
+msgstr "メーラープロファイルのテスト: %s"
 
 #: workflow_action_mixins.py:18
 msgid ""

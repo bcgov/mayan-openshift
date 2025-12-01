@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-12-01 15:31+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:58 events.py:6 permissions.py:6 settings.py:12
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:17
 msgid "Appearance"
 msgstr "表示設定"
 
@@ -29,26 +29,22 @@ msgid "Fancybox"
 msgstr "Fancybox"
 
 #: dependencies.py:12
-msgid "FontAwesome"
-msgstr "FontAwesome"
-
-#: dependencies.py:16
 msgid "jQuery"
 msgstr "jQuery"
 
-#: dependencies.py:20
+#: dependencies.py:16
 msgid "JQuery Form"
 msgstr "jQueryフォーム"
 
-#: dependencies.py:24
+#: dependencies.py:20
 msgid "JQuery Match Height"
 msgstr "JQuery 高さ揃え"
 
-#: dependencies.py:28
+#: dependencies.py:24
 msgid "Select 2"
 msgstr "Select 2"
 
-#: dependencies.py:32
+#: dependencies.py:28
 msgid "Toastr"
 msgstr "Toastr（通知メッセージ）"
 
@@ -142,33 +138,75 @@ msgstr "テーマを編集"
 msgid "View existing themes"
 msgstr "既存のテーマを表示"
 
-#: settings.py:18
+#: settings.py:23
 msgid "Custom HTTP response code for AJAX redirections."
 msgstr "AJAXリダイレクト時に使用するカスタムHTTPステータスコード"
 
-#: settings.py:24
+#: settings.py:29
+msgid ""
+"Number of pages to show on each side of the current page in the elided "
+"pager."
+msgstr "省略されたページャーで、現在のページの左右に表示するページ数"
+
+#: settings.py:36
+msgid "Number of pages to show at both ends of the elided pager."
+msgstr "省略表示されるページャーの両端に表示するページ数"
+
+#: settings.py:42
 msgid "Maximum number of characters that will be displayed as the view title."
 msgstr "ビュータイトルとして表示される最大文字数"
 
-#: settings.py:34
+#: settings.py:52
 msgid "Position where the system messages will be displayed."
 msgstr "システムメッセージの表示位置"
 
-#: settings.py:40
+#: settings.py:58
 msgid ""
 "Delay in milliseconds after which the menus will be checked for updates."
 msgstr "メニューの更新を確認するまでの遅延時間（ミリ秒）"
 
-#: settings.py:47
+#: settings.py:65
+msgid "Total pages to show in the page selection dropdown."
+msgstr "ページ選択ドロップダウンに表示する総ページ数"
+
+#: settings.py:71
+msgid "Enable page selection dropdown."
+msgstr "ページ選択ドロップダウンを有効にする"
+
+#: settings.py:77
+msgid "Enable the page selection input field."
+msgstr "ページ選択ドロップダウンを有効にする"
+
+#: settings.py:83
 msgid ""
 "Maximum number of requests that can be made before throttling is enabled."
 msgstr "スロットルが有効になるまでに許可される最大リクエスト数"
 
-#: settings.py:54
+#: settings.py:90
 msgid ""
 "Time in milliseconds after which a throttled request will clear allowing an "
 "additional request to be performed."
 msgstr "スロットルされたリクエストが解除され、追加のリクエストが可能になるまでの遅延時間（ミリ秒）"
+
+#: templates/appearance/app/foot.html:22
+msgid "Copy content to clipboard"
+msgstr "コンテンツをクリップボードにコピー"
+
+#: templates/appearance/app/foot.html:22
+msgid "Copy"
+msgstr "コピー"
+
+#: templates/appearance/app/foot.html:28
+msgid "Reset input size height"
+msgstr "入力フィールドの高さをリセットする"
+
+#: templates/appearance/app/foot.html:28
+msgid "Reset"
+msgstr "リセット"
+
+#: templates/appearance/app/foot.html:126
+msgid "Page number must be a positive integer."
+msgstr "ページ番号は正の整数でなければなりません"
 
 #: templatetags/appearance_tags.py:77
 msgid "None"

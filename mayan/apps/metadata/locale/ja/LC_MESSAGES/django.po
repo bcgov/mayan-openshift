@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 17:02+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:74 apps.py:215 apps.py:221 apps.py:225 apps.py:230 apps.py:234
+#: apps.py:74 apps.py:211 apps.py:217 apps.py:221 apps.py:226 apps.py:230
 #: events.py:6 links.py:53 permissions.py:6 queues.py:7
 #: workflow_actions.py:162
 msgid "Metadata"
@@ -34,37 +34,29 @@ msgstr "特定の文書メタデータの値を返します。"
 msgid "Metadata value of"
 msgstr "メタデータの値"
 
-#: apps.py:151
-msgid "Metadata type name"
-msgstr "メタデータタイプ名"
-
-#: apps.py:155 search.py:15
-msgid "Metadata value"
-msgstr "メタデータ値"
-
-#: apps.py:253
+#: apps.py:249
 msgid "Document link"
 msgstr "文書リンク"
 
-#: apps.py:259
+#: apps.py:255
 msgid "Document thumbnail"
 msgstr "文書サムネイル"
 
 #: events.py:10
 msgid "Document metadata added"
-msgstr "文書メタデータを追加しました"
+msgstr "文書メタデータを追加されました"
 
 #: events.py:13
 msgid "Document metadata edited"
-msgstr "文書メタデータを編集しました"
+msgstr "文書メタデータを編集されました"
 
 #: events.py:16
 msgid "Document metadata removed"
-msgstr "文書メタデータを削除しました"
+msgstr "文書メタデータを削除されました"
 
 #: events.py:19
 msgid "Metadata type created"
-msgstr "メタデータタイプを作成しました"
+msgstr "メタデータタイプを作成されました"
 
 #: events.py:22
 msgid "Metadata type edited"
@@ -173,7 +165,7 @@ msgstr "文書タイプ"
 msgid "Create new"
 msgstr "新規作成"
 
-#: links.py:82 links.py:87
+#: links.py:81 links.py:86
 msgid "Delete"
 msgstr "削除"
 
@@ -195,19 +187,19 @@ msgstr "正規表現解析"
 
 #: metadata_parsers.py:36
 msgid "Time parser"
-msgstr "日付と時刻の検証"
+msgstr "時刻解析"
 
 #: metadata_validators.py:12
 msgid "Date and time validator"
-msgstr "日付検証"
+msgstr "日付と時刻の検証"
 
 #: metadata_validators.py:19
 msgid "Date validator"
-msgstr "正規表現検証"
+msgstr "日付検証"
 
 #: metadata_validators.py:27
 msgid "Regular expression validator"
-msgstr "入力値がパターンに一致しません。"
+msgstr "正規表現検証"
 
 #: metadata_validators.py:35
 msgid "The input string does not match the pattern."
@@ -377,6 +369,10 @@ msgstr "メタデータタイプを削除"
 msgid "Add required metadata type"
 msgstr "必須メタデータタイプを追加"
 
+#: search.py:15
+msgid "Metadata value"
+msgstr "メタデータ値"
+
 #: search.py:33
 msgid "Document type ID"
 msgstr "文書タイプ ID"
@@ -399,7 +395,7 @@ msgstr "追加するメタデータタイプの主キー"
 
 #: serializers.py:105
 msgid "Primary key of the metadata type to be added to the document."
-msgstr "追加するメタデータタイプの主キー"
+msgstr "文書に追加するメタデータタイプの主キー"
 
 #: views/document_views.py:46
 #, python-format

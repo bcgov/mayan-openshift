@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "文書ファイルの正確なチェックサム"
 
 #: duplicate_backends.py:32
 msgid "Exact document label"
-msgstr "文書ラベル（完全一致） "
+msgstr "完全一致文書ラベル"
 
 #: links.py:18 models.py:39 views.py:79
 msgid "Duplicated documents"
@@ -62,7 +62,7 @@ msgstr "文書"
 
 #: models.py:47
 msgid "Duplicated backend entry"
-msgstr "複バックエンドエントリ"
+msgstr "重複バックエンドエントリ"
 
 #: models.py:48
 msgid "Duplicated backend entries"

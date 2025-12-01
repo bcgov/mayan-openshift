@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -156,7 +156,7 @@ msgstr "URL"
 
 #: settings.py:21
 msgid "Time in seconds, after which download files will be deleted."
-msgstr "ダウンロードファイルが削除されるまでの時間（秒単位）"
+msgstr "ダウンロードファイルが削除されるまでの秒単位の時間"
 
 #: settings.py:27
 msgid ""
@@ -182,7 +182,7 @@ msgstr "アップロードされた一時ファイルが削除されるまでの
 msgid ""
 "Unable to initialize the download file storage. Check the settings {} and {}"
 " for formatting errors."
-msgstr "ダウンロードファイルストレージの初期化に失敗しました。設定 {} および {} を確認してフォーマットエラーがないか確認してください"
+msgstr "ダウンロードファイルストレージの初期化に失敗しました。設定 {} および {} を確認してフォーマットエラーがないか確認してください。"
 
 #: storages.py:29
 msgid ""

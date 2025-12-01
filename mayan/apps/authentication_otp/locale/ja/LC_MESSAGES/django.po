@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "シークレット"
 #: forms.py:118
 msgid ""
 "Enter the corresponding token to validate that the secret was saved correct."
-msgstr "対応するトークンを入力して、秘密キーが正しく保存されたか確認してください"
+msgstr "秘密キーが正しく保存されたことを確認するため、対応するトークンを入力してください"
 
 #: forms.py:121
 msgid "Token"
@@ -81,7 +81,7 @@ msgstr "OTP 詳細"
 
 #: links.py:33
 msgid "Disable OTP"
-msgstr "OTPを無効化する"
+msgstr "OTPを無効化"
 
 #: links.py:37
 msgid "Enable OTP"
@@ -132,4 +132,4 @@ msgstr "ユーザーのワンタイムパッドを有効にする: %s"
 
 #: views.py:119
 msgid "OTP secret validation error."
-msgstr "OTP秘密キーの検証に失敗しました"
+msgstr "OTP秘密キーの検証に失敗しました。"

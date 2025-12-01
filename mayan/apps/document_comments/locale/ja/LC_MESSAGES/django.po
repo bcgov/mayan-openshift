@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:32 events.py:6
+#: apps.py:33 events.py:6
 msgid "Document comments"
 msgstr "文書コメント"
 
@@ -30,7 +30,7 @@ msgstr "文書コメントを作成しました"
 
 #: events.py:13
 msgid "Document comment deleted"
-msgstr "文書コメントを編集しました"
+msgstr "文書コメントを削除しました"
 
 #: events.py:16
 msgid "Document comment edited"
@@ -48,11 +48,11 @@ msgstr "削除"
 msgid "Edit"
 msgstr "編集"
 
-#: links.py:31 models.py:48 permissions.py:6 search.py:8
+#: links.py:31 models.py:51 permissions.py:6 search.py:8
 msgid "Comments"
 msgstr "コメント"
 
-#: model_mixins.py:10 models.py:34
+#: model_mixins.py:10 models.py:36
 msgid "User"
 msgstr "ユーザー"
 
@@ -60,15 +60,23 @@ msgstr "ユーザー"
 msgid "Document"
 msgstr "文書"
 
-#: models.py:37
+#: models.py:34
+msgid "The user account that made the comment."
+msgstr "コメントを作成したユーザーアカウント"
+
+#: models.py:39
+msgid "Actual text content of the comment."
+msgstr "コメントの本文"
+
+#: models.py:40
 msgid "Text"
 msgstr "テキスト"
 
-#: models.py:41
+#: models.py:44
 msgid "Date time submitted"
 msgstr "投稿日時"
 
-#: models.py:47
+#: models.py:50
 msgid "Comment"
 msgstr "コメント"
 

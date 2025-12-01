@@ -13,6 +13,7 @@
 # Yaman Sanobar <yman.snober@gmail.com>, 2025
 # Marwan Rahhal <Marwanr@sssit.net>, 2025
 # Mohamad Ashmar, 2025
+# GM_327, 2025
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-27 11:43+0000\n"
 "PO-Revision-Date: 2025-01-20 12:34+0000\n"
-"Last-Translator: Mohamad Ashmar, 2025\n"
+"Last-Translator: GM_327, 2025\n"
 "Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -497,9 +498,10 @@ msgid ""
 "string ('') are considered to be logical false, any other value is "
 "considered to be the logical true."
 msgstr ""
-"الشرط الذي سيحدد ما إذا كان إجراء الحالة هذا قد تم تنفيذه أم لا. يتم تقييم "
-"الشرط مقابل مثيل سير العمل. تعتبر الشروط التي لا تُرجع أي قيمة ،  وتعتبر أي "
-"قيمة أخرى هي الحقيقة المنطقية."
+"الشرط الذي سيحدد ما إذا كان سيتم تعديل محتوى لصفحة المستند أم لا. يتم تقييم "
+"الشرط مقابل صفحة المستند المتكرر. تعتبر الشروط التي لا تُرجع أي قيمة ، أو "
+"التي تُرجع قيمة Python المنطقية ، أو سلسلة فارغة (\") خطأ منطقيًا ، وتعتبر "
+"أي قيمة أخرى هي الحقيقة المنطقية."
 
 #: models/workflow_state_action_models.py:42
 #: models/workflow_state_escalation_models.py:34
@@ -1148,7 +1150,7 @@ msgstr "لا توجد وثائق في المسار"
 #: views/workflow_proxy_views.py:95
 #, python-format
 msgid "Documents in the workflow \"%(workflow)s\", state \"%(state)s\""
-msgstr ""
+msgstr "الوثائق الموجودة في المسار \"%(workflow)s\" ، الحالة \"%(state)s\""
 
 #: views/workflow_template_state_escalation_views.py:43
 #, python-format

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 12:51+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: apps.py:35 events.py:6 links.py:37 models.py:31 permissions.py:6
 #: views.py:145
 msgid "Quotas"
-msgstr "クォータ"
+msgstr "クォータ（割り当て容量）"
 
 #: classes.py:63
 msgid "none"
@@ -77,7 +77,7 @@ msgstr "すべての文書タイプ"
 msgid ""
 "Apply to all document types. Enabling this, the quota will ignore the "
 "individual document type selection."
-msgstr "べての文書タイプに適用。これを有効にすると個別の文書タイプ設定は無視されます"
+msgstr "すべての文書タイプに適用。これを有効にすると個別の文書タイプ設定は無視されます"
 
 #: mixins.py:26
 msgid "Document types"
@@ -216,7 +216,7 @@ msgstr "文書サイズ上限"
 #: quota_backends.py:212
 #, python-format
 msgid "document size: %(formatted_file_size)s"
-msgstr "書サイズ: %(formatted_file_size)s"
+msgstr "文書サイズ: %(formatted_file_size)s"
 
 #: quota_backends.py:234
 msgid "Document size quota exceeded."

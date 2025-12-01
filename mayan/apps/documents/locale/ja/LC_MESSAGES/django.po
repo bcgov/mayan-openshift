@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 17:01+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps.py:220 apps.py:1061 events.py:6 menus.py:8
-#: models/document_models.py:112 permissions.py:6 settings.py:33
+#: apps.py:220 apps.py:1053 events.py:6 menus.py:8
+#: models/document_models.py:112 permissions.py:6 settings.py:36
 #: statistics.py:286
 msgid "Documents"
 msgstr "文書"
@@ -30,23 +30,12 @@ msgstr "文書"
 msgid "Date and time added"
 msgstr "追加日時"
 
-#: apps.py:278 links/document_file_page_links.py:76
-#: models/document_file_models.py:107 models/document_file_page_models.py:28
-#: search.py:54
-msgid "Document file"
-msgstr "文書ファイル"
-
-#: apps.py:282 models/document_file_page_models.py:32
-#: models/document_version_page_models.py:42
-msgid "Page number"
-msgstr "ベージ番号"
-
-#: apps.py:287
+#: apps.py:281
 msgid "Return the document instance."
 msgstr "文書インスタンスを返す"
 
-#: apps.py:288 links/document_file_links.py:71
-#: links/document_file_page_links.py:70 links/document_version_links.py:73
+#: apps.py:282 links/document_file_links.py:69
+#: links/document_file_page_links.py:70 links/document_version_links.py:74
 #: links/document_version_page_links.py:90 models/document_file_models.py:58
 #: models/document_models.py:111 models/document_version_models.py:30
 #: models/favorite_document_models.py:30
@@ -56,65 +45,41 @@ msgstr "文書インスタンスを返す"
 msgid "Document"
 msgstr "文書"
 
-#: apps.py:343 apps.py:376 apps.py:762 apps.py:787 apps.py:994
+#: apps.py:339 apps.py:371 apps.py:765 apps.py:790 apps.py:985
 msgid "Thumbnail"
 msgstr "サムネイル"
 
-#: apps.py:348 apps.py:767 apps.py:1004 forms/document_file_forms.py:86
-#: links/document_file_page_links.py:122
-#: links/document_version_page_links.py:50
-msgid "Pages"
-msgstr "ページ"
-
-#: apps.py:469
+#: apps.py:464
 msgid "Access date and time"
 msgstr "アクセス日時"
 
-#: apps.py:534
+#: apps.py:533
 msgid "Create a document type"
 msgstr "文書タイプを作成"
 
-#: apps.py:536
+#: apps.py:535
 msgid ""
 "Every uploaded document must be assigned a document type, it is the basic "
 "way Mayan EDMS categorizes documents."
-msgstr ""
-"Every uploaded document must be assigned a document type, it is the basic way Mayan EDMS categorizes documents. \n"
-"→ アップロードされたすべての文書には文書タイプを割り当てる必要があります。文書の分類はこれにより行われます。"
+msgstr "アップロードされたすべての文書には文書タイプを割り当てる必要があります。文書の分類はこれにより行われます。"
 
-#: apps.py:929
-msgid "File comments"
-msgstr "ファイルコメント"
-
-#: apps.py:933
-msgid "File encodings"
-msgstr "ファイルエンコーディング"
-
-#: apps.py:937
-msgid "File MIME types"
-msgstr "ファイルMIMEタイプ"
-
-#: apps.py:941
-msgid "File timestamps"
-msgstr "ファイルのタイムスタンプ"
-
-#: apps.py:945
+#: apps.py:934
 msgid "Return the latest file of the document."
-msgstr "書の最新ファイルを返す"
+msgstr "文書の最新ファイルを返す"
 
-#: apps.py:946
+#: apps.py:935
 msgid "Latest file"
-msgstr "文書のアクティブバージョンを返す"
+msgstr "最新の文書"
 
-#: apps.py:950
+#: apps.py:939
 msgid "Return the active version of the document."
 msgstr "文書のアクティブバージョンを返す"
 
-#: apps.py:951
+#: apps.py:940
 msgid "Active version"
 msgstr "アクティブバージョン"
 
-#: apps.py:999
+#: apps.py:990
 msgid "Type"
 msgstr "タイプ"
 
@@ -184,7 +149,7 @@ msgstr "追加：新しいバージョンを作成し、ファイルの新しい
 
 #: document_version_modifications.py:11
 msgid "Append all file pages"
-msgstr "維持：新しいバージョンを作成せず、現在のバージョンのページを保持"
+msgstr "すべてのファイルページを追加"
 
 #: document_version_modifications.py:13
 msgid ""
@@ -210,7 +175,7 @@ msgstr "文書を編集しました"
 
 #: events.py:18
 msgid "Document viewed"
-msgstr "文書閲覧済み"
+msgstr "文書を閲覧しました"
 
 #: events.py:24
 msgid "Document file created"
@@ -230,7 +195,7 @@ msgstr "文書タイプを作成しました"
 
 #: events.py:39
 msgid "Document type edited"
-msgstr "ドキュメントタイプを編集しました"
+msgstr "文書タイプを編集しました"
 
 #: events.py:42
 msgid "Document type quick label created"
@@ -286,7 +251,7 @@ msgstr "ゴミ箱の文書を戻しました"
 
 #: events.py:100
 msgid "Document downloaded (historic)"
-msgstr "文書をダウンロードしました（履歴）"
+msgstr "文書ダウンロード（履歴）"
 
 #: events.py:103
 msgid "Document file created (historic)"
@@ -324,7 +289,7 @@ msgstr "MIMEタイプ"
 msgid "Encoding"
 msgstr "文字コード"
 
-#: forms/document_file_forms.py:71 models/document_file_model_mixins.py:371
+#: forms/document_file_forms.py:71 models/document_file_model_mixins.py:383
 #: models/document_file_models.py:102
 msgid "Size"
 msgstr "サイズ"
@@ -340,6 +305,14 @@ msgstr "ストレージ上のパス"
 #: forms/document_file_forms.py:83 models/document_file_models.py:97
 msgid "Checksum"
 msgstr "チェックサムk"
+
+#: forms/document_file_forms.py:86 links/document_file_page_links.py:122
+#: links/document_version_page_links.py:50
+#: models/document_file_model_mixins.py:378
+#: models/document_model_mixins.py:188
+#: models/document_version_model_mixins.py:165
+msgid "Pages"
+msgstr "ページ"
 
 #: forms/document_forms.py:45
 msgid "Quick document rename"
@@ -357,7 +330,7 @@ msgstr "言語"
 
 #: forms/document_forms.py:102
 msgid "Date created"
-msgstr "作成日"
+msgstr "作成日時"
 
 #: forms/document_forms.py:110 models/document_models.py:78
 msgid "Language"
@@ -414,46 +387,46 @@ msgid ""
 "transformations will be lost."
 msgstr "すべての変換が複製される元のページ番号。既存の変換は失われます。"
 
-#: links/document_file_links.py:27 links/document_file_links.py:32
+#: links/document_file_links.py:26 links/document_file_links.py:32
 #: links/document_type_links.py:27 links/document_type_links.py:45
-#: links/document_version_links.py:39 links/document_version_links.py:43
-#: links/document_version_page_links.py:46 links/trashed_document_links.py:18
-#: links/trashed_document_links.py:40
+#: links/document_version_links.py:39 links/document_version_links.py:45
+#: links/document_version_page_links.py:46 links/trashed_document_links.py:37
+#: links/trashed_document_links.py:42
 msgid "Delete"
 msgstr "削除"
 
 #: links/document_file_links.py:37 links/document_type_links.py:31
-#: links/document_type_links.py:52 links/document_version_links.py:48
+#: links/document_type_links.py:52 links/document_version_links.py:50
 msgid "Edit"
 msgstr "編集"
 
 #: links/document_file_links.py:41 links/document_file_links.py:48
 msgid "Introspect"
-msgstr "自己解析"
+msgstr "構造解析"
 
-#: links/document_file_links.py:55 links/document_file_links.py:77
+#: links/document_file_links.py:53 links/document_file_links.py:75
 msgid "Files"
 msgstr "ファイル一覧"
 
-#: links/document_file_links.py:59 links/document_version_links.py:67
+#: links/document_file_links.py:57 links/document_version_links.py:68
 msgid "Print"
 msgstr "プリント"
 
-#: links/document_file_links.py:66 links/document_links.py:46
+#: links/document_file_links.py:64 links/document_links.py:26
 msgid "Properties"
 msgstr "プロパティ"
 
-#: links/document_file_links.py:84 links/document_links.py:41
-#: links/document_version_links.py:63
+#: links/document_file_links.py:82 links/document_links.py:21
+#: links/document_version_links.py:64
 msgid "Preview"
 msgstr "プレビュー"
 
-#: links/document_file_links.py:90 links/document_file_links.py:96
-#: links/document_version_links.py:86 links/document_version_links.py:92
+#: links/document_file_links.py:87 links/document_file_links.py:94
+#: links/document_version_links.py:86 links/document_version_links.py:93
 msgid "Clear transformations"
 msgstr "変換処理をクリア"
 
-#: links/document_file_links.py:103 links/document_version_links.py:99
+#: links/document_file_links.py:101 links/document_version_links.py:100
 msgid "Clone transformations"
 msgstr "変換処理を複製"
 
@@ -476,6 +449,11 @@ msgstr "前のページ"
 #: links/document_version_page_links.py:82
 msgid "Next page"
 msgstr "次のページ"
+
+#: links/document_file_page_links.py:76 models/document_file_models.py:107
+#: models/document_file_page_models.py:28 search.py:55
+msgid "Document file"
+msgstr "文書ファイル"
 
 #: links/document_file_page_links.py:83 models/document_file_page_models.py:41
 #: models/document_file_page_models.py:86
@@ -512,25 +490,25 @@ msgstr "ズームイン"
 msgid "Zoom out"
 msgstr "ズームアウト"
 
-#: links/document_links.py:18 links/document_links.py:36
-msgid "Change type"
-msgstr "タイプを変更"
-
-#: links/document_links.py:23 views/document_views.py:71
+#: links/document_links.py:17 views/document_views.py:71
 msgid "All documents"
 msgstr "全ての文書"
 
-#: links/document_links.py:27 views/recently_accessed_document_views.py:31
+#: links/document_links.py:33
+msgid "Edit properties"
+msgstr "プロバティを編集"
+
+#: links/document_links.py:40 links/document_links.py:46
+msgid "Change type"
+msgstr "タイプを変更"
+
+#: links/document_links.py:54 views/recently_accessed_document_views.py:31
 msgid "Recently accessed"
 msgstr "最近アクセスされたもの"
 
-#: links/document_links.py:32 views/recently_created_document_views.py:27
+#: links/document_links.py:62 views/recently_created_document_views.py:27
 msgid "Recently created"
 msgstr "最近作成されたもの"
-
-#: links/document_links.py:53
-msgid "Edit properties"
-msgstr "プロバティを編集"
 
 #: links/document_type_links.py:22 views/document_type_views.py:98
 msgid "Create document type"
@@ -552,19 +530,19 @@ msgstr "ファイル名生成"
 msgid "Retention policies"
 msgstr "保持ポリシー"
 
-#: links/document_version_links.py:27
+#: links/document_version_links.py:29
 msgid "Make active"
 msgstr "有効化"
 
-#: links/document_version_links.py:32
+#: links/document_version_links.py:34
 msgid "Create document version"
 msgstr "文書バージョンを作成"
 
-#: links/document_version_links.py:52 links/document_version_links.py:79
+#: links/document_version_links.py:54 links/document_version_links.py:80
 msgid "Versions"
 msgstr "バージョン"
 
-#: links/document_version_links.py:57
+#: links/document_version_links.py:58
 msgid "Modify"
 msgstr "修正"
 
@@ -574,7 +552,7 @@ msgstr "ページの再割り当て"
 
 #: links/document_version_page_links.py:96
 #: models/document_version_models.py:54
-#: models/document_version_page_models.py:36 search.py:128
+#: models/document_version_page_models.py:36 search.py:129
 msgid "Document version"
 msgstr "文書バージョン"
 
@@ -582,17 +560,17 @@ msgstr "文書バージョン"
 #: models/document_version_page_models.py:60
 #: models/document_version_page_models.py:104
 msgid "Document version pages"
-msgstr "文書バージョンのペー"
+msgstr "文書バージョンのページ"
 
-#: links/favorite_links.py:34 views/favorite_document_views.py:38
-msgid "Favorites"
-msgstr "お気に入り"
-
-#: links/favorite_links.py:40 links/favorite_links.py:51
+#: links/favorite_links.py:34 links/favorite_links.py:41
 msgid "Add to favorites"
 msgstr "お気に入りに追加"
 
-#: links/favorite_links.py:47 links/favorite_links.py:55
+#: links/favorite_links.py:46 views/favorite_document_views.py:38
+msgid "Favorites"
+msgstr "お気に入り"
+
+#: links/favorite_links.py:50 links/favorite_links.py:58
 msgid "Remove from favorites"
 msgstr "お気に入りから削除"
 
@@ -600,23 +578,23 @@ msgstr "お気に入りから削除"
 msgid "Decorations"
 msgstr "デコレーション"
 
-#: links/trashed_document_links.py:23 links/trashed_document_links.py:36
+#: links/trashed_document_links.py:21 links/trashed_document_links.py:26
 msgid "Move to trash"
 msgstr "ゴミ箱へ移動"
 
-#: links/trashed_document_links.py:26
-msgid "Trash can"
-msgstr "ゴミ箱"
-
-#: links/trashed_document_links.py:31 links/trashed_document_links.py:43
-msgid "Restore"
-msgstr "復元"
-
-#: links/trashed_document_links.py:48 permissions.py:105
+#: links/trashed_document_links.py:33 permissions.py:105
 msgid "Empty trash"
 msgstr "ゴミ箱を空にする"
 
-#: literals.py:14
+#: links/trashed_document_links.py:46
+msgid "Trash can"
+msgstr "ゴミ箱"
+
+#: links/trashed_document_links.py:50 links/trashed_document_links.py:55
+msgid "Restore"
+msgstr "復元"
+
+#: literals.py:16
 msgid "Default"
 msgstr "デフォルト"
 
@@ -638,7 +616,7 @@ msgstr "4月"
 
 #: literals.py:91
 msgid "May"
-msgstr "月"
+msgstr "5月"
 
 #: literals.py:92
 msgid "June"
@@ -646,7 +624,7 @@ msgstr "6月"
 
 #: literals.py:92
 msgid "July"
-msgstr "７ガツ"
+msgstr "7月"
 
 #: literals.py:92
 msgid "August"
@@ -672,18 +650,18 @@ msgstr "12月"
 msgid "All pages"
 msgstr "全てのページ"
 
-#: models/document_file_model_mixins.py:366
-#: models/document_file_page_model_mixins.py:244
+#: models/document_file_model_mixins.py:368
+#: models/document_file_page_model_mixins.py:253
 #: models/document_model_mixins.py:179 models/document_models.py:63
 #: models/document_type_models.py:43 models/document_type_models.py:156
-#: models/document_version_model_mixins.py:131
+#: models/document_version_model_mixins.py:133
 #: models/document_version_page_model_mixins.py:290
 #: serializers/document_serializers.py:22
 #: serializers/document_version_serializers.py:17
 msgid "Label"
 msgstr "ラベル"
 
-#: models/document_file_model_mixins.py:512
+#: models/document_file_model_mixins.py:524
 msgid "Controls what happens when a new document file is uploaded."
 msgstr "新しい文書ファイルがアップロードされたときに何が起こるかを制御します。"
 
@@ -716,7 +694,9 @@ msgid ""
 "The document file's file mimetype. MIME types are a standard way to describe"
 " the format of a file, in this case the file format of the document. Some "
 "examples: \"text/plain\" or \"image/jpeg\". "
-msgstr "文書ファイルのMIMEタイプ。MIMEタイプはファイル形式を記述する標準的な方法であり、この場合は文書のファイル形式を示します。"
+msgstr ""
+"文書ファイルのMIMEタイプ。MIMEタイプはファイル形式を記述する標準的な方法であり、この場合は文書のファイル形式を示します。 "
+"文例：\"text/plain\" や \"image/jpeg\""
 
 #: models/document_file_models.py:88
 msgid ""
@@ -728,13 +708,18 @@ msgstr "文書ファイルのファイルエンコーディング。binary 7-bit
 msgid "Document files"
 msgstr "文書ファイル"
 
-#: models/document_file_page_model_mixins.py:238
+#: models/document_file_page_model_mixins.py:247
 #, python-format
 msgid "%(document_file)s - page %(page_num)d of %(total_pages)d"
 msgstr "%(document_file)s - ページ %(page_num)d / %(total_pages)d"
 
+#: models/document_file_page_models.py:32
+#: models/document_version_page_models.py:42
+msgid "Page number"
+msgstr "ベージ番号"
+
 #: models/document_file_page_models.py:40
-#: models/document_file_page_models.py:85 search.py:91
+#: models/document_file_page_models.py:85 search.py:92
 msgid "Document file page"
 msgstr "文書ファイルのページ"
 
@@ -932,9 +917,9 @@ msgid "ID for the source object of the page."
 msgstr "ページの元オブジェクトのID"
 
 #: models/document_version_page_models.py:59
-#: models/document_version_page_models.py:103 search.py:161
+#: models/document_version_page_models.py:103 search.py:162
 msgid "Document version page"
-msgstr "文書バージョンのペー"
+msgstr "文書バージョンのページ"
 
 #: models/favorite_document_models.py:26
 #: models/recently_accessed_document_models.py:21
@@ -949,7 +934,7 @@ msgstr "お気に入り文書"
 
 #: models/favorite_document_models.py:42
 msgid "Favorite documents"
-msgstr "お気に入り文書一"
+msgstr "お気に入り文書一覧"
 
 #: models/recently_accessed_document_models.py:28
 msgid "Accessed"
@@ -1049,7 +1034,7 @@ msgstr "文書タイプを削除"
 
 #: permissions.py:87
 msgid "Edit document types"
-msgstr "n所タイプを編集"
+msgstr "文書タイプを編集"
 
 #: permissions.py:90
 msgid "View document types"
@@ -1067,107 +1052,107 @@ msgstr "ゴミ箱の文書を削除"
 msgid "Trash documents"
 msgstr "文書をゴミ箱に移動"
 
-#: queues.py:14
+#: queues.py:15
 msgid "Documents fast"
 msgstr "文書（高速）"
 
-#: queues.py:17
+#: queues.py:18
 msgid "Documents slow"
 msgstr "文書（低速）"
 
-#: queues.py:20
+#: queues.py:21
 msgid "Documents file"
 msgstr "文書ファイル"
 
-#: queues.py:23
+#: queues.py:24
 msgid "Documents file slow"
 msgstr "文書ファイル（低速）"
 
-#: queues.py:27
+#: queues.py:28
 msgid "Documents periodic"
 msgstr "文書（定期処理）"
 
-#: queues.py:31
+#: queues.py:32
 msgid "Documents trash"
 msgstr "文書（ゴミ箱）"
 
-#: queues.py:35
+#: queues.py:36
 msgid "Documents version"
 msgstr "文書バージョン"
 
-#: queues.py:41
+#: queues.py:42
 msgid "Create new document file"
 msgstr "新しい文書ファイルを作成"
 
-#: queues.py:45
+#: queues.py:46
 msgid "Upload new document file"
 msgstr "新しい文書ファイルをアップロード"
 
-#: queues.py:49
+#: queues.py:50
 msgid "Move a document to the trash"
 msgstr "文書をゴミ箱に移動"
 
-#: queues.py:53
+#: queues.py:54
 msgid "Upload new document"
 msgstr "新しい文書をアップロード"
 
-#: queues.py:58
+#: queues.py:59
 msgid "Calculate and update document file checksum"
 msgstr "文書ファイルのチェックサムを計算して更新"
 
-#: queues.py:62
+#: queues.py:63
 msgid "Calculate and update document file MIME type"
 msgstr "文書ファイルのMIMEタイプを計算して更新"
 
-#: queues.py:66
+#: queues.py:67
 msgid "Update document file page count"
 msgstr "文書ファイルのページ数を更新"
 
-#: queues.py:70
+#: queues.py:71
 msgid "Update document file size"
 msgstr "文書ファイルのサイズを更新"
 
-#: queues.py:74
+#: queues.py:75
 msgid "Create a new version after the file is processed"
 msgstr "ファイル処理後に新しいバージョンを作成"
 
-#: queues.py:79
+#: queues.py:80
 msgid "Delete a document file"
 msgstr "文書ファイルを削除"
 
-#: queues.py:84
+#: queues.py:85
 msgid "Check document type trash periods"
 msgstr "文書種別のゴミ箱保持期間を確認"
 
-#: queues.py:90
+#: queues.py:93
 msgid "Delete document stubs"
 msgstr "文書スタブを削除"
 
-#: queues.py:96
+#: queues.py:101
 msgid "Check document type delete periods"
 msgstr "文書タイプ別の削除保持期間を確認"
 
-#: queues.py:105
+#: queues.py:110
 msgid "Empty the trash can"
 msgstr "ゴミ箱を空にする"
 
-#: queues.py:109
+#: queues.py:114
 msgid "Delete a document"
 msgstr "文書を削除"
 
-#: queues.py:114
+#: queues.py:119
 msgid "Append all document file pages to a document version"
 msgstr "文書ファイルのすべてのページを文書バージョンに追加"
 
-#: queues.py:118
+#: queues.py:123
 msgid "Reset the page list of a document version"
 msgstr "文書バージョンのページ一覧をリセット"
 
-#: queues.py:122
+#: queues.py:127
 msgid "Export a document version"
 msgstr "文書バージョンをエクスポート"
 
-#: queues.py:126
+#: queues.py:131
 msgid "Delete a document version"
 msgstr "文書バージョンを削除"
 
@@ -1180,31 +1165,31 @@ msgstr "文書タイプ別のデータベースID"
 msgid "Document type ID"
 msgstr "文書タイプ ID"
 
-#: search.py:35 search.py:66 search.py:103 search.py:141 search.py:173
+#: search.py:35 search.py:67 search.py:104 search.py:142 search.py:174
 msgid "Document type label"
 msgstr "文書タイプ別ラベル"
 
-#: search.py:69 search.py:152
+#: search.py:70 search.py:153
 msgid "Document description"
 msgstr "文書の説明"
 
-#: search.py:73 search.py:145
+#: search.py:74 search.py:146
 msgid "The database ID of the document."
 msgstr "文書のデータベースID"
 
-#: search.py:74 search.py:146 serializers/favorite_document_serializers.py:17
+#: search.py:75 search.py:147 serializers/favorite_document_serializers.py:17
 msgid "Document ID"
 msgstr "文書 ID"
 
-#: search.py:77 search.py:106 search.py:149 search.py:177
+#: search.py:78 search.py:107 search.py:150 search.py:178
 msgid "Document label"
 msgstr "文書ラベル"
 
-#: search.py:80 search.py:112 search.py:155 search.py:181
+#: search.py:81 search.py:113 search.py:156 search.py:182
 msgid "Document UUID"
 msgstr "文書のUUID"
 
-#: search.py:109
+#: search.py:110
 msgid "Document file checksum"
 msgstr "文書ファイルのチェックサム"
 
@@ -1332,7 +1317,7 @@ msgstr "新しいお気に入り文書の文書ID"
 msgid "Restore URL"
 msgstr "復元 URL"
 
-#: settings.py:49
+#: settings.py:52
 msgid ""
 "The threshold at which the DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND "
 "will start deleting the oldest document file page image cache files. Specify"
@@ -1341,45 +1326,45 @@ msgstr ""
 "DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND "
 "が最も古い文書ファイルページ画像キャッシュを削除し始めるしきい値（バイト単位で指定）"
 
-#: settings.py:57
+#: settings.py:60
 msgid "Path to the Storage subclass to use when storing document files."
 msgstr "文書ファイルを保存する際に使用する Storage サブクラスのパス"
 
-#: settings.py:64
+#: settings.py:67
 msgid "Arguments to pass to the DOCUMENT_FILE_STORAGE_BACKEND."
 msgstr "DOCUMENT_FILE_STORAGE_BACKEND に渡す引数"
 
-#: settings.py:70
+#: settings.py:73
 msgid ""
 "Path to the Storage subclass to use when storing the cached document file "
 "page image files."
 msgstr "文書ファイルページ画像キャッシュを保存する際に使用する Storage サブクラスのパス"
 
-#: settings.py:78
+#: settings.py:81
 msgid ""
 "Arguments to pass to the DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND."
 msgstr "DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND に渡す引数"
 
-#: settings.py:84
+#: settings.py:87
 msgid "Maximum number of favorite documents to remember per user."
 msgstr "ユーザーごとに記憶するお気に入り文書の最大数"
 
-#: settings.py:90
+#: settings.py:93
 msgid ""
 "Size of blocks to use when calculating the document file's checksum. A value"
 " of 0 disables the block calculation and the entire file will be loaded into"
 " memory."
 msgstr "文書ファイルのチェックサム計算時に使用するブロックサイズ（0 を指定するとブロック計算を無効化し、ファイル全体をメモリに読み込む）"
 
-#: settings.py:97
+#: settings.py:100
 msgid "Default documents language (in ISO639-3 format)."
 msgstr "文書のデフォルト言語（ISO639-3 形式）"
 
-#: settings.py:101
+#: settings.py:104
 msgid "List of supported document languages. In ISO639-3 format."
-msgstr "サポートされる文書言語の一覧（ISO639-3 形式）"
+msgstr "サポートされる文書言語の一覧。ISO639-3 形式。"
 
-#: settings.py:107
+#: settings.py:110
 msgid ""
 "The threshold at which the DOCUMENT_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND"
 " will start deleting the oldest document version page image cache versions. "
@@ -1388,48 +1373,65 @@ msgstr ""
 "DOCUMENT_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND "
 "が最も古い文書バージョンページ画像キャッシュを削除し始めるしきい値（バイト単位で指定）"
 
-#: settings.py:116
+#: settings.py:119
 msgid ""
 "Path to the Storage subclass to use when storing the cached document version"
 " page image versions."
 msgstr "文書バージョンページ画像キャッシュを保存する際に使用する Storage サブクラスのパス"
 
-#: settings.py:124
+#: settings.py:127
 msgid ""
 "Arguments to pass to the DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND."
 msgstr "DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND に渡す引数"
 
-#: settings.py:146
+#: settings.py:149
 msgid ""
 "Maximum number of recently accessed documents (created, edited, viewed) to "
 "remember per user."
 msgstr "ユーザーごとに記憶する最近アクセスした文書（作成・編集・閲覧）の最大数"
 
-#: settings.py:153
+#: settings.py:156
 msgid "Maximum number of recently created documents to show."
 msgstr "表示する最近作成された文書の最大数"
 
-#: settings.py:159
+#: settings.py:162
 msgid "Amount in degrees to rotate a document page per user interaction."
 msgstr "ユーザー操作ごとに文書ページを回転させる角度（度単位）"
 
-#: settings.py:165
+#: settings.py:169
+msgid ""
+"Time interval in seconds, at which the document trashing task will execute."
+msgstr "文書のゴミ箱移動タスクが実行される間隔（秒単位）"
+
+#: settings.py:177
+msgid ""
+"Time interval in seconds, at which the document stub prune task will "
+"execute."
+msgstr "文書スタブの削除タスクが実行される間隔（秒単位）"
+
+#: settings.py:185
+msgid ""
+"Time interval in seconds, at which the trashed document deletion task will "
+"execute."
+msgstr "ゴミ箱内文書の削除タスクが実行される間隔（秒単位）"
+
+#: settings.py:192
 msgid "Height in pixels of the document thumbnail image."
 msgstr "文書サムネイル画像の高さ（ピクセル単位）"
 
-#: settings.py:184
+#: settings.py:211
 msgid ""
 "Maximum amount in percent (%) to allow user to zoom in a document page "
 "interactively."
 msgstr "ユーザーが文書ページをズームインできる最大倍率（％）"
 
-#: settings.py:191
+#: settings.py:218
 msgid ""
 "Minimum amount in percent (%) to allow user to zoom out a document page "
 "interactively."
 msgstr "ユーザーが文書ページをズームアウトできる最小倍率（％）"
 
-#: settings.py:198
+#: settings.py:225
 msgid "Amount in percent zoom in or out a document page per user interaction."
 msgstr "ユーザー操作ごとに文書ページをズームイン／アウトする倍率"
 
@@ -1463,7 +1465,7 @@ msgstr "文書タイプ別ごとの文書総数"
 
 #: statistics.py:340
 msgid "Total document files per document type"
-msgstr "文書種別ごとの文書ファイル総数"
+msgstr "文書タイプ別ごとの文書ファイル総数"
 
 #: statistics.py:347
 msgid "Total document file pages per document type"
@@ -1544,7 +1546,7 @@ msgid ""
 " that it is corrupted, or that the upload process was interrupted. Use the "
 "document file introspection link to attempt detection the page count again."
 msgstr ""
-"文書ファイルがサポートされていない形式であるか、破損しているか、アップロード処理が中断された可能性があります。ページ数の再検出を試みるには、文書ファイルのイントロスペクションリンクを使用してください。"
+"文書ファイルがサポートされていない形式であるか、破損しているか、アップロード処理が中断された可能性があります。ページ数の再検出を試みるには、文書ファイルの構造解析リンクを使用してください。"
 
 #: views/document_file_page_views.py:59
 msgid "No document file pages available"
@@ -1553,7 +1555,7 @@ msgstr "利用可能な文書ファイルページがありません"
 #: views/document_file_page_views.py:62
 #, python-format
 msgid "Pages of document file: %s"
-msgstr "書ファイルのページ: %s"
+msgstr "文書ファイルのページ: %s"
 
 #: views/document_file_page_views.py:144
 msgid "There are no more pages in this document"
@@ -1561,7 +1563,7 @@ msgstr "この文書にはこれ以上ページがありません"
 
 #: views/document_file_page_views.py:160
 msgid "You are already at the first page of this document"
-msgstr "あなたはすでにこの文書の最初のページにいます"
+msgstr "この文書の最初のページにいます"
 
 #: views/document_file_page_views.py:196
 #: views/document_version_page_views.py:363
@@ -1619,29 +1621,29 @@ msgstr "文書ファイルを編集: %s"
 #: views/document_file_views.py:133
 #, python-format
 msgid "%(count)d document file queued for introspection."
-msgstr "%(count)d 件の文書ファイルがイントロスペクションのためにキューに追加されました"
+msgstr "%(count)d 件の文書ファイルが構造解析のためにキューに追加されました"
 
 #: views/document_file_views.py:136
 #, python-format
 msgid "%(count)d document files queued for introspection."
-msgstr "%(count)d 件の文書ファイルがイントロスペクションのためにキューに追加されました"
+msgstr "%(count)d 件の文書ファイルが構造解析のためにキューに追加されました"
 
 #: views/document_file_views.py:145
 msgid "Introspect the selected document file?"
 msgid_plural "Introspect the selected document files?"
-msgstr[0] "選択された文書ファイルをイントロスペクトしますか？"
+msgstr[0] "選択された文書ファイルを構造解析しますか？"
 
 #: views/document_file_views.py:156
 #, python-format
 msgid "Introspect the document file: %s?"
-msgstr "文書ファイルをイントロスペクトしますか: %s？"
+msgstr "文書ファイルを構造解析しますか: %s？"
 
 #: views/document_file_views.py:162
 msgid ""
 "The document file will be re-examined for file size, page count, checksum, "
 "and its related document version pages re-created. All transformations will "
 "be lost."
-msgstr "構造解析"
+msgstr "文書ファイルはファイルサイズ、ページ数、チェックサムを再検査され、関連する文書バージョンページが再作成されます。すべての変換は失われます。"
 
 #: views/document_file_views.py:191
 msgid ""
@@ -1671,37 +1673,37 @@ msgstr "文書ファイルのプロパティ: %s"
 #: views/document_file_views.py:323
 #, python-format
 msgid "Transformation clear request processed for %(count)d document file."
-msgstr "%(count)d 件の文書ファイルに対する変換クリア要求が処理されました"
+msgstr "%(count)d 件の文書ファイルに対する変換処理クリア要求が処理されました"
 
 #: views/document_file_views.py:327
 #, python-format
 msgid "Transformation clear request processed for %(count)d document files."
-msgstr "%(count)d 件の文書ファイルに対する変換クリア要求が処理されました"
+msgstr "%(count)d 件の文書ファイルに対する変換処理クリア要求が処理されました"
 
 #: views/document_file_views.py:335
 msgid "Clear all the page transformations for the selected document file?"
 msgid_plural ""
 "Clear all the page transformations for the selected document files?"
-msgstr[0] "選択された文書ファイルのすべてのページ変換をクリアしますか？"
+msgstr[0] "選択された文書ファイルのすべてのページ変換処理をクリアしますか？"
 
 #: views/document_file_views.py:346
 #, python-format
 msgid "Clear all the page transformations for the document file: %s?"
-msgstr "文書ファイルのすべてのページ変換をクリアしますか: %s？"
+msgstr "文書ファイルのすべてのページ変換処理をクリアしますか: %s？"
 
 #: views/document_file_views.py:363
 #, python-format
 msgid ""
 "Error deleting the page transformations for document file: "
 "%(document_file)s; %(error)s."
-msgstr "文書ファイル %(document_file)s のページ変換削除中にエラーが発生しました；%(error)s"
+msgstr "文書ファイル %(document_file)s のページ変換処理削除中にエラーが発生; %(error)s"
 
 #: views/document_file_views.py:400
 #, python-format
 msgid ""
 "Error cloning the page transformations for document file: %(document_file)s;"
 " %(error)s."
-msgstr "文書ファイル %(document_file)s のページ変換のクローン作成中にエラーが発生しました；%(error)s"
+msgstr "文書ファイル %(document_file)s のページ変換処理のクローン作成中にエラーが発生しました；%(error)s"
 
 #: views/document_file_views.py:409 views/document_version_views.py:419
 msgid "Transformations cloned successfully."
@@ -1727,7 +1729,7 @@ msgstr "スタブ削除"
 #: views/document_type_retention_policy_views.py:51
 #, python-format
 msgid "Retention policies for document type: %s"
-msgstr "文書種別の保持ポリシー: %s"
+msgstr "文書タイプ別の保持ポリシー: %s"
 
 #: views/document_type_views.py:55
 #, python-format
@@ -1818,7 +1820,7 @@ msgstr "文書バージョンのページは、実際の内容ページへのリ
 
 #: views/document_version_page_views.py:104
 msgid "No document version pages available"
-msgstr "用可能な文書バージョンのページはありません"
+msgstr "利用可能な文書バージョンのページはありません"
 
 #: views/document_version_page_views.py:108
 #, python-format
@@ -1887,12 +1889,12 @@ msgstr "文書バージョン\"%(object)s\"を削除"
 #: views/document_version_views.py:118
 #, python-format
 msgid "Delete %(count)d document version."
-msgstr "文書バージョン「%(count)d」を削除"
+msgstr "%(count)d件の文書バージョンを削除"
 
 #: views/document_version_views.py:119
 #, python-format
 msgid "Delete %(count)d document versions."
-msgstr "%(count)d 件のドキュメントバージョンを削除"
+msgstr "%(count)d 件の文書バージョンを削除"
 
 #: views/document_version_views.py:125
 msgid "The process will be performed in the background."
@@ -1901,13 +1903,13 @@ msgstr "この処理はバックグラウンドで実行されます。"
 #: views/document_version_views.py:165
 #, python-format
 msgid "Edit document version: %s"
-msgstr "ドキュメントバージョンを編集：%s"
+msgstr "文書バージョンを編集：%s"
 
 #: views/document_version_views.py:199
 msgid ""
 "Versions are views that can display document file pages as they are, remap "
 "or merge them into different layouts."
-msgstr "バージョンは、ドキュメントファイルのページをそのまま表示したり、再マッピングや統合して別のレイアウトとして表示できるビューです。"
+msgstr "バージョンは、文書ファイルのページをそのまま表示したり、再マッピングや統合して別のレイアウトとして表示できるビューです。"
 
 #: views/document_version_views.py:203
 msgid "No versions available"
@@ -1916,62 +1918,62 @@ msgstr "利用可能なバージョンはありません"
 #: views/document_version_views.py:207
 #, python-format
 msgid "Versions of document: %s"
-msgstr "ドキュメントのバージョン：%s"
+msgstr "文書のバージョン: %s"
 
 #: views/document_version_views.py:240
 msgid "Document version modification backend queued successfully."
-msgstr "ドキュメントバージョンの変更バックエンドが正常にキューに登録されました。"
+msgstr "文書バージョンの変更バックエンドが正常にキューに登録されました。"
 
 #: views/document_version_views.py:251
 #, python-format
 msgid "Execute version modification action for document version: %s"
-msgstr "ドキュメントバージョンの変更アクションを実行: %s"
+msgstr "文書バージョンの変更アクションを実行: %s"
 
 #: views/document_version_views.py:283
 #, python-format
 msgid "Preview of document version: %s"
-msgstr "ドキュメントバージョンのプレビュー: %s"
+msgstr "文書バージョンのプレビュー: %s"
 
 #: views/document_version_views.py:331
 #, python-format
 msgid "Transformation clear request processed for %(count)d document version."
-msgstr "%(count)d 件のドキュメントバージョンでページ変換クリア要求を処理しました。"
+msgstr "%(count)d 件の文書バージョンでページ変換クリア要求を処理しました。"
 
 #: views/document_version_views.py:335
 #, python-format
 msgid ""
 "Transformation clear request processed for %(count)d document versions."
-msgstr "%(count)d 件のドキュメントバージョンでページ変換クリア要求を処理しました。"
+msgstr "%(count)d 件の文書バージョンでページ変換クリア要求を処理しました。"
 
 #: views/document_version_views.py:343
 msgid "Clear all the page transformations for the selected document version?"
 msgid_plural ""
 "Clear all the page transformations for the selected document version?"
-msgstr[0] "選択したドキュメントバージョンのすべてのページ変換をクリアしますか？"
+msgstr[0] "選択した文書バージョンのすべてのページ変換をクリアしますか？"
 
 #: views/document_version_views.py:354
 #, python-format
 msgid "Clear all the page transformations for the document version: %s?"
-msgstr "ドキュメントバージョン「%s」のすべてのページ変換をクリアしますか？"
+msgstr "文書バージョン「%s」のすべてのページ変換をクリアしますか？"
 
 #: views/document_version_views.py:371
 #, python-format
 msgid ""
 "Error deleting the page transformations for document version: "
 "%(document_version)s; %(error)s."
-msgstr "ドキュメントバージョン %(document_version)s のページ変換削除中にエラーが発生しました：%(error)s"
+msgstr "文書バージョン %(document_version)s のページ変換削除中にエラーが発生しました：%(error)s"
 
 #: views/document_version_views.py:410
 #, python-format
 msgid ""
 "Error cloning the page transformations for document version: "
 "%(document_version)s; %(error)s."
-msgstr "ドキュメントバージョン %(document_version)s のページ変換の複製中にエラーが発生しました：%(error)s"
+msgstr "文書バージョン %(document_version)s のページ変換の複製中にエラーが発生しました：%(error)s"
 
 #: views/document_version_views.py:432
 #, python-format
 msgid "Clone page transformations of document version: %s"
-msgstr "ページ変換を複製：ドキュメントバージョン %s"
+msgstr "ページ変換を複製：文書バージョン %s"
 
 #: views/document_views.py:44
 #, python-format

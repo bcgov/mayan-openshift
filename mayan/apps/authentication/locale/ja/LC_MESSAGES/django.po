@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-08-27 11:22+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr "パスワードを変更"
 
 #: links.py:47 views/impersonation_views.py:56
 msgid "Impersonate user"
-msgstr "ユーザーの代理操作"
+msgstr "代理操作ユーザー"
 
 #: links.py:52
 msgid "Impersonate"
@@ -78,7 +78,7 @@ msgstr "パスワードを設定"
 
 #: permissions.py:10
 msgid "Impersonate users"
-msgstr "ユーザーの代理操作"
+msgstr "代理操作ユーザー"
 
 #: settings.py:17
 msgid ""
@@ -88,7 +88,7 @@ msgstr "パスワードリセットを実行する「パスワードをお忘れ
 
 #: settings.py:25
 msgid "Dotted path to the backend used to process user authentication."
-msgstr "ユーザー認証を処理するバックエンドへのドット区切りパス"
+msgstr "ユーザー認証用バックエンドへのドット区切りパス"
 
 #: settings.py:31
 msgid "Arguments for the AUTHENTICATION_BACKEND."
@@ -178,7 +178,7 @@ msgstr "現在のユーザーのパスワードを変更"
 
 #: views/authentication_views.py:265
 msgid "Changing the password is not allowed for this account."
-msgstr "現在のユーザーのパスワードを変更"
+msgstr "このアカウントではパスワードを変更できません"
 
 #: views/authentication_views.py:366
 #, python-format

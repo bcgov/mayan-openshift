@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -115,12 +115,12 @@ msgstr "文書 \"%(instance)s\" をファイルダウンロード用にキュー
 #: views.py:41
 #, python-format
 msgid "%(count)d document files queued for download."
-msgstr "%(count)d 件の文書ファイルがダウンロード用にキューに登録されました"
+msgstr "%(count)d 件の文書ファイルがダウンロード用にキューに登録されました。"
 
 #: views.py:44
 #, python-format
 msgid "Document file \"%(object)s\" queued for download."
-msgstr "文書ファイル \"%(object)s\" がダウンロード用にキューに登録されました"
+msgstr "文書ファイル \"%(object)s\" がダウンロード用にキューに登録されました。"
 
 #: views.py:47
 #, python-format

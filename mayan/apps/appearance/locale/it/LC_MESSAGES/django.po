@@ -9,14 +9,15 @@
 # Daniele Bortoluzzi <daniele@elkos.it>, 2025
 # Roberto Rosario, 2025
 # albanobattistella <albanobattistella@gmail.com>, 2025
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-27 11:22+0000\n"
+"POT-Creation-Date: 2025-12-01 15:31+0000\n"
 "PO-Revision-Date: 2025-01-20 12:34+0000\n"
-"Last-Translator: albanobattistella <albanobattistella@gmail.com>, 2025\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Language: it\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:57 events.py:6 permissions.py:6 settings.py:17
+#: apps.py:58 events.py:6 permissions.py:6 settings.py:17
 msgid "Appearance"
 msgstr "Aspetto"
 
@@ -153,10 +154,13 @@ msgid ""
 "Number of pages to show on each side of the current page in the elided "
 "pager."
 msgstr ""
+"Numero di pagine da visualizzare su ciascun lato della pagina corrente nel "
+"paginatore eliso."
 
 #: settings.py:36
 msgid "Number of pages to show at both ends of the elided pager."
 msgstr ""
+"Numero di pagine da visualizzare alle due estremità del paginatore eliso."
 
 #: settings.py:42
 msgid "Maximum number of characters that will be displayed as the view title."

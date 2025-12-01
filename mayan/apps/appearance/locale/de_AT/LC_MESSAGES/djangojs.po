@@ -22,15 +22,16 @@ msgstr ""
 
 #: static/appearance/js/mayan_app.js:267
 msgid "Copied!"
-msgstr ""
+msgstr "Kopiert"
 
 #: static/appearance/js/mayan_app.js:269
 msgid "Failed. Check clipboard permissions."
 msgstr ""
+"Fehlgeschlagen. Überprüfen Sie die Berechtigungen für die Zwischenablage."
 
 #: static/appearance/js/mayan_app.js:566
 msgid "Done!"
-msgstr ""
+msgstr "Erledigt"
 
 #: templates/appearance/app/foot.html:68
 msgid ""

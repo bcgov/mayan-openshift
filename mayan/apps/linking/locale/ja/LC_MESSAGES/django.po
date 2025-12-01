@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:34+0000\n"
-"PO-Revision-Date: 2024-07-11 12:52+0000\n"
+"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -35,13 +35,25 @@ msgstr "スマートリンク"
 
 #: events.py:10
 msgid "Smart link created"
-msgstr "スマートリンクを作成しました。"
+msgstr "スマートリンクを作成しました"
 
 #: events.py:13
 msgid "Smart link edited"
-msgstr "スマートリンクを編集しました。"
+msgstr "スマートリンクを編集しました"
 
-#: forms.py:46
+#: forms.py:28
+msgid "General"
+msgstr "一般"
+
+#: forms.py:33
+msgid "Foreign document"
+msgstr "関連文書"
+
+#: forms.py:38
+msgid "Local document"
+msgstr "ローカル文書"
+
+#: forms.py:64
 msgid "Foreign document field"
 msgstr "関連文書フィールド"
 
@@ -103,7 +115,7 @@ msgstr "次のいずれかに含まれる"
 
 #: literals.py:17
 msgid "is greater than"
-msgstr "is greater than"
+msgstr "より大きい"
 
 #: literals.py:18
 msgid "is greater than or equal to"
@@ -272,7 +284,7 @@ msgstr "文書タイプ追加用 URL"
 
 #: serializers.py:82
 msgid "Document types remove URL"
-msgstr "ｖ"
+msgstr "文書タイプ削除用 URL"
 
 #: serializers.py:109
 msgid "Resolved smart link URL"

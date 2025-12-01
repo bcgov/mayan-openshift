@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"POT-Creation-Date: 2025-12-01 15:31+0000\n"
 "PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: KarmaBuildsApps, 2025\n"
 "Language-Team: Tibetan (https://app.transifex.com/rosarior/teams/13584/bo/)\n"
@@ -41,7 +41,7 @@ msgstr "ཡིག་ཆའི་མེ་ཊ་ཌེ་ཊ་རིན་ཐང
 msgid "MIME types"
 msgstr "MIMEརིགས།"
 
-#: apps.py:184 models.py:97 models.py:152
+#: apps.py:184 models.py:98 models.py:153
 msgid "Internal name"
 msgstr "ནང་ཁུལ་གྱི་མིང་།"
 
@@ -49,7 +49,7 @@ msgstr "ནང་ཁུལ་གྱི་མིང་།"
 msgid "Description"
 msgstr "བཀོད་པ།"
 
-#: apps.py:192 model_mixins.py:48 models.py:54
+#: apps.py:192 model_mixins.py:48 models.py:55
 #: serializers/file_metadata_serializers.py:10
 msgid "Arguments"
 msgstr "རྩོད་པ།"
@@ -120,23 +120,23 @@ msgid "Path used to access the value of the file metadata entry."
 msgstr ""
 "ཡིག་ཆའི་མེ་ཊ་ཌེ་ཊ་ཐོ་འགོད་ཀྱི་རིན་ཐང་ལ་འཛུལ་སྤྱོད་བྱེད་པར་བེད་སྤྱོད་བྱེད་པའི་འགྲོ་ལམ།"
 
-#: models.py:26 models.py:64 models.py:165
+#: models.py:27 models.py:65 models.py:166
 msgid "Driver"
 msgstr "ཁ་ལོ་བ།"
 
-#: models.py:30 serializers/document_file_serializers.py:18
+#: models.py:31 serializers/document_file_serializers.py:18
 msgid "Document file"
 msgstr "ཡིག་ཆའི་ཡིག་ཆ།"
 
-#: models.py:36 models.py:92
+#: models.py:37 models.py:93
 msgid "Document file driver entry"
 msgstr "ཡིག་ཆའི་ཡིག་ཆའི་སྒུལ་གཏོང་ནང་འཛུལ།"
 
-#: models.py:37
+#: models.py:38
 msgid "Document file driver entries"
 msgstr "ཡིག་ཆའི་ཡིག་ཆའི་སྒུལ་གཏོང་ཐོ་འགོད།"
 
-#: models.py:50
+#: models.py:51
 msgid ""
 "Enter the arguments for the drive for the specific document type as a YAML "
 "dictionary. ie: {\"degrees\": 180}"
@@ -144,65 +144,65 @@ msgstr ""
 "དམིགས་བསལ་ཡིག་ཆའི་རིགས་ཀྱི་སྒུལ་གཏོང་ཆེད་དུ་སྒྲུབ་བྱེད་དེ་YAMLཚིག་མཛོད་ལྟར་བཙུགས།"
 " ie: {&quot;ཁུག་ཚད་&quot;: 180}"
 
-#: models.py:59 serializers/document_type_serializers.py:16
+#: models.py:60 serializers/document_type_serializers.py:16
 msgid "Document type"
 msgstr "ཡིག་ཆའི་རིགས།"
 
-#: models.py:68
+#: models.py:69
 msgid ""
 "Enable this driver to process document files of the selected document type."
 msgstr ""
 "སྒུལ་གཏོང་འདི་འདེམས་པའི་ཡིག་ཆའི་རིགས་ཀྱི་ཡིག་ཆའི་ཡིག་ཆ་ལས་སྣོན་བྱེད་པར་ལྕོགས་ཅན་བཟོས།"
 
-#: models.py:70
+#: models.py:71
 msgid "Enabled"
 msgstr "བེད་སྤྱོད་ཆོག་པ།"
 
-#: models.py:82 models.py:83
+#: models.py:83 models.py:84
 msgid "Document type driver settings"
 msgstr "ཡིག་ཆའི་རིགས་ཀྱི་སྒུལ་གཏོང་སྒྲིག་བཀོད།"
 
-#: models.py:96
+#: models.py:97
 msgid "Normalized name of the file metadata entry."
 msgstr "ཡིག་ཆའི་མེ་ཊ་ཌེ་ཊ་ཐོ་འགོད་ཀྱི་སྤྱིར་བཏང་མིང་།"
 
-#: models.py:101
+#: models.py:102
 msgid "Name of the file metadata entry as provided by the driver."
 msgstr "སྒུལ་གཏོང་གིས་མཁོ་སྤྲོད་བྱས་པའི་ཡིག་ཆའི་མེ་ཊ་ཌེ་ཊ་ཐོ་འགོད་ཀྱི་མིང་།"
 
-#: models.py:103
+#: models.py:104
 msgid "Key"
 msgstr "ལྡེ་མིག"
 
-#: models.py:106
+#: models.py:107
 msgid "Value of the file metadata entry."
 msgstr "ཡིག་ཆའི་མེ་ཊ་ཌེ་ཊ་ཐོ་འགོད་ཀྱི་རིན་ཐང་།"
 
-#: models.py:107
+#: models.py:108
 msgid "Value"
 msgstr "རིན་ཐང"
 
-#: models.py:113
+#: models.py:114
 msgid "File metadata entry"
 msgstr "ཡིག་ཆའི་མེ་ཊ་ཌེ་ཊ་ནང་འཛུལ།"
 
-#: models.py:114
+#: models.py:115
 msgid "File metadata entries"
 msgstr "ཡིག་ཆའི་མེ་ཊ་ཌེ་ཊ་ཐོ་འགོད།"
 
-#: models.py:148
+#: models.py:149
 msgid "Driver path"
 msgstr "ཁ་ལོ་བའི་ལམ།"
 
-#: models.py:156
+#: models.py:157
 msgid "The class defined by this instance is valid and active."
 msgstr "དཔེ་མཚོན་འདིས་ངེས་ཚིག་བཀོད་པའི་འཛིན་གྲྭ་དེ་ནུས་ལྡན་དང་ཤུགས་ལྡན་ཡིན།"
 
-#: models.py:157
+#: models.py:158
 msgid "Valid"
 msgstr "ཁྲིམས་མཐུན"
 
-#: models.py:166
+#: models.py:167
 msgid "Drivers"
 msgstr "ཁ་ལོ་བ།"
 
