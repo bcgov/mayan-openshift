@@ -1,4 +1,4 @@
-4.9.6 (XXXX-XX-XX)
+4.9.6 (2025-12-01)
 ==================
 - Rename file metadata model mixin class for clarity.
 - Consolidate dynamic filtering field reload code. Add the new
