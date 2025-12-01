@@ -19,6 +19,10 @@
 
 - Add 'appearance/node_modules/bootswatch/docs/*' to the appearance app's
   `static_media_ignore_patterns`.
+- Update the Docker build file to allow the `wheel` build environment to
+  download its own dependencies.
+- Update the Docker build file to create a home directory to the `mayan` user
+  and store the PIP cache.
 
 4.9.5 (2025-09-28)
 ==================
