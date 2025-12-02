@@ -23,6 +23,8 @@
   download its own dependencies.
 - Update the Docker build file to create a home directory to the `mayan` user
   and store the PIP cache.
+- Update the Python package target to allow the `wheel` build environment
+  to download its own dependencies.
 
 4.9.5 (2025-09-28)
 ==================
