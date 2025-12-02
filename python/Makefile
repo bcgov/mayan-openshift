@@ -44,7 +44,16 @@ dev-python-cleanup: ## Clean up all Python libraries.
 	@rm venv-requirements.txt
 
 dev-setup-python: ## Install the Python libraries needed for development.
-	pip install --requirement requirements.txt --requirement requirements/development.txt --requirement requirements/testing-base.txt --requirement requirements/documentation.txt --requirement requirements/build.txt
+dev-setup-python: dev-setup-python-base
+	pip install --requirement requirements.txt --requirement requirements/development.txt --requirement requirements/testing-base.txt --requirement requirements/documentation.txt
+	$(MAKE) dev-setup-python-build
+
+dev-setup-python-base: ## Install base Python packages.
+	pip install pip==$(PYTHON_PIP_VERSION)
+	pip install setuptools==$(PYTHON_SETUPTOOLS_VERSION)
+
+dev-setup-python-build: ## Install the Python build libraries.
+	pip install --requirement requirements/build.txt
 
 dev-setup-python-mysql: ## Install the Python MySQL library.
 	@pip install mysqlclient==$(PYTHON_MYSQL_VERSION)

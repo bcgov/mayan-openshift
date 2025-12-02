@@ -23,8 +23,15 @@
   download its own dependencies.
 - Update the Docker build file to create a home directory to the `mayan` user
   and store the PIP cache.
-- Update the Python package target to allow the `wheel` build environment
-  to download its own dependencies.
+- Update the Python package target to allow the `wheel` build process
+  to download its own dependencies and not be isolated.
+- Update GitLab CI file to call make file targets instead of hard-coding
+  library installations.
+- Remove repeated `apt-get update` call in the GitLab CI file.
+- Add Python makefile targets `dev-setup-python-build` and
+  `dev-setup-python-base`.
+- Install the complete Debian build packages for the CI job
+  `job_python_build`.
 
 4.9.5 (2025-09-28)
 ==================

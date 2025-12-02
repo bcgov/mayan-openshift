@@ -198,13 +198,11 @@ job_python_build:
   before_script:
 {% platform_gitlab_ci_config_env_before_script indent=4 %}
 {% platform_gitlab_ci_cache_before_script apt=True indent=4 %}
-    - apt-get update
-    - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_PYTHON }}
+    - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_BUILD }} {{ LINUX_PACKAGES_DEBIAN_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
-    - pip install pip==${PYTHON_PIP_VERSION}
-    - pip install setuptools==${PYTHON_SETUPTOOLS_VERSION}
-    - pip install wheel==${PYTHON_WHEEL_VERSION}
+    - make dev-setup-python-base
+    - make dev-setup-python-build
   cache:
 {% platform_gitlab_ci_cache_paths apt=True indent=4 pip=True %}
   image: {{ DOCKER_LINUX_IMAGE_VERSION }}
@@ -221,7 +219,6 @@ job_python_build:
     - {{ GITLAB_CI_BRANCH_TESTS_PYTHON_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_PYTHON_UPGRADE }}
   script:
-    - pip install --requirement requirements/build.txt
     - make python-wheel-production
   stage: stage_build_python
   variables:
@@ -231,7 +228,6 @@ job_python_push_pypi:
   before_script:
 {% platform_gitlab_ci_config_env_before_script indent=4 %}
 {% platform_gitlab_ci_cache_before_script apt=True indent=4 %}
-    - apt-get update
     - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
