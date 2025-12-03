@@ -1,6 +1,7 @@
 4.10.1 (XXXX-XX-XX)
 ===================
 - Improvements and changes from version 4.9.6.
+- Disable REST API throttling when running the unit tests.
 
 4.10 (2025-10-30)
 =================
