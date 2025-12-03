@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Translators:
+# piera.daraio, 2025
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
@@ -18,18 +21,21 @@ msgstr ""
 
 #: static/appearance/js/mayan_app.js:267
 msgid "Copied!"
-msgstr ""
+msgstr "Copiati!"
 
 #: static/appearance/js/mayan_app.js:269
 msgid "Failed. Check clipboard permissions."
-msgstr ""
+msgstr "Operazione non riuscita. Verifica le autorizzazioni degli appunti."
 
 #: static/appearance/js/mayan_app.js:566
 msgid "Done!"
-msgstr ""
+msgstr "Fatto!"
 
 #: templates/appearance/app/foot.html:68
 msgid ""
 "Too many pending requests. Additional requests will be blocked until a "
 "pending one is completed or after the cooling off period ends."
 msgstr ""
+"Troppe richieste in sospeso. Le richieste aggiuntive saranno bloccate fino "
+"al completamento di una richiesta in sospeso o fino al termine del periodo "
+"di raffreddamento."

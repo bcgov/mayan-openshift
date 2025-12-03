@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Giovanni Tricarico <gtricarico92@gmail.com>, 2025
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -22,19 +23,19 @@ msgstr ""
 
 #: apps.py:147
 msgid "App class full path"
-msgstr ""
+msgstr "Percorso completo della classe dell’app"
 
 #: apps.py:153
 msgid "App URL"
-msgstr ""
+msgstr "URL applicazione"
 
 #: apps.py:164
 msgid "Has REST API"
-msgstr ""
+msgstr "Ha REST API"
 
 #: apps.py:169
 msgid "Has tests"
-msgstr ""
+msgstr "Ha test"
 
 #: apps.py:174
 msgid "Name"
@@ -42,20 +43,20 @@ msgstr "Nome "
 
 #: apps.py:179
 msgid "Verbose name"
-msgstr ""
+msgstr "Nome descrittivo"
 
 #: apps.py:198
 msgid "App manager"
-msgstr ""
+msgstr "Gestore app"
 
 #: links.py:8
 msgid "Apps"
-msgstr ""
+msgstr "Applicazioni"
 
 #: views.py:16
 msgid "Detected and active Mayan EDMS apps."
-msgstr ""
+msgstr "Applicazioni Mayan EDMS rilevate e attive."
 
 #: views.py:17
 msgid "System apps"
-msgstr ""
+msgstr "Applicazioni di sistema"

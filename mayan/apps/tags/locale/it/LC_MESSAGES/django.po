@@ -144,19 +144,19 @@ msgstr "Rimuovi  etichetta dal documento"
 
 #: search.py:11
 msgid "Tag color"
-msgstr ""
+msgstr "Colore del Tag"
 
 #: search.py:14
 msgid "The database ID of the tag."
-msgstr ""
+msgstr "ID del tag nel database"
 
 #: search.py:15 serializers.py:34 serializers.py:43
 msgid "Tag ID"
-msgstr ""
+msgstr "ID Tag"
 
 #: search.py:18
 msgid "Tag label"
-msgstr ""
+msgstr "Etichetta del tag"
 
 #: search.py:32
 msgid "Document type"
@@ -192,11 +192,11 @@ msgstr "URL"
 
 #: serializers.py:33
 msgid "Primary key of the tag to add to the document."
-msgstr ""
+msgstr "Chiave primaria del tag da aggiungere al documento"
 
 #: serializers.py:42
 msgid "Primary key of the tag to remove from the document."
-msgstr ""
+msgstr "Chiave primaria del tag da rimuovere dal documento"
 
 #: views/document_views.py:31
 #, python-format
@@ -297,12 +297,12 @@ msgstr "Etichetta \"%(object)s\" cancellata con successo."
 #: views/tag_views.py:54
 #, python-format
 msgid "%(count)d tag deleted successfully."
-msgstr ""
+msgstr "%(count)d tag eliminati correttamente."
 
 #: views/tag_views.py:56
 #, python-format
 msgid "Delete the %(count)d selected tags"
-msgstr ""
+msgstr "Elimina i %(count)d tag selezionati"
 
 #: views/tag_views.py:57
 #, python-format
@@ -312,7 +312,7 @@ msgstr "Cancella il tag: %(object)s"
 #: views/tag_views.py:58
 #, python-format
 msgid "Delete the %(count)d selected tag"
-msgstr ""
+msgstr "Elimina i %(count)d tag selezionati"
 
 #: views/tag_views.py:64
 msgid "Will be removed from all documents."
@@ -354,4 +354,4 @@ msgstr "Tag da attaccare al documento."
 
 #: workflow_actions.py:83
 msgid "Tags to remove from the document."
-msgstr ""
+msgstr "Tag da rimuovere dal documento."

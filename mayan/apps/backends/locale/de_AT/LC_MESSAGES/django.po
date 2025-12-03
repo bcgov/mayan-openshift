@@ -45,7 +45,7 @@ msgstr "Backenddaten"
 #: model_mixins.py:72
 #, python-format
 msgid "Error: `%s`"
-msgstr ""
+msgstr "Fehler: `%s`"
 
 #: model_mixins.py:76
 msgid "Backend"

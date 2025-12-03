@@ -28,16 +28,32 @@ python-sdist-testing: clean
 
 python-wheel-production: ## Build the production wheel distribution package.
 python-wheel-production: clean python-sdist-production
-	pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
+	pip wheel --wheel-dir dist dist/*.tar.gz
 	ls -l dist
 
 python-wheel-testing: ## Build the testing wheel distribution package.
 python-wheel-testing: clean python-sdist-testing
-	pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
+	pip wheel --wheel-dir dist dist/*.tar.gz
 	ls -l dist
 
+# Development environment
+
+dev-python-cleanup: ## Clean up all Python libraries.
+	@pip freeze > venv-requirements.txt
+	@pip uninstall -y -r venv-requirements.txt
+	@rm venv-requirements.txt
+
 dev-setup-python: ## Install the Python libraries needed for development.
-	pip install --requirement requirements.txt --requirement requirements/development.txt --requirement requirements/testing-base.txt --requirement requirements/documentation.txt --requirement requirements/build.txt
+dev-setup-python: dev-setup-python-base
+	pip install --requirement requirements.txt --requirement requirements/development.txt --requirement requirements/testing-base.txt --requirement requirements/documentation.txt
+	$(MAKE) dev-setup-python-build
+
+dev-setup-python-base: ## Install base Python packages.
+	pip install pip==$(PYTHON_PIP_VERSION)
+	pip install setuptools==$(PYTHON_SETUPTOOLS_VERSION)
+
+dev-setup-python-build: ## Install the Python build libraries.
+	pip install --requirement requirements/build.txt
 
 dev-setup-python-mysql: ## Install the Python MySQL library.
 	@pip install mysqlclient==$(PYTHON_MYSQL_VERSION)

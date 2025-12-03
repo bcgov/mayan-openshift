@@ -11,6 +11,7 @@
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2025
 # Daniele Bortoluzzi <daniele@elkos.it>, 2025
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2025
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -129,15 +130,15 @@ msgstr "Visualizza ACL"
 
 #: serializers.py:19
 msgid "Permissions add URL"
-msgstr ""
+msgstr "URL per aggiungere autorizzazioni"
 
 #: serializers.py:39
 msgid "Permissions remove URL"
-msgstr ""
+msgstr "URL per rimuovere autorizzazioni"
 
 #: serializers.py:59
 msgid "Permissions URL"
-msgstr ""
+msgstr "URL delle autorizzazioni"
 
 #: serializers.py:82
 msgid "Role ID"
@@ -153,7 +154,7 @@ msgstr "Chiave primaria del permesso da aggiungere all'ACL."
 
 #: serializers.py:119 serializers.py:126
 msgid "Permission ID"
-msgstr ""
+msgstr "ID Autorizzazione"
 
 #: serializers.py:125
 msgid "Primary key of the permission to remove from the ACL."

@@ -9,6 +9,7 @@
 # piera.daraio, 2025
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2025
 # Giovanni Tricarico <gtricarico92@gmail.com>, 2025
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -66,7 +67,7 @@ msgstr ""
 
 #: forms.py:25
 msgid "Objects"
-msgstr ""
+msgstr "Oggetti"
 
 #: links.py:28 links.py:51
 msgid "File caches"

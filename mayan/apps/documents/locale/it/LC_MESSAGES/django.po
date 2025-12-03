@@ -84,7 +84,7 @@ msgstr ""
 
 #: apps.py:940
 msgid "Active version"
-msgstr ""
+msgstr "Versione attiva"
 
 #: apps.py:990
 msgid "Type"
@@ -557,7 +557,7 @@ msgstr "Versioni"
 
 #: links/document_version_links.py:58
 msgid "Modify"
-msgstr ""
+msgstr "Modifica"
 
 #: links/document_version_page_links.py:55
 msgid "Remap pages"
@@ -748,7 +748,7 @@ msgstr "Documento troncato, ID: %d"
 
 #: models/document_models.py:43
 msgid "Latest document file"
-msgstr ""
+msgstr "Ultimo file documento"
 
 #: models/document_models.py:48
 msgid ""
@@ -822,11 +822,11 @@ msgstr "Documento troncato?"
 
 #: models/document_models.py:101
 msgid "Active document version"
-msgstr ""
+msgstr "Versione del documento attivo"
 
 #: models/document_type_models.py:42
 msgid "A short text identifying the document type."
-msgstr ""
+msgstr "Breve descrizione per l'identificazione del documento"
 
 #: models/document_type_models.py:47
 msgid ""
@@ -1097,7 +1097,7 @@ msgstr ""
 
 #: queues.py:21
 msgid "Documents file"
-msgstr ""
+msgstr "File dei documenti"
 
 #: queues.py:24
 msgid "Documents file slow"
@@ -1198,7 +1198,7 @@ msgstr ""
 #: search.py:32 serializers/document_serializers.py:32
 #: serializers/document_serializers.py:78
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: search.py:35 search.py:67 search.py:104 search.py:142 search.py:174
 msgid "Document type label"
@@ -1236,7 +1236,7 @@ msgstr ""
 #: serializers/document_version_serializers.py:57
 #: serializers/trashed_document_serializers.py:12
 msgid "Image URL"
-msgstr ""
+msgstr "URL immagine"
 
 #: serializers/document_file_serializers.py:40
 #: serializers/document_file_serializers.py:95
@@ -1799,11 +1799,11 @@ msgstr "Clona le trasformazioni della pagina del file del documento: %s"
 
 #: views/document_type_retention_policy_views.py:23
 msgid "Trashing"
-msgstr ""
+msgstr "Invio al cestino"
 
 #: views/document_type_retention_policy_views.py:27
 msgid "Deletion"
-msgstr ""
+msgstr "Eliminazione"
 
 #: views/document_type_retention_policy_views.py:31
 msgid "Stub pruning"
@@ -2322,7 +2322,7 @@ msgstr ""
 
 #: workflow_actions.py:26
 msgid "Change document type"
-msgstr ""
+msgstr "Cambia il tipo di documento"
 
 #: workflow_actions.py:53
 msgid "Send document to trash"

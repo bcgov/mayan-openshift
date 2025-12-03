@@ -56,7 +56,7 @@ msgstr "User ID"
 
 #: dependencies.py:9
 msgid "GNU privacy guard - a PGP implementation."
-msgstr ""
+msgstr "GNU Privacy Guard – un'implementazione PGP."
 
 #: events.py:6 links.py:42 permissions.py:6
 msgid "Key management"
@@ -64,11 +64,11 @@ msgstr "Gestione delle chiavi"
 
 #: events.py:10
 msgid "Key created"
-msgstr ""
+msgstr "Chiave creata"
 
 #: events.py:14
 msgid "Key downloaded"
-msgstr ""
+msgstr "Chiave scaricata"
 
 #: forms.py:26
 msgid "None"
@@ -227,6 +227,7 @@ msgstr "Firme"
 #: settings.py:18
 msgid "Full path to the backend to be used to handle keys and signatures."
 msgstr ""
+"Percorso completo del backend da utilizzare per gestire chiavi e firme."
 
 #: settings.py:27
 msgid "Keyserver used to query for keys."
@@ -266,10 +267,12 @@ msgid ""
 "Use names, last names, key ids or emails to search public keys to import "
 "from the keyserver."
 msgstr ""
+"Usa nomi, cognomi, ID chiave o email per cercare le chiavi pubbliche da "
+"importare dal keyserver."
 
 #: views.py:139
 msgid "No results returned"
-msgstr ""
+msgstr "Nessun risultato restituito"
 
 #: views.py:141
 msgid "Key query results"
@@ -288,10 +291,13 @@ msgid ""
 "Private keys are used to signed documents. Private keys can only be uploaded"
 " by the user. The view to upload private and public keys is the same."
 msgstr ""
+"Le chiavi private vengono utilizzate per firmare i documenti. Le chiavi "
+"private possono essere caricate solo dall'utente. La schermata per caricare "
+"chiavi private e pubbliche è la stessa."
 
 #: views.py:211
 msgid "There no private keys"
-msgstr ""
+msgstr "Non ci sono chiavi private"
 
 #: views.py:230
 msgid ""
@@ -299,7 +305,11 @@ msgid ""
 " by the user or downloaded from keyservers. The view to upload private and "
 "public keys is the same."
 msgstr ""
+"Le chiavi pubbliche vengono utilizzate per verificare i documenti firmati. "
+"Le chiavi pubbliche possono essere caricate dall'utente oppure scaricate dai"
+" keyserver. La schermata per caricare chiavi private e pubbliche è la "
+"stessa."
 
 #: views.py:236
 msgid "There no public keys"
-msgstr ""
+msgstr "Non ci sono chiavi pubbliche"

@@ -8,6 +8,7 @@
 # Marco Camplese <marco.camplese.mc@gmail.com>, 2025
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2025
 # Giovanni Tricarico <gtricarico92@gmail.com>, 2025
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -29,7 +30,7 @@ msgstr "Dashboard"
 
 #: apps.py:24
 msgid "Widgets"
-msgstr ""
+msgstr "Widget"
 
 #: apps.py:28
 msgid "Label"
@@ -37,7 +38,7 @@ msgstr "Etichetta"
 
 #: dashboards.py:6
 msgid "Administrator dashboard"
-msgstr ""
+msgstr "Dashboard amministratore"
 
 #: links.py:9
 msgid "Details"
@@ -50,4 +51,4 @@ msgstr "Vedi dettagli"
 
 #: views.py:32
 msgid "Dashboard detail"
-msgstr ""
+msgstr "Dettagli dashboard"

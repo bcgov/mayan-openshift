@@ -66,11 +66,11 @@ msgstr "Documento"
 
 #: models.py:34
 msgid "The user account that made the comment."
-msgstr ""
+msgstr "L'account utente che ha inserito il commento."
 
 #: models.py:39
 msgid "Actual text content of the comment."
-msgstr ""
+msgstr "Contenuto testuale effettivo del commento."
 
 #: models.py:40
 msgid "Text"

@@ -3,8 +3,8 @@ from django.utils.safestring import mark_safe
 
 from mayan.apps.views.http import URL
 
-import nh3
 import markdown
+import nh3
 import requests
 
 from ..literals import URL_FUNDRAISER_API

@@ -20,12 +20,13 @@ BinaryDependency(
         'from PDF files into PPM format images.'
     ), module=__name__, name='pdftoppm', path=pdftoppm_path
 )
+
 PythonDependency(
     attribute_copyright='PIL.__doc__', module=__name__, name='Pillow',
-    version_string='==11.3.0'
+    version_string='==12.0.0'
 )
 PythonDependency(
-    module=__name__, name='pypdf', version_string='==6.0.0'
+    module=__name__, name='pypdf', version_string='==6.4.0'
 )
 PythonDependency(
     module=__name__, name='qrcode', version_string='==8.2'

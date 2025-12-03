@@ -24,7 +24,7 @@ PythonDependency(
         OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
         WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     ''', module=__name__, name='django-cors-headers',
-    version_string='==4.7.0'
+    version_string='==4.9.0'
 )
 PythonDependency(
     legal_text='''
@@ -57,7 +57,7 @@ PythonDependency(
     version_string='==0.1.2'
 )
 PythonDependency(
-    module=__name__, name='drf-yasg', version_string='==1.21.10'
+    module=__name__, name='drf-yasg', version_string='==1.21.11'
 )
 PythonDependency(
     module=__name__, name='flex', version_string='==6.14.1'

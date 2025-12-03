@@ -46,7 +46,7 @@ msgstr "Collegamento intelligente modificato"
 
 #: forms.py:28
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: forms.py:33
 msgid "Foreign document"
@@ -272,7 +272,7 @@ msgstr ""
 
 #: serializers.py:51 serializers.py:61
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: serializers.py:59
 msgid "Primary key of the document type to remove from the smart link."
@@ -284,15 +284,15 @@ msgstr ""
 
 #: serializers.py:72
 msgid "Document types URL"
-msgstr ""
+msgstr "URL per i Tipi documento"
 
 #: serializers.py:77
 msgid "Document types add URL"
-msgstr ""
+msgstr "URL per aggiungere i Tipi documento"
 
 #: serializers.py:82
 msgid "Document types remove URL"
-msgstr ""
+msgstr "URL per rimuovere i Tipi documento"
 
 #: serializers.py:109
 msgid "Resolved smart link URL"

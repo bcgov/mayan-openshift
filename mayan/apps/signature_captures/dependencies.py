@@ -15,6 +15,7 @@ JavaScriptDependency(
         }
     ], version_string='=4.2.0'
 )
+
 PythonDependency(
     module=__name__, name='CairoSVG', version_string='==2.8.2'
 )

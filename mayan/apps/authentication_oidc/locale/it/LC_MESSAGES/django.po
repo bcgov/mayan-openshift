@@ -30,8 +30,8 @@ msgstr "Login via OIDC"
 
 #: links.py:22
 msgid "OIDC user details"
-msgstr ""
+msgstr "Dettagli utente OIDC"
 
 #: settings.py:14
 msgid "URL for the OIDC user profile page."
-msgstr ""
+msgstr "URL della pagina del profilo utente OIDC."

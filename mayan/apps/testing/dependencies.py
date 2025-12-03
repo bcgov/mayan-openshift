@@ -11,7 +11,7 @@ BinaryDependency(
 
 PythonDependency(
     environment=environment_testing, module=__name__, name='coverage',
-    version_string='==7.10.6'
+    version_string='==7.12.0'
 )
 PythonDependency(
     environment=environment_testing, module=__name__,

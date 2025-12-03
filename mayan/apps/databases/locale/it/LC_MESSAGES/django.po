@@ -26,11 +26,12 @@ msgstr ""
 
 #: apps.py:22
 msgid "Databases"
-msgstr ""
+msgstr "Database"
 
 #: class_mixins.py:34
 msgid "The object will be executed, depending on the condition return value."
 msgstr ""
+"L'oggetto verrà eseguito in base al valore restituito dalla condizione."
 
 #: class_mixins.py:37
 msgid "Has a condition?"
@@ -46,7 +47,7 @@ msgstr "Etichetta"
 
 #: classes.py:97
 msgid "Example usage of the property."
-msgstr ""
+msgstr "Esempio di uso della proprietà."
 
 #: classes.py:98 classes.py:282
 msgid "Name"
@@ -70,7 +71,7 @@ msgstr "Modello campi inversi"
 
 #: classes.py:264
 msgid "Name of the app where the model is defined."
-msgstr ""
+msgstr "Nome dell'app in cui è definito il modello."
 
 #: classes.py:265
 msgid "App"
@@ -78,7 +79,7 @@ msgstr "App"
 
 #: classes.py:270
 msgid "Complete unique name of the model."
-msgstr ""
+msgstr "Nome completo univoco del modello."
 
 #: classes.py:271
 msgid "Full name"
@@ -86,7 +87,7 @@ msgstr "Nome completo"
 
 #: classes.py:276
 msgid "Human readable name of the model."
-msgstr ""
+msgstr "Nome del modello in forma leggibile."
 
 #: links.py:12
 msgid "Properties"
@@ -94,7 +95,7 @@ msgstr "Proprietà"
 
 #: links.py:15
 msgid "Property models"
-msgstr ""
+msgstr "Modelli di proprietà"
 
 #: literals.py:16
 msgid ""
@@ -111,6 +112,11 @@ msgid ""
 "None, or an empty string ('') are considered to be logical false, any other "
 "value is considered to be the logical true."
 msgstr ""
+"Condizione che determina se questo oggetto verrà eseguito o meno. Le "
+"condizioni che non restituiscono alcun valore, che restituiscono il valore "
+"logico Python None o una stringa vuota ('') sono considerate false dal punto"
+" di vista logico; qualsiasi altro valore è considerato vero dal punto di "
+"vista logico."
 
 #: model_mixins.py:47
 msgid "Condition"
@@ -122,13 +128,13 @@ msgstr "Attenzione"
 
 #: views.py:27
 msgid "No properties available"
-msgstr ""
+msgstr "Nessuna proprietà disponibile"
 
 #: views.py:29
 #, python-format
 msgid "Properties for model: %s"
-msgstr ""
+msgstr "Proprietà del modello: %s"
 
 #: views.py:49
 msgid "Models with registered properties"
-msgstr ""
+msgstr "Modelli con proprietà registrate"

@@ -36,11 +36,11 @@ msgstr "Livello"
 #: apps.py:163 apps.py:194 serializers/index_instance_serializers.py:12
 #: serializers/index_instance_serializers.py:52
 msgid "Depth"
-msgstr ""
+msgstr "Profondità"
 
 #: apps.py:167
 msgid "Total nodes"
-msgstr ""
+msgstr "Totale nodi"
 
 #: apps.py:174
 msgid "Total documents"
@@ -415,7 +415,7 @@ msgstr ""
 
 #: serializers/index_template_serializers.py:154
 msgid "Document types URL"
-msgstr ""
+msgstr "URL per i Tipi documento"
 
 #: serializers/index_template_serializers.py:160
 msgid "URL of the API endpoint to add document types to this index template."
@@ -423,7 +423,7 @@ msgstr ""
 
 #: serializers/index_template_serializers.py:162
 msgid "Document types add URL"
-msgstr ""
+msgstr "URL per aggiungere i Tipi documento"
 
 #: serializers/index_template_serializers.py:168
 msgid ""
@@ -432,7 +432,7 @@ msgstr ""
 
 #: serializers/index_template_serializers.py:170
 msgid "Document types remove URL"
-msgstr ""
+msgstr "URL per rimuovere i Tipi documento"
 
 #: serializers/index_template_serializers.py:175
 msgid "Index template root node ID"
@@ -453,7 +453,7 @@ msgstr ""
 #: serializers/index_template_serializers.py:236
 #: serializers/index_template_serializers.py:246
 msgid "Document type ID"
-msgstr ""
+msgstr "ID Tipo documento"
 
 #: serializers/index_template_serializers.py:244
 msgid "Primary key of the document type to remove from the index template."

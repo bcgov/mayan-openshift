@@ -76,10 +76,13 @@ msgid ""
 "Number of pages to show on each side of the current page in the elided "
 "pager."
 msgstr ""
+"Numero di pagine da visualizzare su ciascun lato della pagina corrente nel "
+"paginatore eliso."
 
 #: settings.py:36
 msgid "Number of pages to show at both ends of the elided pager."
 msgstr ""
+"Numero di pagine da visualizzare alle due estremità del paginatore eliso."
 
 #: settings.py:42
 msgid "Maximum number of characters that will be displayed as the view title."

@@ -37,7 +37,7 @@ PythonDependency(
         ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django', version_string='==4.2.24'
+    ''', module=__name__, name='django', version_string='==4.2.26'
 )
 PythonDependency(
     legal_text='''
@@ -60,7 +60,7 @@ PythonDependency(
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
-    ''', module=__name__, name='PyYAML', version_string='==6.0.2'
+    ''', module=__name__, name='PyYAML', version_string='==6.0.3'
 )
 PythonDependency(
     legal_text='''
@@ -125,7 +125,7 @@ PythonDependency(
         License: LGPL 2.1
     ''', module=__name__, name='pycountry', version_string='==24.6.1'
 )
-PythonDependency(module=__name__, name='nh3', version_string='==0.3.0')
+PythonDependency(module=__name__, name='nh3', version_string='==0.3.2')
 PythonDependency(
     module=__name__, name='requests', version_string='==2.32.5'
 )

@@ -164,11 +164,11 @@ msgstr ""
 
 #: links.py:13 links.py:18
 msgid "Task type list"
-msgstr ""
+msgstr "Elenco dei tipi di attività"
 
 #: links.py:22
 msgid "Worker list"
-msgstr ""
+msgstr "Elenco dei worker"
 
 #: links.py:27
 msgid "Queue list"
