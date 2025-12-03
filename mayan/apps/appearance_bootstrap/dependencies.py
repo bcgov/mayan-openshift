@@ -8,6 +8,7 @@ GoogleFontDependency(
     label=_(message='Lato font'), module=__name__, name='lato',
     url='https://fonts.googleapis.com/css?family=Lato:400,700,400italic'
 )
+
 JavaScriptDependency(
     label=_(message='Bootstrap'), module=__name__, name='bootstrap',
     version_string='=3.4.1'

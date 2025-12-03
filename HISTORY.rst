@@ -2,6 +2,11 @@
 ===================
 - Improvements and changes from version 4.9.6.
 - Disable REST API throttling when running the unit tests.
+- Update dependencies dependencies:
+
+  - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+  - django-auth-ldap from 5.1.0 to 5.2.0.
+  - openai from 1.107.2 to 1.109.1.
 
 4.10 (2025-10-30)
 =================
