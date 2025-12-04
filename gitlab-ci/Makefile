@@ -1,10 +1,4 @@
 #!make
-include config.env
-
-ifneq ($(wildcard config-local.env),)
-	include config-local.env
-endif
-
 
 gitlab-ci-update: ## Update the GitLab CI file from the platform template.
 gitlab-ci-update: config-env-copy

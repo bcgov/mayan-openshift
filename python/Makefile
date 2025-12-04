@@ -1,9 +1,4 @@
 #!make
-include config.env
-
-ifneq ($(wildcard config-local.env),)
-        include config-local.env
-endif
 
 python-setup-generate: ## Create and update the setup.py file.
 python-setup-generate: requirements-generate

@@ -1,15 +1,6 @@
 #!make
-include config.env
 
-ifneq ($(wildcard config-local.env),)
-	include config-local.env
-endif
-
-IMAGE_VERSION ?= `cat docker/rootfs/version`
 FORGE_DOCKER_IMAGE_NAME ?= $(FORGE_DOCKER_IMAGE_NAME)
-DOCKER_IMAGE_DATE_TIME ?= `date -Iseconds  --utc`
-DOCKER_IMAGE_LABELS ?= --label org.opencontainers.image.created="$(DOCKER_IMAGE_DATE_TIME)" --label org.opencontainers.image.version=$(IMAGE_VERSION) $(DOCKER_IMAGE_LABELS_EXTRA)
-MAYAN_TEST_MEDIA_ROOT ?= /tmp/mayan-test
 
 # Build
 
