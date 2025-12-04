@@ -1,3 +1,8 @@
+4.11 (XXXX-XX-XX)
+=================
+- Support building ARM64 Docker images.
+- Split the Docker makefile into separate makefiles.
+
 4.10.1 (XXXX-XX-XX)
 ===================
 - Improvements and changes from version 4.9.6.
@@ -212,6 +217,7 @@
 
 - Add 'appearance/node_modules/bootswatch/docs/*' to the appearance app's
   `static_media_ignore_patterns`.
+- Split the Docker command lines in the Docker makefile.
 - Update the Docker build file to allow the `wheel` build environment to
   download its own dependencies.
 - Update the Docker build file to create a home directory to the `mayan` user

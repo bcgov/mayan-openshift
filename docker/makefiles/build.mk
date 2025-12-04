@@ -1,0 +1,106 @@
+#!make
+
+# BuildKit
+
+docker-buildkitd-config-create:
+	@echo "debug = true" > /tmp/buildkitd.toml
+	@if [ $(DOCKER_MIRROR) ]; then \
+		echo "" >> /tmp/buildkitd.toml; \
+		echo '[registry."docker.io"]' >> /tmp/buildkitd.toml; \
+		echo '  mirrors = ["$(DOCKER_MIRROR)"]' >> /tmp/buildkitd.toml; \
+	fi
+
+docker-buildx-create: docker-buildx-rm docker-buildkitd-config-create
+	docker context create \
+	tls-context
+	docker buildx create \
+	--bootstrap \
+	--config /tmp/buildkitd.toml \
+	--driver docker-container \
+	--name mirrored \
+	--use tls-context
+
+docker-buildx-rm:
+	docker buildx rm \
+	mirrored || true
+	docker context rm \
+	tls-context || true
+
+docker-buildx-stop:
+	docker buildx stop mirrored
+
+docker-build-all: ## Build images for all platforms.
+docker-build-all: docker-dockerfile-update docker-buildx-create docker-build-amd64 docker-build-arm64 docker-buildx-stop
+
+docker-build-amd64: ## Build a new amd64 image.
+	DOCKER_BUILDKIT=1 docker build \
+	--build-arg APT_PROXY=$(APT_PROXY) \
+	--build-arg PIP_INDEX_URL=$(PIP_INDEX_URL) \
+	--build-arg PIP_TRUSTED_HOST=$(PIP_TRUSTED_HOST) \
+	--build-arg HTTP_PROXY=$(HTTP_PROXY) \
+	--build-arg HTTPS_PROXY=$(HTTPS_PROXY) \
+	--builder mirrored \
+	--file docker/Dockerfile $(DOCKER_IMAGE_LABELS) \
+	--output type=docker \
+	--platform linux/amd64 \
+	--tag $(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-amd64 \
+	.
+
+docker-build-arm64: ## Build a new arm64 image.
+	DOCKER_BUILDKIT=1 docker build \
+	--build-arg APT_PROXY=$(APT_PROXY) \
+	--build-arg PIP_INDEX_URL=$(PIP_INDEX_URL) \
+	--build-arg PIP_TRUSTED_HOST=$(PIP_TRUSTED_HOST) \
+	--build-arg HTTP_PROXY=$(HTTP_PROXY) \
+	--build-arg HTTPS_PROXY=$(HTTPS_PROXY) \
+	--builder mirrored \
+	--file docker/Dockerfile $(DOCKER_IMAGE_LABELS) \
+	--output type=docker \
+	--platform linux/arm64 \
+	--tag $(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-arm64 \
+	.
+
+# Dockerfile
+
+docker-dockerfile-update: ## Update the Dockerfile file from the platform template.
+docker-dockerfile-update: config-env-copy
+	./manage.py platforms_template docker_dockerfile > docker/Dockerfile
+
+# Images
+
+docker-image-push: ## Push images to the Docker registry.
+	docker image tag \
+	$(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-amd64 \
+	$(DOCKER_IMAGE_NAME_FULL)-amd64
+	docker image tag \
+	$(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-arm64 \
+	$(DOCKER_IMAGE_NAME_FULL)-arm64
+	docker image push \
+	$(DOCKER_IMAGE_NAME_FULL)-amd64
+	docker image push \
+	$(DOCKER_IMAGE_NAME_FULL)-arm64
+	# /etc/docker/daemon.json {"insecure-registries" : ["docker-registry.local:5000"]}
+	# /etc/hosts <ip address>  docker-registry.local
+
+docker-image-pull: ## Pull an image from the Docker registry.
+	docker image pull \
+	$(DOCKER_IMAGE_NAME_FULL)
+	docker image tag \
+	$(DOCKER_IMAGE_NAME_FULL) \
+	$(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)
+
+# Manifest
+
+docker-manifest-create: ## Merge amd64 and arm64 images into one manifest.
+docker-manifest-create: docker-manifest-delete docker-image-push
+	docker manifest create \
+	$(DOCKER_IMAGE_NAME_FULL) \
+	$(DOCKER_IMAGE_NAME_FULL)-amd64 \
+	$(DOCKER_IMAGE_NAME_FULL)-arm64
+	docker manifest push \
+	$(DOCKER_IMAGE_NAME_FULL)
+
+docker-manifest-delete: ## Delete the manifest.
+docker-manifest-delete:
+	docker manifest rm \
+	$(DOCKER_IMAGE_NAME_FULL) || true
