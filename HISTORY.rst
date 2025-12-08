@@ -12,6 +12,7 @@
   - Make tag document list link title translatable.
   - Make the task worker labels translatable.
   - Add missing locales app migration.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
 
 4.7.7 (2025-11-14)
 ==================

@@ -305,7 +305,7 @@ job_python_push_pypi:
     - releases/testing
   script:
     - pip install --requirement requirements/build.txt
-    - twine upload --verbose dist/*
+    - twine upload --verbose dist/mayan*edms*
   stage: stage_push
   variables:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
