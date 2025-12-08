@@ -102,6 +102,14 @@ Current series status
      - Release date
      - Status
      - End of life
+   * - 4.11
+     - October 30, 2025
+     - Fully supported
+     -
+   * - 4.10
+     - January 20, 2025
+     - Fully supported     
+     -
    * - 4.9
      - January 2025
      - Fully supported
