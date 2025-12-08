@@ -9,6 +9,10 @@
   - openai from 1.107.2 to 1.109.1.
 
 - Fix appearance settings variable names.
+- GitLab CI updates:
+
+  - Remove repeated `apt-get update`.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
 
 4.10 (2025-10-30)
 =================
