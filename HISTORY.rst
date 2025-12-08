@@ -8,6 +8,8 @@
   - django-auth-ldap from 5.1.0 to 5.2.0.
   - openai from 1.107.2 to 1.109.1.
 
+- Fix appearance settings variable names.
+
 4.10 (2025-10-30)
 =================
 - Remove KeyCloak settings and Docker Compose template.

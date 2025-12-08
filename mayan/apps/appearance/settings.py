@@ -23,14 +23,14 @@ setting_ajax_redirection_code = setting_namespace.do_setting_add(
         message='Custom HTTP response code for AJAX redirections.'
     )
 )
-setting_pagination_input_threshold = setting_namespace.do_setting_add(
+setting_elided_pager_on_each_side = setting_namespace.do_setting_add(
     default=DEFAULT_APPEARANCE_ELIDED_PAGER_ON_EACH_SIDE,
     global_name='APPEARANCE_ELIDED_PAGER_ON_EACH_SIDE', help_text=_(
         message='Number of pages to show on each side of the current '
         'page in the elided pager.'
     )
 )
-setting_pagination_input_threshold = setting_namespace.do_setting_add(
+setting_default_appearance_elided_pager_on_ends = setting_namespace.do_setting_add(
     default=DEFAULT_APPEARANCE_ELIDED_PAGER_ON_ENDS,
     global_name='APPEARANCE_ELIDED_PAGER_ON_ENDS', help_text=_(
         message='Number of pages to show at both ends of the elided pager.'
@@ -65,13 +65,13 @@ setting_pagination_dropdown_range = setting_namespace.do_setting_add(
         message='Total pages to show in the page selection dropdown.'
     )
 )
-setting_pagination_dropdown_threshold = setting_namespace.do_setting_add(
+setting_appearance_pagination_dropdown_enable = setting_namespace.do_setting_add(
     default=DEFAULT_APPEARANCE_PAGINATION_DROPDOWN_ENABLE,
     global_name='APPEARANCE_PAGINATION_DROPDOWN_ENABLE', help_text=_(
         message='Enable page selection dropdown.'
     )
 )
-setting_pagination_input_threshold = setting_namespace.do_setting_add(
+setting_appearance_pagination_input_enable = setting_namespace.do_setting_add(
     default=DEFAULT_APPEARANCE_PAGINATION_INPUT_ENABLE,
     global_name='APPEARANCE_PAGINATION_INPUT_ENABLE', help_text=_(
         message='Enable the page selection input field.'
