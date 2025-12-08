@@ -11,6 +11,7 @@
   - Make the task worker labels translatable.
   - Add missing locales app migration.
   - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Fix appearance settings variable names.
 
 4.9.6 (2025-12-01)
 ==================
