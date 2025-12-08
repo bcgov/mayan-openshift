@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 4.6.12 (2025-12-14)
 ===================
 - Backports from series 4.10, 4.9, 4.8, 4.7.
@@ -12,6 +11,7 @@
   - Make document file search fields translatable.
   - Make tag document list link title translatable.
   - Make the task worker labels translatable.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
 
 4.6.11 (2025-11-08)
 ===================
