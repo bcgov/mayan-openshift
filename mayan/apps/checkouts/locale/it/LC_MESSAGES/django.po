@@ -5,9 +5,9 @@
 # Translators:
 # Translators:
 # piera.daraio, 2025
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2025
-# Roberto Rosario, 2025
 # Daniele Bortoluzzi <daniele@elkos.it>, 2025
+# Roberto Rosario, 2025
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 10:33+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Daniele Bortoluzzi <daniele@elkos.it>, 2025\n"
+"Last-Translator: Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgstr "Documento prenotato"
 
 #: events.py:20
 msgid "Document forcefully checked in"
-msgstr ""
+msgstr "Documento liberato forzatamente"
 
 #: exceptions.py:15
 msgid "Document not checked out."
@@ -77,15 +77,15 @@ msgstr "Permetti nuovi file?"
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "Prenotare il documento"
 
 #: links.py:43
 msgid "Check out"
@@ -214,7 +214,7 @@ msgstr "%(count)d documento liberato correttamente."
 #: views.py:40
 #, python-format
 msgid "Check in %(count)d documents."
-msgstr ""
+msgstr "Libera %(count)d documenti."
 
 #: views.py:41
 #, python-format
@@ -234,7 +234,7 @@ msgstr "Impossibile prenotare il documento \"%(instance)s\"; %(exception)s"
 #: views.py:102
 #, python-format
 msgid "%(count)d documents checked out successfully."
-msgstr ""
+msgstr "%(count)d documenti prenotati correttamente."
 
 #: views.py:105
 #, python-format
@@ -276,8 +276,8 @@ msgstr ""
 
 #: views.py:184
 msgid "No documents have been checked out"
-msgstr ""
+msgstr "Nessun documento prenotato"
 
 #: widgets.py:19
 msgid "Amount"
-msgstr ""
+msgstr "Quantità"

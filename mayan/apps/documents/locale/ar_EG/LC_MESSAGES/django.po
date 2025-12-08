@@ -14,7 +14,6 @@
 # Mohammed ALDOUB <voulnet@gmail.com>, 2025
 # Marwan Rahhal <Marwanr@sssit.net>, 2025
 # Mohamad Ashmar, 2025
-# GM_327, 2025
 # 
 msgid ""
 msgstr ""

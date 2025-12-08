@@ -80,11 +80,11 @@ msgstr "Tak"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "Zablokuj dokument"
 
 #: links.py:43
 msgid "Check out"
@@ -275,8 +275,8 @@ msgstr ""
 
 #: views.py:184
 msgid "No documents have been checked out"
-msgstr ""
+msgstr "Żadne dokumenty nie zostały zablokowane"
 
 #: widgets.py:19
 msgid "Amount"
-msgstr ""
+msgstr "Ilość"

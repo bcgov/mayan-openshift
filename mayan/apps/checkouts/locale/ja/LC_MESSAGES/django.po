@@ -74,15 +74,15 @@ msgstr "新しいファイルの追加を許可しますか？"
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "はい"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "いいえ"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "文書をチェックアウトする"
 
 #: links.py:43
 msgid "Check out"
@@ -211,7 +211,7 @@ msgstr "%(count)d 件の文書をチェックインしました"
 #: views.py:40
 #, python-format
 msgid "Check in %(count)d documents."
-msgstr ""
+msgstr "%(count)d 件の文書をチェックイン"
 
 #: views.py:41
 #, python-format
@@ -271,8 +271,8 @@ msgstr "文書をチェックアウトすると、一定時間、特定の操作
 
 #: views.py:184
 msgid "No documents have been checked out"
-msgstr ""
+msgstr "チェックアウトされている文書はありません"
 
 #: widgets.py:19
 msgid "Amount"
-msgstr ""
+msgstr "数量（量）"

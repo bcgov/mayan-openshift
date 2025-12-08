@@ -23,7 +23,7 @@ msgstr ""
 
 #: apps.py:15
 msgid "Platforms"
-msgstr ""
+msgstr "Plattformen"
 
 #: permissions.py:6 settings.py:17
 msgid "Platform"

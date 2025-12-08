@@ -42,7 +42,7 @@ msgstr "Documento reservado"
 
 #: events.py:20
 msgid "Document forcefully checked in"
-msgstr ""
+msgstr "Documento devuelto forzosamente"
 
 #: exceptions.py:15
 msgid "Document not checked out."
@@ -74,15 +74,15 @@ msgstr "¿Se permiten nuevos archivos?"
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "Reservar documento"
 
 #: links.py:43
 msgid "Check out"
@@ -211,7 +211,7 @@ msgstr "%(count)d documento devuelto correctamente."
 #: views.py:40
 #, python-format
 msgid "Check in %(count)d documents."
-msgstr ""
+msgstr "Devolver %(count)d documentos."
 
 #: views.py:41
 #, python-format
@@ -231,7 +231,7 @@ msgstr "No se puede reserver el documento \"%(instance)s\"; %(exception)s"
 #: views.py:102
 #, python-format
 msgid "%(count)d documents checked out successfully."
-msgstr ""
+msgstr "%(count)d documentos reservados correctamente."
 
 #: views.py:105
 #, python-format
@@ -273,8 +273,8 @@ msgstr ""
 
 #: views.py:184
 msgid "No documents have been checked out"
-msgstr ""
+msgstr "No se han reservado documentos"
 
 #: widgets.py:19
 msgid "Amount"
-msgstr ""
+msgstr "Cantidad"

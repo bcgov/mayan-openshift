@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-07 07:29+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Rosario, 2025\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: apps.py:20 events.py:6 permissions.py:6
 msgid "Document exports"
-msgstr "Esportazione del documento"
+msgstr "Esporta documento"
 
 #: classes.py:59
 msgid "Document version export to PDF"
@@ -58,7 +58,7 @@ msgstr "Esporta le versioni del documento"
 
 #: queues.py:7
 msgid "Documents exports"
-msgstr "Esportazione dei documenti"
+msgstr "Esporta documenti"
 
 #: queues.py:13
 msgid "Export a document version to a PDF"

@@ -79,7 +79,7 @@ msgstr "Zum Parsen einreichen"
 
 #: links.py:75
 msgid "Parsing setup"
-msgstr ""
+msgstr "Parsing Einstellungen"
 
 #: links.py:84
 msgid "Parse documents per type"

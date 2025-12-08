@@ -22,7 +22,7 @@ msgstr ""
 
 #: apps.py:10
 msgid "Platforms Forge"
-msgstr ""
+msgstr "Plattform Generierung"
 
 #: platform_templates.py:18
 msgid "Template that generates the Mayan Forge Docker Compose file."
