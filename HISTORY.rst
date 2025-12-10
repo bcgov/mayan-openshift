@@ -5,6 +5,7 @@
   - Sort storage dependencies.
   - Enforce same origin and HTTP only redirection when breaking from an AJAX
     content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
 
 4.7.7 (2025-11-14)
 ==================
