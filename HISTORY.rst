@@ -3,6 +3,7 @@
 - Support building ARM64 Docker images.
 - Split the Docker makefile into separate makefiles.
 - Remove redundant code from makefiles.
+- Git ignore `__pycache__` folders.
 
 4.10.1 (XXXX-XX-XX)
 ===================
