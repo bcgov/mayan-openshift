@@ -43,3 +43,4 @@ gitlab-ci-volume/
 config-local.env
 MANIFEST.in
 forge/.env-local
+__pycache__/

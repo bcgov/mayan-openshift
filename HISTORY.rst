@@ -3,6 +3,7 @@
 - Enforce same origin and HTTP only redirection when breaking from an AJAX
   content container and during normal single page app navigation.
 - Update the base Docker image from debian:12.11-slim to debian:12.12-slim.
+- Git ignore `__pycache__` folders.
 
 4.10.1 (2025-12-08)
 ===================
