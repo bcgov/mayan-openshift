@@ -1,6 +1,10 @@
 4.7.8 (2025-12-13)
 ==================
-- Sort storage dependencies.
+- Backports from series 4.10, 4.9, 4.8.
+
+  - Sort storage dependencies.
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
 
 4.7.7 (2025-11-14)
 ==================
