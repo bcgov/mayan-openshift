@@ -12,6 +12,10 @@
   - Make tag document list link title translatable.
   - Make the task worker labels translatable.
   - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 4.8.0 to 5.2.0.
 
 4.6.11 (2025-11-08)
 ===================
