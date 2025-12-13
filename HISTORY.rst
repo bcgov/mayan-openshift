@@ -4,6 +4,8 @@
   content container and during normal single page app navigation.
 - Update the base Docker image from debian:12.11-slim to debian:12.12-slim.
 - Git ignore `__pycache__` folders.
+- Make the Smart link condition fields `inclusion` and `operator` fully
+  translatable.
 
 4.10.1 (2025-12-08)
 ===================
