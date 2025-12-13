@@ -11,6 +11,7 @@
   - Make document file search fields translatable.
   - Make tag document list link title translatable.
   - Make the task worker labels translatable.
+  - Add missing locales app migration.
 
 4.7.7 (2025-11-14)
 ==================
