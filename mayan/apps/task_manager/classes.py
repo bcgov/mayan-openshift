@@ -212,6 +212,9 @@ class Worker:
         self._queues = []
         self.__class__._registry[name] = self
 
+    def __str__(self):
+        return str(self.label)
+
     @property
     def label(self):
         return self._label or self.name
@@ -224,6 +227,3 @@ class Worker:
         return len(self.queues)
 
     get_queue_count.short_description = _(message='Queue count')
-
-    def __str__(self):
-        return self.label

@@ -19,6 +19,7 @@
 
   - Move Python related makefile targets to their own makefile.
   - Add a makefile target to clean up all Python libraries.
+  - Ensure the `Worker` class returns string objects for its label content.
 
 4.6.11 (2025-11-08)
 ===================
