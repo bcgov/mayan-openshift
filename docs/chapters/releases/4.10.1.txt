@@ -21,13 +21,13 @@ General
 Dependencies
 ^^^^^^^^^^^^
 - Updated Django from version 4.2.26 to 4.2.27 to address CVE-2025-13372 and CVE-2025-64460.
-- Updated ``django-auth-ldap`` from version 5.1.0 to 5.2.0.
-- Updated ``openai`` from version 1.107.2 to 1.109.1.
+- Updated `django-auth-ldap` from version 5.1.0 to 5.2.0.
+- Updated `openai` from version 1.107.2 to 1.109.1.
 
 Continuous Integration
 ^^^^^^^^^^^^^^^^^^^^^^
 
-- Removed redundant ``apt-get update`` invocation in GitLab CI.
+- Removed redundant `apt-get update` invocation in GitLab CI.
 - Ensured only Mayan EDMS packages are uploaded to PyPI.
 
 Testing
