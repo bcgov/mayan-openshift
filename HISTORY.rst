@@ -12,6 +12,10 @@
   - Add missing locales app migration.
   - Ensure only Mayan EDMS packages are uploaded to PyPI.
   - Fix appearance settings variable names.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 5.1.0 to 5.2.0.
 
 4.9.6 (2025-12-01)
 ==================
