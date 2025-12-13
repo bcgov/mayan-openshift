@@ -65,5 +65,5 @@ link_tag_list = Link(
 )
 link_tag_document_list = Link(
     args='object.id', icon=icon_tag_document_list,
-    text=('Documents'), view='tags:tag_document_list'
+    text=_(message='Documents'), view='tags:tag_document_list'
 )
