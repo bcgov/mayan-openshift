@@ -38,7 +38,7 @@ msgstr "Cerca"
 
 #: events.py:10
 msgid "Resultset created"
-msgstr ""
+msgstr "Set di risultati creato"
 
 #: forms.py:12
 msgid "Store the search results to speed up paging and for later browsing."
@@ -117,14 +117,16 @@ msgid ""
 "Time to keep the resultset in seconds. This value is increased every time "
 "the resultset is accessed."
 msgstr ""
+"Tempo di conservazione del set di risultati in secondi. Questo valore viene "
+"aumentato ogni volta che il set di risultati viene consultato."
 
 #: models.py:26
 msgid "Time to live"
-msgstr ""
+msgstr "Tempo di vita"
 
 #: models.py:30
 msgid "The server date and time when the resultset was created."
-msgstr ""
+msgstr "Data e ora del server in cui è stato creato il set di risultati."
 
 #: models.py:31
 msgid "Timestamp"
@@ -132,7 +134,7 @@ msgstr "Timestamp"
 
 #: models.py:34
 msgid "Epoch"
-msgstr ""
+msgstr "Epoca"
 
 #: models.py:37 serializers.py:70
 msgid "App label"
@@ -140,7 +142,7 @@ msgstr "Etichetta del'app"
 
 #: models.py:40 serializers.py:73
 msgid "Model name"
-msgstr ""
+msgstr "Nome del modello"
 
 #: models.py:43
 msgid "Search query"
@@ -148,11 +150,11 @@ msgstr "Query di ricerca"
 
 #: models.py:46
 msgid "Search explainer text"
-msgstr ""
+msgstr "Testo esplicativo della ricerca"
 
 #: models.py:49
 msgid "Number of results stored in the resultset."
-msgstr ""
+msgstr "Numero di risultati memorizzati nel set di risultati."
 
 #: models.py:50
 msgid "Result count"
@@ -160,7 +162,7 @@ msgstr "Numero di risultati"
 
 #: models.py:53
 msgid "User for which the resultset was created."
-msgstr ""
+msgstr "Utente per il quale è stato creato il set di risultati."
 
 #: models.py:55 serializers.py:24
 msgid "User"
@@ -172,11 +174,11 @@ msgstr "Risultati salvati"
 
 #: models.py:101
 msgid "Saved resultset entry"
-msgstr ""
+msgstr "Voce di set di risultati salvato"
 
 #: models.py:102
 msgid "Saved resultset entries"
-msgstr ""
+msgstr "Voci di set di risultati salvati"
 
 #: permissions.py:10
 msgid "Delete resultsets"
@@ -192,7 +194,7 @@ msgstr "Esegui strumenti di ricerca"
 
 #: queues.py:14
 msgid "Search slow"
-msgstr ""
+msgstr "Ricerca lenta"
 
 #: queues.py:19
 msgid "Remove a model instance from the search engine."
@@ -205,19 +207,24 @@ msgstr "Indicizza un'istanza del modello nel motore di ricerca."
 #: queues.py:30
 msgid "Index all instances of a search model to the search engine."
 msgstr ""
+"Indicizza tutte le istanze di un modello di ricerca nel motore di ricerca."
 
 #: queues.py:36
 msgid ""
 "Index all related instances of a search model after a many to many event."
 msgstr ""
+"Indicizza tutte le istanze correlate di un modello di ricerca dopo un evento"
+" molti-a-molti."
 
 #: queues.py:44
 msgid "Reset the search backend indices and index all instances again."
 msgstr ""
+"Reimposta gli indici del backend di ricerca e indicizza nuovamente tutte le "
+"istanze."
 
 #: queues.py:51
 msgid "Delete expired saved resultsets"
-msgstr ""
+msgstr "Elimina i set di risultati salvati scaduti"
 
 #: scoped_queries.py:348
 #, python-format
@@ -226,6 +233,10 @@ msgid ""
 "if multiple scopes are used. Narrow down the search criteria or increase the"
 " value of the results limit setting `%s`."
 msgstr ""
+"I risultati della query superano il limite corrente di %d. I risultati non "
+"saranno affidabili se vengono utilizzati più ambiti. Restringi i criteri di "
+"ricerca oppure aumenta il valore dell'impostazione di limite dei risultati  "
+"` %s`."
 
 #: scoped_queries.py:373
 #, python-format
@@ -233,6 +244,9 @@ msgid ""
 "Search backend error. Verify that the search service is available and that "
 "the search syntax is valid for the active search backend; %s"
 msgstr ""
+"Errore del backend di ricerca. Verifica che il servizio di ricerca sia "
+"disponibile e che la sintassi di ricerca sia valida per il backend di "
+"ricerca attivo; %s"
 
 #: search_fields.py:312
 msgid "Any"
@@ -241,7 +255,7 @@ msgstr "Qualsiasi"
 #: search_models.py:44
 #, python-format
 msgid "Unknown search model `%s`."
-msgstr ""
+msgstr "Modello di ricerca sconosciuto `%s`."
 
 #: search_models.py:114
 msgid "All content"
@@ -281,7 +295,7 @@ msgstr "Intervallo"
 
 #: search_query_types.py:248
 msgid "Range exclusive"
-msgstr ""
+msgstr "Intervallo esclusivo"
 
 #: search_query_types.py:254
 msgid "Regular expression"
@@ -289,7 +303,7 @@ msgstr "Espressione regolare"
 
 #: serializers.py:20
 msgid "Results URL"
-msgstr ""
+msgstr "URL dei risultati"
 
 #: serializers.py:30 serializers.py:82
 msgid "URL"
@@ -325,10 +339,13 @@ msgid ""
 "Arguments to pass to the search backend. For example values to change the "
 "behavior, host names, or authentication arguments."
 msgstr ""
+"Argomenti da passare al backend di ricerca. Ad esempio valori per "
+"modificarne il comportamento, nomi host o argomenti di autenticazione."
 
 #: settings.py:39
 msgid "The search operator to use when none is specified."
 msgstr ""
+"Operatore di ricerca da utilizzare quando non ne viene specificato alcuno."
 
 #: settings.py:46
 msgid ""
@@ -340,45 +357,57 @@ msgstr ""
 #: settings.py:53
 msgid "Amount of objects to process when performing bulk indexing."
 msgstr ""
+"Numero di oggetti da elaborare durante l'esecuzione dell'indicizzazione "
+"massiva."
 
 #: settings.py:59
 msgid "Sets the default state of the \"Match all\" checkbox."
 msgstr ""
+"Imposta lo stato predefinito della casella di controllo \\\"Corrisponde a "
+"tutti\\\"."
 
 #: settings.py:65
 msgid ""
 "Maximum number of search results to fetch and display per search query unit."
 msgstr ""
+"Numero massimo di risultati di ricerca da recuperare e visualizzare per "
+"singola query di ricerca."
 
 #: settings.py:72
 msgid ""
 "Raise an error when the number of search results exceed the value of "
 "`SEARCH_QUERY_RESULTS_LIMIT`."
 msgstr ""
+"Genera un errore quando il numero di risultati di ricerca supera il valore "
+"di `SEARCH_QUERY_RESULTS_LIMIT`."
 
 #: settings.py:79
 msgid "Maximum number of search results to fetch and display."
-msgstr ""
+msgstr "Numero massimo di risultati di ricerca da recuperare e visualizzare."
 
 #: settings.py:85
 msgid "Maximum number of saved resultsets to keep per user."
-msgstr ""
+msgstr "Numero massimo di set di risultati salvati da mantenere per utente."
 
 #: settings.py:91
 msgid "Maximum number of results to store per resultset."
-msgstr ""
+msgstr "Numero massimo di risultati da memorizzare per ogni set di risultati."
 
 #: settings.py:97
 msgid "Time to keep the resultset in seconds."
-msgstr ""
+msgstr "Tempo di conservazione del set di risultati in secondi."
 
 #: settings.py:103
 msgid "Amount to increase the time to live on each access of the resultset."
 msgstr ""
+"Valore con cui aumentare il tempo di vita a ogni accesso del set di "
+"risultati."
 
 #: settings.py:110
 msgid "Sets the default state of the \"Store results\" checkbox."
 msgstr ""
+"Imposta lo stato predefinito della casella di controllo \\\"Memorizza "
+"risultati\\\"."
 
 #: templates/dynamic_search/app/list_toolbar.html:24
 msgid "Filter terms"
@@ -391,92 +420,96 @@ msgstr "Avanzato"
 
 #: value_transformations.py:38
 msgid "Replace accents"
-msgstr ""
+msgstr "Sostituzione accenti"
 
 #: value_transformations.py:50
 msgid "@ sign replace"
-msgstr ""
+msgstr "Sostituzione simbolo @"
 
 #: value_transformations.py:60
 msgid "Case fold"
-msgstr ""
+msgstr "Normalizzazione maiuscole/minuscole"
 
 #: value_transformations.py:70 value_transformations.py:80
 msgid "Hyphen replace"
-msgstr ""
+msgstr "Sostituzione trattino"
 
 #: value_transformations.py:90
 msgid "To boolean"
-msgstr ""
+msgstr "In booleano"
 
 #: value_transformations.py:105
 msgid "To date time"
-msgstr ""
+msgstr "In data/ora"
 
 #: value_transformations.py:132
 msgid "Date time ISO format"
-msgstr ""
+msgstr "Formato data/ora ISO"
 
 #: value_transformations.py:146
 msgid "Date time simple format"
-msgstr ""
+msgstr "Formato data/ora semplice"
 
 #: value_transformations.py:158
 msgid "Date time timestamp format"
-msgstr ""
+msgstr "Formato data/ora timestamp"
 
 #: value_transformations.py:174
 msgid "To integer"
-msgstr ""
+msgstr "In intero"
 
 #: value_transformations.py:184
 msgid "To string"
-msgstr ""
+msgstr "In stringa"
 
 #: views/saved_resultset_views.py:30
 #, python-format
 msgid "Error deleting saved resultset \"%(instance)s\"; %(exception)s"
 msgstr ""
+"Errore durante l'eliminazione del set di risultati salvato "
+"\\\"%(instance)s\\\"; %(exception)s"
 
 #: views/saved_resultset_views.py:39
 #, python-format
 msgid "%(count)d saved resultsets deleted successfully."
-msgstr ""
+msgstr "%(count)d set di risultati salvati eliminati correttamente."
 
 #: views/saved_resultset_views.py:42
 #, python-format
 msgid "Saved resultset \"%(object)s\" deleted successfully."
-msgstr ""
+msgstr "Set di risultati salvato \\\"%(object)s\\\" eliminato correttamente."
 
 #: views/saved_resultset_views.py:45
 #, python-format
 msgid "%(count)d saved resultset deleted successfully."
-msgstr ""
+msgstr "%(count)d set di risultati salvato eliminato correttamente."
 
 #: views/saved_resultset_views.py:48
 #, python-format
 msgid "Delete the %(count)d selected saved resultsets."
-msgstr ""
+msgstr "Elimina i %(count)d set di risultati salvati selezionati."
 
 #: views/saved_resultset_views.py:50
 #, python-format
 msgid "Delete saved resultset: %(object)s."
-msgstr ""
+msgstr "Elimina set di risultati salvato: %(object)s"
 
 #: views/saved_resultset_views.py:51
 #, python-format
 msgid "Delete the %(count)d saved resultset."
-msgstr ""
+msgstr "Elimina i %(count)d set di risultati salvati."
 
 #: views/saved_resultset_views.py:68
 msgid ""
 "Saved resultsets are objects that store the results of a previous search for"
 " a determined amount of time."
 msgstr ""
+"I set di risultati salvati sono oggetti che memorizzano i risultati di una "
+"ricerca precedente per un periodo di tempo determinato."
 
 #: views/saved_resultset_views.py:71
 msgid "No saved resultsets available"
-msgstr ""
+msgstr "Nessun set di risultati salvato disponibile"
 
 #: views/search_views.py:62
 msgid "This tool erases and populates the search backend's internal index."
@@ -496,6 +529,7 @@ msgid ""
 "The currently selected search backend does not support or requires "
 "reindexing."
 msgstr ""
+"Questo strumento cancella e popola l'indice interno del backend di ricerca."
 
 #: views/search_views.py:91
 msgid "Search backend reindexing queued."
@@ -509,7 +543,7 @@ msgstr "Cerca: %s"
 #: views/search_views.py:139
 #, python-format
 msgid "Advanced search for: %s"
-msgstr ""
+msgstr "Ricerca avanzata per: %s"
 
 #: views/search_views.py:195
 msgid "Try again using different terms. "
@@ -522,7 +556,7 @@ msgstr "Nessun risultato trovato"
 #: views/search_views.py:200
 #, python-format
 msgid "Search query: %s"
-msgstr ""
+msgstr "Query di ricerca: %s"
 
 #: views/search_views.py:203
 #, python-format

@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# Ovadia Ovadia, 2024
+# Ovadia Ovadia, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 17:01+0000\n"
+"POT-Creation-Date: 2025-12-13 18:07+0000\n"
 "PO-Revision-Date: 2024-07-11 12:52+0000\n"
-"Last-Translator: Ovadia Ovadia, 2024\n"
+"Last-Translator: Ovadia Ovadia, 2025\n"
 "Language-Team: Hebrew (Israel) (https://app.transifex.com/rosarior/teams/13584/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1192,6 +1192,18 @@ msgstr "Document type ID"
 msgid "Document type label"
 msgstr ""
 
+#: search.py:42 search.py:109
+msgid "Document file checksum"
+msgstr "סכום ביקורת של קובץ המסמך"
+
+#: search.py:45
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:48
+msgid "Document file MIME type"
+msgstr "Document file MIME type"
+
 #: search.py:69 search.py:152
 msgid "Document description"
 msgstr "Document description"
@@ -1211,10 +1223,6 @@ msgstr "Document label"
 #: search.py:80 search.py:112 search.py:155 search.py:181
 msgid "Document UUID"
 msgstr "מזהה מסמך (UUID)"
-
-#: search.py:109
-msgid "Document file checksum"
-msgstr "סכום ביקורת של קובץ המסמך"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"

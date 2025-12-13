@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:34+0000\n"
+"POT-Creation-Date: 2025-12-13 18:07+0000\n"
 "PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Daniel Flores <dfloresbr@gmail.com>, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/rosarior/teams/13584/pt_BR/)\n"
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Dynamic label"
 msgstr "Rótulo dinâmico"
 
-#: models.py:42 models.py:121
+#: models.py:42 models.py:124
 msgid "Enabled"
 msgstr "Habilitado"
 
@@ -195,6 +195,10 @@ msgstr "Link inteligente"
 msgid "The inclusion is ignored for the first item."
 msgstr "A inclusão é ignorada para o primeiro item."
 
+#: models.py:99
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:103
 msgid "This represents the metadata of all other documents."
 msgstr "Esta expressão será avaliada contra o documento atual."
@@ -203,7 +207,11 @@ msgstr "Esta expressão será avaliada contra o documento atual."
 msgid "Foreign document attribute"
 msgstr "Atributo documento externo"
 
-#: models.py:111
+#: models.py:110
+msgid "Operator"
+msgstr ""
+
+#: models.py:114
 msgid ""
 "The expression using document properties to be evaluated against the foreign"
 " document field."
@@ -211,23 +219,23 @@ msgstr ""
 "A expressão usando propriedades de documento a ser avaliada contra o campo "
 "de documento externo."
 
-#: models.py:113
+#: models.py:116
 msgid "Expression"
 msgstr "Expressão"
 
-#: models.py:117
+#: models.py:120
 msgid "Inverts the logic of the operator."
 msgstr "Inverte a lógica do operador."
 
-#: models.py:118
+#: models.py:121
 msgid "Negated"
 msgstr "Negada"
 
-#: models.py:125
+#: models.py:128
 msgid "Link condition"
 msgstr "Condição de ligação"
 
-#: models.py:126
+#: models.py:129
 msgid "Link conditions"
 msgstr "Condições de ligação"
 

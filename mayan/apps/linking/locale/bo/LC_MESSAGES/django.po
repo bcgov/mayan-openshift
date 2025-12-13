@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:34+0000\n"
+"POT-Creation-Date: 2025-12-13 18:07+0000\n"
 "PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: KarmaBuildsApps, 2025\n"
 "Language-Team: Tibetan (https://app.transifex.com/rosarior/teams/13584/bo/)\n"
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Dynamic label"
 msgstr "སྒུལ་ཤུགས་ཅན་གྱི་མིང་བྱང་།"
 
-#: models.py:42 models.py:121
+#: models.py:42 models.py:124
 msgid "Enabled"
 msgstr "བེད་སྤྱོད་ཆོག་པ།"
 
@@ -185,6 +185,10 @@ msgstr "རིག་ནུས་སྦྲེལ་མཐུད།"
 msgid "The inclusion is ignored for the first item."
 msgstr "རྣམ་གྲངས་དང་པོའི་ཆེད་དུ་ཚུད་པ་དེ་སྣང་མེད་དུ་བཞག་ཡོད།"
 
+#: models.py:99
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:103
 msgid "This represents the metadata of all other documents."
 msgstr "འདིས་ཡིག་ཆ་གཞན་ཚང་མའི་མེ་ཊ་ཌེ་ཊ་མཚོན་གྱི་ཡོད།"
@@ -193,30 +197,34 @@ msgstr "འདིས་ཡིག་ཆ་གཞན་ཚང་མའི་མེ
 msgid "Foreign document attribute"
 msgstr "ཕྱི་རྒྱལ་ཡིག་ཆའི་ཁྱད་ཆོས།"
 
-#: models.py:111
+#: models.py:110
+msgid "Operator"
+msgstr ""
+
+#: models.py:114
 msgid ""
 "The expression using document properties to be evaluated against the foreign"
 " document field."
 msgstr ""
 "ཡིག་ཆའི་རྒྱུ་དངོས་སྤྱད་དེ་ཕྱི་རྒྱལ་གྱི་ཡིག་ཆའི་ས་ཁོངས་ལ་དཔྱད་ཞིབ་བྱེད་པའི་བརྡ་སྟོན།"
 
-#: models.py:113
+#: models.py:116
 msgid "Expression"
 msgstr "བརྗོད་ཚུལ"
 
-#: models.py:117
+#: models.py:120
 msgid "Inverts the logic of the operator."
 msgstr "བཀོལ་སྤྱོད་ཀྱི་གཏན་ཚིགས་ཕྱི་ལོག་བྱེད།"
 
-#: models.py:118
+#: models.py:121
 msgid "Negated"
 msgstr "དགག་པ།"
 
-#: models.py:125
+#: models.py:128
 msgid "Link condition"
 msgstr "འབྲེལ་མཐུད་ཀྱི་གནས་སྟངས།"
 
-#: models.py:126
+#: models.py:129
 msgid "Link conditions"
 msgstr "འབྲེལ་མཐུད་ཀྱི་ཆ་རྐྱེན།"
 

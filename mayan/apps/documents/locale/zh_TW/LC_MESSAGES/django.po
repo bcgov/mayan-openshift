@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 17:01+0000\n"
+"POT-Creation-Date: 2025-12-13 18:07+0000\n"
 "PO-Revision-Date: 2024-07-11 12:52+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/rosarior/teams/13584/zh_TW/)\n"
@@ -1187,6 +1187,18 @@ msgstr ""
 msgid "Document type label"
 msgstr ""
 
+#: search.py:42 search.py:109
+msgid "Document file checksum"
+msgstr ""
+
+#: search.py:45
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:48
+msgid "Document file MIME type"
+msgstr ""
+
 #: search.py:69 search.py:152
 msgid "Document description"
 msgstr "文件說明"
@@ -1206,10 +1218,6 @@ msgstr "文件標籤"
 #: search.py:80 search.py:112 search.py:155 search.py:181
 msgid "Document UUID"
 msgstr "文件UUID"
-
-#: search.py:109
-msgid "Document file checksum"
-msgstr ""
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"
