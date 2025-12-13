@@ -17,6 +17,8 @@
     - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
     - django-auth-ldap from 5.1.0 to 5.2.0.
 
+- Ensure the `Worker` class returns string objects for its label content.
+
 4.9.6 (2025-12-01)
 ==================
 - Rename file metadata model mixin class for clarity.

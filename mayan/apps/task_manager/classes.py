@@ -280,7 +280,7 @@ class Worker:
         self.__class__._registry[name] = self
 
     def __str__(self):
-        return self.label
+        return str(self.label)
 
     def get_absolute_url(self):
         return reverse(
