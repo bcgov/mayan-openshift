@@ -19,6 +19,7 @@
     - django-auth-ldap from 4.8.0 to 5.2.0.
 
   - Add a makefile target to clean up all Python libraries.
+  - Ensure the `Worker` class returns string objects for its label content.
 
 4.7.7 (2025-11-14)
 ==================
