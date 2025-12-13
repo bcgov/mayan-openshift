@@ -65,7 +65,7 @@ def find_packages(directory):
 
 
 install_requires = """
-django==4.2.26
+django==4.2.27
 CairoSVG==2.8.2
 Markdown==3.10
 Pillow==12.0.0
@@ -76,7 +76,7 @@ boto3==1.34.122
 celery==5.4.0
 dateparser==1.2.2
 django-activity-stream==2.0.0
-django-auth-ldap==4.8.0
+django-auth-ldap==5.2.0
 django-celery-beat==2.8.1
 django-cors-headers==4.9.0
 django-formtools==2.3
