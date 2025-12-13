@@ -1,3 +1,8 @@
+4.10.2 (2025-12-13)
+===================
+- Enforce same origin and HTTP only redirection when breaking from an AJAX
+  content container and during normal single page app navigation.
+
 4.10.1 (2025-12-08)
 ===================
 - Improvements and changes from version 4.9.6.
