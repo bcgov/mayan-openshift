@@ -21,6 +21,8 @@
   - Add a makefile target to clean up all Python libraries.
   - Ensure the `Worker` class returns string objects for its label content.
 
+- Update django-celery-beat from version 2.6.0 to 2.8.1.
+
 4.7.7 (2025-11-14)
 ==================
 - Improvements and changes from version 4.6.11.
