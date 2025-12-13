@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"POT-Creation-Date: 2025-12-13 16:58+0000\n"
 "PO-Revision-Date: 2025-01-20 12:34+0000\n"
 "Last-Translator: pyrotech <anastasios@tutamail.com>, 2025\n"
 "Language-Team: Greek (Greece) (https://app.transifex.com/rosarior/teams/13584/el_GR/)\n"
@@ -1188,6 +1188,18 @@ msgstr ""
 msgid "Document type label"
 msgstr "Ετικέτα τύπου εγγράφου"
 
+#: search.py:43 search.py:110
+msgid "Document file checksum"
+msgstr ""
+
+#: search.py:46
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:49
+msgid "Document file MIME type"
+msgstr ""
+
 #: search.py:70 search.py:153
 msgid "Document description"
 msgstr "Περιγραφή εγγράφου"
@@ -1207,10 +1219,6 @@ msgstr "Ετικέτα εγγράφου"
 #: search.py:81 search.py:113 search.py:156 search.py:182
 msgid "Document UUID"
 msgstr "UUID εγγράφου"
-
-#: search.py:110
-msgid "Document file checksum"
-msgstr ""
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"

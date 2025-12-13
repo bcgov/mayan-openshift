@@ -286,7 +286,7 @@ msgid ""
 "Your version (%(version_local)s), is more recent than the published version "
 "(%(version_server)s)."
 msgstr ""
-"あなたのバージョン (%(version_local)s) は公開されているバージョン ((%(version_server)s) より新しいです。"
+"あなたのバージョン (%(version_local)s) は公開されているバージョン (%(version_server)s) より新しいです。"
 
 #: literals.py:14
 #, python-format

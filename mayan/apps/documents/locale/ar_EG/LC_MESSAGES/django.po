@@ -12,16 +12,16 @@
 # Yaman Sanobar <yman.snober@gmail.com>, 2025
 # Mohammed ALDOUB <voulnet@gmail.com>, 2025
 # Marwan Rahhal <Marwanr@sssit.net>, 2025
-# Mohamad Ashmar, 2025
 # GM_327, 2025
+# Mohamad Ashmar, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"POT-Creation-Date: 2025-12-13 16:58+0000\n"
 "PO-Revision-Date: 2025-01-20 12:34+0000\n"
-"Last-Translator: GM_327, 2025\n"
+"Last-Translator: Mohamad Ashmar, 2025\n"
 "Language-Team: Arabic (Egypt) (https://app.transifex.com/rosarior/teams/13584/ar_EG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1193,6 +1193,18 @@ msgstr "مُعرِّف نوع المستند"
 msgid "Document type label"
 msgstr "إسم نوع الوثيقة"
 
+#: search.py:43 search.py:110
+msgid "Document file checksum"
+msgstr "المجموع الاختباري لملف المستند"
+
+#: search.py:46
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:49
+msgid "Document file MIME type"
+msgstr "نوع MIME لملف المستند"
+
 #: search.py:70 search.py:153
 msgid "Document description"
 msgstr "وصف الوثيقة"
@@ -1212,10 +1224,6 @@ msgstr "اسم الوثيقة"
 #: search.py:81 search.py:113 search.py:156 search.py:182
 msgid "Document UUID"
 msgstr "الوثائق المحددة"
-
-#: search.py:110
-msgid "Document file checksum"
-msgstr "المجموع الاختباري لملف المستند"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"

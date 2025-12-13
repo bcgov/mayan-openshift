@@ -17,16 +17,16 @@
 # Berny <berny@bernhard-marx.de>, 2025
 # Siegfried Albrecht, 2025
 # Thomas Lauterbach <lauterbachthomas@googlemail.com>, 2025
-# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2025
 # Mathias Behrle <mathiasb@m9s.biz>, 2025
+# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"POT-Creation-Date: 2025-12-13 16:58+0000\n"
 "PO-Revision-Date: 2025-01-20 12:34+0000\n"
-"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2025\n"
+"Last-Translator: Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2025\n"
 "Language-Team: German (Germany) (https://app.transifex.com/rosarior/teams/13584/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1226,6 +1226,18 @@ msgstr "Dokumenttyp-ID"
 msgid "Document type label"
 msgstr "Dokumententypbezeichner"
 
+#: search.py:43 search.py:110
+msgid "Document file checksum"
+msgstr "Prüfsumme der Dokumentendatei"
+
+#: search.py:46
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:49
+msgid "Document file MIME type"
+msgstr "MIME-Typ der Dokumentendatei"
+
 #: search.py:70 search.py:153
 msgid "Document description"
 msgstr "Dokumentenbeschreibung"
@@ -1245,10 +1257,6 @@ msgstr "Dokumentenbezeichner"
 #: search.py:81 search.py:113 search.py:156 search.py:182
 msgid "Document UUID"
 msgstr "Dokumenten-UUID"
-
-#: search.py:110
-msgid "Document file checksum"
-msgstr "Prüfsumme der Dokumentendatei"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"
