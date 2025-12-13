@@ -24,4 +24,3 @@ PythonDependency(
 PythonDependency(
     module=__name__, name='pycryptodome', version_string='==3.23.0'
 )
-
