@@ -17,6 +17,8 @@
     - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
     - django-auth-ldap from 4.8.0 to 5.2.0.
 
+  - Ensure the `Worker` class returns string objects for its label content.
+
 - Add 'appearance/node_modules/bootswatch/docs/*' to the appearance app's
   `static_media_ignore_patterns`.
 - Add a makefile target to clean up all Python libraries.
