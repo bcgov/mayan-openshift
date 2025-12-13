@@ -4,6 +4,8 @@
   - Enforce same origin and HTTP only redirection when breaking from an AJAX
     content container and during normal single page app navigation.
   - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
 
 4.9.6 (2025-12-01)
 ==================
