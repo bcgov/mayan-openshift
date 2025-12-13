@@ -1,3 +1,10 @@
+4.9.7 (2025-12-13)
+==================
+- Backports from version 4.10
+
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+
 4.9.6 (2025-12-01)
 ==================
 - Rename file metadata model mixin class for clarity.
