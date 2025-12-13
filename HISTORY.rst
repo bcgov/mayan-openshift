@@ -6,6 +6,9 @@
 - Git ignore `__pycache__` folders.
 - Make the Smart link condition fields `inclusion` and `operator` fully
   translatable.
+- Make document file search fields translatable.
+- Make tag document list link title translatable.
+- Make the task worker labels translatable.
 
 4.10.1 (2025-12-08)
 ===================
