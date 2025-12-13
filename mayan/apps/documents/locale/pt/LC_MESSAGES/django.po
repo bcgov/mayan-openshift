@@ -13,19 +13,19 @@
 # José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2025
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2025
 # Roberto Rosario, 2025
-# Márcia Ferreira, 2025
 # Paulo Loureiro, 2025
 # Vítor Figueiró <vfigueiro@gmail.com>, 2025
 # Emerson Soares <on.emersonsoares@gmail.com>, 2025
 # Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2025
+# Márcia Ferreira, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2025-12-13 06:56+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2025\n"
+"Last-Translator: Márcia Ferreira, 2025\n"
 "Language-Team: Portuguese (https://app.transifex.com/rosarior/teams/13584/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1211,6 +1211,18 @@ msgstr "ID do tipo do documento"
 msgid "Document type label"
 msgstr "Etiqueta de tipo de documento"
 
+#: search.py:43 search.py:110
+msgid "Document file checksum"
+msgstr "Soma de controlo do ficheiro do documento"
+
+#: search.py:46
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:49
+msgid "Document file MIME type"
+msgstr "Tipo de versão de documento MIME"
+
 #: search.py:70 search.py:153
 msgid "Document description"
 msgstr "Descrição do documento"
@@ -1230,10 +1242,6 @@ msgstr "Nome do documento"
 #: search.py:81 search.py:113 search.py:156 search.py:182
 msgid "Document UUID"
 msgstr "Documento UUID"
-
-#: search.py:110
-msgid "Document file checksum"
-msgstr "Soma de controlo do ficheiro do documento"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"

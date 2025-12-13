@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2025-12-13 06:56+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2025\n"
 "Language-Team: Bulgarian (Bulgaria) (https://app.transifex.com/rosarior/teams/13584/bg_BG/)\n"
@@ -1198,6 +1198,18 @@ msgstr "ID на типа документ"
 msgid "Document type label"
 msgstr "Етикет на типа документ"
 
+#: search.py:43 search.py:110
+msgid "Document file checksum"
+msgstr "Контролна сума на файл с документи"
+
+#: search.py:46
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:49
+msgid "Document file MIME type"
+msgstr "MIME тип на файл с документ"
+
 #: search.py:70 search.py:153
 msgid "Document description"
 msgstr "Описание на документа"
@@ -1217,10 +1229,6 @@ msgstr "Етикет на документа"
 #: search.py:81 search.py:113 search.py:156 search.py:182
 msgid "Document UUID"
 msgstr "UUID на документ"
-
-#: search.py:110
-msgid "Document file checksum"
-msgstr "Контролна сума на файл с документи"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"

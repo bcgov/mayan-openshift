@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:32+0000\n"
+"POT-Creation-Date: 2025-12-13 06:57+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
@@ -184,7 +184,7 @@ msgstr "スマートリンクの参照元文書に応じて異なるラベルを
 msgid "Dynamic label"
 msgstr "動的ラベル"
 
-#: models.py:42 models.py:121
+#: models.py:42 models.py:124
 msgid "Enabled"
 msgstr "有効"
 
@@ -196,6 +196,10 @@ msgstr "スマートリンク"
 msgid "The inclusion is ignored for the first item."
 msgstr "最初の項目には含める設定は無視されます。"
 
+#: models.py:99
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:103
 msgid "This represents the metadata of all other documents."
 msgstr "これは他のすべての文書のメタデータを表します。"
@@ -204,29 +208,33 @@ msgstr "これは他のすべての文書のメタデータを表します。"
 msgid "Foreign document attribute"
 msgstr "関連文書属性"
 
-#: models.py:111
+#: models.py:110
+msgid "Operator"
+msgstr ""
+
+#: models.py:114
 msgid ""
 "The expression using document properties to be evaluated against the foreign"
 " document field."
 msgstr "関連文書フィールドに対して評価される、文書プロパティを用いた式。"
 
-#: models.py:113
+#: models.py:116
 msgid "Expression"
 msgstr "式"
 
-#: models.py:117
+#: models.py:120
 msgid "Inverts the logic of the operator."
 msgstr "演算子の論理を反転させます。"
 
-#: models.py:118
+#: models.py:121
 msgid "Negated"
 msgstr "否定"
 
-#: models.py:125
+#: models.py:128
 msgid "Link condition"
 msgstr "リンク条件"
 
-#: models.py:126
+#: models.py:129
 msgid "Link conditions"
 msgstr "リンク条件一覧"
 
