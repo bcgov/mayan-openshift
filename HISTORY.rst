@@ -10,6 +10,7 @@
 - Make tag document list link title translatable.
 - Make the task worker labels translatable.
 - Add missing locales app migration.
+- Fix series support status documentation chapter formatting.
 
 4.10.1 (2025-12-08)
 ===================

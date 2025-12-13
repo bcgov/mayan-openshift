@@ -7,13 +7,6 @@ Support status
 
 Software support levels determine the type and extent of assistance a release series receives throughout its lifecycle. The level of support depends on the age of the series and whether it falls under community or commercial support.
 
-<<<<<<< HEAD
-Software support levels define the scope of assistance and maintenance
-provided. These levels vary based on the age of the software series. The
-following table outlines the support levels for major software series."
-=======
-Below are the support levels for major release series, starting from the most recent.
-
 
 Support levels
 ==============
@@ -108,7 +101,7 @@ Current series status
      -
    * - 4.10
      - January 20, 2025
-     - Fully supported     
+     - Fully supported
      -
    * - 4.9
      - January 2025
