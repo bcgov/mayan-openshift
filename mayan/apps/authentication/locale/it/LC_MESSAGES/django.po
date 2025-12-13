@@ -8,6 +8,7 @@
 # Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
 # Roberto Rosario, 2024
 # Daniele Bortoluzzi <daniele@elkos.it>, 2024
+# piera.daraio, 2025
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-07 07:28+0000\n"
 "PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Daniele Bortoluzzi <daniele@elkos.it>, 2024\n"
+"Last-Translator: piera.daraio, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,7 +74,7 @@ msgstr "Impersonare l'utente"
 
 #: links.py:52
 msgid "Impersonate"
-msgstr ""
+msgstr "Impersona"
 
 #: links.py:57 links.py:62
 msgid "Set password"
@@ -94,10 +95,12 @@ msgstr ""
 #: settings.py:25
 msgid "Dotted path to the backend used to process user authentication."
 msgstr ""
+"Percorso puntato al backend utilizzato per gestire l'autenticazione degli "
+"utenti."
 
 #: settings.py:31
 msgid "Arguments for the AUTHENTICATION_BACKEND."
-msgstr ""
+msgstr "Argomenti per AUTHENTICATION_BACKEND."
 
 #: templates/authentication/app/viewport.html:13
 #, python-format
@@ -106,6 +109,8 @@ msgid ""
 "                Impersonating user \"%(user)s\".\n"
 "            "
 msgstr ""
+"\n"
+"Utente impersonato \"%(user)s\"."
 
 #: templates/authentication/app/viewport.html:16
 msgid "Click here when finished"
@@ -199,6 +204,9 @@ msgid ""
 "Changing the password of staff or super user accounts via the user interface"
 " is not allowed. Use administration tools to perform this operation."
 msgstr ""
+"La modifica della password degli account staff o superutente tramite "
+"l'interfaccia utente non è consentita. Usa gli strumenti di amministrazione "
+"per eseguire questa operazione."
 
 #: views/authentication_views.py:400
 msgid "Change user password"
@@ -221,6 +229,7 @@ msgstr "Effettuato reset della password per l'utente: %s."
 #, python-format
 msgid "Error resetting password for user \"%(user)s\": %(error)s"
 msgstr ""
+"Errore durante il reset della password per l'utente \"%(user)s\": %(error)s"
 
 #: views/impersonation_views.py:87
 #, python-format

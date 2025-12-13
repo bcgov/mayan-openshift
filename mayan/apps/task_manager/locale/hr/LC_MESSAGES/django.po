@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 04:57+0000\n"
+"POT-Creation-Date: 2025-12-13 21:15+0000\n"
 "PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: Mario Jakovina <mario.jakovina@gmail.com>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/rosarior/teams/13584/hr/)\n"
@@ -123,7 +123,7 @@ msgstr ""
 msgid "Task type count"
 msgstr ""
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr ""
 
@@ -205,10 +205,30 @@ msgstr ""
 msgid "Low latency high volume tasks"
 msgstr ""
 
-#: workers.py:28 workers.py:35
+#: workers.py:21
+msgid "Worker A"
+msgstr ""
+
+#: workers.py:28 workers.py:36
 msgid "Medium latency tasks"
 msgstr ""
 
-#: workers.py:42 workers.py:50
+#: workers.py:29
+msgid "Worker B"
+msgstr ""
+
+#: workers.py:37
+msgid "Worker C"
+msgstr ""
+
+#: workers.py:44 workers.py:52
 msgid "Low latency, long lived tasks"
+msgstr ""
+
+#: workers.py:45
+msgid "Worker D"
+msgstr ""
+
+#: workers.py:53
+msgid "Worker E"
 msgstr ""

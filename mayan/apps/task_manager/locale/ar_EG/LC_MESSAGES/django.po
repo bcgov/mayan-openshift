@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 04:57+0000\n"
+"POT-Creation-Date: 2025-12-13 21:15+0000\n"
 "PO-Revision-Date: 2024-05-07 07:30+0000\n"
 "Last-Translator: Mohamad Ashmar, 2025\n"
 "Language-Team: Arabic (Egypt) (https://app.transifex.com/rosarior/teams/13584/ar_EG/)\n"
@@ -137,7 +137,7 @@ msgstr "مستوى nice"
 msgid "Task type count"
 msgstr "عدد أنواع المهام"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "عدد قوائم الانتظار"
 
@@ -225,10 +225,30 @@ msgstr "العامل: %s غير موجود"
 msgid "Low latency high volume tasks"
 msgstr "مهام منخفضة الكمون وعالية الحجم"
 
-#: workers.py:28 workers.py:35
+#: workers.py:21
+msgid "Worker A"
+msgstr ""
+
+#: workers.py:28 workers.py:36
 msgid "Medium latency tasks"
 msgstr "مهام متوسطة الكمون"
 
-#: workers.py:42 workers.py:50
+#: workers.py:29
+msgid "Worker B"
+msgstr ""
+
+#: workers.py:37
+msgid "Worker C"
+msgstr ""
+
+#: workers.py:44 workers.py:52
 msgid "Low latency, long lived tasks"
 msgstr "مهام منخفضة الكمون وطويلة الأمد"
+
+#: workers.py:45
+msgid "Worker D"
+msgstr ""
+
+#: workers.py:53
+msgid "Worker E"
+msgstr ""

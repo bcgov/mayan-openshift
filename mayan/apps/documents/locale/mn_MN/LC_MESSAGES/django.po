@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Zoljargal Munkhjargal, 2024
 # Bilgutei Erdenebayar <beke0130@gmail.com>, 2024
+# Zoljargal Munkhjargal, 2025
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"POT-Creation-Date: 2025-12-13 21:13+0000\n"
 "PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Bilgutei Erdenebayar <beke0130@gmail.com>, 2024\n"
+"Last-Translator: Zoljargal Munkhjargal, 2025\n"
 "Language-Team: Mongolian (Mongolia) (https://app.transifex.com/rosarior/teams/13584/mn_MN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1173,6 +1173,18 @@ msgstr ""
 msgid "Document type label"
 msgstr ""
 
+#: search.py:42 search.py:109
+msgid "Document file checksum"
+msgstr "Баримтын checksum"
+
+#: search.py:45
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:48
+msgid "Document file MIME type"
+msgstr "Баримтын MIME төрөл"
+
 #: search.py:69 search.py:152
 msgid "Document description"
 msgstr "Баримтын тайлбар"
@@ -1192,10 +1204,6 @@ msgstr "Баримтын шошго"
 #: search.py:80 search.py:112 search.py:155 search.py:179
 msgid "Document UUID"
 msgstr "Баримтын UUID"
-
-#: search.py:109
-msgid "Document file checksum"
-msgstr "Баримтын checksum"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"

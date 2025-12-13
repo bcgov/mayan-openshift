@@ -213,6 +213,7 @@ msgstr "Visualizza utenti"
 #: serializers.py:16
 msgid "URL of the API endpoint showing the list users of this group."
 msgstr ""
+"URL dell'endpoint API che mostra l'elenco degli utenti di questo gruppo."
 
 #: serializers.py:18
 msgid "Users URL"
@@ -245,6 +246,8 @@ msgstr "Chiave primaria dell'utente da rimuovere dal gruppo."
 #: serializers.py:66
 msgid "URL of the API endpoint showing the list groups this user belongs to."
 msgstr ""
+"URL dell'endpoint API che mostra i gruppi di elenco a cui appartiene questo "
+"utente."
 
 #: serializers.py:68
 msgid "Groups URL"
@@ -257,12 +260,12 @@ msgstr "Anonimo"
 #: views/group_views.py:40
 #, python-format
 msgid "Error deleting group \"%(instance)s\"; %(exception)s"
-msgstr ""
+msgstr "Errore nell'eliminazione del gruppo \"%(instance)s\"; %(exception)s"
 
 #: views/group_views.py:47
 #, python-format
 msgid "%(count)d groups deleted successfully."
-msgstr ""
+msgstr "%(count)dgruppi eliminati con successo."
 
 #: views/group_views.py:48
 #, python-format
@@ -367,6 +370,8 @@ msgid ""
 "Warning! You are about to delete your own user account. You will lose access"
 " to the system. This process is not reversible."
 msgstr ""
+"Attenzione! Stai per eliminare il tuo account utente. Perderai l'accesso al "
+"sistema. Questo processo non è reversibile."
 
 #: views/user_views.py:101
 #, python-format
