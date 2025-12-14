@@ -29,11 +29,26 @@
             // Detect if we are inside of an AJAX content container
             // and break free as this is supposed to be a top level
             // template.
-            let currentHash = window.location.hash;
+            const currentHash = window.location.hash;
             if (currentHash.length) {
-                const uri = new URI(window.location);
-                const uriFragment = uri.fragment();
-                window.location = uriFragment;
+                const fragment = currentHash.substring(1);
+
+                try {
+                    const url = new URL(fragment, window.location.origin);
+                    const isHttp = (url.protocol === 'http:' || url.protocol === 'https:');
+                    const isSameOrigin = (url.origin === window.location.origin);
+                    const isExpectedFragment = (fragment.startsWith('/') && !fragment.startsWith('//'));
+
+                    // Only allow same-origin HTTP(S) URLs that look like
+                    // Mayan's expected partial-navigation fragments.
+                    if (isHttp && isSameOrigin && isExpectedFragment) {
+                        window.location = url;
+                    } else {
+                        history.replaceState({}, '', window.location.pathname + window.location.search);
+                    }
+                } catch (error) {
+                    history.replaceState({}, '', window.location.pathname + window.location.search);
+                }
             }
         </script>
     </head>

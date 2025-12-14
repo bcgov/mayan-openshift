@@ -69,20 +69,37 @@ class PartialNavigation {
         const currentLocation = new URI(location);
 
         if (uri.path() === '') {
-            // href with no path remain in the same location
-            // We strip the same location query and use the new href's one
+            // href with no path remain in the same location.
+            // We strip the same location query and use the new href's one.
             uri.path(
                 new URI(currentLocation.fragment()).path()
-            )
-            return uri.toString();
+            );
         }
 
         if (uri.path() === '/') {
-            // Root URL is not allowed
+            // Root URL is not allowed.
             return this.initialURL;
         }
 
-        return newLocation;
+        // Only allow same-origin HTTP(S) navigation targets. This prevents
+        // `javascript:`, `data:`, and cross-origin URLs from being stored
+        // in the fragment.
+        const candidate = uri.toString();
+
+        try {
+            const url = new URL(candidate, window.location.origin);
+            const isHttp = (url.protocol === 'http:' || url.protocol === 'https:');
+            const isSameOrigin = (url.origin === window.location.origin);
+            const isExpectedFragment = (candidate.startsWith('/') && !candidate.startsWith('//'));
+
+            if (!isHttp || !isSameOrigin || !isExpectedFragment) {
+                return this.initialURL;
+            }
+        } catch (error) {
+            return this.initialURL;
+        }
+
+        return candidate;
     }
 
     loadAjaxContent (url) {

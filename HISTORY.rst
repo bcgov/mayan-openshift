@@ -1,3 +1,10 @@
+4.6.12 (2025-12-14)
+===================
+- Backports from series 4.10, 4.9, 4.8, 4.7.
+
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+
 4.6.11 (2025-11-08)
 ===================
 - Add new languages, and language variants.
