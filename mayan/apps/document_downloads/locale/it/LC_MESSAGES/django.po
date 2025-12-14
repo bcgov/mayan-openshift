@@ -25,19 +25,19 @@ msgstr ""
 
 #: apps.py:24 permissions.py:6 settings.py:12
 msgid "Document downloads"
-msgstr ""
+msgstr "Download dei documenti"
 
 #: classes.py:49
 msgid "Document_file_bundle.zip"
-msgstr ""
+msgstr "Pacchetto_file_documento.zip"
 
 #: classes.py:52
 msgid "Compressed document files"
-msgstr ""
+msgstr "File compresso del documento"
 
 #: events.py:6 queues.py:7
 msgid "Documents downloads"
-msgstr ""
+msgstr "Download dei documenti"
 
 #: events.py:10
 msgid "Document file downloaded"
@@ -45,7 +45,7 @@ msgstr "File del documento scaricato"
 
 #: forms.py:8
 msgid "Document file ID"
-msgstr ""
+msgstr "ID file documento"
 
 #: forms.py:11
 msgid "Document"
@@ -57,7 +57,7 @@ msgstr "File di documento"
 
 #: forms.py:27
 msgid "Include"
-msgstr ""
+msgstr "Includi"
 
 #: links.py:12 links.py:18
 msgid "Download files"
@@ -73,10 +73,13 @@ msgid ""
 " the link: {{ download_url }} or from the downloads area ({{ "
 "download_list_url }})."
 msgstr ""
+"I file del documento sono stati compressi e sono disponibili per il download"
+" tramite il link: {{ download_url }} oppure dall'area download ({{ "
+"download_list_url }})."
 
 #: literals.py:10
 msgid "Document files ready for download."
-msgstr ""
+msgstr "File del documento pronti per il download."
 
 #: permissions.py:10
 msgid "Download document files"
@@ -84,58 +87,66 @@ msgstr "Scarica i file del documento"
 
 #: queues.py:13
 msgid "Generate a compressed document file bundle"
-msgstr ""
+msgstr "Genera un archivio compresso dei file del documento"
 
 #: settings.py:18
 msgid ""
 "Template for the document download message body text. Can include HTML. "
 "Available variables: {}"
 msgstr ""
+"Template per il testo del corpo del messaggio di download del documento. Può"
+" includere HTML. Variabili disponibili: {}"
 
 #: settings.py:27
 msgid ""
 "Template for the document download message subject line. Can't include HTML."
 " Available variables: {}"
 msgstr ""
+"Template per l’oggetto del messaggio di download del documento. Non può "
+"includere HTML. Variabili disponibili: {}"
 
 #: views.py:24
 #, python-format
 msgid ""
 "Unable to queued document \"%(instance)s\" for file download; %(exception)s."
 msgstr ""
+"Impossibile mettere in coda il documento \"%(instance)s\" per il download "
+"del file; %(exception)s."
 
 #: views.py:33
 #, python-format
 msgid "%(count)d document files queued for download."
-msgstr ""
+msgstr "%(count)d file dei documenti messi in coda per il download."
 
 #: views.py:36
 #, python-format
 msgid "Document file \"%(object)s\" queued for download."
-msgstr ""
+msgstr "File documento \"%(object)s\" messo in coda per il download."
 
 #: views.py:39
 #, python-format
 msgid "%(count)d document file queued for download."
-msgstr ""
+msgstr "%(count)d file del documento messo in coda per il download."
 
 #: views.py:41
 #, python-format
 msgid "Download files of %(count)d documents"
-msgstr ""
+msgstr "Download dei file di %(count)d documenti"
 
 #: views.py:42
 #, python-format
 msgid "Download files of document: %(object)s"
-msgstr ""
+msgstr "Download dei file del documento: %(object)s"
 
 #: views.py:43
 #, python-format
 msgid "Download files of %(count)d document"
-msgstr ""
+msgstr "Download dei file di %(count)d documenti"
 
 #: views.py:50
 msgid ""
 "The process will be performed in the background. The document files will be "
 "available in the downloads area."
 msgstr ""
+"Il processo sarà eseguito in background. I file del documento saranno "
+"disponibili nell'area di download."

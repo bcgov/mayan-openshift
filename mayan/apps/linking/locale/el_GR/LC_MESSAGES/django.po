@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"POT-Creation-Date: 2025-12-14 04:28+0000\n"
 "PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: pyrotech <anastasios@tutamail.com>, 2024\n"
 "Language-Team: Greek (Greece) (https://app.transifex.com/rosarior/teams/13584/el_GR/)\n"
@@ -176,7 +176,7 @@ msgstr ""
 msgid "Dynamic label"
 msgstr "Δυναμική ετικέτα"
 
-#: models.py:40 models.py:117
+#: models.py:40 models.py:120
 msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
@@ -188,6 +188,10 @@ msgstr "Έξυπνος συνδεσμός"
 msgid "The inclusion is ignored for the first item."
 msgstr "Η συμπερίληψη αγνοείται για το πρώτο στοιχείο."
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "This represents the metadata of all other documents."
 msgstr "Αυτό αντιπροσωπεύει τα μεταδεδομένα όλων των άλλων εγγράφων."
@@ -196,7 +200,11 @@ msgstr "Αυτό αντιπροσωπεύει τα μεταδεδομένα όλ
 msgid "Foreign document attribute"
 msgstr "Ιδιότητα έταιρου εγγράφου"
 
-#: models.py:107
+#: models.py:106
+msgid "Operator"
+msgstr ""
+
+#: models.py:110
 msgid ""
 "The expression using document properties to be evaluated against the foreign"
 " document field."
@@ -204,23 +212,23 @@ msgstr ""
 "Η έκφραση που χρησιμοποιεί ιδιότητες εγγράφου προς αξιολόγηση έναντι του "
 "πεδίου του έταιρου εγγράφου."
 
-#: models.py:109
+#: models.py:112
 msgid "Expression"
 msgstr "Έκφραση"
 
-#: models.py:113
+#: models.py:116
 msgid "Inverts the logic of the operator."
 msgstr "Αντιστρέφει την κατάσταση του λογικού τελεστή."
 
-#: models.py:114
+#: models.py:117
 msgid "Negated"
 msgstr "Αντιστροφή"
 
-#: models.py:121
+#: models.py:124
 msgid "Link condition"
 msgstr "Συνθήκη συνδέσμου"
 
-#: models.py:122
+#: models.py:125
 msgid "Link conditions"
 msgstr "Συνθήκες συνδέσμου"
 

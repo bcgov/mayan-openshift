@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"POT-Creation-Date: 2025-12-14 04:28+0000\n"
 "PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: KarmaBuildsApps, 2025\n"
 "Language-Team: Tibetan (https://app.transifex.com/rosarior/teams/13584/bo/)\n"
@@ -1193,6 +1193,18 @@ msgstr "ཡིག་ཆའི་པར་གཞི་ཞིག་བསུབ་
 msgid "Document type label"
 msgstr "ཡིག་ཆའི་རིགས་ཀྱི་ལག་ཁྱེར་།"
 
+#: search.py:37 search.py:98
+msgid "Document file checksum"
+msgstr "ཡིག་ཆའི་དག་བཤེར་།"
+
+#: search.py:40
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:43
+msgid "Document file MIME type"
+msgstr ""
+
 #: search.py:64 search.py:95 search.py:132 search.py:159
 msgid "Document label"
 msgstr "ཡིག་ཆའི་ལག་ཁྱེར་།"
@@ -1204,10 +1216,6 @@ msgstr "ཡིག་ཆའི་བཀོད་པ།"
 #: search.py:70 search.py:101 search.py:138 search.py:162
 msgid "Document UUID"
 msgstr "ཡིག་ཆའི་ UUID །"
-
-#: search.py:98
-msgid "Document file checksum"
-msgstr "ཡིག་ཆའི་དག་བཤེར་།"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"

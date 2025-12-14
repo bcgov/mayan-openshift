@@ -83,7 +83,7 @@ msgstr "Esegui strumenti di ricerca"
 
 #: queues.py:10
 msgid "Search slow"
-msgstr ""
+msgstr "Ricerca lenta"
 
 #: queues.py:15
 msgid "Remove a model instance from the search engine."
@@ -96,15 +96,20 @@ msgstr "Indicizza un'istanza del modello nel motore di ricerca."
 #: queues.py:25
 msgid "Index all instances of a search model to the search engine."
 msgstr ""
+"Indicizza tutte le istanze di un modello di ricerca nel motore di ricerca."
 
 #: queues.py:31
 msgid ""
 "Index all related instances of a search model after a many to many event."
 msgstr ""
+"Indicizza tutte le istanze correlate di un modello di ricerca dopo un evento"
+" molti-a-molti."
 
 #: queues.py:39
 msgid "Reset the search backend indices and index all instances again."
 msgstr ""
+"Reimposta gli indici del backend di ricerca e indicizza nuovamente tutte le "
+"istanze."
 
 #: scoped_queries.py:353
 msgid ""
@@ -119,6 +124,9 @@ msgid ""
 "Search backend error. Verify that the search service is available and that "
 "the search syntax is valid for the active search backend; %s"
 msgstr ""
+"Errore del backend di ricerca. Verifica che il servizio di ricerca sia "
+"disponibile e che la sintassi di ricerca sia valida per il backend di "
+"ricerca attivo; %s"
 
 #: search_fields.py:313
 msgid "Any"
@@ -127,7 +135,7 @@ msgstr "Qualsiasi"
 #: search_models.py:44
 #, python-format
 msgid "Unknown search model `%s`."
-msgstr ""
+msgstr "Modello di ricerca sconosciuto `%s`."
 
 #: search_models.py:114
 msgid "All content"
@@ -167,7 +175,7 @@ msgstr "Intervallo"
 
 #: search_query_types.py:246
 msgid "Range exclusive"
-msgstr ""
+msgstr "Intervallo esclusivo"
 
 #: search_query_types.py:252
 msgid "Regular expression"
@@ -187,7 +195,7 @@ msgstr "Etichetta del'app"
 
 #: serializers.py:26
 msgid "Model name"
-msgstr ""
+msgstr "Nome del modello"
 
 #: serializers.py:29
 msgid "Primary key"
@@ -207,10 +215,13 @@ msgid ""
 "Arguments to pass to the search backend. For example values to change the "
 "behavior, host names, or authentication arguments."
 msgstr ""
+"Argomenti da passare al backend di ricerca. Ad esempio valori per "
+"modificarne il comportamento, nomi host o argomenti di autenticazione."
 
 #: settings.py:38
 msgid "The search operator to use when none is specified."
 msgstr ""
+"Operatore di ricerca da utilizzare quando non ne viene specificato alcuno."
 
 #: settings.py:45
 msgid ""
@@ -222,25 +233,33 @@ msgstr ""
 #: settings.py:53
 msgid "Amount of objects to process when performing bulk indexing."
 msgstr ""
+"Numero di oggetti da elaborare durante l'esecuzione dell'indicizzazione "
+"massiva."
 
 #: settings.py:59
 msgid "Sets the default state of the \"Match all\" checkbox."
 msgstr ""
+"Imposta lo stato predefinito della casella di controllo \\\"Corrisponde a "
+"tutti\\\"."
 
 #: settings.py:65
 msgid ""
 "Maximum number of search results to fetch and display per search query unit."
 msgstr ""
+"Numero massimo di risultati di ricerca da recuperare e visualizzare per "
+"singola query di ricerca."
 
 #: settings.py:72
 msgid ""
 "Raise an error when the number of search results exceed the value of "
 "`SEARCH_QUERY_RESULTS_LIMIT`."
 msgstr ""
+"Genera un errore quando il numero di risultati di ricerca supera il valore "
+"di `SEARCH_QUERY_RESULTS_LIMIT`."
 
 #: settings.py:78
 msgid "Maximum number of search results to fetch and display."
-msgstr ""
+msgstr "Numero massimo di risultati di ricerca da recuperare e visualizzare."
 
 #: templates/dynamic_search/app/list_toolbar.html:18
 msgid "Filter terms"
@@ -253,47 +272,47 @@ msgstr "Avanzato"
 
 #: value_transformations.py:38
 msgid "Replace accents"
-msgstr ""
+msgstr "Sostituzione accenti"
 
 #: value_transformations.py:50
 msgid "@ sign replace"
-msgstr ""
+msgstr "Sostituzione simbolo @"
 
 #: value_transformations.py:60
 msgid "Case fold"
-msgstr ""
+msgstr "Normalizzazione maiuscole/minuscole"
 
 #: value_transformations.py:70 value_transformations.py:80
 msgid "Hyphen replace"
-msgstr ""
+msgstr "Sostituzione trattino"
 
 #: value_transformations.py:90
 msgid "To boolean"
-msgstr ""
+msgstr "In booleano"
 
 #: value_transformations.py:105
 msgid "To date time"
-msgstr ""
+msgstr "In data/ora"
 
 #: value_transformations.py:132
 msgid "Date time ISO format"
-msgstr ""
+msgstr "Formato data/ora ISO"
 
 #: value_transformations.py:146
 msgid "Date time simple format"
-msgstr ""
+msgstr "Formato data/ora semplice"
 
 #: value_transformations.py:158
 msgid "Date time timestamp format"
-msgstr ""
+msgstr "Formato data/ora timestamp"
 
 #: value_transformations.py:174
 msgid "To integer"
-msgstr ""
+msgstr "In intero"
 
 #: value_transformations.py:184
 msgid "To string"
-msgstr ""
+msgstr "In stringa"
 
 #: views.py:59
 msgid "This tool erases and populates the search backend's internal index."
@@ -313,6 +332,7 @@ msgid ""
 "The currently selected search backend does not support or requires "
 "reindexing."
 msgstr ""
+"Questo strumento cancella e popola l'indice interno del backend di ricerca."
 
 #: views.py:88
 msgid "Search backend reindexing queued."
@@ -326,7 +346,7 @@ msgstr "Cerca: %s"
 #: views.py:139
 #, python-format
 msgid "Advanced search for: %s"
-msgstr ""
+msgstr "Ricerca avanzata per: %s"
 
 #: views.py:174
 msgid "Try again using different terms. "
@@ -339,7 +359,7 @@ msgstr "Nessun risultato trovato"
 #: views.py:179
 #, python-format
 msgid "Search query: %s"
-msgstr ""
+msgstr "Query di ricerca: %s"
 
 #: views.py:181
 #, python-format

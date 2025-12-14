@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 17:04+0000\n"
+"POT-Creation-Date: 2025-12-14 04:28+0000\n"
 "PO-Revision-Date: 2024-01-02 18:58+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
@@ -1162,6 +1162,18 @@ msgstr "文書バージョンを削除"
 msgid "Document type label"
 msgstr "文書タイプ別ラベル"
 
+#: search.py:37 search.py:98
+msgid "Document file checksum"
+msgstr "文書ファイルのチェックサム"
+
+#: search.py:40
+msgid "Document file filename"
+msgstr ""
+
+#: search.py:43
+msgid "Document file MIME type"
+msgstr "文書ファイルのMIME タイプ"
+
 #: search.py:64 search.py:95 search.py:132 search.py:159
 msgid "Document label"
 msgstr "文書ラベル"
@@ -1173,10 +1185,6 @@ msgstr "文書の説明"
 #: search.py:70 search.py:101 search.py:138 search.py:162
 msgid "Document UUID"
 msgstr "文書のUUID"
-
-#: search.py:98
-msgid "Document file checksum"
-msgstr "文書ファイルのチェックサム"
 
 #: serializers/document_file_serializers.py:12
 msgid "Document file URL"
