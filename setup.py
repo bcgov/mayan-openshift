@@ -112,7 +112,7 @@ pypdf==6.1.3
 python-dateutil==2.9.0.post0
 python-magic==0.4.27
 python_gnupg==0.5.5
-pytz==2024.1
+pytz==2025.2
 qrcode==8.2
 requests==2.31.0
 sentry-sdk==2.43.0

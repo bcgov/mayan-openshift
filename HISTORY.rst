@@ -22,6 +22,8 @@
   - Ensure the `Worker` class returns string objects for its label content.
 
 - Update django-celery-beat from version 2.5.0 to 2.8.1.
+- Update pytz from version 2024.1 to 2025.2.
+- Synchronize locale app migrations 0009, 0010, 0011, 0012 with version 4.7.
 
 4.6.11 (2025-11-08)
 ===================
