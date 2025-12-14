@@ -20,6 +20,11 @@
   - Move Python related makefile targets to their own makefile.
   - Add a makefile target to clean up all Python libraries.
   - Ensure the `Worker` class returns string objects for its label content.
+  - Docker image build updates:
+
+    - Create `mayan` user home folder.
+    - Enable Python package caching in the `mayan` user home folder during build.
+    - Remove testing Python packages from image.
 
 - Update django-celery-beat from version 2.5.0 to 2.8.1.
 - Update pytz from version 2024.1 to 2025.2.
