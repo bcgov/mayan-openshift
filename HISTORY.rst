@@ -26,6 +26,11 @@
     - Enable Python package caching in the `mayan` user home folder during build.
     - Remove testing Python packages from image.
 
+  - Build tooling updates:
+
+    - Replace hard-coded package names with global configuration variable in the GitLab CI file.
+    - Enable Python package caching in the makefile target.
+
 - Update django-celery-beat from version 2.5.0 to 2.8.1.
 - Update pytz from version 2024.1 to 2025.2.
 - Synchronize locale app migrations 0009, 0010, 0011, 0012 with version 4.7.

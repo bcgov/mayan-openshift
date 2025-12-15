@@ -22,7 +22,7 @@ python-sdist: clean
 
 python-wheel: ## Build the wheel distribution package.
 python-wheel: clean python-sdist
-	pip wheel --no-index --no-deps --wheel-dir dist dist/*.tar.gz
+	pip wheel --wheel-dir dist dist/*.tar.gz
 	ls -l dist
 
 python-sdist-test-suit: ## Run the test suit from a built sdist package
