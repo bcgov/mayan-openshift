@@ -135,7 +135,7 @@ msgstr "Nice рівень"
 msgid "Task type count"
 msgstr "Підрахунок типу завдання"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "Підрахунок черги"
 

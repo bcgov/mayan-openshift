@@ -124,7 +124,7 @@ msgstr "Niceレベル"
 msgid "Task type count"
 msgstr "タスクタイプ数"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "キュー数"
 

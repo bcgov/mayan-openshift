@@ -134,7 +134,7 @@ msgstr "Nivel de amistad"
 msgid "Task type count"
 msgstr "Cantidad de tipos de tareas"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "Cantidad de colas de trabajo"
 

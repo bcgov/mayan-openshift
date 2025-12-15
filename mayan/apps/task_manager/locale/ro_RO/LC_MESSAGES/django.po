@@ -136,7 +136,7 @@ msgstr "Nivel nice"
 msgid "Task type count"
 msgstr "Număr de tipuri de sarcini"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "Număr de cozi"
 

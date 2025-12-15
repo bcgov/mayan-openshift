@@ -135,7 +135,7 @@ msgstr "Ниво на \"хубост\""
 msgid "Task type count"
 msgstr "Брой типове задачи"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "Брой на опашката"
 

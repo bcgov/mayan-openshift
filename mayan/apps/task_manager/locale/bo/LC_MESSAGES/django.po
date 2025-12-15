@@ -133,7 +133,7 @@ msgstr "གནས་ཚད་ཡག་པོ་འདུག"
 msgid "Task type count"
 msgstr "ལས་འགན་རིགས་གྲངས།"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "བང་རིམ་གྲངས།"
 

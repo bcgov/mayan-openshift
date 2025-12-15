@@ -137,7 +137,7 @@ msgstr "مستوى nice"
 msgid "Task type count"
 msgstr "عدد أنواع المهام"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "عدد قوائم الانتظار"
 

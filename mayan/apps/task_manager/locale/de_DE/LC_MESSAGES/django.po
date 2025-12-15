@@ -140,7 +140,7 @@ msgstr "Nice Level"
 msgid "Task type count"
 msgstr "Anzahl Tasktyp"
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr "Warteschlangenzahl"
 

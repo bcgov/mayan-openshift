@@ -119,7 +119,7 @@ msgstr ""
 msgid "Task type count"
 msgstr ""
 
-#: classes.py:226
+#: classes.py:229
 msgid "Queue count"
 msgstr ""
 
