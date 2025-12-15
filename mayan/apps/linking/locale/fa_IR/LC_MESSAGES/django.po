@@ -185,6 +185,10 @@ msgstr "پیوند هوشمند"
 msgid "The inclusion is ignored for the first item."
 msgstr "ورود اولین آیتم در نطر گرفته نشد."
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "Inclusion"
 msgstr ""

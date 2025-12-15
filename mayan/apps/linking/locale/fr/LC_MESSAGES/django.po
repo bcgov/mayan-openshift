@@ -192,6 +192,10 @@ msgstr "Lien intelligent"
 msgid "The inclusion is ignored for the first item."
 msgstr "Ignorer l'inclusion sur le premier élément"
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "Inclusion"
 msgstr ""

@@ -185,6 +185,10 @@ msgstr "རིག་ནུས་སྦྲེལ་མཐུད།"
 msgid "The inclusion is ignored for the first item."
 msgstr "རྣམ་གྲངས་དང་པོའི་ཆེད་དུ་ཚུད་པ་དེ་སྣང་མེད་དུ་བཞག་ཡོད།"
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "Inclusion"
 msgstr ""

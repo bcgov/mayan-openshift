@@ -190,6 +190,10 @@ msgstr "Łącze"
 msgid "The inclusion is ignored for the first item."
 msgstr "To wliczenie jest ignorowane dla pierwszego elementu."
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "Inclusion"
 msgstr ""

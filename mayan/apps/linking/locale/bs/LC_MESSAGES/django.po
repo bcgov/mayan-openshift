@@ -184,6 +184,10 @@ msgstr "Pametni link"
 msgid "The inclusion is ignored for the first item."
 msgstr "Inkluzija je ignorisana za prvu stavku"
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "Inclusion"
 msgstr ""

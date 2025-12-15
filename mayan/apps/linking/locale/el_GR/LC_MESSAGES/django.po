@@ -188,6 +188,10 @@ msgstr "Έξυπνος συνδεσμός"
 msgid "The inclusion is ignored for the first item."
 msgstr "Η συμπερίληψη αγνοείται για το πρώτο στοιχείο."
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "Inclusion"
 msgstr ""

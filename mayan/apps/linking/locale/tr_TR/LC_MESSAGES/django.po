@@ -187,6 +187,10 @@ msgstr "Akıllı bağlantı"
 msgid "The inclusion is ignored for the first item."
 msgstr "İlk öğe için dahil edilmez."
 
+#: models.py:95
+msgid "Inclusion"
+msgstr ""
+
 #: models.py:99
 msgid "Inclusion"
 msgstr ""
