@@ -1,3 +1,7 @@
+4.7.9 (XXXX-XX-XX)
+==================
+- Merge and improvements from version 4.6.12.
+
 4.7.8 (2025-12-13)
 ==================
 - Backports from series 4.10, 4.9, 4.8.
