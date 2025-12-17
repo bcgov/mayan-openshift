@@ -25,8 +25,9 @@
             // Detect if we are inside of an AJAX content container
             // and break free as this is supposed to be a top level
             // template.
-            if (window.location.hash.length) {
-                const fragment = window.location.hash.substring(1);
+            const currentHash = window.location.hash;
+            if (currentHash.length) {
+                const fragment = currentHash.substring(1);
 
                 try {
                     const url = new URL(fragment, window.location.origin);
