@@ -51,9 +51,8 @@ set -x \
     libvlc-bin \
     libvlc5 \
     libvlccore9 \
-    adwaita-icon-theme \
-    gsettings-desktop-schemas \
     libgstreamer-plugins-base1.0-0 \
+    make \
 && apt-get autoremove --purge --yes \
 # Add mayan user.
 && adduser mayan --disabled-password --gecos "" \

@@ -458,6 +458,35 @@
 - Improve how the select all toolbar checkbox is disabled when there are no
   results.
 
+4.8.11 (XXXX-XX-XX)
+===================
+- Changes and improvements from version 4.7.9.
+
+4.8.10 (2025-12-13)
+===================
+- Backports from series 4.10 and 4.9.
+
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
+  - Make document file search fields translatable.
+  - Make tag document list link title translatable.
+  - Make the task worker labels translatable.
+  - Add missing locales app migration.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 4.8.0 to 5.2.0.
+
+  - Ensure the `Worker` class returns string objects for its label content.
+
+- Add 'appearance/node_modules/bootswatch/docs/*' to the appearance app's
+  `static_media_ignore_patterns`.
+- Add a makefile target to clean up all Python libraries.
+
 4.8.9 (2025-11-22)
 ==================
 - Improvements and changes from version 4.7.7.
@@ -730,6 +759,35 @@
   workflow transition regardless of the current state or transition.
   The workflow state action context is now composed of the keys:
   `workflow_instance`, `workflow_instance_context`, `action`, and `log_entry`.
+
+4.7.9 (XXXX-XX-XX)
+==================
+- Merge and improvements from version 4.6.12.
+
+4.7.8 (2025-12-13)
+==================
+- Backports from series 4.10, 4.9, 4.8.
+
+  - Sort storage dependencies.
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
+  - Make document file search fields translatable.
+  - Make tag document list link title translatable.
+  - Make the task worker labels translatable.
+  - Add missing locales app migration.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 4.8.0 to 5.2.0.
+
+  - Add a makefile target to clean up all Python libraries.
+  - Ensure the `Worker` class returns string objects for its label content.
+
+- Update django-celery-beat from version 2.6.0 to 2.8.1.
 
 4.7.7 (2025-11-14)
 ==================
@@ -1033,6 +1091,34 @@
 - Add the ID field of primary models as search fields.
 - Expose the document index instance depth and node count values via the API.
 - Add a document type API view to return all documents of that type.
+
+4.6.12 (2025-12-14)
+===================
+- Backports from series 4.10, 4.9, 4.8, 4.7.
+
+  - Sort storage dependencies.
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
+  - Make document file search fields translatable.
+  - Make tag document list link title translatable.
+  - Make the task worker labels translatable.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 4.8.0 to 5.2.0.
+
+  - Move Python related makefile targets to their own makefile.
+  - Add a makefile target to clean up all Python libraries.
+  - Ensure the `Worker` class returns string objects for its label content.
+
+- Update django-celery-beat from version 2.5.0 to 2.8.1.
+- Update pytz from version 2024.1 to 2025.2.
+- Synchronize locale app migrations 0009, 0010, 0011, 0012 with version 4.7.
+- Update pip from version 25.2 to 25.3.
 
 4.6.11 (2025-11-08)
 ===================
