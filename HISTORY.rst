@@ -1,3 +1,11 @@
+4.9.8 (XXXX-XX-XX)
+==================
+- Merge changes and improvements from version 4.8.10.
+- Update dependencies versions:
+
+  - sentry-sdk from 2.46.0 to 2.48.0
+  - pypdf from 6.4.0 to 6.4.2
+
 4.9.7 (2025-12-13)
 ==================
 - Backports from version 4.10
