@@ -5,6 +5,7 @@
   cabinet and tag upload wizard steps permission logic to match the
   logic of the metadata wizard steps and skip the step entirely if the user
   does not have access to any of the objects.
+- Update pypdf from version 6.4.2 to 6.5.0.
 
 4.10.2 (2025-12-13)
 ===================
