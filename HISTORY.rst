@@ -1,3 +1,11 @@
+4.10.3 (XXXX-XX-XX)
+===================
+- Include changes and fixes from versions 4.9.8 and 4.9.7.
+- Skip cabinet and tag wizard step if the user has no access. Update the
+  cabinet and tag upload wizard steps permission logic to match the
+  logic of the metadata wizard steps and skip the step entirely if the user
+  does not have access to any of the objects.
+
 4.10.2 (2025-12-13)
 ===================
 - Enforce same origin and HTTP only redirection when breaking from an AJAX
