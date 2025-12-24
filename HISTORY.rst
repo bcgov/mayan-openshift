@@ -1,4 +1,4 @@
-4.10.3 (XXXX-XX-XX)
+4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.
 - Skip cabinet and tag wizard step if the user has no access. Update the
