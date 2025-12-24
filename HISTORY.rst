@@ -8,6 +8,8 @@
 - Update pypdf from version 6.4.2 to 6.5.0.
 - Update django-formtools from version 2.3 to 2.5.1.
 - Workaround undocumented backward incompatible bug in django-formtools 2.4.0.
+- Modernize `PythonDependency` class version checking. Remove use of
+  deprecated Python library `pkg_resources`.
 
 4.10.2 (2025-12-13)
 ===================
