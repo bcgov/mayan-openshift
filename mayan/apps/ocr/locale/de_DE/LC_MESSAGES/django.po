@@ -60,12 +60,11 @@ msgstr "OCR-Inhalt der Seite der Dokumentenversion bearbeitet"
 
 #: events.py:18
 msgid "Document version submitted for OCR"
-msgstr "Dokumentenversion, die in die OCR-Warteschlange eingereiht ist"
+msgstr "Dokumentenversion in die OCR-Warteschlange eingereiht"
 
 #: events.py:22
 msgid "Document version OCR finished"
-msgstr ""
-"Dokumentenversion, für die die OCR-Schrifterkennung durchgeführt wurde"
+msgstr "OCR-Schrifterkennung für Dokumentenversion durchgeführt"
 
 #: forms.py:12 forms.py:43 forms.py:63
 msgid "Contents"
@@ -82,7 +81,7 @@ msgstr "OCR Einstellungen"
 
 #: links.py:32
 msgid "OCR documents per type"
-msgstr "Texterkennung pro Dokumententyp durchführen"
+msgstr "OCR-Dokumente nach Typ"
 
 #: links.py:39 links.py:46
 msgid "Delete OCR content"
