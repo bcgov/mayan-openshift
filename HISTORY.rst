@@ -25,6 +25,10 @@
   - Setting cache invalidation is now handled at the setting cluster in a
     cascade patterns, first for each namespace and then for each setting in
     each namespace.
+  - When a setting is removed the corresponding domain entries are now
+    removed too.
+  - Support removing namespaces from clusters.
+  - Settings are now considered to be immutable.
   - Setting code has been split and reorganized into individual modules.
   - Add improved configuration file caching.
   - Replace `do_value_raw_set` with the more appropriate `do_value_override`.
