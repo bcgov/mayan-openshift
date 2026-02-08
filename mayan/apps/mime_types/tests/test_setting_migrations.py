@@ -1,6 +1,6 @@
 from mayan.apps.testing.tests.base import BaseTestCase
 
-from ..settings import setting_backend
+from ..settings import setting_backend, setting_namespace
 
 
 class SettingMigrationTestCaseMIMEType(BaseTestCase):
@@ -9,6 +9,8 @@ class SettingMigrationTestCaseMIMEType(BaseTestCase):
         self._test_setting = setting_backend
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
+
+        setting_namespace.do_ready()
 
         self.assertEqual(
             setting_backend.value,

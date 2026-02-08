@@ -58,7 +58,7 @@ class SettingViewTestCase(SettingViewTestMixin, GenericViewTestCase):
     def test_setting_edit_view_no_permission(self):
         self._create_test_setting()
 
-        test_setting_value = self._test_setting.get_value_current()
+        test_setting_value = self._test_setting.get_value_pending()
 
         response = self._request_setting_edit_view(
             value=TEST_SETTING_VALIDATION_GOOD_VALUE
@@ -66,7 +66,7 @@ class SettingViewTestCase(SettingViewTestMixin, GenericViewTestCase):
         self.assertEqual(response.status_code, 403)
 
         self.assertEqual(
-            self._test_setting.get_value_current(), test_setting_value
+            self._test_setting.get_value_pending(), test_setting_value
         )
 
     def test_setting_edit_view_with_permission(self):
@@ -74,7 +74,7 @@ class SettingViewTestCase(SettingViewTestMixin, GenericViewTestCase):
 
         self._create_test_setting()
 
-        test_setting_value = self._test_setting.get_value_current()
+        test_setting_value = self._test_setting.get_value_pending()
 
         response = self._request_setting_edit_view(
             value=TEST_SETTING_VALIDATION_GOOD_VALUE
@@ -82,21 +82,21 @@ class SettingViewTestCase(SettingViewTestMixin, GenericViewTestCase):
         self.assertEqual(response.status_code, 302)
 
         self.assertNotEqual(
-            self._test_setting.get_value_current(), test_setting_value
+            self._test_setting.get_value_pending(), test_setting_value
         )
 
     def test_setting_revert_view_no_permission(self):
         self._create_test_setting()
 
-        test_setting_value = self._test_setting.get_value_current()
+        test_setting_value = self._test_setting.get_value_pending()
 
-        self._test_setting.do_value_set(value='edited')
+        self._test_setting.do_value_pending_set(value='edited')
 
         response = self._request_setting_revert_view()
         self.assertEqual(response.status_code, 403)
 
         self.assertNotEqual(
-            self._test_setting.get_value_current(), test_setting_value
+            self._test_setting.get_value_pending(), test_setting_value
         )
 
     def test_setting_revert_view_with_permission(self):
@@ -104,15 +104,15 @@ class SettingViewTestCase(SettingViewTestMixin, GenericViewTestCase):
 
         self._create_test_setting()
 
-        test_setting_value = self._test_setting.get_value_current()
+        test_setting_value = self._test_setting.get_value_pending()
 
-        self._test_setting.do_value_set(value='edited')
+        self._test_setting.do_value_pending_set(value='edited')
 
         response = self._request_setting_revert_view()
         self.assertEqual(response.status_code, 302)
 
         self.assertEqual(
-            self._test_setting.get_value_current(), test_setting_value
+            self._test_setting.get_value_pending(), test_setting_value
         )
 
     def test_setting_validation_with_permission(self):

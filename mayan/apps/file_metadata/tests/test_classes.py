@@ -2,6 +2,7 @@ from mayan.apps.common.serialization import yaml_dump
 from mayan.apps.documents.events import event_document_type_created
 from mayan.apps.testing.tests.base import BaseTestCase
 from mayan.apps.smart_settings.settings import setting_cluster
+from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..settings import setting_auto_process, setting_drivers_arguments
 
@@ -24,8 +25,10 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         setting_cluster.do_cache_invalidate()
 
@@ -52,8 +55,10 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         setting_cluster.do_cache_invalidate()
 
@@ -80,8 +85,10 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         setting_cluster.do_cache_invalidate()
 
@@ -110,12 +117,15 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_auto_process.global_name),
-            value='false'
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX, setting_auto_process.global_name
+            ), value='false'
         )
         setting_cluster.do_cache_invalidate()
 
@@ -144,8 +154,10 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         setting_cluster.do_cache_invalidate()
 
@@ -174,12 +186,15 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_auto_process.global_name),
-            value='false'
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX, setting_auto_process.global_name
+            ), value='false'
         )
         setting_cluster.do_cache_invalidate()
 
@@ -208,12 +223,15 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_auto_process.global_name),
-            value='true'
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX, setting_auto_process.global_name
+            ), value='true'
         )
         setting_cluster.do_cache_invalidate()
 
@@ -242,12 +260,15 @@ class DriverEnabledTestCase(
         test_value = yaml_dump(data=test_value_dictionary)
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_drivers_arguments.global_name),
-            value=test_value
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
+                setting_drivers_arguments.global_name
+            ), value=test_value
         )
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting_auto_process.global_name),
-            value='false'
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX, setting_auto_process.global_name
+            ), value='false'
         )
         setting_cluster.do_cache_invalidate()
 

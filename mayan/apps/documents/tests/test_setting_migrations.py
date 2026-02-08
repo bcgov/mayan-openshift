@@ -13,9 +13,10 @@ from ..settings import (
     setting_document_file_storage_backend_arguments,
     setting_document_version_page_image_cache_storage_backend,
     setting_document_version_page_image_cache_storage_backend_arguments,
-    setting_recently_accessed_document_count,
+    setting_namespace, setting_recently_accessed_document_count,
     setting_recently_created_document_count
 )
+
 
 from .literals import (
     TEST_DOCUMENTS_CACHE_STORAGE_BACKEND,
@@ -34,6 +35,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
 
+        setting_namespace.do_ready()
+
         self.assertEqual(
             setting_document_file_page_image_cache_storage_backend.value,
             TEST_DOCUMENTS_CACHE_STORAGE_BACKEND
@@ -45,6 +48,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_setting = setting_document_file_page_image_cache_storage_backend_arguments
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
+
+        setting_namespace.do_ready()
 
         self.assertEqual(
             setting_document_file_page_image_cache_storage_backend_arguments.value,
@@ -58,6 +63,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
 
+        setting_namespace.do_ready()
+
         self.assertEqual(
             setting_document_file_storage_backend.value,
             TEST_DOCUMENTS_STORAGE_BACKEND
@@ -68,6 +75,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_setting = setting_document_file_storage_backend
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
+
+        setting_namespace.do_ready()
 
         self.assertEqual(
             setting_document_file_storage_backend.value,
@@ -81,6 +90,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
 
+        setting_namespace.do_ready()
+
         self.assertEqual(
             setting_document_file_storage_backend_arguments.value,
             TEST_DOCUMENTS_STORAGE_BACKEND_ARGUMENTS
@@ -91,6 +102,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_setting = setting_document_file_storage_backend_arguments
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
+
+        setting_namespace.do_ready()
 
         self.assertEqual(
             setting_document_file_storage_backend_arguments.value,
@@ -104,6 +117,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
 
+        setting_namespace.do_ready()
+
         self.assertEqual(
             setting_document_version_page_image_cache_storage_backend.value,
             TEST_DOCUMENTS_CACHE_STORAGE_BACKEND
@@ -115,6 +130,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_setting = setting_document_version_page_image_cache_storage_backend_arguments
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
+
+        setting_namespace.do_ready()
 
         self.assertEqual(
             setting_document_version_page_image_cache_storage_backend_arguments.value,
@@ -128,6 +145,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
 
+        setting_namespace.do_ready()
+
         self.assertEqual(
             setting_recently_accessed_document_count.value,
             TEST_DOCUMENTS_RECENTLY_ACCESSED_COUNT
@@ -139,6 +158,8 @@ class DocumentSettingMigrationTestCase(BaseTestCase):
         self._test_setting = setting_recently_created_document_count
         self._test_configuration_value = test_value
         self._create_test_configuration_file()
+
+        setting_namespace.do_ready()
 
         self.assertEqual(
             setting_recently_created_document_count.value,

@@ -31,7 +31,7 @@ class SettingForm(forms.Form):
         self.fields['value'].help_text = self.setting.help_text or _(
             message='Enter the new setting value.'
         )
-        self.fields['value'].initial = self.setting.get_value_current()
+        self.fields['value'].initial = self.setting.get_display_value()
 
     def clean(self):
         try:

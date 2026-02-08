@@ -48,7 +48,7 @@ setting_disable_simple_search = setting_namespace.do_setting_add(
     )
 )
 setting_indexing_chunk_size = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_INDEXING_CHUNK_SIZE,
+    data_type=int, default=DEFAULT_SEARCH_INDEXING_CHUNK_SIZE,
     global_name='SEARCH_INDEXING_CHUNK_SIZE', help_text=_(
         message='Amount of objects to process when performing bulk indexing.'
     )
@@ -60,45 +60,45 @@ setting_match_all_default_value = setting_namespace.do_setting_add(
     )
 )
 setting_query_results_limit = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_QUERY_RESULTS_LIMIT,
+    data_type=int, default=DEFAULT_SEARCH_QUERY_RESULTS_LIMIT,
     global_name='SEARCH_QUERY_RESULTS_LIMIT', help_text=_(
         message='Maximum number of search results to fetch and display per '
         'search query unit.'
     )
 )
 setting_query_results_limit_error = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_QUERY_RESULTS_LIMIT_ERROR,
+    data_type=int, default=DEFAULT_SEARCH_QUERY_RESULTS_LIMIT_ERROR,
     global_name='SEARCH_QUERY_RESULTS_LIMIT_ERROR', help_text=_(
         message='Raise an error when the number of search results '
         'exceed the value of `SEARCH_QUERY_RESULTS_LIMIT`.'
     )
 )
 setting_results_limit = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_RESULTS_LIMIT, global_name='SEARCH_RESULTS_LIMIT',
-    help_text=_(
+    data_type=int, default=DEFAULT_SEARCH_RESULTS_LIMIT,
+    global_name='SEARCH_RESULTS_LIMIT', help_text=_(
         message='Maximum number of search results to fetch and display.'
     )
 )
 setting_saved_resultsets_per_user_limit = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_SAVED_RESULTSETS_PER_USER_LIMIT,
+    data_type=int, default=DEFAULT_SEARCH_SAVED_RESULTSETS_PER_USER_LIMIT,
     global_name='SEARCH_SAVED_RESULTSETS_PER_USER_LIMIT', help_text=_(
         message='Maximum number of saved resultsets to keep per user.'
     )
 )
 setting_saved_resultset_results_limit = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_SAVED_RESULTSET_RESULTS_LIMIT,
+    data_type=int, default=DEFAULT_SEARCH_SAVED_RESULTSET_RESULTS_LIMIT,
     global_name='SEARCH_SAVED_RESULTSET_RESULTS_LIMIT', help_text=_(
         message='Maximum number of results to store per resultset.'
     )
 )
 setting_saved_resultset_time_to_live = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_SAVED_RESULTSET_TIME_TO_LIVE,
+    data_type=int, default=DEFAULT_SEARCH_SAVED_RESULTSET_TIME_TO_LIVE,
     global_name='SEARCH_SAVED_RESULTSET_TIME_TO_LIVE', help_text=_(
         message='Time to keep the resultset in seconds.'
     )
 )
 setting_saved_resultset_time_to_live_increment = setting_namespace.do_setting_add(
-    default=DEFAULT_SEARCH_SAVED_RESULTSET_TIME_TO_LIVE_INCREMENT,
+    data_type=int, default=DEFAULT_SEARCH_SAVED_RESULTSET_TIME_TO_LIVE_INCREMENT,
     global_name='SEARCH_SAVED_RESULTSET_TIME_TO_LIVE_INCREMENT', help_text=_(
         message='Amount to increase the time to live on each access of the '
         'resultset.'

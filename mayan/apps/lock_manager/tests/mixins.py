@@ -130,7 +130,7 @@ class DefaultTimeoutTestMixin:
         self._test_locking_backend = import_string(
             dotted_path=self._test_locking_backend_string
         )
-        setting_default_lock_timeout.do_value_raw_set(raw_value=1)
+        setting_default_lock_timeout.do_value_override(value=1)
         self.assertEqual(setting_default_lock_timeout.value, 1)
 
     def test_default_timeout_expired(self):

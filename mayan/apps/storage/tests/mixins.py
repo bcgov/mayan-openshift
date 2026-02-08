@@ -17,6 +17,7 @@ from mayan.apps.common.tests.literals import (
 from mayan.apps.documents.literals import STORAGE_NAME_DOCUMENT_FILES
 from mayan.apps.permissions.tests.mixins import PermissionTestMixin
 from mayan.apps.smart_settings.settings import setting_cluster
+from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..classes import DefinedStorage
 from ..compressed_files import Archive
@@ -267,8 +268,9 @@ class StorageSettingTestMixin:
         setting_cluster.do_cache_invalidate()
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(setting.global_name),
-            value='invalid_value'
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX, setting.global_name
+            ), value='invalid_value'
         )
         self.test_case_silenced_logger_new_level = logging.FATAL + 10
         self._silence_logger(name='mayan.apps.storage.classes')
@@ -278,7 +280,7 @@ class StorageSettingTestMixin:
             defined_storage = DefinedStorage.get(name=storage_name)
             defined_storage.get_storage_instance()
 
-        setting.do_value_raw_set(raw_value=old_value)
+        setting.do_value_override(value=old_value)
         importlib.reload(storage_module)
 
         return assertion

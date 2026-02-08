@@ -123,8 +123,8 @@ def fs_cleanup(filename, suppress_exceptions=True):
 
 def get_storage_subclass(dotted_path):
     """
-    Import a storage class and return a subclass that will always return eq
-    True to avoid creating a new migration when for runtime storage class
+    Import a storage class and return a subclass that will always return `eq
+    True` to avoid creating a new migration when for runtime storage class
     changes. Used now only by historic migrations.
     """
     imported_storage_class = import_string(dotted_path=dotted_path)

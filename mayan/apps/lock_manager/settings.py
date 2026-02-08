@@ -25,7 +25,7 @@ setting_backend_arguments = setting_namespace.do_setting_add(
     )
 )
 setting_default_lock_timeout = setting_namespace.do_setting_add(
-    default=DEFAULT_LOCK_MANAGER_DEFAULT_LOCK_TIMEOUT,
+    data_type=int, default=DEFAULT_LOCK_MANAGER_DEFAULT_LOCK_TIMEOUT,
     global_name='LOCK_MANAGER_DEFAULT_LOCK_TIMEOUT', help_text=_(
         message='Default amount of time in seconds after which a resource '
         'lock will be automatically released.'

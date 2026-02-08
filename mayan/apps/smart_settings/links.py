@@ -11,12 +11,12 @@ from .icons import (
 from .permissions import permission_settings_edit, permission_settings_view
 
 
-def condition_has_value_new(context, resolved_object):
-    return resolved_object.get_has_value_new()
+def condition_has_value_pending(context, resolved_object):
+    return resolved_object.get_has_value_pending()
 
 
-def condition_has_value_new_and_local_storage_enabled(context, resolved_object):
-    return condition_has_value_new(
+def condition_has_value_pending_and_local_storage_enabled(context, resolved_object):
+    return condition_has_value_pending(
         context=context, resolved_object=resolved_object
     ) and condition_local_storage_enabled(
         context=context, resolved_object=resolved_object
@@ -47,7 +47,7 @@ link_setting_edit = Link(
 )
 link_setting_revert = Link(
     args='resolved_object.global_name',
-    condition=condition_has_value_new_and_local_storage_enabled,
+    condition=condition_has_value_pending_and_local_storage_enabled,
     icon=icon_setting_revert, permission=permission_settings_edit,
     text=_(message='Revert'), view='settings:setting_revert_view'
 )

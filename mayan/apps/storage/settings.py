@@ -16,7 +16,7 @@ setting_namespace = setting_cluster.do_namespace_add(
 )
 
 setting_download_file_expiration_interval = setting_namespace.do_setting_add(
-    default=DEFAULT_DOWNLOAD_FILE_EXPIRATION_INTERVAL,
+    data_type=int, default=DEFAULT_DOWNLOAD_FILE_EXPIRATION_INTERVAL,
     global_name='DOWNLOAD_FILE_EXPIRATION_INTERVAL', help_text=_(
         message='Time in seconds, after which download files will be deleted.'
     )
@@ -50,7 +50,7 @@ setting_temporary_directory = setting_namespace.do_setting_add(
     )
 )
 setting_shared_uploaded_file_expiration_interval = setting_namespace.do_setting_add(
-    default=DEFAULT_SHARED_UPLOADED_FILE_EXPIRATION_INTERVAL,
+    data_type=int, default=DEFAULT_SHARED_UPLOADED_FILE_EXPIRATION_INTERVAL,
     global_name='SHARED_UPLOADED_FILE_EXPIRATION_INTERVAL', help_text=_(
         message='Time in seconds, after which temporary uploaded files will be '
         'deleted.'

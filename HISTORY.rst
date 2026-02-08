@@ -4,6 +4,96 @@
 - Split the Docker makefile into separate makefiles.
 - Remove redundant code from makefiles.
 - Git ignore `__pycache__` folders.
+- Make the Celery app class configurable via the new setting named
+  `MAYAN_CELERY_CLASS`.
+- Disable caching of `get_config_file_content`. This content is used only
+  during boot up and the speed gain is negligible.
+- Settings system refactor:
+
+  - Add setting data type support.
+  - Add setting domains system.
+  - Setting cluster can now use a configurable setting domains stack
+    depending of the final deployment configuration. This allows the settings
+    system to support general purpose, vendor specific, or cloud specific
+    setting backends.
+  - Add setting domains for configuration files, Django,
+    environment variables, and models.
+  - Disable creating the backup config file during tests.
+  - Setting clusters no longer handle serialization. It is now the
+    responsibility of the setting domains to serialize/deserialize settings
+    to their respective native storage formats.
+  - Setting cache invalidation is now handled at the setting cluster in a
+    cascade patterns, first for each namespace and then for each setting in
+    each namespace.
+  - Setting code has been split and reorganized into individual modules.
+  - Add improved configuration file caching.
+  - Replace `do_value_raw_set` with the more appropriate `do_value_override`.
+  - Convert most of the settings system to follow the doers and getters
+    code style.
+  - Settings are now pre-cached when the system boots up to ensure
+    deterministic behavior and access time regardless of the code path
+    triggered by user or task interactions.
+  - Setting pending value detection and revert are now designed from the
+    ground up to be reentrant, parallel, multi-user safe, and thread-safe.
+  - Settings now validated as integers:
+
+    - `APPEARANCE_AJAX_REDIRECTION_CODE`
+    - `APPEARANCE_ELIDED_PAGER_ON_EACH_SIDE`
+    - `APPEARANCE_ELIDED_PAGER_ON_ENDS`
+    - `APPEARANCE_MAXIMUM_TITLE_LENGTH`
+    - `APPEARANCE_MENU_POLLING_INTERVAL`
+    - `APPEARANCE_PAGINATION_DROPDOWN_RANGE`
+    - `APPEARANCE_THROTTLING_MAXIMUM_REQUESTS`
+    - `APPEARANCE_THROTTLING_TIMEOUT`
+    - `CONVERTER_ASSET_CACHE_MAXIMUM_SIZE`
+    - `CONVERTER_IMAGE_CACHE_TIME`
+    - `CONVERTER_IMAGE_GENERATION_MAX_RETRIES`
+    - `CONVERTER_IMAGE_GENERATION_TIMEOUT`
+    - `DOCUMENTS_DISPLAY_HEIGHT`
+    - `DOCUMENTS_DISPLAY_WIDTH`
+    - `DOCUMENTS_FAVORITE_COUNT`
+    - `DOCUMENTS_FILE_PAGE_IMAGE_CACHE_MAXIMUM_SIZE`
+    - `DOCUMENTS_HASH_BLOCK_SIZE`
+    - `DOCUMENTS_LIST_THUMBNAIL_WIDTH`
+    - `DOCUMENTS_PREVIEW_HEIGHT`
+    - `DOCUMENTS_PREVIEW_WIDTH`
+    - `DOCUMENTS_PRINT_HEIGHT`
+    - `DOCUMENTS_PRINT_WIDTH`
+    - `DOCUMENTS_RECENTLY_ACCESSED_COUNT`
+    - `DOCUMENTS_RECENTLY_CREATED_COUNT`
+    - `DOCUMENTS_ROTATION_STEP`
+    - `DOCUMENTS_STUBS_DELETE_TASK_INTERVAL`
+    - `DOCUMENTS_THUMBNAIL_HEIGHT`
+    - `DOCUMENTS_THUMBNAIL_WIDTH`
+    - `DOCUMENTS_TRASHED_DOCUMENT_DELETE_PERIODS_CHECK_TASK_INTERVAL`
+    - `DOCUMENTS_TRASH_PERIOD_CHECK_TASK_INTERVAL`
+    - `DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_MAXIMUM_SIZE`
+    - `DOCUMENTS_ZOOM_MAX_LEVEL`
+    - `DOCUMENTS_ZOOM_MIN_LEVEL`
+    - `DOCUMENTS_ZOOM_PERCENT_STEP`
+    - `DOWNLOAD_FILE_EXPIRATION_INTERVAL`
+    - `LOCK_MANAGER_DEFAULT_LOCK_TIMEOUT`
+    - `SEARCH_INDEXING_CHUNK_SIZE`
+    - `SEARCH_QUERY_RESULTS_LIMIT`
+    - `SEARCH_QUERY_RESULTS_LIMIT_ERROR`
+    - `SEARCH_RESULTS_LIMIT`
+    - `SEARCH_SAVED_RESULTSETS_PER_USER_LIMIT`
+    - `SEARCH_SAVED_RESULTSET_RESULTS_LIMIT`
+    - `SEARCH_SAVED_RESULTSET_TIME_TO_LIVE`
+    - `SEARCH_SAVED_RESULTSET_TIME_TO_LIVE_INCREMENT`
+    - `SHARED_UPLOADED_FILE_EXPIRATION_INTERVAL`
+    - `SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_MAXIMUM_SIZE`
+    - `SOURCES_CACHE_MAXIMUM_SIZE`
+    - `WORKFLOWS_IMAGE_CACHE_MAXIMUM_SIZE`
+    - `WORKFLOWS_WORKFLOW_STATE_ESCALATION_CHECK_INTERVAL`
+
+  - Add tests for all settings validated as integers.
+  - Add tests for all settings app management commands.
+
+- Add `ENVIRONMENT_VARIABLE_PREFIX` and set it to `MAYAN_` to avoid
+hardcoding the environment variable prefix in code.
+- Translate document download messages at the moment they are used not
+when they are updated.
 
 4.10.1 (XXXX-XX-XX)
 ===================

@@ -5,6 +5,7 @@ from django.core.files.base import File
 from django.core.files.storage import Storage
 from django.utils.deconstruct import deconstructible
 from django.utils.module_loading import import_string
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
@@ -81,23 +82,29 @@ class DefinedStorage(AppsModuleLoaderMixin):
         return True
 
     def get_storage_instance(self):
-        try:
-            return self.get_storage_subclass()(**self.kwargs)
-        except Exception as exception:
-            message = self.error_message or _(
-                message='Unable to initialize storage: %(name)s. Check the storage '
-                'backend dotted path and arguments.'
-            ) % {
-                'name': self.name
-            }
+        storage_subclass = self.get_storage_subclass()
 
-            logger.fatal(message)
-            raise TypeError(message) from exception
+        try:
+            return storage_subclass(**self.kwargs)
+        except Exception as exception:
+            message_default = _(
+                message='Unable to initialize storage: %(name)s. Check the '
+                'storage backend dotted path and arguments.'
+            ) % {'name': self.name}
+
+            message = self.error_message or message_default
+
+            message_final = format_lazy(
+                '{}; {}; {}', message, exception, self.kwargs
+            )
+
+            logger.fatal(message_final)
+            raise TypeError(message_final) from exception
 
     def get_storage_subclass(self):
         """
         Import a storage class and return a subclass that will always
-        return eq True to avoid creating a new migration when for runtime
+        return `eq True` to avoid creating a new migration when for runtime
         storage class changes.
         """
         try:
@@ -105,15 +112,17 @@ class DefinedStorage(AppsModuleLoaderMixin):
                 dotted_path=self.dotted_path
             )
         except Exception as exception:
-            message = self.error_message or _(
-                message='Unable to initialize storage: %(name)s. Check the storage '
-                'backend dotted path and arguments.'
-            ) % {
-                'name': self.name
-            }
+            message_default = _(
+                message='Unable to import storage class: %(name)s. Check '
+                'the storage backend dotted path.'
+            ) % {'name': self.name}
 
-            logger.fatal(message)
-            raise TypeError(message) from exception
+            message = self.error_message or message_default
+
+            message_final = format_lazy('{}; {}', message, exception)
+
+            logger.fatal(message_final)
+            raise TypeError(message_final) from exception
 
         class DynamicStorageSubclass(imported_storage_class):
             def __init__(self, *args, **kwargs):

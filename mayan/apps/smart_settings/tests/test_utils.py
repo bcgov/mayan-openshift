@@ -1,4 +1,5 @@
 from mayan.apps.testing.tests.base import BaseTestCase
+from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from .literals import (
     TEST_BOOTSTAP_SETTING_NAME, TEST_CONFIG_FILE_NAME, TEST_CONFIG_FILE_VALUE,
@@ -16,8 +17,9 @@ class BoostrapSettingTestCase(BoostrapSettingTestMixin, BaseTestCase):
 
     def test_bootstrap_environment_overrides_config(self):
         self._set_environment_variable(
-            name='MAYAN_{}'.format(TEST_BOOTSTAP_SETTING_NAME),
-            value=TEST_SETTING_VALUE_OVERRIDE
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX, TEST_BOOTSTAP_SETTING_NAME
+            ), value=TEST_SETTING_VALUE_OVERRIDE
         )
 
         self._test_setting_global_name = TEST_BOOTSTAP_SETTING_NAME
@@ -135,8 +137,9 @@ class BoostrapSettingTemplateTestCase(
         self.test_globals[TEST_BOOTSTAP_SETTING_NAME] = TEST_SETTING_VALUE
 
         self._set_environment_variable(
-            name='MAYAN_{}'.format(TEST_BOOTSTAP_SETTING_NAME),
-            value=TEST_SETTING_VALUE
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX, TEST_BOOTSTAP_SETTING_NAME
+            ), value=TEST_SETTING_VALUE
         )
 
         self._set_environment_variable(

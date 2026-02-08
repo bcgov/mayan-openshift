@@ -15,18 +15,14 @@ from .mixins import DownloadFileTestMixin, SharedUploadedFileTestMixin
 
 class DownloadFileModelTestCase(DownloadFileTestMixin, BaseTestCase):
     def test_download_file_expiration(self):
-        setting_download_file_expiration_interval.do_value_raw_set(
-            raw_value=60
-        )
+        setting_download_file_expiration_interval.do_value_override(value=60)
         self._create_test_download_file()
 
         self.assertEqual(
             DownloadFile.objects.get_stale_queryset().count(), 0
         )
 
-        setting_download_file_expiration_interval.do_value_raw_set(
-            raw_value=0
-        )
+        setting_download_file_expiration_interval.do_value_override(value=0)
 
         self.assertEqual(
             DownloadFile.objects.get_stale_queryset().count(), 1
@@ -45,9 +41,7 @@ class DownloadFileModelTestCase(DownloadFileTestMixin, BaseTestCase):
 
         test_case_instance = self
 
-        setting_download_file_expiration_interval.do_value_raw_set(
-            raw_value=0
-        )
+        setting_download_file_expiration_interval.do_value_override(value=0)
 
         def fake_method_delete(self, *args, **kwargs):
             if self.pk == test_case_instance._test_download_file_list[0].pk:
@@ -78,8 +72,8 @@ class SharedUploadedFileManagerTestCase(
     SharedUploadedFileTestMixin, BaseTestCase
 ):
     def test_shared_uploaded_expiration(self):
-        setting_shared_uploaded_file_expiration_interval.do_value_raw_set(
-            raw_value=60
+        setting_shared_uploaded_file_expiration_interval.do_value_override(
+            value=60
         )
         self._create_test_shared_uploaded_file()
 
@@ -87,8 +81,8 @@ class SharedUploadedFileManagerTestCase(
             SharedUploadedFile.objects.get_stale_queryset().count(), 0
         )
 
-        setting_shared_uploaded_file_expiration_interval.do_value_raw_set(
-            raw_value=0
+        setting_shared_uploaded_file_expiration_interval.do_value_override(
+            value=0
         )
 
         self.assertEqual(
@@ -100,8 +94,8 @@ class SharedUploadedFileManagerTestCase(
 
         test_case_instance = self
 
-        setting_shared_uploaded_file_expiration_interval.do_value_raw_set(
-            raw_value=0
+        setting_shared_uploaded_file_expiration_interval.do_value_override(
+            value=0
         )
 
         def fake_method_delete(self, *args, **kwargs):

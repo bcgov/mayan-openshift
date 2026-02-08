@@ -4,7 +4,7 @@ class SettingsException(Exception):
     """
 
 
-class SettingsExceptionRevert(SettingsException):
+class SettingsDomainError(SettingsException):
     """
-    Raised when attempting to revert an setting's value.
+    Raised when a domain can't read or set a setting's value.
     """

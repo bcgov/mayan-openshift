@@ -17,12 +17,8 @@ from .literals import (
     DEFAULT_TIME_ZONE, DEFAULT_USE_X_FORWARDED_HOST,
     DEFAULT_USE_X_FORWARDED_PORT, DEFAULT_WSGI_APPLICATION
 )
-from .setting_clusters import SettingCluster
+from .setting_clusters import setting_cluster
 
-# Don't import anything on star imports, we just want to make it easy
-# for apps.py to activate the settings in this module.
-__all__ = ()
-setting_cluster = SettingCluster(name='primary')
 setting_namespace = setting_cluster.do_namespace_add(
     label=_(message='Django'), name='django'
 )

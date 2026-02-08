@@ -401,7 +401,7 @@ class ScopedQuerySettingTestCase(
         )
         self._add_test_scoped_query_result_scope(value='0')
 
-        setting_query_results_limit.do_value_raw_set(raw_value=1)
+        setting_query_results_limit.do_value_override(value=1)
 
         self._silence_logger(name='mayan.apps.dynamic_search.scoped_queries')
 
@@ -427,8 +427,8 @@ class ScopedQuerySettingTestCase(
         )
         self._add_test_scoped_query_result_scope(value='0')
 
-        setting_query_results_limit.do_value_raw_set(raw_value=1)
-        setting_query_results_limit_error.do_value_raw_set(raw_value=False)
+        setting_query_results_limit.do_value_override(value=1)
+        setting_query_results_limit_error.do_value_override(value=False)
 
         self._silence_logger(name='mayan.apps.dynamic_search.scoped_queries')
 

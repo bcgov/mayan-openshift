@@ -4,6 +4,7 @@ import logging
 from mayan.apps.document_signatures import storages
 from mayan.apps.storage.classes import DefinedStorage
 from mayan.apps.testing.tests.base import BaseTestCase
+from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..literals import STORAGE_NAME_DOCUMENT_SIGNATURES_DETACHED_SIGNATURE
 from ..settings import setting_storage_backend_arguments
@@ -16,9 +17,10 @@ class SignatureStorageSettingsTestCase(BaseTestCase):
 
     def test_setting_storage_backend_arguments_invalid_value(self):
         self._set_environment_variable(
-            name='MAYAN_{}'.format(
+            name='{}{}'.format(
+                ENVIRONMENT_VARIABLE_PREFIX,
                 setting_storage_backend_arguments.global_name
-            ), value="invalid_value"
+            ), value='invalid_value'
         )
 
         self.test_case_silenced_logger_new_level = logging.FATAL + 10

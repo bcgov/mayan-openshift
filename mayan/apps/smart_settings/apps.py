@@ -15,8 +15,8 @@ from .links import (
     link_setting_namespace_detail, link_setting_namespace_root_list,
     link_setting_revert
 )
+from .namespaces import SettingNamespace
 from .setting_clusters import SettingCluster
-from .setting_namespaces import SettingNamespace
 from .settings import setting_cluster
 from .widgets import setting_widget
 
@@ -45,7 +45,7 @@ class SmartSettingsApp(MayanAppConfig):
             ), label=_(message='Name'), is_identifier=True, source=Setting
         )
         SourceColumn(
-            attribute='get_value_current', include_label=True,
+            attribute='get_display_value', include_label=True,
             label=_(message='Value'), widget=WidgetSettingValue,
             source=Setting
         )
@@ -87,6 +87,4 @@ class SmartSettingsApp(MayanAppConfig):
             links=(link_setting_cluster_namespace_list,)
         )
 
-        setting_cluster.do_settings_updated_clear()
-        setting_cluster.do_post_edit_function_call()
-        setting_cluster.do_last_known_good_save()
+        setting_cluster.do_ready()

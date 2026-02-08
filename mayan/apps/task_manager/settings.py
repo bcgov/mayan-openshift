@@ -3,14 +3,21 @@ from django.utils.translation import gettext_lazy as _
 from mayan.apps.smart_settings.settings import setting_cluster
 
 from .literals import (
-    DEFAULT_CELERY_BROKER_LOGIN_METHOD, DEFAULT_CELERY_BROKER_URL,
-    DEFAULT_CELERY_BROKER_USE_SSL, DEFAULT_CELERY_RESULT_BACKEND
+    DEFAULT_CELERY_APP_CLASS, DEFAULT_CELERY_BROKER_LOGIN_METHOD,
+    DEFAULT_CELERY_BROKER_URL, DEFAULT_CELERY_BROKER_USE_SSL,
+    DEFAULT_CELERY_RESULT_BACKEND
 )
 
 setting_namespace = setting_cluster.do_namespace_add(
     label=_(message='Celery'), name='celery'
 )
 
+setting_celery_app_class = setting_namespace.do_setting_add(
+    default=DEFAULT_CELERY_APP_CLASS, global_name='MAYAN_CELERY_CLASS',
+    help_text=_(
+        message='The class used to instantiate the main Celery app.'
+    )
+)
 setting_celery_broker_login_method = setting_namespace.do_setting_add(
     default=DEFAULT_CELERY_BROKER_LOGIN_METHOD,
     global_name='CELERY_BROKER_LOGIN_METHOD', help_text=_(

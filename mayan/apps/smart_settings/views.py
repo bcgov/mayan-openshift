@@ -17,6 +17,7 @@ from .icons import (
 )
 from .literals import MESSAGE_LOCAL_STORAGE_DISABLED
 from .permissions import permission_settings_edit, permission_settings_view
+from .setting_domains.models import SettingDomainModel
 from .settings import setting_cluster
 
 
@@ -45,7 +46,7 @@ class SettingClusterConfigurationFileSave(ConfirmView):
         }
 
     def view_action(self, form=None):
-        setting_cluster.do_configuration_file_save()
+        setting_cluster.do_make_persistent()
 
         messages.success(
             message=_(
@@ -82,9 +83,10 @@ class SettingValueEditView(FormView):
         return super().dispatch(request=request, *args, **kwargs)
 
     def form_valid(self, form):
-        self.object.do_value_set(
-            value=form.cleaned_data['value']
+        value_deserialized = SettingDomainModel.deserialize_stream(
+            stream=form.cleaned_data['value']
         )
+        self.object.do_value_pending_set(value=value_deserialized)
         messages.success(
             message=_(message='Setting updated successfully.'),
             request=self.request
@@ -92,14 +94,6 @@ class SettingValueEditView(FormView):
         return super().form_valid(form=form)
 
     def get_extra_context(self):
-        if self.object.get_is_overridden():
-            messages.warning(
-                message=_(
-                    message='This setting is overridden by an environment '
-                    'variable, changing its value will have no effect.'
-                ), request=self.request
-            )
-
         return {
             'hide_link': True,
             'navigation_object_list': ('object', 'setting_namespace'),

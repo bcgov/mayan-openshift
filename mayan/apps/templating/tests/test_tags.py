@@ -21,8 +21,8 @@ class TemplateFilterDangerousTestCase(TemplateTestMixin, BaseTestCase):
             )
 
     def test_user_template_filter_dangerous_allowed(self):
-        setting_templating_dangerous_tags_allow_list.do_value_raw_set(
-            raw_value='dangerous_filter'
+        setting_templating_dangerous_tags_allow_list.do_value_override(
+            value='dangerous_filter'
         )
 
         result = self._render_test_template(
@@ -176,8 +176,8 @@ class TemplateTagDangerousTestCase(TemplateTestMixin, BaseTestCase):
             )
 
     def test_user_template_tag_dangerous_allowed(self):
-        setting_templating_dangerous_tags_allow_list.do_value_raw_set(
-            raw_value='dangerous_tag'
+        setting_templating_dangerous_tags_allow_list.do_value_override(
+            value='dangerous_tag'
         )
 
         result = self._render_test_template(

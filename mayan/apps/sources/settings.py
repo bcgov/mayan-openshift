@@ -23,7 +23,7 @@ setting_backend_arguments = setting_namespace.do_setting_add(
 )
 
 setting_source_cache_maximum_size = setting_namespace.do_setting_add(
-    default=DEFAULT_SOURCES_CACHE_MAXIMUM_SIZE,
+    data_type=int, default=DEFAULT_SOURCES_CACHE_MAXIMUM_SIZE,
     global_name='SOURCES_CACHE_MAXIMUM_SIZE',
     help_text=_(
         message='The threshold at which the SOURCES_CACHE_STORAGE_BACKEND '
