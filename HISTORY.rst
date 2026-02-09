@@ -95,9 +95,12 @@
   - Add tests for all settings app management commands.
 
 - Add `ENVIRONMENT_VARIABLE_PREFIX` and set it to `MAYAN_` to avoid
-hardcoding the environment variable prefix in code.
+  hardcoding the environment variable prefix in code.
 - Translate document download messages at the moment they are used not
-when they are updated.
+  when they are updated.
+- Add a reusable chunked hashing function optimized for large files.
+- Default chunked hashing block size to 65536 bytes for better alignment with
+  memory allocation, file system buffers, and CPU cache lines.
 
 4.10.1 (XXXX-XX-XX)
 ===================
