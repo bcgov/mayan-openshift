@@ -1,6 +1,9 @@
 4.10.4 (2026-XX-XX)
 ===================
 - Backport changes and improvements from version 4.11.
+- Add a reusable chunked hashing function optimized for large files.
+- Default chunked hashing block size to 65536 bytes for better alignment with
+  memory allocation, file system buffers, and CPU cache lines.
 
 4.10.3 (2025-12-24)
 ===================
