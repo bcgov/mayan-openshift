@@ -1,8 +1,8 @@
 from mayan.apps.documents import storages
 from mayan.apps.smart_settings.tests.mixins import TestMixinSettingDataType
+from mayan.apps.smart_settings.utils import get_environment_variable_full_name
 from mayan.apps.storage.tests.mixins import StorageSettingTestMixin
 from mayan.apps.testing.tests.base import BaseTestCase
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..literals import (
     STORAGE_NAME_DOCUMENT_FILE_PAGE_IMAGE_CACHE, STORAGE_NAME_DOCUMENT_FILES,
@@ -186,11 +186,11 @@ class DocumentSettingDataTypeTestCase(TestMixinSettingDataType, BaseTestCase):
 
 class DocumentSettingsTestCase(BaseTestCase):
     def test_documents_language_codes_setting_double_quotes(self):
+        environment_variable_name = get_environment_variable_full_name(
+            name=setting_language_codes.global_name
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX,
-                setting_language_codes.global_name
-            ), value='["spa","fra"]'
+            name=environment_variable_name, value='["spa","fra"]'
         )
 
         self.assertEqual(
@@ -199,11 +199,11 @@ class DocumentSettingsTestCase(BaseTestCase):
         )
 
     def test_documents_language_codes_setting_single_quotes(self):
+        environment_variable_name = get_environment_variable_full_name(
+            name=setting_language_codes.global_name
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX,
-                setting_language_codes.global_name
-            ), value="['spa','deu']"
+            name=environment_variable_name, value="['spa','deu']"
         )
 
         self.assertEqual(

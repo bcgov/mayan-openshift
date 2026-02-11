@@ -4,10 +4,10 @@ from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.testing.tests.base import BaseTestCase
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..exceptions import SettingsDomainError
 from ..settings import setting_cluster
+from ..utils import get_environment_variable_full_name
 
 from .literals import (
     TEST_SETTING_GLOBAL_NAME, TEST_SETTING_VALIDATION_BAD_VALUE,
@@ -24,10 +24,11 @@ class ClusterTestCase(BaseTestCase):
 
         self._create_test_setting()
 
+        environment_variable_name = get_environment_variable_full_name(
+            name=self._test_setting.global_name
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX, self._test_setting.global_name
-            ), value='{"'  # Invalid YAML
+            name=environment_variable_name, value='{"'  # Invalid YAML
         )
 
         setting_cluster.do_cache_invalidate()
@@ -44,10 +45,11 @@ class ClusterTestCase(BaseTestCase):
 
         self._create_test_setting()
 
+        environment_variable_name = get_environment_variable_full_name(
+            name=self._test_setting.global_name
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX, self._test_setting.global_name
-            ), value='{"'  # Invalid YAML
+            name=environment_variable_name, value='{"'  # Invalid YAML
         )
 
         setting_cluster.do_cache_invalidate()

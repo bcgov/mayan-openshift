@@ -1,7 +1,7 @@
 from django.core.exceptions import ImproperlyConfigured
 
+from mayan.apps.smart_settings.utils import get_environment_variable_full_name
 from mayan.apps.testing.tests.base import BaseTestCase
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from .literals import (
     TEST_SETTING_GLOBAL_NAME, TEST_SETTING_INITIAL_VALUE, TEST_SETTING_VALUE
@@ -31,10 +31,11 @@ class SettingNamespaceTestCase(BaseTestCase):
 
 class SettingNamespaceMigrationTestCase(BaseTestCase):
     def test_environment_migration(self):
+        environment_variable_name = get_environment_variable_full_name(
+            name=TEST_SETTING_GLOBAL_NAME
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX, TEST_SETTING_GLOBAL_NAME
-            ), value=TEST_SETTING_INITIAL_VALUE
+            name=environment_variable_name, value=TEST_SETTING_INITIAL_VALUE
         )
         self._test_setting_namespace_create(
             migration_class=TestNamespaceMigrationOne, version='0002'

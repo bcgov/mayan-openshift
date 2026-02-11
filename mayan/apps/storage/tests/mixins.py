@@ -17,7 +17,7 @@ from mayan.apps.common.tests.literals import (
 from mayan.apps.documents.literals import STORAGE_NAME_DOCUMENT_FILES
 from mayan.apps.permissions.tests.mixins import PermissionTestMixin
 from mayan.apps.smart_settings.settings import setting_cluster
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
+from mayan.apps.smart_settings.utils import get_environment_variable_full_name
 
 from ..classes import DefinedStorage
 from ..compressed_files import Archive
@@ -267,10 +267,11 @@ class StorageSettingTestMixin:
         old_value = setting.value
         setting_cluster.do_cache_invalidate()
 
+        environment_variable_name = get_environment_variable_full_name(
+            name=setting.global_name
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX, setting.global_name
-            ), value='invalid_value'
+            name=environment_variable_name, value='invalid_value'
         )
         self.test_case_silenced_logger_new_level = logging.FATAL + 10
         self._silence_logger(name='mayan.apps.storage.classes')

@@ -1,6 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.smart_settings.settings import setting_cluster
+from mayan.apps.smart_settings.utils import get_environment_variable_full_name
 
 from .literals import (
     DEFAULT_CELERY_APP_CLASS, DEFAULT_CELERY_BROKER_LOGIN_METHOD,
@@ -12,8 +13,12 @@ setting_namespace = setting_cluster.do_namespace_add(
     label=_(message='Celery'), name='celery'
 )
 
+celery_app_class_environment_variable_name = get_environment_variable_full_name(
+    name='CELERY_CLASS'
+)
 setting_celery_app_class = setting_namespace.do_setting_add(
-    default=DEFAULT_CELERY_APP_CLASS, global_name='MAYAN_CELERY_CLASS',
+    default=DEFAULT_CELERY_APP_CLASS,
+    global_name=celery_app_class_environment_variable_name,
     help_text=_(
         message='The class used to instantiate the main Celery app.'
     )

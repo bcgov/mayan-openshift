@@ -4,6 +4,7 @@ from django.utils.module_loading import import_string
 
 from mayan.apps.common.tests.mixins import ManagementCommandTestMixin
 from mayan.apps.smart_settings.settings import setting_cluster
+from mayan.apps.smart_settings.utils import get_environment_variable_full_name
 
 from ..exceptions import LockError
 from ..literals import COMMAND_NAME_LOCK_MANAGER_PURGE_LOCKS
@@ -24,7 +25,11 @@ class LockBackendManagementCommandTestCaseMixin(ManagementCommandTestMixin):
         with self.assertRaises(expected_exception=LockError):
             self._test_locking_backend.acquire_lock(name=TEST_LOCK_1)
 
-        os.environ['MAYAN_LOCK_MANAGER_BACKEND'] = self._test_locking_backend_string
+        environment_variable_name = get_environment_variable_full_name(
+            name='LOCK_MANAGER_BACKEND'
+        )
+
+        os.environ[environment_variable_name] = self._test_locking_backend_string
         setting_cluster.do_cache_invalidate()
         self._call_test_management_command()
 

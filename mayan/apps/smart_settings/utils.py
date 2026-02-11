@@ -11,6 +11,13 @@ from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from .literals import CONFIGURATION_FILENAME, CONFIGURATION_FILENAME_LAST_GOOD
 
+environment_variable_prefix = ENVIRONMENT_VARIABLE_PREFIX
+
+
+def get_environment_variable_full_name(name):
+    full_name = '{}{}'.format(environment_variable_prefix, name)
+    return full_name
+
 
 def serialize_data_to_display(data):
     result = yaml_dump(
@@ -74,6 +81,12 @@ class SettingNamespaceSingleton:
             setting.namespace = self
             self.settings[name] = setting
 
+        # Proto setting.
+        global environment_variable_prefix
+        environment_variable_prefix = os.environ.get(
+            'MAYAN_ENVIRONMENT_VARIABLE_PREFIX', ENVIRONMENT_VARIABLE_PREFIX
+        )
+
     def get_config_file_content(self):
         filepath = self.get_setting_value(name='CONFIGURATION_FILEPATH')
 
@@ -102,7 +115,7 @@ class SettingNamespaceSingleton:
         """
         result = {}
         for name, setting in self.settings.items():
-            # If only_critical is set to True load only the settings with
+            # If `only_critical` is set to `True` load only the settings with
             # the critical flag. Otherwise load all.
             if only_critical and setting.critical or not only_critical:
                 try:
@@ -203,12 +216,13 @@ class BaseSetting:
         return self.default_value
 
     def get_environment_name(self):
-        return '{}{}'.format(ENVIRONMENT_VARIABLE_PREFIX, self.name)
+        full_name = get_environment_variable_full_name(name=self.name)
+        return full_name
 
     def get_template_environment_name(self):
-        return '{}{}'.format(
-            ENVIRONMENT_VARIABLE_PREFIX, self.get_template_name()
-        )
+        template_name = self.get_template_name()
+        full_name = get_environment_variable_full_name(name=template_name)
+        return full_name
 
     def get_template_name(self):
         return 'SETTING_TEMPLATE_{}'.format(self.name)

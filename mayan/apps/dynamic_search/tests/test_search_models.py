@@ -1,7 +1,7 @@
 from django.db import models
 
+from mayan.apps.smart_settings.utils import get_environment_variable_full_name
 from mayan.apps.testing.tests.base import BaseTestCase
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..search_models import SearchModel
 from ..settings import setting_search_model_field_disable
@@ -55,14 +55,16 @@ class SearchModelTestCase(SearchTestMixin, BaseTestCase):
             field_name=TEST_SEARCH_MODEL_FIELD_NAME
         )
 
+        environment_variable_name = get_environment_variable_full_name(
+            name=setting_search_model_field_disable.global_name
+        )
+        value = '{{"{search_model_name}":["{search_field_name}"]}}'.format(
+            search_model_name=self._test_search_model.full_name,
+            search_field_name=test_search_field.field_name
+        )
+
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX,
-                setting_search_model_field_disable.global_name
-            ), value='{{"{search_model_name}":["{search_field_name}"]}}'.format(
-                search_model_name=self._test_search_model.full_name,
-                search_field_name=test_search_field.field_name
-            )
+            name=environment_variable_name, value=value
         )
 
         SearchModel.post_load_modules()

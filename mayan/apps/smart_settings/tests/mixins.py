@@ -8,7 +8,9 @@ from mayan.apps.testing.tests.mixins import EnvironmentTestCaseMixin
 
 from ..setting_domains.configuration_files import SettingDomainConfigurationFile
 from ..settings import setting_cluster
-from ..utils import BaseSetting, SettingNamespaceSingleton
+from ..utils import (
+    BaseSetting, SettingNamespaceSingleton, get_environment_variable_full_name
+)
 
 from .literals import (
     TEST_BOOTSTAP_SETTING_NAME, TEST_NAMESPACE_LABEL, TEST_NAMESPACE_NAME,
@@ -37,9 +39,15 @@ class SettingClusterTestMixin(EnvironmentTestCaseMixin):
         super().setUp()
         setting_cluster.do_cache_invalidate()
 
+        environment_variable_name = get_environment_variable_full_name(
+            name='CONFIGURATION_FILEPATH'
+        )
+
         with NamedTemporaryFile(delete=False) as self._test_setting_config_file_object:
             settings.CONFIGURATION_FILEPATH = self._test_setting_config_file_object.name
-            os.environ['MAYAN_CONFIGURATION_FILEPATH'] = self._test_setting_config_file_object.name
+            os.environ[
+                environment_variable_name
+            ] = self._test_setting_config_file_object.name
 
         setting_cluster.do_cache_invalidate()
 
@@ -152,8 +160,13 @@ class SettingTestMixin(SettingNamespaceTestMixin):
             # after bootstrap.
             settings.CONFIGURATION_FILEPATH = _test_configuration_file_object.name
             # Needed to update the globals before Mayan has loaded.
+
+            environment_variable_name = get_environment_variable_full_name(
+                name='CONFIGURATION_FILEPATH'
+            )
+
             self._set_environment_variable(
-                name='MAYAN_CONFIGURATION_FILEPATH',
+                name=environment_variable_name,
                 value=_test_configuration_file_object.name
             )
 

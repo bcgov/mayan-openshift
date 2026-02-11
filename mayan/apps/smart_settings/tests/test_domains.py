@@ -2,10 +2,10 @@ from pathlib import Path
 
 from django.conf import settings
 
+from mayan.apps.smart_settings.utils import get_environment_variable_full_name
 from mayan.apps.storage.utils import NamedTemporaryFile, fs_cleanup
 from mayan.apps.testing.tests.base import BaseTestCase
 from mayan.apps.views.settings import setting_paginate_by
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..settings import setting_cluster
 
@@ -79,10 +79,11 @@ class EnvironmentDomainTestCase(BaseTestCase):
         self._test_setting_namespace_create()
         self._create_test_setting()
 
+        environment_variable_name = get_environment_variable_full_name(
+            name=self._test_setting.global_name
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX, self._test_setting.global_name
-            ), value=test_environment_value
+            name=environment_variable_name, value=test_environment_value
         )
 
         self._test_configuration_value = test_file_value
@@ -91,10 +92,11 @@ class EnvironmentDomainTestCase(BaseTestCase):
         self.assertEqual(self._test_setting.value, test_environment_value)
 
     def test_environment_variable(self):
+        environment_variable_name = get_environment_variable_full_name(
+            name=ENVIRONMENT_TEST_NAME
+        )
         self._set_environment_variable(
-            name='{}{}'.format(
-                ENVIRONMENT_VARIABLE_PREFIX, ENVIRONMENT_TEST_NAME
-            ), value=ENVIRONMENT_TEST_VALUE
+            name=environment_variable_name, value=ENVIRONMENT_TEST_VALUE
         )
 
         self.assertEqual(

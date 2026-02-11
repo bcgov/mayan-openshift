@@ -5,10 +5,10 @@ import yaml
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.serialization import yaml_load
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from ..domains import SettingDomain
 from ..exceptions import SettingsDomainError
+from ..utils import get_environment_variable_full_name
 
 
 class SettingDomainEnvironmentVariable(SettingDomain):
@@ -24,7 +24,7 @@ class SettingDomainEnvironmentVariable(SettingDomain):
 
     @classmethod
     def get_key_value(cls, key):
-        key_full_path = '{}{}'.format(ENVIRONMENT_VARIABLE_PREFIX, key)
+        key_full_path = get_environment_variable_full_name(name=key)
         environment_value = os.environ[key_full_path]
 
         try:

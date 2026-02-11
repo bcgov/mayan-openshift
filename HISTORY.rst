@@ -101,6 +101,10 @@
 - Add a reusable chunked hashing function optimized for large files.
 - Default chunked hashing block size to 65536 bytes for better alignment with
   memory allocation, file system buffers, and CPU cache lines.
+- Add the reusable function `get_environment_variable_full_name` to normalize
+  how setting environment variables are constructed.
+- Add the proto settings `MAYAN_ENVIRONMENT_VARIABLE_PREFIX` to change the
+  prefix for the setting environment variables.
 
 4.10.1 (XXXX-XX-XX)
 ===================
