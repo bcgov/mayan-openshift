@@ -42,7 +42,7 @@ msgstr "המסמך הוצא מהארכיון"
 
 #: events.py:20
 msgid "Document forcefully checked in"
-msgstr ""
+msgstr "מסמך הוכנס לארכיון בהתגברות"
 
 #: exceptions.py:15
 msgid "Document not checked out."
@@ -74,15 +74,15 @@ msgstr ""
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "הוצא את המסמך מהארכיון"
 
 #: links.py:43
 msgid "Check out"
@@ -211,7 +211,7 @@ msgstr "מסמך %(count)d הוחזר לארכיון בהצלחה."
 #: views.py:40
 #, python-format
 msgid "Check in %(count)d documents."
-msgstr ""
+msgstr "החזרה לארכיון של %(count)d מסמכים."
 
 #: views.py:41
 #, python-format
@@ -232,7 +232,7 @@ msgstr ""
 #: views.py:102
 #, python-format
 msgid "%(count)d documents checked out successfully."
-msgstr ""
+msgstr "%(count)d מסמכים הוצאו מהארכיון בהצלחה."
 
 #: views.py:105
 #, python-format
@@ -272,7 +272,7 @@ msgstr "הוצאת מסמך מהארכיון חוסמת פעולות מסוימ�
 
 #: views.py:184
 msgid "No documents have been checked out"
-msgstr ""
+msgstr "אין מסמכים שהוצאו מהארכיון"
 
 #: widgets.py:19
 msgid "Amount"

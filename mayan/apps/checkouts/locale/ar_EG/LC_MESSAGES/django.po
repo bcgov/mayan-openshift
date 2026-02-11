@@ -45,7 +45,7 @@ msgstr "إستخراج الوثيقة"
 
 #: events.py:20
 msgid "Document forcefully checked in"
-msgstr ""
+msgstr "إدخال الوثيقة بشكل إجباري"
 
 #: exceptions.py:15
 msgid "Document not checked out."
@@ -77,15 +77,15 @@ msgstr "هل يُسمح بملفات جديدة؟"
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "قبول"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "رفض"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "إستخراج الوثيقة"
 
 #: links.py:43
 msgid "Check out"
@@ -214,7 +214,7 @@ msgstr "تم إيداع %(count)d مستند بنجاح."
 #: views.py:40
 #, python-format
 msgid "Check in %(count)d documents."
-msgstr ""
+msgstr "إيداع %(count)d مستندات."
 
 #: views.py:41
 #, python-format
@@ -234,7 +234,7 @@ msgstr "تعذّر سحب المستند \"%(instance)s\"؛ %(exception)s"
 #: views.py:102
 #, python-format
 msgid "%(count)d documents checked out successfully."
-msgstr ""
+msgstr "تم سحب %(count)d مستندات بنجاح."
 
 #: views.py:105
 #, python-format
@@ -274,8 +274,8 @@ msgstr "سحب وثيقة، يمنع عمليات معينة لفترة زمني
 
 #: views.py:184
 msgid "No documents have been checked out"
-msgstr ""
+msgstr "لم يتم إستخراج أوثائق"
 
 #: widgets.py:19
 msgid "Amount"
-msgstr ""
+msgstr "كمية"

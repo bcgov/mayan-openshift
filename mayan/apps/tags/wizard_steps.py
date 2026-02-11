@@ -67,9 +67,17 @@ class DocumentCreateWizardStepTags(DocumentCreateWizardStep):
 
     @classmethod
     def condition(cls, wizard):
-        Tag = apps.get_model(app_label='tags', model_name='Tag')
+        user = wizard.request.user
 
-        return Tag.objects.exists()
+        if user:
+            queryset = AccessControlList.objects.restrict_queryset(
+                permission=permission_tag_attach,
+                queryset=Tag.objects.all(), user=user
+            )
+        else:
+            queryset = Tag.objects.all()
+
+        return queryset.exists()
 
     @classmethod
     def get_form_kwargs(self, wizard):
@@ -99,13 +107,17 @@ class DocumentCreateWizardStepTags(DocumentCreateWizardStep):
     @classmethod
     def done(cls, wizard):
         result = {}
-        cleaned_data = wizard.get_cleaned_data_for_step(cls.name)
-        if cleaned_data:
-            result['tags'] = [
-                str(tag.pk) for tag in cleaned_data['tags']
-            ]
+        try:
+            cleaned_data = wizard.get_cleaned_data_for_step(step=cls.name)
+        except KeyError:
+            return result
+        else:
+            if cleaned_data:
+                result['tags'] = [
+                    str(tag.pk) for tag in cleaned_data['tags']
+                ]
 
-        return result
+            return result
 
     @classmethod
     def step_post_upload_process(

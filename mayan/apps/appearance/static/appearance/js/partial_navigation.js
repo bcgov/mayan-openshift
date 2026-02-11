@@ -93,10 +93,21 @@ class PartialNavigation {
             }
         }
 
+        // Only allow same-origin HTTP(S) navigation targets.
+        // This blocks `javascript:`, `data:`, and cross-origin redirects.
+        const isHttp = (url.protocol === 'http:' || url.protocol === 'https:');
+        const isSameOrigin = (url.origin === window.location.origin);
+        if (!isHttp || !isSameOrigin) {
+            return this.initialURL;
+        }
+
         if (url.pathname === '/') {
             // href with no path remain in the same location
             // We strip the same location query and use the new href's one.
-            const urlNew = new URL(window.location.hash.substring(1), url);
+            const currentHash = window.location.hash.substring(1);
+            const basePath = (currentHash.startsWith('/') && !currentHash.startsWith('//')) ? currentHash : this.initialURL;
+            const urlNew = new URL(basePath, window.location.origin);
+
             urlNew.search = newLocation;
 
             if (urlNew.pathname === '/') {
@@ -106,7 +117,7 @@ class PartialNavigation {
             }
         }
 
-        return newLocation;
+        return `${url.pathname}${url.search}`;
     }
 
     loadAjaxContent (url) {

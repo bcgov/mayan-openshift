@@ -23,15 +23,15 @@ msgstr ""
 
 #: apps.py:10
 msgid "File metadata OpenAI"
-msgstr ""
+msgstr "Quellenmetadaten für OpenAI"
 
 #: drivers.py:21
 msgid "Analyze content using OpenAI's Response API."
-msgstr ""
+msgstr "Inhalt unter Verwendung der OpenAI Antwort API analysieren."
 
 #: drivers.py:24
 msgid "OpenAI Response API driver"
-msgstr ""
+msgstr "OpenAI Antwort API Treiber"
 
 #: drivers.py:31
 msgid "Basic"
@@ -43,15 +43,15 @@ msgstr "Authentifizierung"
 
 #: drivers.py:41
 msgid "Control"
-msgstr ""
+msgstr "Kontrolle"
 
 #: drivers.py:46
 msgid "Prompt"
-msgstr ""
+msgstr "Prompt"
 
 #: drivers.py:51
 msgid "Communication"
-msgstr ""
+msgstr "Kommunikation"
 
 #: drivers.py:59
 msgid ""
@@ -59,36 +59,45 @@ msgid ""
 "endpoint or proxy. The document file object is available as {{ document_file"
 " }}."
 msgstr ""
+"Basis-URL für den API Endpunkt. Nur ändern bei Verwendung eines kompatiblen "
+"Nicht-Standard Endpunkts oder Proxies. Die Dokumentendatei ist als {{ "
+"document_file }} verfügbar."
 
 #: drivers.py:62
 msgid "Base URL"
-msgstr ""
+msgstr "Basis-URL"
 
 #: drivers.py:66
 msgid ""
 "The API key used for authentication. The document file object is available "
 "as {{ document_file }}."
 msgstr ""
+"Der API-Schlüssel, der für die Authentifizierung verwendet wird. Die "
+"Dokumentendatei ist als {{ document_file }} verfügbar."
 
 #: drivers.py:68
 msgid "API Key"
-msgstr ""
+msgstr "API-Schlüssel"
 
 #: drivers.py:72
 msgid ""
 "Text or file content to send to the OpenAI API for analysis. The document "
 "file object is available as {{ document_file }}."
 msgstr ""
+"Text oder Dateiinhalt, der zur Analyse an OpenAI geschickt wird. Die "
+"Dokumentendatei ist als {{ document_file }} verfügbar."
 
 #: drivers.py:75
 msgid "Input"
-msgstr ""
+msgstr "Eingabe"
 
 #: drivers.py:79
 msgid ""
 "Identifier of the OpenAI model to use (for example: gpt-5, gpt-5-nano). The "
 "document file object is available as {{ document_file }}."
 msgstr ""
+"Identifikator für das zu verwendende OpenAI-Modell (zum Beispiel: gpt-5, "
+"gpt-5-nano). Die Dokumentendatei ist als {{ document_file }} verfügbar."
 
 #: drivers.py:82
 msgid "Model"
@@ -100,16 +109,21 @@ msgid ""
 " organizations. The document file object is available as {{ document_file "
 "}}."
 msgstr ""
+"Optionale ID für die OpenAI Organisation. Wird verwendet, wenn der API-"
+"Schlüssel für mehrere Organisationen verwendet wird. Die Dokumentendatei ist"
+" als {{ document_file }} verfügbar."
 
 #: drivers.py:89
 msgid "Organization"
-msgstr ""
+msgstr "Organisation"
 
 #: drivers.py:93
 msgid ""
 "Optional OpenAI project ID. Allows scoping requests to a specific project.  "
 "The document file object is available as {{ document_file }}."
 msgstr ""
+"Optionale OpenAI Projekt-ID. Erlaubt die Einschränkung auf ein spezifisches "
+"Projekt. Die Dokumentendatei ist als {{ document_file }} verfügbar."
 
 #: drivers.py:96
 msgid "Project"
@@ -120,6 +134,8 @@ msgid ""
 "Maximum time (in seconds) to wait for a response from the API before "
 "failing.  The document file object is available as {{ document_file }}."
 msgstr ""
+"Maximale Zeit (in Sekunden) um auf eine Antwort der API zu warten. Die "
+"Dokumentendatei ist verfübar als {{ document_file }}."
 
 #: drivers.py:103
 msgid "Timeout"

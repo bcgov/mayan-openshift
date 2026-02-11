@@ -498,11 +498,11 @@ msgstr "Trasparenza del riempimento"
 
 #: transformation_mixins.py:365
 msgid "Color used for the outline of the rectangle."
-msgstr "Colore utilizzato per il bordo del rettangolo."
+msgstr "Colore utilizzato per il contorno del rettangolo."
 
 #: transformation_mixins.py:366
 msgid "Outline color"
-msgstr "Colore del bordo"
+msgstr "Colore del contorno"
 
 #: transformation_mixins.py:370
 msgid "Width in pixels of the rectangle outline."
@@ -526,11 +526,11 @@ msgstr "Taglia"
 
 #: transformations.py:235
 msgid "Number of pixels to remove from the left."
-msgstr "Numero di pixel da rimuovere a sinistra."
+msgstr "Numero di pixel da togliere a sinistra."
 
 #: transformations.py:239
 msgid "Number of pixels to remove from the top."
-msgstr "Numero di pixel da rimuovere dall'alto."
+msgstr "Numero di pixel da togliere dall'alto."
 
 #: transformations.py:244
 msgid "Number of pixels to remove from the right."
@@ -590,7 +590,7 @@ msgstr "Sfocatura gaussiana"
 
 #: transformations.py:546 transformations.py:747
 msgid "Radius"
-msgstr "Raggio"
+msgstr "Radianti"
 
 #: transformations.py:558
 msgid "Line art"
@@ -610,7 +610,7 @@ msgstr "Valore da codificare nel codice QR."
 
 #: transformations.py:596
 msgid "Code value"
-msgstr "Valore del codice"
+msgstr "Codice valore"
 
 #: transformations.py:621
 msgid "Resize"

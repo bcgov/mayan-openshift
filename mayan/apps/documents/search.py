@@ -40,13 +40,13 @@ search_model_document.add_model_field(field='description')
 search_model_document.add_model_field(field='language')
 search_model_document.add_model_field(field='uuid')
 search_model_document.add_model_field(
-    field='files__checksum', label=('Document file checksum')
+    field='files__checksum', label=_(message='Document file checksum')
 )
 search_model_document.add_model_field(
-    field='files__filename', label=('Document file filename')
+    field='files__filename', label=_(message='Document file filename')
 )
 search_model_document.add_model_field(
-    field='files__mimetype', label=('Document file MIME type')
+    field='files__mimetype', label=_(message='Document file MIME type')
 )
 
 # Document file

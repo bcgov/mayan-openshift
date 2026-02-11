@@ -78,7 +78,7 @@ msgstr "Тийм"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "Үгүй"
 
 #: links.py:39
 msgid "Check out document"

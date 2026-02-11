@@ -810,7 +810,7 @@ msgstr "Workflowvorlagen betrachten"
 
 #: permissions.py:26
 msgid "Delete workflow instances"
-msgstr ""
+msgstr "Workflowinstanzen löschen"
 
 #: permissions.py:29
 msgid "Transition workflow instances"
@@ -1119,32 +1119,32 @@ msgstr "Workflows für Dokument %s"
 #: views/workflow_instance_views.py:64
 #, python-format
 msgid "%(count)d workflow instances deleted successfully."
-msgstr ""
+msgstr "%(count)d Workflowinstanzen erfolgreich gelöscht."
 
 #: views/workflow_instance_views.py:67
 #, python-format
 msgid "Workflow instance \"%(object)s\" deleted successfully."
-msgstr ""
+msgstr "Workflowinstanz \"%(object)s\" erfolgreich gelöscht."
 
 #: views/workflow_instance_views.py:70
 #, python-format
 msgid "%(count)d workflow instance deleted successfully."
-msgstr ""
+msgstr "%(count)d Workflowinstanz erfolgreich gelöscht."
 
 #: views/workflow_instance_views.py:73
 #, python-format
 msgid "Delete the %(count)d selected workflow instances"
-msgstr ""
+msgstr "%(count)d ausgewählte Workflowinstanzen löschen"
 
 #: views/workflow_instance_views.py:75
 #, python-format
 msgid "Delete workflow instance: %(object)s"
-msgstr ""
+msgstr "Workflowinstanz %(object)s löschen."
 
 #: views/workflow_instance_views.py:77
 #, python-format
 msgid "Delete the %(count)d selected workflow instance"
-msgstr ""
+msgstr "Die %(count)d ausgewählte Workflowinstanz löschen"
 
 #: views/workflow_instance_views.py:131
 msgid ""
@@ -1630,11 +1630,11 @@ msgstr "Zugriffs-URL."
 
 #: workflow_actions.py:180
 msgid "Verify SSL Certificate"
-msgstr ""
+msgstr "SSL-Zertifikat verifizieren"
 
 #: workflow_actions.py:185
 msgid "Verify or ignore the SSL certificate of the URL."
-msgstr ""
+msgstr "Das SSL-Zertifikat für die URL verifizieren oder ignorieren."
 
 #: workflow_actions.py:190
 msgid "Method"

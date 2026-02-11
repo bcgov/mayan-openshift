@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:33+0000\n"
+"POT-Creation-Date: 2025-12-24 07:07+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2025\n"
 "Language-Team: Arabic (Egypt) (https://app.transifex.com/rosarior/teams/13584/ar_EG/)\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Tags"
 msgstr "الدلالات"
 
-#: apps.py:168 models.py:31
+#: apps.py:168 links.py:68 models.py:31
 msgid "Documents"
 msgstr "الوثائق"
 
@@ -229,7 +229,7 @@ msgstr "إرفاق علامات بالوثيقة: %(object)s"
 msgid "Attach tags to %(count)d document."
 msgstr "إرفاق علامات بـ %(count)d وثيقة"
 
-#: views/document_views.py:58 wizard_steps.py:82
+#: views/document_views.py:58 wizard_steps.py:90
 msgid "Tags to be attached."
 msgstr "الدلالات المراد ارفاقها"
 

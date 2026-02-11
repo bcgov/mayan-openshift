@@ -43,7 +43,7 @@ msgstr "Dokument odhlášen"
 
 #: events.py:20
 msgid "Document forcefully checked in"
-msgstr ""
+msgstr "Dokument byl násilně přihlášen"
 
 #: exceptions.py:15
 msgid "Document not checked out."
@@ -75,15 +75,15 @@ msgstr "Jsou povoleny nové soubory?"
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "Odhlásit dokument"
 
 #: links.py:43
 msgid "Check out"
@@ -277,4 +277,4 @@ msgstr ""
 
 #: widgets.py:19
 msgid "Amount"
-msgstr ""
+msgstr "Množství"

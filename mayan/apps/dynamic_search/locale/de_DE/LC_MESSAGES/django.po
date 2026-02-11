@@ -600,7 +600,7 @@ msgstr ""
 
 #: views/saved_resultset_views.py:71
 msgid "No saved resultsets available"
-msgstr "Keine gespeicherten Ergebnissets verfügbar."
+msgstr "Keine gespeicherten Ergebnissets verfügbar"
 
 #: views/search_views.py:58
 msgid "This tool erases and populates the search backend's internal index."

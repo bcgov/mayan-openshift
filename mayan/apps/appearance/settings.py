@@ -23,7 +23,7 @@ setting_ajax_redirection_code = setting_namespace.do_setting_add(
         message='Custom HTTP response code for AJAX redirections.'
     )
 )
-settings_elided_pager_on_each_side = setting_namespace.do_setting_add(
+setting_elided_pager_on_each_side = setting_namespace.do_setting_add(
     data_type=int, default=DEFAULT_APPEARANCE_ELIDED_PAGER_ON_EACH_SIDE,
     global_name='APPEARANCE_ELIDED_PAGER_ON_EACH_SIDE', help_text=_(
         message='Number of pages to show on each side of the current '

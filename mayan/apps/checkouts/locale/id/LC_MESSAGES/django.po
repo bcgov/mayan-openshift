@@ -75,11 +75,11 @@ msgstr ""
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "Ya"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "Tidak"
 
 #: links.py:39
 msgid "Check out document"

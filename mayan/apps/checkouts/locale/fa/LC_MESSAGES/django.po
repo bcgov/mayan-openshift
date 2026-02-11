@@ -43,7 +43,7 @@ msgstr "سند خارج شد."
 
 #: events.py:20
 msgid "Document forcefully checked in"
-msgstr ""
+msgstr "سند طبق دستور وارد شد."
 
 #: exceptions.py:15
 msgid "Document not checked out."
@@ -75,15 +75,15 @@ msgstr ""
 
 #: forms.py:51
 msgid "Yes"
-msgstr ""
+msgstr "بله"
 
 #: forms.py:51
 msgid "No"
-msgstr ""
+msgstr "نه"
 
 #: links.py:39
 msgid "Check out document"
-msgstr ""
+msgstr "خروج checkout سند"
 
 #: links.py:43
 msgid "Check out"

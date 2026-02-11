@@ -96,7 +96,7 @@ class SmartLinkCondition(
     inclusion = models.CharField(
         choices=INCLUSION_CHOICES, default=INCLUSION_AND,
         help_text=_(message='The inclusion is ignored for the first item.'),
-        max_length=16
+        max_length=16, verbose_name=_(message='Inclusion')
     )
     foreign_document_data = models.CharField(
         help_text=_(
@@ -105,7 +105,10 @@ class SmartLinkCondition(
             message='Foreign document attribute'
         )
     )
-    operator = models.CharField(choices=OPERATOR_CHOICES, max_length=16)
+    operator = models.CharField(
+        choices=OPERATOR_CHOICES, max_length=16,
+        verbose_name=_(message='Operator')
+    )
     expression = models.TextField(
         help_text=_(
             message='The expression using document properties to be evaluated '

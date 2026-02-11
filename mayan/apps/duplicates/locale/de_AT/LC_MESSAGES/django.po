@@ -108,11 +108,11 @@ msgstr ""
 
 #: views.py:77
 msgid "There are no documents with duplicates"
-msgstr ""
+msgstr "Keine Dokumente mit Duplikaten vorhanden"
 
 #: views.py:79
 msgid "Documents with duplicates"
-msgstr ""
+msgstr "Dokumente mit Duplikaten"
 
 #: views.py:87
 msgid "Scan for duplicated documents?"
