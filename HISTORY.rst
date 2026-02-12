@@ -105,6 +105,7 @@
   how setting environment variables are constructed.
 - Add the proto settings `MAYAN_ENVIRONMENT_VARIABLE_PREFIX` to change the
   prefix for the setting environment variables.
+- Support Django 5.2 LTS.
 
 4.10.3 (2025-12-24)
 ===================

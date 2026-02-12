@@ -8,6 +8,7 @@ from mayan.apps.documents.tests.mixins.document_mixins import (
     DocumentTestMixin, DocumentViewTestMixin
 )
 from mayan.apps.testing.tests.base import GenericViewTestCase
+from mayan.apps.testing.widget_renderers import render_radio_option
 from mayan.apps.views.literals import URL_QUERY_POSITIVE_VALUES
 
 from ..literals import (
@@ -328,19 +329,27 @@ class SearchViewTestCase(
             }
         )
 
+        field_id = 'id_{}'.format(MATCH_ALL_FIELD_NAME)
+
+        radio_option_html = render_radio_option(
+            attrs={'aria-invalid': 'true', 'id': field_id}, index=0,
+            label='Yes', name=MATCH_ALL_FIELD_NAME,
+            value=MATCH_ALL_FIELD_CHOICES[0][0]
+        )
+
         self.assertContains(
             html=True, response=response, status_code=200,
-            text='<input type="radio" name="{name}" value="{value}" id="id_{id}_0">'.format(
-                id=MATCH_ALL_FIELD_NAME, name=MATCH_ALL_FIELD_NAME,
-                value=MATCH_ALL_FIELD_CHOICES[0][0]
-            )
+            text=radio_option_html
+        )
+
+        radio_option_html = render_radio_option(
+            attrs={'aria-invalid': 'true', 'id': field_id}, index=1,
+            label='No', name=MATCH_ALL_FIELD_NAME,
+            value=MATCH_ALL_FIELD_CHOICES[1][0]
         )
         self.assertContains(
             html=True, response=response, status_code=200,
-            text='<input type="radio" name="{name}" value="{value}" id="id_{id}_1">'.format(
-                id=MATCH_ALL_FIELD_NAME, name=MATCH_ALL_FIELD_NAME,
-                value=MATCH_ALL_FIELD_CHOICES[1][0]
-            )
+            text=radio_option_html
         )
 
         events = self._get_test_events()

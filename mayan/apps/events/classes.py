@@ -63,7 +63,7 @@ class ActionExporter:
             )
         )
 
-        for entry in self.queryset.iterator():
+        for entry in self.queryset.iterator(chunk_size=2000):
             row = [
                 str(
                     getattr(entry, field_name)
