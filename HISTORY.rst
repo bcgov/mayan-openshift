@@ -106,6 +106,7 @@
 - Add the proto settings `MAYAN_ENVIRONMENT_VARIABLE_PREFIX` to change the
   prefix for the setting environment variables.
 - Support Django 5.2 LTS.
+- Update base Docker image from Debian 12.12-slim to Debian 13.3-slim.
 
 4.10.3 (2025-12-24)
 ===================
