@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.platforms.platform_templates import PlatformTemplate, Variable
-from mayan.settings.literals import (
+from mayan.literals import (
     DEFAULT_DATABASE_NAME, DEFAULT_DATABASE_PASSWORD, DEFAULT_DATABASE_USER,
     DOCKER_CLI_IMAGE_VERSION, DOCKER_DIND_IMAGE_VERSION,
     DOCKER_LINUX_IMAGE_NAME, DOCKER_LINUX_IMAGE_TAG,

@@ -5,7 +5,7 @@ from mayan.apps.platforms.platform_templates import (
 )
 from mayan.apps.platforms.utils import load_env_file
 from mayan.apps.task_manager.classes import Worker
-from mayan.settings.literals import (
+from mayan.literals import (
     DEFAULT_DATABASE_NAME, DEFAULT_DATABASE_PASSWORD, DEFAULT_DATABASE_USER,
     DEFAULT_ELASTICSEARCH_PASSWORD, DEFAULT_RABBITMQ_CONSUMER_TIMEOUT,
     DEFAULT_RABBITMQ_PASSWORD, DEFAULT_RABBITMQ_USER, DEFAULT_RABBITMQ_VHOST,

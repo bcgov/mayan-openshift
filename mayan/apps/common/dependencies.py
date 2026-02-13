@@ -4,9 +4,7 @@ from mayan.apps.dependencies.classes import PythonDependency
 from mayan.apps.dependencies.environments import (
     environment_build, environment_development, environment_documentation
 )
-from mayan.settings.literals import (
-    PYTHON_SETUPTOOLS_VERSION, PYTHON_WHEEL_VERSION
-)
+from mayan.literals import PYTHON_SETUPTOOLS_VERSION, PYTHON_WHEEL_VERSION
 
 PythonDependency(
     legal_text='''

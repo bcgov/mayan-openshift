@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.smart_settings.settings import setting_cluster
-from mayan.settings.literals import (
+from mayan.literals import (
     GUNICORN_LIMIT_REQUEST_LINE, GUNICORN_MAX_REQUESTS,
     GUNICORN_REQUESTS_JITTER, GUNICORN_TIMEOUT, GUNICORN_WORKER_CLASS,
     GUNICORN_WORKERS
