@@ -7,7 +7,7 @@ from django.utils.encoding import force_str
 
 from mayan.apps.common.serialization import yaml_dump, yaml_load
 from mayan.apps.templating.template_backends import Template
-from mayan.settings.literals import ENVIRONMENT_VARIABLE_PREFIX
+from mayan.literals import ENVIRONMENT_VARIABLE_PREFIX
 
 from .literals import CONFIGURATION_FILENAME, CONFIGURATION_FILENAME_LAST_GOOD
 

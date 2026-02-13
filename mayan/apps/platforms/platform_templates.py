@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from mayan.apps.backends.classes import BaseBackend
 from mayan.apps.common.serialization import yaml_dump, yaml_load
 from mayan.apps.task_manager.classes import Worker
-from mayan.settings.literals import (
+from mayan.literals import (
     DEFAULT_DIRECTORY_INSTALLATION, DEFAULT_OS_USERNAME,
     DEFAULT_USER_SETTINGS_FOLDER, GUNICORN_LIMIT_REQUEST_LINE,
     GUNICORN_MAX_REQUESTS, GUNICORN_REQUESTS_JITTER, GUNICORN_TIMEOUT,

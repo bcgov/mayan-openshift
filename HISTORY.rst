@@ -109,6 +109,8 @@
 - Update base Docker image from Debian 12.12-slim to Debian 13.3-slim.
 - Add the management command `dependencies_uninstall` to uninstall JavaScript
   and Google Font dependencies.
+- Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
+  circular dependencies.
 
 4.10.3 (2025-12-24)
 ===================

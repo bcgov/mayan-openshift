@@ -5,7 +5,7 @@ import elasticsearch
 from elasticsearch import Elasticsearch, helpers
 from elasticsearch.dsl import Search
 
-from mayan.settings.literals import DEFAULT_ELASTICSEARCH_PASSWORD
+from mayan.literals import DEFAULT_ELASTICSEARCH_PASSWORD
 
 from ...exceptions import (
     DynamicSearchBackendException, DynamicSearchValueTransformationError
