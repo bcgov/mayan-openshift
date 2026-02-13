@@ -43,7 +43,7 @@ docker-build-amd64: ## Build a new amd64 image.
 	--file docker/Dockerfile $(DOCKER_IMAGE_LABELS) \
 	--output type=docker \
 	--platform linux/amd64 \
-	--tag $(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-amd64 \
+    --tag $(DOCKER_IMAGE_NAME_FULL)-amd64 \
 	.
 
 docker-build-arm64: ## Build a new arm64 image.
@@ -57,7 +57,7 @@ docker-build-arm64: ## Build a new arm64 image.
 	--file docker/Dockerfile $(DOCKER_IMAGE_LABELS) \
 	--output type=docker \
 	--platform linux/arm64 \
-	--tag $(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-arm64 \
+    --tag $(DOCKER_IMAGE_NAME_FULL)-arm64 \
 	.
 
 # Dockerfile
@@ -65,42 +65,3 @@ docker-build-arm64: ## Build a new arm64 image.
 docker-dockerfile-update: ## Update the Dockerfile file from the platform template.
 docker-dockerfile-update: config-env-copy
 	./manage.py platforms_template docker_dockerfile > docker/Dockerfile
-
-# Images
-
-docker-image-push: ## Push images to the Docker registry.
-	docker image tag \
-	$(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-amd64 \
-	$(DOCKER_IMAGE_NAME_FULL)-amd64
-	docker image tag \
-	$(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-arm64 \
-	$(DOCKER_IMAGE_NAME_FULL)-arm64
-	docker image push \
-	$(DOCKER_IMAGE_NAME_FULL)-amd64
-	docker image push \
-	$(DOCKER_IMAGE_NAME_FULL)-arm64
-	# /etc/docker/daemon.json {"insecure-registries" : ["docker-registry.local:5000"]}
-	# /etc/hosts <ip address>  docker-registry.local
-
-docker-image-pull: ## Pull an image from the Docker registry.
-	docker image pull \
-	$(DOCKER_IMAGE_NAME_FULL)
-	docker image tag \
-	$(DOCKER_IMAGE_NAME_FULL) \
-	$(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)
-
-# Manifest
-
-docker-manifest-create: ## Merge amd64 and arm64 images into one manifest.
-docker-manifest-create: docker-manifest-delete docker-image-push
-	docker manifest create \
-	$(DOCKER_IMAGE_NAME_FULL) \
-	$(DOCKER_IMAGE_NAME_FULL)-amd64 \
-	$(DOCKER_IMAGE_NAME_FULL)-arm64
-	docker manifest push \
-	$(DOCKER_IMAGE_NAME_FULL)
-
-docker-manifest-delete: ## Delete the manifest.
-docker-manifest-delete:
-	docker manifest rm \
-	$(DOCKER_IMAGE_NAME_FULL) || true

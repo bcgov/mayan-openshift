@@ -111,6 +111,7 @@
   and Google Font dependencies.
 - Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
   circular dependencies.
+- Reorganize and improve the Docker makefiles.
 
 4.10.3 (2025-12-24)
 ===================
