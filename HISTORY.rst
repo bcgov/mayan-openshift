@@ -107,6 +107,8 @@
   prefix for the setting environment variables.
 - Support Django 5.2 LTS.
 - Update base Docker image from Debian 12.12-slim to Debian 13.3-slim.
+- Add the management command `dependencies_uninstall` to uninstall JavaScript
+  and Google Font dependencies.
 
 4.10.3 (2025-12-24)
 ===================
