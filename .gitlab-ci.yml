@@ -20,7 +20,6 @@ job_docker_build:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - mkdir --parents ${APK_CACHE_DIR}
     - apk update
-    - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
     - apk update
     - apk add --cache-dir ${APK_CACHE_DIR} cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
     - python3 -m venv venv
@@ -48,9 +47,13 @@ job_docker_build:
     - ci/tests/all
     - ci/tests/docker
   script:
-    - DOCKER_VERSION=`cat docker/rootfs/version`
-    - make docker-build-all DOCKER_IMAGE_MAYAN_NAME=${CI_REGISTRY_IMAGE} IMAGE_VERSION=${DOCKER_VERSION} DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
+    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
+    - export DOCKER_IMAGE_MAYAN_NAME=${CI_REGISTRY_IMAGE}
+    - make docker-build-all DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - make docker-image-push-all
     - make docker-manifest-create
+    - make docker-manifest-push
   services:
     - docker:28.2.2-dind
   stage: stage_build_container
