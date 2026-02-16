@@ -43,7 +43,7 @@ docker-build-amd64: ## Build a new amd64 image.
 	--file docker/Dockerfile $(DOCKER_IMAGE_LABELS) \
 	--output type=docker \
 	--platform linux/amd64 \
-    --tag $(DOCKER_IMAGE_NAME_FULL)-amd64 \
+    --tag $(DOCKER_IMAGE_NAME_FULL_TAGGED)-amd64 \
 	.
 
 docker-build-arm64: ## Build a new arm64 image.
@@ -57,7 +57,7 @@ docker-build-arm64: ## Build a new arm64 image.
 	--file docker/Dockerfile $(DOCKER_IMAGE_LABELS) \
 	--output type=docker \
 	--platform linux/arm64 \
-    --tag $(DOCKER_IMAGE_NAME_FULL)-arm64 \
+    --tag $(DOCKER_IMAGE_NAME_FULL_TAGGED)-arm64 \
 	.
 
 # Dockerfile

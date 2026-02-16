@@ -11,10 +11,10 @@ docker-registry-run: # Launch a test Docker registry.
 	registry:2
 
 docker-registry-tags: ## Show the tags for the image in the test Docker registry.
-	curl http://$(DOCKER_REGISTRY_NAME)/v2/$(DOCKER_IMAGE_MAYAN_NAME)/tags/list
+	curl http://$(DOCKER_REGISTRY_NAME)/v2/$(DOCKER_IMAGE_NAME)/tags/list
 
 docker-registry-login: ## Login to the development registry.
 	docker login \
-	--password $(DOCKER_REGISTRY_PASSWORD) \
-	--username $(DOCKER_REGISTRY_USERNAME) \
-	$(DOCKER_REGISTRY_NAME)		
+	--password '$(DOCKER_REGISTRY_PASSWORD)' \
+	--username '$(DOCKER_REGISTRY_USERNAME)' \
+	$(DOCKER_REGISTRY_NAME)

@@ -1,8 +1,6 @@
 4.11 (XXXX-XX-XX)
 =================
 - Support building ARM64 Docker images.
-- Split the Docker makefile into separate makefiles.
-- Remove redundant code from makefiles.
 - Git ignore `__pycache__` folders.
 - Make the Celery app class configurable via the new setting named
   `MAYAN_CELERY_CLASS`.
@@ -111,7 +109,15 @@
   and Google Font dependencies.
 - Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
   circular dependencies.
-- Reorganize and improve the Docker makefiles.
+
+- CI and makefile refactor:
+
+  - Split the Docker makefile into separate makefiles.
+  - Remove redundant code from makefiles.
+  - Reorganize and improve the makefiles.
+  - Prefix `CONFIG_` to all config file values loaded into makefiles.
+  - Add new GitLab CI jobs to build AMD64 and ARM64 Docker images.
+  - Move GitLab CI code into reusable makefile DevOps targets.
 
 4.10.3 (2025-12-24)
 ===================

@@ -14,12 +14,11 @@ forge-buildkitd-config-create:
 
 forge-build: ## Build a new image locally.
 forge-build: forge-buildkitd-config-create
-	echo "$(IMAGE_VERSION)"
 	docker buildx rm mirrored || true
 	docker context rm tls-context || true
 	docker context create tls-context
 	docker buildx create --bootstrap --config /tmp/buildkitd.toml --driver docker-container --name mirrored --use tls-context
-	DOCKER_BUILDKIT=1 docker build --build-arg APT_PROXY=$(APT_PROXY) --build-arg PIP_INDEX_URL=$(PIP_INDEX_URL) --build-arg PIP_TRUSTED_HOST=$(PIP_TRUSTED_HOST) --build-arg HTTP_PROXY=$(HTTP_PROXY) --build-arg HTTPS_PROXY=$(HTTPS_PROXY) --builder mirrored --file forge/Dockerfile $(DOCKER_IMAGE_LABELS) --output type=docker --tag $(FORGE_DOCKER_IMAGE_NAME):$(IMAGE_VERSION) .
+	DOCKER_BUILDKIT=1 docker build --build-arg APT_PROXY=$(APT_PROXY) --build-arg PIP_INDEX_URL=$(PIP_INDEX_URL) --build-arg PIP_TRUSTED_HOST=$(PIP_TRUSTED_HOST) --build-arg HTTP_PROXY=$(HTTP_PROXY) --build-arg HTTPS_PROXY=$(HTTPS_PROXY) --builder mirrored --file forge/Dockerfile $(DOCKER_IMAGE_LABELS) --output type=docker --tag $(FORGE_DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_TAG) .
 	docker buildx stop mirrored
 
 forge-dockerfile-update: ## Update the Dockerfile file from the platform template.

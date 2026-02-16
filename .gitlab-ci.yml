@@ -15,12 +15,55 @@ stages:
 
 # Docker
 
-job_docker_build:
+job_docker_build_all:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - mkdir --parents ${APK_CACHE_DIR}
     - apk update
     - apk update
+    - apk add --cache-dir ${APK_CACHE_DIR} cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev
+  cache:
+    - key: apk-cache-4.11
+      paths:
+        - ${APK_CACHE_DIR}
+    - key: pip-cache-4.11
+      paths:
+        - ${PIP_CACHE_DIR}
+  image: docker:28.2.2-dind
+  needs:
+    - job_docker_build_amd64
+    - job_docker_build_arm64
+  only:
+    - ci/builds/docker/arch/all
+    - ci/releases/all/major
+    - ci/releases/all/minor
+    - ci/releases/docker/major
+    - ci/releases/docker/minor
+    - ci/releases/nightly
+    - ci/releases/staging/arch/all
+    - ci/tests/all
+    - ci/tests/docker
+  script:
+    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
+    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
+    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - make docker-manifest-create
+    - make docker-manifest-push
+  services:
+    - docker:28.2.2-dind
+  stage: stage_build_container
+  variables:
+    DOCKER_DRIVER: overlay2
+    APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
+    PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+
+job_docker_build_amd64:
+  before_script:
+    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
+    - mkdir --parents ${APK_CACHE_DIR}
+    - apk update
+    - apk update
+    - apk add make
     - apk add --cache-dir ${APK_CACHE_DIR} cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
     - python3 -m venv venv
     - . venv/bin/activate
@@ -37,23 +80,71 @@ job_docker_build:
         - ${PIP_CACHE_DIR}
   image: docker:28.2.2-dind
   only:
-    - ci/builds/docker
+    - ci/builds/docker/arch/all
+    - ci/builds/docker/arch/amd64
     - ci/releases/all/major
     - ci/releases/all/minor
     - ci/releases/docker/major
     - ci/releases/docker/minor
     - ci/releases/nightly
-    - ci/releases/staging
+    - ci/releases/staging/arch/all
+    - ci/releases/staging/arch/amd64
     - ci/tests/all
     - ci/tests/docker
   script:
     - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
     - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
-    - export DOCKER_IMAGE_MAYAN_NAME=${CI_REGISTRY_IMAGE}
-    - make docker-build-all DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
-    - make docker-image-push-all
-    - make docker-manifest-create
-    - make docker-manifest-push
+    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - make devops-docker-build-amd64
+  services:
+    - docker:28.2.2-dind
+  stage: stage_build_container
+  variables:
+    DOCKER_DRIVER: overlay2
+    APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
+    PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+
+job_docker_build_arm64:
+  before_script:
+    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
+    - mkdir --parents ${APK_CACHE_DIR}
+    - apk update
+    - apk update
+    - apk add make
+    - apk add --cache-dir ${APK_CACHE_DIR} cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
+    - python3 -m venv venv
+    - . venv/bin/activate
+    - pip install pip==${PYTHON_PIP_VERSION}
+    - pip install setuptools==${PYTHON_SETUPTOOLS_VERSION}
+    - pip install --requirement requirements/common.txt
+    - cat requirements/base.txt | grep -v 'django-auth-ldap'| pip install -r /dev/stdin
+  cache:
+    - key: apk-cache-4.11
+      paths:
+        - ${APK_CACHE_DIR}
+    - key: pip-cache-4.11
+      paths:
+        - ${PIP_CACHE_DIR}
+  image: docker:28.2.2-dind
+  only:
+    - ci/builds/docker/arch/all
+    - ci/builds/docker/arch/arm64
+    - ci/releases/all/major
+    - ci/releases/all/minor
+    - ci/releases/docker/major
+    - ci/releases/docker/minor
+    - ci/releases/nightly
+    - ci/releases/staging/arch/all
+    - ci/releases/staging/arch/arm64
+    - ci/tests/all
+    - ci/tests/docker
+  script:
+    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
+    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
+    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - make devops-docker-build-arm64
   services:
     - docker:28.2.2-dind
   stage: stage_build_container
@@ -78,19 +169,10 @@ job_docker_push_major:
     - ci/releases/all/major
     - ci/releases/docker/major
   script:
-    - DOCKER_VERSION=`cat docker/rootfs/version`
-    - docker pull "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}"
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:latest
-    - MAJOR_VERSION=$(${PYTHON_BIN} ${VERSION_SCRIPT_BIN} ${DOCKER_VERSION} major);
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:s"${MAJOR_VERSION}"
-    - MINOR_VERSION=$(${PYTHON_BIN} ${VERSION_SCRIPT_BIN} ${DOCKER_VERSION} minor);
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
-    - docker login --username "${DOCKER_HUB_USERNAME}" --password "${DOCKER_HUB_PASSWORD}" https://registry-1.docker.io
-    - docker push registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
-    - docker push registry-1.docker.io/mayanedms/mayanedms:latest
-    - docker push registry-1.docker.io/mayanedms/mayanedms:s"${MAJOR_VERSION}"
-    - docker push registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
+    - export DOCKER_REGISTRY_PASSWORD=${DOCKER_HUB_PASSWORD}
+    - export DOCKER_REGISTRY_USERNAME=${DOCKER_HUB_USERNAME}
+    - export DOCKER_REGISTRY_NAME=registry-1.docker.io
+    - make devops-docker-major-publish
   services:
     - docker:28.2.2-dind
   stage: stage_push
@@ -115,14 +197,10 @@ job_docker_push_minor:
     - ci/releases/all/minor
     - ci/releases/docker/minor
   script:
-    - DOCKER_VERSION=`cat docker/rootfs/version`
-    - docker pull "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}"
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
-    - MINOR_VERSION=$(${PYTHON_BIN} ${VERSION_SCRIPT_BIN} ${DOCKER_VERSION} minor);
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
-    - docker login --username "${DOCKER_HUB_USERNAME}" --password "${DOCKER_HUB_PASSWORD}" https://registry-1.docker.io
-    - docker push registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
-    - docker push registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
+    - export DOCKER_REGISTRY_PASSWORD=${DOCKER_HUB_PASSWORD}
+    - export DOCKER_REGISTRY_USERNAME=${DOCKER_HUB_USERNAME}
+    - export DOCKER_REGISTRY_NAME=registry-1.docker.io
+    - make devops-docker-minor-publish
   services:
     - docker:28.2.2-dind
   stage: stage_push
@@ -137,7 +215,7 @@ job_docker_nightly:
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   image: docker:28.2.2-cli
   needs:
-    - job_docker_build
+    - job_docker_build_all
   only:
     - ci/releases/nightly
   script:
@@ -223,8 +301,10 @@ job_documentation_push:
     - ci/releases/all/major
     - ci/releases/documentation
   script:
-    - ssh ${DOCUMENTATION_SSH_USERNAME}@${DOCUMENTATION_HOSTNAME} "rm -Rf ${DOCUMENTATION_SERVER_PATH}/*"
-    - rsync -avzP --progress -e ssh docs/_build/html/* ${DOCUMENTATION_SSH_USERNAME}@${DOCUMENTATION_HOSTNAME}:${DOCUMENTATION_SERVER_PATH}
+    - export REMOTE_SSH_USERNAME=${DOCUMENTATION_SSH_USERNAME}
+    - export REMOTE_SSH_HOSTNAME=${DOCUMENTATION_HOSTNAME}
+    - export REMOTE_DOCUMENTATION_PATH=${DOCUMENTATION_SERVER_PATH}
+    - make devops-documentation-deploy
   stage: stage_push
   variables:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
@@ -342,7 +422,7 @@ job_python_push_pypi:
     - ci/releases/docker/minor
     - ci/releases/python/major
     - ci/releases/python/minor
-    - ci/releases/staging
+    - ci/releases/staging/arch/all
     - ci/tests/all
     - ci/tests/python/all
     - ci/tests/python/base
@@ -399,22 +479,24 @@ job_demo_deploy:
     name: demo
   image: debian:13.3-slim
   only:
-    - ci/builds/docker
+    - ci/builds/docker/arch/all
     - ci/deployments/demo
     - ci/releases/all/major
     - ci/releases/all/minor
     - ci/releases/docker/major
     - ci/releases/docker/minor
     - ci/releases/nightly
-    - ci/releases/staging
+    - ci/releases/staging/arch/all
   script:
-    - ssh ${DEMO_USERNAME}@${DEMO_IP_ADDRESS} "curl --remote-name-all https://gitlab.com/mayan-edms/mayan-edms/-/raw/master/docker/{.env,docker-compose.yml} --show-error --silent && docker compose pull && docker compose down --remove-orphans --volumes || true && docker compose up --detach"
+    - export REMOTE_SSH_USERNAME=${DEMO_USERNAME}
+    - export REMOTE_SSH_HOSTNAME=${DEMO_IP_ADDRESS}
+    - devops-staging-deploy
   stage: stage_deploy
   when: manual
   variables:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
 
-job_staging_deploy:
+job_staging_deploy_all:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
@@ -437,20 +519,112 @@ job_staging_deploy:
     name: staging
   image: debian:13.3-slim
   only:
-    - ci/builds/docker
-    - ci/deployments/staging
+    - ci/builds/docker/arch/all
+    - ci/deployments/staging/arch/all
     - ci/releases/all/major
     - ci/releases/all/minor
     - ci/releases/docker/major
     - ci/releases/docker/minor
     - ci/releases/nightly
-    - ci/releases/staging
+    - ci/releases/staging/arch/all
   script:
-    - ssh ${STAGING_SSH_USERNAME}@${STAGING_HOSTNAME} "docker compose down --remove-orphans --volumes || true"
-    - scp docker/.env docker/docker-compose.yml ${STAGING_SSH_USERNAME}@${STAGING_HOSTNAME}:~
-    - DOCKER_VERSION=`cat docker/rootfs/version`;
-    - ssh ${STAGING_SSH_USERNAME}@${STAGING_HOSTNAME} "echo \"\" >> .env && echo \"# GitLab CI\" >> .env && echo \"MAYAN_DOCKER_IMAGE_NAME=${CI_REGISTRY_IMAGE}\" >> .env && echo \"MAYAN_DOCKER_IMAGE_TAG=${DOCKER_VERSION}\" >> .env"
-    - ssh ${STAGING_SSH_USERNAME}@${STAGING_HOSTNAME} "docker login --username '${CI_REGISTRY_DEPLOY_USER}' --password '${CI_REGISTRY_DEPLOY_PASSWORD}' ${CI_REGISTRY} && docker compose pull && docker compose up --detach"
+    - export REMOTE_SSH_USERNAME=${STAGING_SSH_USERNAME}
+    - export REMOTE_SSH_HOSTNAME=${STAGING_HOSTNAME}
+    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
+    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
+    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
+    - make devops-staging-deploy
+  stage: stage_deploy
+  when: manual
+  variables:
+    APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
+
+job_staging_deploy_amd64:
+  before_script:
+    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
+    - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
+    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
+    - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
+    - apt-get update
+    - mkdir --parents ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "${STAGING_AMD64_SSH_KNOWN_HOST}" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - 'which ssh-agent || ( apt-get update --yes && apt-get install --yes --no-install-recommends openssh-client rsync )'
+    - eval $(ssh-agent -s)
+    - echo "${STAGING_AMD64_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+  cache:
+    - key: apt-cache-4.11
+      paths:
+        - ${APT_CACHE_DIR}
+  environment:
+    name: staging
+  image: debian:13.3-slim
+  only:
+    - ci/builds/docker/arch/amd64
+    - ci/deployments/staging/arch/amd64
+    - ci/releases/all/major
+    - ci/releases/all/minor
+    - ci/releases/docker/major
+    - ci/releases/docker/minor
+    - ci/releases/nightly
+    - ci/releases/staging/arch/amd64
+  script:
+    - export REMOTE_SSH_USERNAME=${STAGING_AMD64_SSH_USERNAME}
+    - export REMOTE_SSH_HOSTNAME=${STAGING_AMD64_HOSTNAME}
+    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
+    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
+    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
+    - export DOCKER_IMAGE_TAG_EXTRA=-amd64
+    - make devops-staging-deploy
+  stage: stage_deploy
+  when: manual
+  variables:
+    APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
+
+job_staging_deploy_arm64:
+  before_script:
+    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
+    - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
+    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
+    - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
+    - apt-get update
+    - mkdir --parents ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "${STAGING_ARM64_SSH_KNOWN_HOST}" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - 'which ssh-agent || ( apt-get update --yes && apt-get install --yes --no-install-recommends openssh-client rsync )'
+    - eval $(ssh-agent -s)
+    - echo "${STAGING_ARM64_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+  cache:
+    - key: apt-cache-4.11
+      paths:
+        - ${APT_CACHE_DIR}
+  environment:
+    name: staging
+  image: debian:13.3-slim
+  only:
+    - ci/builds/docker/arch/arm64
+    - ci/deployments/staging/arch/arm64
+    - ci/releases/all/major
+    - ci/releases/all/minor
+    - ci/releases/docker/major
+    - ci/releases/docker/minor
+    - ci/releases/nightly
+    - ci/releases/staging/arch/arm64
+  script:
+    - export REMOTE_SSH_USERNAME=${STAGING_ARM64_SSH_USERNAME}
+    - export REMOTE_SSH_HOSTNAME=${STAGING_ARM64_HOSTNAME}
+    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
+    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
+    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
+    - export DOCKER_IMAGE_TAG_EXTRA=-arm64
+    - devops-staging-deploy
   stage: stage_deploy
   when: manual
   variables:
@@ -458,15 +632,41 @@ job_staging_deploy:
 
 # Combined
 
-job_docker_build_try:
-  extends: job_docker_build
+job_docker_build_try_all:
+  extends: job_docker_build_all
   only:
-    - ci/try/staging
+    - ci/try/staging/arch/all
 
-job_staging_deploy_try:
-  extends: job_staging_deploy
-  needs:
-    - job_docker_build_try
+job_docker_build_try_amd64:
+  extends: job_docker_build_amd64
   only:
-    - ci/try/staging
+    - ci/try/staging/arch/amd64
+
+job_docker_build_try_arm64:
+  extends: job_docker_build_arm64
+  only:
+    - ci/try/staging/arch/arm64
+
+job_staging_deploy_try_all:
+  extends: job_staging_deploy_all
+  needs:
+    - job_docker_build_try_all
+  only:
+    - ci/try/staging/arch/all
+  when: on_success
+
+job_staging_deploy_try_amd64:
+  extends: job_staging_deploy_amd64
+  needs:
+    - job_docker_build_try_amd64
+  only:
+    - ci/try/staging/arch/amd64
+  when: on_success
+
+job_staging_deploy_try_arm64:
+  extends: job_staging_deploy_arm64
+  needs:
+    - job_docker_build_try_arm64
+  only:
+    - ci/try/staging/arch/arm64
   when: on_success
