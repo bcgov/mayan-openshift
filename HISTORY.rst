@@ -119,6 +119,8 @@
   - Add new GitLab CI jobs to build AMD64 and ARM64 Docker images.
   - Move GitLab CI code into reusable makefile DevOps targets.
 
+- Add thousand separator to the pager.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.
