@@ -1,12 +1,14 @@
 #!/bin/sh
 
+echo "Executing \`run_worker\`."
+
 export MAYAN_WORKER_LOG_LEVEL=${MAYAN_WORKER_LOG_LEVEL:-ERROR}
 export MAYAN_WORKER_NAME=${MAYAN_WORKER_NAME:-$1}
 export MAYAN_WORKER_NICE_LEVEL=${MAYAN_WORKER_NICE_LEVEL:-0}
 
 if [ ! "${MAYAN_QUEUE_LIST}" ]; then
     if [ ! "$MAYAN_WORKER_NAME" ]; then
-        echo "Must specify either MAYAN_QUEUE_LIST or MAYAN_WORKER_NAME."
+        echo "Must specify either \`MAYAN_QUEUE_LIST\` or \`MAYAN_WORKER_NAME\`."
         exit 1
     else
         MAYAN_QUEUE_LIST=`su mayan --command "${MAYAN_PYTHON_BIN_DIR}mayan-edms.py platforms_template worker_queues"`

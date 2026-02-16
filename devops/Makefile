@@ -13,29 +13,20 @@ devops-docker-build-amd64: ## Build the AMD64 image and push it to the registry.
 devops-docker-build-amd64: docker-registry-login docker-dockerfile-update docker-buildx-create docker-build-amd64 docker-image-push-amd64
 
 devops-docker-build-arm64: ## Build the ARM64 image and push it to the registry.
-devops-docker-build-arm64: docker-registry-login docker-dockerfile-update docker-buildx-create docker-build-amd64 docker-image-push-arm64
+devops-docker-build-arm64: docker-registry-login docker-dockerfile-update docker-buildx-create docker-build-arm64 docker-image-push-arm64
 
 # Release
 
 devops-docker-major-publish:
-	$(MAKE) docker-image-pull
-	docker tag \
-	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \
-	$(DOCKER_IMAGE_PUBLIC_NAME_FULL):v$(DOCKER_IMAGE_VERSION)
+	$(MAKE) devops-docker-minor-publish
 	docker tag \
 	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \
 	$(DOCKER_IMAGE_PUBLIC_NAME_FULL):latest
 	docker tag \
 	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \
 	$(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MAJOR)
-	docker tag \
-	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \
-	$(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MINOR)
-	docker login --password '$(DOCKER_REGISTRY_PUBLIC_PASSWORD)' --username '$(DOCKER_REGISTRY_PUBLIC_USERNAME)' $(DOCKER_REGISTRY_PUBLIC_NAME)
-	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):v$(DOCKER_IMAGE_VERSION)
 	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):latest
 	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MAJOR)
-	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MINOR)
 
 devops-docker-minor-publish:
 	$(MAKE) docker-image-pull
@@ -45,9 +36,17 @@ devops-docker-minor-publish:
 	docker tag \
 	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \
 	$(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MINOR)
-	docker login --password '$(DOCKER_REGISTRY_PUBLIC_PASSWORD)' --username '$(DOCKER_REGISTRY_PUBLIC_USERNAME)' $(DOCKER_REGISTRY_PUBLIC_NAME)
+	$(MAKE) docker-registry-public-login
 	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):v$(DOCKER_IMAGE_VERSION)
 	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MINOR)
+
+devops-docker-nightly-publish:
+	$(MAKE) docker-image-pull
+	docker tag \
+	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \
+	$(DOCKER_IMAGE_PUBLIC_NAME_FULL):$(DOCKER_IMAGE_TAG)
+	$(MAKE) docker-registry-public-login
+	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):v$(DOCKER_IMAGE_TAG)
 
 # Remotes
 
@@ -71,7 +70,7 @@ remote-docker-files-update:
 	ssh $(REMOTE_SSH_USERNAME)@$(REMOTE_SSH_HOSTNAME) "echo \"\" >> .env && echo \"# GitLab CI\" >> .env && echo \"MAYAN_DOCKER_IMAGE_NAME=$(DOCKER_REGISTRY_NAME)/$(DOCKER_IMAGE_NAME)\" >> .env && echo \"MAYAN_DOCKER_IMAGE_TAG=$(DOCKER_IMAGE_TAG)$(DOCKER_IMAGE_TAG_EXTRA)\" >> .env"
 
 remote-docker-registry-login:
-	ssh $(REMOTE_SSH_USERNAME)@$(REMOTE_SSH_HOSTNAME) "docker login --username '$(DOCKER_REGISTRY_USERNAME)' --password '$(DOCKER_REGISTRY_PASSWORD)' $(DOCKER_REGISTRY_NAME)"
+	ssh $(REMOTE_SSH_USERNAME)@$(REMOTE_SSH_HOSTNAME) "docker login --username '$(DOCKER_REGISTRY_USERNAME_ESCAPED)' --password '$(DOCKER_REGISTRY_PASSWORD)' $(DOCKER_REGISTRY_NAME)"
 
 # Documentation
 

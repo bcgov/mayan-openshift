@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
+import mayan
 from mayan.apps.platforms.platform_templates import (
     PlatformTemplate, PlatformTemplateSupervisord, Variable
 )
@@ -16,7 +17,8 @@ from mayan.literals import (
     DOCKER_POSTGRESQL_MAX_CONNECTIONS, DOCKER_RABBITMQ_IMAGE_NAME,
     DOCKER_RABBITMQ_IMAGE_TAG, DOCKER_REDIS_IMAGE_NAME,
     DOCKER_REDIS_IMAGE_TAG, DOCKER_TRAEFIK_IMAGE_NAME,
-    DOCKER_TRAEFIK_IMAGE_TAG, LINUX_PACKAGES_DEBIAN_BASE,
+    DOCKER_TRAEFIK_IMAGE_TAG, DOCKER_USER_GID, DOCKER_USER_UID,
+    DOCKER_USER_USERNAME, LINUX_PACKAGES_DEBIAN_BASE,
     LINUX_PACKAGES_DEBIAN_BUILD, LINUX_PACKAGES_DEBIAN_MYSQL,
     LINUX_PACKAGES_DEBIAN_POSTGRESQL, LINUX_PACKAGES_DEBIAN_PYTHON
 )
@@ -28,11 +30,18 @@ class PlatformTemplateDockerEntrypoint(PlatformTemplate):
     template_name = 'platforms_docker/entrypoint.tmpl'
 
     def get_context(self):
+        workers = Worker.all()
         context = load_env_file()
         context.update(
             {
+                'MAYAN_BUILD_STRING': mayan.__build_string__,
+                'MAYAN_COPYRIGHT': mayan.__copyright__,
+                'MAYAN_LICENSE': mayan.__license__,
+                'MAYAN_TITLE': mayan.__title__,
+                'MAYAN_VERSION': mayan.__version__,
+                'MAYAN_WEBSITE': mayan.__website__,
                 'SUPERVISOR_AUTORESTART': 'false',
-                'workers': Worker.all()
+                'workers': workers
             }
         )
         return context
@@ -157,6 +166,13 @@ class PlatformTemplateDockerComposefile(PlatformTemplate):
             ),
         )
 
+    def get_context(self):
+        return {
+            'DOCKER_USER_GID': DOCKER_USER_GID,
+            'DOCKER_USER_UID': DOCKER_USER_UID,
+            'DOCKER_USER_USERNAME': DOCKER_USER_USERNAME,
+        }
+
 
 class PlatformTemplateDockerSupervisord(PlatformTemplateSupervisord):
     label = _(message='Template for Supervisord inside a Docker image.')
@@ -194,6 +210,9 @@ class PlatformTemplateDockerfile(PlatformTemplate):
 
     def get_context(self):
         return {
+            'DOCKER_USER_GID': DOCKER_USER_GID,
+            'DOCKER_USER_UID': DOCKER_USER_UID,
+            'DOCKER_USER_USERNAME': DOCKER_USER_USERNAME,
             'LINUX_PACKAGES_DEBIAN_BASE': LINUX_PACKAGES_DEBIAN_BASE,
             'LINUX_PACKAGES_DEBIAN_BUILD': LINUX_PACKAGES_DEBIAN_BUILD,
             'LINUX_PACKAGES_DEBIAN_MYSQL': LINUX_PACKAGES_DEBIAN_MYSQL,

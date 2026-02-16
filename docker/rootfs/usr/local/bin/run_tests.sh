@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Executing \`run_tests\`."
+
 export DEBIAN_FRONTEND=noninteractive
 TEST_ARGUMENT=${@:-"--mayan-apps --no-exclude"}
 

@@ -35,7 +35,7 @@ ENV MAYAN_MEDIA_ROOT=/var/lib/mayan \
 # Debian package caching.
 ARG APT_PROXY
 
-RUN --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/root/.cache/pip \
 set -x \
 && if [ "${APT_PROXY}" ]; \
     then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy \
@@ -54,8 +54,16 @@ set -x \
     libgstreamer-plugins-base1.0-0 \
     make \
 && apt-get autoremove --purge --yes \
-# Add mayan user.
-&& adduser mayan --disabled-password --gecos "" \
+# Add mayan group and user.
+&& groupadd \
+--gid {{ DOCKER_USER_GID }} \
+{{ DOCKER_USER_USERNAME }} \
+&& adduser \
+{{ DOCKER_USER_USERNAME }} \
+--disabled-password \
+--gecos "" \
+--gid {{ DOCKER_USER_GID }} \
+--uid {{ DOCKER_USER_UID }} \
 && sed --in-place 's/#user_allow_other/user_allow_other/g' /etc/fuse.conf \
 # Update ClamAV database.
 && /usr/bin/freshclam
@@ -98,31 +106,32 @@ apt-get install --no-install-recommends --yes \
 && chown --recursive mayan:mayan "${PROJECT_INSTALL_DIR}" \
 && chown --recursive mayan:mayan /src
 
-USER mayan
+USER {{ DOCKER_USER_USERNAME }}
 
-RUN set -a \
+RUN --mount=type=cache,target=/home/{{ DOCKER_USER_USERNAME }}/.cache/pip,gid={{ DOCKER_USER_GID }},uid={{ DOCKER_USER_UID }} \
+set -a \
 && sed -E "s/=(.*)/\=\"\1\"/g" /config.env > /tmp/config.env \
 && . /tmp/config.env \
 && rm /tmp/config.env \
 && set +a \
 && python3 -m venv "${PROJECT_INSTALL_DIR}" \
 && . "${PROJECT_INSTALL_DIR}bin/activate" \
-&& pip install \
+&& pip install --no-cache-dir \
     pip==${PYTHON_PIP_VERSION} \
     setuptools==${PYTHON_SETUPTOOLS_VERSION} \
     wheel==${PYTHON_WHEEL_VERSION} \
-&& pip install \
+&& pip install --no-cache-dir \
     amqp==${PYTHON_AMQP_VERSION} \
     mysqlclient==${PYTHON_MYSQL_VERSION} \
     psycopg==${PYTHON_PSYCOPG_VERSION} \
     redis==${PYTHON_REDIS_VERSION} \
 # psutil is needed by ARM builds otherwise gevent and gunicorn fail to start.
 && UNAME=`uname --machine` && if [ "${UNAME#*arm}" != ${UNAME} ]; then \
-    pip install \
+    pip install --no-cache-dir \
     psutil==${PYTHON_PSUTIL_VERSION} \
 ; fi \
 # Install the Python packages needed to build Mayan EDMS.
-&& pip install \
+&& pip install --no-cache-dir \
     --requirement /src/requirements/build.txt \
 # Build Mayan EDMS.
 && cp MANIFEST-PRODUCTION.in MANIFEST.in \
@@ -131,7 +140,7 @@ RUN set -a \
     --wheel-dir dist \
     dist/mayan_edms-*.tar.gz \
 # Install the built Mayan EDMS package.
-&& pip install \
+&& pip install --no-cache-dir \
     dist/mayan_edms-*.whl \
 # Install the static content.
 && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py dependencies_install \
@@ -143,7 +152,7 @@ RUN set -a \
 
 FROM base_image
 
-COPY --from=builder_image --chown=mayan:mayan "${PROJECT_INSTALL_DIR}" "${PROJECT_INSTALL_DIR}"
+COPY --from=builder_image --chown={{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} "${PROJECT_INSTALL_DIR}" "${PROJECT_INSTALL_DIR}"
 
 USER root
 
@@ -162,7 +171,7 @@ RUN set -a \
 && rm /tmp/config.env \
 && set +a \
 && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platforms_template docker_entrypoint > /usr/local/bin/entrypoint.sh \
-&& chown mayan:mayan /usr/local/bin/entrypoint.sh \
+&& chown {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} /usr/local/bin/entrypoint.sh \
 && chmod +x /usr/local/bin/entrypoint.sh \
 && ${PROJECT_INSTALL_DIR}bin/mayan-edms.py platforms_template docker_supervisord > ${SUPERVISOR_CONFIGURATION_DIRECTORY}${SUPERVISOR_CONFIGURATION_FILENAME} \
 && apt-get clean autoclean \
@@ -176,4 +185,4 @@ RUN set -a \
 # Delete Debian package proxy used for the base image.
 && rm --force /etc/apt/apt.conf.d/01proxy \
 # Remove the mayan user home directory
-&& rm --force --recursive /home/mayan
+&& rm --force --recursive /home/{{ DOCKER_USER_USERNAME }}

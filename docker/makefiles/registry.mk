@@ -15,6 +15,12 @@ docker-registry-tags: ## Show the tags for the image in the test Docker registry
 
 docker-registry-login: ## Login to the development registry.
 	docker login \
-	--password '$(DOCKER_REGISTRY_PASSWORD)' \
-	--username '$(DOCKER_REGISTRY_USERNAME)' \
+	--password "$(DOCKER_REGISTRY_PASSWORD)" \
+	--username "$(DOCKER_REGISTRY_USERNAME_ESCAPED)" \
 	$(DOCKER_REGISTRY_NAME)
+
+docker-registry-public-login: ## Login to the public registry.
+	docker login \
+	--password "$(DOCKER_REGISTRY_PUBLIC_PASSWORD)" \
+	--username "$(DOCKER_REGISTRY_PUBLIC_USERNAME_ESCAPED)" \
+	 $(DOCKER_REGISTRY_PUBLIC_NAME)

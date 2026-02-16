@@ -19,11 +19,10 @@ job_docker_build_all:
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
 {% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
-    - apk update
-    - apk add --cache-dir ${APK_CACHE_DIR} {{ LINUX_PACKAGES_ALPINE_BUILD }}
+    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }}
   cache:
 {% platforms_gitlab_ci_cache_paths apk=True indent=4 pip=True %}
-  image: {{ DOCKER_DIND_IMAGE_VERSION }}
+  image: {{ DOCKER_CLI_IMAGE_VERSION }}
   needs:
     - job_docker_build_amd64
     - job_docker_build_arm64
@@ -38,9 +37,10 @@ job_docker_build_all:
     - {{ GITLAB_CI_BRANCH_TESTS_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_DOCKER }}
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
     - make docker-manifest-create
     - make docker-manifest-push
   services:
@@ -48,15 +48,13 @@ job_docker_build_all:
   stage: stage_build_container
   variables:
     DOCKER_DRIVER: overlay2
-{% platforms_gitlab_ci_cache_variables indent=4 apk=True pip=True %}
+{% platforms_gitlab_ci_cache_variables apk=True indent=4 pip=True %}
 
 job_docker_build_amd64:
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
-{% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
-    - apk update
-    - apk add make
-    - apk add --cache-dir ${APK_CACHE_DIR} {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+{% platforms_gitlab_ci_cache_before_script apk=True indent=4 pip=True %}
+    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
     - pip install pip==${PYTHON_PIP_VERSION}
@@ -65,7 +63,7 @@ job_docker_build_amd64:
     - cat requirements/base.txt | grep -v 'django-auth-ldap'| pip install -r /dev/stdin
   cache:
 {% platforms_gitlab_ci_cache_paths apk=True indent=4 pip=True %}
-  image: {{ DOCKER_DIND_IMAGE_VERSION }}
+  image: {{ DOCKER_CLI_IMAGE_VERSION }}
   only:
     - {{ GITLAB_CI_BRANCH_BUILDS_DOCKER_ALL }}
     - {{ GITLAB_CI_BRANCH_BUILDS_DOCKER_AMD64 }}
@@ -79,25 +77,24 @@ job_docker_build_amd64:
     - {{ GITLAB_CI_BRANCH_TESTS_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_DOCKER }}
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - export DOCKER_IMAGE_LABELS_EXTRA="--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
     - make devops-docker-build-amd64
   services:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_build_container
   variables:
     DOCKER_DRIVER: overlay2
-{% platforms_gitlab_ci_cache_variables indent=4 apk=True pip=True %}
+{% platforms_gitlab_ci_cache_variables apk=True indent=4 pip=True %}
 
 job_docker_build_arm64:
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
-{% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
-    - apk update
-    - apk add make
-    - apk add --cache-dir ${APK_CACHE_DIR} {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+{% platforms_gitlab_ci_cache_before_script apk=True indent=4 pip=True %}
+    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
     - pip install pip==${PYTHON_PIP_VERSION}
@@ -106,7 +103,7 @@ job_docker_build_arm64:
     - cat requirements/base.txt | grep -v 'django-auth-ldap'| pip install -r /dev/stdin
   cache:
 {% platforms_gitlab_ci_cache_paths apk=True indent=4 pip=True %}
-  image: {{ DOCKER_DIND_IMAGE_VERSION }}
+  image: {{ DOCKER_CLI_IMAGE_VERSION }}
   only:
     - {{ GITLAB_CI_BRANCH_BUILDS_DOCKER_ALL }}
     - {{ GITLAB_CI_BRANCH_BUILDS_DOCKER_ARM64 }}
@@ -120,23 +117,24 @@ job_docker_build_arm64:
     - {{ GITLAB_CI_BRANCH_TESTS_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_DOCKER }}
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - export DOCKER_IMAGE_LABELS_EXTRA="--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
     - make devops-docker-build-arm64
   services:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_build_container
   variables:
     DOCKER_DRIVER: overlay2
-{% platforms_gitlab_ci_cache_variables indent=4 apk=True pip=True %}
+{% platforms_gitlab_ci_cache_variables apk=True indent=4 pip=True %}
 
 job_docker_push_major:
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
 {% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
-    - apk add --cache-dir ${APK_CACHE_DIR} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+    - apk add {{ LINUX_PACKAGES_ALPINE_PYTHON }}
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   cache:
 {% platforms_gitlab_ci_cache_paths apk=True indent=4 %}
@@ -145,23 +143,27 @@ job_docker_push_major:
     - {{ GITLAB_CI_BRANCH_RELEASES_ALL_MAJOR }}
     - {{ GITLAB_CI_BRANCH_RELEASES_DOCKER_MAJOR }}
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${DOCKER_HUB_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${DOCKER_HUB_USERNAME}
-    - export DOCKER_REGISTRY_NAME=registry-1.docker.io
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
+    - export DOCKER_REGISTRY_PUBLIC_NAME="registry-1.docker.io"
+    - export DOCKER_REGISTRY_PUBLIC_PASSWORD="${DOCKER_HUB_PASSWORD}"
+    - export DOCKER_REGISTRY_PUBLIC_USERNAME="${DOCKER_HUB_USERNAME}"
     - make devops-docker-major-publish
   services:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_push
   variables:
     DOCKER_DRIVER: overlay2
-{% platforms_gitlab_ci_cache_variables indent=4 apk=True %}
+{% platforms_gitlab_ci_cache_variables apk=True indent=4 %}
     << : *job_docker_push_variables
 
 job_docker_push_minor:
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
 {% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
-    - apk add --cache-dir ${APK_CACHE_DIR} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+    - apk add {{ LINUX_PACKAGES_ALPINE_PYTHON }}
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   cache:
 {% platforms_gitlab_ci_cache_paths apk=True indent=4 %}
@@ -170,19 +172,23 @@ job_docker_push_minor:
     - {{ GITLAB_CI_BRANCH_RELEASES_ALL_MINOR }}
     - {{ GITLAB_CI_BRANCH_RELEASES_DOCKER_MINOR }}
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${DOCKER_HUB_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${DOCKER_HUB_USERNAME}
-    - export DOCKER_REGISTRY_NAME=registry-1.docker.io
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
+    - export DOCKER_REGISTRY_PUBLIC_NAME="registry-1.docker.io"
+    - export DOCKER_REGISTRY_PUBLIC_PASSWORD="${DOCKER_HUB_PASSWORD}"
+    - export DOCKER_REGISTRY_PUBLIC_USERNAME="${DOCKER_HUB_USERNAME}"
     - make devops-docker-minor-publish
   services:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_push
   variables:
     DOCKER_DRIVER: overlay2
-{% platforms_gitlab_ci_cache_variables indent=4 apk=True %}
+{% platforms_gitlab_ci_cache_variables apk=True indent=4 %}
     << : *job_docker_push_variables
 
-job_docker_nightly:
+job_docker_push_nightly:
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
@@ -192,11 +198,15 @@ job_docker_nightly:
   only:
     - {{ GITLAB_CI_BRANCH_RELEASES_NIGHTLY }}
   script:
-    - DOCKER_VERSION=`cat docker/rootfs/version`
-    - docker pull "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}"
-    - docker login --username "${DOCKER_HUB_USERNAME}" --password "${DOCKER_HUB_PASSWORD}" https://registry-1.docker.io
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
-    - docker push "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_IMAGE_TAG="${CI_COMMIT_REF_SLUG}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
+    - export DOCKER_REGISTRY_PUBLIC_NAME="registry-1.docker.io"
+    - export DOCKER_REGISTRY_PUBLIC_PASSWORD="${DOCKER_HUB_PASSWORD}"
+    - export DOCKER_REGISTRY_PUBLIC_USERNAME="${DOCKER_HUB_USERNAME}"
+    - make devops-docker-nightly-publish
   services:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_push
@@ -212,7 +222,7 @@ job_documentation_build:
     - docs
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
-{% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
+{% platforms_gitlab_ci_cache_before_script apt=True indent=4 pip=True %}
     - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_DOCUMENTATION }} {{ LINUX_PACKAGES_DEBIAN_BUILD }} {{ LINUX_PACKAGES_DEBIAN_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
@@ -249,9 +259,9 @@ job_documentation_push:
     - {{ GITLAB_CI_BRANCH_RELEASES_ALL_MAJOR }}
     - {{ GITLAB_CI_BRANCH_RELEASES_DOCUMENTATION }}
   script:
-    - export REMOTE_SSH_USERNAME=${DOCUMENTATION_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${DOCUMENTATION_HOSTNAME}
-    - export REMOTE_DOCUMENTATION_PATH=${DOCUMENTATION_SERVER_PATH}
+    - export REMOTE_SSH_USERNAME="${DOCUMENTATION_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${DOCUMENTATION_HOSTNAME}"
+    - export REMOTE_DOCUMENTATION_PATH="${DOCUMENTATION_SERVER_PATH}"
     - make devops-documentation-deploy
   stage: stage_push
   variables:
@@ -296,7 +306,7 @@ job_python_build:
 job_python_push_pypi:
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
-{% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
+{% platforms_gitlab_ci_cache_before_script apt=True indent=4 pip=True %}
     - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
@@ -323,7 +333,7 @@ job_python_push_pypi:
   &job_base_test
   before_script:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
-{% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
+{% platforms_gitlab_ci_cache_before_script apt=True indent=4 pip=True %}
     - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_BASE }} {{ LINUX_PACKAGES_DEBIAN_BUILD }} {{ LINUX_PACKAGES_DEBIAN_PYTHON }} {{ LINUX_PACKAGES_DEBIAN_TEST }}
     - python3 -m venv venv
     - . venv/bin/activate
@@ -378,6 +388,7 @@ job_demo_deploy:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
 {% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
 {% platforms_gitlab_ci_ssh_before_script hostname='${DEMO_SSH_KNOWN_HOST}' indent=4 private_key='${DEMO_PRIVATE_KEY}' %}
+    - apt-get install --yes --no-install-recommends make
   cache:
 {% platforms_gitlab_ci_cache_paths apt=True indent=4 %}
   environment:
@@ -393,8 +404,8 @@ job_demo_deploy:
     - {{ GITLAB_CI_BRANCH_RELEASES_NIGHTLY }}
     - {{ GITLAB_CI_BRANCH_RELEASES_STAGING_ALL }}
   script:
-    - export REMOTE_SSH_USERNAME=${DEMO_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${DEMO_IP_ADDRESS}
+    - export REMOTE_SSH_USERNAME="${DEMO_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${DEMO_IP_ADDRESS}"
     - devops-staging-deploy
   stage: stage_deploy
   when: manual
@@ -406,6 +417,7 @@ job_staging_deploy_all:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
 {% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
 {% platforms_gitlab_ci_ssh_before_script hostname='${STAGING_SSH_KNOWN_HOST}' indent=4 private_key='${STAGING_PRIVATE_KEY}' %}
+    - apt-get install --yes --no-install-recommends make
   cache:
 {% platforms_gitlab_ci_cache_paths apt=True indent=4 %}
   environment:
@@ -421,12 +433,12 @@ job_staging_deploy_all:
     - {{ GITLAB_CI_BRANCH_RELEASES_NIGHTLY }}
     - {{ GITLAB_CI_BRANCH_RELEASES_STAGING_ALL }}
   script:
-    - export REMOTE_SSH_USERNAME=${STAGING_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${STAGING_HOSTNAME}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
-    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
-    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
+    - export REMOTE_SSH_USERNAME="STAGING_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${STAGING_HOSTNAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_DEPLOY_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_DEPLOY_USER}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
     - make devops-staging-deploy
   stage: stage_deploy
   when: manual
@@ -438,6 +450,7 @@ job_staging_deploy_amd64:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
 {% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
 {% platforms_gitlab_ci_ssh_before_script hostname='${STAGING_AMD64_SSH_KNOWN_HOST}' indent=4 private_key='${STAGING_AMD64_PRIVATE_KEY}' %}
+    - apt-get install --yes --no-install-recommends make
   cache:
 {% platforms_gitlab_ci_cache_paths apt=True indent=4 %}
   environment:
@@ -453,13 +466,13 @@ job_staging_deploy_amd64:
     - {{ GITLAB_CI_BRANCH_RELEASES_NIGHTLY }}
     - {{ GITLAB_CI_BRANCH_RELEASES_STAGING_AMD64 }}
   script:
-    - export REMOTE_SSH_USERNAME=${STAGING_AMD64_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${STAGING_AMD64_HOSTNAME}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
-    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
-    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
-    - export DOCKER_IMAGE_TAG_EXTRA=-amd64
+    - export REMOTE_SSH_USERNAME="${STAGING_AMD64_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${STAGING_AMD64_HOSTNAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_DEPLOY_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_DEPLOY_USER}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_IMAGE_TAG_EXTRA="-amd64"
     - make devops-staging-deploy
   stage: stage_deploy
   when: manual
@@ -471,6 +484,7 @@ job_staging_deploy_arm64:
 {% platforms_gitlab_ci_config_env_before_script indent=4 %}
 {% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
 {% platforms_gitlab_ci_ssh_before_script hostname='${STAGING_ARM64_SSH_KNOWN_HOST}' indent=4 private_key='${STAGING_ARM64_PRIVATE_KEY}' %}
+    - apt-get install --yes --no-install-recommends make
   cache:
 {% platforms_gitlab_ci_cache_paths apt=True indent=4 %}
   environment:
@@ -486,14 +500,14 @@ job_staging_deploy_arm64:
     - {{ GITLAB_CI_BRANCH_RELEASES_NIGHTLY }}
     - {{ GITLAB_CI_BRANCH_RELEASES_STAGING_ARM64 }}
   script:
-    - export REMOTE_SSH_USERNAME=${STAGING_ARM64_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${STAGING_ARM64_HOSTNAME}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
-    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
-    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
-    - export DOCKER_IMAGE_TAG_EXTRA=-arm64
-    - devops-staging-deploy
+    - export REMOTE_SSH_USERNAME="${STAGING_ARM64_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${STAGING_ARM64_HOSTNAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_DEPLOY_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_DEPLOY_USER}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_IMAGE_TAG_EXTRA="-arm64"
+    - make devops-staging-deploy
   stage: stage_deploy
   when: manual
   variables:

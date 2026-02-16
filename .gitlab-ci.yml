@@ -18,18 +18,20 @@ stages:
 job_docker_build_all:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
-    - mkdir --parents ${APK_CACHE_DIR}
+    - echo ${APK_CACHE_DIR}
+    - mkdir -p ${APK_CACHE_DIR}
+    - rm -f /etc/apk/cache
+    - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk update
-    - apk add --cache-dir ${APK_CACHE_DIR} cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev
   cache:
     - key: apk-cache-4.11
       paths:
-        - ${APK_CACHE_DIR}
+        - .cache/apk
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
-  image: docker:29.2.1-dind
+        - .cache/pip
+  image: docker:29.2.1-cli
   needs:
     - job_docker_build_amd64
     - job_docker_build_arm64
@@ -44,9 +46,10 @@ job_docker_build_all:
     - ci/tests/all
     - ci/tests/docker
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
     - make docker-manifest-create
     - make docker-manifest-push
   services:
@@ -60,11 +63,13 @@ job_docker_build_all:
 job_docker_build_amd64:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
-    - mkdir --parents ${APK_CACHE_DIR}
+    - echo ${APK_CACHE_DIR}
+    - mkdir -p ${APK_CACHE_DIR}
+    - rm -f /etc/apk/cache
+    - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk update
-    - apk add make
-    - apk add --cache-dir ${APK_CACHE_DIR} cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
+    - mkdir -p ${PIP_CACHE_DIR}
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
     - python3 -m venv venv
     - . venv/bin/activate
     - pip install pip==${PYTHON_PIP_VERSION}
@@ -74,11 +79,11 @@ job_docker_build_amd64:
   cache:
     - key: apk-cache-4.11
       paths:
-        - ${APK_CACHE_DIR}
+        - .cache/apk
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
-  image: docker:29.2.1-dind
+        - .cache/pip
+  image: docker:29.2.1-cli
   only:
     - ci/builds/docker/arch/all
     - ci/builds/docker/arch/amd64
@@ -92,10 +97,11 @@ job_docker_build_amd64:
     - ci/tests/all
     - ci/tests/docker
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - export DOCKER_IMAGE_LABELS_EXTRA="--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
     - make devops-docker-build-amd64
   services:
     - docker:29.2.1-dind
@@ -108,11 +114,13 @@ job_docker_build_amd64:
 job_docker_build_arm64:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
-    - mkdir --parents ${APK_CACHE_DIR}
+    - echo ${APK_CACHE_DIR}
+    - mkdir -p ${APK_CACHE_DIR}
+    - rm -f /etc/apk/cache
+    - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk update
-    - apk add make
-    - apk add --cache-dir ${APK_CACHE_DIR} cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
+    - mkdir -p ${PIP_CACHE_DIR}
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
     - python3 -m venv venv
     - . venv/bin/activate
     - pip install pip==${PYTHON_PIP_VERSION}
@@ -122,11 +130,11 @@ job_docker_build_arm64:
   cache:
     - key: apk-cache-4.11
       paths:
-        - ${APK_CACHE_DIR}
+        - .cache/apk
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
-  image: docker:29.2.1-dind
+        - .cache/pip
+  image: docker:29.2.1-cli
   only:
     - ci/builds/docker/arch/all
     - ci/builds/docker/arch/arm64
@@ -140,10 +148,11 @@ job_docker_build_arm64:
     - ci/tests/all
     - ci/tests/docker
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${CI_REGISTRY_PUSH_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${CI_REGISTRY_PUSH_USER}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
+    - export DOCKER_IMAGE_LABELS_EXTRA="--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
     - make devops-docker-build-arm64
   services:
     - docker:29.2.1-dind
@@ -156,22 +165,29 @@ job_docker_build_arm64:
 job_docker_push_major:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
-    - mkdir --parents ${APK_CACHE_DIR}
+    - echo ${APK_CACHE_DIR}
+    - mkdir -p ${APK_CACHE_DIR}
+    - rm -f /etc/apk/cache
+    - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk add --cache-dir ${APK_CACHE_DIR} python3 python3-dev py3-packaging
+    - apk add python3 python3-dev py3-packaging
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   cache:
     - key: apk-cache-4.11
       paths:
-        - ${APK_CACHE_DIR}
+        - .cache/apk
   image: docker:29.2.1-cli
   only:
     - ci/releases/all/major
     - ci/releases/docker/major
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${DOCKER_HUB_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${DOCKER_HUB_USERNAME}
-    - export DOCKER_REGISTRY_NAME=registry-1.docker.io
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
+    - export DOCKER_REGISTRY_PUBLIC_NAME="registry-1.docker.io"
+    - export DOCKER_REGISTRY_PUBLIC_PASSWORD="${DOCKER_HUB_PASSWORD}"
+    - export DOCKER_REGISTRY_PUBLIC_USERNAME="${DOCKER_HUB_USERNAME}"
     - make devops-docker-major-publish
   services:
     - docker:29.2.1-dind
@@ -184,22 +200,29 @@ job_docker_push_major:
 job_docker_push_minor:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
-    - mkdir --parents ${APK_CACHE_DIR}
+    - echo ${APK_CACHE_DIR}
+    - mkdir -p ${APK_CACHE_DIR}
+    - rm -f /etc/apk/cache
+    - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk add --cache-dir ${APK_CACHE_DIR} python3 python3-dev py3-packaging
+    - apk add python3 python3-dev py3-packaging
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   cache:
     - key: apk-cache-4.11
       paths:
-        - ${APK_CACHE_DIR}
+        - .cache/apk
   image: docker:29.2.1-cli
   only:
     - ci/releases/all/minor
     - ci/releases/docker/minor
   script:
-    - export DOCKER_REGISTRY_PASSWORD=${DOCKER_HUB_PASSWORD}
-    - export DOCKER_REGISTRY_USERNAME=${DOCKER_HUB_USERNAME}
-    - export DOCKER_REGISTRY_NAME=registry-1.docker.io
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
+    - export DOCKER_REGISTRY_PUBLIC_NAME="registry-1.docker.io"
+    - export DOCKER_REGISTRY_PUBLIC_PASSWORD="${DOCKER_HUB_PASSWORD}"
+    - export DOCKER_REGISTRY_PUBLIC_USERNAME="${DOCKER_HUB_USERNAME}"
     - make devops-docker-minor-publish
   services:
     - docker:29.2.1-dind
@@ -209,7 +232,7 @@ job_docker_push_minor:
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
     << : *job_docker_push_variables
 
-job_docker_nightly:
+job_docker_push_nightly:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
@@ -219,11 +242,15 @@ job_docker_nightly:
   only:
     - ci/releases/nightly
   script:
-    - DOCKER_VERSION=`cat docker/rootfs/version`
-    - docker pull "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}"
-    - docker login --username "${DOCKER_HUB_USERNAME}" --password "${DOCKER_HUB_PASSWORD}" https://registry-1.docker.io
-    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
-    - docker push "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_IMAGE_TAG="${CI_COMMIT_REF_SLUG}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
+    - export DOCKER_REGISTRY_PUBLIC_NAME="registry-1.docker.io"
+    - export DOCKER_REGISTRY_PUBLIC_PASSWORD="${DOCKER_HUB_PASSWORD}"
+    - export DOCKER_REGISTRY_PUBLIC_USERNAME="${DOCKER_HUB_USERNAME}"
+    - make devops-docker-nightly-publish
   services:
     - docker:29.2.1-dind
   stage: stage_push
@@ -240,10 +267,11 @@ job_documentation_build:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
+    - mkdir -p ${PIP_CACHE_DIR}
     - apt-get install --yes --no-install-recommends enchant-2 graphviz libcairo2 g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
@@ -253,10 +281,10 @@ job_documentation_build:
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
+        - .cache/pip
   image: debian:13.3-slim
   only:
     - ci/builds/documentation
@@ -278,7 +306,7 @@ job_documentation_push:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
@@ -292,18 +320,18 @@ job_documentation_push:
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
+        - .cache/pip
   image: debian:13.3-slim
   only:
     - ci/releases/all/major
     - ci/releases/documentation
   script:
-    - export REMOTE_SSH_USERNAME=${DOCUMENTATION_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${DOCUMENTATION_HOSTNAME}
-    - export REMOTE_DOCUMENTATION_PATH=${DOCUMENTATION_SERVER_PATH}
+    - export REMOTE_SSH_USERNAME="${DOCUMENTATION_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${DOCUMENTATION_HOSTNAME}"
+    - export REMOTE_DOCUMENTATION_PATH="${DOCUMENTATION_SERVER_PATH}"
     - make devops-documentation-deploy
   stage: stage_push
   variables:
@@ -320,7 +348,7 @@ job_python_build:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
@@ -332,10 +360,10 @@ job_python_build:
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
+        - .cache/pip
   image: debian:13.3-slim
   only:
     - ci/builds/python
@@ -360,10 +388,11 @@ job_python_push_pypi:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
+    - mkdir -p ${PIP_CACHE_DIR}
     - apt-get install --yes --no-install-recommends make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
@@ -371,10 +400,10 @@ job_python_push_pypi:
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
+        - .cache/pip
   image: debian:13.3-slim
   only:
     - ci/releases/all/major
@@ -397,10 +426,11 @@ job_python_push_pypi:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
+    - mkdir -p ${PIP_CACHE_DIR}
     - apt-get install --yes --no-install-recommends ca-certificates clamav file fuse ghostscript git gnupg1 graphviz libarchive-zip-perl libfile-mimeinfo-perl libimage-exiftool-perl libmariadb3 libpq5 libreoffice-calc-nogui libreoffice-draw-nogui libreoffice-impress-nogui libreoffice-math-nogui libreoffice-writer-nogui poppler-utils sane-utils sudo supervisor tesseract-ocr g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv tesseract-ocr-deu
     - python3 -m venv venv
     - . venv/bin/activate
@@ -410,10 +440,10 @@ job_python_push_pypi:
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
     - key: pip-cache-4.11
       paths:
-        - ${PIP_CACHE_DIR}
+        - .cache/pip
   image: debian:13.3-slim
   only:
     - ci/releases/all/major
@@ -460,7 +490,7 @@ job_demo_deploy:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
@@ -471,10 +501,11 @@ job_demo_deploy:
     - 'which ssh-agent || ( apt-get update --yes && apt-get install --yes --no-install-recommends openssh-client rsync )'
     - eval $(ssh-agent -s)
     - echo "${DEMO_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+    - apt-get install --yes --no-install-recommends make
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
   environment:
     name: demo
   image: debian:13.3-slim
@@ -488,8 +519,8 @@ job_demo_deploy:
     - ci/releases/nightly
     - ci/releases/staging/arch/all
   script:
-    - export REMOTE_SSH_USERNAME=${DEMO_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${DEMO_IP_ADDRESS}
+    - export REMOTE_SSH_USERNAME="${DEMO_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${DEMO_IP_ADDRESS}"
     - devops-staging-deploy
   stage: stage_deploy
   when: manual
@@ -500,7 +531,7 @@ job_staging_deploy_all:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
@@ -511,10 +542,11 @@ job_staging_deploy_all:
     - 'which ssh-agent || ( apt-get update --yes && apt-get install --yes --no-install-recommends openssh-client rsync )'
     - eval $(ssh-agent -s)
     - echo "${STAGING_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+    - apt-get install --yes --no-install-recommends make
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
   environment:
     name: staging
   image: debian:13.3-slim
@@ -528,12 +560,12 @@ job_staging_deploy_all:
     - ci/releases/nightly
     - ci/releases/staging/arch/all
   script:
-    - export REMOTE_SSH_USERNAME=${STAGING_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${STAGING_HOSTNAME}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
-    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
-    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
+    - export REMOTE_SSH_USERNAME="STAGING_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${STAGING_HOSTNAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_DEPLOY_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_DEPLOY_USER}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
     - make devops-staging-deploy
   stage: stage_deploy
   when: manual
@@ -544,7 +576,7 @@ job_staging_deploy_amd64:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
@@ -555,10 +587,11 @@ job_staging_deploy_amd64:
     - 'which ssh-agent || ( apt-get update --yes && apt-get install --yes --no-install-recommends openssh-client rsync )'
     - eval $(ssh-agent -s)
     - echo "${STAGING_AMD64_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+    - apt-get install --yes --no-install-recommends make
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
   environment:
     name: staging
   image: debian:13.3-slim
@@ -572,13 +605,13 @@ job_staging_deploy_amd64:
     - ci/releases/nightly
     - ci/releases/staging/arch/amd64
   script:
-    - export REMOTE_SSH_USERNAME=${STAGING_AMD64_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${STAGING_AMD64_HOSTNAME}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
-    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
-    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
-    - export DOCKER_IMAGE_TAG_EXTRA=-amd64
+    - export REMOTE_SSH_USERNAME="${STAGING_AMD64_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${STAGING_AMD64_HOSTNAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_DEPLOY_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_DEPLOY_USER}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_IMAGE_TAG_EXTRA="-amd64"
     - make devops-staging-deploy
   stage: stage_deploy
   when: manual
@@ -589,7 +622,7 @@ job_staging_deploy_arm64:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
-    - mkdir --parents "${APT_STATE_LISTS}/partial" && mkdir --parents "${APT_CACHE_ARCHIVES}/partial"
+    - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
@@ -600,10 +633,11 @@ job_staging_deploy_arm64:
     - 'which ssh-agent || ( apt-get update --yes && apt-get install --yes --no-install-recommends openssh-client rsync )'
     - eval $(ssh-agent -s)
     - echo "${STAGING_ARM64_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+    - apt-get install --yes --no-install-recommends make
   cache:
     - key: apt-cache-4.11
       paths:
-        - ${APT_CACHE_DIR}
+        - .cache/apt
   environment:
     name: staging
   image: debian:13.3-slim
@@ -617,14 +651,14 @@ job_staging_deploy_arm64:
     - ci/releases/nightly
     - ci/releases/staging/arch/arm64
   script:
-    - export REMOTE_SSH_USERNAME=${STAGING_ARM64_SSH_USERNAME}
-    - export REMOTE_SSH_HOSTNAME=${STAGING_ARM64_HOSTNAME}
-    - export DOCKER_REGISTRY_NAME=${CI_REGISTRY}
-    - export DOCKER_REGISTRY_NAME_PASSWORD=${CI_REGISTRY_DEPLOY_PASSWORD}
-    - export DOCKER_REGISTRY_NAME_USER=${CI_REGISTRY_DEPLOY_USER}
-    - export DOCKER_IMAGE_NAME=${CI_IMAGE_NAME}
-    - export DOCKER_IMAGE_TAG_EXTRA=-arm64
-    - devops-staging-deploy
+    - export REMOTE_SSH_USERNAME="${STAGING_ARM64_SSH_USERNAME}"
+    - export REMOTE_SSH_HOSTNAME="${STAGING_ARM64_HOSTNAME}"
+    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
+    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_DEPLOY_PASSWORD}"
+    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_DEPLOY_USER}"
+    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
+    - export DOCKER_IMAGE_TAG_EXTRA="-arm64"
+    - make devops-staging-deploy
   stage: stage_deploy
   when: manual
   variables:

@@ -19,13 +19,40 @@ apt_get_install() {
     rm --force --recursive /var/lib/apt/lists/*
 }
 
-initial_setup() {
-    echo "mayan: initial_setup()"
+banner_show() {
+    cat <<'EOF'
 
-    su mayan --command "${MAYAN_BIN} common_initial_setup --force --no-dependencies"
+
+ ┳┳┓          ┏┓┳┓┳┳┓┏┓
+ ┃┃┃┏┓┓┏┏┓┏┓  ┣ ┃┃┃┃┃┗┓
+ ┛ ┗┗┻┗┫┗┻┛┗  ┗┛┻┛┛ ┗┗┛
+       ┛
+
+ {{ MAYAN_TITLE }} {{ MAYAN_VERSION }}
+
+ {{ MAYAN_COPYRIGHT }}
+
+ License: {{ MAYAN_LICENSE }}
+
+ Website: {{ MAYAN_WEBSITE }}
+
+
+EOF
 }
 
-make_ready() {
+build_font_cache() {
+    # Clear the fontconfig cache.
+    echo "Building font information cache files."
+    /usr/bin/fc-cache
+}
+
+initial_setup() {
+    echo "Executing \`initial_setup\`."
+
+    su {{ DOCKER_USER_USERNAME }} --command "${MAYAN_BIN} common_initial_setup --force --no-dependencies"
+}
+
+initial_setup_or_perform_upgrade() {
     # Check if this is a new install, otherwise try to upgrade the existing
     # installation on subsequent starts.
     if [ ! -f $INSTALL_FLAG ]; then
@@ -36,62 +63,66 @@ make_ready() {
 }
 
 os_package_installs() {
-    echo "mayan: os_package_installs()"
+    echo "Executing \`os_package_installs\`."
     if [ "${MAYAN_APT_INSTALLS}" ]; then
         DEBIAN_FRONTEND=noninteractive apt_get_install $MAYAN_APT_INSTALLS
+    else
+        echo "Nothing to install."
     fi
 }
 
 perform_upgrade() {
-    echo "mayan: perform_upgrade()"
-    su mayan --command "${MAYAN_BIN} common_perform_upgrade --no-dependencies"
+    echo "Executing \`perform_upgrade\`."
+    su {{ DOCKER_USER_USERNAME }} --command "${MAYAN_BIN} common_perform_upgrade --no-dependencies"
 }
 
 pip_installs() {
-    echo "mayan: pip_installs()"
+    echo "Executing \`pip_installs\`."
     if [ "${MAYAN_PIP_INSTALLS}" ]; then
-        su mayan --command "${MAYAN_PIP_BIN} install $MAYAN_PIP_INSTALLS"
+        su {{ DOCKER_USER_USERNAME }} --command "${MAYAN_PIP_BIN} install $MAYAN_PIP_INSTALLS"
+    else
+        echo "Nothing to install."
     fi
 }
 
 update_uid_gid() {
+    echo "Executing \`update_uid_gid\`."
+
     result="$(any_to_bool ${MAYAN_COMMON_DISABLE_LOCAL_STORAGE})"
 
     if [ "${result}" ]; then
-        echo "mayan: skipping uid and gid update."
+        echo "Skipping uid and gid update."
     else
         # Change the owner of the /var/lib/mayan always to allow adding the
         # initial files. Top level only.
-        chown mayan:mayan ${MAYAN_MEDIA_ROOT}
+        chown {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} ${MAYAN_MEDIA_ROOT}
 
-        echo "mayan: update_uid_gid()"
-        groupmod mayan --gid ${MAYAN_USER_GID} --non-unique
-        usermod mayan --uid ${MAYAN_USER_UID} --non-unique
+        echo "Modifying gid and uid definitions of the user."
+        groupmod {{ DOCKER_USER_USERNAME }} --gid ${MAYAN_USER_GID} --non-unique
+        usermod {{ DOCKER_USER_USERNAME }} --uid ${MAYAN_USER_UID} --non-unique
 
-        if [ ${MAYAN_USER_UID} -ne ${DEFAULT_USER_UID} ] || [ ${MAYAN_USER_GID} -ne ${DEFAULT_USER_GID} ]; then
-            echo "mayan: Updating file ownership. This might take a while if there are many documents."
-            chown --recursive mayan:mayan ${MAYAN_INSTALL_DIR} ${MAYAN_STATIC_ROOT}
+        if [ ${MAYAN_USER_UID} -ne {{ DOCKER_USER_UID }} ] || [ ${MAYAN_USER_GID} -ne {{ DOCKER_USER_GID }} ]; then
+            echo "Updating file ownership. This might take a while if there are many documents."
+            chown --recursive {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} ${MAYAN_INSTALL_DIR} ${MAYAN_STATIC_ROOT}
             if [ "${MAYAN_SKIP_CHOWN_ON_STARTUP}" = "true" ]; then
-                echo "mayan: skipping chown on startup"
+                echo "Skipping \`chown\` command on startup as instructed."
             else
-                chown --recursive mayan:mayan ${MAYAN_MEDIA_ROOT}
+                chown --recursive {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} ${MAYAN_MEDIA_ROOT}
             fi
         fi
     fi
 }
 
 # Start execution here.
-echo "mayan: starting entrypoint.sh"
+banner_show
+echo "Starting \`entrypoint.sh\`."
 INSTALL_FLAG=/var/lib/mayan/system/SECRET_KEY
 CELERY_CONCURRENCY_ARGUMENT=--concurrency=
 CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT=--max-memory-per-child=
 CELERY_MAX_TASKS_PER_CHILD_ARGUMENT=--max-tasks-per-child=
 
-DEFAULT_USER_GID=1000
-DEFAULT_USER_UID=1000
-
-export MAYAN_USER_GID=${MAYAN_USER_GID:-${DEFAULT_USER_GID}}
-export MAYAN_USER_UID=${MAYAN_USER_UID:-${DEFAULT_USER_UID}}
+export MAYAN_USER_GID=${MAYAN_USER_GID:-{{ DOCKER_USER_GID }}}
+export MAYAN_USER_UID=${MAYAN_USER_UID:-{{ DOCKER_USER_UID }}}
 
 export MAYAN_ALLOWED_HOSTS='["*"]'
 export MAYAN_BIN=/opt/mayan-edms/bin/mayan-edms.py
@@ -154,6 +185,7 @@ fi
 # Allow importing of user setting modules.
 export PYTHONPATH=$PYTHONPATH:$MAYAN_MEDIA_ROOT
 
+echo "Executing pre setup script."
 if [ "${MAYAN_DOCKER_SCRIPT_PRE_SETUP}" ]; then
     eval "${MAYAN_DOCKER_SCRIPT_PRE_SETUP}"
 fi
@@ -162,18 +194,21 @@ ${MAYAN_PYTHON_BIN_DIR}python3 /usr/local/bin/wait.py ${MAYAN_DOCKER_WAIT}
 update_uid_gid
 os_package_installs || true
 pip_installs || true
+build_font_cache
 
+echo "Executing post setup script."
 if [ "${MAYAN_DOCKER_SCRIPT_POST_SETUP}" ]; then
     eval "${MAYAN_DOCKER_SCRIPT_POST_SETUP}"
 fi
 
-# Clear the fontconfig cache.
-/usr/bin/fc-cache -v
+echo "Exiting \`entrypoint.sh\`."
+echo "Executing final target: ${@}"
+echo ""
 
 case "$1" in
 
 run_all)
-    make_ready
+    initial_setup_or_perform_upgrade
     /usr/local/bin/run_all.sh
     ;;
 
@@ -184,7 +219,7 @@ run_celery)
 
 run_command)
     shift
-    su mayan -c "${MAYAN_BIN} ${@}"
+    su {{ DOCKER_USER_USERNAME }} -c "${MAYAN_BIN} ${@}"
     ;;
 
 run_frontend)
@@ -200,11 +235,11 @@ run_perform_upgrade)
     ;;
 
 run_initial_setup_or_perform_upgrade)
-    make_ready
+    initial_setup_or_perform_upgrade
     ;;
 
 run_tests)
-    make_ready
+    initial_setup_or_perform_upgrade
     shift
     /usr/local/bin/run_tests.sh "${@}"
     ;;

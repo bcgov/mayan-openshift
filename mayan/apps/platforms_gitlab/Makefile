@@ -116,6 +116,16 @@ gitlab-ci-deployments-staging:
 	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING) || true
 	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING)
 
+gitlab-ci-deployments-staging-amd64: ## Trigger the AMD64 staging deployment
+gitlab-ci-deployments-staging-amd64:
+	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING_AMD64) || true
+	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING_AMD64)
+
+gitlab-ci-deployments-staging-arm64: ## Trigger the ARM64 staging deployment
+gitlab-ci-deployments-staging-arm64:
+	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING_ARM64) || true
+	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_DEPLOYMENTS_STAGING_ARM64)
+
 # GitOps testing
 
 gitlab-ci-tests-all: ## Trigger all tests as a CD/CI pipeline

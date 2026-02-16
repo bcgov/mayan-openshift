@@ -118,6 +118,14 @@
   - Prefix `CONFIG_` to all config file values loaded into makefiles.
   - Add new GitLab CI jobs to build AMD64 and ARM64 Docker images.
   - Move GitLab CI code into reusable makefile DevOps targets.
+  - Improve APK caching.
+  - Use buildkit registry caching.
+  - Improve Docker DinD image use.
+  - Improve Dockerfile PIP caching.
+  - Add config variable `DOCKER_USER_USERNAME` which defaults to `mayan`.
+    This variable as well `DOCKER_USER_GID` and `DOCKER_USER_UID` are now
+    used when generating the `DockerFile` and the `entrypoint.sh` files.
+  - Improve `entrypoint.sh` and other Docker component information output.
 
 - Add thousand separator to the pager.
 - Update Docker images:
@@ -145,10 +153,10 @@
   - django-solo from 2.4.0 to 2.5.1
   - django-widget-tweaks from 1.5.0 to 1.5.1
   - drf-yasg from 1.21.11 to 1.21.14
+  - elasticsearch from 9.1.0 to 9.3.0
   - google-cloud-storage from 3.3.1 to 3.9.0
   - greenlet from 3.2.4 to 3.3.1
   - gunicorn from 23.0.0 to 25.1.0
-  - elasticsearch from 9.1.0 to 9.3.0
   - jsonschema from 4.25.1 to 4.26.0
   - mozilla-django-oidc from 4.0.1 to 5.0.2
   - nh3 from 0.3.2 to 0.3.3
@@ -158,8 +166,8 @@
   - redis from 6.4.0 to 7.2.0
   - sentry-sdk from 2.48.0 to 2.53.0
   - setuptools from 80.9.0 to 81.0.0
-  - sphinx-sitemap from 2.8.0 to 2.9.0
   - sphinx_rtd_theme from 3.0.2 to 3.1.0
+  - sphinx-sitemap from 2.8.0 to 2.9.0
   - sphinxcontrib-spelling from 8.0.1 to 8.0.2
   - wheel from 0.45.1 to 0.46.3 due to CVE-2026-24049
 
