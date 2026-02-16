@@ -123,7 +123,7 @@ PythonDependency(
         License: LGPL 2.1
     ''', module=__name__, name='pycountry', version_string='==24.6.1'
 )
-PythonDependency(module=__name__, name='nh3', version_string='==0.3.2')
+PythonDependency(module=__name__, name='nh3', version_string='==0.3.3')
 PythonDependency(
     module=__name__, name='requests', version_string='==2.32.5'
 )
@@ -174,20 +174,20 @@ PythonDependency(
 
 PythonDependency(
     environment=environment_development, module=__name__,
-    name='django-debug-toolbar', version_string='==5.0.1'
+    name='django-debug-toolbar', version_string='==6.2.0'
 )
 PythonDependency(
     environment=environment_development, module=__name__,
-    name='django-extensions', version_string='==3.2.3'
+    name='django-extensions', version_string='==4.1'
 )
 PythonDependency(
     environment=environment_development, module=__name__,
-    name='django-silk', version_string='==5.3.2'
+    name='django-silk', version_string='==5.4.3'
 )
 PythonDependency(
     environment=environment_development, help_text=_(
         'Command line environment with autocompletion.'
-    ), module=__name__, name='ipython', version_string='==9.5.0'
+    ), module=__name__, name='ipython', version_string='==9.10.0'
 )
 PythonDependency(
     environment=environment_development, help_text=_(

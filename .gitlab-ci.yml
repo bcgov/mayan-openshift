@@ -29,7 +29,7 @@ job_docker_build_all:
     - key: pip-cache-4.11
       paths:
         - ${PIP_CACHE_DIR}
-  image: docker:28.2.2-dind
+  image: docker:29.2.1-dind
   needs:
     - job_docker_build_amd64
     - job_docker_build_arm64
@@ -50,7 +50,7 @@ job_docker_build_all:
     - make docker-manifest-create
     - make docker-manifest-push
   services:
-    - docker:28.2.2-dind
+    - docker:29.2.1-dind
   stage: stage_build_container
   variables:
     DOCKER_DRIVER: overlay2
@@ -78,7 +78,7 @@ job_docker_build_amd64:
     - key: pip-cache-4.11
       paths:
         - ${PIP_CACHE_DIR}
-  image: docker:28.2.2-dind
+  image: docker:29.2.1-dind
   only:
     - ci/builds/docker/arch/all
     - ci/builds/docker/arch/amd64
@@ -98,7 +98,7 @@ job_docker_build_amd64:
     - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
     - make devops-docker-build-amd64
   services:
-    - docker:28.2.2-dind
+    - docker:29.2.1-dind
   stage: stage_build_container
   variables:
     DOCKER_DRIVER: overlay2
@@ -126,7 +126,7 @@ job_docker_build_arm64:
     - key: pip-cache-4.11
       paths:
         - ${PIP_CACHE_DIR}
-  image: docker:28.2.2-dind
+  image: docker:29.2.1-dind
   only:
     - ci/builds/docker/arch/all
     - ci/builds/docker/arch/arm64
@@ -146,7 +146,7 @@ job_docker_build_arm64:
     - export DOCKER_IMAGE_LABELS_EXTRA='--label com.gitlab.ci.job.id=${CI_JOB_ID} --label com.gitlab.ci.pipeline.id=${CI_PIPELINE_ID} --label org.opencontainers.image.revision=${CI_COMMIT_SHA}'
     - make devops-docker-build-arm64
   services:
-    - docker:28.2.2-dind
+    - docker:29.2.1-dind
   stage: stage_build_container
   variables:
     DOCKER_DRIVER: overlay2
@@ -164,7 +164,7 @@ job_docker_push_major:
     - key: apk-cache-4.11
       paths:
         - ${APK_CACHE_DIR}
-  image: docker:28.2.2-cli
+  image: docker:29.2.1-cli
   only:
     - ci/releases/all/major
     - ci/releases/docker/major
@@ -174,7 +174,7 @@ job_docker_push_major:
     - export DOCKER_REGISTRY_NAME=registry-1.docker.io
     - make devops-docker-major-publish
   services:
-    - docker:28.2.2-dind
+    - docker:29.2.1-dind
   stage: stage_push
   variables:
     DOCKER_DRIVER: overlay2
@@ -192,7 +192,7 @@ job_docker_push_minor:
     - key: apk-cache-4.11
       paths:
         - ${APK_CACHE_DIR}
-  image: docker:28.2.2-cli
+  image: docker:29.2.1-cli
   only:
     - ci/releases/all/minor
     - ci/releases/docker/minor
@@ -202,7 +202,7 @@ job_docker_push_minor:
     - export DOCKER_REGISTRY_NAME=registry-1.docker.io
     - make devops-docker-minor-publish
   services:
-    - docker:28.2.2-dind
+    - docker:29.2.1-dind
   stage: stage_push
   variables:
     DOCKER_DRIVER: overlay2
@@ -213,7 +213,7 @@ job_docker_nightly:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
-  image: docker:28.2.2-cli
+  image: docker:29.2.1-cli
   needs:
     - job_docker_build_all
   only:
@@ -225,7 +225,7 @@ job_docker_nightly:
     - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
     - docker push "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
   services:
-    - docker:28.2.2-dind
+    - docker:29.2.1-dind
   stage: stage_push
   variables:
     DOCKER_DRIVER: overlay2
@@ -441,7 +441,7 @@ job_postgres_test:
     - make test-all SETTINGS=mayan.settings.testing.gitlab-ci
     - make test-migrations-all SETTINGS=mayan.settings.testing.gitlab-ci
   services:
-    - postgres:15.14
+    - postgres:15.16
   variables:
     POSTGRES_DB: "mayan"
     POSTGRES_PASSWORD: "mayandbpass"

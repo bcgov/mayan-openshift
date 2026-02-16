@@ -4,7 +4,7 @@ from mayan.apps.dependencies.classes import JavaScriptDependency
 
 JavaScriptDependency(
     label=_(message='Fancybox'), module=__name__, name='@fancyapps/fancybox',
-    version_string='=3.2.5'
+    version_string='=3.3.5'
 )
 JavaScriptDependency(
     label=_(message='jQuery'), module=__name__, name='jquery',

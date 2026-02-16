@@ -120,6 +120,52 @@
   - Move GitLab CI code into reusable makefile DevOps targets.
 
 - Add thousand separator to the pager.
+- Update Docker images:
+
+  - Docker DinD from 28.2.2-dind to 29.2.1-dind
+  - Elasticsearch from 9.1.3 to 9.1.10
+  - PostgreSQL from 15.14 to 15.16
+  - Python from 3.13.7-slim to 3.13.12-slim
+  - RabbitMQ from 4.1.4-management to 4.1.8-management
+  - Redis from 7.4.5 to 7.4.7
+  - Traefik from 2.11.29 to 2.11.37
+
+- Update Python dependencies:
+
+  - Markdown from 3.10 to 3.10.2
+  - PIP from 25.3 to 26.0.1
+  - Pillow from 6.5.0 to 6.7.0
+  - Sphinx from 8.2.3 to 9.1.0
+  - celery from 5.5.3 to 5.6.2
+  - dateparser from 1.2.2 to 1.3.0
+  - django-auth-ldap from 5.2.0 to 5.3.0
+  - django-debug-toolbar from 5.0.1 6.2.0
+  - django-extensions from 3.2.3 to 4.1
+  - django-silk from 9.5.0 to 9.10.0
+  - django-solo from 2.4.0 to 2.5.1
+  - django-widget-tweaks from 1.5.0 to 1.5.1
+  - drf-yasg from 1.21.11 to 1.21.14
+  - google-cloud-storage from 3.3.1 to 3.9.0
+  - greenlet from 3.2.4 to 3.3.1
+  - gunicorn from 23.0.0 to 25.1.0
+  - elasticsearch from 9.1.0 to 9.3.0
+  - jsonschema from 4.25.1 to 4.26.0
+  - mozilla-django-oidc from 4.0.1 to 5.0.2
+  - nh3 from 0.3.2 to 0.3.3
+  - packaging from 25.0 to 26.0
+  - psycopg from 3.2.9 to 3.3.2
+  - python_gnupg from 0.5.5 to 0.5.6
+  - redis from 6.4.0 to 7.2.0
+  - sentry-sdk from 2.48.0 to 2.53.0
+  - setuptools from 80.9.0 to 81.0.0
+  - sphinx-sitemap from 2.8.0 to 2.9.0
+  - sphinx_rtd_theme from 3.0.2 to 3.1.0
+  - sphinxcontrib-spelling from 8.0.1 to 8.0.2
+  - wheel from 0.45.1 to 0.46.3 due to CVE-2026-24049
+
+- Update JavaScript dependencies:
+
+  - Fancybox from 3.2.5 to 3.3.5
 
 4.10.3 (2025-12-24)
 ===================
