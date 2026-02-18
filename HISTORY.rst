@@ -178,6 +178,8 @@
 - Split smart settings app views module.
 - Move and rename the makefile target `requirements-generate` to
   `python-requirements-generate`.
+- Improve setting view return navigation.
+- Fix repeated setting edit view return link.
 
 4.10.3 (2025-12-24)
 ===================
