@@ -44,20 +44,20 @@ dev-setup-python: dev-setup-python-base
 	$(MAKE) dev-setup-python-build
 
 dev-setup-python-base: ## Install base Python packages.
-	pip install pip==$(PYTHON_PIP_VERSION)
-	pip install setuptools==$(PYTHON_SETUPTOOLS_VERSION)
+	pip install pip==$(CONFIG_PYTHON_PIP_VERSION)
+	pip install setuptools==$(CONFIG_PYTHON_SETUPTOOLS_VERSION)
 
 dev-setup-python-build: ## Install the Python build libraries.
 	pip install --requirement requirements/build.txt
 
 dev-setup-python-mysql: ## Install the Python MySQL library.
-	@pip install mysqlclient==$(PYTHON_MYSQL_VERSION)
+	@pip install mysqlclient==$(CONFIG_PYTHON_MYSQL_VERSION)
 
 dev-setup-python-oracle: ## Install the Python Oracle library.
-	@pip install cx_Oracle==$(PYTHON_ORACLE_VERSION)
+	@pip install cx_Oracle==$(CONFIG_PYTHON_ORACLE_VERSION)
 
 dev-setup-python-postgresql: ## Install the Python PostgreSQL library.
-	@pip install psycopg==$(PYTHON_PSYCOPG_VERSION)
+	@pip install psycopg==$(CONFIG_PYTHON_PSYCOPG_VERSION)
 
 dev-setup-python-redis:
-	@pip install redis==$(PYTHON_REDIS_VERSION)
+	@pip install redis==$(CONFIG_PYTHON_REDIS_VERSION)
