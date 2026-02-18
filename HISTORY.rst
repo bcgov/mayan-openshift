@@ -76,6 +76,9 @@
   - whitenoise from 6.11.0 to 6.12.0
 
 - Update setting `SEARCH_STORE_RESULTS_DEFAULT_VALUE` to be a choice field.
+- Change the default value of `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a
+  boolean.
+- Update setting `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a choice field.
 
 4.10.3 (2025-12-24)
 ===================
