@@ -213,15 +213,6 @@ translations-all: translations-source-clear translations-source-fuzzy-remove tra
 
 # Releases
 
-requirements-generate: ## Generate all requirements files from the project dependency declarations.
-	@./manage.py dependencies_generate_requirements build --settings=mayan.settings.development > requirements/build.txt
-	@./manage.py dependencies_generate_requirements development --settings=mayan.settings.development > requirements/development.txt
-	@./manage.py dependencies_generate_requirements documentation --settings=mayan.settings.development > requirements/documentation.txt
-	@./manage.py dependencies_generate_requirements documentation_override --settings=mayan.settings.development > requirements/documentation_override.txt
-	@./manage.py dependencies_generate_requirements testing --settings=mayan.settings.testing > requirements/testing-base.txt
-	@./manage.py dependencies_generate_requirements production --exclude=django > requirements/base.txt
-	@./manage.py dependencies_generate_requirements production --only=django > requirements/common.txt
-
 version-increase: ## Increase the version number of the entire project's files.
 	@VERSION_BASE=`grep "__version__ =" mayan/__init__.py| cut -d\' -f 2|./contrib/scripts/increase_version.py - $(PART)`; \
 	VERSION=`mayan/apps/dependencies/versions.py $${VERSION_BASE} upstream`; \

@@ -9,6 +9,8 @@
 - Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
   circular dependencies.
 - Add thousand separator to the pager.
+- Move and rename the makefile target `requirements-generate` to
+  `python-requirements-generate`.
 
 4.10.3 (2025-12-24)
 ===================
