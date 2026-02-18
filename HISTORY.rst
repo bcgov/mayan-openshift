@@ -180,6 +180,7 @@
   `python-requirements-generate`.
 - Improve setting view return navigation.
 - Fix repeated setting edit view return link.
+- Update setting `SEARCH_STORE_RESULTS_DEFAULT_VALUE` to be a choice field.
 
 4.10.3 (2025-12-24)
 ===================
