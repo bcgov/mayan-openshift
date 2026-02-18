@@ -79,6 +79,8 @@
 - Change the default value of `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a
   boolean.
 - Update setting `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a choice field.
+- Improve setting view return navigation.
+- Fix repeated setting edit view return link.
 
 4.10.3 (2025-12-24)
 ===================
