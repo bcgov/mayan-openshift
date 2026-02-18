@@ -1,9 +1,10 @@
 from django.urls import re_path
 
-from .views import (
-    SettingClusterConfigurationFileSave, SettingClusterNamespaceListView,
-    SettingNamespaceDetailView, SettingValueEditView, SettingValueRevertView
+from .views.cluster_views import SettingClusterConfigurationFileSave
+from .views.namespace_views import (
+    SettingNamespaceDetailView, SettingNamespaceListView
 )
+from .views.setting_views import SettingValueEditView, SettingValueRevertView
 
 urlpatterns = [
     re_path(
@@ -14,7 +15,7 @@ urlpatterns = [
     re_path(
         route=r'^cluster/namespaces/$',
         name='setting_cluster_namespace_list',
-        view=SettingClusterNamespaceListView.as_view()
+        view=SettingNamespaceListView.as_view()
     ),
     re_path(
         route=r'^cluster/namespaces/(?P<namespace_name>\w+)/$',
