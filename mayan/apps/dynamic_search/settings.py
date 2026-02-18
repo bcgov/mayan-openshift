@@ -115,6 +115,7 @@ setting_search_model_field_disable = setting_namespace.do_setting_add(
     )
 )
 setting_store_results_default_value = setting_namespace.do_setting_add(
+    choices=('false', 'true'),
     global_name='SEARCH_STORE_RESULTS_DEFAULT_VALUE',
     default=DEFAULT_SEARCH_STORE_RESULTS_DEFAULT_VALUE, help_text=_(
         message='Sets the default state of the "Store results" checkbox.'

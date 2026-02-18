@@ -72,8 +72,10 @@
   - python_gnupg from 0.5.5 to 0.5.6
   - redis from 6.4.0 to 7.2.1
   - sentry-sdk from 2.48.0 to 2.53.0
-  - wheel from 0.45.1 to 0.46.3
+  - wheel from 0.45.1 to 0.46.3 due to CVE-2026-24049
   - whitenoise from 6.11.0 to 6.12.0
+
+- Update setting `SEARCH_STORE_RESULTS_DEFAULT_VALUE` to be a choice field.
 
 4.10.3 (2025-12-24)
 ===================
