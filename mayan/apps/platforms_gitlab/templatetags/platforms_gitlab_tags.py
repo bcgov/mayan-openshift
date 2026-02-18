@@ -17,7 +17,6 @@ def tag_platforms_gitlab_ci_cache_before_script(
     indent, apk=False, apt=False, pip=False
 ):
     data = []
-    apk_cache_path = DEFAULT_APK_CACHE_PATH
 
     if apk:
         data.extend(
