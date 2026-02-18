@@ -176,6 +176,8 @@
   - Fancybox from 3.2.5 to 3.3.5
 
 - Split smart settings app views module.
+- Move and rename the makefile target `requirements-generate` to
+  `python-requirements-generate`.
 
 4.10.3 (2025-12-24)
 ===================

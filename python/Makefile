@@ -1,5 +1,16 @@
 #!make
 
+# Requirements
+
+python-requirements-generate: ## Generate all requirements files from the project dependency declarations.
+	@./manage.py dependencies_generate_requirements build --settings=mayan.settings.development > requirements/build.txt
+	@./manage.py dependencies_generate_requirements development --settings=mayan.settings.development > requirements/development.txt
+	@./manage.py dependencies_generate_requirements documentation --settings=mayan.settings.development > requirements/documentation.txt
+	@./manage.py dependencies_generate_requirements documentation_override --settings=mayan.settings.development > requirements/documentation_override.txt
+	@./manage.py dependencies_generate_requirements testing --settings=mayan.settings.testing > requirements/testing-base.txt
+	@./manage.py dependencies_generate_requirements production --exclude=django > requirements/base.txt
+	@./manage.py dependencies_generate_requirements production --only=django > requirements/common.txt
+
 python-setup-generate: ## Create and update the setup.py file.
 python-setup-generate: requirements-generate
 	@./contrib/scripts/generate_setup.py
