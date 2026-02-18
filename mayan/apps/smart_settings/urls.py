@@ -13,8 +13,7 @@ urlpatterns = [
         view=SettingClusterConfigurationFileSave.as_view()
     ),
     re_path(
-        route=r'^cluster/namespaces/$',
-        name='setting_cluster_namespace_list',
+        route=r'^cluster/namespaces/$', name='setting_cluster_namespace_list',
         view=SettingNamespaceListView.as_view()
     ),
     re_path(

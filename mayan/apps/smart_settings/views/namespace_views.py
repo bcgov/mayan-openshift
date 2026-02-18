@@ -44,7 +44,7 @@ class SettingNamespaceDetailView(SingleObjectListView):
         return setting_namespace.get_setting_list()
 
 
-class NamespaceListView(SingleObjectListView):
+class SettingNamespaceListView(SingleObjectListView):
     extra_context = {
         'hide_link': True,
         'title': _(message='Setting namespaces')
