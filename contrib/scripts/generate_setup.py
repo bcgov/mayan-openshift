@@ -37,8 +37,8 @@ class SetupUpdater:
         self.path_base = Path(BASE_DIR, '..')
 
         try:
-            self.git_build = sh.Command('git').bake('describe', '--tags', '--always', 'HEAD')
-            self.git_date = sh.Command('git').bake('--no-pager', 'log', '-1', '--format=%cd')
+            self.git_build = sh.Command(path='git').bake('describe', '--tags', '--always', 'HEAD')
+            self.git_date = sh.Command(path='git').bake('--no-pager', 'log', '-1', '--format=%cd')
         except sh.CommandNotFound:
             self.git_build = None
             self.git_date = None
