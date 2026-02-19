@@ -17,7 +17,7 @@ python-requirements-generate: ## Generate all requirements files from the projec
 	@./manage.py dependencies_generate_requirements production --only=django > requirements/common.txt
 
 python-setup-generate: ## Create and update the setup.py file.
-python-setup-generate: requirements-generate
+python-setup-generate: python-requirements-generate
 	@./contrib/scripts/generate_setup.py
 	@echo "Complete."
 
