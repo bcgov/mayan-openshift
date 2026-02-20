@@ -20,6 +20,11 @@
   - DOCUMENTS_PRINT_HEIGHT
   - DOCUMENTS_PRINT_WIDTH
 
+- Fix the math template tag name `math_substract` to `math_subtract`. Update
+  your existing templates if you use this template tag. An alias named
+  `math_substract` was added for backwards compatibility but will be removed
+  in a following minor version.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.
