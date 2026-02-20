@@ -185,6 +185,17 @@
   boolean.
 - Update setting `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a choice field.
 
+- Error logging changes:
+
+  - Add more descriptive module error log messages.
+  - Make error log messages translatable.
+  - Error logs are now no longer cleared on success. Users must clear past
+    error logs. This prevents a successful operation from clearing out still
+    valid error logs from a previous operation.
+  - Increase the default error log retention per object from 3 to 15 entries.
+  - Add a subtitle to the object error log view showing the number of entries
+    being retained for the specific object.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.
