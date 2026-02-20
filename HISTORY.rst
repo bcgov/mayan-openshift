@@ -196,6 +196,8 @@
   - Add a subtitle to the object error log view showing the number of entries
     being retained for the specific object.
 
+- Remove deprecated Oracle database support.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.

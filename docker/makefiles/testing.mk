@@ -2,7 +2,6 @@
 
 CONTAINER_NAME_TEST_ELASTIC = mayan-test-elastic
 CONTAINER_NAME_TEST_MYSQL = mayan-test-mysql
-CONTAINER_NAME_TEST_ORACLE = mayan-test-oracle
 CONTAINER_NAME_TEST_POSTGRESQL = mayan-test-postgresql
 CONTAINER_NAME_TEST_REDIS = mayan-test-redis
 
@@ -52,27 +51,6 @@ docker-mysql-backup:
 
 docker-mysql-restore:
 	@mysql --host=127.0.0.1 --user=$(CONFIG_DEFAULT_DATABASE_USER) --password=$(CONFIG_DEFAULT_DATABASE_PASSWORD) $(CONFIG_DEFAULT_DATABASE_NAME) < mayan-docker-mysql-backup.sql
-
-docker-oracle-start: ## Start an Oracle test container.
-docker-oracle-start:
-	@docker container run \
-	--detach \
-	--name $(CONTAINER_NAME_TEST_ORACLE) \
-	--publish 49160:22 \
-	--publish 49161:1521 \
-	--env ORACLE_ALLOW_REMOTE=true \
-	--volume $(CONTAINER_NAME_TEST_ORACLE):/u01/app/oracle \
-	$(CONFIG_DOCKER_ORACLE_IMAGE_VERSION)
-	@sleep 10
-	@while ! nc -z 127.0.0.1 49161; do echo -n .; sleep 2; done
-
-docker-oracle-stop:
-docker-oracle-stop: ## Stop and delete the Oracle test container.
-	@docker container rm \
-	--force \
-	$(CONTAINER_NAME_TEST_ORACLE) >/dev/null 2>&1
-	@docker volume rm \
-	$(CONTAINER_NAME_TEST_ORACLE) >/dev/null 2>&1 || true
 
 docker-postgresql-start: ## Start a PostgreSQL Docker test container.
 	@docker container run \

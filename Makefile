@@ -94,16 +94,6 @@ test-all-with-mysql:
 	export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.mysql','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
 	$(COMMAND_TEST)
 
-test-with-oracle: ## MODULE=<python module name> - Run tests for a single app, module or test class against an Oracle database container.
-test-with-oracle:
-	export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.oracle','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
-	$(COMMAND_TEST)
-
-test-all-with-oracle: ## Run all tests against an Oracle database container.
-test-all-with-oracle:
-	export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.oracle','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
-	$(COMMAND_TEST)
-
 test-with-postgresql: ## MODULE=<python module name> - Run tests for a single app, module or test class against a PostgreSQL database container.
 test-with-postgresql:
 	export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
@@ -130,11 +120,6 @@ test-migrations-all: _test-migrations
 test-migrations-all-with-mysql: ## Run all migration tests against a MySQL database container.
 test-migrations-all-with-mysql:
 	export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.mysql','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
-	$(COMMAND_TEST_MIGRATIONS)
-
-test-migrations-all-with-oracle: ## Run all migration tests against an Oracle database container.
-test-migrations-all-with-oracle:
-	export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.oracle','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
 	$(COMMAND_TEST_MIGRATIONS)
 
 test-migrations-all-with-postgresql: ## Run all migration tests against a PostgreSQL database container.
@@ -198,10 +183,6 @@ manage: ## Run a command with the development settings.
 
 manage-with-mysql: ## Run the development server using a Docker PostgreSQL container.
 	@export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.mysql','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
-	./manage.py $(filter-out $@,$(MAKECMDGOALS)) --settings=mayan.settings.development
-
-manage-with-oracle: ## Run the development server using a Docker Oracle container.
-	@export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.oracle','NAME':'$(CONFIG_DEFAULT_DATABASE_NAME)','PASSWORD':'$(CONFIG_DEFAULT_DATABASE_PASSWORD)','USER':'$(CONFIG_DEFAULT_DATABASE_USER)','HOST':'127.0.0.1'}}"; \
 	./manage.py $(filter-out $@,$(MAKECMDGOALS)) --settings=mayan.settings.development
 
 manage-with-postgresql: ## Run the development server using a Docker PostgreSQL container.

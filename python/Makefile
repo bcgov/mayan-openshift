@@ -64,9 +64,6 @@ dev-setup-python-build: ## Install the Python build libraries.
 dev-setup-python-mysql: ## Install the Python MySQL library.
 	@pip install mysqlclient==$(CONFIG_PYTHON_MYSQL_VERSION)
 
-dev-setup-python-oracle: ## Install the Python Oracle library.
-	@pip install cx_Oracle==$(CONFIG_PYTHON_ORACLE_VERSION)
-
 dev-setup-python-postgresql: ## Install the Python PostgreSQL library.
 	@pip install psycopg==$(CONFIG_PYTHON_PSYCOPG_VERSION)
 
