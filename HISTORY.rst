@@ -221,6 +221,9 @@
   - Add new filters and tags: `math_ceil`, `math_floor`, `math_integer`,
     `math_maximum`, `math_minimum`, `math_percent`, and `math_round`.
 
+- Ensure duplicated entries are not created if a user favorites the same
+  document more than once.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.

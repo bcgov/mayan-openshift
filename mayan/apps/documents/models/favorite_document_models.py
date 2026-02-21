@@ -38,6 +38,7 @@ class FavoriteDocument(ExtraDataModelMixin, models.Model):
 
     class Meta:
         ordering = ('datetime_added',)
+        unique_together = ('document', 'user')
         verbose_name = _(message='Favorite document')
         verbose_name_plural = _(message='Favorite documents')
 
