@@ -205,6 +205,8 @@
   - DOCUMENTS_PREVIEW_WIDTH
   - DOCUMENTS_PRINT_HEIGHT
   - DOCUMENTS_PRINT_WIDTH
+  - SIGNATURES_BACKEND_ARGUMENTS
+  - STORAGE_DOWNLOAD_FILE_STORAGE_ARGUMENTS
 
 - Fix the math template tag name `math_substract` to `math_subtract`. Update
   your existing templates if you use this template tag. An alias named

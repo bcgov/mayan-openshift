@@ -19,7 +19,7 @@ class DocumentFileSourceMetadataSerializer(
         label=_(message='Document file'), read_only=True
     )
     url = MultiKwargHyperlinkedIdentityField(
-        label=_('URL'), view_kwargs=(
+        label=_(message='URL'), view_kwargs=(
             {
                 'lookup_field': 'document_file.document_id',
                 'lookup_url_kwarg': 'document_id'
@@ -81,7 +81,8 @@ class SourceBackendActionSerializer(serializers.Serializer):
     )
     arguments = serializers.JSONField(
         help_text=_(
-            message='Optional arguments for the action. Must be JSON formatted.'
+            message='Optional arguments for the action. Must be JSON '
+            'formatted.'
         ), initial={}, label=_(message='Arguments'), required=False,
         write_only=True
     )

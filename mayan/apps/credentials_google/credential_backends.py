@@ -16,39 +16,39 @@ class CredentialBackendGoogleServiceAccount(CredentialBackend):
     }
     form_fields = {
         'project_id': {
-            'label': _('Project ID'),
+            'label': _(message='Project ID'),
             'class': 'django.forms.CharField', 'default': '',
             'kwargs': {
                 'max_length': 254
             }, 'required': True
         },
         'private_key_id': {
-            'label': _('Private Key ID'),
+            'label': _(message='Private Key ID'),
             'class': 'django.forms.CharField', 'default': '',
             'kwargs': {
                 'max_length': 254
             }, 'required': True
         },
         'private_key': {
-            'label': _('Private Key'),
+            'label': _(message='Private Key'),
             'class': 'django.forms.CharField', 'default': ''
         },
         'client_email': {
-            'label': _('Client email'),
+            'label': _(message='Client email'),
             'class': 'django.forms.CharField', 'default': '',
             'kwargs': {
                 'max_length': 254
             }, 'required': True
         },
         'client_id': {
-            'label': _('Client ID'),
+            'label': _(message='Client ID'),
             'class': 'django.forms.CharField', 'default': '',
             'kwargs': {
                 'max_length': 254
             }, 'required': True
         },
         'auth_uri': {
-            'label': _('Authentication URI'),
+            'label': _(message='Authentication URI'),
             'class': 'django.forms.CharField',
             'default': 'https://accounts.google.com/o/oauth2/auth',
             'kwargs': {
@@ -56,7 +56,7 @@ class CredentialBackendGoogleServiceAccount(CredentialBackend):
             }, 'required': True
         },
         'token_uri': {
-            'label': _('Token URI'),
+            'label': _(message='Token URI'),
             'class': 'django.forms.CharField',
             'default': 'https://oauth2.googleapis.com/token',
             'kwargs': {
@@ -64,7 +64,7 @@ class CredentialBackendGoogleServiceAccount(CredentialBackend):
             }, 'required': True
         },
         'auth_provider_x509_cert_url': {
-            'label': _('X509 certificate provider URL'),
+            'label': _(message='X509 certificate provider URL'),
             'class': 'django.forms.CharField',
             'default': 'https://www.googleapis.com/oauth2/v1/certs',
             'kwargs': {
@@ -72,14 +72,14 @@ class CredentialBackendGoogleServiceAccount(CredentialBackend):
             }, 'required': True
         },
         'client_x509_cert_url': {
-            'label': _('Client X509 certificate URL'),
+            'label': _(message='Client X509 certificate URL'),
             'class': 'django.forms.CharField', 'default': '',
             'kwargs': {
                 'max_length': 254
             }, 'required': True
         }
     }
-    label = _('Google Service Account')
+    label = _(message='Google Service Account')
 
     @classmethod
     def get_form_fieldsets(cls):
@@ -87,22 +87,22 @@ class CredentialBackendGoogleServiceAccount(CredentialBackend):
 
         fieldsets += (
             (
-                _('Project'), {
+                _(message='Project'), {
                     'fields': ('project_id',)
                 }
             ),
             (
-                _('Secrets'), {
+                _(message='Secrets'), {
                     'fields': ('private_key_id', 'private_key', 'token_uri')
                 }
             ),
             (
-                _('Indentity'), {
+                _(message='Indentity'), {
                     'fields': ('client_email', 'client_id', 'auth_uri')
                 }
             ),
             (
-                _('Certificate'), {
+                _(message='Certificate'), {
                     'fields': (
                         'auth_provider_x509_cert_url', 'client_x509_cert_url'
                     )
