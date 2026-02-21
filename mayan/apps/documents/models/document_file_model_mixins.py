@@ -518,5 +518,5 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
         )
 
     versions_new.help_text = _(
-        'Controls what happens when a new document file is uploaded.'
+        message='Controls what happens when a new document file is uploaded.'
     )

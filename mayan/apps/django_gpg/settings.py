@@ -21,6 +21,9 @@ setting_gpg_backend = setting_namespace.do_setting_add(
 setting_gpg_backend_arguments = setting_namespace.do_setting_add(
     default=DEFAULT_DEFAULT_GPG_PATH,
     global_name='SIGNATURES_BACKEND_ARGUMENTS',
+    help_text=_(
+        message='Keyword arguments to pass to the `SIGNATURES_BACKEND`.'
+    )
 )
 setting_keyserver = setting_namespace.do_setting_add(
     default=DEFAULT_SIGNATURES_KEYSERVER, global_name='SIGNATURES_KEYSERVER',

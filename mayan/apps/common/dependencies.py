@@ -186,11 +186,11 @@ PythonDependency(
 )
 PythonDependency(
     environment=environment_development, help_text=_(
-        'Command line environment with autocompletion.'
+        message='Command line environment with autocompletion.'
     ), module=__name__, name='ipython', version_string='==9.5.0'
 )
 PythonDependency(
     environment=environment_development, help_text=_(
-        'Checks proper formatting of the README file.'
+        message='Checks proper formatting of the README file.'
     ), module=__name__, name='readme', version_string='==0.7.1'
 )
