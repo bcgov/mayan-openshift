@@ -213,6 +213,14 @@
   `math_substract` was added for backwards compatibility but will be removed
   in a following minor version.
 
+- Math tag updates:
+
+  - Improve value processing.
+  - Support decimals.
+  - Improve help texts.
+  - Add new filters and tags: `math_ceil`, `math_floor`, `math_integer`,
+    `math_maximum`, `math_minimum`, `math_percent`, and `math_round`.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.
