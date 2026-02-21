@@ -113,15 +113,6 @@ def tag_platforms_gitlab_ci_cache_variables(
     return yaml_dump(data=variables, indent=indent)
 
 
-@register.simple_tag(name='platforms_gitlab_ci_config_env_before_script')
-def tag_platforms_gitlab_ci_config_env_before_script(indent):
-    data = [
-        r'set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a'
-    ]
-
-    return yaml_dump(data=data, indent=indent)
-
-
 @register.simple_tag(name='platforms_gitlab_ci_ssh_before_script')
 def tag_platforms_gitlab_ci_ssh_before_script(indent, hostname, private_key):
     data = [

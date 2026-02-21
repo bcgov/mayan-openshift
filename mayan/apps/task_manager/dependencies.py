@@ -1,6 +1,8 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2015 Ask Solem & contributors.  All rights reserved.
         Copyright (c) 2012-2014 GoPivotal, Inc.  All rights reserved.
@@ -59,6 +61,7 @@ PythonDependency(
     ''', module=__name__, name='celery', version_string='==5.6.2'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2012-2013 GoPivotal, Inc.  All Rights Reserved.
         Copyright (c) 2009-2012 Ask Solem.  All Rights Reserved.

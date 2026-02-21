@@ -1,5 +1,7 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
-    module=__name__, name='pyotp', version_string='==2.9.0'
+    environments=(environment_production,), module=__name__, name='pyotp',
+    version_string='==2.9.0'
 )

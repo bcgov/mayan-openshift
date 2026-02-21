@@ -44,3 +44,4 @@ config-local.env
 MANIFEST.in
 forge/.env-local
 __pycache__/
+.config.env.mk

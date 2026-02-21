@@ -1,6 +1,8 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright 2013 Otto Yiu and other contributors
         http://ottoyiu.com
@@ -27,6 +29,7 @@ PythonDependency(
     version_string='==4.9.0'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2011-2015, Tom Christie All rights reserved.
 
@@ -39,6 +42,7 @@ PythonDependency(
     version_string='==3.16.1'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2015, Warren Jin <jinwarren@gmail.com>
 
@@ -57,14 +61,18 @@ PythonDependency(
     version_string='==0.1.2'
 )
 PythonDependency(
-    module=__name__, name='drf-yasg', version_string='==1.21.14'
+    environments=(environment_production,), module=__name__, name='drf-yasg',
+    version_string='==1.21.14'
 )
 PythonDependency(
-    module=__name__, name='flex', version_string='==6.14.1'
+    environments=(environment_production,), module=__name__, name='flex',
+    version_string='==6.14.1'
 )
 PythonDependency(
-    module=__name__, name='jsonschema', version_string='==4.26.0'
+    environments=(environment_production,), module=__name__,
+    name='jsonschema', version_string='==4.26.0'
 )
 PythonDependency(
-    module=__name__, name='swagger-spec-validator', version_string='==3.0.4'
+    environments=(environment_production,), module=__name__,
+    name='swagger-spec-validator', version_string='==3.0.4'
 )

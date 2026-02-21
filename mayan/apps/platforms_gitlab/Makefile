@@ -138,20 +138,10 @@ gitlab-ci-tests-docker:
 	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_TESTS_DOCKER) || true
 	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_TESTS_DOCKER)
 
-gitlab-ci-tests-python-all: ## Trigger all Python tests as a CD/CI pipeline
-gitlab-ci-tests-python-all:
-	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON_ALL) || true
-	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON_ALL)
-
-gitlab-ci-tests-python-base: ## Trigger base Python tests as a CD/CI pipeline
-gitlab-ci-tests-python-base:
-	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON_BASE) || true
-	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON_BASE)
-
-gitlab-ci-tests-python-upgrade: ## Trigger upgrade tests as a CD/CI pipeline
-gitlab-ci-tests-python-upgrade:
-	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON_UPGRADE) || true
-	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON_UPGRADE)
+gitlab-ci-tests-python: ## Trigger Python tests as a CD/CI pipeline
+gitlab-ci-tests-python:
+	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) :$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON) || true
+	git push $(CONFIG_GITLAB_CI_REMOTE_NAME) HEAD:$(CONFIG_GITLAB_CI_BRANCH_TESTS_PYTHON)
 
 # GitOps Combined
 

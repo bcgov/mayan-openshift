@@ -126,6 +126,21 @@
     This variable as well `DOCKER_USER_GID` and `DOCKER_USER_UID` are now
     used when generating the `DockerFile` and the `entrypoint.sh` files.
   - Improve `entrypoint.sh` and other Docker component information output.
+  - Reorganize dependencies.
+  - Split GitLab CI template into sub templates.
+  - Remove `pip` commands from GitLab CI file and use makefile targets.
+  - Add more targets to install specific Python environment requirements.
+  - Remove top level `requirements.txt` file as it was ambiguous in purpose.
+  - Make the `packaging` library an essential library.
+  - Remove the default environment for dependencies. All dependencies must
+    now be explicit about their environment.
+  - The `environment` argument of the `Dependency` class has been removed.
+    Dependencies must now specify a list of environments instead of a single
+    one even if they support a single one.
+  - Remove the `gitlab-ci-tests-python-upgrade` and
+    `gitlab-ci-tests-python-all` targets.
+  - Remove GitLab CI file YAML anchors.
+  - Remove all direct Docker CLI usage in the GitLab CI file.
 
 - Add thousand separator to the pager.
 - Update Docker images:

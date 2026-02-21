@@ -1,13 +1,15 @@
 from mayan.apps.dependencies.classes import (
     JavaScriptDependency, PythonDependency
 )
+from mayan.apps.dependencies.environments import environment_production
 
 JavaScriptDependency(
-    module=__name__, name='chart.js', static_folder='statistics',
-    version_string='=3.9.1'
+    environments=(environment_production,), module=__name__, name='chart.js',
+    static_folder='statistics', version_string='=3.9.1'
 )
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2010, Matt Croydon, Mikhail Korobov
         All rights reserved.

@@ -1,10 +1,5 @@
 
 
-.job_docker_push_variables:
-  &job_docker_push_variables
-    PYTHON_BIN: /usr/bin/python3
-    VERSION_SCRIPT_BIN: mayan/apps/dependencies/versions.py
-
 stages:
   - stage_build_python
   - stage_test_python
@@ -13,17 +8,16 @@ stages:
   - stage_push
   - stage_deploy
 
-# Docker
+
 
 job_docker_build_all:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - echo ${APK_CACHE_DIR}
     - mkdir -p ${APK_CACHE_DIR}
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev openldap-dev zlib-dev
   cache:
     - key: apk-cache-4.11
       paths:
@@ -62,20 +56,17 @@ job_docker_build_all:
 
 job_docker_build_amd64:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - echo ${APK_CACHE_DIR}
     - mkdir -p ${APK_CACHE_DIR}
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
     - mkdir -p ${PIP_CACHE_DIR}
-    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev openldap-dev zlib-dev python3 python3-dev py3-packaging
     - python3 -m venv venv
     - . venv/bin/activate
-    - pip install pip==${PYTHON_PIP_VERSION}
-    - pip install setuptools==${PYTHON_SETUPTOOLS_VERSION}
-    - pip install --requirement requirements/common.txt
-    - cat requirements/base.txt | grep -v 'django-auth-ldap'| pip install -r /dev/stdin
+    - make dev-setup-python-essential
+    - make dev-setup-python-production
   cache:
     - key: apk-cache-4.11
       paths:
@@ -113,20 +104,17 @@ job_docker_build_amd64:
 
 job_docker_build_arm64:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - echo ${APK_CACHE_DIR}
     - mkdir -p ${APK_CACHE_DIR}
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
     - mkdir -p ${PIP_CACHE_DIR}
-    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev zlib-dev python3 python3-dev py3-packaging
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev openldap-dev zlib-dev python3 python3-dev py3-packaging
     - python3 -m venv venv
     - . venv/bin/activate
-    - pip install pip==${PYTHON_PIP_VERSION}
-    - pip install setuptools==${PYTHON_SETUPTOOLS_VERSION}
-    - pip install --requirement requirements/common.txt
-    - cat requirements/base.txt | grep -v 'django-auth-ldap'| pip install -r /dev/stdin
+    - make dev-setup-python-essential
+    - make dev-setup-python-production
   cache:
     - key: apk-cache-4.11
       paths:
@@ -162,16 +150,16 @@ job_docker_build_arm64:
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
 
+
+
 job_docker_push_major:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - echo ${APK_CACHE_DIR}
     - mkdir -p ${APK_CACHE_DIR}
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
     - apk add python3 python3-dev py3-packaging
-    - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   cache:
     - key: apk-cache-4.11
       paths:
@@ -193,20 +181,17 @@ job_docker_push_major:
     - docker:29.2.1-dind
   stage: stage_push
   variables:
-    DOCKER_DRIVER: overlay2
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
-    << : *job_docker_push_variables
+    DOCKER_DRIVER: overlay2
 
 job_docker_push_minor:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - echo ${APK_CACHE_DIR}
     - mkdir -p ${APK_CACHE_DIR}
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
     - apk add python3 python3-dev py3-packaging
-    - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   cache:
     - key: apk-cache-4.11
       paths:
@@ -228,14 +213,10 @@ job_docker_push_minor:
     - docker:29.2.1-dind
   stage: stage_push
   variables:
-    DOCKER_DRIVER: overlay2
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
-    << : *job_docker_push_variables
+    DOCKER_DRIVER: overlay2
 
 job_docker_push_nightly:
-  before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
-    - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
   image: docker:29.2.1-cli
   needs:
     - job_docker_build_all
@@ -257,7 +238,7 @@ job_docker_push_nightly:
   variables:
     DOCKER_DRIVER: overlay2
 
-# Documentation
+
 
 job_documentation_build:
   artifacts:
@@ -265,7 +246,6 @@ job_documentation_build:
     paths:
     - docs
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -275,9 +255,7 @@ job_documentation_build:
     - apt-get install --yes --no-install-recommends enchant-2 graphviz libcairo2 g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
-    - pip install pip==${PYTHON_PIP_VERSION}
-    - pip install setuptools==${PYTHON_SETUPTOOLS_VERSION}
-    - pip install wheel==${PYTHON_WHEEL_VERSION}
+    - make dev-setup-python-essential
   cache:
     - key: apt-cache-4.11
       paths:
@@ -292,10 +270,8 @@ job_documentation_build:
     - ci/releases/documentation
     - ci/tests/all
   script:
-    - pip install --requirement requirements/common.txt
-    - pip install --requirement requirements/base.txt
-    - pip install --requirement requirements/documentation.txt
-    - pip install --requirement requirements/documentation_override.txt
+    - make dev-setup-python-production
+    - make dev-setup-python-documentation
     - make docs-html
   stage: stage_build_documentation
   variables:
@@ -304,7 +280,6 @@ job_documentation_build:
 
 job_documentation_push:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -338,7 +313,7 @@ job_documentation_push:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
 
-# Python
+
 
 job_python_build:
   artifacts:
@@ -346,7 +321,6 @@ job_python_build:
     paths:
     - dist
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -355,7 +329,7 @@ job_python_build:
     - apt-get install --yes --no-install-recommends g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
-    - make dev-setup-python-base
+    - make dev-setup-python-essential
     - make dev-setup-python-build
   cache:
     - key: apt-cache-4.11
@@ -375,8 +349,7 @@ job_python_build:
     - ci/releases/python/minor
     - ci/releases/testing
     - ci/tests/all
-    - ci/tests/python/all
-    - ci/tests/python/upgrade
+    - ci/tests/python
   script:
     - make python-wheel-production
   stage: stage_build_python
@@ -384,9 +357,10 @@ job_python_build:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
 
+
+
 job_python_push_pypi:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -396,7 +370,7 @@ job_python_push_pypi:
     - apt-get install --yes --no-install-recommends make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
-    - pip install pip==${PYTHON_PIP_VERSION}
+    - make dev-setup-python-essential
   cache:
     - key: apt-cache-4.11
       paths:
@@ -412,19 +386,18 @@ job_python_push_pypi:
     - ci/releases/python/minor
     - ci/releases/testing
   script:
-    - pip install --requirement requirements/build.txt
+    - make dev-setup-python-publish
     - twine upload --verbose dist/mayan*edms*
   stage: stage_push
   variables:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
 
-# Run the test suit
+
 
 .job_base_test:
   &job_base_test
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -434,9 +407,9 @@ job_python_push_pypi:
     - apt-get install --yes --no-install-recommends ca-certificates clamav file fuse ghostscript git gnupg1 graphviz libarchive-zip-perl libfile-mimeinfo-perl libimage-exiftool-perl libmariadb3 libpq5 libreoffice-calc-nogui libreoffice-draw-nogui libreoffice-impress-nogui libreoffice-math-nogui libreoffice-writer-nogui poppler-utils sane-utils sudo supervisor tesseract-ocr g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv tesseract-ocr-deu
     - python3 -m venv venv
     - . venv/bin/activate
-    - pip install pip==${PYTHON_PIP_VERSION}
-    - pip install wheel==${PYTHON_WHEEL_VERSION}
-    - pip install --requirement requirements.txt --requirement requirements/testing-base.txt --requirement requirements/build.txt
+    - make dev-setup-python-essential
+    - make dev-setup-python-production
+    - make dev-setup-python-testing
   cache:
     - key: apt-cache-4.11
       paths:
@@ -454,8 +427,7 @@ job_python_push_pypi:
     - ci/releases/python/minor
     - ci/releases/staging/arch/all
     - ci/tests/all
-    - ci/tests/python/all
-    - ci/tests/python/base
+    - ci/tests/python
   stage: stage_test_python
   variables:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
@@ -466,13 +438,15 @@ job_postgres_test:
   script:
     - apt-get install --yes --no-install-recommends libpq-dev
     - . venv/bin/activate
-    - pip install psycopg==${PYTHON_PSYCOPG_VERSION}
+    - make dev-setup-python-postgresql
     - export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'mayan','PASSWORD':'mayandbpass','USER':'mayan','HOST':'postgres'}}"
     - make test-all SETTINGS=mayan.settings.testing.gitlab-ci
     - make test-migrations-all SETTINGS=mayan.settings.testing.gitlab-ci
   services:
     - postgres:15.16
   variables:
+    APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
+    PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
     POSTGRES_DB: "mayan"
     POSTGRES_PASSWORD: "mayandbpass"
     POSTGRES_USER: "mayan"
@@ -484,11 +458,10 @@ job_sqlite_test:
     - make test-all SETTINGS=mayan.settings.testing.gitlab-ci
     - make test-migrations-all SETTINGS=mayan.settings.testing.gitlab-ci
 
-# Deploy
+
 
 job_demo_deploy:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -529,7 +502,6 @@ job_demo_deploy:
 
 job_staging_deploy_all:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -574,7 +546,6 @@ job_staging_deploy_all:
 
 job_staging_deploy_amd64:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -620,7 +591,6 @@ job_staging_deploy_amd64:
 
 job_staging_deploy_arm64:
   before_script:
-    - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - export APT_STATE_LISTS=${APT_CACHE_DIR}/lists && export APT_CACHE_ARCHIVES=${APT_CACHE_DIR}/archives
     - mkdir -p "${APT_STATE_LISTS}/partial" && mkdir -p "${APT_CACHE_ARCHIVES}/partial"
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
@@ -664,8 +634,6 @@ job_staging_deploy_arm64:
   variables:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
 
-# Combined
-
 job_docker_build_try_all:
   extends: job_docker_build_all
   only:
@@ -704,3 +672,4 @@ job_staging_deploy_try_arm64:
   only:
     - ci/try/staging/arch/arm64
   when: on_success
+

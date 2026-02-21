@@ -21,6 +21,7 @@ from django.utils.translation import gettext, gettext_lazy as _
 from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
 from mayan.apps.common.exceptions import ResolverPipelineError
 from mayan.apps.common.utils import ResolverPipelineObjectAttribute
+from mayan.apps.locales.translatable import join_translatable
 from mayan.apps.storage.compressed_files import TarArchive
 from mayan.apps.storage.utils import (
     TemporaryDirectory, fs_cleanup, mkdtemp,
@@ -28,7 +29,6 @@ from mayan.apps.storage.utils import (
 )
 
 from .algorithms import HashAlgorithm
-from .environments import environment_production
 from .exceptions import DependenciesException
 
 logger = logging.getLogger(name=__name__)
@@ -320,12 +320,11 @@ class Dependency(AppsModuleLoaderMixin):
                 dependency.uninstall()
 
     def __init__(
-        self, name, environment=environment_production, app_label=None,
-        environments=None, help_text=None, label=None, legal_text=None,
-        module=None, replace_list=None, version_string=None
+        self, name, environments, app_label=None, help_text=None, label=None,
+        legal_text=None, module=None, replace_list=None, version_string=None
     ):
         self._app_label = app_label
-        self.environments = environments or (environment,)
+        self.environments = environments
         self.help_text = help_text
         self.label = label
         self.legal_text = legal_text
@@ -481,9 +480,11 @@ class Dependency(AppsModuleLoaderMixin):
         ]
 
     def get_environments_verbose_name(self):
-        return [
+        environment_label_list = [
             environment.label for environment in self.environments
         ]
+
+        return join_translatable(items=environment_label_list, separator=', ')
 
     def get_label(self):
         return self.label or self.name

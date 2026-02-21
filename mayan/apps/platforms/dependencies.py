@@ -1,14 +1,19 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
-    module=__name__, name='gevent', version_string='==25.9.1'
+    environments=(environment_production,), module=__name__, name='gevent',
+    version_string='==25.9.1'
 )
 PythonDependency(
-    module=__name__, name='greenlet', version_string='==3.3.1'
+    environments=(environment_production,), module=__name__, name='greenlet',
+    version_string='==3.3.1'
 )
 PythonDependency(
-    module=__name__, name='gunicorn', version_string='==25.1.0'
+    environments=(environment_production,), module=__name__, name='gunicorn',
+    version_string='==25.1.0'
 )
 PythonDependency(
-    module=__name__, name='whitenoise', version_string='==6.11.0'
+    environments=(environment_production,), module=__name__,
+    name='whitenoise', version_string='==6.11.0'
 )

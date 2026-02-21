@@ -29,6 +29,7 @@ devops-docker-major-publish:
 	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MAJOR)
 
 devops-docker-minor-publish:
+	$(MAKE) docker-registry-login
 	$(MAKE) docker-image-pull
 	docker tag \
 	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \
@@ -41,6 +42,7 @@ devops-docker-minor-publish:
 	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MINOR)
 
 devops-docker-nightly-publish:
+	$(MAKE) docker-registry-login
 	$(MAKE) docker-image-pull
 	docker tag \
 	$(DOCKER_IMAGE_NAME_FULL_TAGGED) \

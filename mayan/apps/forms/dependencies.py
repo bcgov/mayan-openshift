@@ -1,15 +1,19 @@
 from mayan.apps.dependencies.classes import (
     JavaScriptDependency, PythonDependency
 )
+from mayan.apps.dependencies.environments import environment_production
 
 JavaScriptDependency(
-    module=__name__, name='dropzone', version_string='=5.9.3'
+    environments=(environment_production,), module=__name__, name='dropzone',
+    version_string='=5.9.3'
 )
 
 PythonDependency(
-    module=__name__, name='django-formtools', version_string='==2.5.1'
+    environments=(environment_production,), module=__name__,
+    name='django-formtools', version_string='==2.5.1'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2011-2015 Mikhail Korobov
 

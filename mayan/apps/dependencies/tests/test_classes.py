@@ -8,6 +8,7 @@ from mayan.apps.testing.tests.base import BaseTestCase
 from mayan.apps.testing.tests.utils import mute_stdout
 
 from ..classes import JavaScriptDependency
+from ..environments import environment_production
 from ..exceptions import DependenciesException
 
 from .literals import (
@@ -32,7 +33,8 @@ class DependencyClassTestCase(BaseTestCase):
                 '@import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");'
             )
         self._test_dependency = TestDependency(
-            name='test_dependency', module=__name__
+            environments=(environment_production,), name='test_dependency',
+            module=__name__
         )
 
     def tearDown(self):
@@ -77,6 +79,7 @@ class DependencyClassCVE_2007_4559TestCase(BaseTestCase):
                     shutil.copyfileobj(fsrc=test_source_file_object, fdst=test_destination_file_object)
 
             test_dependency = JavaScriptDependency(
+                environments=(environment_production,),
                 label='Label', module=__name__,
                 name='test_repository', version_string='=1.0'
             )

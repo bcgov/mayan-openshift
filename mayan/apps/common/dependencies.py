@@ -2,11 +2,13 @@ from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.dependencies.classes import PythonDependency
 from mayan.apps.dependencies.environments import (
-    environment_build, environment_development, environment_documentation
+    environment_build, environment_development, environment_production,
+    environment_publish
 )
 from mayan.literals import PYTHON_SETUPTOOLS_VERSION, PYTHON_WHEEL_VERSION
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) Django Software Foundation and individual contributors.
         All rights reserved.
@@ -38,6 +40,7 @@ PythonDependency(
     ''', module=__name__, name='django', version_string='==5.2.11'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2006 Kirill Simonov
 
@@ -61,6 +64,7 @@ PythonDependency(
     ''', module=__name__, name='PyYAML', version_string='==6.0.3'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2009-2015, Carl Meyer and contributors
         All rights reserved.
@@ -93,6 +97,7 @@ PythonDependency(
     ''', module=__name__, name='django-model-utils', version_string='==5.0.0'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Django MPTT
         -----------
@@ -118,16 +123,22 @@ PythonDependency(
     ''', module=__name__, name='django-mptt', version_string='==0.18.0'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Author: Christian Theune
         License: LGPL 2.1
     ''', module=__name__, name='pycountry', version_string='==24.6.1'
 )
-PythonDependency(module=__name__, name='nh3', version_string='==0.3.3')
 PythonDependency(
-    module=__name__, name='requests', version_string='==2.32.5'
+    environments=(environment_production,), module=__name__, name='nh3',
+    version_string='==0.3.3'
 )
 PythonDependency(
+    environments=(environment_production,), module=__name__, name='requests',
+    version_string='==2.32.5'
+)
+PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (C) 2011-2012 by Andrew Moffat
 
@@ -154,43 +165,39 @@ PythonDependency(
 # Build
 
 PythonDependency(
-    environment=environment_build,
-    module=__name__, name='setuptools', version_string='=={}'.format(
-        PYTHON_SETUPTOOLS_VERSION
-    )
+    environments=(environment_build,), module=__name__, name='setuptools',
+    version_string='=={}'.format(PYTHON_SETUPTOOLS_VERSION)
 )
 PythonDependency(
-    environment=environment_build, module=__name__, name='twine',
+    environments=(environment_publish,), module=__name__, name='twine',
     version_string='==6.2.0'
 )
 PythonDependency(
-    environments=(environment_build, environment_documentation),
-    module=__name__, name='wheel', version_string='=={}'.format(
-        PYTHON_WHEEL_VERSION
-    )
+    environments=(environment_build,), module=__name__, name='wheel',
+    version_string='=={}'.format(PYTHON_WHEEL_VERSION)
 )
 
 # Development
 
 PythonDependency(
-    environment=environment_development, module=__name__,
+    environments=(environment_development,), module=__name__,
     name='django-debug-toolbar', version_string='==6.2.0'
 )
 PythonDependency(
-    environment=environment_development, module=__name__,
+    environments=(environment_development,), module=__name__,
     name='django-extensions', version_string='==4.1'
 )
 PythonDependency(
-    environment=environment_development, module=__name__,
+    environments=(environment_development,), module=__name__,
     name='django-silk', version_string='==5.4.3'
 )
 PythonDependency(
-    environment=environment_development, help_text=_(
+    environments=(environment_development,), help_text=_(
         message='Command line environment with autocompletion.'
     ), module=__name__, name='ipython', version_string='==9.10.0'
 )
 PythonDependency(
-    environment=environment_development, help_text=_(
+    environments=(environment_development,), help_text=_(
         message='Checks proper formatting of the README file.'
     ), module=__name__, name='readme', version_string='==0.7.1'
 )

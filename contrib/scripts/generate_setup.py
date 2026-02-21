@@ -24,7 +24,7 @@ import mayan  # NOQA
 from mayan.settings import BASE_DIR  # NOQA
 from mayan import literals  # NOQA
 
-FILENAME_REQUIREMENTS = 'requirements.txt'
+FILENAME_REQUIREMENTS = 'requirements/production.txt'
 FILENAME_SETUP = 'setup.py'
 FILENAME_TEMPLATE_MAYAN_INIT = '__init__.py.tmpl'
 FILENAME_TEMPLATE_LICENSE = 'LICENSE.tmpl'

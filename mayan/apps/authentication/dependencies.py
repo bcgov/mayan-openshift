@@ -1,5 +1,6 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
-    module=__name__, name='django-auth-ldap', version_string='==5.3.0'
-)
+    environments=(environment_production,), module=__name__,
+    name='django-auth-ldap', version_string='==5.3.0')
