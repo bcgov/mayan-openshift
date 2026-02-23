@@ -69,7 +69,7 @@ class MixinSettingClusterDoers:
         ContentType.objects.clear_cache()
 
         setting_list = self.get_setting_list()
-        logger.info(
+        logger.debug(
             'Settings in cluster: %d', len(setting_list)
         )
 
