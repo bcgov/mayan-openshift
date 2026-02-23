@@ -16,7 +16,7 @@ docker-elasticsearch-start:
 	--name $(CONTAINER_NAME_TEST_ELASTIC) \
 	--publish 9200:9200 \
 	--publish 9300:9300 \
-	$(CONFIG_DOCKER_ELASTIC_IMAGE_NAME):$(CONFIG_DOCKER_ELASTIC_IMAGE_TAG)
+	$(CONFIG_DOCKER_ELASTICSEARCH_IMAGE_NAME):$(CONFIG_DOCKER_ELASTICSEARCH_IMAGE_TAG)
 	@while ! nc -z 127.0.0.1 9200; do echo -n .; sleep 1; done
 
 docker-elasticsearch-stop: ## Stop and delete the Elasticsearch container.
