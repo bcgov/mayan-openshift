@@ -238,6 +238,7 @@
 
 - Ensure duplicated entries are not created if a user favorites the same
   document more than once.
+- Reinforce pruning of empty index instance nodes.
 
 4.10.3 (2025-12-24)
 ===================
