@@ -437,7 +437,6 @@ job_postgres_test:
   << : *job_base_test
   script:
     - apt-get install --yes --no-install-recommends libpq-dev
-    - . venv/bin/activate
     - make dev-setup-python-postgresql
     - export MAYAN_DATABASES="{'default':{'ENGINE':'django.db.backends.postgresql','NAME':'mayan','PASSWORD':'mayandbpass','USER':'mayan','HOST':'postgres'}}"
     - make test-all SETTINGS=mayan.settings.testing.gitlab-ci
@@ -454,7 +453,6 @@ job_postgres_test:
 job_sqlite_test:
   << : *job_base_test
   script:
-    - . venv/bin/activate
     - make test-all SETTINGS=mayan.settings.testing.gitlab-ci
     - make test-migrations-all SETTINGS=mayan.settings.testing.gitlab-ci
 
