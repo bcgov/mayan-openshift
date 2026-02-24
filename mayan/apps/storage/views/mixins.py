@@ -84,7 +84,8 @@ class ViewMixinDownload:
         return None
 
     def get_download_mime_type_and_encoding(self, file_object):
-        mime_type, encoding = MIMETypeBackend.get_backend_instance().get_mime_type(
+        backend_instance = MIMETypeBackend.get_backend_instance()
+        mime_type, encoding = backend_instance.get_mime_type(
             file_object=file_object, mime_type_only=True
         )
 
