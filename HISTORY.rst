@@ -244,6 +244,11 @@
 - Add `libfuse2` as a production dependency.
 - Add default makefile target that does nothing and instructs to use the
   `help` target instead.
+- Improve Docker testing targets:
+
+  - Improve PostgreSQL testing container health check.
+  - Rename target variables for clarity.
+  - Fix some hardcoded values.
 
 4.10.3 (2025-12-24)
 ===================
