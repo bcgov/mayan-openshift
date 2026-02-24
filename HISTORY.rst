@@ -250,6 +250,9 @@
   - Rename target variables for clarity.
   - Fix some hardcoded values.
 
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendFileCommand` class.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.
