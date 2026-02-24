@@ -254,6 +254,8 @@
   `MIMETypeBackendFileCommand` class.
 - Replace the use of `sh` with upstream Python `subprocess` for the
   `MIMETypeBackendPerlFileMIMEInfo` class.
+- Improve the staging targets. The frontend target now uses the Docker
+  `run_frontend.sh` script.
 
 4.10.3 (2025-12-24)
 ===================
