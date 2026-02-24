@@ -242,6 +242,8 @@
 - Rename internal references of `DOCKER_ELASTIC_` to `DOCKER_ELASTICSEARCH_`.
 - Reduce logging output.
 - Add `libfuse2` as a production dependency.
+- Add default makefile target that does nothing and instructs to use the
+  `help` target instead.
 
 4.10.3 (2025-12-24)
 ===================
