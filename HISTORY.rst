@@ -34,6 +34,8 @@
 - Add `libfuse2` as a production dependency.
 - Backport makefile improvements.
 - Backport GitLab CI improvements.
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendFileCommand` class.
 
 4.10.3 (2025-12-24)
 ===================
