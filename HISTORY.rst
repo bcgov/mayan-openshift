@@ -1,4 +1,4 @@
-4.11 (XXXX-XX-XX)
+4.11 (2026-02-25)
 =================
 - Support building ARM64 Docker images.
 - Git ignore `__pycache__` folders.

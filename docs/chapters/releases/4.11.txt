@@ -23,18 +23,11 @@ Many internal subsystems have been reorganized for improved determinism, perform
 
 This release contains several changes that may require administrator attention. Review the sections below before upgrading.
 
+The release of version 4.11, begins the sun setting of version 4.6 which is now approaching end-of-life. Likewise online translation files for version 4.5 have been deleted. Only offline translation are possible.
 
 
 Changes
 -------
-
-
-New Features
-^^^^^^^^^^^^
-
-- Added a reusable chunked hashing function optimized for large files. Hashing now uses a default block size of 65536 bytes.
-
-
 
 
 Backend
@@ -45,6 +38,7 @@ Backend
 - Moved several modules to reduce circular dependencies.
 - Replaced the `sh` library with Python `subprocess` in MIME type detection backends.
 - Deprecated Oracle database support has been removed.
+- Added a reusable block hashing function optimized for large files.
 
 
 Dependencies
@@ -76,7 +70,6 @@ This release introduces extensive improvements to the build system and Docker-ba
 - Docker Compose was updated to align with the new entrypoint behavior.
 
 
-
 Settings
 ^^^^^^^^
 
@@ -103,7 +96,6 @@ Templating
 - Added new filters and tags including `math_ceil`, `math_floor`, `math_integer`, `math_maximum`, `math_minimum`, `math_percent`, and `math_round`.
 
 
-
 User Interface
 ^^^^^^^^^^^^^^
 
@@ -117,30 +109,32 @@ User Interface
 Error Logging
 ^^^^^^^^^^^^^
 
-* Error log messages are now more descriptive and translatable.
-* To preserve debug information, error logs are no longer cleared automatically when operations succeed . Existing logs must be cleared manually.
-* Increased the default retention per object from 3 to 15 entries.
-
+- Error log messages are now more descriptive and translatable.
+- To preserve debug information, error logs are no longer cleared automatically when operations succeed . Existing logs must be cleared manually.
+- Increased the default retention per object from 3 to 15 entries.
 
 
 Miscellaneous
 ^^^^^^^^^^^^^
 
-* Added `__pycache__` to the git ignore list.
-* The smart settings app views module was split and reorganized.
-* The makefile target `requirements-generate` was renamed to `python-requirements-generate`.
-* Logging output was reduced.
-* `DOCKER_ELASTIC_` internal references were renamed to `DOCKER_ELASTICSEARCH_`.
+- Added `__pycache__` to the git ignore list.
+- The smart settings app views module was split and reorganized.
+- The makefile target `requirements-generate` was renamed to `python-requirements-generate`.
+- Logging output was reduced.
+- `DOCKER_ELASTIC_` internal references were renamed to `DOCKER_ELASTICSEARCH_`.
 
 
 Upgrade Notes
 -------------
 
-* Several settings now enforce integer values. Existing configurations using strings must be updated.
-* Template authors using the ``math_substract`` tag should switch to ``math_subtract`` before the alias is removed in a future release.
-* Custom deployments depending on Oracle must migrate to a supported database backend.
-* Review Docker or CI customizations for compatibility with the new makefile layout, variables, and entrypoint changes.
+- Download the latest Docker Compose file or update your existing one for to support the new service argument layout.
+- Several settings now enforce integer values. Existing configurations using strings must be updated.
+- Template authors using the `math_substract` tag should switch to `math_subtract` before the alias is removed in a future release.
+- Custom deployments depending on Oracle must migrate to a supported database backend.
+- Review CI customizations for compatibility with the new makefile layout, variables, and entrypoint changes.
+
 
 Deprecations
+------------
 
-`math_substract`
+- `math_substract` tag added as a backward compatible alias will be removed in a future minor version.
