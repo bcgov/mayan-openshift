@@ -256,6 +256,15 @@
   `MIMETypeBackendPerlFileMIMEInfo` class.
 - Improve the staging targets. The frontend target now uses the Docker
   `run_frontend.sh` script.
+- Don't change user in the Docker `/usr` commands but at the `entrypoint.sh`
+  file.
+- Add `--chdir` to gunicorn to avoid a permission error.
+- Update Docker Compose file to work with how the entrypoint targets now
+  work. There Docker Compose service arguments are handled in sequence and
+  do not require to be quoted.
+- Update the `worker_custom_queue` service to pass the worker queues via an
+  environment variable and use the regular entrypoint.
+- Normalize environment variable usage in the Docker shell files.
 
 4.10.3 (2025-12-24)
 ===================

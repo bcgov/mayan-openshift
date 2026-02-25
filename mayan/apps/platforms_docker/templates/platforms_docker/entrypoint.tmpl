@@ -14,7 +14,7 @@ any_to_bool () {
 
 apt_get_install() {
     apt-get update
-    apt-get install --auto-remove --force-yes --no-install-recommends --yes "$@"
+    apt-get install --auto-remove --force-yes --no-install-recommends --yes "${@}"
     apt-get clean
     rm --force --recursive /var/lib/apt/lists/*
 }
@@ -49,13 +49,13 @@ build_font_cache() {
 initial_setup() {
     echo "Executing \`initial_setup\`."
 
-    su {{ DOCKER_USER_USERNAME }} --command "${MAYAN_BIN} common_initial_setup --force --no-dependencies"
+    runuser --user {{ DOCKER_USER_USERNAME }} -- "${MAYAN_BIN}" common_initial_setup --force --no-dependencies
 }
 
 initial_setup_or_perform_upgrade() {
     # Check if this is a new install, otherwise try to upgrade the existing
     # installation on subsequent starts.
-    if [ ! -f $INSTALL_FLAG ]; then
+    if [ ! -f "${INSTALL_FLAG}" ]; then
         initial_setup
     else
         perform_upgrade
@@ -65,7 +65,7 @@ initial_setup_or_perform_upgrade() {
 os_package_installs() {
     echo "Executing \`os_package_installs\`."
     if [ "${MAYAN_APT_INSTALLS}" ]; then
-        DEBIAN_FRONTEND=noninteractive apt_get_install $MAYAN_APT_INSTALLS
+        DEBIAN_FRONTEND=noninteractive apt_get_install "${MAYAN_APT_INSTALLS}"
     else
         echo "Nothing to install."
     fi
@@ -73,13 +73,13 @@ os_package_installs() {
 
 perform_upgrade() {
     echo "Executing \`perform_upgrade\`."
-    su {{ DOCKER_USER_USERNAME }} --command "${MAYAN_BIN} common_perform_upgrade --no-dependencies"
+    runuser --user {{ DOCKER_USER_USERNAME }} -- "${MAYAN_BIN}" common_perform_upgrade --no-dependencies
 }
 
 pip_installs() {
     echo "Executing \`pip_installs\`."
     if [ "${MAYAN_PIP_INSTALLS}" ]; then
-        su {{ DOCKER_USER_USERNAME }} --command "${MAYAN_PIP_BIN} install $MAYAN_PIP_INSTALLS"
+        runuser --user {{ DOCKER_USER_USERNAME }} -- "${MAYAN_PIP_BIN}" install "${MAYAN_PIP_INSTALLS}"
     else
         echo "Nothing to install."
     fi
@@ -95,19 +95,19 @@ update_uid_gid() {
     else
         # Change the owner of the /var/lib/mayan always to allow adding the
         # initial files. Top level only.
-        chown {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} ${MAYAN_MEDIA_ROOT}
+        chown {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} "${MAYAN_MEDIA_ROOT}"
 
         echo "Modifying gid and uid definitions of the user."
-        groupmod {{ DOCKER_USER_USERNAME }} --gid ${MAYAN_USER_GID} --non-unique
-        usermod {{ DOCKER_USER_USERNAME }} --uid ${MAYAN_USER_UID} --non-unique
+        groupmod {{ DOCKER_USER_USERNAME }} --gid "${MAYAN_USER_GID}" --non-unique
+        usermod {{ DOCKER_USER_USERNAME }} --uid "${MAYAN_USER_UID}" --non-unique
 
-        if [ ${MAYAN_USER_UID} -ne {{ DOCKER_USER_UID }} ] || [ ${MAYAN_USER_GID} -ne {{ DOCKER_USER_GID }} ]; then
+        if [ "${MAYAN_USER_UID}" -ne {{ DOCKER_USER_UID }} ] || [ "${MAYAN_USER_GID}" -ne {{ DOCKER_USER_GID }} ]; then
             echo "Updating file ownership. This might take a while if there are many documents."
-            chown --recursive {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} ${MAYAN_INSTALL_DIR} ${MAYAN_STATIC_ROOT}
+            chown --recursive {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} "${MAYAN_INSTALL_DIR}" "${MAYAN_STATIC_ROOT}"
             if [ "${MAYAN_SKIP_CHOWN_ON_STARTUP}" = "true" ]; then
                 echo "Skipping \`chown\` command on startup as instructed."
             else
-                chown --recursive {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} ${MAYAN_MEDIA_ROOT}
+                chown --recursive {{ DOCKER_USER_USERNAME }}:{{ DOCKER_USER_USERNAME }} "${MAYAN_MEDIA_ROOT}"
             fi
         fi
     fi
@@ -121,54 +121,65 @@ CELERY_CONCURRENCY_ARGUMENT=--concurrency=
 CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT=--max-memory-per-child=
 CELERY_MAX_TASKS_PER_CHILD_ARGUMENT=--max-tasks-per-child=
 
-export MAYAN_USER_GID=${MAYAN_USER_GID:-{{ DOCKER_USER_GID }}}
-export MAYAN_USER_UID=${MAYAN_USER_UID:-{{ DOCKER_USER_UID }}}
+export MAYAN_USER_GID="${MAYAN_USER_GID:-{{ DOCKER_USER_GID }}}"
+export MAYAN_USER_UID="${MAYAN_USER_UID:-{{ DOCKER_USER_UID }}}"
 
 export MAYAN_ALLOWED_HOSTS='["*"]'
 export MAYAN_BIN=/opt/mayan-edms/bin/mayan-edms.py
 export MAYAN_INSTALL_DIR=/opt/mayan-edms
 export MAYAN_PYTHON_BIN_DIR=/opt/mayan-edms/bin/
 export MAYAN_MEDIA_ROOT=/var/lib/mayan
-export MAYAN_SETTINGS_MODULE=${MAYAN_SETTINGS_MODULE:-mayan.settings.production}
+export MAYAN_SETTINGS_MODULE="${MAYAN_SETTINGS_MODULE:-mayan.settings.production}"
 
 # Set DJANGO_SETTINGS_MODULE to MAYAN_SETTINGS_MODULE to avoid two
 # different environment variables for the same setting.
-export DJANGO_SETTINGS_MODULE=${MAYAN_SETTINGS_MODULE}
+export DJANGO_SETTINGS_MODULE="${MAYAN_SETTINGS_MODULE}"
 
-export MAYAN_GUNICORN_BIN=${MAYAN_PYTHON_BIN_DIR}gunicorn
-export MAYAN_GUNICORN_REQUESTS_JITTER=${MAYAN_GUNICORN_REQUESTS_JITTER:-{{ GUNICORN_REQUESTS_JITTER }}}
-export MAYAN_GUNICORN_LIMIT_REQUEST_LINE=${MAYAN_GUNICORN_LIMIT_REQUEST_LINE:-{{ GUNICORN_LIMIT_REQUEST_LINE }}}
-export MAYAN_GUNICORN_MAX_REQUESTS=${MAYAN_GUNICORN_MAX_REQUESTS:-{{ GUNICORN_MAX_REQUESTS }}}
-export MAYAN_GUNICORN_WORKER_CLASS=${MAYAN_GUNICORN_WORKER_CLASS:-{{ GUNICORN_WORKER_CLASS }}}
-export MAYAN_GUNICORN_WORKERS=${MAYAN_GUNICORN_WORKERS:-{{ GUNICORN_WORKERS }}}
-export MAYAN_GUNICORN_TIMEOUT=${MAYAN_GUNICORN_TIMEOUT:-{{ GUNICORN_TIMEOUT }}}
-export MAYAN_PIP_BIN=${MAYAN_PYTHON_BIN_DIR}pip
-export MAYAN_STATIC_ROOT=${MAYAN_INSTALL_DIR}/static
-export MAYAN_SUPERVISOR_AUTORESTART=${MAYAN_SUPERVISOR_AUTORESTART:-{{ SUPERVISOR_AUTORESTART }}}
+# Gunicorn
+
+export MAYAN_GUNICORN_BIN="${MAYAN_PYTHON_BIN_DIR}gunicorn"
+export MAYAN_GUNICORN_REQUESTS_JITTER="${MAYAN_GUNICORN_REQUESTS_JITTER:-{{ GUNICORN_REQUESTS_JITTER }}}"
+export MAYAN_GUNICORN_LIMIT_REQUEST_LINE="${MAYAN_GUNICORN_LIMIT_REQUEST_LINE:-{{ GUNICORN_LIMIT_REQUEST_LINE }}}"
+export MAYAN_GUNICORN_MAX_REQUESTS="${MAYAN_GUNICORN_MAX_REQUESTS:-{{ GUNICORN_MAX_REQUESTS }}}"
+export MAYAN_GUNICORN_WORKER_CLASS="${MAYAN_GUNICORN_WORKER_CLASS:-{{ GUNICORN_WORKER_CLASS }}}"
+export MAYAN_GUNICORN_WORKERS="${MAYAN_GUNICORN_WORKERS:-{{ GUNICORN_WORKERS }}}"
+export MAYAN_GUNICORN_TIMEOUT="${MAYAN_GUNICORN_TIMEOUT:-{{ GUNICORN_TIMEOUT }}}"
+
+if mount | grep --quiet '/dev/shm'; then
+    export MAYAN_GUNICORN_TEMPORARY_DIRECTORY="--worker-tmp-dir=/dev/shm"
+else
+    export MAYAN_GUNICORN_TEMPORARY_DIRECTORY=
+fi
+
+# Others
+
+export MAYAN_PIP_BIN="${MAYAN_PYTHON_BIN_DIR}pip"
+export MAYAN_STATIC_ROOT="${MAYAN_INSTALL_DIR}/static"
+export MAYAN_SUPERVISOR_AUTORESTART="${MAYAN_SUPERVISOR_AUTORESTART:-{{ SUPERVISOR_AUTORESTART }}}"
 
 # Setup worker environment variables.
 {% for worker in workers %}
-MAYAN_{{ worker.name|upper }}_CONCURRENCY=${MAYAN_{{ worker.name|upper }}_CONCURRENCY:-{{ worker.concurrency }}}
+MAYAN_{{ worker.name|upper }}_CONCURRENCY="${MAYAN_{{ worker.name|upper }}_CONCURRENCY:-{{ worker.concurrency }}}"
 
-if [ "$MAYAN_{{ worker.name|upper }}_CONCURRENCY" -eq 0 ]; then
+if [ "${MAYAN_{{ worker.name|upper }}_CONCURRENCY}" -eq 0 ]; then
     MAYAN_{{ worker.name|upper }}_CONCURRENCY=
 else
     MAYAN_{{ worker.name|upper }}_CONCURRENCY="${CELERY_CONCURRENCY_ARGUMENT}${MAYAN_{{ worker.name|upper }}_CONCURRENCY}"
 fi
 export MAYAN_{{ worker.name|upper }}_CONCURRENCY
 
-MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD=${MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD:-{{ worker.maximum_memory_per_child }}}
+MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD="${MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD:-{{ worker.maximum_memory_per_child }}}"
 
-if [ "$MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD" -eq 0 ]; then
+if [ "${MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD}" -eq 0 ]; then
     MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD=
 else
     MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD="${CELERY_MAX_MEMORY_PER_CHILD_ARGUMENT}${MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD}"
 fi
 export MAYAN_{{ worker.name|upper }}_MAX_MEMORY_PER_CHILD
 
-MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD=${MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD:-{{ worker.maximum_tasks_per_child }}}
+MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD="${MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD:-{{ worker.maximum_tasks_per_child }}}"
 
-if [ "$MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD" -eq 0 ]; then
+if [ "${MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD}" -eq 0 ]; then
     MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD=
 else
     MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD="${CELERY_MAX_TASKS_PER_CHILD_ARGUMENT}${MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD}"
@@ -176,21 +187,15 @@ fi
 export MAYAN_{{ worker.name|upper }}_MAX_TASKS_PER_CHILD
 {% endfor %}
 
-if mount | grep '/dev/shm' > /dev/null; then
-    export MAYAN_GUNICORN_TEMPORARY_DIRECTORY="--worker-tmp-dir /dev/shm"
-else
-    export MAYAN_GUNICORN_TEMPORARY_DIRECTORY=
-fi
-
 # Allow importing of user setting modules.
-export PYTHONPATH=$PYTHONPATH:$MAYAN_MEDIA_ROOT
+export PYTHONPATH="${PYTHONPATH}:${MAYAN_MEDIA_ROOT}"
 
 echo "Executing pre setup script."
 if [ "${MAYAN_DOCKER_SCRIPT_PRE_SETUP}" ]; then
     eval "${MAYAN_DOCKER_SCRIPT_PRE_SETUP}"
 fi
 
-${MAYAN_PYTHON_BIN_DIR}python3 /usr/local/bin/wait.py ${MAYAN_DOCKER_WAIT}
+"${MAYAN_PYTHON_BIN_DIR}python3" /usr/local/bin/wait.py ${MAYAN_DOCKER_WAIT}
 update_uid_gid
 os_package_installs || true
 pip_installs || true
@@ -214,16 +219,16 @@ run_all)
 
 run_celery)
     shift
-    /usr/local/bin/run_celery.sh "${@}"
+    exec runuser --user {{ DOCKER_USER_USERNAME }} -- /usr/local/bin/run_celery.sh "${@}"
     ;;
 
 run_command)
     shift
-    su {{ DOCKER_USER_USERNAME }} -c "${MAYAN_BIN} ${@}"
+    exec runuser --user {{ DOCKER_USER_USERNAME }} -- "${MAYAN_BIN}" "${@}"
     ;;
 
 run_frontend)
-    /usr/local/bin/run_frontend.sh
+    exec runuser --user {{ DOCKER_USER_USERNAME }} -- /usr/local/bin/run_frontend.sh
     ;;
 
 run_initial_setup)
@@ -241,16 +246,16 @@ run_initial_setup_or_perform_upgrade)
 run_tests)
     initial_setup_or_perform_upgrade
     shift
-    /usr/local/bin/run_tests.sh "${@}"
+    exec runuser --user {{ DOCKER_USER_USERNAME }} -- /usr/local/bin/run_tests.sh "${@}"
     ;;
 
 run_worker)
     shift
-    /usr/local/bin/run_worker.sh "${@}"
+    exec runuser --user {{ DOCKER_USER_USERNAME }} -- /usr/local/bin/run_worker.sh "${@}"
     ;;
 
 *)
-    "$@"
+    "${@}"
     ;;
 
 esac
