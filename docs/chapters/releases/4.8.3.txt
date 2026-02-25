@@ -48,24 +48,6 @@ Fixed the multi part email source metadata inheritance. This ensures all
 parts of a multipart email inherit the source metadata of the previous levels.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.8.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.8.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.8.txt
-
-
 Issues closed
 -------------
 

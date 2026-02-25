@@ -28,23 +28,6 @@ Other
     `removals` file.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.5.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.5.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.4.txt
-
 
 Issues closed
 -------------

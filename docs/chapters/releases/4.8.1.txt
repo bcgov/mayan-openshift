@@ -16,24 +16,6 @@ serializer.
 Fixed an issue preventing upgrades from series 4.7 to 4.8.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.8.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.8.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.8.txt
-
-
 Issues closed
 -------------
 

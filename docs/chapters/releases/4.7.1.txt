@@ -37,24 +37,6 @@ Other
 - Improve the titles of the settings revert view.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.7.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.7.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.7.txt
-
-
 Issues closed
 -------------
 

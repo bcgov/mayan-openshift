@@ -34,24 +34,6 @@ Testing
 Restore the root logging handlers after every test.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.4.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.4.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.4.txt
-
-
 Issues closed
 -------------
 

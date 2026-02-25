@@ -37,24 +37,6 @@ Other
 - Move the flanker dependency from the sources to the source_emails app.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.6.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.6.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.6.txt
-
-
 Issues closed
 -------------
 
