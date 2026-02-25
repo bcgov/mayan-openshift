@@ -59,24 +59,6 @@ Other
 - Add makefile target to refresh the Docker and Python module versions.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.4.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.4.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.4.txt
-
-
 Issues closed
 -------------
 

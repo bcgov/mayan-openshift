@@ -50,24 +50,6 @@ Removed hardcoded icons from the Dropzone file upload component, allowing for co
 Unified the label for empty dropdown options, improving interface consistency across the application.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.8.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.8.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.8.txt
-
-
 Issues closed
 -------------
 

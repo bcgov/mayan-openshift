@@ -47,24 +47,6 @@ Other
 - Backport minor query optimizations.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.4.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.4.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.4.txt
-
-
 Issues closed
 -------------
 

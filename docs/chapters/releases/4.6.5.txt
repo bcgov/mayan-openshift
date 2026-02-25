@@ -29,23 +29,6 @@ Updated Docker image tags:
 - Python from 3.11.8-slim to 3.11.9-slim.
 - RabbitMQ from 3.12.13-management-alpine to 3.12.28-management-alpine.
 
-Removals
---------
-
-.. include:: partials/removals-4.6.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.6.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.6.txt
-
 
 Issues closed
 -------------

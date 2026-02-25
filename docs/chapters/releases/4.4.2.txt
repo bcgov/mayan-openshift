@@ -15,24 +15,6 @@ A patch was merged that ensures the server communication modal is not shown
 for interrupted AJAX requests.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.4.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.4.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.4.txt
-
-
 Issues closed
 -------------
 

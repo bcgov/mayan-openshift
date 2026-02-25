@@ -44,24 +44,6 @@ Other
 - Fix sources app class method name.
 - Fix typos.
 
-Removals
---------
-
-.. include:: partials/removals-4.6.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.6.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.6.txt
-
-
 Issues closed
 -------------
 

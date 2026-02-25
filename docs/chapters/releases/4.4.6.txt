@@ -66,24 +66,6 @@ runtime proxies where is does not make sense to show as this is
 configuration information and not runtime information.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.4.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.4.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.4.txt
-
-
 Issues closed
 -------------
 

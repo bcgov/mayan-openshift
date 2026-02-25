@@ -32,24 +32,6 @@ Other
 - Add test for file metadata migration 0011.
 
 
-Removals
---------
-
-.. include:: partials/removals-4.6.txt
-
-
-Backward incompatible changes
------------------------------
-
-.. include:: partials/backward-incompatible-4.6.txt
-
-
-Deprecations
-------------
-
-.. include:: partials/deprecations-4.6.txt
-
-
 Issues closed
 -------------
 
