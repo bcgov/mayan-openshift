@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Lory977 <helga.carrero@gmail.com>, 2025
-# Roberto Rosario, 2025
+# Lory977 <helga.carrero@gmail.com>, 2026
+# Roberto Rosario, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Rosario, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Roberto Rosario, 2026\n"
 "Language-Team: Spanish (Mexico) (https://app.transifex.com/rosarior/teams/13584/es_MX/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr ""
 
 #: apps.py:89
 msgid "Model"
-msgstr ""
+msgstr "Modelo"
 
 #: apps.py:94
 msgid "The unique name used to reference the search model."
@@ -450,6 +450,8 @@ msgid ""
 "Raise an error when the number of search results exceed the value of "
 "`SEARCH_QUERY_RESULTS_LIMIT`."
 msgstr ""
+"Generar un error cuando el número de resultados de búsqueda excede el valor "
+"de `SEARCH_QUERY_RESULTS_LIMIT`."
 
 #: settings.py:79
 msgid "Maximum number of search results to fetch and display."
@@ -485,7 +487,7 @@ msgid ""
 "neither be available for search nor be indexed by the search backend."
 msgstr ""
 
-#: settings.py:120
+#: settings.py:121
 msgid "Sets the default state of the \"Store results\" checkbox."
 msgstr ""
 "Establece el estado predeterminado de la casilla \"Almacenar resultados\"."

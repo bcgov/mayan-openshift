@@ -4,15 +4,15 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2025
+# Roberto Rosario, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:32+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Rosario, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Roberto Rosario, 2026\n"
 "Language-Team: Spanish (Puerto Rico) (https://app.transifex.com/rosarior/teams/13584/es_PR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -100,7 +100,7 @@ msgstr "Número de archivos de partición"
 msgid "Total cached files."
 msgstr "Total de archivos en caché."
 
-#: model_mixins.py:111 model_mixins.py:324
+#: model_mixins.py:111 model_mixins.py:323
 msgid "Current size"
 msgstr "Tamaño actual"
 
@@ -112,7 +112,7 @@ msgstr "Tamaño actual del caché."
 msgid "Label"
 msgstr "Etiqueta"
 
-#: model_mixins.py:326
+#: model_mixins.py:325
 msgid "Current size of the cache partition."
 msgstr "Tamaño actual de la partición de caché."
 

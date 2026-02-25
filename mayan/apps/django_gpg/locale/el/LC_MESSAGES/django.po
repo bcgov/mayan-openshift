@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# pyrotech <anastasios@tutamail.com>, 2025
-# Hmayag Antonian <hmayag@freemail.gr>, 2025
+# pyrotech <anastasios@tutamail.com>, 2026
+# Hmayag Antonian <hmayag@freemail.gr>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Hmayag Antonian <hmayag@freemail.gr>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Hmayag Antonian <hmayag@freemail.gr>, 2026\n"
 "Language-Team: Greek (https://app.transifex.com/rosarior/teams/13584/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +53,7 @@ msgstr "Μήκος"
 msgid "User ID"
 msgstr "Αναγνωριστικό χρήστη"
 
-#: dependencies.py:9
+#: dependencies.py:11
 msgid "GNU privacy guard - a PGP implementation."
 msgstr "GNU privacy guard - μία PGP υλοποίηση."
 
@@ -230,7 +230,11 @@ msgstr ""
 "Πλήρης διαδρομή στο backend που θα χρησιμοποιηθεί για την διαχείριση "
 "κλειδιών και υπογραφών."
 
-#: settings.py:27
+#: settings.py:25
+msgid "Keyword arguments to pass to the `SIGNATURES_BACKEND`."
+msgstr ""
+
+#: settings.py:30
 msgid "Keyserver used to query for keys."
 msgstr "Διακομιστής κλειδιών που θα χρησιμοποιηθεί για αναζήτηση κλειδιών."
 

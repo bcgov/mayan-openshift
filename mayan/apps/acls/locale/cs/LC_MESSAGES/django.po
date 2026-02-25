@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Jiri Fait <fait@orkasolutions.cz>, 2025
-# Jiří Podhorecký <jirka.p@volny.cz>, 2025
-# Michal Švábík <snadno@lehce.cz>, 2025
+# Jiri Fait <fait@orkasolutions.cz>, 2026
+# Jiří Podhorecký <jirka.p@volny.cz>, 2026
+# Michal Švábík <snadno@lehce.cz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2025\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/rosarior/teams/13584/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -124,15 +124,15 @@ msgstr "Zobrazit seznamy ACL"
 
 #: serializers.py:19
 msgid "Permissions add URL"
-msgstr ""
+msgstr "Oprávnění přidat URL"
 
 #: serializers.py:39
 msgid "Permissions remove URL"
-msgstr ""
+msgstr "Oprávnění odebrat URL"
 
 #: serializers.py:59
 msgid "Permissions URL"
-msgstr ""
+msgstr "URL oprávnění"
 
 #: serializers.py:82
 msgid "Role ID"
@@ -257,7 +257,7 @@ msgstr "Udělte přístup k objektům"
 
 #: workflow_actions.py:133 workflow_actions.py:232
 msgid "Access"
-msgstr ""
+msgstr "Přístup"
 
 #: workflow_actions.py:171
 msgid "Revoke object access"

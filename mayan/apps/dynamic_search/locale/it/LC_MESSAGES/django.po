@@ -4,20 +4,20 @@
 # 
 # Translators:
 # Translators:
-# Giovanni Tricarico <gtricarico92@gmail.com>, 2025
-# Daniele Bortoluzzi <daniele@elkos.it>, 2025
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2025
-# Roberto Rosario, 2025
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2025
-# piera.daraio, 2025
+# Daniele Bortoluzzi <daniele@elkos.it>, 2026
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2026
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2026
+# Giovanni Tricarico <gtricarico92@gmail.com>, 2026
+# Roberto Rosario, 2026
+# piera.daraio, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: piera.daraio, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: piera.daraio, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -500,7 +500,7 @@ msgstr ""
 " dei campi di ricerca. I campi disabilitati non saranno disponibili per la "
 "ricerca né saranno indicizzati dal backend di ricerca."
 
-#: settings.py:120
+#: settings.py:121
 msgid "Sets the default state of the \"Store results\" checkbox."
 msgstr ""
 "Imposta lo stato predefinito della casella di controllo \\\"Memorizza "

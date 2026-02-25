@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2025
-# Leo Lado, 2025
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2026
+# Leo Lado, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 06:57+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Leo Lado, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Leo Lado, 2026\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -187,15 +187,19 @@ msgstr "Список черги"
 msgid "View tasks"
 msgstr "Переглянути завдання"
 
-#: settings.py:11
+#: settings.py:13
 msgid "Celery"
 msgstr "Селера"
 
-#: settings.py:17
+#: settings.py:23
+msgid "The class used to instantiate the main Celery app."
+msgstr ""
+
+#: settings.py:29
 msgid "Default: \"AMQPLAIN\". Set custom amqp login method."
 msgstr "Типове значення: \"AMQPLAIN\". Встановити спеціальний метод входу в amqp."
 
-#: settings.py:23
+#: settings.py:35
 msgid ""
 "Default: \"amqp://\". Default broker URL. This must be a URL in the form of:"
 " transport://userid:password@hostname:port/virtual_host Only the scheme part"
@@ -208,7 +212,7 @@ msgstr ""
 " схеми (transport://), решта є необов’язковою та за замовчуванням "
 "використовується для конкретних транспортних значень за замовчуванням."
 
-#: settings.py:32
+#: settings.py:44
 msgid ""
 "Default: \"Disabled\". Toggles SSL usage on broker connection and SSL "
 "settings. The valid values for this option vary by transport."
@@ -217,7 +221,7 @@ msgstr ""
 "до брокера та налаштування SSL. Допустимі значення для цієї опції залежать "
 "від транспорту."
 
-#: settings.py:40
+#: settings.py:52
 msgid ""
 "Default: No result backend enabled by default. The backend used to store "
 "task results (tombstones). Refer to "

@@ -4,22 +4,22 @@
 # 
 # Translators:
 # Translators:
-# Ali <alimahwer@yahoo.com>, 2025
-# WM Shinkada <shinkadawasim@gmail.com>, 2025
-# Yaman Sanobar <yman.snober@gmail.com>, 2025
-# Hany salah, 2025
-# Mohammed ALDOUB <voulnet@gmail.com>, 2025
-# Marwan Rahhal <Marwanr@sssit.net>, 2025
-# Mohamad Ashmar, 2025
-# Roberto Rosario, 2025
+# WM Shinkada <shinkadawasim@gmail.com>, 2026
+# Ali <alimahwer@yahoo.com>, 2026
+# Hany salah, 2026
+# Roberto Rosario, 2026
+# Mohammed ALDOUB <voulnet@gmail.com>, 2026
+# Yaman Sanobar <yman.snober@gmail.com>, 2026
+# Mohamad Ashmar, 2026
+# Marwan Rahhal <Marwanr@sssit.net>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-24 07:07+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Rosario, 2025\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

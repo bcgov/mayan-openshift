@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Marwan Rahhal <Marwanr@sssit.net>, 2025
-# Mohamad Ashmar, 2025
+# Marwan Rahhal <Marwanr@sssit.net>, 2026
+# Mohamad Ashmar, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Mohamad Ashmar, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Mohamad Ashmar, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,19 +37,19 @@ msgstr "يسمح بتعيين قيمة max-memory-per-child لـ Celery الخ
 msgid "Allows setting the worker's Celery `max-tasks-per-child` value."
 msgstr "يسمح بتعيين قيمة max-tasks-per-child لـ Celery الخاص بالعامل."
 
-#: platform_templates.py:26
+#: platform_templates.py:28
 msgid "Template for entrypoint.sh file inside a Docker image."
 msgstr "قالب لملف entrypoint.sh داخل صورة Docker."
 
-#: platform_templates.py:42
+#: platform_templates.py:51
 msgid "Template that generates the Docker Compose file."
 msgstr "قالب يولد ملف Docker Compose."
 
-#: platform_templates.py:162
+#: platform_templates.py:178
 msgid "Template for Supervisord inside a Docker image."
 msgstr "النموذج الخاص بالـ Doker"
 
-#: platform_templates.py:177
+#: platform_templates.py:193
 msgid "Template that generates a Dockerfile file."
 msgstr "قالب يولد ملف Dockerfile."
 

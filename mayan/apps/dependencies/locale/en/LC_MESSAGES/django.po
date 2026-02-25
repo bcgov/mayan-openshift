@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 07:05+0000\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,11 +32,11 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: apps.py:45 classes.py:219
+#: apps.py:45 classes.py:220
 msgid "Type"
 msgstr ""
 
-#: apps.py:49 classes.py:222
+#: apps.py:49 classes.py:223
 msgid "Other data"
 msgstr ""
 
@@ -44,148 +44,153 @@ msgstr ""
 msgid "Declared by"
 msgstr ""
 
-#: apps.py:57 classes.py:220
+#: apps.py:57 classes.py:221
 msgid "Version"
 msgstr ""
 
-#: apps.py:61
-msgid "Environment"
-msgstr ""
-
-#: apps.py:64 classes.py:222
-msgid "Check"
-msgstr ""
-
-#: classes.py:219
-msgid "Name"
-msgstr ""
-
-#: classes.py:220
-msgid "App"
-msgstr ""
-
-#: classes.py:221 classes.py:984
+#: apps.py:61 classes.py:222 classes.py:1040
 msgid "Environments"
 msgstr ""
 
-#: classes.py:332
+#: apps.py:64 classes.py:223
+msgid "Check"
+msgstr ""
+
+#: classes.py:220
+msgid "Name"
+msgstr ""
+
+#: classes.py:221
+msgid "App"
+msgstr ""
+
+#: classes.py:341
 msgid "Need to specify at least one: app_label or module."
 msgstr ""
 
-#: classes.py:337
+#: classes.py:346
 #, python-format
 msgid "Dependency \"%s\" already registered."
 msgstr ""
 
-#: classes.py:388
+#: classes.py:398
 #, python-format
 msgid "Installing package: %s... "
 msgstr ""
 
-#: classes.py:395
+#: classes.py:405
 msgid "Already installed."
 msgstr ""
 
-#: classes.py:400 classes.py:407 classes.py:413
+#: classes.py:410 classes.py:417 classes.py:423 classes.py:435
 msgid "Complete."
 msgstr ""
 
-#: classes.py:440
+#: classes.py:430
+#, python-format
+msgid "Uninstalling package: %s... "
+msgstr ""
+
+#: classes.py:462
 msgid "Installed and correct version"
 msgstr ""
 
-#: classes.py:442
+#: classes.py:464
 msgid "Missing or incorrect version"
 msgstr ""
 
-#: classes.py:479
+#: classes.py:503
 msgid "None"
 msgstr ""
 
-#: classes.py:488
+#: classes.py:512
 msgid "Not specified"
 msgstr ""
 
-#: classes.py:491
+#: classes.py:515
 msgid "Patching files... "
 msgstr ""
 
-#: classes.py:519
+#: classes.py:543
 msgid "Executables that are called directly by the code."
 msgstr ""
 
-#: classes.py:521
+#: classes.py:545
 msgid "Binary"
 msgstr ""
 
-#: classes.py:539
+#: classes.py:563
 msgid ""
 "JavaScript libraries downloaded the from NPM registry and used for front-end "
 "functionality."
 msgstr ""
 
-#: classes.py:542
+#: classes.py:566
 msgid "JavaScript"
 msgstr ""
 
-#: classes.py:574 classes.py:887
+#: classes.py:598 classes.py:932
 msgid "Downloading... "
 msgstr ""
 
-#: classes.py:579
+#: classes.py:603
 msgid "Verifying... "
 msgstr ""
 
-#: classes.py:584 classes.py:892
+#: classes.py:608 classes.py:937
 msgid "Extracting... "
 msgstr ""
 
-#: classes.py:797
+#: classes.py:623 classes.py:944
+msgid "Uninstalling... "
+msgstr ""
+
+#: classes.py:841
 msgid "Python packages downloaded from PyPI."
 msgstr ""
 
-#: classes.py:799
+#: classes.py:843
 msgid "Python"
 msgstr ""
 
-#: classes.py:867
+#: classes.py:911
 msgid "Fonts downloaded from fonts.googleapis.com."
 msgstr ""
 
-#: classes.py:869
+#: classes.py:913
 msgid "Google font"
 msgstr ""
 
-#: classes.py:965
+#: classes.py:1021
 msgid "Declared in app"
 msgstr ""
 
-#: classes.py:966
+#: classes.py:1022
 msgid "Show dependencies by the app that declared them."
 msgstr ""
 
-#: classes.py:970
+#: classes.py:1026
 msgid "Class"
 msgstr ""
 
-#: classes.py:971
+#: classes.py:1027
 msgid ""
 "Show the different classes of dependencies. Classes are usually divided by "
 "language or the file types of the dependency."
 msgstr ""
 
-#: classes.py:976
+#: classes.py:1032
 msgid "State"
 msgstr ""
 
-#: classes.py:977
+#: classes.py:1033
 msgid ""
 "Show the different states of the dependencies. True means that the "
 "dependencies is installed and is of a correct version. False means the "
 "dependencies is missing or an incorrect version is present."
 msgstr ""
 
-#: classes.py:985
+#: classes.py:1041
 msgid ""
 "Dependencies required for an environment might not be required for another. "
 "Example environments: Production, Development."
@@ -193,7 +198,7 @@ msgstr ""
 
 #: environments.py:17
 msgid ""
-"Environment used for building distributable packages of the software. End "
+"Environment used for building redistributable packages of the software. End "
 "users can ignore missing dependencies under this environment."
 msgstr ""
 
@@ -238,18 +243,28 @@ msgid ""
 "environment will result in issues and errors during normal use."
 msgstr ""
 
-#: environments.py:47
+#: environments.py:48
 msgid "Production"
 msgstr ""
 
-#: environments.py:51
+#: environments.py:52
+msgid ""
+"Environment used for publishing redistributable packages of the software. "
+"End users can ignore missing dependencies under this environment."
+msgstr ""
+
+#: environments.py:55
+msgid "Publish"
+msgstr ""
+
+#: environments.py:59
 msgid ""
 "Environment used running the test suit to verify the functionality of the "
 "code. Dependencies in this environment are not needed for normal production "
 "usage."
 msgstr ""
 
-#: environments.py:54
+#: environments.py:62
 msgid "Testing"
 msgstr ""
 
@@ -314,6 +329,7 @@ msgid ""
 msgstr ""
 
 #: management/commands/dependencies_install.py:13
+#: management/commands/dependencies_uninstall.py:13
 msgid "Process a specific app."
 msgstr ""
 

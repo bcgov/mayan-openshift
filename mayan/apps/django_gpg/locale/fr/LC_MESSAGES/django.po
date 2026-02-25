@@ -4,23 +4,23 @@
 # 
 # Translators:
 # Translators:
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2025
-# Guillaume Trottier <gui.trottier@gmail.com>, 2025
-# Bruno CAPELETO <bruno.capeleto@abcreseau.com>, 2025
-# Yves Dubois <ydubois@gmail.com>, 2025
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2025
-# Baptiste GAILLET <baptiste.gaillet@cstb.fr>, 2025
-# 0041b687dd284925c1885ba94464aacd_fde037b <fc746b00d74cefecce9698255909a24f_28512>, 2025
-# Frédéric Sheedy <sheedf@gmail.com>, 2025
-# Roberto Rosario, 2025
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2026
+# 0041b687dd284925c1885ba94464aacd_fde037b <fc746b00d74cefecce9698255909a24f_28512>, 2026
+# Baptiste GAILLET <baptiste.gaillet@cstb.fr>, 2026
+# Guillaume Trottier <gui.trottier@gmail.com>, 2026
+# Yves Dubois <ydubois@gmail.com>, 2026
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2026
+# Roberto Rosario, 2026
+# Frédéric Sheedy <sheedf@gmail.com>, 2026
+# Bruno CAPELETO <bruno.capeleto@abcreseau.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Rosario, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Bruno CAPELETO <bruno.capeleto@abcreseau.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,7 +60,7 @@ msgstr "Durée"
 msgid "User ID"
 msgstr "ID Utilisateur"
 
-#: dependencies.py:9
+#: dependencies.py:11
 msgid "GNU privacy guard - a PGP implementation."
 msgstr "GNU Privacy Guard - une implémentation de PGP."
 
@@ -236,7 +236,11 @@ msgstr ""
 "Chemin complet vers le logiciel à utiliser pour gérer les clés et les "
 "signatures."
 
-#: settings.py:27
+#: settings.py:25
+msgid "Keyword arguments to pass to the `SIGNATURES_BACKEND`."
+msgstr ""
+
+#: settings.py:30
 msgid "Keyserver used to query for keys."
 msgstr "Serveur de clefs à contacter"
 

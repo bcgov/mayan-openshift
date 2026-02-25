@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# KarmaBuildsApps, 2025
+# KarmaBuildsApps, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: KarmaBuildsApps, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: KarmaBuildsApps, 2026\n"
 "Language-Team: Tibetan (https://app.transifex.com/rosarior/teams/13584/bo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -450,7 +450,7 @@ msgid ""
 "neither be available for search nor be indexed by the search backend."
 msgstr ""
 
-#: settings.py:120
+#: settings.py:121
 msgid "Sets the default state of the \"Store results\" checkbox."
 msgstr ""
 

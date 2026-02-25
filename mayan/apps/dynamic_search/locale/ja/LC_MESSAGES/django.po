@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# lockdlock, 2025
+# lockdlock, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: lockdlock, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: lockdlock, 2026\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -455,7 +455,7 @@ msgid ""
 msgstr ""
 "検索モデルで無効にするフィールドを指定します。形式はリストの辞書です。検索モデル名が辞書キー、値がフィールド名のリストです。無効化されたフィールドは検索できず、検索バックエンドにもインデックスされません"
 
-#: settings.py:120
+#: settings.py:121
 msgid "Sets the default state of the \"Store results\" checkbox."
 msgstr "「結果を保存」チェックボックスの初期状態を設定"
 

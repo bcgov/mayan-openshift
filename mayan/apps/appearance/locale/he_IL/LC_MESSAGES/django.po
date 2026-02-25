@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Haim Shaposhnik <haim.shaposhnik@gmail.com>, 2025
-# Ovadia Ovadia, 2025
+# Haim Shaposhnik <haim.shaposhnik@gmail.com>, 2026
+# Ovadia Ovadia, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 23:02+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Ovadia Ovadia, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:31+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Ovadia Ovadia, 2026\n"
 "Language-Team: Hebrew (Israel) (https://app.transifex.com/rosarior/teams/13584/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,27 +25,27 @@ msgstr ""
 msgid "Appearance"
 msgstr "ניראות "
 
-#: dependencies.py:6
+#: dependencies.py:7
 msgid "Fancybox"
 msgstr "Fancybox (כלי תצוגת תוכן)"
 
-#: dependencies.py:10
+#: dependencies.py:11
 msgid "jQuery"
 msgstr "jQuery (ספריית JavaScript)"
 
-#: dependencies.py:14
+#: dependencies.py:15
 msgid "JQuery Form"
 msgstr "טופס JQuery"
 
-#: dependencies.py:18
+#: dependencies.py:20
 msgid "JQuery Match Height"
 msgstr "כלי להתאמת גודל אובייקטים (JQuery Match Height)"
 
-#: dependencies.py:22
+#: dependencies.py:24
 msgid "Select 2"
 msgstr "בחר 2"
 
-#: dependencies.py:26
+#: dependencies.py:28
 msgid "Toastr"
 msgstr "ספריית Javascript (Toastr)"
 
@@ -93,11 +93,11 @@ msgid ""
 msgstr "העיכוב (באלפיות השנייה) שאחריו יבדקו עדכוני תפריטים."
 
 #: settings.py:65
-msgid "Total pages to show in the page selection dropdown."
+msgid "Enable page selection dropdown."
 msgstr ""
 
 #: settings.py:71
-msgid "Enable page selection dropdown."
+msgid "Total pages to show in the page selection dropdown."
 msgstr ""
 
 #: settings.py:77

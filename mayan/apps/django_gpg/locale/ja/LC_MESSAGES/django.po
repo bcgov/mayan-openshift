@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# lockdlock, 2025
+# lockdlock, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 10:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: lockdlock, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: lockdlock, 2026\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +52,7 @@ msgstr "長さ"
 msgid "User ID"
 msgstr "ユーザー ID"
 
-#: dependencies.py:9
+#: dependencies.py:11
 msgid "GNU privacy guard - a PGP implementation."
 msgstr "GNU Privacy Guard - PGP 実装"
 
@@ -224,7 +224,11 @@ msgstr "署名"
 msgid "Full path to the backend to be used to handle keys and signatures."
 msgstr "鍵と署名を扱うバックエンドのフルパス"
 
-#: settings.py:27
+#: settings.py:25
+msgid "Keyword arguments to pass to the `SIGNATURES_BACKEND`."
+msgstr ""
+
+#: settings.py:30
 msgid "Keyserver used to query for keys."
 msgstr " 鍵を検索するために使用するキーサーバー"
 

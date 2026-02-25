@@ -4,26 +4,26 @@
 # 
 # Translators:
 # Translators:
-# Jadson Ribeiro <jadsonbr@outlook.com.br>, 2025
-# Renata Oliveira <renatabels@gmail.com>, 2025
-# Rogerio Falcone <rogerio@falconeit.com.br>, 2025
-# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2025
-# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2025
-# Emerson Soares <on.emersonsoares@gmail.com>, 2025
-# Aline Freitas <aline@alinefreitas.com.br>, 2025
-# Márcia Ferreira, 2025
-# Roberto Rosario, 2025
-# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2025
-# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2025
-# Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2025
+# Emerson Soares <on.emersonsoares@gmail.com>, 2026
+# Rogerio Falcone <rogerio@falconeit.com.br>, 2026
+# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2026
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2026
+# Renata Oliveira <renatabels@gmail.com>, 2026
+# Jadson Ribeiro <jadsonbr@outlook.com.br>, 2026
+# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2026
+# Aline Freitas <aline@alinefreitas.com.br>, 2026
+# Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2026
+# Roberto Rosario, 2026
+# Márcia Ferreira, 2026
+# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Rodrigo Sottomaior Macedo <sottomaiormacedotec@sottomaiormacedo.tech>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2026\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/rosarior/teams/13584/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -219,7 +219,7 @@ msgstr ""
 msgid "Source metadata value"
 msgstr ""
 
-#: serializers.py:22 serializers.py:107
+#: serializers.py:22 serializers.py:108
 msgid "URL"
 msgstr "URL"
 
@@ -243,7 +243,7 @@ msgstr "Nome"
 msgid "Required"
 msgstr "Obrigatório"
 
-#: serializers.py:70 serializers.py:85
+#: serializers.py:70 serializers.py:86
 msgid "Arguments"
 msgstr "Argumentos"
 
@@ -255,31 +255,31 @@ msgstr ""
 msgid "Optional arguments for the action. Must be JSON formatted."
 msgstr "Argumentos opcionais para a ação. Deve ser formatado em JSON."
 
-#: serializers.py:89
+#: serializers.py:90
 msgid "Confirmation"
 msgstr ""
 
-#: serializers.py:92
+#: serializers.py:93
 msgid "Execute URL"
 msgstr ""
 
-#: serializers.py:95
+#: serializers.py:96
 msgid "Interfaces"
 msgstr ""
 
-#: serializers.py:99
+#: serializers.py:100
 msgid "name"
 msgstr "nome"
 
-#: serializers.py:102
+#: serializers.py:103
 msgid "Permission"
 msgstr "Permissão"
 
-#: serializers.py:118
+#: serializers.py:119
 msgid "Binary content for the new file."
 msgstr "Conteúdo binário para o novo ficheiro."
 
-#: serializers.py:154
+#: serializers.py:155
 msgid "Actions URL"
 msgstr ""
 

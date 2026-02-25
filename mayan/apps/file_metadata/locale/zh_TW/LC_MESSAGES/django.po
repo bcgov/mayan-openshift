@@ -4,19 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Ford Guo <agile.guo@gmail.com>, 2025
-# xisafe <root@xisafe.com>, 2025
-# Leon Chu, 2025
-# Roberto Rosario, 2025
-# yan songwei <yansw@vip.163.com>, 2025
+# Ford Guo <agile.guo@gmail.com>, 2026
+# Leon Chu, 2026
+# xisafe <root@xisafe.com>, 2026
+# Roberto Rosario, 2026
+# yan songwei <yansw@vip.163.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: yan songwei <yansw@vip.163.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: yan songwei <yansw@vip.163.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/rosarior/teams/13584/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -73,6 +73,11 @@ msgstr ""
 msgid "Badly formatted arguments YAML; %s"
 msgstr ""
 
+#: classes.py:375
+#, python-format
+msgid "Cannot process driver \"%(driver)s\"; %(exception)s"
+msgstr ""
+
 #: events.py:10
 msgid "Document file submitted for file metadata processing"
 msgstr ""
@@ -101,7 +106,7 @@ msgstr ""
 msgid "File metadata processing per type"
 msgstr "每种类型的文件元数据处理"
 
-#: links.py:75 views/tool_views.py:28
+#: links.py:75 views/tool_views.py:30
 msgid "File metadata drivers"
 msgstr ""
 
@@ -353,7 +358,7 @@ msgstr ""
 msgid "No file metadata drivers available."
 msgstr ""
 
-#: views/tool_views.py:26
+#: views/tool_views.py:27
 msgid "File metadata drivers enabled and detected."
 msgstr ""
 

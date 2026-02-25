@@ -4,22 +4,22 @@
 # 
 # Translators:
 # Translators:
-# Jesaja Everling <jeverling@gmail.com>, 2025
-# Marvin Haschker <marvin@haschker.me>, 2025
-# Tobias Paepke <tobias.paepke@paepke.net>, 2025
-# Thomas Lauterbach <lauterbachthomas@googlemail.com>, 2025
-# Ingo Buchholz <ingo.buchholz@takwa.de>, 2025
-# Roberto Rosario, 2025
-# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2025
-# Mathias Behrle <mathiasb@m9s.biz>, 2025
+# Tobias Paepke <tobias.paepke@paepke.net>, 2026
+# Marvin Haschker <marvin@haschker.me>, 2026
+# Ingo Buchholz <ingo.buchholz@takwa.de>, 2026
+# Jesaja Everling <jeverling@gmail.com>, 2026
+# Thomas Lauterbach <lauterbachthomas@googlemail.com>, 2026
+# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2026
+# Roberto Rosario, 2026
+# Mathias Behrle <mathiasb@m9s.biz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2026\n"
 "Language-Team: German (Austria) (https://app.transifex.com/rosarior/teams/13584/de_AT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -219,7 +219,7 @@ msgstr "Quellenmetadaten Schlüssel"
 msgid "Source metadata value"
 msgstr "Quellenmetadaten Wert"
 
-#: serializers.py:22 serializers.py:107
+#: serializers.py:22 serializers.py:108
 msgid "URL"
 msgstr "URL"
 
@@ -243,7 +243,7 @@ msgstr "Name"
 msgid "Required"
 msgstr "Erforderlich"
 
-#: serializers.py:70 serializers.py:85
+#: serializers.py:70 serializers.py:86
 msgid "Arguments"
 msgstr "Argumente"
 
@@ -255,31 +255,31 @@ msgstr "Dateien akzeptieren"
 msgid "Optional arguments for the action. Must be JSON formatted."
 msgstr "Optionale Argumente für die Aktion in JSON-Formatierung"
 
-#: serializers.py:89
+#: serializers.py:90
 msgid "Confirmation"
 msgstr "Bestätigung"
 
-#: serializers.py:92
+#: serializers.py:93
 msgid "Execute URL"
 msgstr "URL ausführen"
 
-#: serializers.py:95
+#: serializers.py:96
 msgid "Interfaces"
 msgstr "Schnittstellen"
 
-#: serializers.py:99
+#: serializers.py:100
 msgid "name"
 msgstr "Name"
 
-#: serializers.py:102
+#: serializers.py:103
 msgid "Permission"
 msgstr "Berechtigung"
 
-#: serializers.py:118
+#: serializers.py:119
 msgid "Binary content for the new file."
 msgstr "Binärdaten der neuen Datei"
 
-#: serializers.py:154
+#: serializers.py:155
 msgid "Actions URL"
 msgstr "Aktionen-URL"
 

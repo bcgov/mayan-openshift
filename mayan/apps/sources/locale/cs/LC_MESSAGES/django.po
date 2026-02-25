@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Jiří Podhorecký <jirka.p@volny.cz>, 2025
-# Jiri Fait <fait@orkasolutions.cz>, 2025
-# Michal Švábík <snadno@lehce.cz>, 2025
+# Jiri Fait <fait@orkasolutions.cz>, 2026
+# Jiří Podhorecký <jirka.p@volny.cz>, 2026
+# Michal Švábík <snadno@lehce.cz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/rosarior/teams/13584/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,6 +46,8 @@ msgid ""
 "Return the value of a specific source metadata for the document's latest "
 "file."
 msgstr ""
+"Vrátí hodnotu specifických zdrojových metadat pro nejnovější soubor "
+"dokumentu."
 
 #: apps.py:142 apps.py:149
 msgid "Source metadata value of"
@@ -65,7 +67,7 @@ msgstr "Zdroj vytvořen"
 
 #: events.py:13
 msgid "Source edited"
-msgstr ""
+msgstr "Zdroj upraven"
 
 #: forms.py:24
 msgid "An optional comment to explain the upload."
@@ -138,7 +140,7 @@ msgstr "Klíč"
 
 #: models.py:30
 msgid "The actual value stored in the source metadata for the document file."
-msgstr ""
+msgstr "Skutečná hodnota uložená ve zdrojových metadatech souboru dokumentu."
 
 #: models.py:32
 msgid "Value"
@@ -208,7 +210,7 @@ msgstr ""
 msgid "Source metadata value"
 msgstr ""
 
-#: serializers.py:22 serializers.py:107
+#: serializers.py:22 serializers.py:108
 msgid "URL"
 msgstr "URL"
 
@@ -232,7 +234,7 @@ msgstr "název"
 msgid "Required"
 msgstr "Požadované"
 
-#: serializers.py:70 serializers.py:85
+#: serializers.py:70 serializers.py:86
 msgid "Arguments"
 msgstr "Argumenty"
 
@@ -242,33 +244,33 @@ msgstr ""
 
 #: serializers.py:84
 msgid "Optional arguments for the action. Must be JSON formatted."
-msgstr ""
+msgstr "Volitelné argumenty pro akci. Musí být ve formátu JSON."
 
-#: serializers.py:89
+#: serializers.py:90
 msgid "Confirmation"
 msgstr ""
 
-#: serializers.py:92
+#: serializers.py:93
 msgid "Execute URL"
-msgstr ""
+msgstr "URL pro spuštění"
 
-#: serializers.py:95
+#: serializers.py:96
 msgid "Interfaces"
 msgstr ""
 
-#: serializers.py:99
+#: serializers.py:100
 msgid "name"
 msgstr ""
 
-#: serializers.py:102
+#: serializers.py:103
 msgid "Permission"
 msgstr "Oprávnění"
 
-#: serializers.py:118
+#: serializers.py:119
 msgid "Binary content for the new file."
 msgstr ""
 
-#: serializers.py:154
+#: serializers.py:155
 msgid "Actions URL"
 msgstr ""
 

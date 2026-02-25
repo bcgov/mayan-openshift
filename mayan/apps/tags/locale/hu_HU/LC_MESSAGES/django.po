@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# molnars <szabolcs.molnar@gmail.com>, 2025
-# Csaba Tarjányi, 2025
+# molnars <szabolcs.molnar@gmail.com>, 2026
+# Csaba Tarjányi, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 07:07+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Csaba Tarjányi, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Csaba Tarjányi, 2026\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/rosarior/teams/13584/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -226,7 +226,7 @@ msgstr "Jelölők csatolása a dokumentumhoz: %(object)s"
 msgid "Attach tags to %(count)d document."
 msgstr "Jelölők csatolása a %(count)d dokumentumhoz."
 
-#: views/document_views.py:58 wizard_steps.py:90
+#: views/document_views.py:58 wizard_steps.py:89
 msgid "Tags to be attached."
 msgstr "Hozzárendelendő jelölők."
 
@@ -338,7 +338,7 @@ msgstr "Nincsenek elérhető jelölők"
 msgid "Documents with the tag: %s"
 msgstr "Dokumentumok a jelölővel: %s"
 
-#: wizard_steps.py:21
+#: wizard_steps.py:20
 msgid "Select tags"
 msgstr "Jelölők kiválasztása"
 

@@ -4,21 +4,21 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Emerson Soares <on.emersonsoares@gmail.com>, 2025
-# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2025
-# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2025
-# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2025
-# Márcia Ferreira, 2025
-# Daniel Flores <dfloresbr@gmail.com>, 2025
-# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2025
+# Emerson Soares <on.emersonsoares@gmail.com>, 2026
+# Daniel Flores <dfloresbr@gmail.com>, 2026
+# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2026
+# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2026
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2026
+# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2026
+# Márcia Ferreira, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Márcia Ferreira, 2026\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/rosarior/teams/13584/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,11 @@ msgstr ""
 msgid "Badly formatted arguments YAML; %s"
 msgstr ""
 
+#: classes.py:375
+#, python-format
+msgid "Cannot process driver \"%(driver)s\"; %(exception)s"
+msgstr ""
+
 #: events.py:10
 msgid "Document file submitted for file metadata processing"
 msgstr ""
@@ -104,7 +109,7 @@ msgstr ""
 msgid "File metadata processing per type"
 msgstr "Processamento de metadados de arquivo por tipo"
 
-#: links.py:75 views/tool_views.py:28
+#: links.py:75 views/tool_views.py:30
 msgid "File metadata drivers"
 msgstr "Drivers de arquivo de metadados"
 
@@ -382,7 +387,7 @@ msgstr ""
 msgid "No file metadata drivers available."
 msgstr ""
 
-#: views/tool_views.py:26
+#: views/tool_views.py:27
 msgid "File metadata drivers enabled and detected."
 msgstr ""
 

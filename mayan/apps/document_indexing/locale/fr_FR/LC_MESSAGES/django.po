@@ -4,22 +4,22 @@
 # 
 # Translators:
 # Translators:
-# Olivier W, 2025
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2025
-# Guillaume Trottier <gui.trottier@gmail.com>, 2025
-# Roberto Rosario, 2025
-# Luc Didry, 2025
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2025
-# Yves Dubois <ydubois@gmail.com>, 2025
-# Frédéric Sheedy <sheedf@gmail.com>, 2025
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2026
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2026
+# Olivier W, 2026
+# Guillaume Trottier <gui.trottier@gmail.com>, 2026
+# Frédéric Sheedy <sheedf@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Luc Didry, 2026
+# Yves Dubois <ydubois@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Yves Dubois <ydubois@gmail.com>, 2026\n"
 "Language-Team: French (France) (https://app.transifex.com/rosarior/teams/13584/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,7 +155,7 @@ msgstr "Non"
 msgid "Yes"
 msgstr "Oui"
 
-#: models/index_instance_model_mixins.py:34
+#: models/index_instance_model_mixins.py:36
 #, python-format
 msgid ""
 "Error indexing document: %(document)s; expression: %(expression)s; "
@@ -164,23 +164,23 @@ msgstr ""
 "Erreur lors de l'indexation du document : %(document)s; expression: "
 "%(expression)s; %(exception)s"
 
-#: models/index_instance_model_mixins.py:155
+#: models/index_instance_model_mixins.py:174
 msgid "Total number of nodes with unique values this item contains."
 msgstr "Nombre de nœuds avec des valeurs uniques que cet élément contient."
 
-#: models/index_instance_model_mixins.py:164
+#: models/index_instance_model_mixins.py:183
 msgid "Total number of unique documents this item contains."
 msgstr "Nombre de documents uniques que cet élément contient."
 
-#: models/index_instance_model_mixins.py:174
+#: models/index_instance_model_mixins.py:193
 msgid "Total number of node levels this item contains."
 msgstr "Nombre de niveaux de nœuds que cet élément contient."
 
-#: models/index_instance_model_mixins.py:243
+#: models/index_instance_model_mixins.py:262
 msgid "The path to the index including all ancestors."
 msgstr "Le chemin d'accès à l'index, y compris tous les index parents."
 
-#: models/index_instance_model_mixins.py:245
+#: models/index_instance_model_mixins.py:264
 msgid "Full path"
 msgstr "Chemin complet"
 

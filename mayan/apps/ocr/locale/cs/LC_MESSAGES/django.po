@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Jiří Podhorecký <jirka.p@volny.cz>, 2025
-# Michal Švábík <snadno@lehce.cz>, 2025
+# Jiří Podhorecký <jirka.p@volny.cz>, 2026
+# Michal Švábík <snadno@lehce.cz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Michal Švábík <snadno@lehce.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/rosarior/teams/13584/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr "Obsah OCR"
 msgid "Tesseract OCR not found."
 msgstr "Tesseract OCR nebyl nalezen."
 
-#: dependencies.py:24
+#: dependencies.py:26
 msgid "Free Open Source OCR Engine"
 msgstr "Free Open Source OCR Engine"
 
@@ -94,6 +94,11 @@ msgstr "Odeslat do OCR"
 #: links.py:85
 msgid "Edit OCR"
 msgstr "Upravit OCR"
+
+#: managers.py:75
+#, python-format
+msgid "Error calling OCR backend for page: %(page_number)d; %(exception)s"
+msgstr ""
 
 #: models.py:24
 msgid "Document type"

@@ -4,20 +4,20 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mohammed ALDOUB <voulnet@gmail.com>, 2025
-# Hany salah, 2025
-# Yaman Sanobar <yman.snober@gmail.com>, 2025
-# Roberto Rosario, 2025
-# Marwan Rahhal <Marwanr@sssit.net>, 2025
-# Mohamad Ashmar, 2025
+# Mohammed ALDOUB <voulnet@gmail.com>, 2026
+# Hany salah, 2026
+# Yaman Sanobar <yman.snober@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Marwan Rahhal <Marwanr@sssit.net>, 2026
+# Mohamad Ashmar, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Mohamad Ashmar, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Mohamad Ashmar, 2026\n"
 "Language-Team: Arabic (Egypt) (https://app.transifex.com/rosarior/teams/13584/ar_EG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,11 @@ msgstr "مفعل افتراضيًا؟"
 msgid "Badly formatted arguments YAML; %s"
 msgstr "وسائط YAML غير مهيأة بشكل صحيح؛ %s"
 
+#: classes.py:375
+#, python-format
+msgid "Cannot process driver \"%(driver)s\"; %(exception)s"
+msgstr ""
+
 #: events.py:10
 msgid "Document file submitted for file metadata processing"
 msgstr "تم إرسال ملف المستند لمعالجة بيانات تعريف الملف"
@@ -103,7 +108,7 @@ msgstr "إعداد مشغل بيانات وصفية للملف"
 msgid "File metadata processing per type"
 msgstr "معالج البيانات الوصفية حسب النوع"
 
-#: links.py:75 views/tool_views.py:28
+#: links.py:75 views/tool_views.py:30
 msgid "File metadata drivers"
 msgstr "مشغلات بيانات وصفية للملف"
 
@@ -367,7 +372,7 @@ msgstr ""
 msgid "No file metadata drivers available."
 msgstr "لا تتوفر برامج تشغيل بيانات وصفية للملف"
 
-#: views/tool_views.py:26
+#: views/tool_views.py:27
 msgid "File metadata drivers enabled and detected."
 msgstr "تم تمكين وكشف مشغلات بيانات وصفية الملفات."
 

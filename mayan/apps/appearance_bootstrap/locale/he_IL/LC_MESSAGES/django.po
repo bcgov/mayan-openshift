@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Haim Shaposhnik <haim.shaposhnik@gmail.com>, 2025
-# Ovadia Ovadia, 2025
+# Haim Shaposhnik <haim.shaposhnik@gmail.com>, 2026
+# Ovadia Ovadia, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 23:02+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Ovadia Ovadia, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:31+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Ovadia Ovadia, 2026\n"
 "Language-Team: Hebrew (Israel) (https://app.transifex.com/rosarior/teams/13584/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Appearance (Bootstrap)"
 msgstr ""
 
-#: dependencies.py:8
+#: dependencies.py:9
 msgid "Lato font"
 msgstr "גופן Lato"
 
-#: dependencies.py:13
+#: dependencies.py:14
 msgid "Bootstrap"
 msgstr "Bootstrap (סביבת עבודה)"
 
-#: dependencies.py:17
+#: dependencies.py:18
 msgid "Bootswatch"
 msgstr "Bootswatch (מאגר ערכות נושא)"
 
@@ -258,21 +258,21 @@ msgstr "סך הכל: %(total)s"
 msgid "No results"
 msgstr "אין תוצאות"
 
-#: templates/appearance/partials/list/pagination.html:21
-#: templates/appearance/partials/list/pagination.html:23
+#: templates/appearance/partials/list/pagination.html:22
+#: templates/appearance/partials/list/pagination.html:24
 msgid "Previous page"
 msgstr "הדף הקודם"
 
-#: templates/appearance/partials/list/pagination.html:39
-#: templates/appearance/partials/list/pagination.html:41
+#: templates/appearance/partials/list/pagination.html:40
+#: templates/appearance/partials/list/pagination.html:42
 msgid "Next page"
 msgstr "הדף הבא"
 
-#: templates/appearance/partials/list/pagination.html:46
+#: templates/appearance/partials/list/pagination.html:47
 msgid "Page"
 msgstr ""
 
-#: templates/appearance/partials/list/pagination.html:46
+#: templates/appearance/partials/list/pagination.html:47
 msgid "Jump to page"
 msgstr ""
 

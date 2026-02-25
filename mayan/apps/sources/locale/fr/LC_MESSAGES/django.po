@@ -4,24 +4,24 @@
 # 
 # Translators:
 # Translators:
-# Luc Didry, 2025
-# SadE54 <yannsuisini@gmail.com>, 2025
-# Yves Dubois <ydubois@gmail.com>, 2025
-# Baptiste GAILLET <baptiste.gaillet@cstb.fr>, 2025
-# Olivier W, 2025
-# Roberto Rosario, 2025
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2025
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2025
-# Guillaume Trottier <gui.trottier@gmail.com>, 2025
-# Frédéric Sheedy <sheedf@gmail.com>, 2025
+# Baptiste GAILLET <baptiste.gaillet@cstb.fr>, 2026
+# SadE54 <yannsuisini@gmail.com>, 2026
+# Luc Didry, 2026
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2026
+# Olivier W, 2026
+# Guillaume Trottier <gui.trottier@gmail.com>, 2026
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2026
+# Yves Dubois <ydubois@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Frédéric Sheedy <sheedf@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:33+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Source metadata value"
 msgstr ""
 
-#: serializers.py:22 serializers.py:107
+#: serializers.py:22 serializers.py:108
 msgid "URL"
 msgstr "URL"
 
@@ -241,7 +241,7 @@ msgstr "Nom"
 msgid "Required"
 msgstr "Obligatoire"
 
-#: serializers.py:70 serializers.py:85
+#: serializers.py:70 serializers.py:86
 msgid "Arguments"
 msgstr "Arguments"
 
@@ -253,31 +253,31 @@ msgstr ""
 msgid "Optional arguments for the action. Must be JSON formatted."
 msgstr ""
 
-#: serializers.py:89
+#: serializers.py:90
 msgid "Confirmation"
 msgstr "Confirmation"
 
-#: serializers.py:92
+#: serializers.py:93
 msgid "Execute URL"
 msgstr ""
 
-#: serializers.py:95
+#: serializers.py:96
 msgid "Interfaces"
 msgstr ""
 
-#: serializers.py:99
+#: serializers.py:100
 msgid "name"
 msgstr "nom"
 
-#: serializers.py:102
+#: serializers.py:103
 msgid "Permission"
 msgstr "Autorisation"
 
-#: serializers.py:118
+#: serializers.py:119
 msgid "Binary content for the new file."
 msgstr "Contenu binaire du nouveau fichier."
 
-#: serializers.py:154
+#: serializers.py:155
 msgid "Actions URL"
 msgstr "URL des actions"
 

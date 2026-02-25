@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
 "PO-Revision-Date: 2020-01-28 07:59+0000\n"
 "Last-Translator: Roberto Rosario\n"
 "Language-Team: English (http://www.transifex.com/rosarior/mayan-edms/"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Tesseract OCR not found."
 msgstr ""
 
-#: dependencies.py:24
+#: dependencies.py:26
 msgid "Free Open Source OCR Engine"
 msgstr ""
 
@@ -90,6 +90,11 @@ msgstr ""
 
 #: links.py:85
 msgid "Edit OCR"
+msgstr ""
+
+#: managers.py:75
+#, python-format
+msgid "Error calling OCR backend for page: %(page_number)d; %(exception)s"
 msgstr ""
 
 #: models.py:24

@@ -4,19 +4,19 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2025
-# mic <winterfall24@gmail.com>, 2025
-# tomkolp, 2025
-# Tomasz Szymanowicz <alakdae@gmail.com>, 2025
-# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2025
+# tomkolp, 2026
+# Roberto Rosario, 2026
+# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2026
+# Tomasz Szymanowicz <alakdae@gmail.com>, 2026
+# mic <winterfall24@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Wojciech Warczakowski <w.warczakowski@gmail.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: mic <winterfall24@gmail.com>, 2026\n"
 "Language-Team: Polish (https://app.transifex.com/rosarior/teams/13584/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgstr "Treść OCR"
 msgid "Tesseract OCR not found."
 msgstr "Nie znaleziono Tesseract OCR."
 
-#: dependencies.py:24
+#: dependencies.py:26
 msgid "Free Open Source OCR Engine"
 msgstr "Darmowy silnik OCR Open Source"
 
@@ -96,6 +96,11 @@ msgstr "Zgłoś do OCR"
 
 #: links.py:85
 msgid "Edit OCR"
+msgstr ""
+
+#: managers.py:75
+#, python-format
+msgid "Error calling OCR backend for page: %(page_number)d; %(exception)s"
 msgstr ""
 
 #: models.py:24

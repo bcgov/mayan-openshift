@@ -4,20 +4,20 @@
 # 
 # Translators:
 # Translators:
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2025
-# Yves Dubois <ydubois@gmail.com>, 2025
-# Roberto Rosario, 2025
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2025
-# Guillaume Trottier <gui.trottier@gmail.com>, 2025
-# Frédéric Sheedy <sheedf@gmail.com>, 2025
+# Roberto Rosario, 2026
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2026
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2026
+# Yves Dubois <ydubois@gmail.com>, 2026
+# Frédéric Sheedy <sheedf@gmail.com>, 2026
+# Guillaume Trottier <gui.trottier@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Guillaume Trottier <gui.trottier@gmail.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Storage"
 msgstr "Stockage"
 
-#: classes.py:88 classes.py:109
+#: classes.py:91
 #, python-format
 msgid ""
 "Unable to initialize storage: %(name)s. Check the storage backend dotted "
@@ -37,6 +37,13 @@ msgid ""
 msgstr ""
 "Impossible d'initialiser le stockage : %(name)s. Vérifiez le chemin en "
 "pointillés et les arguments du backend de stockage."
+
+#: classes.py:116
+#, python-format
+msgid ""
+"Unable to import storage class: %(name)s. Check the storage backend dotted "
+"path."
+msgstr ""
 
 #: events.py:6 links.py:20 models.py:55 storages.py:22
 msgid "Download files"
@@ -178,13 +185,22 @@ msgstr ""
 "Un backend de stockage que tous les agents peuvent utiliser pour générer et "
 "conserver des fichiers à télécharger."
 
-#: settings.py:38
+#: settings.py:35
+msgid ""
+"Keyword arguments to pass to the `STORAGE_DOWNLOAD_FILE_STORAGE` backend."
+msgstr ""
+
+#: settings.py:42
 msgid "A storage backend that all workers can use to share files."
 msgstr ""
 "Un espace de stockage que tous les agents pourront utiliser pour partager "
 "des fichiers."
 
-#: settings.py:48
+#: settings.py:49
+msgid "Keyword arguments to pass to the `STORAGE_SHARED_STORAGE` backend."
+msgstr ""
+
+#: settings.py:56
 msgid ""
 "Temporary directory used site wide to store thumbnails, previews and "
 "temporary files."
@@ -192,7 +208,7 @@ msgstr ""
 "Répertoire temporaire utilisé pour stocker les vignettes, aperçus et "
 "fichiers temporaires."
 
-#: settings.py:55
+#: settings.py:63
 msgid "Time in seconds, after which temporary uploaded files will be deleted."
 msgstr ""
 "Temps en secondes, après lequel les fichiers temporaires téléversées seront "

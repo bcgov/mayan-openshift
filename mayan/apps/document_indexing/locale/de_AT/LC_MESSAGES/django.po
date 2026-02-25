@@ -4,24 +4,24 @@
 # 
 # Translators:
 # Translators:
-# Siegfried Albrecht, 2025
-# Björn E <b1pum@web.de>, 2025
-# Jesaja Everling <jeverling@gmail.com>, 2025
-# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2025
-# Ingo Buchholz <ingo.buchholz@takwa.de>, 2025
-# Marvin Haschker <marvin@haschker.me>, 2025
-# Berny <berny@bernhard-marx.de>, 2025
-# Robin Schubert <robin.schubert@gmx.de>, 2025
-# Roberto Rosario, 2025
-# Mathias Behrle <mathiasb@m9s.biz>, 2025
+# Jesaja Everling <jeverling@gmail.com>, 2026
+# Björn E <b1pum@web.de>, 2026
+# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2026
+# Robin Schubert <robin.schubert@gmx.de>, 2026
+# Ingo Buchholz <ingo.buchholz@takwa.de>, 2026
+# Siegfried Albrecht, 2026
+# Marvin Haschker <marvin@haschker.me>, 2026
+# Roberto Rosario, 2026
+# Mathias Behrle <mathiasb@m9s.biz>, 2026
+# Berny <berny@bernhard-marx.de>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Berny <berny@bernhard-marx.de>, 2026\n"
 "Language-Team: German (Austria) (https://app.transifex.com/rosarior/teams/13584/de_AT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -157,7 +157,7 @@ msgstr "Nein"
 msgid "Yes"
 msgstr "Ja"
 
-#: models/index_instance_model_mixins.py:34
+#: models/index_instance_model_mixins.py:36
 #, python-format
 msgid ""
 "Error indexing document: %(document)s; expression: %(expression)s; "
@@ -166,25 +166,25 @@ msgstr ""
 "Fehler bei der Indexierung von Dokument %(document)s; Ausdruck: "
 "%(expression)s; %(exception)s"
 
-#: models/index_instance_model_mixins.py:155
+#: models/index_instance_model_mixins.py:174
 msgid "Total number of nodes with unique values this item contains."
 msgstr ""
 "Gesamtzahl der Knotenpunkte mit einmaligen Werten, die dieses Element "
 "beinhaltet."
 
-#: models/index_instance_model_mixins.py:164
+#: models/index_instance_model_mixins.py:183
 msgid "Total number of unique documents this item contains."
 msgstr "Gesamtzahl einmaliger Dokumente, die dieses Element beinhaltet."
 
-#: models/index_instance_model_mixins.py:174
+#: models/index_instance_model_mixins.py:193
 msgid "Total number of node levels this item contains."
 msgstr "Gesamtzahl der Knotenpunktebenen, die dieses Element beinhaltet."
 
-#: models/index_instance_model_mixins.py:243
+#: models/index_instance_model_mixins.py:262
 msgid "The path to the index including all ancestors."
 msgstr "Der Pfad zum Index, einschließlich aller übergeordneten Elemente."
 
-#: models/index_instance_model_mixins.py:245
+#: models/index_instance_model_mixins.py:264
 msgid "Full path"
 msgstr "Vollständiger Pfad"
 

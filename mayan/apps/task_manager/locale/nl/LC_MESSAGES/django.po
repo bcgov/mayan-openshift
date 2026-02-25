@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# bwakkie <bwakkie@gmail.com>, 2025
-# Roberto Rosario, 2025
-# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2025
+# bwakkie <bwakkie@gmail.com>, 2026
+# Roberto Rosario, 2026
+# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 06:57+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/rosarior/teams/13584/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -177,15 +177,19 @@ msgstr ""
 msgid "View tasks"
 msgstr "Taken bekijken"
 
-#: settings.py:11
+#: settings.py:13
 msgid "Celery"
 msgstr "Celery"
 
-#: settings.py:17
+#: settings.py:23
+msgid "The class used to instantiate the main Celery app."
+msgstr ""
+
+#: settings.py:29
 msgid "Default: \"AMQPLAIN\". Set custom amqp login method."
 msgstr "Standaard: \"AMQPLAIN\". Stel een aangepaste amqp-inlogmethode in."
 
-#: settings.py:23
+#: settings.py:35
 msgid ""
 "Default: \"amqp://\". Default broker URL. This must be a URL in the form of:"
 " transport://userid:password@hostname:port/virtual_host Only the scheme part"
@@ -197,7 +201,7 @@ msgstr ""
 "protocol deel (transport://) is vereist, de rest is optioneel, en is "
 "standaard gelijk aan de standaardwaarden van het betreffende protocol."
 
-#: settings.py:32
+#: settings.py:44
 msgid ""
 "Default: \"Disabled\". Toggles SSL usage on broker connection and SSL "
 "settings. The valid values for this option vary by transport."
@@ -206,7 +210,7 @@ msgstr ""
 "SSL-instellingen in. De geldige waarden voor deze optie verschillen per "
 "transport."
 
-#: settings.py:40
+#: settings.py:52
 msgid ""
 "Default: No result backend enabled by default. The backend used to store "
 "task results (tombstones). Refer to "

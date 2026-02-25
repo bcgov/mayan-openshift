@@ -4,18 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Pavlin Koldamov <pkoldamov@gmail.com>, 2025
-# 295005be79b88987cac803400975dbae_87f6b64 <412e4e8df9c702a35ac89972be5f12ff_27148>, 2025
-# Roberto Rosario, 2025
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2025
+# 295005be79b88987cac803400975dbae_87f6b64 <412e4e8df9c702a35ac89972be5f12ff_27148>, 2026
+# Pavlin Koldamov <pkoldamov@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2026\n"
 "Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,6 +72,11 @@ msgstr ""
 msgid "Badly formatted arguments YAML; %s"
 msgstr ""
 
+#: classes.py:375
+#, python-format
+msgid "Cannot process driver \"%(driver)s\"; %(exception)s"
+msgstr ""
+
 #: events.py:10
 msgid "Document file submitted for file metadata processing"
 msgstr "Файл на документ, изпратен за обработка на метаданни"
@@ -100,7 +105,7 @@ msgstr ""
 msgid "File metadata processing per type"
 msgstr "Обработка на метаданни на файл според типа"
 
-#: links.py:75 views/tool_views.py:28
+#: links.py:75 views/tool_views.py:30
 msgid "File metadata drivers"
 msgstr ""
 
@@ -369,7 +374,7 @@ msgstr ""
 msgid "No file metadata drivers available."
 msgstr ""
 
-#: views/tool_views.py:26
+#: views/tool_views.py:27
 msgid "File metadata drivers enabled and detected."
 msgstr ""
 

@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2025
-# Mehdi Amani <MehdiAmani@toorintan.com>, 2025
+# Roberto Rosario, 2026
+# Mehdi Amani <MehdiAmani@toorintan.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 07:07+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Mehdi Amani <MehdiAmani@toorintan.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Mehdi Amani <MehdiAmani@toorintan.com>, 2026\n"
 "Language-Team: Persian (https://app.transifex.com/rosarior/teams/13584/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -226,7 +226,7 @@ msgstr "برچسب ها را به سند اضافه کنید: %(object)s"
 msgid "Attach tags to %(count)d document."
 msgstr ""
 
-#: views/document_views.py:58 wizard_steps.py:90
+#: views/document_views.py:58 wizard_steps.py:89
 msgid "Tags to be attached."
 msgstr "برچسب ها باید متصل شوند"
 
@@ -336,7 +336,7 @@ msgstr ""
 msgid "Documents with the tag: %s"
 msgstr "اسناد با برچسب: %s"
 
-#: wizard_steps.py:21
+#: wizard_steps.py:20
 msgid "Select tags"
 msgstr ""
 

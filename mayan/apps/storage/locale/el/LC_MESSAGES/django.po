@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Translators:
-# Hmayag Antonian <hmayag@freemail.gr>, 2025
-# pyrotech <anastasios@tutamail.com>, 2025
+# Hmayag Antonian <hmayag@freemail.gr>, 2026
+# pyrotech <anastasios@tutamail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: pyrotech <anastasios@tutamail.com>, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: pyrotech <anastasios@tutamail.com>, 2026\n"
 "Language-Team: Greek (https://app.transifex.com/rosarior/teams/13584/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Storage"
 msgstr "Αποθηκευτικός χώρος"
 
-#: classes.py:88 classes.py:109
+#: classes.py:91
 #, python-format
 msgid ""
 "Unable to initialize storage: %(name)s. Check the storage backend dotted "
@@ -33,6 +33,13 @@ msgid ""
 msgstr ""
 "Αποτυχία αρχικοποίησης αποθηκευτικού χώρου: %(name)s. Ελέγξτε τα ορίσματα "
 "και την πλήρη διαδρομή στο υποκείμενο σύστημα του αποθηκευτικού χώρου."
+
+#: classes.py:116
+#, python-format
+msgid ""
+"Unable to import storage class: %(name)s. Check the storage backend dotted "
+"path."
+msgstr ""
 
 #: events.py:6 links.py:20 models.py:55 storages.py:22
 msgid "Download files"
@@ -171,13 +178,22 @@ msgid ""
 "download."
 msgstr ""
 
-#: settings.py:38
+#: settings.py:35
+msgid ""
+"Keyword arguments to pass to the `STORAGE_DOWNLOAD_FILE_STORAGE` backend."
+msgstr ""
+
+#: settings.py:42
 msgid "A storage backend that all workers can use to share files."
 msgstr ""
 "Αποθηκευτικός χώρος που όλοι οι εργαζόμενοι μπορούν να χρησιμοποιήσουν για "
 "τον διαμοιρασμό αρχείων."
 
-#: settings.py:48
+#: settings.py:49
+msgid "Keyword arguments to pass to the `STORAGE_SHARED_STORAGE` backend."
+msgstr ""
+
+#: settings.py:56
 msgid ""
 "Temporary directory used site wide to store thumbnails, previews and "
 "temporary files."
@@ -185,7 +201,7 @@ msgstr ""
 "Προσωρινός φάκελος που χρησιμοποιείται από όλο τον ιστότοπο για να "
 "αποθηκεύονται μικρογραφίες, προεπισκοπήσεις και προσωρινά αρχεία."
 
-#: settings.py:55
+#: settings.py:63
 msgid "Time in seconds, after which temporary uploaded files will be deleted."
 msgstr ""
 

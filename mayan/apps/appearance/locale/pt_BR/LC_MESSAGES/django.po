@@ -4,19 +4,19 @@
 # 
 # Translators:
 # Translators:
-# Daniel Flores <dfloresbr@gmail.com>, 2025
-# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2025
-# Roberto Rosario, 2025
-# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2025
-# Márcia Ferreira, 2025
+# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2026
+# Márcia Ferreira, 2026
+# Daniel Flores <dfloresbr@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 23:02+0000\n"
-"PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Márcia Ferreira, 2025\n"
+"POT-Creation-Date: 2026-02-25 20:31+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Daniel Flores <dfloresbr@gmail.com>, 2026\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/rosarior/teams/13584/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,27 +28,27 @@ msgstr ""
 msgid "Appearance"
 msgstr "Aparência"
 
-#: dependencies.py:6
+#: dependencies.py:7
 msgid "Fancybox"
 msgstr "Fancybox"
 
-#: dependencies.py:10
+#: dependencies.py:11
 msgid "jQuery"
 msgstr "jQuery"
 
-#: dependencies.py:14
+#: dependencies.py:15
 msgid "JQuery Form"
 msgstr "jQuery Form"
 
-#: dependencies.py:18
+#: dependencies.py:20
 msgid "JQuery Match Height"
 msgstr "JQuery Match Height"
 
-#: dependencies.py:22
+#: dependencies.py:24
 msgid "Select 2"
 msgstr "Select 2"
 
-#: dependencies.py:26
+#: dependencies.py:28
 msgid "Toastr"
 msgstr "Toastr"
 
@@ -100,11 +100,11 @@ msgstr ""
 "atualizações."
 
 #: settings.py:65
-msgid "Total pages to show in the page selection dropdown."
+msgid "Enable page selection dropdown."
 msgstr ""
 
 #: settings.py:71
-msgid "Enable page selection dropdown."
+msgid "Total pages to show in the page selection dropdown."
 msgstr ""
 
 #: settings.py:77
