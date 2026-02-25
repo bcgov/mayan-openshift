@@ -252,6 +252,8 @@
 
 - Replace the use of `sh` with upstream Python `subprocess` for the
   `MIMETypeBackendFileCommand` class.
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendPerlFileMIMEInfo` class.
 
 4.10.3 (2025-12-24)
 ===================
