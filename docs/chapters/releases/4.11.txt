@@ -9,21 +9,21 @@ Summary
 
 Version 4.11 introduces major changes to the underlying systems that power Mayan EDMS.
 
-This release moves the codebase from Django 4.2 to Django 5.2, the base image is also changed from Debian 12 to Debian 13. These two changes alone ensure Mayan EDMS 4.11 and later utilize core products that are fully supported for years to come.
+This release moves the codebase from Django 4.2 to Django 5.2. The base image is also changed from Debian 12 to Debian 13. These two changes alone ensure Mayan EDMS 4.11 and later utilize core products that are fully supported for years to come.
 
-This release also adds ARM64 Docker image support allowing Mayan EDMS to run once again in single board computers as it did for a large portion of its early history.
+This release also adds ARM64 Docker image support, allowing Mayan EDMS to run once again on single board computers as it did for a large portion of its early history.
 
-The setting system has been completely rewritten to be more streamlined, support data types, improve serialization, and support more key value stores including vendor and cloud platform one.
+The settings system has been completely rewritten to be more streamlined, support data types, improve serialization, and support more key value stores including vendor and cloud platform ones.
 
 The CI, Docker build processes, error logging, and configuration handling also saw significant changes and improvements.
 
-Dependencies were streamlined too with many dependencies being updated. Deprecated support for some older technologies was removed.
+Dependencies were streamlined too, with many dependencies being updated. Deprecated support for some older technologies was removed.
 
 Many internal subsystems have been reorganized for improved determinism, performance, scalability, and maintainability.
 
 This release contains several changes that may require administrator attention. Review the sections below before upgrading.
 
-The release of version 4.11, begins the sun setting of version 4.6 which is now approaching end-of-life. Likewise online translation files for version 4.5 have been deleted. Only offline translation are possible.
+The release of version 4.11 begins the sunsetting of version 4.6, which is now approaching end-of-life. Likewise, online translation files for version 4.5 have been deleted. Only offline translations are possible.
 
 
 Changes
@@ -45,7 +45,7 @@ Dependencies
 ^^^^^^^^^^^^
 
 - Updated to Django 5.2 LTS.
-- Updated numerous Python libraries including Sphinx, ElasticSearch client, celery, gunicorn, redis, jsonschema, and wheel (addressing CVE-2026-24049).
+- Updated numerous Python libraries including Sphinx, Elasticsearch client, celery, gunicorn, redis, jsonschema, and wheel (addressing CVE-2026-24049).
 - Updated Fancybox to 3.3.5.
 - Added the management command `dependencies_uninstall` to remove JavaScript and Google Font dependencies.
 
@@ -110,7 +110,7 @@ Error Logging
 ^^^^^^^^^^^^^
 
 - Error log messages are now more descriptive and translatable.
-- To preserve debug information, error logs are no longer cleared automatically when operations succeed . Existing logs must be cleared manually.
+- To preserve debug information, error logs are no longer cleared automatically when operations succeed. Existing logs must be cleared manually.
 - Increased the default retention per object from 3 to 15 entries.
 
 
@@ -127,7 +127,7 @@ Miscellaneous
 Upgrade Notes
 -------------
 
-- Download the latest Docker Compose file or update your existing one for to support the new service argument layout.
+- Download the latest Docker Compose file or update your existing one to support the new service argument layout.
 - Several settings now enforce integer values. Existing configurations using strings must be updated.
 - Template authors using the `math_substract` tag should switch to `math_subtract` before the alias is removed in a future release.
 - Custom deployments depending on Oracle must migrate to a supported database backend.
