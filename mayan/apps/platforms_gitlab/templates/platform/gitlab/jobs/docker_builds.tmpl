@@ -20,13 +20,6 @@ job_docker_build_all:
     - {{ GITLAB_CI_BRANCH_RELEASES_STAGING_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_DOCKER }}
-  script:
-    - export DOCKER_IMAGE_NAME="${CI_IMAGE_NAME}"
-    - export DOCKER_REGISTRY_NAME="${CI_REGISTRY}"
-    - export DOCKER_REGISTRY_PASSWORD="${CI_REGISTRY_PUSH_PASSWORD}"
-    - export DOCKER_REGISTRY_USERNAME="${CI_REGISTRY_PUSH_USER}"
-    - make docker-manifest-create
-    - make docker-manifest-push
   services:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_build_container
