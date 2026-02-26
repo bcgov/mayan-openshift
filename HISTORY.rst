@@ -11,6 +11,14 @@
 - Add thousand separator to the pager.
 - Move and rename the makefile target `requirements-generate` to
   `python-requirements-generate`.
+- Add help text to settings:
+
+  - DOCUMENTS_DISPLAY_HEIGHT
+  - DOCUMENTS_DISPLAY_WIDTH
+  - DOCUMENTS_PREVIEW_HEIGHT
+  - DOCUMENTS_PREVIEW_WIDTH
+  - DOCUMENTS_PRINT_HEIGHT
+  - DOCUMENTS_PRINT_WIDTH
 
 4.10.3 (2025-12-24)
 ===================
