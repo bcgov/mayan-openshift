@@ -1,3 +1,7 @@
+4.10.4 (2026-XX-XX)
+===================
+- Backport changes and improvements from version 4.11.
+
 4.10.3 (2025-12-24)
 ===================
 - Include changes and fixes from versions 4.9.8 and 4.9.7.
