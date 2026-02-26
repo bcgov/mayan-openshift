@@ -15,7 +15,12 @@ docker-image-push-arm64: docker-registry-login
 	docker image push \
 	$(DOCKER_IMAGE_NAME_FULL_TAGGED)-arm64
 
-docker-image-pull: ## Pull an image from the Docker registry.
-docker-image-pull: docker-registry-login
+docker-image-pull-amd64: ## Pull an AMD64 image from the Docker registry.
+docker-image-pull-amd64: docker-registry-login
 	docker image pull \
-	$(DOCKER_IMAGE_NAME_FULL_TAGGED)
+	$(DOCKER_IMAGE_NAME_FULL_TAGGED)-amd64
+
+docker-image-pull-arm64: ## Pull an ARM64 image from the Docker registry.
+docker-image-pull-arm64: docker-registry-login
+	docker image pull \
+	$(DOCKER_IMAGE_NAME_FULL_TAGGED)-arm64
