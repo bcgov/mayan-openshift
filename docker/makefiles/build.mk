@@ -27,7 +27,8 @@ docker-buildx-rm:
 	tls-context || true
 
 docker-buildx-stop:
-	docker buildx stop mirrored
+	docker buildx stop \
+	mirrored
 
 docker-build-all: ## Build images for all platforms.
 docker-build-all: docker-dockerfile-update docker-buildx-create docker-build-amd64 docker-build-arm64 docker-buildx-stop
@@ -46,7 +47,7 @@ docker-build-amd64: ## Build a new amd64 image.
 	--file docker/Dockerfile $(DOCKER_IMAGE_LABELS) \
 	--output type=docker \
 	--platform linux/amd64 \
-    --tag $(DOCKER_IMAGE_NAME_FULL_TAGGED)-amd64 \
+	--tag $(DOCKER_IMAGE_NAME_FULL_TAGGED)-amd64 \
 	.
 
 docker-build-arm64: ## Build a new arm64 image.
