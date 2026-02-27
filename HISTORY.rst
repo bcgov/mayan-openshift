@@ -38,6 +38,42 @@
   `MIMETypeBackendFileCommand` class.
 - Replace the use of `sh` with upstream Python `subprocess` for the
   `MIMETypeBackendPerlFileMIMEInfo` class.
+- Update Docker image tags:
+
+  - Debian from debian:12.12-slim to debian:12.13-slim
+  - Elasticsearch from 9.1.3 to 9.1.10
+  - PostgreSQL from 15.14 to 15.16
+  - RabbitMQ from 4.1.4-management to 4.1.8-management
+  - Redis from 7.4.5 to 7.4.7
+  - Traefik from 2.11.29 to 2.11.37
+
+- Update dependency version:
+
+  - Markdown from 3.10 to 3.10.2
+  - PIP from 25.3 to 26.0.1
+  - Pillow from 12.0.0 to 12.1.1
+  - coverage from 7.12.0 to 7.13.4
+  - dateparser from 1.2.2 to 1.3.0
+  - django from 4.2.27 to 4.2.28
+  - django-auth-ldap from 5.2.0 to 5.3.0
+  - django-solo from 2.4.0 to 2.5.1
+  - django-widget-tweaks from 1.5.0 to 1.5.1
+  - drf-yasg from 1.21.11 to 1.21.15
+  - elasticsearch from 9.1.0 to 9.3.0
+  - google-cloud-storage from 3.3.1 to 3.9.0
+  - greenlet from 3.2.4 to 3.3.2
+  - gunicorn from 23.0.0 to 25.1.0
+  - jsonschema from 4.25.1 to 4.26.0
+  - mozilla-django-oidc from 4.0.1 to 5.0.2
+  - nh3 from 0.3.2 to 0.3.3
+  - psycopg from 3.2.9 to 3.3.3
+  - pycountry from 24.6.1 to 26.2.16
+  - pypdf from 6.5.0 to 6.7.3
+  - python_gnupg from 0.5.5 to 0.5.6
+  - redis from 6.4.0 to 7.2.1
+  - sentry-sdk from 2.48.0 to 2.53.0
+  - wheel from 0.45.1 to 0.46.3
+  - whitenoise from 6.11.0 to 6.12.0
 
 4.10.3 (2025-12-24)
 ===================
