@@ -21,8 +21,8 @@ sys.path.append(
 )
 
 import mayan  # NOQA
+from mayan import literals  # NOQA
 from mayan.settings import BASE_DIR  # NOQA
-from mayan.settings import literals  # NOQA
 
 FILENAME_REQUIREMENTS = 'requirements.txt'
 FILENAME_SETUP = 'setup.py'
