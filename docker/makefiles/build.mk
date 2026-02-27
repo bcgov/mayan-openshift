@@ -31,7 +31,7 @@ docker-buildx-stop:
 	mirrored
 
 docker-build: ## Build a new image locally.
-docker-build: docker-dockerfile-update docker-buildkitd-config-create
+docker-build: docker-dockerfile-update docker-buildx-create
 	DOCKER_BUILDKIT=1 \
 	docker build \
 	--build-arg APT_PROXY=$(APT_PROXY) \
