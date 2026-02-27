@@ -120,7 +120,7 @@ services:
       timeout: 5s
       retries: 15
       start_period: 30s
-    image: ${MAYAN_DOCKER_ELASTICSEARCH_IMAGE:-elasticsearch}:${MAYAN_DOCKER_ELASTICSEARCH_TAG:-9.1.3}
+    image: ${MAYAN_DOCKER_ELASTICSEARCH_IMAGE:-elasticsearch}:${MAYAN_DOCKER_ELASTICSEARCH_TAG:-9.1.10}
     networks:
       - mayan
     # Enable to allow external access to the database.
@@ -159,7 +159,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
-    image: ${MAYAN_DOCKER_POSTGRESQL_IMAGE:-postgres}:${MAYAN_DOCKER_POSTGRESQL_TAG:-15.14}
+    image: ${MAYAN_DOCKER_POSTGRESQL_IMAGE:-postgres}:${MAYAN_DOCKER_POSTGRESQL_TAG:-15.16}
     networks:
       - mayan
     # Enable to allow external access to the database.
@@ -186,7 +186,7 @@ services:
       PGHOST: ${MAYAN_DATABASE_HOST:-postgresql}
       PGPASSWORD: ${MAYAN_DATABASE_PASSWORD:-mayandbpass}
       PGUSER: ${MAYAN_DATABASE_USER:-mayan}
-    image: ${MAYAN_DOCKER_POSTGRESQL_IMAGE:-postgres}:${MAYAN_DOCKER_POSTGRESQL_TAG:-15.14}
+    image: ${MAYAN_DOCKER_POSTGRESQL_IMAGE:-postgres}:${MAYAN_DOCKER_POSTGRESQL_TAG:-15.16}
     networks:
       - mayan
     profiles:
@@ -208,7 +208,7 @@ services:
       retries: 5
       start_period: 20s
     hostname: ${MAYAN_DOCKER_RABBITMQ_HOSTNAME:-rabbitmq}
-    image: ${MAYAN_DOCKER_RABBITMQ_IMAGE:-rabbitmq}:${MAYAN_DOCKER_RABBITMQ_TAG:-4.1.4-management}
+    image: ${MAYAN_DOCKER_RABBITMQ_IMAGE:-rabbitmq}:${MAYAN_DOCKER_RABBITMQ_TAG:-4.1.8-management}
     labels:
       - "traefik.enable=${MAYAN_TRAEFIK_RABBITMQ_ENABLE:-false}"
       - "traefik.http.routers.rabbitmq_admin_http.entrypoints=rabbitmq_admin_http"
@@ -255,7 +255,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
-    image: ${MAYAN_DOCKER_REDIS_IMAGE:-redis}:${MAYAN_DOCKER_REDIS_TAG:-7.4.5}
+    image: ${MAYAN_DOCKER_REDIS_IMAGE:-redis}:${MAYAN_DOCKER_REDIS_TAG:-7.4.7}
     networks:
       - mayan
     profiles:
@@ -430,7 +430,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
     # - Add DNS provider variables (https://doc.traefik.io/traefik/https/acme/#providers)
     # environment:
-    image: ${MAYAN_DOCKER_TRAEFIK_IMAGE:-traefik}:${MAYAN_DOCKER_TRAEFIK_TAG:-v2.11.29}
+    image: ${MAYAN_DOCKER_TRAEFIK_IMAGE:-traefik}:${MAYAN_DOCKER_TRAEFIK_TAG:-v2.11.37}
     labels:
       - "traefik.enable=${MAYAN_TRAEFIK_DASHBOARD_ENABLE:-false}"
       - "traefik.http.middlewares.basic-auth-global.basicauth.users=${MAYAN_TRAEFIK_DASHBOARD_AUTHENTICATION}"
