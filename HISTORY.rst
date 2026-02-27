@@ -1,4 +1,4 @@
-4.10.4 (2026-XX-XX)
+4.10.4 (2026-02-27)
 ===================
 - Backport changes and improvements from version 4.11.
 - Add a reusable chunked hashing function optimized for large files.
