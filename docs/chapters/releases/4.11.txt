@@ -23,8 +23,7 @@ Many internal subsystems have been reorganized for improved determinism, perform
 
 This release contains several changes that may require administrator attention. Review the sections below before upgrading.
 
-The release of version 4.11 begins the sunsetting of version 4.6, which is now approaching end-of-life. Likewise, online translation files for version 4.5 have been deleted. Only offline translations are possible.
-
+The release of version 4.11 begins the sunsetting of version 4.6, which is now approaching end-of-life. Likewise, online translation files for version 4.5 have been deleted. Only offline translations are possible for version prior to 4.6.
 
 Changes
 -------
