@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Roberto Rosario, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/rosarior/teams/13584/zh_TW/)\n"
@@ -94,7 +94,7 @@ msgstr "“%s”不是有效的许可。"
 msgid "Save"
 msgstr "保存"
 
-#: links.py:39 links.py:56
+#: links.py:39 links.py:57
 msgid "Settings"
 msgstr "设置"
 
@@ -106,7 +106,7 @@ msgstr "編輯"
 msgid "Revert"
 msgstr "还原"
 
-#: links.py:63
+#: links.py:64
 msgid "Namespaces"
 msgstr "命名空间"
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2026-02-27 19:28+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2025\n"
 "Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
@@ -26,11 +26,11 @@ msgstr ""
 msgid "Common"
 msgstr "Общи"
 
-#: dependencies.py:191
+#: dependencies.py:189
 msgid "Command line environment with autocompletion."
 msgstr "Команден ред с автоматично довършване."
 
-#: dependencies.py:196
+#: dependencies.py:194
 msgid "Checks proper formatting of the README file."
 msgstr "Проверява правилното форматиране на файла README."
 

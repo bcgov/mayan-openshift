@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: PatrickHetu <patrick.hetu@gmail.com>, 2025\n"
 "Language-Team: French (France) (https://app.transifex.com/rosarior/teams/13584/fr_FR/)\n"
@@ -53,30 +53,30 @@ msgid ""
 " dictionary key for the arguments in dictionary format."
 msgstr ""
 
-#: settings.py:40
+#: settings.py:41
 msgid "Load an alternate settings file."
 msgstr ""
 
-#: settings.py:49
-msgid "Allows setting Gunicorn's `workers` value."
+#: settings.py:50
+msgid "Allows setting Gunicorn's `limit_request_line` value."
 msgstr ""
 
-#: settings.py:55
-msgid "Allows setting Gunicorn's `worker_class` value."
-msgstr ""
-
-#: settings.py:62
-msgid "Allows setting Gunicorn's `timeout` value."
-msgstr ""
-
-#: settings.py:68
-msgid "Allows setting Gunicorn's `max_requests_jitter` value."
-msgstr ""
-
-#: settings.py:74
+#: settings.py:56
 msgid "Allows setting Gunicorn's `max_requests` value."
 msgstr ""
 
-#: settings.py:80
-msgid "Allows setting Gunicorn's `limit_request_line` value."
+#: settings.py:62
+msgid "Allows setting Gunicorn's `max_requests_jitter` value."
+msgstr ""
+
+#: settings.py:68
+msgid "Allows setting Gunicorn's `timeout` value."
+msgstr ""
+
+#: settings.py:74
+msgid "Allows setting Gunicorn's `worker_class` value."
+msgstr ""
+
+#: settings.py:81
+msgid "Allows setting Gunicorn's `workers` value."
 msgstr ""

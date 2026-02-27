@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-27 11:45+0000\n"
+"POT-Creation-Date: 2026-02-27 19:29+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2025\n"
 "Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
@@ -24,13 +24,13 @@ msgstr ""
 msgid "MIME types"
 msgstr "Types MIME"
 
-#: backends/file_command.py:26
+#: backends/file_command.py:24
 msgid "file command not installed or not found."
 msgstr "commande de fichier non installée ou introuvable."
 
-#: backends/perl_file_mimeinfo.py:26
-msgid "mimetype not installed or not found."
-msgstr "type mime non installé ou introuvable."
+#: backends/perl_file_mimeinfo.py:24
+msgid "mimetype command not installed or not found."
+msgstr ""
 
 #: dependencies.py:9
 msgid ""

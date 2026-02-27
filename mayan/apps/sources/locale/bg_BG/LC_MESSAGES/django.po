@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 12:33+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2025\n"
 "Language-Team: Bulgarian (Bulgaria) (https://app.transifex.com/rosarior/teams/13584/bg_BG/)\n"
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Source metadata value"
 msgstr ""
 
-#: serializers.py:22 serializers.py:107
+#: serializers.py:22 serializers.py:108
 msgid "URL"
 msgstr "URL"
 
@@ -234,7 +234,7 @@ msgstr "Име"
 msgid "Required"
 msgstr "Задължително"
 
-#: serializers.py:70 serializers.py:85
+#: serializers.py:70 serializers.py:86
 msgid "Arguments"
 msgstr "Аргументи"
 
@@ -247,31 +247,31 @@ msgid "Optional arguments for the action. Must be JSON formatted."
 msgstr ""
 "Незадължителни аргументи за действието. Трябва да е форматиран в JSON."
 
-#: serializers.py:89
+#: serializers.py:90
 msgid "Confirmation"
 msgstr ""
 
-#: serializers.py:92
+#: serializers.py:93
 msgid "Execute URL"
 msgstr ""
 
-#: serializers.py:95
+#: serializers.py:96
 msgid "Interfaces"
 msgstr ""
 
-#: serializers.py:99
+#: serializers.py:100
 msgid "name"
 msgstr "име"
 
-#: serializers.py:102
+#: serializers.py:103
 msgid "Permission"
 msgstr "Разрешение"
 
-#: serializers.py:118
+#: serializers.py:119
 msgid "Binary content for the new file."
 msgstr "Двоично съдържание за новия файл."
 
-#: serializers.py:154
+#: serializers.py:155
 msgid "Actions URL"
 msgstr ""
 

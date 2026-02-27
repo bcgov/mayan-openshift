@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:29+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: lockdlock, 2025\n"
 "Language-Team: Japanese (https://app.transifex.com/rosarior/teams/13584/ja/)\n"
@@ -97,7 +97,7 @@ msgstr "ファイルメタデータドライバー設定"
 msgid "File metadata processing per type"
 msgstr "文書タイプ別ファイルメタデータ処理"
 
-#: links.py:75 views/tool_views.py:28
+#: links.py:75 views/tool_views.py:30
 msgid "File metadata drivers"
 msgstr "ファイルメタデータドライバー"
 
@@ -350,7 +350,7 @@ msgstr "ファイルメタデータドライバーは文書ファイルから埋
 msgid "No file metadata drivers available."
 msgstr "ファイルメタデータドライバーはありません"
 
-#: views/tool_views.py:26
+#: views/tool_views.py:27
 msgid "File metadata drivers enabled and detected."
 msgstr "有効なファイルメタデータドライバーが検出されました"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 06:56+0000\n"
+"POT-Creation-Date: 2026-02-27 19:29+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: KarmaBuildsApps, 2025\n"
 "Language-Team: Tibetan (https://app.transifex.com/rosarior/teams/13584/bo/)\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: apps.py:220 apps.py:1053 events.py:6 menus.py:8
-#: models/document_models.py:112 permissions.py:6 settings.py:36
+#: models/document_models.py:113 permissions.py:6 settings.py:36
 #: statistics.py:286
 msgid "Documents"
 msgstr "ཡིག་ཆ།"
@@ -37,7 +37,7 @@ msgstr "ཡིག་ཆའི་དཔེ་མཚོན་ཕྱིར་ལོ
 #: apps.py:282 links/document_file_links.py:69
 #: links/document_file_page_links.py:70 links/document_version_links.py:74
 #: links/document_version_page_links.py:90 models/document_file_models.py:58
-#: models/document_models.py:111 models/document_version_models.py:30
+#: models/document_models.py:112 models/document_version_models.py:30
 #: models/favorite_document_models.py:30
 #: models/recently_accessed_document_models.py:25 search.py:14
 #: serializers/favorite_document_serializers.py:13
@@ -298,7 +298,7 @@ msgstr "MIME རིགས་།"
 msgid "Encoding"
 msgstr "ཨིན་ཁོ་ཌིང་།"
 
-#: forms/document_file_forms.py:71 models/document_file_model_mixins.py:383
+#: forms/document_file_forms.py:71 models/document_file_model_mixins.py:380
 #: models/document_file_models.py:102
 msgid "Size"
 msgstr "ཆེ་ཆུང་།"
@@ -317,7 +317,7 @@ msgstr "དག་བཤེར།"
 
 #: forms/document_file_forms.py:86 links/document_file_page_links.py:122
 #: links/document_version_page_links.py:50
-#: models/document_file_model_mixins.py:378
+#: models/document_file_model_mixins.py:375
 #: models/document_model_mixins.py:188
 #: models/document_version_model_mixins.py:165
 msgid "Pages"
@@ -343,7 +343,7 @@ msgstr ""
 msgid "Date created"
 msgstr "གསར་བཟོ་བྱས་པའི་ཚེས་གྲངས།"
 
-#: forms/document_forms.py:110 models/document_models.py:78
+#: forms/document_forms.py:110 models/document_models.py:79
 msgid "Language"
 msgstr "སྐད་ཡིག་།"
 
@@ -663,9 +663,9 @@ msgstr "ཟླ་བ་བཅུ་གཉིས་པ།"
 msgid "All pages"
 msgstr "ཤོག་ངོས་ཚང་མ།"
 
-#: models/document_file_model_mixins.py:368
+#: models/document_file_model_mixins.py:365
 #: models/document_file_page_model_mixins.py:253
-#: models/document_model_mixins.py:179 models/document_models.py:63
+#: models/document_model_mixins.py:179 models/document_models.py:64
 #: models/document_type_models.py:43 models/document_type_models.py:156
 #: models/document_version_model_mixins.py:133
 #: models/document_version_page_model_mixins.py:290
@@ -674,7 +674,7 @@ msgstr "ཤོག་ངོས་ཚང་མ།"
 msgid "Label"
 msgstr "མིང་བྱང།"
 
-#: models/document_file_model_mixins.py:524
+#: models/document_file_model_mixins.py:521
 msgid "Controls what happens when a new document file is uploaded."
 msgstr "ཡིག་ཆའི་གསར་པ་བསྐུར་བའི་སྐབས་སུ་གང་བྱུང་བ་ལ་ཚོད་འཛིན་བྱེད་པ།"
 
@@ -768,43 +768,43 @@ msgstr ""
 "ཡིག་ཆ་འདི་ངོས་འཛིན་བྱེད་པའི་ཚིག་ཐོ་ཐུང་ངུ་། སྔོན་གཤིས་ལྟར་ན། "
 "ཡིག་ཆ་བསྐུར་བའི་ཡིག་ཆའི་མིང་དང་པོ་ལ་གཏན་འཁེལ་བྱེད་པ།"
 
-#: models/document_models.py:67
+#: models/document_models.py:68
 msgid "An optional short text describing a document."
 msgstr "ཡིག་ཆ་ཞིག་བཀོད་པའི་ཚིག་ཐོ་ཐུང་ངུ་འདེམས་ཆོག"
 
-#: models/document_models.py:68 serializers/document_version_serializers.py:20
+#: models/document_models.py:69 serializers/document_version_serializers.py:20
 msgid "Description"
 msgstr "བཀོད་པ།"
 
-#: models/document_models.py:72
+#: models/document_models.py:73
 msgid "The date and time of the document creation."
 msgstr "ཡིག་ཆ་གསར་བཟོ་བྱས་པའི་ཚེས་གྲངས་དང་དུས་ཚོད།"
 
-#: models/document_models.py:73
+#: models/document_models.py:74
 msgid "Created"
 msgstr "གསར་བཟོ་བྱས་པ།"
 
-#: models/document_models.py:77
+#: models/document_models.py:78
 msgid "The primary language in the document."
 msgstr "ཡིག་ཆའི་ནང་གི་སྐད་ཡིག་གཙོ་བོ།"
 
-#: models/document_models.py:82
+#: models/document_models.py:83
 msgid "Whether or not this document is in the trash."
 msgstr "ཡིག་ཆ་འདི་གད་སྙིགས་ནང་ཡོད་མེད་།"
 
-#: models/document_models.py:83
+#: models/document_models.py:84
 msgid "In trash?"
 msgstr "གད་སྙིགས་ནང་ཡོད་དམ།"
 
-#: models/document_models.py:87
+#: models/document_models.py:88
 msgid "The server date and time when the document was moved to the trash."
 msgstr "ཡིག་ཆ་གད་སྙིགས་ནང་སྤོར་བའི་སར་བའི་ཚེས་གྲངས་དང་དུས་ཚོད།"
 
-#: models/document_models.py:89
+#: models/document_models.py:90
 msgid "Date and time trashed"
 msgstr "གད་སྙིགས་ནང་བསྐྱུར་བའི་ཚེས་གྲངས་དང་དུས་ཚོད།"
 
-#: models/document_models.py:93
+#: models/document_models.py:94
 msgid ""
 "A document stub is a document with an entry on the database but no file "
 "uploaded. This could be an interrupted upload or a deferred upload via the "
@@ -814,11 +814,11 @@ msgstr ""
 "དེ་ལ་གྲངས་མཛོད་ནང་བཅུག་པའི་འགོད་ཐོ་ཡོད་ཀྱང་ཡིག་ཆ་བསྐུར་མེད་པ་ཞིག་ཡིན། "
 "དེ་ནི་བསྐུར་བའི་དཀྱིལ་དུ་ཆད་པ་ཞིག་གམ་ API བརྒྱུད་ནས་བསྐུར་བ་ཞིག་ཡིན་སྲིད།"
 
-#: models/document_models.py:96
+#: models/document_models.py:97
 msgid "Is stub?"
 msgstr "རྩ་འཛུགས་ཡིན་ནམ།"
 
-#: models/document_models.py:101
+#: models/document_models.py:102
 msgid "Active document version"
 msgstr "བེད་སྤྱོད་ཆོག་པའི་ཡིག་ཆའི་པར་གཞི་།"
 
@@ -961,11 +961,11 @@ msgstr "ཡིག་ཆའི་པར་གཞིའི་ཤོག་ངོས
 msgid "User"
 msgstr "བེད་སྤྱོད་པ་།"
 
-#: models/favorite_document_models.py:41
+#: models/favorite_document_models.py:42
 msgid "Favorite document"
 msgstr "དགའ་ཤོས་ཀྱི་ཡིག་ཆ་།"
 
-#: models/favorite_document_models.py:42
+#: models/favorite_document_models.py:43
 msgid "Favorite documents"
 msgstr "དགའ་ཤོས་ཀྱི་ཡིག་ཆ་།"
 
@@ -1358,145 +1358,166 @@ msgstr "དགའ་ཤོས་ཀྱི་ཡིག་ཆ་གསར་པའ
 msgid "Restore URL"
 msgstr "སླར་གསོ་བྱེད་པའི་ URL །"
 
+#: settings.py:43
+msgid ""
+"Optional height in pixels of the document page image used for interactive "
+"display. Leave empty to calculate the height from `DOCUMENTS_DISPLAY_WIDTH` "
+"while preserving the aspect ratio."
+msgstr ""
+
 #: settings.py:52
 msgid ""
-"The threshold at which the DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND "
-"will start deleting the oldest document file page image cache files. Specify"
-" the size in bytes."
+"Width in pixels of the document page image used for interactive display. "
+"Larger values improve quality but increase processing time and cache "
+"storage."
 msgstr ""
-"ཡིག་ཆའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"ཉར་ཚགས་ཀྱི་རྒྱབ་ལྗོངས་ཀྱིས་ཡིག་ཆའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"ཡིག་ཆ་རྙིང་ཤོས་བསུབ་འགོ་རྩོམ་པའི་ཚད་གཞི་། ཆེ་ཆུང་ Byte ནང་གསལ་བ།"
 
-#: settings.py:60
-msgid "Path to the Storage subclass to use when storing document files."
-msgstr ""
-"ཡིག་ཆ་ཉར་ཚགས་བྱེད་པའི་སྐབས་སུ་བེད་སྤྱོད་བྱ་རྒྱུའི་ Storage "
-"རིགས་བགར་བའི་བགྲོད་ལམ།"
-
-#: settings.py:67
-msgid "Arguments to pass to the DOCUMENT_FILE_STORAGE_BACKEND."
-msgstr "ཡིག་ཆ་ཉར་ཚགས་ཀྱི་རྒྱབ་ལྗོངས་ལ་འདོན་རྒྱུའི་བགྲོ་གླེང་།"
-
-#: settings.py:73
+#: settings.py:61
 msgid ""
-"Path to the Storage subclass to use when storing the cached document file "
-"page image files."
+"Maximum size in bytes of the "
+"`DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND`. When this limit is "
+"exceeded, the storage backend will start deleting the oldest cached page "
+"images."
 msgstr ""
-"ཡིག་ཆའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"ཡིག་ཆ་ཉར་ཚགས་བྱེད་པའི་སྐབས་སུ་བེད་སྤྱོད་བྱ་རྒྱུའི་ Storage "
-"རིགས་བགར་བའི་བགྲོད་ལམ།"
 
-#: settings.py:81
+#: settings.py:70
+msgid "Dotted path to the storage subclass to used to store document files."
+msgstr ""
+
+#: settings.py:77
+msgid "Keyword arguments to pass to `DOCUMENTS_FILE_STORAGE_BACKEND`."
+msgstr ""
+
+#: settings.py:84
 msgid ""
-"Arguments to pass to the DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND."
+"Dotted path to the storage subclass used to store the cached document file "
+"page images."
 msgstr ""
-"ཡིག་ཆའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"ཉར་ཚགས་ཀྱི་རྒྱབ་ལྗོངས་ལ་འདོན་རྒྱུའི་བགྲོ་གླེང་།"
 
-#: settings.py:87
+#: settings.py:92
+msgid ""
+"Keyword arguments to pass to "
+"`DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND`."
+msgstr ""
+
+#: settings.py:99
 msgid "Maximum number of favorite documents to remember per user."
 msgstr ""
 "བེད་སྤྱོད་པ་རེ་རེ་ལ་དྲན་པར་བྱ་རྒྱུའི་དགའ་ཤོས་ཀྱི་ཡིག་ཆའི་ཆེ་ཤོས་ཀྱི་གྲངས་།"
 
-#: settings.py:93
+#: settings.py:105
 msgid ""
-"Size of blocks to use when calculating the document file's checksum. A value"
-" of 0 disables the block calculation and the entire file will be loaded into"
-" memory."
+"Block size in bytes used when calculating a document file checksum. Use 0 to"
+" disable block reads and hash the entire file in a single pass (loads the "
+"file into memory)."
 msgstr ""
-"ཡིག་ཆའི་དག་བཤེར་རྩིས་རྒྱག་པའི་སྐབས་སུ་བེད་སྤྱོད་བྱ་རྒྱུའི་བཅད་དུམ་གྱི་ཆེ་ཆུང་།"
-" གྲངས་ 0 ནི་བཅད་དུམ་གྱི་རྩིས་རྒྱག་པ་མཚམས་འཇོག་བྱེད་པ་ཡིན་པ་དང་། "
-"ཡིག་ཆ་ཆ་ཚང་ངེས་ཤེས་སུ་བཅུག་པར་འགྱུར་བ།"
 
-#: settings.py:100
+#: settings.py:112
 msgid "Default documents language (in ISO639-3 format)."
 msgstr "ཡིག་ཆའི་སྐད་ཡིག་སྔོན་གཤིས་། (ISO639-3 བཟོ་དབྱིབས་ནང་།)"
 
-#: settings.py:104
-msgid "List of supported document languages. In ISO639-3 format."
+#: settings.py:117
+msgid "List of supported document languages (in ISO639-3 format)."
 msgstr ""
-"རྒྱབ་སྐྱོར་བྱེད་པའི་ཡིག་ཆའི་སྐད་ཡིག་གི་ཐོ་གཞུང་། ISO639-3 བཟོ་དབྱིབས་ནང་།"
 
-#: settings.py:110
+#: settings.py:124
 msgid ""
-"The threshold at which the DOCUMENT_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND"
-" will start deleting the oldest document version page image cache versions. "
-"Specify the size in bytes."
+"Maximum size in bytes of the "
+"`DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND`. When this limit is "
+"exceeded, the storage backend will start deleting the oldest cached version "
+"page images."
 msgstr ""
-"ཡིག་ཆའི་པར་གཞིའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"ཉར་ཚགས་ཀྱི་རྒྱབ་ལྗོངས་ཀྱིས་ཡིག་ཆའི་པར་གཞིའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"པར་གཞི་རྙིང་ཤོས་བསུབ་འགོ་རྩོམ་པའི་ཚད་གཞི་། ཆེ་ཆུང་ Byte ནང་གསལ་བ།"
 
-#: settings.py:119
+#: settings.py:134
 msgid ""
-"Path to the Storage subclass to use when storing the cached document version"
-" page image versions."
+"Dotted path to the storage subclass used to store cached document version "
+"page images."
 msgstr ""
-"ཡིག་ཆའི་པར་གཞིའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"པར་གཞི་ཉར་ཚགས་བྱེད་པའི་སྐབས་སུ་བེད་སྤྱོད་བྱ་རྒྱུའི་ Storage "
-"རིགས་བགར་བའི་བགྲོད་ལམ།"
 
-#: settings.py:127
+#: settings.py:142
 msgid ""
-"Arguments to pass to the DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND."
+"Keyword arguments to pass to "
+"`DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_STORAGE_BACKEND`."
 msgstr ""
-"ཡིག་ཆའི་པར་གཞིའི་ཤོག་ངོས་ཀྱི་པར་གྱི་ cache "
-"ཉར་ཚགས་ཀྱི་རྒྱབ་ལྗོངས་ལ་འདོན་རྒྱུའི་བགྲོ་གླེང་།"
 
-#: settings.py:149
+#: settings.py:150
 msgid ""
-"Maximum number of recently accessed documents (created, edited, viewed) to "
-"remember per user."
+"Optional height in pixels of the document preview image. Leave empty to "
+"calculate the height from `DOCUMENTS_PREVIEW_WIDTH` while preserving the "
+"aspect ratio."
 msgstr ""
-"བེད་སྤྱོད་པ་རེ་རེ་ལ་དྲན་པར་བྱ་རྒྱུའི་ཉེ་ཆར་བེད་སྤྱོད་བྱས་པའི་ཡིག་ཆའི་ "
-"(གསར་བཟོ་བྱས་པ། བཅོས་པ། བལྟས་པ།) ཆེ་ཤོས་ཀྱི་གྲངས་།"
 
-#: settings.py:156
-msgid "Maximum number of recently created documents to show."
-msgstr "ཉེ་ཆར་གསར་བཟོ་བྱས་པའི་ཡིག་ཆ་མང་ཤོས་མངོན་པའི་གྲངས་།"
-
-#: settings.py:162
-msgid "Amount in degrees to rotate a document page per user interaction."
-msgstr "བེད་སྤྱོད་པ་རེ་རེས་ཡིག་ཆའི་ཤོག་ངོས་བསྐོར་བའི་ཚད་གཞི་འདས་པའི་གྲངས་།"
-
-#: settings.py:169
+#: settings.py:159
 msgid ""
-"Time interval in seconds, at which the document trashing task will execute."
+"Width in pixels of the document preview image. Larger values improve quality"
+" but increase processing time and cache storage."
+msgstr ""
+
+#: settings.py:168
+msgid ""
+"Optional height in pixels of the document page image generated for printing."
+" Leave empty to calculate the height from `DOCUMENTS_PRINT_WIDTH` while "
+"preserving the aspect ratio."
 msgstr ""
 
 #: settings.py:177
 msgid ""
-"Time interval in seconds, at which the document stub prune task will "
-"execute."
+"Width in pixels of the document page image generated for printing. Larger "
+"values improve quality but increase processing time and cache storage."
 msgstr ""
 
 #: settings.py:185
 msgid ""
-"Time interval in seconds, at which the trashed document deletion task will "
-"execute."
+"Maximum number of recently accessed documents to remember per user (viewed, "
+"created, or edited)."
 msgstr ""
 
 #: settings.py:192
+msgid "Maximum number of recently created documents to show."
+msgstr "ཉེ་ཆར་གསར་བཟོ་བྱས་པའི་ཡིག་ཆ་མང་ཤོས་མངོན་པའི་གྲངས་།"
+
+#: settings.py:198
+msgid "Rotation step in degrees applied each time the user rotates a page."
+msgstr ""
+
+#: settings.py:206
+msgid "Interval in seconds between runs of the document trashing check task."
+msgstr ""
+
+#: settings.py:214
+msgid "Interval in seconds between runs of the document stub prune task."
+msgstr ""
+
+#: settings.py:222
+msgid ""
+"Interval in seconds between runs of the trashed document deletion task."
+msgstr ""
+
+#: settings.py:229
 msgid "Height in pixels of the document thumbnail image."
 msgstr "ཡིག་ཆའི་བརྡ་ཆུང་པར་གྱི་དཔངས་པར་བཅད་དུམ་མཐོ་ཚད་།"
 
-#: settings.py:211
-msgid ""
-"Maximum amount in percent (%) to allow user to zoom in a document page "
-"interactively."
-msgstr "བེད་སྤྱོད་པས་ཡིག་ཆའི་ཤོག་ངོས་ཆེ་རུ་གཏོང་ཆོག་པའི་བརྒྱ་ཆ་(%)མང་ཤོས།"
-
-#: settings.py:218
-msgid ""
-"Minimum amount in percent (%) to allow user to zoom out a document page "
-"interactively."
-msgstr "བེད་སྤྱོད་པས་ཡིག་ཆའི་ཤོག་ངོས་ཆུང་དུ་གཏོང་ཆོག་པའི་བརྒྱ་ཆ་(%)ཉུང་ཤོས།"
-
-#: settings.py:225
-msgid "Amount in percent zoom in or out a document page per user interaction."
+#: settings.py:235
+msgid "Width in pixels of the document thumbnail image."
 msgstr ""
-"བེད་སྤྱོད་པ་རེ་རེས་ཡིག་ཆའི་ཤོག་ངོས་ཆེ་རུ་གཏོང་བ་དང་ཆུང་དུ་གཏོང་བའི་བརྒྱ་ཆའི་ཚད་།"
+
+#: settings.py:241
+msgid ""
+"Width in pixels of the document thumbnail image when shown in list view "
+"mode."
+msgstr ""
+
+#: settings.py:248
+msgid "Maximum zoom level (percent) allowed when viewing a document page."
+msgstr ""
+
+#: settings.py:255
+msgid "Minimum zoom level (percent) allowed when viewing a document page."
+msgstr ""
+
+#: settings.py:262
+msgid "Zoom step (percent) applied each time the user zooms in or out."
+msgstr ""
 
 #: statistics.py:291
 msgid "New documents per month"

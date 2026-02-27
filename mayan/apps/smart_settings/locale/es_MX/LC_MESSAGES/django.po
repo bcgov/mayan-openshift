@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2025
+# Roberto Rosario, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Rosario, 2025\n"
+"Last-Translator: Roberto Rosario, 2026\n"
 "Language-Team: Spanish (Mexico) (https://app.transifex.com/rosarior/teams/13584/es_MX/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,7 +96,7 @@ msgstr "\"%s\" no es una entrada válida."
 msgid "Save"
 msgstr "Guardar"
 
-#: links.py:39 links.py:56
+#: links.py:39 links.py:57
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -108,7 +108,7 @@ msgstr "Editar"
 msgid "Revert"
 msgstr "Revertir"
 
-#: links.py:63
+#: links.py:64
 msgid "Namespaces"
 msgstr "Categorías"
 
@@ -686,17 +686,17 @@ msgstr "%(count)d valor de configuración revertido."
 #: views.py:136
 #, python-format
 msgid "Revert the value of the %(count)d selected settings."
-msgstr ""
+msgstr "Revertir el valor de las %(count)d configuración seleccionadas."
 
 #: views.py:138
 #, python-format
 msgid "Revert the value of setting: %(object)s"
-msgstr ""
+msgstr "Revertir el valor de la configuración: %(object)s"
 
 #: views.py:140
 #, python-format
 msgid "Revert the value of %(count)d selected setting."
-msgstr ""
+msgstr "Revertir el valor de %(count)d configuración seleccionada."
 
 #: views.py:150
 msgid "Unsaved changes will be lost."

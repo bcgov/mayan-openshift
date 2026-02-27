@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2025
+# Roberto Rosario, 2026
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-30 19:39+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
-"Last-Translator: Roberto Rosario, 2025\n"
+"Last-Translator: Roberto Rosario, 2026\n"
 "Language-Team: Spanish (Ecuador) (https://app.transifex.com/rosarior/teams/13584/es_EC/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: apps.py:10
 msgid "Platforms Docker"
-msgstr ""
+msgstr "Plataformas Docker"
 
 #: literals.py:15
 msgid "Allows setting the worker's Celery `concurrency` value."
@@ -86,6 +86,11 @@ msgid ""
 "installations but before launching the Mayan EDMS stack. Executes the "
 "content as a script or call a script using the value as the filename."
 msgstr ""
+"Se ejecuta tras configurar las variables de entorno del contenedor, la "
+"configuración de UID/GID y la instalación de paquetes adicionales del "
+"sistema operativo y de librerias de Python, pero antes de iniciar los "
+"componentes de Mayan EDMS. Ejecuta el contenido como un script o invoca un "
+"script utilizando el valor como nombre de archivo."
 
 #: settings.py:56
 msgid ""
@@ -103,11 +108,11 @@ msgstr ""
 
 #: settings.py:74
 msgid "Changes the GID of the `mayan` user internal to the Docker container."
-msgstr ""
+msgstr "Cambia el GID del usuario `mayan` interno del contenedor Docker."
 
 #: settings.py:81
 msgid "Changes the UID of the `mayan` user internal to the Docker container."
-msgstr ""
+msgstr "Cambia el UID del usuario `mayan` interno del contenedor Docker."
 
 #: settings.py:89
 msgid ""

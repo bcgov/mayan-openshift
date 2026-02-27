@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2025\n"
 "Language-Team: Czech (https://app.transifex.com/rosarior/teams/13584/cs/)\n"
@@ -93,7 +93,7 @@ msgstr "\"%s\" není platná položka."
 msgid "Save"
 msgstr "Uložit"
 
-#: links.py:39 links.py:56
+#: links.py:39 links.py:57
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -105,7 +105,7 @@ msgstr "Upravit"
 msgid "Revert"
 msgstr "Vrátit"
 
-#: links.py:63
+#: links.py:64
 msgid "Namespaces"
 msgstr "Jmenné prostory"
 

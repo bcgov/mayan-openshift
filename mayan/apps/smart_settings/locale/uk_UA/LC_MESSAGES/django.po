@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Leo Lado, 2025\n"
 "Language-Team: Ukrainian (Ukraine) (https://app.transifex.com/rosarior/teams/13584/uk_UA/)\n"
@@ -95,7 +95,7 @@ msgstr "\"%s\" не є дійсним записом."
 msgid "Save"
 msgstr "Зберегти"
 
-#: links.py:39 links.py:56
+#: links.py:39 links.py:57
 msgid "Settings"
 msgstr "Налаштування"
 
@@ -107,7 +107,7 @@ msgstr "Редагувати"
 msgid "Revert"
 msgstr "Повернути"
 
-#: links.py:63
+#: links.py:64
 msgid "Namespaces"
 msgstr "Простори імен"
 

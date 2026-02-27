@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Roberto Rosario, 2025\n"
 "Language-Team: Russian (Russia) (https://app.transifex.com/rosarior/teams/13584/ru_RU/)\n"
@@ -95,7 +95,7 @@ msgstr "Недопустимое значение \"%s\""
 msgid "Save"
 msgstr "Сохранить"
 
-#: links.py:39 links.py:56
+#: links.py:39 links.py:57
 msgid "Settings"
 msgstr "Настройки"
 
@@ -107,7 +107,7 @@ msgstr "Редактировать"
 msgid "Revert"
 msgstr "Восстановить"
 
-#: links.py:63
+#: links.py:64
 msgid "Namespaces"
 msgstr "Пространства имен"
 

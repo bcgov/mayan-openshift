@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2026-02-27 19:29+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Erjon Sulaj <erjon1282@gmail.com>, 2025\n"
 "Language-Team: Albanian (https://app.transifex.com/rosarior/teams/13584/sq/)\n"
@@ -148,30 +148,30 @@ msgstr "Jo"
 msgid "Yes"
 msgstr "Po"
 
-#: models/index_instance_model_mixins.py:34
+#: models/index_instance_model_mixins.py:36
 #, python-format
 msgid ""
 "Error indexing document: %(document)s; expression: %(expression)s; "
 "%(exception)s"
 msgstr ""
 
-#: models/index_instance_model_mixins.py:155
+#: models/index_instance_model_mixins.py:174
 msgid "Total number of nodes with unique values this item contains."
 msgstr ""
 
-#: models/index_instance_model_mixins.py:164
+#: models/index_instance_model_mixins.py:183
 msgid "Total number of unique documents this item contains."
 msgstr ""
 
-#: models/index_instance_model_mixins.py:174
+#: models/index_instance_model_mixins.py:193
 msgid "Total number of node levels this item contains."
 msgstr ""
 
-#: models/index_instance_model_mixins.py:243
+#: models/index_instance_model_mixins.py:262
 msgid "The path to the index including all ancestors."
 msgstr ""
 
-#: models/index_instance_model_mixins.py:245
+#: models/index_instance_model_mixins.py:264
 msgid "Full path"
 msgstr ""
 

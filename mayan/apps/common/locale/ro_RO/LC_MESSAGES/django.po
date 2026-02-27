@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2026-02-27 19:28+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Harald Ersch, 2025\n"
 "Language-Team: Romanian (Romania) (https://app.transifex.com/rosarior/teams/13584/ro_RO/)\n"
@@ -27,11 +27,11 @@ msgstr ""
 msgid "Common"
 msgstr "Comune"
 
-#: dependencies.py:191
+#: dependencies.py:189
 msgid "Command line environment with autocompletion."
 msgstr "Mediul liniei de comandă cu autocompletare."
 
-#: dependencies.py:196
+#: dependencies.py:194
 msgid "Checks proper formatting of the README file."
 msgstr "Verifică formatarea corectă a fișierului README."
 

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:29+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2025\n"
 "Language-Team: German (Germany) (https://app.transifex.com/rosarior/teams/13584/de_DE/)\n"
@@ -104,7 +104,7 @@ msgstr "Dateimetadatentreiber einrichten"
 msgid "File metadata processing per type"
 msgstr "Dateimetadatenverarbeitung nach Typ"
 
-#: links.py:75 views/tool_views.py:28
+#: links.py:75 views/tool_views.py:30
 msgid "File metadata drivers"
 msgstr "Dateimetadatentreiber"
 
@@ -388,7 +388,7 @@ msgstr ""
 msgid "No file metadata drivers available."
 msgstr "Keine Dateimetadatentreiber verfügbar."
 
-#: views/tool_views.py:26
+#: views/tool_views.py:27
 msgid "File metadata drivers enabled and detected."
 msgstr "Dateimetadatentreiber aktiviert und entdeckt."
 

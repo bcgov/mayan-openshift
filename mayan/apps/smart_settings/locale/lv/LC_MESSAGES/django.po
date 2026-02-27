@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"POT-Creation-Date: 2026-02-27 19:30+0000\n"
 "PO-Revision-Date: 2025-10-30 19:40+0000\n"
 "Last-Translator: Māris Teivāns <maris.teivans@gmail.com>, 2025\n"
 "Language-Team: Latvian (https://app.transifex.com/rosarior/teams/13584/lv/)\n"
@@ -92,7 +92,7 @@ msgstr "\"%s\" nav derīgs ieraksts."
 msgid "Save"
 msgstr "Saglabāt"
 
-#: links.py:39 links.py:56
+#: links.py:39 links.py:57
 msgid "Settings"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgstr "Rediģēt"
 msgid "Revert"
 msgstr ""
 
-#: links.py:63
+#: links.py:64
 msgid "Namespaces"
 msgstr ""
 
