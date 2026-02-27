@@ -20,7 +20,7 @@ set -x \
 ; fi \
 && apt-get update \
 && apt-get install --no-install-recommends --yes \
-    ca-certificates clamav file fuse ghostscript git gnupg1 graphviz libarchive-zip-perl libfile-mimeinfo-perl libimage-exiftool-perl libmariadb3 libpq5 libreoffice-calc-nogui libreoffice-draw-nogui libreoffice-impress-nogui libreoffice-math-nogui libreoffice-writer-nogui poppler-utils sane-utils sudo supervisor tesseract-ocr \
+    ca-certificates clamav file fuse ghostscript git gnupg1 graphviz libarchive-zip-perl libfile-mimeinfo-perl libfuse2 libimage-exiftool-perl libmariadb3 libpq5 libreoffice-calc-nogui libreoffice-draw-nogui libreoffice-impress-nogui libreoffice-math-nogui libreoffice-writer-nogui poppler-utils sane-utils sudo supervisor tesseract-ocr \
     g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev \
     enchant-2 graphviz libcairo2 \
     bash-completion curl gettext less software-properties-common squid-deb-proxy-client vim virtualenvwrapper \
@@ -64,8 +64,8 @@ RUN set -a \
 && export WORKON_HOME=/home/ubuntu/.virtualenvs \
 && source /usr/share/virtualenvwrapper/virtualenvwrapper.sh \
 && mkdir /workspace \
-&& mkvirtualenv "mayan-edms-4.10.3" -a /workspace -p /usr/bin/python3.13 \
-&& workon "mayan-edms-4.10.3" \
+&& mkvirtualenv "mayan-edms-4.10.4" -a /workspace -p /usr/bin/python3.13 \
+&& workon "mayan-edms-4.10.4" \
 && /venv_dependencies.py \
 && deactivate \
 && rmdir /workspace \
