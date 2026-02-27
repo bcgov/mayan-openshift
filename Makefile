@@ -46,12 +46,6 @@ COMMAND_SENTRY = \
 COMMAND_TEST = ./manage.py test $(MODULE) --settings=$(SETTINGS) $(SKIPMIGRATIONS) $(DEBUG) $(ARGUMENTS) $(ARGUMENT_TAG)
 COMMAND_TEST_MIGRATIONS = ./manage.py test $(MODULE) --no-exclude --settings=$(SETTINGS) --tag=migration_test $(DEBUG) $(ARGUMENTS)
 
-CONTAINER_NAME_TEST_ELASTIC = mayan-test-elastic
-CONTAINER_NAME_TEST_MYSQL = mayan-test-mysql
-CONTAINER_NAME_TEST_ORACLE = mayan-test-oracle
-CONTAINER_NAME_TEST_POSTGRESQL = mayan-test-postgresql
-CONTAINER_NAME_TEST_REDIS = mayan-test-redis
-
 .PHONY: clean clean-pyc clean-build test
 
 help:
@@ -179,39 +173,16 @@ docs-html: docs-app-documentation-generate
 docs-spellcheck: ## Spellcheck the documentation.
 	cd docs;sphinx-build -b spelling -d _build/ . _build/spelling
 
-# Translations
-
-translations-source-clear: ## Clear the msgstr of the source file
-	@sed -i -E  's/msgstr ".+"/msgstr ""/g' `grep -E 'msgstr ".+"' mayan/apps/*/locale/en/*/django.po | cut -d: -f 1` > /dev/null 2>&1  || true
-
-translations-source-fuzzy-remove: ## Remove fuzzy makers
-	sed -i  '/#, fuzzy/d' mayan/apps/*/locale/*/LC_MESSAGES/django.po
-
-translations-transifex-check: ## Check that all app have a Transifex entry
-	contrib/scripts/translations_helper.py transifex_missing_apps
-
-translations-transifex-generate: ## Check that all app have a Transifex entry
-	contrib/scripts/translations_helper.py transifex_generate_config > ./.tx/config
-
-translations-django-make: ## Refresh all translation files.
-	contrib/scripts/translations_helper.py django_make
-
-translations-django-make-javascript: ## Refresh all JavaScript translation files.
-	contrib/scripts/translations_helper.py django_make_javascript
-
-translations-django-compile: ## Compile all translation files.
-	contrib/scripts/translations_helper.py django_compile
-
-translations-transifex-push: ## Upload all translation files to Transifex.
-	tx push -s
-
-translations-transifex-pull: ## Download all translation files from Transifex.
-	tx pull -f
-
-translations-all: ## Execute all translations targets.
-translations-all: translations-source-clear translations-source-fuzzy-remove translations-transifex-generate translations-django-make translations-django-make-javascript translations-transifex-push translations-transifex-pull translations-django-compile
-
 # Releases
+
+requirements-generate: ## Generate all requirements files from the project dependency declarations.
+	@./manage.py dependencies_generate_requirements build --settings=mayan.settings.development > requirements/build.txt
+	@./manage.py dependencies_generate_requirements development --settings=mayan.settings.development > requirements/development.txt
+	@./manage.py dependencies_generate_requirements documentation --settings=mayan.settings.development > requirements/documentation.txt
+	@./manage.py dependencies_generate_requirements documentation_override --settings=mayan.settings.development > requirements/documentation_override.txt
+	@./manage.py dependencies_generate_requirements testing --settings=mayan.settings.testing > requirements/testing-base.txt
+	@./manage.py dependencies_generate_requirements production --exclude=django > requirements/base.txt
+	@./manage.py dependencies_generate_requirements production --only=django > requirements/common.txt
 
 version-increase: ## Increase the version number of the entire project's files.
 	@VERSION_BASE=`grep "__version__ =" mayan/__init__.py| cut -d\' -f 2|./contrib/scripts/increase_version.py - $(PART)`; \
@@ -276,6 +247,9 @@ check-missing-inits: ## Find missing __init__.py files from modules.
 config-env-copy: ## Copy and convert `config.env` to `literals.py`.
 	@contrib/scripts/copy_config_env.py > mayan/literals.py
 
+print-%:
+	@echo '$*=$($*)'
+
 # Development environment
 
 dev-setup: ## Bootstrap a virtualenv by install all dependencies to start developing.
@@ -284,8 +258,8 @@ dev-setup: dev-setup-os-ubuntu dev-setup-python
 dev-setup-os-ubuntu:  ## Install the operating system packages needed for development.
 	sudo apt-get install --yes clamav exiftool gcc gettext gnupg1 graphviz libcairo2 libffi-dev libfuse2 libjpeg-dev libldap2-dev libpng-dev libsasl2-dev poppler-utils python3-dev sane-utils tesseract-ocr-deu
 
-
 -include docker/Makefile
 -include forge/Makefile
--include gitlab-ci/Makefile
+-include mayan/apps/locales/Makefile
+-include mayan/apps/platforms_gitlab/Makefile
 -include python/Makefile

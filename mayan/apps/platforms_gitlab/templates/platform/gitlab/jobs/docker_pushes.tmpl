@@ -1,0 +1,85 @@
+{% load platforms_gitlab_tags %}
+
+job_docker_push_major:
+  before_script:
+{% platforms_gitlab_ci_config_env_before_script indent=4 %}
+{% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
+    - apk add --cache-dir ${APK_CACHE_DIR} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+    - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
+  cache:
+{% platforms_gitlab_ci_cache_paths apk=True indent=4 %}
+  image: {{ DOCKER_CLI_IMAGE_VERSION }}
+  only:
+    - {{ GITLAB_CI_BRANCH_RELEASES_ALL_MAJOR }}
+    - {{ GITLAB_CI_BRANCH_RELEASES_DOCKER_MAJOR }}
+  script:
+    - DOCKER_VERSION=`cat docker/rootfs/version`
+    - docker pull "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}"
+    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
+    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:latest
+    - MAJOR_VERSION=$(${PYTHON_BIN} ${VERSION_SCRIPT_BIN} ${DOCKER_VERSION} major);
+    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:s"${MAJOR_VERSION}"
+    - MINOR_VERSION=$(${PYTHON_BIN} ${VERSION_SCRIPT_BIN} ${DOCKER_VERSION} minor);
+    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
+    - docker login --username "${DOCKER_HUB_USERNAME}" --password "${DOCKER_HUB_PASSWORD}" https://registry-1.docker.io
+    - docker push registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
+    - docker push registry-1.docker.io/mayanedms/mayanedms:latest
+    - docker push registry-1.docker.io/mayanedms/mayanedms:s"${MAJOR_VERSION}"
+    - docker push registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
+  services:
+    - {{ DOCKER_DIND_IMAGE_VERSION }}
+  stage: stage_push
+  variables:
+    DOCKER_DRIVER: overlay2
+{% platforms_gitlab_ci_cache_variables indent=4 apk=True %}
+    << : *job_docker_push_variables
+
+job_docker_push_minor:
+  before_script:
+{% platforms_gitlab_ci_config_env_before_script indent=4 %}
+{% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
+    - apk add --cache-dir ${APK_CACHE_DIR} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+    - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
+  cache:
+{% platforms_gitlab_ci_cache_paths apk=True indent=4 %}
+  image: {{ DOCKER_CLI_IMAGE_VERSION }}
+  only:
+    - {{ GITLAB_CI_BRANCH_RELEASES_ALL_MINOR }}
+    - {{ GITLAB_CI_BRANCH_RELEASES_DOCKER_MINOR }}
+  script:
+    - DOCKER_VERSION=`cat docker/rootfs/version`
+    - docker pull "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}"
+    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
+    - MINOR_VERSION=$(${PYTHON_BIN} ${VERSION_SCRIPT_BIN} ${DOCKER_VERSION} minor);
+    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
+    - docker login --username "${DOCKER_HUB_USERNAME}" --password "${DOCKER_HUB_PASSWORD}" https://registry-1.docker.io
+    - docker push registry-1.docker.io/mayanedms/mayanedms:v"${DOCKER_VERSION}"
+    - docker push registry-1.docker.io/mayanedms/mayanedms:s"${MINOR_VERSION}"
+  services:
+    - {{ DOCKER_DIND_IMAGE_VERSION }}
+  stage: stage_push
+  variables:
+    DOCKER_DRIVER: overlay2
+{% platforms_gitlab_ci_cache_variables indent=4 apk=True %}
+    << : *job_docker_push_variables
+
+job_docker_push_nightly:
+  before_script:
+{% platforms_gitlab_ci_config_env_before_script indent=4 %}
+    - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
+  image: {{ DOCKER_CLI_IMAGE_VERSION }}
+  needs:
+    - job_docker_build
+  only:
+    - {{ GITLAB_CI_BRANCH_RELEASES_NIGHTLY }}
+  script:
+    - DOCKER_VERSION=`cat docker/rootfs/version`
+    - docker pull "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}"
+    - docker login --username "${DOCKER_HUB_USERNAME}" --password "${DOCKER_HUB_PASSWORD}" https://registry-1.docker.io
+    - docker tag "${CI_REGISTRY_IMAGE}:${DOCKER_VERSION}" "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
+    - docker push "registry-1.docker.io/mayanedms/mayanedms:${CI_COMMIT_REF_SLUG}"
+  services:
+    - {{ DOCKER_DIND_IMAGE_VERSION }}
+  stage: stage_push
+  variables:
+    DOCKER_DRIVER: overlay2

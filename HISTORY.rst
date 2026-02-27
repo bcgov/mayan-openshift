@@ -32,6 +32,8 @@
 - Rename internal references of `DOCKER_ELASTIC_` to `DOCKER_ELASTICSEARCH_`.
 - Reduce logging output.
 - Add `libfuse2` as a production dependency.
+- Backport makefile improvements.
+- Backport GitLab CI improvements.
 
 4.10.3 (2025-12-24)
 ===================

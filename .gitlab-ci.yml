@@ -1,5 +1,3 @@
-
-
 .job_docker_push_variables:
   &job_docker_push_variables
     PYTHON_BIN: /usr/bin/python3
@@ -13,7 +11,7 @@ stages:
   - stage_push
   - stage_deploy
 
-# Docker
+
 
 job_docker_build:
   before_script:
@@ -58,6 +56,8 @@ job_docker_build:
     DOCKER_DRIVER: overlay2
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+
+
 
 job_docker_push_major:
   before_script:
@@ -128,7 +128,7 @@ job_docker_push_minor:
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
     << : *job_docker_push_variables
 
-job_docker_nightly:
+job_docker_push_nightly:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
     - docker login --username ${CI_REGISTRY_PUSH_USER} --password ${CI_REGISTRY_PUSH_PASSWORD} ${CI_REGISTRY}
@@ -149,7 +149,7 @@ job_docker_nightly:
   variables:
     DOCKER_DRIVER: overlay2
 
-# Documentation
+
 
 job_documentation_build:
   artifacts:
@@ -227,7 +227,7 @@ job_documentation_push:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
 
-# Python
+
 
 job_python_build:
   artifacts:
@@ -273,6 +273,8 @@ job_python_build:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
 
+
+
 job_python_push_pypi:
   before_script:
     - set -a && sed -E "s/=(.*)/\=\"\1\"/g" config.env > /tmp/config.env && . /tmp/config.env && rm /tmp/config.env && set +a
@@ -307,7 +309,7 @@ job_python_push_pypi:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
 
-# Run the test suit
+
 
 .job_base_test:
   &job_base_test
@@ -371,7 +373,7 @@ job_sqlite_test:
     - make test-all SETTINGS=mayan.settings.testing.gitlab-ci
     - make test-migrations-all SETTINGS=mayan.settings.testing.gitlab-ci
 
-# Deploy
+
 
 job_demo_deploy:
   before_script:
@@ -453,8 +455,6 @@ job_staging_deploy:
   variables:
     APT_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apt
 
-# Combined
-
 job_docker_build_try:
   extends: job_docker_build
   only:
@@ -467,3 +467,4 @@ job_staging_deploy_try:
   only:
     - ci/try/staging
   when: on_success
+
