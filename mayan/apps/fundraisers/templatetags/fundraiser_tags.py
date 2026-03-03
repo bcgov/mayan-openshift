@@ -7,7 +7,7 @@ import markdown
 import nh3
 import requests
 
-from ..literals import URL_FUNDRAISER_API
+from ..literals import DEFAULT_HTTP_TIMEOUT, URL_FUNDRAISER_API
 
 register = Library()
 
@@ -37,7 +37,7 @@ def tag_fundraiser_message_fetch(path):
     url.path = path
 
     try:
-        response = requests.get(url=url)
+        response = requests.get(url=url, timeout=DEFAULT_HTTP_TIMEOUT)
     except requests.exceptions.RequestException:
         return ''
     else:

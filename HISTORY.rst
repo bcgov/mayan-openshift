@@ -18,6 +18,13 @@
 - Support HTTP POST verb navigation links. Fixes the logout link.
 - Update password reset form to navigate to the login URL instead of the
   logout URL.
+- Harden outbound HTTP requests, add timeouts defaults:
+
+    - Add a timeout of 10 seconds for initial connection and 30 seconds for
+      initial data transfer for dependency downloads.
+    - Add the `oidc_discovery_timeout` keyword argument to
+      `AuthenticationBackendOIDC`. Defaults to 5 seconds for connection and 15
+      seconds for data response.
 
 4.11 (2026-02-25)
 =================
