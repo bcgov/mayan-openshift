@@ -91,7 +91,7 @@ setting_document_file_page_image_cache_storage_backend_arguments = setting_names
     help_text=_(
         message='Keyword arguments to pass to '
         '`DOCUMENTS_FILE_PAGE_IMAGE_CACHE_STORAGE_BACKEND`.'
-    ),
+    )
 )
 setting_favorite_count = setting_namespace.do_setting_add(
     data_type=int, default=DEFAULT_DOCUMENTS_FAVORITE_COUNT,
@@ -239,8 +239,8 @@ setting_thumbnail_width = setting_namespace.do_setting_add(
 setting_thumbnail_list_width = setting_namespace.do_setting_add(
     data_type=int, default=DEFAULT_DOCUMENTS_LIST_THUMBNAIL_WIDTH,
     global_name='DOCUMENTS_LIST_THUMBNAIL_WIDTH', help_text=_(
-        message='Width in pixels of the document thumbnail image when shown in list '
-        'view mode.'
+        message='Width in pixels of the document thumbnail image when shown '
+        'in list view mode.'
     )
 )
 setting_zoom_max_level = setting_namespace.do_setting_add(

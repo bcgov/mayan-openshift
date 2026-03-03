@@ -22,7 +22,7 @@ msgstr ""
 
 #: apps.py:10
 msgid "File metadata Ollama"
-msgstr ""
+msgstr "Metadatos del archivo Ollama"
 
 #: drivers.py:14
 msgid "Analyze content using Ollama."

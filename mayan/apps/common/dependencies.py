@@ -127,7 +127,7 @@ PythonDependency(
     legal_text='''
         Author: Christian Theune
         License: LGPL 2.1
-    ''', module=__name__, name='pycountry', version_string='==24.6.1'
+    ''', module=__name__, name='pycountry', version_string='==26.2.16'
 )
 PythonDependency(
     environments=(environment_production,), module=__name__, name='nh3',

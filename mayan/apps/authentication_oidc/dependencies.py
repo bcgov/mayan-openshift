@@ -3,4 +3,5 @@ from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
     environments=(environment_production,), module=__name__,
-    name='mozilla-django-oidc', version_string='==5.0.2')
+    name='mozilla-django-oidc', version_string='==5.0.2'
+)

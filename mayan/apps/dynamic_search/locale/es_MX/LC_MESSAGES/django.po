@@ -140,7 +140,7 @@ msgstr "Campos"
 
 #: links.py:60 views/tool_views.py:15
 msgid "Search models"
-msgstr ""
+msgstr "Modelos de búsqueda"
 
 #: literals.py:28
 msgid "Yes"
@@ -312,7 +312,7 @@ msgstr ""
 
 #: search_fields.py:245
 msgid "Direct"
-msgstr ""
+msgstr "Directo"
 
 #: search_fields.py:267
 msgid "Related"
@@ -320,7 +320,7 @@ msgstr "Relacionado"
 
 #: search_fields.py:325
 msgid "Virtual"
-msgstr ""
+msgstr "Virtual"
 
 #: search_fields.py:340
 msgid "Any"

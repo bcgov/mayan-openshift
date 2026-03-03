@@ -22,7 +22,7 @@ msgstr ""
 
 #: apps.py:9
 msgid "Credentials Google"
-msgstr ""
+msgstr "Credenciales de Google"
 
 #: credential_backends.py:19
 msgid "Project ID"
