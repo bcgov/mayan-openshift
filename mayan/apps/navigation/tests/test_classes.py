@@ -45,6 +45,30 @@ class LinkClassTestCase(GenericViewTestCase):
         self.link = Link(text=TEST_LINK_TEXT, view=self._test_view_name)
         Permission.invalidate_cache()
 
+    def test_link_method_default(self):
+        response = self.get(viewname=self._test_view_name)
+
+        context = Context(
+            {'request': response.wsgi_request}
+        )
+
+        resolved_link = self.link.resolve(context=context)
+        self.assertEqual(resolved_link.method, 'get')
+
+    def test_link_method_post(self):
+        link = Link(
+            method='post', text=TEST_LINK_TEXT, view=self._test_view_name
+        )
+
+        response = self.get(viewname=self._test_view_name)
+
+        context = Context(
+            {'request': response.wsgi_request}
+        )
+
+        resolved_link = link.resolve(context=context)
+        self.assertEqual(resolved_link.method, 'post')
+
     def test_link_resolve(self):
         response = self.get(viewname=self._test_view_name)
 

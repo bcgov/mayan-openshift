@@ -15,6 +15,7 @@
 - Add missing setting `domain_dict` initialization.
 - Fix setting `DOCUMENTS_ZOOM_MAX_LEVEL` help text keyword argument.
 - Use the TLS version of NPM to download JavaScript packages.
+- Support HTTP POST verb navigation links. Fixes the logout link.
 
 4.11 (2026-02-25)
 =================
