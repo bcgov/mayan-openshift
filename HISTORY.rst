@@ -11,6 +11,9 @@
   - whitenoise from 6.11.0 to 6.12.0.
 
 - Remove old style license definition.
+- Add test to ensure all setting namespaces render correctly.
+- Add missing setting `domain_dict` initialization.
+- Fix setting `DOCUMENTS_ZOOM_MAX_LEVEL` help text keyword argument.
 
 4.11 (2026-02-25)
 =================

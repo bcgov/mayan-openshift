@@ -256,6 +256,7 @@ class Setting(
         self.choices = choices
         self.data_type = data_type
         self.default = default
+        self.domain_dict = {}
         self.environment_variable = False
         self.global_name = global_name
         self.help_text = help_text
