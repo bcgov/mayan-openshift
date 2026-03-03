@@ -7,7 +7,7 @@ PythonDependency(
 )
 PythonDependency(
     environments=(environment_production,), module=__name__, name='greenlet',
-    version_string='==3.3.1'
+    version_string='==3.3.2'
 )
 PythonDependency(
     environments=(environment_production,), module=__name__, name='gunicorn',
@@ -15,5 +15,5 @@ PythonDependency(
 )
 PythonDependency(
     environments=(environment_production,), module=__name__,
-    name='whitenoise', version_string='==6.11.0'
+    name='whitenoise', version_string='==6.12.0'
 )

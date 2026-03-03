@@ -22,7 +22,7 @@ msgstr ""
 
 #: apps.py:15
 msgid "Platforms"
-msgstr ""
+msgstr "Plataformas"
 
 #: permissions.py:6 settings.py:17
 msgid "Platform"
@@ -59,7 +59,7 @@ msgstr ""
 
 #: settings.py:41
 msgid "Load an alternate settings file."
-msgstr ""
+msgstr "Cargar un archivo alternativo de configuración."
 
 #: settings.py:50
 msgid "Allows setting Gunicorn's `limit_request_line` value."

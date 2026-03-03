@@ -1,3 +1,16 @@
+4.11.1 (2026-03-XX)
+===================
+- Merge improvement and changes from version 4.10.4.
+- Update dependencies versions:
+
+  - coverage from 7.12.0 to 7.13.4.
+  - greenlet from 3.3.1 to 3.3.2.
+  - pycountry from 24.6.1 to 26.2.16.
+  - pypdf from 6.7.0 to 6.7.3.
+  - whitenoise from 6.11.0 to 6.12.0.
+
+- Remove old style license definition.
+
 4.11 (2026-02-25)
 =================
 - Support building ARM64 Docker images.
@@ -109,7 +122,6 @@
   and Google Font dependencies.
 - Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
   circular dependencies.
-
 - CI and makefile refactor:
 
   - Split the Docker makefile into separate makefiles.
@@ -199,7 +211,6 @@
 - Change the default value of `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a
   boolean.
 - Update setting `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a choice field.
-
 - Error logging changes:
 
   - Add more descriptive module error log messages.
@@ -265,6 +276,90 @@
 - Update the `worker_custom_queue` service to pass the worker queues via an
   environment variable and use the regular entrypoint.
 - Normalize environment variable usage in the Docker shell files.
+
+4.10.4 (2026-02-27)
+===================
+- Backport changes and improvements from version 4.11.
+- Add a reusable chunked hashing function optimized for large files.
+- Default chunked hashing block size to 65536 bytes for better alignment with
+  memory allocation, file system buffers, and CPU cache lines.
+- Add the management command `dependencies_uninstall` to uninstall JavaScript
+  and Google Font dependencies.
+- Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
+  circular dependencies.
+- Add thousand separator to the pager.
+- Move and rename the makefile target `requirements-generate` to
+  `python-requirements-generate`.
+- Add help text to settings:
+
+  - `DOCUMENTS_DISPLAY_HEIGHT`
+  - `DOCUMENTS_DISPLAY_WIDTH`
+  - `DOCUMENTS_PREVIEW_HEIGHT`
+  - `DOCUMENTS_PREVIEW_WIDTH`
+  - `DOCUMENTS_PRINT_HEIGHT`
+  - `DOCUMENTS_PRINT_WIDTH`
+  - `SIGNATURES_BACKEND_ARGUMENTS`
+  - `STORAGE_DOWNLOAD_FILE_STORAGE_ARGUMENTS`
+
+- Fix the math template tag name `math_substract` to `math_subtract`. Update
+  your existing templates if you use this template tag. An alias named
+  `math_substract` was added for backwards compatibility but will be removed
+  in a following minor version.
+- Ensure duplicated entries are not created if a user favorites the same
+  document more than once.
+- Reinforce pruning of empty index instance nodes.
+- Rename internal references of `DOCKER_ELASTIC_` to `DOCKER_ELASTICSEARCH_`.
+- Reduce logging output.
+- Add `libfuse2` as a production dependency.
+- Backport makefile improvements.
+- Backport GitLab CI improvements.
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendFileCommand` class.
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendPerlFileMIMEInfo` class.
+- Update Docker image tags:
+
+  - Debian from debian:12.12-slim to debian:12.13-slim
+  - Elasticsearch from 9.1.3 to 9.1.10
+  - PostgreSQL from 15.14 to 15.16
+  - RabbitMQ from 4.1.4-management to 4.1.8-management
+  - Redis from 7.4.5 to 7.4.7
+  - Traefik from 2.11.29 to 2.11.37
+
+- Update dependency version:
+
+  - Markdown from 3.10 to 3.10.2
+  - PIP from 25.3 to 26.0.1
+  - Pillow from 12.0.0 to 12.1.1
+  - coverage from 7.12.0 to 7.13.4
+  - dateparser from 1.2.2 to 1.3.0
+  - django from 4.2.27 to 4.2.28
+  - django-auth-ldap from 5.2.0 to 5.3.0
+  - django-solo from 2.4.0 to 2.5.1
+  - django-widget-tweaks from 1.5.0 to 1.5.1
+  - drf-yasg from 1.21.11 to 1.21.15
+  - elasticsearch from 9.1.0 to 9.3.0
+  - google-cloud-storage from 3.3.1 to 3.9.0
+  - greenlet from 3.2.4 to 3.3.2
+  - gunicorn from 23.0.0 to 25.1.0
+  - jsonschema from 4.25.1 to 4.26.0
+  - mozilla-django-oidc from 4.0.1 to 5.0.2
+  - nh3 from 0.3.2 to 0.3.3
+  - psycopg from 3.2.9 to 3.3.3
+  - pycountry from 24.6.1 to 26.2.16
+  - pypdf from 6.5.0 to 6.7.3
+  - python_gnupg from 0.5.5 to 0.5.6
+  - redis from 6.4.0 to 7.2.1
+  - sentry-sdk from 2.48.0 to 2.53.0
+  - wheel from 0.45.1 to 0.46.3 due to CVE-2026-24049
+  - whitenoise from 6.11.0 to 6.12.0
+
+- Update setting `SEARCH_STORE_RESULTS_DEFAULT_VALUE` to be a choice field.
+- Change the default value of `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a
+  boolean.
+- Update setting `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a choice field.
+- Improve setting view return navigation.
+- Fix repeated setting edit view return link.
 
 4.10.3 (2025-12-24)
 ===================

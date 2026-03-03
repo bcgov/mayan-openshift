@@ -21,7 +21,7 @@ django-stronghold==0.4.0
 django-widget-tweaks==1.5.1
 djangorestframework==3.16.1
 djangorestframework-recursive==0.1.2
-drf-yasg==1.21.14
+drf-yasg==1.21.15
 elasticsearch==9.3.0
 extract-msg==0.55.0
 flex==6.14.1
@@ -30,7 +30,7 @@ fusepy==3.0.1
 gevent==25.9.1
 google-cloud-storage==3.9.0
 graphviz==0.21
-greenlet==3.3.1
+greenlet==3.3.2
 gunicorn==25.1.0
 jsonschema==4.26.0
 mozilla-django-oidc==5.0.2
@@ -38,10 +38,10 @@ nh3==0.3.3
 node-semver==0.9.0
 ollama==0.6.1
 openai==1.109.1
-pycountry==24.6.1
+pycountry==26.2.16
 pycryptodome==3.23.0
 pyotp==2.9.0
-pypdf==6.7.0
+pypdf==6.7.3
 python-dateutil==2.9.0.post0
 python_gnupg==0.5.6
 pytz==2025.2
@@ -50,4 +50,4 @@ requests==2.32.5
 sentry-sdk==2.53.0
 sh==2.2.2
 swagger-spec-validator==3.0.4
-whitenoise==6.11.0
+whitenoise==6.12.0

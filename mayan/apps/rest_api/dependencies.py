@@ -62,7 +62,7 @@ PythonDependency(
 )
 PythonDependency(
     environments=(environment_production,), module=__name__, name='drf-yasg',
-    version_string='==1.21.14'
+    version_string='==1.21.15'
 )
 PythonDependency(
     environments=(environment_production,), module=__name__, name='flex',

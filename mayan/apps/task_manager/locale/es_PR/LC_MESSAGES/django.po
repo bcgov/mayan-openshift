@@ -112,7 +112,7 @@ msgstr "Nivel de amistad"
 
 #: classes.py:55
 msgid "The Python path to the task code."
-msgstr ""
+msgstr "La ruta de Python al código de la tarea."
 
 #: classes.py:56
 msgid "Dotted path"
@@ -140,7 +140,7 @@ msgstr "Horario"
 
 #: classes.py:91 classes.py:329
 msgid "Worker"
-msgstr ""
+msgstr "Trabajador"
 
 #: classes.py:217
 msgid "Number of task types managed by the queue."
@@ -240,7 +240,7 @@ msgstr "Lista de prueba"
 
 #: views.py:20
 msgid "Task types"
-msgstr ""
+msgstr "Tipos de tareas"
 
 #: views.py:43
 #, python-format

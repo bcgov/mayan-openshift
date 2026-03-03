@@ -22,7 +22,7 @@ msgstr ""
 
 #: apps.py:10
 msgid "Platforms GitLab"
-msgstr ""
+msgstr "Plataformas GitLab"
 
 #: platform_templates.py:36
 msgid "Template that generates a GitLab CI config file."

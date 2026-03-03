@@ -1231,7 +1231,7 @@ msgstr "Suma de control a fișierului documentului"
 
 #: search.py:46
 msgid "Document file filename"
-msgstr ""
+msgstr "Numele fișierului documentului"
 
 #: search.py:49
 msgid "Document file MIME type"
