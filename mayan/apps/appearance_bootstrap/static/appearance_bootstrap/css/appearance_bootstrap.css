@@ -190,3 +190,38 @@ hr {
     padding-right: 10px;
     padding-top: 6px;
 }
+
+/*
+ * Dropdown inline forms with buttons to support POST request links such
+ * as logout.
+ */
+
+.dropdown-menu > li > form > button {
+    background: none;
+    border: 0;
+    color: #585e5e;
+    display: block;
+    font-weight: normal;
+    padding: 3px 20px;
+    text-align: left;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.dropdown-menu > li > form > button:focus {
+    background-color: #f5f5f5;
+    color: #262626;
+}
+
+.dropdown-menu > li > form > button:hover {
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+
+.navigation-btn-lg-form {
+    display: inline;
+}
+
+.navigation-btn-lg-form > button {
+    padding-bottom: 20px;
+}

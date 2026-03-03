@@ -246,7 +246,7 @@ setting_thumbnail_list_width = setting_namespace.do_setting_add(
 setting_zoom_max_level = setting_namespace.do_setting_add(
     data_type=int, default=DEFAULT_DOCUMENTS_ZOOM_MAX_LEVEL,
     global_name='DOCUMENTS_ZOOM_MAX_LEVEL', help_text=_(
-        mesasge='Maximum zoom level (percent) allowed when viewing a '
+        message='Maximum zoom level (percent) allowed when viewing a '
         'document page.'
     )
 )

@@ -13,6 +13,7 @@ from mayan.apps.common.settings import setting_home_view
 from mayan.apps.permissions.classes import Permission
 
 from .class_mixins import TemplateObjectMixin
+from .literals import DEFAULT_HTTP_METHOD
 
 logger = logging.getLogger(name=__name__)
 
@@ -36,8 +37,9 @@ class Link(TemplateObjectMixin):
         self, text=None, view=None, args=None, badge_text=None,
         condition=None, conditional_active=None, conditional_disable=None,
         description=None, html_data=None, html_extra_classes=None, icon=None,
-        keep_query=False, kwargs=None, name=None, permission=None, query=None,
-        remove_from_query=None, tags=None, title=None, url=None
+        keep_query=False, kwargs=None, method=DEFAULT_HTTP_METHOD, name=None,
+        permission=None, query=None, remove_from_query=None, tags=None,
+        title=None, url=None
     ):
         self.args = args or []
         self.badge_text = badge_text
@@ -51,6 +53,7 @@ class Link(TemplateObjectMixin):
         self._icon = icon
         self.keep_query = keep_query
         self._kwargs = kwargs or {}
+        self.method = method
         self.name = name
         self._permission = permission
         self.query = query or {}
@@ -298,6 +301,17 @@ class ResolvedLink:
     @property
     def html_extra_classes(self):
         return self.link.html_extra_classes or ''
+
+    @property
+    def method(self):
+        try:
+            result = self.link.method(context=self.context)
+        except TypeError:
+            result = self.link.method
+
+        result = result or DEFAULT_HTTP_METHOD
+
+        return force_str(s=result).lower()
 
     @property
     def tags(self):

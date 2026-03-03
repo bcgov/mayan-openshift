@@ -116,8 +116,10 @@ class SettingNamespaceTestMixin(SettingClusterTestMixin):
 
 
 class SettingNamespaceViewTestMixin(SettingNamespaceTestMixin):
-    def _request_namespace_detail_view(self):
-        kwargs = {'namespace_name': self._test_setting_namespace.name}
+    def _request_namespace_detail_view(self, namespace_name=None):
+        kwargs = {
+            'namespace_name': namespace_name or self._test_setting_namespace.name
+        }
 
         return self.get(
             kwargs=kwargs, viewname='settings:setting_namespace_detail'

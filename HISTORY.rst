@@ -4,12 +4,20 @@
 - Update dependencies versions:
 
   - coverage from 7.12.0 to 7.13.4.
+  - drf-yasg from 1.21.14 to 1.21.15.
   - greenlet from 3.3.1 to 3.3.2.
   - pycountry from 24.6.1 to 26.2.16.
   - pypdf from 6.7.0 to 6.7.3.
   - whitenoise from 6.11.0 to 6.12.0.
 
 - Remove old style license definition.
+- Add test to ensure all setting namespaces render correctly.
+- Add missing setting `domain_dict` initialization.
+- Fix setting `DOCUMENTS_ZOOM_MAX_LEVEL` help text keyword argument.
+- Use the TLS version of NPM to download JavaScript packages.
+- Support HTTP POST verb navigation links. Fixes the logout link.
+- Update password reset form to navigate to the login URL instead of the
+  logout URL.
 
 4.11 (2026-02-25)
 =================
