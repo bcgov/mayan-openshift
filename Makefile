@@ -167,7 +167,7 @@ version-increase: ## Increase the version number of the entire project's files.
 	VERSION_PYTHON=`if [ -z "${CONFIG_LOCAL_VERSION}" ]; then echo "$${VERSION}"; else echo "$${VERSION}+${CONFIG_LOCAL_VERSION}"; fi`; \
 	sed -i -e "s/__version__ = '[0-9\.a-zA-Z\+]*'/__version__ = '$$VERSION_PYTHON'/g" mayan/__init__.py; \
 	make versions-update; \
-	make python-setup-generate
+	make python-setup-py-generate
 
 versions-update: ## Update the version number of the entire project's files.
 versions-update: config-env-copy
