@@ -20,6 +20,8 @@ job_docker_build_all:
     - {{ GITLAB_CI_BRANCH_RELEASES_STAGING_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_ALL }}
     - {{ GITLAB_CI_BRANCH_TESTS_DOCKER }}
+  script:
+    - echo "Build all architectures."
   services:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_build_container

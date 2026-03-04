@@ -37,6 +37,8 @@ job_docker_build_all:
     - ci/releases/staging/arch/all
     - ci/tests/all
     - ci/tests/docker
+  script:
+    - echo "Build all architectures."
   services:
     - docker:29.2.1-dind
   stage: stage_build_container
