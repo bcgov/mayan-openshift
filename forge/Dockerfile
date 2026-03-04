@@ -64,8 +64,8 @@ RUN set -a \
 && export WORKON_HOME=/home/ubuntu/.virtualenvs \
 && source /usr/share/virtualenvwrapper/virtualenvwrapper.sh \
 && mkdir /workspace \
-&& mkvirtualenv "mayan-edms-4.11" -a /workspace -p /usr/bin/python3.13 \
-&& workon "mayan-edms-4.11" \
+&& mkvirtualenv "mayan-edms-4.11.1" -a /workspace -p /usr/bin/python3.13 \
+&& workon "mayan-edms-4.11.1" \
 && /venv_dependencies.py \
 && deactivate \
 && rmdir /workspace \
