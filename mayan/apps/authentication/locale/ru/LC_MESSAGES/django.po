@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2026-03-04 00:04+0000\n"
 "PO-Revision-Date: 2026-02-25 20:34+0000\n"
 "Last-Translator: Ilya Pavlov <spirkaa@gmail.com>, 2026\n"
 "Language-Team: Russian (https://app.transifex.com/rosarior/teams/13584/ru/)\n"
@@ -60,7 +60,7 @@ msgstr "Если отмечено, возможность завершить и�
 msgid "User"
 msgstr "Пользователь"
 
-#: links.py:37
+#: links.py:38
 msgid "Logout"
 msgstr "Выход"
 

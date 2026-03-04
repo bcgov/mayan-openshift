@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2026-03-04 00:04+0000\n"
 "PO-Revision-Date: 2026-02-25 20:34+0000\n"
 "Last-Translator: bo feng <87289884@qq.com>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/rosarior/teams/13584/zh_CN/)\n"
@@ -60,7 +60,7 @@ msgstr "如果選擇了, 將禁用中止使用者模擬"
 msgid "User"
 msgstr "用户"
 
-#: links.py:37
+#: links.py:38
 msgid "Logout"
 msgstr "退出"
 

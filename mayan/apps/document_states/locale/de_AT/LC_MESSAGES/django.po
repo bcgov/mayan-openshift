@@ -14,9 +14,9 @@
 # Ingo Buchholz <ingo.buchholz@takwa.de>, 2026
 # Marvin Haschker <marvin@haschker.me>, 2026
 # Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2026
-# Mathias Behrle <mathiasb@m9s.biz>, 2026
 # Jesaja Everling <jeverling@gmail.com>, 2026
 # Roberto Rosario, 2026
+# Mathias Behrle <mathiasb@m9s.biz>, 2026
 # 
 msgid ""
 msgstr ""
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-25 20:32+0000\n"
 "PO-Revision-Date: 2026-02-25 20:34+0000\n"
-"Last-Translator: Roberto Rosario, 2026\n"
+"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2026\n"
 "Language-Team: German (Austria) (https://app.transifex.com/rosarior/teams/13584/de_AT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -466,6 +466,8 @@ msgid ""
 "Cannot create a workflow instance. The workflow template "
 "\"%(workflow_template)s\" does not have an initial state."
 msgstr ""
+"Kann keine Workflowinstanz erstellen. Die Workflowvorlage "
+"\"%(workflow_template)s\" hat keinen Anfangsstatus."
 
 #: models/workflow_models.py:36
 msgid "Launch workflow when document is created."
@@ -609,6 +611,7 @@ msgstr "Workflowstatuseskalationen"
 #, python-format
 msgid "Error executing workflow action \"%(action)s\"; %(exception)s"
 msgstr ""
+"Fehler bei der Ausführung der Workflowaktion \"%(action)s\"; %(exception)s"
 
 #: models/workflow_state_models.py:41
 msgid "A short text to describe the workflow state."
@@ -1076,6 +1079,8 @@ msgid ""
 "start deleting the oldest workflow image cache files. Specify the size in "
 "bytes."
 msgstr ""
+"Der Wert ab dem das `WORKFLOWS_IMAGE_CACHE_STORAGE_BACKEND` mit der Löschung"
+" der ältesten Cachedateien beginnt. Größe in Bytes angeben."
 
 #: settings.py:38
 msgid ""
@@ -1088,6 +1093,8 @@ msgstr ""
 #: settings.py:46
 msgid "Arguments to pass to the `WORKFLOWS_IMAGE_CACHE_STORAGE_BACKEND`."
 msgstr ""
+"Argumente, die an das `WORKFLOWS_IMAGE_CACHE_STORAGE_BACKEND` übergeben "
+"werden."
 
 #: settings.py:55
 msgid ""

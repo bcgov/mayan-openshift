@@ -63,24 +63,24 @@ msgstr "Cargar un archivo alternativo de configuración."
 
 #: settings.py:50
 msgid "Allows setting Gunicorn's `limit_request_line` value."
-msgstr ""
+msgstr "Permite establecer el valor `limit_request_line` de Gunicorn."
 
 #: settings.py:56
 msgid "Allows setting Gunicorn's `max_requests` value."
-msgstr ""
+msgstr "Permite establecer el valor `max_requests` de Gunicorn."
 
 #: settings.py:62
 msgid "Allows setting Gunicorn's `max_requests_jitter` value."
-msgstr ""
+msgstr "Permite establecer el valor `max_requests_jitter` de Gunicorn."
 
 #: settings.py:68
 msgid "Allows setting Gunicorn's `timeout` value."
-msgstr ""
+msgstr "Permite establecer el valor de `timeout` de Gunicorn."
 
 #: settings.py:74
 msgid "Allows setting Gunicorn's `worker_class` value."
-msgstr ""
+msgstr "Permite establecer el valor `worker_class` de Gunicorn."
 
 #: settings.py:81
 msgid "Allows setting Gunicorn's `workers` value."
-msgstr ""
+msgstr "Permite establecer el valor de `workers` de Gunicorn."

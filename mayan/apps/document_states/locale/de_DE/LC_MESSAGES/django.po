@@ -54,7 +54,7 @@ msgstr ""
 
 #: apps.py:254 apps.py:271
 msgid "Current completion of a workflow"
-msgstr "Aktueller Fortschritt des Workflows"
+msgstr "Aktueller Fortschritt eines Workflows"
 
 #: apps.py:256
 msgid ""
@@ -466,6 +466,8 @@ msgid ""
 "Cannot create a workflow instance. The workflow template "
 "\"%(workflow_template)s\" does not have an initial state."
 msgstr ""
+"Kann keine Workflowinstanz erstellen. Die Workflowvorlage "
+"\"%(workflow_template)s\" hat keinen Anfangsstatus."
 
 #: models/workflow_models.py:36
 msgid "Launch workflow when document is created."
@@ -609,6 +611,7 @@ msgstr "Workflowstatuseskalationen"
 #, python-format
 msgid "Error executing workflow action \"%(action)s\"; %(exception)s"
 msgstr ""
+"Fehler bei der Ausführung der Workflowaktion \"%(action)s\"; %(exception)s"
 
 #: models/workflow_state_models.py:41
 msgid "A short text to describe the workflow state."
@@ -1076,6 +1079,8 @@ msgid ""
 "start deleting the oldest workflow image cache files. Specify the size in "
 "bytes."
 msgstr ""
+"Der Wert ab dem das `WORKFLOWS_IMAGE_CACHE_STORAGE_BACKEND` mit der Löschung"
+" der ältesten Cachedateien beginnt. Größe in Bytes angeben."
 
 #: settings.py:38
 msgid ""
@@ -1088,6 +1093,8 @@ msgstr ""
 #: settings.py:46
 msgid "Arguments to pass to the `WORKFLOWS_IMAGE_CACHE_STORAGE_BACKEND`."
 msgstr ""
+"Argumente, die an das `WORKFLOWS_IMAGE_CACHE_STORAGE_BACKEND` übergeben "
+"werden."
 
 #: settings.py:55
 msgid ""

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"POT-Creation-Date: 2026-03-04 00:04+0000\n"
 "PO-Revision-Date: 2026-02-25 20:34+0000\n"
 "Last-Translator: Thierry Schott <DarkDare@users.noreply.github.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
@@ -40,11 +40,11 @@ msgstr "Nom interne"
 msgid "Description"
 msgstr "Description"
 
-#: apps.py:45 classes.py:220
+#: apps.py:45 classes.py:221
 msgid "Type"
 msgstr "Type"
 
-#: apps.py:49 classes.py:223
+#: apps.py:49 classes.py:224
 msgid "Other data"
 msgstr "Autre données"
 
@@ -52,82 +52,82 @@ msgstr "Autre données"
 msgid "Declared by"
 msgstr "Déclaré par"
 
-#: apps.py:57 classes.py:221
+#: apps.py:57 classes.py:222
 msgid "Version"
 msgstr "Version"
 
-#: apps.py:61 classes.py:222 classes.py:1040
+#: apps.py:61 classes.py:223 classes.py:1043
 msgid "Environments"
 msgstr "Environnements"
 
-#: apps.py:64 classes.py:223
+#: apps.py:64 classes.py:224
 msgid "Check"
 msgstr "Vérifier"
 
-#: classes.py:220
+#: classes.py:221
 msgid "Name"
 msgstr "Nom"
 
-#: classes.py:221
+#: classes.py:222
 msgid "App"
 msgstr "App"
 
-#: classes.py:341
+#: classes.py:342
 msgid "Need to specify at least one: app_label or module."
 msgstr "Besoin de spécifier au moins un: app_label ou module."
 
-#: classes.py:346
+#: classes.py:347
 #, python-format
 msgid "Dependency \"%s\" already registered."
 msgstr "La dépendance \"%s\" est déjà enregistrée."
 
-#: classes.py:398
+#: classes.py:399
 #, python-format
 msgid "Installing package: %s... "
 msgstr "Installation du paquet: %s ..."
 
-#: classes.py:405
+#: classes.py:406
 msgid "Already installed."
 msgstr "Déjà installé."
 
-#: classes.py:410 classes.py:417 classes.py:423 classes.py:435
+#: classes.py:411 classes.py:418 classes.py:424 classes.py:436
 msgid "Complete."
 msgstr "Complété."
 
-#: classes.py:430
+#: classes.py:431
 #, python-format
 msgid "Uninstalling package: %s... "
 msgstr ""
 
-#: classes.py:462
+#: classes.py:463
 msgid "Installed and correct version"
 msgstr "Version installée et correcte"
 
-#: classes.py:464
+#: classes.py:465
 msgid "Missing or incorrect version"
 msgstr "Version manquante ou incorrecte"
 
-#: classes.py:503
+#: classes.py:504
 msgid "None"
 msgstr "Aucun"
 
-#: classes.py:512
+#: classes.py:513
 msgid "Not specified"
 msgstr "Non spécifié"
 
-#: classes.py:515
+#: classes.py:516
 msgid "Patching files... "
 msgstr "Modification des fichiers ..."
 
-#: classes.py:543
+#: classes.py:544
 msgid "Executables that are called directly by the code."
 msgstr "Des exécutables appelés directement par le code."
 
-#: classes.py:545
+#: classes.py:546
 msgid "Binary"
 msgstr "Binaire"
 
-#: classes.py:563
+#: classes.py:564
 msgid ""
 "JavaScript libraries downloaded the from NPM registry and used for front-end"
 " functionality."
@@ -135,55 +135,55 @@ msgstr ""
 "Les bibliothèques JavaScript sont téléchargées à partir du NPM et utilisé "
 "pour les fonctionnalités front-end."
 
-#: classes.py:566
+#: classes.py:567
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: classes.py:598 classes.py:932
+#: classes.py:599 classes.py:934
 msgid "Downloading... "
 msgstr "Téléchargement ..."
 
-#: classes.py:603
+#: classes.py:604
 msgid "Verifying... "
 msgstr "Vérification ..."
 
-#: classes.py:608 classes.py:937
+#: classes.py:609 classes.py:939
 msgid "Extracting... "
 msgstr "Extraction ..."
 
-#: classes.py:623 classes.py:944
+#: classes.py:624 classes.py:946
 msgid "Uninstalling... "
 msgstr ""
 
-#: classes.py:841
+#: classes.py:842
 msgid "Python packages downloaded from PyPI."
 msgstr "Paquets Python téléchargés depuis PyPI."
 
-#: classes.py:843
+#: classes.py:844
 msgid "Python"
 msgstr "Python"
 
-#: classes.py:911
+#: classes.py:913
 msgid "Fonts downloaded from fonts.googleapis.com."
 msgstr "Polices téléchargées à partir de fonts.googleapis.com."
 
-#: classes.py:913
+#: classes.py:915
 msgid "Google font"
 msgstr "Google Font"
 
-#: classes.py:1021
+#: classes.py:1024
 msgid "Declared in app"
 msgstr "Déclaré dans l'application"
 
-#: classes.py:1022
+#: classes.py:1025
 msgid "Show dependencies by the app that declared them."
 msgstr "Afficher les dépendances par l'application qui les a déclarées."
 
-#: classes.py:1026
+#: classes.py:1029
 msgid "Class"
 msgstr "Classe"
 
-#: classes.py:1027
+#: classes.py:1030
 msgid ""
 "Show the different classes of dependencies. Classes are usually divided by "
 "language or the file types of the dependency."
@@ -191,11 +191,11 @@ msgstr ""
 "Affiche les différentes classes de dépendances. Les classes sont "
 "généralement divisées par langue ou par type de fichier de la dépendance."
 
-#: classes.py:1032
+#: classes.py:1035
 msgid "State"
 msgstr "État"
 
-#: classes.py:1033
+#: classes.py:1036
 msgid ""
 "Show the different states of the dependencies. True means that the "
 "dependencies is installed and is of a correct version. False means the "
@@ -206,7 +206,7 @@ msgstr ""
 "que les dépendances sont manquantes ou qu'une version incorrecte est "
 "présente."
 
-#: classes.py:1041
+#: classes.py:1044
 msgid ""
 "Dependencies required for an environment might not be required for another. "
 "Example environments: Production, Development."
@@ -317,25 +317,25 @@ msgstr "Détails"
 msgid "Dependencies licenses"
 msgstr "Licences des dépendances"
 
-#: literals.py:10
+#: literals.py:12
 #, python-format
 msgid ""
 "Your version (%(version_local)s), is more recent than the published version "
 "(%(version_server)s)."
 msgstr ""
 
-#: literals.py:14
+#: literals.py:16
 #, python-format
 msgid ""
 "The version you are using (%(version_local)s) is outdated. The latest "
 "version is %(version_server)s."
 msgstr ""
 
-#: literals.py:18
+#: literals.py:20
 msgid "It is not possible to determine the latest version available."
 msgstr "Il n'est pas possible de déterminer la dernière disponible"
 
-#: literals.py:21
+#: literals.py:23
 #, python-format
 msgid ""
 "Unexpected error trying to determine the latest version available. Make sure"

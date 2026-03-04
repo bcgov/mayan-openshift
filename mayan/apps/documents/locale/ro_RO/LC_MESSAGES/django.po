@@ -683,7 +683,7 @@ msgstr "Conținut etichetă"
 #: models/document_file_model_mixins.py:418
 #, python-format
 msgid "Error updating page count; %(exception)s"
-msgstr ""
+msgstr "Eroare la actualizarea numărului de pagini; %(exception)s"
 
 #: models/document_file_model_mixins.py:520
 msgid "Controls what happens when a new document file is uploaded."
@@ -741,6 +741,7 @@ msgstr "Fișiere de documente"
 #, python-format
 msgid "Error generating image for page %(page_number)d; %(exception)s"
 msgstr ""
+"Eroare la generarea imaginii pentru pagina %(page_number)d ; %(exception)s"
 
 #: models/document_file_page_model_mixins.py:250
 #, python-format
@@ -1388,6 +1389,9 @@ msgid ""
 "display. Leave empty to calculate the height from `DOCUMENTS_DISPLAY_WIDTH` "
 "while preserving the aspect ratio."
 msgstr ""
+"Înălțimea opțională în pixeli a imaginii paginii documentului utilizată "
+"pentru afișarea interactivă. Lăsați câmpul gol pentru a calcula înălțimea "
+"din `DOCUMENTS_DISPLAY_WIDTH`, păstrând în același timp raportul de aspect."
 
 #: settings.py:52
 msgid ""
@@ -1395,6 +1399,9 @@ msgid ""
 "Larger values improve quality but increase processing time and cache "
 "storage."
 msgstr ""
+"Lățimea în pixeli a imaginii paginii documentului utilizată pentru afișarea "
+"interactivă. Valorile mai mari îmbunătățesc calitatea, dar cresc timpul de "
+"procesare și stocarea în memoria cache."
 
 #: settings.py:61
 msgid ""

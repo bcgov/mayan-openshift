@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-30 19:38+0000\n"
+"POT-Creation-Date: 2026-03-04 00:04+0000\n"
 "PO-Revision-Date: 2026-02-25 20:34+0000\n"
 "Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
@@ -59,7 +59,7 @@ msgstr "الغاء التفويض للمحدد"
 msgid "User"
 msgstr "مستخدم"
 
-#: links.py:37
+#: links.py:38
 msgid "Logout"
 msgstr "خروج"
 

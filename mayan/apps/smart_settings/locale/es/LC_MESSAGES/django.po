@@ -697,17 +697,17 @@ msgstr "%(count)d valor de configuración revertido."
 #: views/setting_views.py:78
 #, python-format
 msgid "Revert the value of the %(count)d selected settings."
-msgstr ""
+msgstr "Revertir el valor de las %(count)d configuración seleccionadas."
 
 #: views/setting_views.py:80
 #, python-format
 msgid "Revert the value of setting: %(object)s"
-msgstr ""
+msgstr "Revertir el valor de la configuración: %(object)s"
 
 #: views/setting_views.py:82
 #, python-format
 msgid "Revert the value of %(count)d selected setting."
-msgstr ""
+msgstr "Revertir el valor de %(count)d configuración seleccionada."
 
 #: views/setting_views.py:92
 msgid "Unsaved changes will be lost."
