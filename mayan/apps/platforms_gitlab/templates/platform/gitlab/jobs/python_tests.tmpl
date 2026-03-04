@@ -4,7 +4,7 @@
   &job_base_test
   before_script:
 {% platforms_gitlab_ci_cache_before_script apt=True indent=4 pip=True %}
-    - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_BASE }} {{ LINUX_PACKAGES_DEBIAN_BUILD }} {{ LINUX_PACKAGES_DEBIAN_PYTHON }} {{ LINUX_PACKAGES_DEBIAN_TEST }}
+    - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_BASE }} {{ LINUX_PACKAGES_DEBIAN_BUILD }} {{ LINUX_PACKAGES_DEBIAN_ESSENTIAL }} {{ LINUX_PACKAGES_DEBIAN_PYTHON }} {{ LINUX_PACKAGES_DEBIAN_TEST }}
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential

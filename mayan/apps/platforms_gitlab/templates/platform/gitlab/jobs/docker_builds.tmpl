@@ -3,7 +3,7 @@
 job_docker_build_all:
   before_script:
 {% platforms_gitlab_ci_cache_before_script apk=True indent=4 %}
-    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }}
+    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_ESSENTIAL }}
   cache:
 {% platforms_gitlab_ci_cache_paths apk=True indent=4 pip=True %}
   image: {{ DOCKER_CLI_IMAGE_VERSION }}
@@ -26,13 +26,16 @@ job_docker_build_all:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_build_container
   variables:
-    DOCKER_DRIVER: overlay2
 {% platforms_gitlab_ci_cache_variables apk=True indent=4 pip=True %}
+    DOCKER_BUILDKIT: "1"
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 job_docker_build_amd64:
   before_script:
 {% platforms_gitlab_ci_cache_before_script apk=True indent=4 pip=True %}
-    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_ESSENTIAL }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -63,13 +66,16 @@ job_docker_build_amd64:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_build_container
   variables:
-    DOCKER_DRIVER: overlay2
 {% platforms_gitlab_ci_cache_variables apk=True indent=4 pip=True %}
+    DOCKER_BUILDKIT: "1"
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 job_docker_build_arm64:
   before_script:
 {% platforms_gitlab_ci_cache_before_script apk=True indent=4 pip=True %}
-    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
+    - apk add {{ LINUX_PACKAGES_ALPINE_BUILD }} {{ LINUX_PACKAGES_ALPINE_ESSENTIAL }} {{ LINUX_PACKAGES_ALPINE_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -100,5 +106,8 @@ job_docker_build_arm64:
     - {{ DOCKER_DIND_IMAGE_VERSION }}
   stage: stage_build_container
   variables:
-    DOCKER_DRIVER: overlay2
 {% platforms_gitlab_ci_cache_variables apk=True indent=4 pip=True %}
+    DOCKER_BUILDKIT: "1"
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""

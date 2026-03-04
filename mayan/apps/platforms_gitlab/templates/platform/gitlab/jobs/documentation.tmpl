@@ -7,7 +7,7 @@ job_documentation_build:
     - docs
   before_script:
 {% platforms_gitlab_ci_cache_before_script apt=True indent=4 pip=True %}
-    - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_DOCUMENTATION }} {{ LINUX_PACKAGES_DEBIAN_BUILD }} {{ LINUX_PACKAGES_DEBIAN_PYTHON }}
+    - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_ESSENTIAL }} {{ LINUX_PACKAGES_DEBIAN_DOCUMENTATION }} {{ LINUX_PACKAGES_DEBIAN_BUILD }} {{ LINUX_PACKAGES_DEBIAN_PYTHON }}
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -31,6 +31,7 @@ job_documentation_push:
   before_script:
 {% platforms_gitlab_ci_cache_before_script apt=True indent=4 %}
 {% platforms_gitlab_ci_ssh_before_script hostname='${DOCUMENTATION_SSH_KNOWN_HOSTS}' indent=4 private_key='${DOCUMENTATION_SSH_PRIVATE_KEY}' %}
+    - apt-get install --yes --no-install-recommends {{ LINUX_PACKAGES_DEBIAN_ESSENTIAL }}
   cache:
 {% platforms_gitlab_ci_cache_paths apt=True indent=4 pip=True %}
   image: {{ DOCKER_LINUX_IMAGE_NAME }}:{{ DOCKER_LINUX_IMAGE_TAG }}

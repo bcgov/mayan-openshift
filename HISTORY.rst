@@ -20,11 +20,17 @@
   logout URL.
 - Harden outbound HTTP requests, add timeouts defaults:
 
-    - Add a timeout of 10 seconds for initial connection and 30 seconds for
-      initial data transfer for dependency downloads.
-    - Add the `oidc_discovery_timeout` keyword argument to
-      `AuthenticationBackendOIDC`. Defaults to 5 seconds for connection and 15
-      seconds for data response.
+  - Add a timeout of 10 seconds for initial connection and 30 seconds for
+    initial data transfer for dependency downloads.
+  - Add the `oidc_discovery_timeout` keyword argument to
+    `AuthenticationBackendOIDC`. Defaults to 5 seconds for connection and 15
+    seconds for data response.
+
+- GitLab CI updates:
+
+  - Make sure `make` is installed in all jobs.
+  - Remove hardoced `make` installation.
+  - Add explicit Docker DinD variables.
 
 4.11 (2026-02-25)
 =================
