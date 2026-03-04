@@ -19,9 +19,6 @@ devops-docker-build-arm64: docker-registry-login docker-dockerfile-update docker
 
 devops-docker-major-publish:
 	$(MAKE) devops-docker-minor-publish
-	docker tag \
-	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):latest
-	docker push $(DOCKER_IMAGE_PUBLIC_NAME_FULL):s$(DOCKER_IMAGE_VERSION_MAJOR)
 	docker manifest rm \
 	$(DOCKER_IMAGE_PUBLIC_NAME_FULL):latest 2>/dev/null || true
 	docker manifest rm \
