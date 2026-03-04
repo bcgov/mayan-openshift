@@ -7,7 +7,7 @@ REMOTE_DOCUMENTATION_PATH ?= $(CONFIG_REMOTE_DOCUMENTATION_PATH)
 # Builds and manifests
 
 devops-docker-build-all: ## Build images for all architectures and push them.
-devops-docker-build-all: devops-docker-amd64-build-and-push devops-docker-arm64-build-and-push docker-manifest-create docker-manifest-push
+devops-docker-build-all: devops-docker-build-amd64 devops-docker-build-arm64 docker-manifest-create docker-manifest-push
 
 devops-docker-build-amd64: ## Build the AMD64 image and push it to the registry.
 devops-docker-build-amd64: docker-registry-login docker-dockerfile-update docker-buildx-create docker-build-amd64 docker-image-push-amd64
