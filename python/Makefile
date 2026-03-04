@@ -13,6 +13,8 @@ python-requirements-generate: ## Generate all requirements files from the projec
 	testing --settings=mayan.settings.testing > requirements/testing.txt
 	@./manage.py dependencies_generate_requirements \
 	production > requirements/production.txt
+	@./manage.py dependencies_generate_requirements \
+	publish> requirements/publish.txt
 
 python-release: ## Package (sdist and wheel) and upload a release.
 python-release: clean python-wheel-production
