@@ -1,4 +1,4 @@
-4.11.1 (2026-03-XX)
+4.11.1 (2026-03-03)
 ===================
 - Merge improvement and changes from version 4.10.4.
 - Update dependencies versions:
