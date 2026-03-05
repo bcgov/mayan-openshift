@@ -15,7 +15,7 @@ job_docker_build_all:
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev openldap-dev zlib-dev
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic musl-dev openldap-dev zlib-dev make
   cache:
     - key: apk-cache-4.11
       paths:
@@ -43,9 +43,12 @@ job_docker_build_all:
     - docker:29.2.1-dind
   stage: stage_build_container
   variables:
-    DOCKER_DRIVER: overlay2
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+    DOCKER_BUILDKIT: "1"
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 job_docker_build_amd64:
   before_script:
@@ -55,7 +58,7 @@ job_docker_build_amd64:
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
     - mkdir -p ${PIP_CACHE_DIR}
-    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev openldap-dev zlib-dev python3 python3-dev py3-packaging
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic musl-dev openldap-dev zlib-dev make python3 python3-dev py3-packaging
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -91,9 +94,12 @@ job_docker_build_amd64:
     - docker:29.2.1-dind
   stage: stage_build_container
   variables:
-    DOCKER_DRIVER: overlay2
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+    DOCKER_BUILDKIT: "1"
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 job_docker_build_arm64:
   before_script:
@@ -103,7 +109,7 @@ job_docker_build_arm64:
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
     - mkdir -p ${PIP_CACHE_DIR}
-    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic make musl-dev openldap-dev zlib-dev python3 python3-dev py3-packaging
+    - apk add cairo gcc libffi-dev libjpeg-turbo-dev libmagic musl-dev openldap-dev zlib-dev make python3 python3-dev py3-packaging
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -139,9 +145,12 @@ job_docker_build_arm64:
     - docker:29.2.1-dind
   stage: stage_build_container
   variables:
-    DOCKER_DRIVER: overlay2
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
     PIP_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/pip
+    DOCKER_BUILDKIT: "1"
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 
 
@@ -152,7 +161,7 @@ job_docker_push_major:
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk add python3 python3-dev py3-packaging
+    - apk add make python3 python3-dev py3-packaging
   cache:
     - key: apk-cache-4.11
       paths:
@@ -175,7 +184,10 @@ job_docker_push_major:
   stage: stage_push
   variables:
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
+    DOCKER_BUILDKIT: "1"
     DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 job_docker_push_minor:
   before_script:
@@ -184,7 +196,7 @@ job_docker_push_minor:
     - rm -f /etc/apk/cache
     - ln -s ${APK_CACHE_DIR} /etc/apk/cache
     - apk update
-    - apk add python3 python3-dev py3-packaging
+    - apk add make python3 python3-dev py3-packaging
   cache:
     - key: apk-cache-4.11
       paths:
@@ -207,9 +219,23 @@ job_docker_push_minor:
   stage: stage_push
   variables:
     APK_CACHE_DIR: ${CI_PROJECT_DIR}/.cache/apk
+    DOCKER_BUILDKIT: "1"
     DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 job_docker_push_nightly:
+  before_script:
+    - echo ${APK_CACHE_DIR}
+    - mkdir -p ${APK_CACHE_DIR}
+    - rm -f /etc/apk/cache
+    - ln -s ${APK_CACHE_DIR} /etc/apk/cache
+    - apk update
+    - apk add make python3 python3-dev py3-packaging
+  cache:
+    - key: apk-cache-4.11
+      paths:
+        - .cache/apk
   image: docker:29.2.1-cli
   needs:
     - job_docker_build_all
@@ -229,7 +255,10 @@ job_docker_push_nightly:
     - docker:29.2.1-dind
   stage: stage_push
   variables:
+    DOCKER_BUILDKIT: "1"
     DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
 
 
 
@@ -245,7 +274,7 @@ job_documentation_build:
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
     - mkdir -p ${PIP_CACHE_DIR}
-    - apt-get install --yes --no-install-recommends enchant-2 graphviz libcairo2 g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv
+    - apt-get install --yes --no-install-recommends make enchant-2 graphviz libcairo2 g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -285,6 +314,7 @@ job_documentation_push:
     - 'which ssh-agent || ( apt-get update --yes && apt-get install --yes --no-install-recommends openssh-client rsync )'
     - eval $(ssh-agent -s)
     - echo "${DOCUMENTATION_SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+    - apt-get install --yes --no-install-recommends make
   cache:
     - key: apt-cache-4.11
       paths:
@@ -319,7 +349,7 @@ job_python_build:
     - printf "dir::state::lists    ${APT_STATE_LISTS};\ndir::cache::archives    ${APT_CACHE_ARCHIVES};\n" > /etc/apt/apt.conf.d/99gitlab-ci-cache
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
-    - apt-get install --yes --no-install-recommends g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv
+    - apt-get install --yes --no-install-recommends g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -360,7 +390,7 @@ job_python_push_pypi:
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
     - mkdir -p ${PIP_CACHE_DIR}
-    - apt-get install --yes --no-install-recommends make python3-dev python3-venv
+    - apt-get install --yes --no-install-recommends make make python3-dev python3-venv
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
@@ -397,7 +427,7 @@ job_python_push_pypi:
     - if [ "${APT_PROXY}" ]; then echo "Acquire::http { Proxy \"http://${APT_PROXY}\"; };" > /etc/apt/apt.conf.d/01proxy; fi
     - apt-get update
     - mkdir -p ${PIP_CACHE_DIR}
-    - apt-get install --yes --no-install-recommends ca-certificates clamav file fuse ghostscript git gnupg1 graphviz libarchive-zip-perl libfile-mimeinfo-perl libfuse2 libimage-exiftool-perl libmariadb3 libpq5 libreoffice-calc-nogui libreoffice-draw-nogui libreoffice-impress-nogui libreoffice-math-nogui libreoffice-writer-nogui poppler-utils sane-utils sudo supervisor tesseract-ocr g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make python3-dev python3-venv tesseract-ocr-deu
+    - apt-get install --yes --no-install-recommends ca-certificates clamav file fuse ghostscript git gnupg1 graphviz libarchive-zip-perl libfile-mimeinfo-perl libfuse2 libimage-exiftool-perl libmariadb3 libpq5 libreoffice-calc-nogui libreoffice-draw-nogui libreoffice-impress-nogui libreoffice-math-nogui libreoffice-writer-nogui poppler-utils sane-utils sudo supervisor tesseract-ocr g++ gcc libffi-dev libjpeg-dev libldap2-dev libpng-dev libsasl2-dev libssl-dev libtiff-dev make pkg-config zlib1g-dev make make python3-dev python3-venv tesseract-ocr-deu
     - python3 -m venv venv
     - . venv/bin/activate
     - make dev-setup-python-essential
