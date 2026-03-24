@@ -1,5 +1,7 @@
 from mayan.apps.testing.tests.base import BaseTestCase
 
+from ..utils import get_environment_variable_full_name
+
 from .literals import (
     TEST_BOOTSTAP_SETTING_NAME, TEST_CONFIG_FILE_NAME, TEST_CONFIG_FILE_VALUE,
     TEST_ENVIRONMENT_VALUE, TEST_ENVIRONMENT_VARIABLE_NAME, TEST_GLOBAL_NAME,
@@ -15,9 +17,11 @@ class BoostrapSettingTestCase(BoostrapSettingTestMixin, BaseTestCase):
         self._create_test_bootstrap_singleton()
 
     def test_bootstrap_environment_overrides_config(self):
+        environment_variable_name = get_environment_variable_full_name(
+            name=TEST_BOOTSTAP_SETTING_NAME
+        )
         self._set_environment_variable(
-            name='MAYAN_{}'.format(TEST_BOOTSTAP_SETTING_NAME),
-            value=TEST_SETTING_VALUE_OVERRIDE
+            name=environment_variable_name, value=TEST_SETTING_VALUE_OVERRIDE
         )
 
         self._test_setting_global_name = TEST_BOOTSTAP_SETTING_NAME
@@ -80,8 +84,12 @@ class BoostrapSettingTemplateTestCase(
             name=TEST_ENVIRONMENT_VARIABLE_NAME,
             value=TEST_ENVIRONMENT_VALUE
         )
+
+        environment_variable_name = get_environment_variable_full_name(
+            name='SETTING_TEMPLATE_{}'.format(TEST_BOOTSTAP_SETTING_NAME)
+        )
         self._set_environment_variable(
-            name='MAYAN_SETTING_TEMPLATE_{}'.format(TEST_BOOTSTAP_SETTING_NAME),
+            name=environment_variable_name,
             value='{{{{ {} }}}}-{{{{ {} }}}}-{{{{ {} }}}}'.format(
                 TEST_GLOBAL_NAME, TEST_CONFIG_FILE_NAME,
                 TEST_ENVIRONMENT_VARIABLE_NAME
@@ -134,15 +142,20 @@ class BoostrapSettingTemplateTestCase(
     def test_bootstrap_environment_template_overrides(self):
         self.test_globals[TEST_BOOTSTAP_SETTING_NAME] = TEST_SETTING_VALUE
 
+        environment_variable_name = get_environment_variable_full_name(
+            name=TEST_BOOTSTAP_SETTING_NAME
+        )
         self._set_environment_variable(
-            name='MAYAN_{}'.format(TEST_BOOTSTAP_SETTING_NAME),
-            value=TEST_SETTING_VALUE
+            name=environment_variable_name, value=TEST_SETTING_VALUE
         )
 
-        self._set_environment_variable(
-            name='MAYAN_SETTING_TEMPLATE_{}'.format(
+        environment_variable_name = get_environment_variable_full_name(
+            name='SETTING_TEMPLATE_{}'.format(
                 TEST_BOOTSTAP_SETTING_NAME
-            ), value=TEST_SETTING_VALUE_OVERRIDE
+            )
+        )
+        self._set_environment_variable(
+            name=environment_variable_name, value=TEST_SETTING_VALUE_OVERRIDE
         )
 
         self._test_setting_global_name = TEST_BOOTSTAP_SETTING_NAME

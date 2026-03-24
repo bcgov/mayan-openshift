@@ -4,13 +4,13 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_multi_item, menu_object, menu_return, menu_tools
 )
 from mayan.apps.dashboards.dashboards import dashboard_administrator
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .dashboard_widgets import (
     DashboardWidgetFileCacheSizeAllocated, DashboardWidgetFileCacheSizeUsed
@@ -19,13 +19,13 @@ from .events import (
     event_cache_edited, event_cache_partition_purged, event_cache_purged
 )
 from .links import (
-    link_cache_list, link_cache_purge_single_multiple,
+    link_cache_list, link_cache_purge_multiple,
     link_cache_purge_single, link_cache_tool
 )
 from .permissions import permission_cache_purge, permission_cache_view
 
 
-class FileCachingConfig(MayanAppConfig):
+class FileCachingAppConfig(MayanAppConfig):
     app_namespace = 'file_caching'
     app_url = 'file_caching'
     has_tests = True
@@ -92,7 +92,7 @@ class FileCachingConfig(MayanAppConfig):
             sources=(Cache,)
         )
         menu_multi_item.bind_links(
-            links=(link_cache_purge_single_multiple,),
+            links=(link_cache_purge_multiple,),
             sources=(Cache,)
         )
         menu_return.bind_links(

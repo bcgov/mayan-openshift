@@ -65,68 +65,63 @@ def find_packages(directory):
 
 
 install_requires = """
-django==4.2.13
-CairoSVG==2.7.1
-Pillow==10.3.0
-PyYAML==6.0.1
+CairoSVG==2.8.2
+Markdown==3.10.2
+Pillow==12.1.1
+PyYAML==6.0.3
 Whoosh==2.7.4
-bleach==6.1.0
-boto3==1.33.7
-celery==5.3.6
-dateparser==1.2.0
+boto3==1.40.24
+celery==5.6.2
+dateparser==1.3.0
+django==5.2.11
 django-activity-stream==2.0.0
-django-auth-ldap==4.6.0
-django-celery-beat==2.6.0
-django-cors-headers==4.3.1
-django-formtools==2.3
-django-mathfilters==1.0.0
-django-model-utils==4.4.0
-django-mptt==0.16.0
+django-auth-ldap==5.3.0
+django-celery-beat==2.8.1
+django-cors-headers==4.9.0
+django-formtools==2.5.1
+django-model-utils==5.0.0
+django-mptt==0.18.0
 django-qsstats-magic==1.1.0
-django-solo==2.2.0
-django-storages==1.14.3
+django-solo==2.5.1
+django-storages==1.14.6
 django-stronghold==0.4.0
-django-widget-tweaks==1.5.0
-djangorestframework==3.14.0
+django-widget-tweaks==1.5.1
+djangorestframework==3.16.1
 djangorestframework-recursive==0.1.2
-drf-yasg==1.21.7
-elasticsearch==7.17.9
-elasticsearch-dsl==7.4.1
-extract-msg==0.48.5
+drf-yasg==1.21.15
+elasticsearch==9.3.0
+extract-msg==0.55.0
 flex==6.14.1
-furl==2.1.3
+furl==2.1.4
 fusepy==3.0.1
-gevent==24.2.1
-google-cloud-storage==2.16.0
-graphviz==0.20.3
-greenlet==3.0.3
-gunicorn==22.0.0
-importlib-metadata==7.1.0
-jsonschema==4.21.1
-mozilla-django-oidc==4.0.1
+gevent==25.9.1
+google-cloud-storage==3.9.0
+graphviz==0.21
+greenlet==3.3.2
+gunicorn==25.1.0
+jsonschema==4.26.0
+mozilla-django-oidc==5.0.2
+nh3==0.3.3
 node-semver==0.9.0
-pycountry==24.6.1
-pycryptodome==3.20.0
+ollama==0.6.1
+openai==1.109.1
+pycountry==26.2.16
+pycryptodome==3.23.0
 pyotp==2.9.0
-pypdf==4.2.0
+pypdf==6.7.3
 python-dateutil==2.9.0.post0
-python-magic==0.4.27
-python_gnupg==0.5.2
-pytz==2024.1
-qrcode==7.4.2
-requests==2.32.3
-sentry-sdk==1.45.0
-setuptools==69.5.1
-sh==2.0.7
-swagger-spec-validator==3.0.3
-whitenoise==6.6.0
+python_gnupg==0.5.6
+pytz==2025.2
+qrcode==8.2
+requests==2.32.5
+sentry-sdk==2.53.0
+sh==2.2.2
+swagger-spec-validator==3.0.4
+whitenoise==6.12.0
 """.split()
 
 with open(file='README.rst') as file_object:
     readme = file_object.read()
-
-with open(file='HISTORY.rst') as file_object:
-    history = file_object.read()
 
 setup(
     author='Roberto Rosario',
@@ -138,7 +133,6 @@ setup(
         'Intended Audience :: Education',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
-        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
         'Natural Language :: English',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
@@ -151,13 +145,14 @@ setup(
     description=mayan.__description__,
     include_package_data=True,
     install_requires=install_requires,
-    license='GPL 2.0',
-    long_description=readme + '\n\n' + history,
+    license='GPL-2.0-only',
+    long_description=readme,
     name=PACKAGE_NAME,
     packages=find_packages(PACKAGE_DIR),
     platforms=['any'],
     project_urls={
         'Documentation': 'https://docs.mayan-edms.com/',
+        'Forum': 'https://forum.mayan-edms.com/',
         'Changelog': 'https://gitlab.com/mayan-edms/mayan-edms/-/blob/master/HISTORY.rst',
         'Bug Tracker': 'https://gitlab.com/mayan-edms/mayan-edms/-/issues',
         'Source Code': 'https://gitlab.com/mayan-edms/mayan-edms',

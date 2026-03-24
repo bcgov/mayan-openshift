@@ -167,8 +167,12 @@ class ServiceCollection:
             )
 
     def check(self):
+        print('Waiting for services.')
+
         for entry in self.entries:
             entry.check()
+
+        print('All services connected.')
 
 
 PortConnectionCheck.register()

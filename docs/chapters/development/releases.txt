@@ -2,46 +2,6 @@
 Installable package
 ===================
 
-Source file package
--------------------
-
-This is the sequence of step used to produce an installable package:
-
-1. Generate the packaged version (will produce dist/mayan-edms-x.y.z.tar.gz)::
-
-    $ make sdist
-
-2. Do a test install::
-
-    $ cd /tmp
-    $ virtualenv venv
-    $ source venv/bin/activate
-    $ pip install <path of the Git repository>/dist/mayan-edms-x.y.z.tar.gz
-    $ mayan-edms.py common_initial_setup
-    $ mayan-edms.py runserver
-
-
-Wheel package
--------------
-
-1. Install the development requirements::
-
-    $ pip install -r requirements/development.txt
-
-2. Create wheel package using the makefile::
-
-    $ make wheel
-
-3. Do a test install::
-
-    $ cd /tmp
-    $ virtualenv venv
-    $ source venv/bin/activate
-    $ pip install <path of the Git repository>/dist/mayan_edms-x.y.z-py2-none-any.whl
-    $ mayan-edms.py common_initial_setup
-    $ mayan-edms.py runserver
-
-
 Version numbering
 =================
 
@@ -66,7 +26,7 @@ Release checklist
 
 #. Copy the ``config.env`` values::
 
-    make copy-config-env
+    make config-env-copy
 
 #. Update and commit the Docker Compose file::
 
@@ -108,12 +68,17 @@ Release checklist
 
 #. Bump version in ``mayan/__init__.py`` and ``docker/rootfs/version``::
 
-    make increase-version PART=<major, minor or micro>
+    make version-increase PART=<major, minor or micro>
 
 #. Commit as version bump.
    ::
 
        git commit -s -m "Bump version to ..."
+
+#. Update forge files:
+   ::
+
+       make forge-update
 
 #. Tag version:
    ::
@@ -122,7 +87,7 @@ Release checklist
 
 #. Generate set ``setup.py`` again to update the build number::
 
-    make generate-setup
+    make python-setup-py-generate
 
 #. Commit the new ``setup.py`` file as "Update build number".
 
@@ -177,10 +142,3 @@ Manual release
    ::
 
        make release-via-docker-ubuntu
-
-Other steps
------------
-
-#. Update the contrib/scripts/install/docker.sh values
-
-#. Upload contrib/scripts/install/docker.sh to https://get.mayan-edms.com

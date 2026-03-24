@@ -11,11 +11,11 @@ from ..icons import (
     icon_workflow_runtime_proxy_state_document_list,
     icon_workflow_runtime_proxy_state_list, icon_workflow_template_list
 )
-from ..links import (
-    link_workflow_template_create, link_workflow_template_state_create
-)
+from ..links import link_workflow_template_create
 from ..models import WorkflowRuntimeProxy, WorkflowStateRuntimeProxy
 from ..permissions import permission_workflow_template_view
+
+from .workflow_template_state_views import WorkflowTemplateStateListView
 
 
 class WorkflowRuntimeProxyDocumentListView(
@@ -92,9 +92,13 @@ class WorkflowRuntimeProxyStateDocumentListView(
                     message='There are no documents in this workflow state'
                 ),
                 'title': _(
-                    message='Documents in the workflow "%s", state "%s"'
+                    message='Documents in the workflow "%(workflow)s", '
+                    'state "%(state)s"'
                 ) % (
-                    self.external_object.workflow, self.external_object
+                    {
+                        'state': self.external_object,
+                        'workflow': self.external_object.workflow
+                    }
                 ),
                 'workflow': WorkflowRuntimeProxy.objects.get(
                     pk=self.external_object.workflow.pk
@@ -104,35 +108,23 @@ class WorkflowRuntimeProxyStateDocumentListView(
         return context
 
 
-class WorkflowRuntimeProxyStateListView(
-    ExternalObjectViewMixin, SingleObjectListView
-):
+class WorkflowRuntimeProxyStateListView(WorkflowTemplateStateListView):
     external_object_class = WorkflowRuntimeProxy
     external_object_permission = permission_workflow_template_view
     external_object_pk_url_kwarg = 'workflow_runtime_proxy_id'
     view_icon = icon_workflow_runtime_proxy_state_list
 
     def get_extra_context(self):
-        return {
-            'hide_link': True,
-            'hide_object': True,
-            'no_results_main_link': link_workflow_template_state_create.resolve(
-                context=RequestContext(
-                    dict_={'object': self.external_object},
-                    request=self.request
-                )
-            ),
-            'no_results_text': _(
-                message='Create states and link them using transitions.'
-            ),
-            'no_results_title': _(
-                message='This workflow doesn\'t have any state'
-            ),
-            'object': self.external_object,
-            'title': _(message='States of workflow: %s') % self.external_object
-        }
+        extra_context = super().get_extra_context()
+
+        extra_context.update(
+            {
+                'hide_link': True,
+                'no_results_main_link': None
+            }
+        )
+
+        return extra_context
 
     def get_source_queryset(self):
-        return WorkflowStateRuntimeProxy.objects.filter(
-            workflow=self.external_object
-        )
+        return self.external_object.get_states()

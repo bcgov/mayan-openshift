@@ -4,19 +4,20 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2024
-# Roberto Rosario, 2024
-# Giovanni Tricarico <gtricarico92@gmail.com>, 2024
-# Daniele Bortoluzzi <daniele@elkos.it>, 2024
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2026
+# Giovanni Tricarico <gtricarico92@gmail.com>, 2026
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2026
+# Roberto Rosario, 2026
+# piera.daraio, 2026
+# Daniele Bortoluzzi <daniele@elkos.it>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Daniele Bortoluzzi <daniele@elkos.it>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Daniele Bortoluzzi <daniele@elkos.it>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgstr ""
 #: apps.py:41 events.py:6 links.py:34 models.py:71 permissions.py:6
 #: settings.py:13
 msgid "Signature captures"
-msgstr ""
+msgstr "Acquisizione delle firme"
 
 #: events.py:11
 msgid "Signature capture created"
@@ -41,11 +42,11 @@ msgstr ""
 msgid "Signature capture edited"
 msgstr ""
 
-#: forms.py:27
+#: forms.py:26
 msgid "Asset preview image"
 msgstr "Anteprima della risorsa"
 
-#: forms.py:27
+#: forms.py:26
 msgid "Preview"
 msgstr "Anteprima "
 
@@ -118,7 +119,7 @@ msgstr "Nome interno"
 
 #: models.py:70
 msgid "Signature capture"
-msgstr ""
+msgstr "Acquisizione della firma"
 
 #: permissions.py:10
 msgid "Create signature captures"
@@ -162,15 +163,15 @@ msgstr "Etichetta del documento"
 
 #: search.py:41
 msgid "User first name"
-msgstr ""
+msgstr "Nome"
 
 #: search.py:44
 msgid "User last name"
-msgstr ""
+msgstr "Cognome"
 
 #: search.py:47
 msgid "User username"
-msgstr ""
+msgstr "Username"
 
 #: serializers.py:11
 msgid "Document URL"
@@ -178,13 +179,13 @@ msgstr ""
 
 #: serializers.py:15
 msgid "Image URL"
-msgstr ""
+msgstr "URL immagine"
 
 #: serializers.py:27
 msgid "URL"
 msgstr "URL"
 
-#: settings.py:21
+#: settings.py:22
 msgid ""
 "The threshold at which the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND will start "
@@ -192,13 +193,13 @@ msgid ""
 "bytes."
 msgstr ""
 
-#: settings.py:30
+#: settings.py:31
 msgid ""
 "Path to the Storage subclass to use when storing the cached signature "
 "capture files."
 msgstr ""
 
-#: settings.py:38
+#: settings.py:39
 msgid ""
 "Arguments to pass to the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND."

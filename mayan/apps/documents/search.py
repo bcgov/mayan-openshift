@@ -37,15 +37,16 @@ search_model_document.add_model_field(
 search_model_document.add_model_field(field='datetime_created')
 search_model_document.add_model_field(field='label')
 search_model_document.add_model_field(field='description')
+search_model_document.add_model_field(field='language')
 search_model_document.add_model_field(field='uuid')
 search_model_document.add_model_field(
-    field='files__checksum', label=('Document file checksum')
+    field='files__checksum', label=_(message='Document file checksum')
 )
 search_model_document.add_model_field(
-    field='files__filename', label=('Document file filename')
+    field='files__filename', label=_(message='Document file filename')
 )
 search_model_document.add_model_field(
-    field='files__mimetype', label=('Document file MIME type')
+    field='files__mimetype', label=_(message='Document file MIME type')
 )
 
 # Document file
@@ -173,8 +174,10 @@ search_model_document_version_page.add_model_field(
     label=_(message='Document type label')
 )
 search_model_document_version_page.add_model_field(
-    field='document_version__document__label', label=_(message='Document label')
+    field='document_version__document__label',
+    label=_(message='Document label')
 )
 search_model_document_version_page.add_model_field(
-    field='document_version__document__uuid', label=_(message='Document UUID')
+    field='document_version__document__uuid',
+    label=_(message='Document UUID')
 )

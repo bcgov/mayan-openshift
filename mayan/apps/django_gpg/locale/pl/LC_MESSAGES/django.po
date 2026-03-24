@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Translators:
-# edasmax <edasmax@gmail.com>, 2024
-# Tomasz Szymanowicz <alakdae@gmail.com>, 2024
-# Roberto Rosario, 2024
-# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2024
+# Tomasz Szymanowicz <alakdae@gmail.com>, 2026
+# edasmax <edasmax@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Wojciech Warczakowski <w.warczakowski@gmail.com>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Wojciech Warczakowski <w.warczakowski@gmail.com>, 2026\n"
 "Language-Team: Polish (https://app.transifex.com/rosarior/teams/13584/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,15 +27,15 @@ msgstr ""
 msgid "Django GPG"
 msgstr "Django GPG"
 
-#: apps.py:55 apps.py:61 forms.py:16
+#: apps.py:55 apps.py:61 forms.py:15
 msgid "Key ID"
 msgstr "ID klucza"
 
-#: apps.py:65 forms.py:42 models.py:49
+#: apps.py:65 forms.py:41 models.py:49
 msgid "Type"
 msgstr "Typ"
 
-#: apps.py:69 forms.py:23 models.py:28
+#: apps.py:69 forms.py:22 models.py:28
 msgid "Creation date"
 msgstr "Data utworzenia"
 
@@ -43,19 +43,19 @@ msgstr "Data utworzenia"
 msgid "No expiration"
 msgstr "Bez wygaśnięcia"
 
-#: apps.py:75 forms.py:28 models.py:32
+#: apps.py:75 forms.py:27 models.py:32
 msgid "Expiration date"
 msgstr "Data wygaśnięcia"
 
-#: apps.py:79 forms.py:35 models.py:39
+#: apps.py:79 forms.py:34 models.py:39
 msgid "Length"
 msgstr "Długość"
 
-#: apps.py:84 forms.py:20 models.py:45
+#: apps.py:84 forms.py:19 models.py:45
 msgid "User ID"
 msgstr "ID użytkownika"
 
-#: dependencies.py:9
+#: dependencies.py:11
 msgid "GNU privacy guard - a PGP implementation."
 msgstr "Ochrona prywatności GNU - implementacja PGP."
 
@@ -71,19 +71,19 @@ msgstr "Klucz utworzony"
 msgid "Key downloaded"
 msgstr "Klucz pobrany"
 
-#: forms.py:27
+#: forms.py:26
 msgid "None"
 msgstr "Brak"
 
-#: forms.py:32 models.py:36
+#: forms.py:31 models.py:36
 msgid "Fingerprint"
 msgstr "Odcisk palca"
 
-#: forms.py:38 models.py:42
+#: forms.py:37 models.py:42
 msgid "Algorithm"
 msgstr "Algorytm"
 
-#: forms.py:56
+#: forms.py:55
 msgid "Term"
 msgstr "Term"
 
@@ -229,7 +229,11 @@ msgstr "Podpisy"
 msgid "Full path to the backend to be used to handle keys and signatures."
 msgstr "Pełna ścieżka do backendu służąca do obsługi kluczy i podpisów."
 
-#: settings.py:27
+#: settings.py:25
+msgid "Keyword arguments to pass to the `SIGNATURES_BACKEND`."
+msgstr ""
+
+#: settings.py:30
 msgid "Keyserver used to query for keys."
 msgstr "Serwer kluczy przeznaczony do zapytań o klucze."
 

@@ -1,10 +1,10 @@
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_list_facet, menu_object, menu_return, menu_tools
 )
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .classes import StatisticNamespace, StatisticType
 from .links import (
@@ -51,20 +51,29 @@ class StatisticsApp(MayanAppConfig):
             label=_(message='Last update'), source=StatisticType
         )
 
+        # StatisticNamespace
+
         menu_list_facet.bind_links(
             links=(link_statistic_namespace_detail,),
             sources=(StatisticNamespace,)
         )
-        menu_object.bind_links(
-            links=(link_statistic_type_detail, link_statistic_type_queue),
-            sources=(StatisticType,)
-        )
+
         menu_return.bind_links(
             links=(link_statistic_namespace_list,),
             sources=(
                 StatisticNamespace, 'statistics:statistic_namespace_list'
             )
         )
+
+        # StatisticType
+
+        menu_list_facet.bind_links(
+            links=(link_statistic_type_detail,), sources=(StatisticType,)
+        )
+        menu_object.bind_links(
+            links=(link_statistic_type_queue,), sources=(StatisticType,)
+        )
+
         menu_tools.bind_links(
             links=(link_statistics,)
         )

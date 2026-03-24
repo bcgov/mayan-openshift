@@ -4,17 +4,18 @@
 # 
 # Translators:
 # Translators:
-# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2024
-# Marco Camplese <marco.camplese.mc@gmail.com>, 2024
-# Roberto Rosario, 2024
+# Pierpaolo Baldan <pierpaolo.baldan@gmail.com>, 2026
+# piera.daraio, 2026
+# Roberto Rosario, 2026
+# Marco Camplese <marco.camplese.mc@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Roberto Rosario, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Marco Camplese <marco.camplese.mc@gmail.com>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/rosarior/teams/13584/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,15 +27,15 @@ msgstr ""
 msgid "Django GPG"
 msgstr "Django GPG"
 
-#: apps.py:55 apps.py:61 forms.py:16
+#: apps.py:55 apps.py:61 forms.py:15
 msgid "Key ID"
 msgstr "ID chiave"
 
-#: apps.py:65 forms.py:42 models.py:49
+#: apps.py:65 forms.py:41 models.py:49
 msgid "Type"
 msgstr "Tipo"
 
-#: apps.py:69 forms.py:23 models.py:28
+#: apps.py:69 forms.py:22 models.py:28
 msgid "Creation date"
 msgstr "Data di creazione"
 
@@ -42,21 +43,21 @@ msgstr "Data di creazione"
 msgid "No expiration"
 msgstr "Nessuna scadenza"
 
-#: apps.py:75 forms.py:28 models.py:32
+#: apps.py:75 forms.py:27 models.py:32
 msgid "Expiration date"
 msgstr "Data scadenza"
 
-#: apps.py:79 forms.py:35 models.py:39
+#: apps.py:79 forms.py:34 models.py:39
 msgid "Length"
 msgstr "Lunghezza"
 
-#: apps.py:84 forms.py:20 models.py:45
+#: apps.py:84 forms.py:19 models.py:45
 msgid "User ID"
 msgstr "User ID"
 
-#: dependencies.py:9
+#: dependencies.py:11
 msgid "GNU privacy guard - a PGP implementation."
-msgstr ""
+msgstr "GNU Privacy Guard – un'implementazione PGP."
 
 #: events.py:6 links.py:42 permissions.py:6
 msgid "Key management"
@@ -64,25 +65,25 @@ msgstr "Gestione delle chiavi"
 
 #: events.py:10
 msgid "Key created"
-msgstr ""
+msgstr "Chiave creata"
 
 #: events.py:14
 msgid "Key downloaded"
-msgstr ""
+msgstr "Chiave scaricata"
 
-#: forms.py:27
+#: forms.py:26
 msgid "None"
 msgstr "Nessuno"
 
-#: forms.py:32 models.py:36
+#: forms.py:31 models.py:36
 msgid "Fingerprint"
 msgstr "Impronta"
 
-#: forms.py:38 models.py:42
+#: forms.py:37 models.py:42
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: forms.py:56
+#: forms.py:55
 msgid "Term"
 msgstr "Scadenza"
 
@@ -227,8 +228,13 @@ msgstr "Firme"
 #: settings.py:18
 msgid "Full path to the backend to be used to handle keys and signatures."
 msgstr ""
+"Percorso completo del backend da utilizzare per gestire chiavi e firme."
 
-#: settings.py:27
+#: settings.py:25
+msgid "Keyword arguments to pass to the `SIGNATURES_BACKEND`."
+msgstr ""
+
+#: settings.py:30
 msgid "Keyserver used to query for keys."
 msgstr "Keyserver utilizzato per richiedere le chiavi."
 
@@ -266,10 +272,12 @@ msgid ""
 "Use names, last names, key ids or emails to search public keys to import "
 "from the keyserver."
 msgstr ""
+"Usa nomi, cognomi, ID chiave o email per cercare le chiavi pubbliche da "
+"importare dal keyserver."
 
 #: views.py:139
 msgid "No results returned"
-msgstr ""
+msgstr "Nessun risultato restituito"
 
 #: views.py:141
 msgid "Key query results"
@@ -288,10 +296,13 @@ msgid ""
 "Private keys are used to signed documents. Private keys can only be uploaded"
 " by the user. The view to upload private and public keys is the same."
 msgstr ""
+"Le chiavi private vengono utilizzate per firmare i documenti. Le chiavi "
+"private possono essere caricate solo dall'utente. La schermata per caricare "
+"chiavi private e pubbliche è la stessa."
 
 #: views.py:211
 msgid "There no private keys"
-msgstr ""
+msgstr "Non ci sono chiavi private"
 
 #: views.py:230
 msgid ""
@@ -299,7 +310,11 @@ msgid ""
 " by the user or downloaded from keyservers. The view to upload private and "
 "public keys is the same."
 msgstr ""
+"Le chiavi pubbliche vengono utilizzate per verificare i documenti firmati. "
+"Le chiavi pubbliche possono essere caricate dall'utente oppure scaricate dai"
+" keyserver. La schermata per caricare chiavi private e pubbliche è la "
+"stessa."
 
 #: views.py:236
 msgid "There no public keys"
-msgstr ""
+msgstr "Non ci sono chiavi pubbliche"

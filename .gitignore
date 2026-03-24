@@ -35,7 +35,12 @@ node_modules/
 docs/build/
 docs/_templates/layout.html
 docs/_templates/footer.html
+docs/chapters/features.txt
+docs/chapters/apps/
 gitlab-ci-volume/
 .DS_Store
 config-local.env
 MANIFEST.in
+forge/.env-local
+__pycache__/
+.config.env.mk

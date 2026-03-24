@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_list_facet, menu_multi_item, menu_secondary, menu_tools
 )
@@ -23,12 +23,12 @@ from .handlers import (
     handler_initialize_new_parsing_settings, handler_parse_document_file
 )
 from .links import (
+    link_document_file_content_delete_multiple,
+    link_document_file_content_delete_single,
     link_document_file_content_detail, link_document_file_content_download,
-    link_document_file_content_multiple_delete,
-    link_document_file_content_single_delete,
     link_document_file_page_content_detail,
-    link_document_file_parsing_multiple_submit,
-    link_document_file_parsing_single_submit,
+    link_document_file_parsing_submit_multiple,
+    link_document_file_parsing_submit_single,
     link_document_type_parsing_settings, link_document_type_parsing_submit
 )
 from .literals import ERROR_LOG_DOMAIN_NAME
@@ -114,6 +114,12 @@ class DocumentParsingApp(MayanAppConfig):
             ), label=_(message='Content'), model=Document,
             name='content'
         )
+        ModelProperty(
+            description=_(
+                message='A generator returning the document file\'s pages parsed content.'
+            ), label=_(message='Content'), model=DocumentFile,
+            name='content'
+        )
 
         ModelPermission.register(
             model=DocumentFile, permissions=(
@@ -143,15 +149,15 @@ class DocumentParsingApp(MayanAppConfig):
         )
         menu_multi_item.bind_links(
             links=(
-                link_document_file_content_multiple_delete,
-                link_document_file_parsing_multiple_submit
+                link_document_file_content_delete_multiple,
+                link_document_file_parsing_submit_multiple
             ), sources=(DocumentFile,)
         )
         menu_secondary.bind_links(
             links=(
-                link_document_file_content_single_delete,
+                link_document_file_content_delete_single,
                 link_document_file_content_download,
-                link_document_file_parsing_single_submit
+                link_document_file_parsing_submit_single
             ),
             sources=(
                 'document_parsing:document_file_content_view',

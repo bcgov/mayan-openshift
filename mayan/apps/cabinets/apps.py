@@ -6,14 +6,14 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_main, menu_multi_item, menu_object, menu_secondary
 )
 from mayan.apps.databases.classes import ModelQueryFields
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
 
 from .column_widgets import DocumentCabinetWidget
@@ -159,9 +159,8 @@ class CabinetsApp(MayanAppConfig):
         )
 
         SourceColumn(
-            func=lambda context: context['object'].get_descendants_document_count(
-                user=context['request'].user
-            ), include_label=True, label=_(message='Documents'),
+            attribute='get_descendants_document_count', include_label=True,
+            kwargs={'user': 'request.user'}, label=_(message='Documents'),
             source=Cabinet
         )
 

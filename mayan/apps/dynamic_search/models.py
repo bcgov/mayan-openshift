@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from mayan.apps.databases.model_mixins import ExtraDataModelMixin
 from mayan.apps.events.decorators import method_event
 from mayan.apps.events.event_managers import EventManagerSave
-from mayan.apps.templating.classes import Template
+from mayan.apps.templating.template_backends import Template
 
 from .events import event_saved_resultset_created
 from .managers import SavedResultsetEntryManager, SavedResultsetManager
@@ -31,7 +31,7 @@ class SavedResultset(
         ), verbose_name=_(message='Timestamp')
     )
     epoch = models.PositiveBigIntegerField(
-        verbose_name=_('Epoch')
+        verbose_name=_(message='Epoch')
     )
     app_label = models.CharField(
         max_length=64, verbose_name=_(message='App label')

@@ -1,9 +1,11 @@
 from mayan.apps.dependencies.classes import (
     JavaScriptDependency, PythonDependency
 )
+from mayan.apps.dependencies.environments import environment_production
 
 JavaScriptDependency(
-    module=__name__, name='signature_pad', replace_list=[
+    environments=(environment_production,), module=__name__,
+    name='signature_pad', replace_list=[
         {
             'filename_pattern': '*.umd.js',
             'content_patterns': [
@@ -13,8 +15,10 @@ JavaScriptDependency(
                 }
             ]
         }
-    ], version_string='=4.0.4'
+    ], version_string='=4.2.0'
 )
+
 PythonDependency(
-    module=__name__, name='CairoSVG', version_string='==2.7.1'
+    environments=(environment_production,), module=__name__, name='CairoSVG',
+    version_string='==2.8.2'
 )

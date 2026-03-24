@@ -3,10 +3,12 @@ from mayan.apps.testing.tests.base import GenericViewTestCase
 
 from ..permissions import permission_events_view
 
-from .mixins import (
-    EventObjectTestMixin, EventTypeTestMixin,
-    ObjectEventSubscriptionTestMixin, UserEventViewTestMixin,
-    UserObjectSubscriptionViewTestMixin
+from .mixins.event_mixins import (
+    EventObjectTestMixin, UserEventViewTestMixin
+)
+from .mixins.event_type_mixins import EventTypeTestMixin
+from .mixins.subscription_mixins import (
+    ObjectEventSubscriptionTestMixin, UserObjectSubscriptionViewTestMixin
 )
 
 
@@ -30,7 +32,7 @@ class UserObjectSubscriptionViewTestCase(
 
         self._create_test_object_event_subscription()
         ModelPermission.register(
-            model=self.TestModel, permissions=(
+            model=self._test_model_dict['_TestModel_0'], permissions=(
                 permission_events_view,
             )
         )

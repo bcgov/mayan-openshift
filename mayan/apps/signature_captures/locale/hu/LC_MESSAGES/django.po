@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Dezső József <dejo60@gmail.com>, 2024
-# molnars <szabolcs.molnar@gmail.com>, 2024
-# Csaba Tarjányi, 2024
+# Dezső József <dejo60@gmail.com>, 2026
+# molnars <szabolcs.molnar@gmail.com>, 2026
+# Csaba Tarjányi, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Csaba Tarjányi, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Csaba Tarjányi, 2026\n"
 "Language-Team: Hungarian (https://app.transifex.com/rosarior/teams/13584/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,11 +39,11 @@ msgstr "Aláíráskép törölve"
 msgid "Signature capture edited"
 msgstr "Aláíráskép szerkesztve"
 
-#: forms.py:27
+#: forms.py:26
 msgid "Asset preview image"
 msgstr "Tartalom előnézeti képe"
 
-#: forms.py:27
+#: forms.py:26
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -182,7 +182,7 @@ msgstr "Kép URL-je"
 msgid "URL"
 msgstr "URL"
 
-#: settings.py:21
+#: settings.py:22
 msgid ""
 "The threshold at which the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND will start "
@@ -194,7 +194,7 @@ msgstr ""
 "legrégebbi aláíráskép gyorsítótár-fájlok törlését. Adja meg a méretet "
 "bájtban."
 
-#: settings.py:30
+#: settings.py:31
 msgid ""
 "Path to the Storage subclass to use when storing the cached signature "
 "capture files."
@@ -202,7 +202,7 @@ msgstr ""
 "A Tárolás alosztály elérési útja a gyorsítótárazott aláíráskép fájlok "
 "tárolásakor."
 
-#: settings.py:38
+#: settings.py:39
 msgid ""
 "Arguments to pass to the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND."

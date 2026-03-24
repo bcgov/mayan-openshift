@@ -1,5 +1,7 @@
 from django.core import management
 
+from mayan.apps.common.serialization import yaml_dump
+
 from ...settings import setting_cluster
 
 
@@ -20,9 +22,11 @@ class Command(management.BaseCommand):
         )
 
     def handle(self, *args, **options):
-        self.stdout.write(
-            msg=setting_cluster.get_data_dump(
-                namespace=options.get('namespace'),
-                filter_term=options.get('filter_term')
-            )
+        data = setting_cluster.get_data(
+            filter_term=options.get('filter_term'),
+            namespace_name=options.get('namespace')
         )
+
+        data_serialized = yaml_dump(data=data, default_flow_style=False)
+
+        self.stdout.write(msg=data_serialized)

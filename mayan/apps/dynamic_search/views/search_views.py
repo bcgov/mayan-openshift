@@ -1,5 +1,3 @@
-import logging
-
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -12,6 +10,7 @@ from mayan.apps.views.generics import (
     ConfirmView, FormView, SingleObjectListView
 )
 from mayan.apps.views.literals import LIST_MODE_CHOICE_ITEM
+from mayan.apps.views.utils import is_url_query_positive
 
 from ..exceptions import DynamicSearchException
 from ..forms import AdvancedSearchForm, SearchForm
@@ -25,13 +24,10 @@ from ..permissions import permission_search_tools
 from ..search_backends import SearchBackend
 from ..settings import setting_match_all_default_value
 from ..tasks import task_reindex_backend
-from ..utils import is_url_query_positive
 
 from .view_mixins import (
     SearchModelViewMixin, SearchQueryViewMixin, SearchResultViewMixin
 )
-
-logger = logging.getLogger(name=__name__)
 
 
 class SearchAgainView(SearchQueryViewMixin, RedirectView):

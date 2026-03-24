@@ -1,6 +1,6 @@
 from django.core import management
 
-from ...classes import Setting
+from ...settings import setting_cluster
 
 
 class Command(management.BaseCommand):
@@ -8,7 +8,7 @@ class Command(management.BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            Setting.revert_configuration()
+            setting_cluster.do_revert()
         except Exception as exception:
             self.stderr.write(
                 msg=self.style.NOTICE(

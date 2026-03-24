@@ -6,7 +6,7 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_main, menu_object, menu_related, menu_return,
@@ -17,9 +17,9 @@ from mayan.apps.documents.links.document_type_links import (
 )
 from mayan.apps.documents.signals import signal_post_initial_document_type
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
-from mayan.apps.views.column_widgets import TwoStateWidget
 
 from .events import event_index_template_created, event_index_template_edited
 from .handlers import (
@@ -95,7 +95,7 @@ class DocumentIndexingApp(MayanAppConfig):
 
         DynamicSerializerField.add_serializer(
             klass=IndexTemplate,
-            serializer_class='mayan.apps.document_indexing.serializers.IndexTemplateSerializer'
+            serializer_class='mayan.apps.document_indexing.serializers.index_template_serializers.IndexTemplateSerializer'
         )
 
         EventModelRegistry.register(model=IndexTemplate)
@@ -247,7 +247,7 @@ class DocumentIndexingApp(MayanAppConfig):
         column_index_slug.add_exclude(source=IndexInstance)
         column_index_enabled = SourceColumn(
             attribute='enabled', include_label=True, is_sortable=True,
-            source=IndexTemplate, widget=TwoStateWidget
+            source=IndexTemplate, widget=column_widgets.TwoStateWidget
         )
         column_index_enabled.add_exclude(source=IndexInstance)
 
@@ -261,11 +261,11 @@ class DocumentIndexingApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='enabled', include_label=True, is_sortable=True,
-            source=IndexTemplateNode, widget=TwoStateWidget
+            source=IndexTemplateNode, widget=column_widgets.TwoStateWidget
         )
         SourceColumn(
             attribute='link_documents', include_label=True, is_sortable=True,
-            source=IndexTemplateNode, widget=TwoStateWidget
+            source=IndexTemplateNode, widget=column_widgets.TwoStateWidget
         )
 
         menu_list_facet.bind_links(

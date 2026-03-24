@@ -1,7 +1,9 @@
 from mayan.apps.document_indexing.models.index_instance_models import (
     IndexInstanceNode
 )
-from mayan.apps.document_indexing.tests.mixins import IndexTemplateTestMixin
+from mayan.apps.document_indexing.tests.mixins.index_template_mixins import (
+    IndexTemplateTestMixin
+)
 from mayan.apps.documents.tests.base import GenericDocumentTestCase
 
 from .literals import (
@@ -34,20 +36,16 @@ class WorkflowInstanceIndexingTestCase(
         self._create_test_workflow_template_transition()
 
     def test_workflow_indexing_workflow_instance_no_initial_state(self):
+        test_index_instance_node_count = IndexInstanceNode.objects.count()
+
         self._create_test_document_stub()
 
         test_workflow_instance = self._test_document.workflows.first()
 
-        value = '{}-{}'.format(
-            self._test_workflow_template.label,
-            test_workflow_instance.get_current_state()
-        )
+        self.assertEqual(test_workflow_instance, None)
 
-        self.assertTrue(
-            IndexInstanceNode.objects.filter(
-                documents=self._test_document,
-                value=value
-            ).exists()
+        self.assertEqual(
+            IndexInstanceNode.objects.count(), test_index_instance_node_count
         )
 
     def test_workflow_indexing_workflow_instance_initial_state(self):

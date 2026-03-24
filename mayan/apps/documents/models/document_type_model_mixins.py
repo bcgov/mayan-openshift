@@ -2,11 +2,9 @@ import logging
 
 from django.apps import apps
 
-from mayan.apps.acls.models import AccessControlList
 from mayan.apps.common.serialization import yaml_load
 
 from ..classes import BaseDocumentFilenameGenerator
-from ..permissions import permission_document_view
 
 logger = logging.getLogger(name=__name__)
 
@@ -29,14 +27,6 @@ class DocumentTypeBusinessLogicMixin:
         document.files_upload(file_object=file_object, user=user)
 
         return document
-
-    def get_document_count(self, user):
-        queryset = AccessControlList.objects.restrict_queryset(
-            permission=permission_document_view, queryset=self.documents,
-            user=user
-        )
-
-        return queryset.count()
 
     def get_upload_filename(self, instance, filename):
         generator_klass = BaseDocumentFilenameGenerator.get(

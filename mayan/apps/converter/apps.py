@@ -5,21 +5,21 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_multi_item, menu_object, menu_return, menu_secondary, menu_setup
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .classes import AppImageErrorImage
 from .events import event_asset_edited
 from .handlers import handler_create_asset_cache
 from .links import (
-    link_asset_create, link_asset_multiple_delete, link_asset_single_delete,
+    link_asset_create, link_asset_delete_multiple, link_asset_delete_single,
     link_asset_edit, link_asset_list, link_asset_setup,
-    link_transformation_delete, link_transformation_edit,
-    link_transformation_select
+    link_transformation_delete_multiple, link_transformation_delete_single,
+    link_transformation_edit, link_transformation_select
 )
 from .literals import IMAGE_ERROR_BROKEN_FILE
 from .permissions import (
@@ -94,11 +94,11 @@ class ConverterApp(MayanAppConfig):
         )
 
         menu_multi_item.bind_links(
-            links=(link_asset_multiple_delete,), sources=(Asset,)
+            links=(link_asset_delete_multiple,), sources=(Asset,)
         )
         menu_object.bind_links(
             links=(
-                link_asset_single_delete, link_asset_edit
+                link_asset_delete_single, link_asset_edit
             ), sources=(Asset,)
         )
         menu_return.bind_links(
@@ -119,9 +119,15 @@ class ConverterApp(MayanAppConfig):
             links=(link_asset_setup,)
         )
 
-        menu_object.bind_links(
-            links=(link_transformation_edit, link_transformation_delete),
+        menu_multi_item.bind_links(
+            links=(link_transformation_delete_multiple,),
             sources=(LayerTransformation,)
+        )
+
+        menu_object.bind_links(
+            links=(
+                link_transformation_edit, link_transformation_delete_single
+            ), sources=(LayerTransformation,)
         )
         menu_secondary.bind_links(
             links=(link_transformation_select,),

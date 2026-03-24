@@ -1,11 +1,11 @@
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
-    menu_about, menu_list_facet, menu_return, menu_tools
+    menu_list_facet, menu_return, menu_system, menu_tools
 )
-from mayan.apps.navigation.classes import SourceColumn
-from mayan.apps.views.column_widgets import TwoStateWidget
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .classes import Dependency, DependencyGroup, DependencyGroupEntry
 from .links import (
@@ -58,11 +58,11 @@ class DependenciesApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='get_environments_verbose_name', include_label=True,
-            label=_(message='Environment'), order=6, source=Dependency
+            label=_(message='Environments'), order=6, source=Dependency
         )
         SourceColumn(
             attribute='check', include_label=True, label=_(message='Check'), order=7,
-            source=Dependency, widget=TwoStateWidget
+            source=Dependency, widget=column_widgets.TwoStateWidget
         )
 
         SourceColumn(
@@ -84,7 +84,7 @@ class DependenciesApp(MayanAppConfig):
         )
 
         # Position #7 which is after "License" link.
-        menu_about.bind_links(
+        menu_system.bind_links(
             links=(link_packages_licenses,), position=7
         )
         menu_list_facet.bind_links(

@@ -19,6 +19,7 @@ from .workflow_instance_model_mixins import (
     WorkflowInstanceLogEntryBusinessLogicMixin
 )
 from .workflow_models import Workflow
+from .workflow_state_models import WorkflowState
 from .workflow_transition_field_models import WorkflowTransitionField
 
 __all__ = ('WorkflowInstance', 'WorkflowInstanceLogEntry')
@@ -30,20 +31,32 @@ class WorkflowInstance(
     _ordering_fields = ('datetime',)
 
     workflow = models.ForeignKey(
-        on_delete=models.CASCADE, related_name='instances', to=Workflow,
+        help_text=_(message='The workflow template.'),
+        on_delete=models.CASCADE,
+        related_name='instances', to=Workflow,
         verbose_name=_(message='Workflow')
     )
     datetime = models.DateTimeField(
-        auto_now_add=True, db_index=True, help_text=_(
-            'Workflow instance creation date time.'
-        ), verbose_name=_(message='Datetime')
+        auto_now_add=True, db_index=True,
+        help_text=_(message='Workflow instance creation date time.'),
+        verbose_name=_(message='Datetime')
     )
     document = models.ForeignKey(
-        on_delete=models.CASCADE, related_name='workflows', to=Document,
+        help_text=_(
+            message='The document to which the workflow instance is '
+            'attached.'
+        ), on_delete=models.CASCADE, related_name='workflows', to=Document,
         verbose_name=_(message='Document')
     )
     context = models.TextField(
         blank=True, verbose_name=_(message='Context')
+    )
+    state_active = models.ForeignKey(
+        help_text=_(
+            message='The currently active state of the workflow instance.'
+        ),
+        on_delete=models.CASCADE, related_name='workflow_instances',
+        to=WorkflowState, verbose_name=_(message='Active state')
     )
 
     objects = models.Manager()
@@ -74,6 +87,11 @@ class WorkflowInstance(
         }
     )
     def save(self, *args, **kwargs):
+        created = not self.pk
+
+        if created:
+            self.state_active = self.workflow.get_state_initial()
+
         super().save(*args, **kwargs)
 
 
@@ -120,7 +138,7 @@ class WorkflowInstanceLogEntry(
         return str(self.transition)
 
     def clean(self):
-        queryset = self.workflow_instance.get_transition_choices(
+        queryset = self.workflow_instance.get_queryset_valid_transitions(
             user=self.user
         )
         if not queryset.filter(pk=self.transition.pk).exists():
@@ -152,16 +170,7 @@ class WorkflowInstanceLogEntry(
             target=self.workflow_instance
         )
 
-        context = self.workflow_instance.get_context()
-        context.update(
-            {'entry_log': self}
-        )
-
-        self.transition.origin_state.do_active_unset(
-            workflow_instance=self.workflow_instance
-        )
-        self.transition.destination_state.do_active_set(
-            workflow_instance=self.workflow_instance
-        )
+        self.transition.origin_state.do_active_unset(log_entry=self)
+        self.transition.destination_state.do_active_set(log_entry=self)
 
         return result

@@ -1,14 +1,14 @@
-from django import forms
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 import mayan
+from mayan.apps.forms import form_fields
 
-from .classes import TemplateContextEntry
+from .template_backends import TemplateContextEntry
 from .widgets import ModelTemplateWidget, TemplateWidget
 
 
-class TemplateField(forms.CharField):
+class TemplateField(form_fields.CharField):
     widget = TemplateWidget
 
     def __init__(
@@ -25,8 +25,7 @@ class TemplateField(forms.CharField):
         format_kwargs = {
             'initial_help_text': self.initial_help_text,
             'template_help_text': _(
-                message='Use Django\'s default templating language '
-                '(https://docs.djangoproject.com/en/%(django_version)s/ref/templates/builtins/). '
+                message='Use Django\'s default templating language. '
             ) % {
                 'django_version': mayan.__django_version__
             }
@@ -67,8 +66,8 @@ class ModelTemplateField(TemplateField):
         super().__init__(*args, **kwargs)
 
         self.widget.attrs['app_label'] = self.model._meta.app_label
-        self.widget.attrs['model_name'] = self.model._meta.model_name
         self.widget.attrs['data-model-variable'] = self.model_variable
+        self.widget.attrs['model_name'] = self.model._meta.model_name
 
     def get_context_variable_help_text(self, **kwargs):
         model_verbose_name = getattr(self.model._meta, 'verbose_name', None)

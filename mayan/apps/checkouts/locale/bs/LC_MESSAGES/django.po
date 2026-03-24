@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2024
+# Roberto Rosario, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Roberto Rosario, 2024\n"
+"POT-Creation-Date: 2024-07-11 10:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Roberto Rosario, 2026\n"
 "Language-Team: Bosnian (https://app.transifex.com/rosarior/teams/13584/bs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,31 +52,31 @@ msgstr ""
 msgid "Document already checked out."
 msgstr "Dokument je već odjavljen."
 
-#: forms.py:26
+#: forms.py:25
 msgid "Document status"
 msgstr "Status dokumenta"
 
-#: forms.py:37 model_mixins.py:9 models.py:47 serializers.py:22
+#: forms.py:36 model_mixins.py:9 models.py:47 serializers.py:22
 msgid "User"
 msgstr "Korisnik"
 
-#: forms.py:41
+#: forms.py:40
 msgid "Check out time"
 msgstr "Vrijeme odjavljivanja"
 
-#: forms.py:46
+#: forms.py:45
 msgid "Check out expiration"
 msgstr "Istek odjavljivanja"
 
-#: forms.py:51
+#: forms.py:50
 msgid "New files allowed?"
 msgstr ""
 
-#: forms.py:52
+#: forms.py:51
 msgid "Yes"
 msgstr "Da"
 
-#: forms.py:52
+#: forms.py:51
 msgid "No"
 msgstr "Ne"
 
@@ -273,6 +273,6 @@ msgstr ""
 msgid "No documents have been checked out"
 msgstr ""
 
-#: widgets.py:20
+#: widgets.py:19
 msgid "Amount"
 msgstr ""

@@ -1,5 +1,7 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
-    module=__name__, name='graphviz', version_string='==0.20.3'
+    environments=(environment_production,), module=__name__, name='graphviz',
+    version_string='==0.21'
 )

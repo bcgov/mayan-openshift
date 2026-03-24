@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2024
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2024
+# Roberto Rosario, 2026
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 04:57+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2026\n"
 "Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,23 +21,23 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:32 permissions.py:6
+#: apps.py:35 permissions.py:6
 msgid "Task manager"
 msgstr "Управление на задачите"
 
-#: apps.py:114 apps.py:139 apps.py:182
+#: apps.py:123 apps.py:200 classes.py:64
 msgid "Label"
 msgstr "Етикет"
 
-#: apps.py:118 apps.py:142 apps.py:186
+#: apps.py:127 apps.py:204 classes.py:71
 msgid "Name"
 msgstr "Име"
 
-#: apps.py:123
+#: apps.py:132
 msgid "Default queue?"
 msgstr "Опашка по подразбиране?"
 
-#: apps.py:128
+#: apps.py:137
 msgid ""
 "Transient queues are not persistent. Tasks in a transient queue are lost if "
 "the broker is restarted. Transient queues use less resources and managed non"
@@ -47,55 +47,35 @@ msgstr ""
 "ако брокерът се рестартира. Временните опашки използват по-малко ресурси и "
 "управлявани некритични задачи."
 
-#: apps.py:131
+#: apps.py:140
 msgid "Is transient?"
 msgstr "Преходен ли е?"
 
-#: apps.py:145
-msgid "Dotted path"
-msgstr "Пунктирана пътека"
-
-#: apps.py:149
-msgid "Schedule"
-msgstr "План"
-
-#: apps.py:155
+#: apps.py:171
 msgid "Type"
 msgstr "Тип"
 
-#: apps.py:160
+#: apps.py:176
 msgid "Start time"
 msgstr "Начален час"
 
-#: apps.py:164
+#: apps.py:180
 msgid "Host"
 msgstr "Хост"
 
-#: apps.py:168
+#: apps.py:184
 msgid "Arguments"
 msgstr "Аргументи"
 
-#: apps.py:172
+#: apps.py:188
 msgid "Keyword arguments"
 msgstr "Аргументи на ключови думи"
 
-#: apps.py:177
+#: apps.py:193
 msgid "Worker process ID"
 msgstr "Идентификационен номер на работния процес"
 
-#: apps.py:190
-msgid ""
-"Maximum amount of resident memory a worker can execute before it's replaced "
-"by a new process."
-msgstr ""
-"Максимален обем резидентна памет, който работник може да изпълни, преди да "
-"бъде заменен от нов процес."
-
-#: apps.py:192
-msgid "Maximum memory per child"
-msgstr "Максимална памет на вторичен процес"
-
-#: apps.py:196
+#: apps.py:213
 msgid ""
 "Maximum number of tasks a worker can execute before it's replaced by a new "
 "process."
@@ -103,11 +83,11 @@ msgstr ""
 "Максимален брой задачи, които даден работник може да изпълни, преди да бъде "
 "заменен от нов процес."
 
-#: apps.py:198
+#: apps.py:215
 msgid "Maximum tasks per child"
 msgstr "Максимален брой задачи на вторичен процес"
 
-#: apps.py:202
+#: apps.py:220
 msgid ""
 "The number of worker processes/threads to launch. Defaults to the number of "
 "CPUs available on the machine."
@@ -115,11 +95,11 @@ msgstr ""
 "Брой работни процеси/нишки за стартиране. По подразбиране е броят процесори,"
 " налични в компютъра."
 
-#: apps.py:204
+#: apps.py:222
 msgid "Concurrency"
 msgstr "Паралелност"
 
-#: apps.py:208
+#: apps.py:227
 msgid ""
 "The nice value determines the priority of the process. A higher value lowers"
 " the priority. The default value is 0."
@@ -127,27 +107,79 @@ msgstr ""
 "Стойността nice определя приоритета на процеса. По-високата стойност "
 "намалява приоритета. Стойността по подразбиране е 0."
 
-#: apps.py:211
+#: apps.py:230
 msgid "Nice level"
 msgstr "Ниво на \"хубост\""
 
-#: classes.py:184
+#: classes.py:55
+msgid "The Python path to the task code."
+msgstr ""
+
+#: classes.py:56
+msgid "Dotted path"
+msgstr "Пунктирана пътека"
+
+#: classes.py:62
+msgid "Human readable description of the task type."
+msgstr ""
+
+#: classes.py:70
+msgid "Unique internal name of the task type."
+msgstr ""
+
+#: classes.py:77 classes.py:251
+msgid "Queue"
+msgstr "Опашка"
+
+#: classes.py:83
+msgid "Trigger interval if the task type is set for periodic execution."
+msgstr ""
+
+#: classes.py:86
+msgid "Schedule"
+msgstr "План"
+
+#: classes.py:91 classes.py:329
+msgid "Worker"
+msgstr ""
+
+#: classes.py:217
+msgid "Number of task types managed by the queue."
+msgstr ""
+
+#: classes.py:219 classes.py:317
 msgid "Task type count"
 msgstr "Брой типове задачи"
 
-#: classes.py:226
+#: classes.py:295
+msgid ""
+"Maximum amount of resident memory a worker can execute before it's replaced "
+"by a new process."
+msgstr ""
+"Максимален обем резидентна памет, който работник може да изпълни, преди да "
+"бъде заменен от нов процес."
+
+#: classes.py:299
+msgid "Maximum memory per child"
+msgstr "Максимална памет на вторичен процес"
+
+#: classes.py:305
 msgid "Queue count"
 msgstr "Брой на опашката"
 
-#: links.py:13
+#: classes.py:315
+msgid "Number of task types managed by the worker."
+msgstr ""
+
+#: links.py:13 links.py:18
 msgid "Task type list"
 msgstr "Списък с типове задачи"
 
-#: links.py:18
+#: links.py:22
 msgid "Worker list"
 msgstr "Списък на работниците"
 
-#: links.py:23
+#: links.py:27
 msgid "Queue list"
 msgstr "Списък на опашка"
 
@@ -155,17 +187,21 @@ msgstr "Списък на опашка"
 msgid "View tasks"
 msgstr "Преглед на задачите"
 
-#: settings.py:11
+#: settings.py:13
 msgid "Celery"
 msgstr "Celery"
 
-#: settings.py:17
+#: settings.py:23
+msgid "The class used to instantiate the main Celery app."
+msgstr ""
+
+#: settings.py:29
 msgid "Default: \"AMQPLAIN\". Set custom amqp login method."
 msgstr ""
 "По подразбиране: &quot;AMQPLAIN&quot;. Задайте потребителски метод за вход в"
 " amqp."
 
-#: settings.py:23
+#: settings.py:35
 msgid ""
 "Default: \"amqp://\". Default broker URL. This must be a URL in the form of:"
 " transport://userid:password@hostname:port/virtual_host Only the scheme part"
@@ -178,7 +214,7 @@ msgstr ""
 "частта от схемата (transport://), останалото е по избор и по подразбиране "
 "към конкретните стойности на транспортиране по подразбиране."
 
-#: settings.py:32
+#: settings.py:44
 msgid ""
 "Default: \"Disabled\". Toggles SSL usage on broker connection and SSL "
 "settings. The valid values for this option vary by transport."
@@ -187,7 +223,7 @@ msgstr ""
 "връзка с брокера и настройките на SSL. Валидните стойности за тази опция "
 "варират в зависимост от транспорта."
 
-#: settings.py:40
+#: settings.py:52
 msgid ""
 "Default: No result backend enabled by default. The backend used to store "
 "task results (tombstones). Refer to "
@@ -203,26 +239,30 @@ msgstr ""
 msgid "Test queue"
 msgstr "Опашка за тестове"
 
-#: views.py:25
+#: views.py:20
+msgid "Task types"
+msgstr ""
+
+#: views.py:43
 #, python-format
 msgid "Task types for queue: %s"
 msgstr "Типове задачи за опашка: %s"
 
-#: views.py:35
+#: views.py:56
 #, python-format
 msgid "Queue: %s, not found"
 msgstr "Опашка: %s , не е намерена"
 
-#: views.py:45
+#: views.py:68
 msgid "Background task workers"
 msgstr "Работници на фонови задачи"
 
-#: views.py:62
+#: views.py:85
 #, python-format
 msgid "Queues for worker: %s"
 msgstr "Опашки за работник: %s"
 
-#: views.py:72
+#: views.py:95
 #, python-format
 msgid "Worker: %s, not found"
 msgstr "Работник: %s , не е намерен"
@@ -231,10 +271,30 @@ msgstr "Работник: %s , не е намерен"
 msgid "Low latency high volume tasks"
 msgstr "Задачи с голям обем с ниска латентност"
 
-#: workers.py:28 workers.py:35
+#: workers.py:21
+msgid "Worker A"
+msgstr ""
+
+#: workers.py:28 workers.py:36
 msgid "Medium latency tasks"
 msgstr "Задачи със средна латентност"
 
-#: workers.py:42 workers.py:50
+#: workers.py:29
+msgid "Worker B"
+msgstr ""
+
+#: workers.py:37
+msgid "Worker C"
+msgstr ""
+
+#: workers.py:44 workers.py:52
 msgid "Low latency, long lived tasks"
 msgstr "Дълготрайни задачи с ниска латентност"
+
+#: workers.py:45
+msgid "Worker D"
+msgstr ""
+
+#: workers.py:53
+msgid "Worker E"
+msgstr ""

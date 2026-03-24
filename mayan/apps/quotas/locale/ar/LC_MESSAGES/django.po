@@ -4,16 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Marwan Rahhal <Marwanr@sssit.net>, 2024
-# Yaman Sanobar <yman.snober@gmail.com>, 2024
+# Mohamad Ashmar, 2026
+# Yaman Sanobar <yman.snober@gmail.com>, 2026
+# Marwan Rahhal <Marwanr@sssit.net>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Yaman Sanobar <yman.snober@gmail.com>, 2024\n"
+"POT-Creation-Date: 2024-07-11 12:51+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/rosarior/teams/13584/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,11 +47,11 @@ msgstr "إنشاء محدد"
 msgid "Quota edited"
 msgstr "تعديل محدد"
 
-#: forms.py:15 model_mixins.py:16
+#: forms.py:14 model_mixins.py:16
 msgid "Backend"
 msgstr "في الخفاء"
 
-#: forms.py:16
+#: forms.py:15
 msgid "The quota driver for this entry."
 msgstr "نسبة الإدخال المحددة "
 
@@ -79,6 +80,8 @@ msgid ""
 "Apply to all document types. Enabling this, the quota will ignore the "
 "individual document type selection."
 msgstr ""
+"تطبيق على جميع أنواع الوثائق. عند التمكين، سيتجاهل الحصير اختيار نوع الوثيقة"
+" الفردي."
 
 #: mixins.py:26
 msgid "Document types"
@@ -115,6 +118,8 @@ msgid ""
 "Enabling this option, the quota will ignore the individual user and group "
 "selection."
 msgstr ""
+"تطبيق الحصير على جميع المستخدمين في النظام، باستثناء المشرفين والموظفين. عند"
+" تمكين هذا الخيار، سيتجاهل الحصير اختيار المستخدم أو المجموعة الفردية."
 
 #: mixins.py:115
 msgid "Users"

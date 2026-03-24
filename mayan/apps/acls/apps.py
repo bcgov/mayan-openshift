@@ -1,13 +1,13 @@
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_object, menu_secondary, menu_setup
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
-from mayan.apps.views.column_widgets import ObjectLinkWidget
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .classes import ModelPermission
 from .events import event_acl_deleted, event_acl_edited
@@ -64,7 +64,7 @@ class ACLsApp(MayanAppConfig):
                 'the object.'
             ), include_label=True, is_sortable=True, label=_(message='Object'),
             sort_field='content_type', source=GlobalAccessControlListProxy,
-            widget=ObjectLinkWidget
+            widget=column_widgets.ObjectLinkWidget
         )
 
         SourceColumn(

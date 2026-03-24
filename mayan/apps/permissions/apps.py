@@ -6,7 +6,7 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_multi_item, menu_object, menu_related, menu_return,
@@ -15,7 +15,7 @@ from mayan.apps.common.menus import (
 from mayan.apps.common.signals import signal_perform_upgrade
 from mayan.apps.dashboards.dashboards import dashboard_administrator
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
 from mayan.apps.user_management.links import link_group_list
 
@@ -102,10 +102,8 @@ class PermissionsApp(MayanAppConfig):
             source=Role
         )
         SourceColumn(
-            func=lambda context: context['object'].get_group_count(
-                user=context['request'].user
-            ), include_label=True, label=_(message='Group count'),
-            source=Role
+            attribute='get_group_count', kwargs={'user': 'request.user'},
+            include_label=True, label=_(message='Group count'), source=Role
         )
 
         dashboard_administrator.add_widget(

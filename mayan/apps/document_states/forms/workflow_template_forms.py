@@ -1,19 +1,18 @@
-from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.converter.fields import ImageField
-from mayan.apps.views.forms import FilteredSelectionForm
+from mayan.apps.forms import forms
 
 from ..models import Workflow
 
 
 class WorkflowTemplateForm(forms.ModelForm):
     class Meta:
-        fields = ('label', 'internal_name', 'auto_launch')
+        fields = ('label', 'internal_name', 'auto_launch', 'ignore_completed')
         model = Workflow
 
 
-class WorkflowTemplateSelectionForm(FilteredSelectionForm):
+class WorkflowTemplateSelectionForm(forms.FilteredSelectionForm):
     class Meta:
         allow_multiple = True
         field_name = 'workflows'

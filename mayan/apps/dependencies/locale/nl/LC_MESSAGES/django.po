@@ -4,18 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2024
-# e6bc1d20d3f0031709c3c11db1061ebc_be0a371 <8b4e580508477646e97982ebad39e3af_312311>, 2024
-# bwakkie <bwakkie@gmail.com>, 2024
-# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2024
+# Roberto Rosario, 2026
+# bwakkie <bwakkie@gmail.com>, 2026
+# e6bc1d20d3f0031709c3c11db1061ebc_be0a371 <8b4e580508477646e97982ebad39e3af_312311>, 2026
+# j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2024\n"
+"POT-Creation-Date: 2026-03-04 00:04+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: j jacobs <j.jacobs@rijnlandslyceum-rls.nl>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/rosarior/teams/13584/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,11 +39,11 @@ msgstr "Interne naam"
 msgid "Description"
 msgstr "Beschrijving"
 
-#: apps.py:45 classes.py:218
+#: apps.py:45 classes.py:221
 msgid "Type"
 msgstr "Type"
 
-#: apps.py:49 classes.py:221
+#: apps.py:49 classes.py:224
 msgid "Other data"
 msgstr "Andere gegevens"
 
@@ -51,82 +51,83 @@ msgstr "Andere gegevens"
 msgid "Declared by"
 msgstr "Toegewezen door"
 
-#: apps.py:57 classes.py:219
+#: apps.py:57 classes.py:222
 msgid "Version"
 msgstr "Versie"
 
-#: apps.py:61
-msgid "Environment"
-msgstr "Omgeving"
-
-#: apps.py:64 classes.py:221
-msgid "Check"
-msgstr "Controleren"
-
-#: classes.py:218
-msgid "Name"
-msgstr "Naam"
-
-#: classes.py:219
-msgid "App"
-msgstr "App"
-
-#: classes.py:220 classes.py:966
+#: apps.py:61 classes.py:223 classes.py:1043
 msgid "Environments"
 msgstr "Omgevingen"
 
-#: classes.py:331
+#: apps.py:64 classes.py:224
+msgid "Check"
+msgstr "Controleren"
+
+#: classes.py:221
+msgid "Name"
+msgstr "Naam"
+
+#: classes.py:222
+msgid "App"
+msgstr "App"
+
+#: classes.py:342
 msgid "Need to specify at least one: app_label or module."
 msgstr "Minstens één specificatie nodig van: app_label of module."
 
-#: classes.py:336
+#: classes.py:347
 #, python-format
 msgid "Dependency \"%s\" already registered."
 msgstr "Afhankelijkheid \"%s\" al vastgelegd."
 
-#: classes.py:387
+#: classes.py:399
 #, python-format
 msgid "Installing package: %s... "
 msgstr "Pakket aan het installeren: %s ..."
 
-#: classes.py:394
+#: classes.py:406
 msgid "Already installed."
 msgstr "Reeds geïnstalleerd."
 
-#: classes.py:399 classes.py:406 classes.py:412
+#: classes.py:411 classes.py:418 classes.py:424 classes.py:436
 msgid "Complete."
 msgstr "Voltooid."
 
-#: classes.py:439
+#: classes.py:431
+#, python-format
+msgid "Uninstalling package: %s... "
+msgstr ""
+
+#: classes.py:463
 msgid "Installed and correct version"
 msgstr "Geïnstalleerd en juiste versie"
 
-#: classes.py:441
+#: classes.py:465
 msgid "Missing or incorrect version"
 msgstr "Ontbrekend of onjuiste versie"
 
-#: classes.py:478
+#: classes.py:504
 msgid "None"
 msgstr "Geen"
 
-#: classes.py:487
+#: classes.py:513
 msgid "Not specified"
 msgstr "Niet opgegeven"
 
-#: classes.py:490
+#: classes.py:516
 msgid "Patching files... "
 msgstr "Bestanden aanpassen ..."
 
-#: classes.py:518
+#: classes.py:544
 msgid "Executables that are called directly by the code."
 msgstr ""
 "Uitvoerbare bestanden die rechtstreeks door de code worden aangeroepen."
 
-#: classes.py:520
+#: classes.py:546
 msgid "Binary"
 msgstr "Binair"
 
-#: classes.py:537
+#: classes.py:564
 msgid ""
 "JavaScript libraries downloaded the from NPM registry and used for front-end"
 " functionality."
@@ -134,51 +135,55 @@ msgstr ""
 "JavaScript bibliotheken gedownload van het NPM-register en gebruikt voor "
 "front-end functionaliteit."
 
-#: classes.py:540
+#: classes.py:567
 msgid "JavaScript"
 msgstr "JavaScript"
 
-#: classes.py:572 classes.py:869
+#: classes.py:599 classes.py:934
 msgid "Downloading... "
 msgstr "Aan het downloaden..."
 
-#: classes.py:577
+#: classes.py:604
 msgid "Verifying... "
 msgstr "Aan het verifiëren..."
 
-#: classes.py:582 classes.py:874
+#: classes.py:609 classes.py:939
 msgid "Extracting... "
 msgstr "Aan het uitpakken..."
 
-#: classes.py:795
+#: classes.py:624 classes.py:946
+msgid "Uninstalling... "
+msgstr ""
+
+#: classes.py:842
 msgid "Python packages downloaded from PyPI."
 msgstr "Pythonpakketten gedownload van PyPI."
 
-#: classes.py:797
+#: classes.py:844
 msgid "Python"
 msgstr "Python"
 
-#: classes.py:849
+#: classes.py:913
 msgid "Fonts downloaded from fonts.googleapis.com."
 msgstr "Fonts gedownload van fonts.googleapis.com."
 
-#: classes.py:851
+#: classes.py:915
 msgid "Google font"
 msgstr "Google font"
 
-#: classes.py:947
+#: classes.py:1024
 msgid "Declared in app"
 msgstr "Toegewezen in app"
 
-#: classes.py:948
+#: classes.py:1025
 msgid "Show dependencies by the app that declared them."
 msgstr "Toon afhankelijkheden door de app die ze heeft toegewezen."
 
-#: classes.py:952
+#: classes.py:1029
 msgid "Class"
 msgstr "Klasse"
 
-#: classes.py:953
+#: classes.py:1030
 msgid ""
 "Show the different classes of dependencies. Classes are usually divided by "
 "language or the file types of the dependency."
@@ -186,11 +191,11 @@ msgstr ""
 "Toon de verschillende klassen van afhankelijkheden. Klassen worden meestal "
 "onderverdeeld per taal of de bestandstypen van de afhankelijkheid."
 
-#: classes.py:958
+#: classes.py:1035
 msgid "State"
 msgstr "Status"
 
-#: classes.py:959
+#: classes.py:1036
 msgid ""
 "Show the different states of the dependencies. True means that the "
 "dependencies is installed and is of a correct version. False means the "
@@ -201,7 +206,7 @@ msgstr ""
 "\"Niet Waar\" betekent dat de afhankelijkheden ontbreken of dat er een "
 "onjuiste versie aanwezig is."
 
-#: classes.py:967
+#: classes.py:1044
 msgid ""
 "Dependencies required for an environment might not be required for another. "
 "Example environments: Production, Development."
@@ -211,12 +216,9 @@ msgstr ""
 
 #: environments.py:17
 msgid ""
-"Environment used for building distributable packages of the software. End "
+"Environment used for building redistributable packages of the software. End "
 "users can ignore missing dependencies under this environment."
 msgstr ""
-"Omgeving die wordt gebruikt voor het bouwen van distributeerbare pakketten "
-"van de software. Eindgebruikers kunnen ontbrekende afhankelijkheden in deze "
-"omgeving negeren."
 
 #: environments.py:20
 msgid "Build"
@@ -266,11 +268,21 @@ msgstr ""
 "Normale omgeving voor eindgebruikers. Een ontbrekende afhankelijkheid in "
 "deze omgeving leidt tot problemen en fouten bij normaal gebruik."
 
-#: environments.py:47
+#: environments.py:48
 msgid "Production"
 msgstr "Productielevel"
 
-#: environments.py:51
+#: environments.py:52
+msgid ""
+"Environment used for publishing redistributable packages of the software. "
+"End users can ignore missing dependencies under this environment."
+msgstr ""
+
+#: environments.py:55
+msgid "Publish"
+msgstr ""
+
+#: environments.py:59
 msgid ""
 "Environment used running the test suit to verify the functionality of the "
 "code. Dependencies in this environment are not needed for normal production "
@@ -280,7 +292,7 @@ msgstr ""
 "de code te verifiëren. Afhankelijkheden in deze omgeving zijn niet nodig "
 "voor normaal productiegebruik."
 
-#: environments.py:54
+#: environments.py:62
 msgid "Testing"
 msgstr "Testlevel"
 
@@ -304,25 +316,25 @@ msgstr "Details"
 msgid "Dependencies licenses"
 msgstr "Afhankelijkheden licenties"
 
-#: literals.py:10
+#: literals.py:12
 #, python-format
 msgid ""
 "Your version (%(version_local)s), is more recent than the published version "
 "(%(version_server)s)."
 msgstr ""
 
-#: literals.py:14
+#: literals.py:16
 #, python-format
 msgid ""
 "The version you are using (%(version_local)s) is outdated. The latest "
 "version is %(version_server)s."
 msgstr ""
 
-#: literals.py:18
+#: literals.py:20
 msgid "It is not possible to determine the latest version available."
 msgstr ""
 
-#: literals.py:21
+#: literals.py:23
 #, python-format
 msgid ""
 "Unexpected error trying to determine the latest version available. Make sure"
@@ -349,6 +361,7 @@ msgstr ""
 "worden weergegeven, terwijl alle andere worden uitgesloten."
 
 #: management/commands/dependencies_install.py:13
+#: management/commands/dependencies_uninstall.py:13
 msgid "Process a specific app."
 msgstr "Verwerk een specifieke app."
 

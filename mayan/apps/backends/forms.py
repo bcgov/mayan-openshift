@@ -1,14 +1,12 @@
 import json
 
-from django import forms as django_forms
 from django.db.models import Model
 from django.db.models.query import QuerySet
-from django.forms.models import ModelFormMetaclass
 
-from mayan.apps.views.forms import DynamicModelForm
+from mayan.apps.forms import form_widgets, forms
 
 
-class BackendDynamicFormMetaclass(ModelFormMetaclass):
+class BackendDynamicFormMetaclass(forms.ModelFormMetaclass):
     def __new__(mcs, name, bases, attrs):
         new_class = super(BackendDynamicFormMetaclass, mcs).__new__(
             mcs=mcs, name=name, bases=bases, attrs=attrs
@@ -19,16 +17,16 @@ class BackendDynamicFormMetaclass(ModelFormMetaclass):
             widgets = getattr(
                 new_class._meta, 'widgets', {}
             ) or {}
-            widgets['backend_data'] = django_forms.widgets.HiddenInput
+            widgets['backend_data'] = form_widgets.HiddenInput
             new_class._meta.widgets = widgets
 
         return new_class
 
 
 class FormDynamicModelBackend(
-    DynamicModelForm, metaclass=BackendDynamicFormMetaclass
+    forms.DynamicModelForm, metaclass=BackendDynamicFormMetaclass
 ):
-    widgets = {'backend_data': django_forms.widgets.HiddenInput}
+    widgets = {'backend_data': form_widgets.HiddenInput}
 
     def __init__(self, backend_path=None, user=None, *args, **kwargs):
         self.backend_path = backend_path
@@ -45,12 +43,7 @@ class FormDynamicModelBackend(
                     field_name, None
                 )
 
-        # TODO: REMOVE this and move it to the specific app form subclass.
-        # Updated filtered fields.
-        for field in self.fields:
-            if hasattr(self.fields[field], 'reload'):
-                self.fields[field].user = self.user
-                self.fields[field].reload()
+        self.do_fields_reload()
 
     def clean(self):
         data = super().clean()
@@ -79,3 +72,6 @@ class FormDynamicModelBackend(
     def get_backend_fields(self):
         backend_class = self.instance.get_backend_class()
         return backend_class.get_form_fields()
+
+    def get_field_reload_attributes(self):
+        return {'user': self.user}

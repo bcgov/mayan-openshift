@@ -1,8 +1,8 @@
-import logging
-
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
+
+from mayan.apps.views.utils import get_request_data
 
 from ..exceptions import (
     DynamicSearchException, DynamicSearchInterpreterUnknownSearchType
@@ -13,18 +13,12 @@ from ..search_backends import SearchBackend
 from ..search_interpreters import SearchInterpreter
 from ..search_models import SearchModel
 
-logger = logging.getLogger(name=__name__)
-
 
 class SearchQueryViewMixin:
     def get_search_query(self, request=None):
         request = request or self.request
 
-        query_dict = request.GET.dict().copy()
-        query_dict.update(
-            request.POST.dict()
-        )
-        return query_dict
+        return get_request_data(request=request)
 
 
 class QuerysetSearchFilterMixin(SearchQueryViewMixin):
@@ -82,9 +76,7 @@ class SearchFilterEnabledListViewMixin(
             search_model = self.get_search_model_from_queryset(queryset=queryset)
             if search_model:
                 context.update(
-                    {
-                        'search_model': search_model
-                    }
+                    {'search_model': search_model}
                 )
 
                 query_dict = self.get_search_query()
@@ -116,11 +108,6 @@ class SearchFilterEnabledListViewMixin(
         except DynamicSearchException as exception:
             if settings.DEBUG or settings.TESTING:
                 raise
-
-            logger.error(
-                'Error performing queryset search filtering; %s',
-                exception
-            )
 
             messages.error(message=exception, request=self.request)
 

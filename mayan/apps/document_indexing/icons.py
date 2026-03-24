@@ -1,5 +1,5 @@
-from mayan.apps.appearance.classes import Icon
 from mayan.apps.documents.icons import icon_document_type
+from mayan.apps.icons.icons import Icon
 
 icon_index = Icon(driver_name='fontawesome', symbol='list-ul')
 icon_document_index_instance_list = Icon(
@@ -8,7 +8,7 @@ icon_document_index_instance_list = Icon(
 icon_document_type_index_templates = icon_index
 
 icon_index_level_up = Icon(
-    driver_name='fontawesomecss', css_classes='fa-level-up-alt fa-rotate-90'
+    driver_name='fontawesome-css', css_classes='fa-level-up-alt fa-rotate-90'
 )
 icon_index_instance_list = Icon(driver_name='fontawesome', symbol='list-ul')
 icon_index_instance_node_with_documents = Icon(

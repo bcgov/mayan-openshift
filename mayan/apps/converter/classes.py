@@ -18,7 +18,7 @@ from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.mime_types.classes import MIMETypeBackend
-from mayan.apps.navigation.classes import Link
+from mayan.apps.navigation.links import Link
 from mayan.apps.storage.compressed_files import MsgArchive
 from mayan.apps.storage.literals import MSG_MIME_TYPES
 from mayan.apps.storage.settings import setting_temporary_directory
@@ -478,10 +478,11 @@ class Layer:
 
 
 class LayerLink(Link):
-    def __init__(self, action, layer=None, **kwargs):
+    def __init__(self, action, layer=None, multi_item=False, **kwargs):
         super().__init__(**kwargs)
         self.action = action
         self.layer = layer
+        self.multi_item = multi_item
 
     def __repr__(self):
         return '<LayerLink ({} | {})>'.format(
@@ -526,7 +527,7 @@ class LayerLink(Link):
             'layer_name': '"{}"'.format(layer_name)
         }
 
-        if self.action in ('delete', 'edit'):
+        if self.action in ('delete', 'edit') and not self.multi_item:
             result['transformation_id'] = 'object.pk'
 
         return result

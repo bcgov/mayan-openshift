@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from mayan.apps.smart_settings.literals import COMMAND_NAME_SETTINGS_REVERT
 from mayan.apps.smart_settings.utils import SettingNamespaceSingleton
 
-from .literals import DEFAULT_SECRET_KEY, SECRET_KEY_FILENAME, SYSTEM_DIR
+from ..literals import DEFAULT_SECRET_KEY, SECRET_KEY_FILENAME, SYSTEM_DIR
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -16,14 +16,21 @@ setting_namespace = SettingNamespaceSingleton(
     global_symbol_table=globals()
 )
 
-if COMMAND_NAME_SETTINGS_REVERT in sys.argv:
-    setting_namespace.update_globals(only_critical=True)
-    DATABASES = {
+
+def get_databases_sqlite():
+    return {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': Path(MEDIA_ROOT, 'db.sqlite3')  # NOQA: F821
+            'NAME': str(
+                Path(MEDIA_ROOT, 'db.sqlite3')  # NOQA: F821
+            )
         }
     }
+
+
+if COMMAND_NAME_SETTINGS_REVERT in sys.argv:
+    setting_namespace.update_globals(only_critical=True)
+    DATABASES = get_databases_sqlite()
 else:
     setting_namespace.update_globals()
 
@@ -39,6 +46,17 @@ except KeyError:
     except FileNotFoundError:
         SECRET_KEY = DEFAULT_SECRET_KEY
 
+# Caching
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'rest_api_throttling': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'
+    }
+}
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -46,14 +64,13 @@ INSTALLED_APPS = (
     'mayan.apps.events.apps.EventsApp',
     # Placed at the top so it can override any template.
     'mayan.apps.appearance.apps.AppearanceApp',
+    'mayan.apps.appearance_bootstrap.apps.AppearanceBootstrapApp',
     # Django
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.humanize',
     'django.contrib.messages',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.forms',
     'django.contrib.staticfiles',
     # 3rd party.
@@ -61,7 +78,6 @@ INSTALLED_APPS = (
     'corsheaders',
     'django_celery_beat',
     'formtools',
-    'mathfilters',
     'mozilla_django_oidc',
     'mptt',
     'rest_framework',
@@ -80,6 +96,7 @@ INSTALLED_APPS = (
     # User management app must go before authentication to ensure the Group
     # and User models are properly setup using runtime methods.
     'mayan.apps.user_management.apps.UserManagementApp',
+    'mayan.apps.app_manager.apps.AppManagerAppConfig',
     'mayan.apps.authentication.apps.AuthenticationApp',
     'mayan.apps.authentication_oidc.apps.AuthenticationOIDCApp',
     'mayan.apps.authentication_otp.apps.AuthenticationOTPApp',
@@ -88,12 +105,17 @@ INSTALLED_APPS = (
     'mayan.apps.common.apps.CommonApp',
     'mayan.apps.converter.apps.ConverterApp',
     'mayan.apps.credentials.apps.CredentialsApp',
+    'mayan.apps.credentials_google.apps.CredentialsGoogleApp',
     'mayan.apps.dashboards.apps.DashboardsApp',
     'mayan.apps.databases.apps.DatabasesApp',
     'mayan.apps.dependencies.apps.DependenciesApp',
     'mayan.apps.django_gpg.apps.DjangoGPGApp',
+    'mayan.apps.documentation.apps.DocumentationApp',
     'mayan.apps.dynamic_search.apps.DynamicSearchApp',
-    'mayan.apps.file_caching.apps.FileCachingConfig',
+    'mayan.apps.file_caching.apps.FileCachingAppConfig',
+    'mayan.apps.forms.apps.FormsApp',
+    'mayan.apps.fundraisers.apps.FundraisersAppConfig',
+    'mayan.apps.icons.apps.IconsApp',
     'mayan.apps.locales.apps.LocalesApp',
     'mayan.apps.lock_manager.apps.LockManagerApp',
     'mayan.apps.messaging.apps.MessagingApp',
@@ -101,7 +123,11 @@ INSTALLED_APPS = (
     'mayan.apps.navigation.apps.NavigationApp',
     'mayan.apps.organizations.apps.OrganizationsApp',
     'mayan.apps.permissions.apps.PermissionsApp',
-    'mayan.apps.platform.apps.PlatformApp',
+    'mayan.apps.platforms.apps.PlatformsApp',
+    'mayan.apps.platforms_docker.apps.PlatformsDockerApp',
+    'mayan.apps.platforms_forge.apps.PlatformsForgeApp',
+    'mayan.apps.platforms_gitlab.apps.PlatformsGitlabApp',
+    'mayan.apps.platforms_sentry.apps.PlatformsSentryApp',
     'mayan.apps.quotas.apps.QuotasApp',
     'mayan.apps.rest_api.apps.RESTAPIApp',
     'mayan.apps.smart_settings.apps.SmartSettingsApp',
@@ -130,6 +156,11 @@ INSTALLED_APPS = (
     'mayan.apps.file_metadata.apps.FileMetadataApp',
     'mayan.apps.file_metadata_clamav.apps.FileMetadataClamAVApp',
     'mayan.apps.file_metadata_eml.apps.FileMetadataEMLApp',
+    'mayan.apps.file_metadata_exif.apps.FileMetadataEXIFApp',
+    'mayan.apps.file_metadata_msg.apps.FileMetadataMSGApp',
+    'mayan.apps.file_metadata_ollama.apps.FileMetadataOllamaApp',
+    'mayan.apps.file_metadata_openai.apps.FileMetadataOpenAIApp',
+    'mayan.apps.file_metadata_pypdf.apps.FileMetadataPyPDFApp',
     'mayan.apps.linking.apps.LinkingApp',
     'mayan.apps.mailer.apps.MailerApp',
     'mayan.apps.mayan_statistics.apps.StatisticsApp',
@@ -216,15 +247,13 @@ AUTH_PASSWORD_VALIDATORS = [
     }
 ]
 
-# Internationalization
+# Internationalization. Do not change these.
 
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 
@@ -238,24 +267,36 @@ LANGUAGES = (
     ('ar-eg', _(message='Arabic (Egypt)')),
     ('ar', _(message='Arabic')),
     ('bg', _(message='Bulgarian')),
+    ('bg-bg', _(message='Bulgarian (Bulgaria)')),
+    ('bo', _(message='Tibetan')),
     ('bs', _(message='Bosnian')),
     ('ca', _(message='Catalan')),
     ('cs', _(message='Czech')),
     ('da', _(message='Danish')),
+    ('de', _(message='German')),
     ('de-at', _(message='German (Austria)')),
     ('de-de', _(message='German (Germany)')),
     ('el', _(message='Greek')),
+    ('el-gr', _(message='Greek (Greece)')),
     ('en', _(message='English')),
     ('es', _(message='Spanish')),
+    ('es-ec', _(message='Spanish (Ecuador)')),
+    ('es-es', _(message='Spanish (Spain)')),
     ('es-mx', _(message='Spanish (Mexico)')),
     ('es-pr', _(message='Spanish (Puerto Rico)')),
     ('fa', _(message='Persian')),
+    ('fa-ir', _(message='Persian (Iran)')),
     ('fr', _(message='French')),
+    ('fr-fr', _(message='French (France)')),
     ('he-il', _(message='Hebrew (Israel)')),
     ('hu', _(message='Hungarian')),
+    ('hu-sk', _(message='Hungarian (Slovakia)')),
+    ('hu-hu', _(message='Hungarian (Hungary)')),
     ('hr', _(message='Croatian')),
+    ('hy-am', _(message='Armenian (Armenia)')),
     ('id', _(message='Indonesian')),
     ('it', _(message='Italian')),
+    ('ja', _(message='Japanese')),
     ('lv', _(message='Latvian')),
     ('mn-mn', _(message='Mongolian (Mongolia)')),
     ('nl', _(message='Dutch')),
@@ -264,12 +305,14 @@ LANGUAGES = (
     ('pt-br', _(message='Portuguese (Brazil)')),
     ('ro-ro', _(message='Romanian (Romania)')),
     ('ru', _(message='Russian')),
+    ('ru-ru', _(message='Russian (Russia)')),
     ('sl', _(message='Slovenian')),
     ('sq', _(message='Albanian')),
     ('th', _(message='Thai')),
     ('tr', _(message='Turkish')),
     ('tr-tr', _(message='Turkish (Turkey)')),
     ('uk', _(message='Ukrainian')),
+    ('uk-ua', _(message='Ukrainian (Ukraine)')),
     ('vi', _(message='Vietnamese')),
     ('zh-cn', _(message='Chinese (China)')),
     ('zh-hans', _(message='Chinese (Simplified)')),
@@ -311,6 +354,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication'
     ),
     'DEFAULT_PAGINATION_CLASS': 'mayan.apps.rest_api.pagination.MayanPageNumberPagination',
+    'DEFAULT_THROTTLE_CLASSES': (
+        'mayan.apps.rest_api.throttling.MayanAnonRateThrottle',
+        'mayan.apps.rest_api.throttling.MayanUserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/second',
+        'user': '10/second'
+    },
     'EXCEPTION_HANDLER': 'mayan.apps.rest_api.exception_handlers.mayan_exception_handler'
 }
 
@@ -413,11 +464,4 @@ if not DATABASES:
             }
         }
     else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': str(
-                    Path(MEDIA_ROOT, 'db.sqlite3')  # NOQA: F821
-                )
-            }
-        }
+        DATABASES = get_databases_sqlite()

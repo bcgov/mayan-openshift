@@ -4,9 +4,11 @@ import logging
 import shutil
 
 from django.apps import apps
+from django.template.defaultfilters import filesizeformat
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from mayan.apps.acls.models import AccessControlList
 from mayan.apps.common.signals import signal_mayan_pre_save
 from mayan.apps.converter.classes import ConverterBase
 from mayan.apps.converter.exceptions import (
@@ -17,6 +19,7 @@ from mayan.apps.events.decorators import method_event
 from mayan.apps.events.event_managers import EventManagerMethodAfter
 from mayan.apps.file_caching.models import CachePartitionFile
 from mayan.apps.mime_types.classes import MIMETypeBackend
+from mayan.apps.storage.hashing import chunk_hash_file_object
 from mayan.apps.storage.model_mixins import ModelMixinFileFieldOpen
 
 from ..classes import DocumentFileAction
@@ -26,6 +29,7 @@ from ..literals import (
     IMAGE_ERROR_DOCUMENT_FILE_HAS_NO_PAGES,
     STORAGE_NAME_DOCUMENT_FILE_PAGE_IMAGE_CACHE
 )
+from ..permissions import permission_document_file_view
 from ..settings import setting_hash_block_size
 from ..signals import signal_post_document_file_upload
 
@@ -85,7 +89,7 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
         self._event_keep_attributes = ('_event_actor',)
         user = getattr(self, '_event_actor', None)
 
-        logger.info('Creating new file for document: %s', self.document)
+        logger.debug('Creating new file for document: %s', self.document)
         DocumentFile.execute_pre_create_hooks(
             kwargs={
                 'document': self.document,
@@ -98,7 +102,7 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
             self._event_ignore = True
             result = self._save(*args, **kwargs)
 
-            logger.info(
+            logger.debug(
                 'New document file "%s" created for document: %s',
                 self, self.document
             )
@@ -122,13 +126,9 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
         else:
             return result
 
-    @method_event(
-        action_object='document',
-        event_manager_class=EventManagerMethodAfter,
-        event=event_document_file_edited,
-        target='self'
-    )
     def _introspect(self):
+        actor = getattr(self, '_event_actor', None)
+
         try:
             self.checksum_update(save=False)
             super().save(
@@ -153,6 +153,10 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
             )
             raise
         else:
+            event_document_file_edited.commit(
+                action_object=self.document, actor=actor, target=self
+            )
+
             self.upload_complete()
 
     def _open(self, raw=False, **kwargs):
@@ -246,18 +250,14 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
             block_size = -1
 
         if self.exists():
-            hash_object = DocumentFile.hash_function()
             with self.open(raw=True) as file_object:
-                while (True):
-                    data = file_object.read(block_size)
-                    if not data:
-                        break
+                hash_object = chunk_hash_file_object(
+                    block_size=block_size, file_object=file_object,
+                    hash_function=DocumentFile.hash_function
+                )
 
-                    hash_object.update(data)
-
-            self.checksum = str(
-                hash_object.hexdigest()
-            )
+            hash_object_hexdigest = hash_object.hexdigest()
+            self.checksum = str(hash_object_hexdigest)
 
             if save:
                 self.save(
@@ -364,6 +364,21 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
         return self.filename
     get_label.short_description = _(message='Label')
 
+    def get_page_count(self, user):
+        queryset_pages = self.pages.all()
+        queryset_pages = AccessControlList.objects.restrict_queryset(
+            permission=permission_document_file_view,
+            queryset=queryset_pages, user=user
+        )
+
+        return queryset_pages.count()
+    get_page_count.short_description = _(message='Pages')
+
+    def get_size_display(self):
+        return filesizeformat(bytes_=self.size)
+
+    get_size_display.short_description = _(message='Size')
+
     @property
     def is_in_trash(self):
         return self.document.is_in_trash
@@ -399,18 +414,17 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
                 detected_pages = converter.get_page_count()
         except PageCountError as exception:
             """Converter backend doesn't understand the format."""
+            error_log_text = _(
+                message='Error updating page count; %(exception)s'
+            ) % {'exception': exception}
+
             self.error_log.create(
-                domain_name=ERROR_LOG_DOMAIN_NAME, text=exception
+                domain_name=ERROR_LOG_DOMAIN_NAME, text=error_log_text
             )
         else:
             DocumentFilePage = apps.get_model(
                 app_label='documents', model_name='DocumentFilePage'
             )
-
-            queryset_error_logs = self.error_log.filter(
-                domain_name=ERROR_LOG_DOMAIN_NAME
-            )
-            queryset_error_logs.delete()
 
             for page in self.pages.all():
                 page._event_actor = user
@@ -503,5 +517,5 @@ class DocumentFileBusinessLogicMixin(ModelMixinFileFieldOpen):
         )
 
     versions_new.help_text = _(
-        'Controls what happens when a new document file is uploaded.'
+        message='Controls what happens when a new document file is uploaded.'
     )

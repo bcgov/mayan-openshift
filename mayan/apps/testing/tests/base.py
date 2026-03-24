@@ -7,36 +7,41 @@ from django_test_migrations.contrib.unittest_case import MigratorTestCase
 
 from mayan.apps.acls.tests.mixins import ACLTestCaseMixin
 from mayan.apps.converter.tests.mixins import LayerTestCaseMixin
-from mayan.apps.events.tests.mixins import EventTestCaseMixin
+from mayan.apps.databases.tests.mixins import (
+    ConnectionsCheckTestCaseMixin, ModelTestCaseMixin,
+    TestModelTestCaseMixin, RandomPrimaryKeyModelMonkeyPatchMixin
+)
+from mayan.apps.events.tests.mixins.event_mixins import EventTestCaseMixin
+from mayan.apps.logging.tests.mixins import TestCaseMixinSilenceLogger
 from mayan.apps.permissions.tests.mixins import PermissionTestCaseMixin
 from mayan.apps.smart_settings.tests.mixins import SettingTestMixin
-from mayan.apps.user_management.tests.mixins import UserTestMixin
+from mayan.apps.storage.tests.mixins import (
+    DescriptorLeakCheckTestCaseMixin, OpenFileCheckTestCaseMixin,
+    TempfileCheckTestCasekMixin
+)
+from mayan.apps.views.tests.mixins import (
+    ClientMethodsTestCaseMixin, DownloadTestCaseMixin, TestViewTestCaseMixin
+)
+from mayan.apps.user_management.tests.mixins.user_mixins import UserTestMixin
 
 from ..literals import EXCLUDE_TEST_TAG
 
-from .mixins import (
-    ClientMethodsTestCaseMixin, ConnectionsCheckTestCaseMixin,
-    ContentTypeCheckTestCaseMixin, DelayTestCaseMixin,
-    DescriptorLeakCheckTestCaseMixin, DownloadTestCaseMixin,
-    ModelTestCaseMixin, OpenFileCheckTestCaseMixin,
-    RandomPrimaryKeyModelMonkeyPatchMixin, SilenceLoggerTestCaseMixin,
-    TempfileCheckTestCasekMixin, TestModelTestCaseMixin, TestViewTestCaseMixin
-)
+from .mixins import ContentTypeCheckTestCaseMixin, DelayTestCaseMixin
 
 
 class BaseTestCaseMixin(
-    DelayTestCaseMixin, LayerTestCaseMixin, SilenceLoggerTestCaseMixin,
-    ConnectionsCheckTestCaseMixin, DownloadTestCaseMixin, EventTestCaseMixin,
-    RandomPrimaryKeyModelMonkeyPatchMixin, ACLTestCaseMixin,
-    ModelTestCaseMixin, OpenFileCheckTestCaseMixin,
-    DescriptorLeakCheckTestCaseMixin, PermissionTestCaseMixin,
-    SettingTestMixin, TempfileCheckTestCasekMixin, UserTestMixin,
-    TestModelTestCaseMixin
+    DelayTestCaseMixin, TestCaseMixinSilenceLogger,
+    ConnectionsCheckTestCaseMixin, DownloadTestCaseMixin,
+    RandomPrimaryKeyModelMonkeyPatchMixin, EventTestCaseMixin,
+    LayerTestCaseMixin, ACLTestCaseMixin, ModelTestCaseMixin,
+    OpenFileCheckTestCaseMixin, DescriptorLeakCheckTestCaseMixin,
+    PermissionTestCaseMixin, SettingTestMixin, TempfileCheckTestCasekMixin,
+    UserTestMixin, TestModelTestCaseMixin
 ):
     """
     This is the most basic test case mixin class any test in the project
     should use.
-    TestModelTestCaseMixin must go before TestViewTestCaseMixin to allow
+    `TestModelTestCaseMixin` must go before `TestViewTestCaseMixin` to allow
     the test object to be available when the test view is prepared.
 
     Favor `OpenFileCheckTestCaseMixin` over

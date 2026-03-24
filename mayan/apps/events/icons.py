@@ -1,4 +1,4 @@
-from mayan.apps.appearance.classes import Icon
+from mayan.apps.icons.icons import Icon
 
 # Clear
 
@@ -32,6 +32,12 @@ icon_verb_event_list = Icon(driver_name='fontawesome', symbol='list-ol')
 
 # Notifications
 
+icon_notification_delete_multiple = Icon(
+    driver_name='fontawesome', symbol='times'
+)
+icon_notification_delete_single = Icon(
+    driver_name='fontawesome', symbol='times'
+)
 icon_notification_list = Icon(
     driver_name='fontawesome', symbol='bell'
 )

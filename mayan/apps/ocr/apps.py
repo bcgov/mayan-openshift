@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_list_facet, menu_multi_item, menu_secondary, menu_tools
 )
@@ -25,12 +25,12 @@ from .handlers import (
 from .links import (
     link_document_version_page_ocr_content_detail_view,
     link_document_version_page_ocr_content_edit_view,
+    link_document_version_ocr_content_delete_single,
+    link_document_version_ocr_content_delete_multiple,
     link_document_version_ocr_content_detail,
-    link_document_version_ocr_content_single_delete,
-    link_document_version_ocr_content_multiple_delete,
     link_document_version_ocr_content_download,
-    link_document_version_ocr_single_submit,
-    link_document_version_ocr_multiple_submit,
+    link_document_version_ocr_submit_single,
+    link_document_version_ocr_submit_multiple,
     link_document_type_ocr_settings, link_document_type_submit
 )
 from .literals import ERROR_LOG_DOMAIN_NAME
@@ -117,6 +117,7 @@ class OCRApp(MayanAppConfig):
             model=Document,
             name='versions__version_pages__ocr_content__content'
         )
+
         ModelProperty(
             description=_(message='The OCR content.'), label='OCR content',
             model=DocumentVersionPage, name='ocr_content.content'
@@ -126,6 +127,13 @@ class OCRApp(MayanAppConfig):
                 message='A generator returning the document\'s version pages '
                 'OCR content.'
             ), label=_(message='OCR content'), model=Document,
+            name='ocr_content'
+        )
+        ModelProperty(
+            description=_(
+                message='A generator returning the document\'s version pages '
+                'OCR content.'
+            ), label=_(message='OCR content'), model=DocumentVersion,
             name='ocr_content'
         )
 
@@ -160,16 +168,16 @@ class OCRApp(MayanAppConfig):
 
         menu_multi_item.bind_links(
             links=(
-                link_document_version_ocr_content_multiple_delete,
-                link_document_version_ocr_multiple_submit
+                link_document_version_ocr_content_delete_multiple,
+                link_document_version_ocr_submit_multiple
             ), sources=(DocumentVersion,)
         )
 
         menu_secondary.bind_links(
             links=(
-                link_document_version_ocr_content_single_delete,
+                link_document_version_ocr_content_delete_single,
                 link_document_version_ocr_content_download,
-                link_document_version_ocr_single_submit
+                link_document_version_ocr_submit_single
             ),
             sources=(
                 'ocr:document_version_ocr_content_view_delete',
@@ -197,9 +205,7 @@ class OCRApp(MayanAppConfig):
         )
 
         menu_tools.bind_links(
-            links=(
-                link_document_type_submit,
-            )
+            links=(link_document_type_submit,)
         )
 
         post_save.connect(

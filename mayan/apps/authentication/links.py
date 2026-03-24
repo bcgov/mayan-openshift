@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.navigation.classes import Link
+from mayan.apps.navigation.links import Link
 from mayan.apps.user_management.link_conditions import (
     condition_user_is_not_super_user
 )
@@ -34,8 +34,8 @@ def condition_user_has_usable_password_and_can_change_password_and_is_not_admin(
 
 
 link_logout = Link(
-    html_extra_classes='non-ajax', icon=icon_logout, text=_(message='Logout'),
-    view='authentication:logout_view'
+    html_extra_classes='non-ajax', icon=icon_logout, method='post',
+    text=_(message='Logout'), view='authentication:logout_view'
 )
 link_password_change = Link(
     condition=condition_user_has_usable_password_and_can_change_password,

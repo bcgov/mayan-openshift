@@ -1,10 +1,8 @@
 from django.apps import apps
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.template import Library
 from django.template.exceptions import TemplateDoesNotExist
 from django.template.loader import get_template
-from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -14,8 +12,48 @@ app_templates_cache = {}
 register = Library()
 
 
-@register.simple_tag(takes_context=True)
-def appearance_app_templates(context, template_name):
+@register.filter(name='appearance_form_get_visile_fields_map')
+def filter_appearance_form_get_visile_fields_map(form):
+    field_map = {
+        field.name: field for field in form.visible_fields()
+    }
+    return field_map
+
+
+@register.filter(name='appearance_get_choice_value')
+def filter_appearance_get_choice_value(field):
+    try:
+        return dict(field.field.choices)[
+            field.value()
+        ]
+    except TypeError:
+        return ', '.join(
+            [
+                subwidget.data['label'] for subwidget in field.subwidgets if subwidget.data['selected']
+            ]
+        )
+    except KeyError:
+        return _(message='None')
+
+
+@register.filter(name='appearance_get_form_media_js')
+def filter_appearance_get_form_media_js(form=None):
+    if form:
+        return [
+            form.media.absolute_path(path) for path in form.media._js
+        ]
+
+
+@register.filter(name='appearance_object_list_count')
+def filter_appearance_object_list_count(object_list):
+    try:
+        return object_list.count()
+    except TypeError:
+        return len(object_list)
+
+
+@register.simple_tag(name='appearance_app_templates', takes_context=True)
+def tag_appearance_app_templates(context, template_name):
     """
     Fetch the app templates for the requested `template_name`, render it with
     the current `request` from the `context`, and cache it for future use
@@ -51,89 +89,3 @@ def appearance_app_templates(context, template_name):
     return mark_safe(
         s=' '.join(result)
     )
-
-
-@register.filter
-def appearance_form_get_visile_fields_map(form):
-    field_map = {
-        field.name: field for field in form.visible_fields()
-    }
-    return field_map
-
-
-@register.filter
-def appearance_get_choice_value(field):
-    try:
-        return dict(field.field.choices)[
-            field.value()
-        ]
-    except TypeError:
-        return ', '.join(
-            [
-                subwidget.data['label'] for subwidget in field.subwidgets if subwidget.data['selected']
-            ]
-        )
-    except KeyError:
-        return _(message='None')
-
-
-@register.filter
-def appearance_get_form_media_js(form=None):
-    if form:
-        return [
-            form.media.absolute_path(path) for path in form.media._js
-        ]
-
-
-@register.simple_tag
-def appearance_get_icon(icon_path, **kwargs):
-    clean_kwargs = {}
-
-    for key, value in kwargs.items():
-        if '__' in key:
-            subdictionary = clean_kwargs
-            parts = key.split('__')
-            for part in parts:
-                subdictionary.setdefault(
-                    part, {}
-                )
-                dictionary_pointer = subdictionary
-                subdictionary = subdictionary[part]
-
-            dictionary_pointer[part] = value
-        else:
-            clean_kwargs[key] = value
-
-    return import_string(dotted_path=icon_path).render(**clean_kwargs)
-
-
-@register.simple_tag
-def appearance_get_user_theme_stylesheet(user):
-    User = get_user_model()
-
-    if user and user.is_authenticated:
-        try:
-            theme = user.theme_settings.theme
-        except User.theme_settings.RelatedObjectDoesNotExist:
-            # User had a setting assigned which was later deleted.
-            return ''
-        else:
-            if theme:
-                return user.theme_settings.theme.stylesheet
-
-    return ''
-
-
-@register.simple_tag
-def appearance_icon_render(icon, enable_shadow=False):
-    return icon.render(
-        extra_context={'enable_shadow': enable_shadow}
-    )
-
-
-@register.filter
-def appearance_object_list_count(object_list):
-    try:
-        return object_list.count()
-    except TypeError:
-        return len(object_list)

@@ -4,20 +4,20 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Roberto Rosario, 2024
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2024
-# Yves Dubois <ydubois@gmail.com>, 2024
-# Guillaume Trottier <gui.trottier@gmail.com>, 2024
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2024
-# Frédéric Sheedy <sheedf@gmail.com>, 2024
+# Frédéric Sheedy <sheedf@gmail.com>, 2026
+# Yves Dubois <ydubois@gmail.com>, 2026
+# Guillaume Trottier <gui.trottier@gmail.com>, 2026
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Thierry Schott <DarkDare@users.noreply.github.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,15 +29,15 @@ msgstr ""
 msgid "Document parsing"
 msgstr "Analyse de document"
 
-#: apps.py:113
+#: apps.py:113 apps.py:119
 msgid "A generator returning the document file's pages parsed content."
 msgstr ""
 
-#: apps.py:114 links.py:26 links.py:49 models.py:27 search.py:18
+#: apps.py:114 apps.py:120 links.py:26 links.py:65 models.py:27 search.py:18
 msgid "Content"
 msgstr "Contenu"
 
-#: dependencies.py:9
+#: dependencies.py:11
 msgid ""
 "Utility from the poppler-utils package used to extract content from PDF "
 "files."
@@ -66,7 +66,7 @@ msgstr "Page %(page_number)d"
 msgid "Contents"
 msgstr "Contenus"
 
-#: links.py:32 links.py:37
+#: links.py:31 links.py:37
 msgid "Delete parsed content"
 msgstr "Supprimer le contenu analysé"
 
@@ -74,17 +74,22 @@ msgstr "Supprimer le contenu analysé"
 msgid "Download content"
 msgstr "Télécharger le contenu"
 
-#: links.py:54 links.py:61
+#: links.py:48 links.py:55
 msgid "Submit for parsing"
 msgstr "Soumettre pour analyse"
 
-#: links.py:71
-msgid "Setup parsing"
-msgstr "Configurer l'analyse"
+#: links.py:75
+msgid "Parsing setup"
+msgstr ""
 
-#: links.py:80
+#: links.py:84
 msgid "Parse documents per type"
 msgstr "Analyser les documents par type"
+
+#: managers.py:57
+#, python-format
+msgid "Error attempting to parse text; %(exception)s"
+msgstr ""
 
 #: models.py:21
 msgid "Document file page"

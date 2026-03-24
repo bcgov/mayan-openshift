@@ -1,6 +1,8 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2010-2015, Justin Quick
         All rights reserved.

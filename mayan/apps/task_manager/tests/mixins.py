@@ -34,6 +34,8 @@ class TaskManagerTestMixin:
         for test_queue in self._test_queue_list:
             test_queue.remove()
 
+        super().tearDown()
+
     def _create_test_queue(self, label=None, name=None):
         total_test_queue_count = len(self._test_queue_list)
         label = label or '{}_{}'.format(
@@ -56,7 +58,7 @@ class TaskManagerTestMixin:
         self._test_worker_list.append(self._test_worker)
 
 
-class TaskManagerViewTestMixin:
+class QueueViewTestMixin(TaskManagerTestMixin):
     def _request_queue_task_type_list(self):
         return self.get(
             viewname='task_manager:queue_task_type_list', kwargs={
@@ -64,6 +66,15 @@ class TaskManagerViewTestMixin:
             }
         )
 
+
+class TaskTypeTestViewMixin(TaskManagerTestMixin):
+    def _request_task_type_list(self):
+        return self.get(
+            viewname='task_manager:task_type_list', query={'page': 3}
+        )
+
+
+class WorkerViewTestMixin(TaskManagerTestMixin):
     def _request_worker_list(self):
         return self.get(
             viewname='task_manager:worker_list'

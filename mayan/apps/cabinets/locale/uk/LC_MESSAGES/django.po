@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# olenchenko <olenchenko@gmail.com>, 2024
-# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2024
-# Leo Lado, 2024
+# olenchenko <olenchenko@gmail.com>, 2026
+# Kostiantyn Tyshkovets <shukach_13@ukr.net>, 2026
+# Leo Lado, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Leo Lado, 2024\n"
+"POT-Creation-Date: 2025-12-24 07:05+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Leo Lado, 2026\n"
 "Language-Team: Ukrainian (https://app.transifex.com/rosarior/teams/13584/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,14 +22,14 @@ msgstr ""
 "Language: uk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: apps.py:53 apps.py:173 apps.py:177 apps.py:182 apps.py:187 apps.py:192
-#: events.py:6 forms.py:14 links.py:30 menus.py:14 models.py:54 models.py:160
-#: permissions.py:6 search.py:54 views.py:169 workflow_actions.py:39
-#: workflow_actions.py:53
+#: apps.py:53 apps.py:172 apps.py:176 apps.py:181 apps.py:186 apps.py:191
+#: events.py:6 forms.py:10 links.py:30 menus.py:14 models.py:54 models.py:160
+#: permissions.py:6 search.py:54 views/cabinet_views.py:158
+#: workflow_actions.py:39 workflow_actions.py:53
 msgid "Cabinets"
 msgstr "Кабінети"
 
-#: apps.py:164 models.py:43
+#: apps.py:163 models.py:43
 msgid "Documents"
 msgstr "Документи"
 
@@ -65,7 +65,7 @@ msgstr "Додати до кабінетів"
 msgid "Add new level"
 msgstr "Додати новий рівень"
 
-#: links.py:64 views.py:47
+#: links.py:64 views/cabinet_views.py:36
 msgid "Create cabinet"
 msgstr "Створити кабінет"
 
@@ -238,17 +238,17 @@ msgstr "Первинний ключ \"Primary key\" документа для в
 msgid "Navigation:"
 msgstr "Навігація:"
 
-#: views.py:64
+#: views/cabinet_views.py:53
 #, python-format
 msgid "Add new level to: %s"
 msgstr "Додати новий рівень до: %s"
 
-#: views.py:89
+#: views/cabinet_views.py:78
 #, python-format
 msgid "Delete the cabinet: %s?"
 msgstr "Видалити кабінет: %s ?"
 
-#: views.py:128
+#: views/cabinet_views.py:117
 msgid ""
 "Cabinet levels can contain documents or other cabinet sub levels. To add "
 "documents to a cabinet, select the cabinet view of a document view."
@@ -256,21 +256,21 @@ msgstr ""
 "Рівні кабінету можуть містити документи або інші підрівні кабінету. Щоб "
 "додати документи до кабінету, виберіть режим перегляду документа."
 
-#: views.py:132
+#: views/cabinet_views.py:121
 msgid "This cabinet level is empty"
 msgstr "Цей рівень кабінету порожній"
 
-#: views.py:135
+#: views/cabinet_views.py:124
 #, python-format
 msgid "Details of cabinet: %s"
 msgstr "Деталі кабінету: %s"
 
-#: views.py:154
+#: views/cabinet_views.py:143
 #, python-format
 msgid "Edit cabinet: %s"
 msgstr "Редагувати кабінет: %s"
 
-#: views.py:175
+#: views/cabinet_views.py:164
 msgid ""
 "Cabinets are a multi-level method to organize documents. Each cabinet can "
 "contain documents as well as other sub level cabinets."
@@ -278,88 +278,88 @@ msgstr ""
 "Шафи – це багаторівневий спосіб організації документів. Кожна шафа може "
 "містити документи, а також інші шафи підрівня."
 
-#: views.py:179
+#: views/cabinet_views.py:168
 msgid "No cabinets available"
 msgstr "Немає доступних шаф"
 
-#: views.py:192
+#: views/document_views.py:30
 #, python-format
 msgid "Document \"%(object)s\" added to cabinets successfully."
 msgstr "Документ \"%(object)s\" успішно додано до шаф."
 
-#: views.py:195
+#: views/document_views.py:33
 #, python-format
 msgid "%(count)d document added to cabinets successfully."
 msgstr "%(count)d документ успішно додано до шаф."
 
-#: views.py:198
+#: views/document_views.py:36
 #, python-format
 msgid "%(count)d documents added to cabinets successfully."
 msgstr "%(count)d документи успішно додано до шаф."
 
-#: views.py:200
+#: views/document_views.py:38
 #, python-format
 msgid "Add %(count)d documents to cabinets."
 msgstr "Додати документи %(count)d до шаф."
 
-#: views.py:201
+#: views/document_views.py:39
 #, python-format
 msgid "Add document \"%(object)s\" to cabinets."
 msgstr "Додайте документ \"%(object)s\" до шаф."
 
-#: views.py:202
+#: views/document_views.py:40
 #, python-format
 msgid "Add %(count)d document to cabinets."
 msgstr "Додайте документ %(count)d до шаф."
 
-#: views.py:220
+#: views/document_views.py:58
 msgid "Cabinets to which the selected documents will be added."
 msgstr "Шафи, до яких будуть додані вибрані документи."
 
-#: views.py:266
+#: views/document_views.py:105
 msgid "Documents can be added to many cabinets."
 msgstr "Документи можна додавати до багатьох шаф."
 
-#: views.py:269
+#: views/document_views.py:108
 msgid "This document is not in any cabinet"
 msgstr "Цього документа немає ні в одній шафі"
 
-#: views.py:273
+#: views/document_views.py:112
 #, python-format
 msgid "Cabinets containing document: %s"
 msgstr "Шафи, що містять документ: %s"
 
-#: views.py:289
+#: views/document_views.py:128
 #, python-format
 msgid "Document \"%(object)s\" removed from cabinets successfully."
 msgstr "Документ \"%(object)s\" успішно видалено з шаф."
 
-#: views.py:292
+#: views/document_views.py:131
 #, python-format
 msgid "%(count)d document removed from cabinets successfully."
 msgstr "%(count)d документ успішно видалено зі шаф."
 
-#: views.py:295
+#: views/document_views.py:134
 #, python-format
 msgid "%(count)d documents removed from cabinets successfully."
 msgstr "%(count)d документи успішно видалено з шаф."
 
-#: views.py:297
+#: views/document_views.py:136
 #, python-format
 msgid "Remove %(count)d documents from cabinets."
 msgstr "Видалити %(count)d документів із шаф."
 
-#: views.py:298
+#: views/document_views.py:137
 #, python-format
 msgid "Remove document \"%(object)s\" from cabinets."
 msgstr "Вилучіть документ \"%(object)s\" із шаф."
 
-#: views.py:299
+#: views/document_views.py:138
 #, python-format
 msgid "Remove %(count)d document from cabinets."
 msgstr "Вилучити документ %(count)d із шаф."
 
-#: views.py:317
+#: views/document_views.py:156
 msgid "Cabinets from which the selected documents will be removed."
 msgstr "Шафи, з яких будуть вилучені вибрані документи."
 
@@ -367,7 +367,7 @@ msgstr "Шафи, з яких будуть вилучені вибрані до�
 msgid "Select cabinets"
 msgstr "Оберіть шафи"
 
-#: wizard_steps.py:80 workflow_actions.py:33
+#: wizard_steps.py:90 workflow_actions.py:33
 msgid "Cabinets to which the document will be added."
 msgstr "Шафи, до яких буде додано документ."
 

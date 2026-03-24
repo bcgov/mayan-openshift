@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Pavlin Koldamov <pkoldamov@gmail.com>, 2024
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2024
+# Pavlin Koldamov <pkoldamov@gmail.com>, 2026
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2026\n"
 "Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,14 +55,14 @@ msgstr "Изчистване на грешки"
 
 #: model_mixins.py:11
 #, python-format
-msgid "Unknown domain name: %s"
+msgid "Unknown domain name: %(domain_name)s"
 msgstr ""
 
-#: model_mixins.py:18
+#: model_mixins.py:20
 msgid "Object"
 msgstr "Обект"
 
-#: model_mixins.py:26
+#: model_mixins.py:28
 msgid "App label"
 msgstr "Етикет на приложението"
 
@@ -179,6 +179,11 @@ msgid ""
 msgstr ""
 
 #: views.py:103
+#, python-format
+msgid "Maximum number of entries kept for this object type: %s"
+msgstr ""
+
+#: views.py:107
 #, python-format
 msgid "Error log entries for: %s"
 msgstr "Записи в дневника за грешки за: %s"

@@ -14,4 +14,5 @@ class Command(management.BaseCommand):
 
     def handle(self, *args, **options):
         filepath = options.get('filepath')
-        setting_cluster.do_configuration_file_save(path=filepath)
+        kwargs = {'filepath': filepath}
+        setting_cluster.do_make_persistent(kwargs=kwargs)

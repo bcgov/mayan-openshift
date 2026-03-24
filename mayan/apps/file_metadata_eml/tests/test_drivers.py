@@ -2,7 +2,7 @@ from mayan.apps.common.tests.literals import (
     TEST_ARCHIVE_EML_SAMPLE_PATH
 )
 from mayan.apps.documents.tests.base import GenericDocumentTestCase
-from mayan.apps.file_metadata.tests.mixins import (
+from mayan.apps.file_metadata.tests.mixins.document_file_mixins import (
     DocumentFileMetadataTestMixin
 )
 
@@ -20,6 +20,8 @@ from .literals import (
 class EMLDriverTestCase(
     DocumentFileMetadataTestMixin, GenericDocumentTestCase
 ):
+    _test_document_file_metadata_driver_enable_auto = True
+    _test_document_file_metadata_driver_create_auto = True
     _test_document_file_metadata_driver_path = EMLDriver.dotted_path
     _test_document_filename = TEST_ARCHIVE_EML_SAMPLE_PATH
 

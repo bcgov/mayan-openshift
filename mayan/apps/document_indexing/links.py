@@ -1,6 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.navigation.classes import Link
+from mayan.apps.navigation.links import Link
 from mayan.apps.navigation.utils import factory_condition_queryset_access
 
 from .icons import (
@@ -98,7 +98,7 @@ link_index_template_event_triggers = Link(
     view='indexing:index_template_event_triggers'
 )
 link_index_template_list = Link(
-    icon=icon_index_template_list, text=_(message='Indexes'),
+    icon=icon_index_template_list, text=_(message='Index templates'),
     view='indexing:index_template_list'
 )
 link_index_template_setup = Link(

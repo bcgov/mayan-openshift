@@ -5,7 +5,7 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_object, menu_related, menu_return, menu_secondary,
@@ -15,9 +15,9 @@ from mayan.apps.documents.links.document_type_links import (
     link_document_type_list
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
-from mayan.apps.views.column_widgets import TwoStateWidget
 
 from .events import event_smart_link_edited
 from .links import (
@@ -115,12 +115,15 @@ class LinkingApp(MayanAppConfig):
             model=SmartLinkCondition, related='smart_link',
         )
 
+        # ResolvedSmartLink
+
         SourceColumn(
-            func=lambda context: context['object'].get_label_for(
-                document=context['document']
-            ), is_identifier=True, label=_(message='Label'),
+            attribute='get_label_for', is_identifier=True,
+            kwargs={'document': 'document'}, label=_(message='Label'),
             source=ResolvedSmartLink
         )
+
+        # SmartLink
 
         source_column_smart_link_label = SourceColumn(
             attribute='label', is_identifier=True, is_sortable=True,
@@ -131,23 +134,28 @@ class LinkingApp(MayanAppConfig):
             attribute='dynamic_label', include_label=True, is_sortable=True,
             source=SmartLink
         )
-        source_column_smart_link_dynamic_label.add_exclude(
-            source=ResolvedSmartLink
-        )
         source_column_smart_link_enabled = SourceColumn(
             attribute='enabled', include_label=True, is_sortable=True,
-            source=SmartLink, widget=TwoStateWidget
+            source=SmartLink, widget=column_widgets.TwoStateWidget
+        )
+
+        # ResolvedSmartLink
+        source_column_smart_link_dynamic_label.add_exclude(
+            source=ResolvedSmartLink
         )
         source_column_smart_link_enabled.add_exclude(
             source=ResolvedSmartLink
         )
+
+        # SmartLinkCondition
+
         SourceColumn(
             attribute='get_full_label', is_identifier=True,
             source=SmartLinkCondition
         )
         SourceColumn(
             attribute='enabled', include_label=True, is_sortable=True,
-            source=SmartLinkCondition, widget=TwoStateWidget
+            source=SmartLinkCondition, widget=column_widgets.TwoStateWidget
         )
 
         # Document

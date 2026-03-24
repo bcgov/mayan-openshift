@@ -25,7 +25,7 @@ setting_namespace = setting_cluster.do_namespace_add(
 
 
 setting_asset_cache_maximum_size = setting_namespace.do_setting_add(
-    default=DEFAULT_CONVERTER_ASSET_CACHE_MAXIMUM_SIZE,
+    data_type=int, default=DEFAULT_CONVERTER_ASSET_CACHE_MAXIMUM_SIZE,
     global_name='CONVERTER_ASSET_CACHE_MAXIMUM_SIZE',
     help_text=_(
         message='The threshold at which the '
@@ -74,7 +74,7 @@ setting_graphics_backend_arguments = setting_namespace.do_setting_add(
     )
 )
 setting_image_cache_time = setting_namespace.do_setting_add(
-    default=DEFAULT_CONVERTER_IMAGE_CACHE_TIME,
+    data_type=int, default=DEFAULT_CONVERTER_IMAGE_CACHE_TIME,
     global_name='CONVERTER_IMAGE_CACHE_TIME',
     help_text=_(
         message='Time in seconds that the browser should cache the '
@@ -82,7 +82,7 @@ setting_image_cache_time = setting_namespace.do_setting_add(
     )
 )
 setting_image_generation_max_retries = setting_namespace.do_setting_add(
-    default=DEFAULT_CONVERTER_IMAGE_GENERATION_MAX_RETRIES,
+    data_type=int, default=DEFAULT_CONVERTER_IMAGE_GENERATION_MAX_RETRIES,
     global_name='CONVERTER_IMAGE_GENERATION_MAX_RETRIES',
     help_text=_(
         message='Maximum number of retries before giving up. A value '
@@ -90,7 +90,7 @@ setting_image_generation_max_retries = setting_namespace.do_setting_add(
     )
 )
 setting_image_generation_timeout = setting_namespace.do_setting_add(
-    default=DEFAULT_CONVERTER_IMAGE_GENERATION_TIMEOUT,
+    data_type=int, default=DEFAULT_CONVERTER_IMAGE_GENERATION_TIMEOUT,
     global_name='CONVERTER_IMAGE_GENERATION_TIMEOUT',
     help_text=_(
         message='Time in seconds after which the image generation task '

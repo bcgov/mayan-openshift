@@ -8,7 +8,7 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_multi_item, menu_object, menu_related, menu_return,
@@ -17,17 +17,20 @@ from mayan.apps.common.menus import (
 from mayan.apps.databases.classes import (
     ModelFieldRelated, ModelProperty, ModelQueryFields
 )
+from mayan.apps.documents.column_widgets import SourceColumnWidgetDocumentLink
 from mayan.apps.documents.links.document_type_links import (
     link_document_type_list
 )
 from mayan.apps.documents.signals import signal_post_document_type_change
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
-from mayan.apps.views.column_widgets import TwoStateWidget
 
 from .classes import MetadataParser, MetadataValidator
-from .column_widgets import DocumentMetadataWidget
+from .column_widgets import (
+    DocumentMetadataWidget, SourceColumnWidgetMetadataDocumentThumbnail
+)
 from .events import (
     event_document_metadata_added, event_document_metadata_edited,
     event_document_metadata_removed, event_metadata_type_edited,
@@ -45,9 +48,9 @@ from .links import (
     link_metadata_multiple_add, link_metadata_multiple_edit,
     link_metadata_multiple_remove, link_metadata_remove,
     link_document_type_metadata_type_relationship, link_metadata_type_create,
+    link_metadata_type_delete_multiple, link_metadata_type_delete_single,
     link_metadata_type_document_type_relationship, link_metadata_type_edit,
-    link_metadata_type_list, link_metadata_type_multiple_delete,
-    link_metadata_type_setup, link_metadata_type_single_delete
+    link_metadata_type_list, link_metadata_type_setup
 )
 from .methods import method_document_get_metadata
 from .permissions import (
@@ -82,21 +85,22 @@ class MetadataApp(MayanAppConfig):
         DocumentFilePageSearchResult = apps.get_model(
             app_label='documents', model_name='DocumentFilePageSearchResult'
         )
+        DocumentMetadata = self.get_model(model_name='DocumentMetadata')
+        DocumentMetadataSearchResult = self.get_model(
+            model_name='DocumentMetadataSearchResult'
+        )
+        DocumentType = apps.get_model(
+            app_label='documents', model_name='DocumentType'
+        )
+        DocumentTypeMetadataType = self.get_model(
+            model_name='DocumentTypeMetadataType'
+        )
         DocumentVersionSearchResult = apps.get_model(
             app_label='documents', model_name='DocumentVersionSearchResult'
         )
         DocumentVersionPageSearchResult = apps.get_model(
             app_label='documents',
             model_name='DocumentVersionPageSearchResult'
-        )
-
-        DocumentType = apps.get_model(
-            app_label='documents', model_name='DocumentType'
-        )
-
-        DocumentMetadata = self.get_model(model_name='DocumentMetadata')
-        DocumentTypeMetadataType = self.get_model(
-            model_name='DocumentTypeMetadataType'
         )
         MetadataType = self.get_model(model_name='MetadataType')
 
@@ -143,13 +147,9 @@ class MetadataApp(MayanAppConfig):
         )
 
         ModelFieldRelated(
-            model=Document, name='metadata__metadata_type__name',
-            label=_(message='Metadata type name')
+            model=Document, name='metadata__metadata_type__name'
         )
-        ModelFieldRelated(
-            model=Document, name='metadata__value',
-            label=_(message='Metadata value')
-        )
+        ModelFieldRelated(model=Document, name='metadata__value')
 
         ModelEventType.register(
             model=Document, event_types=(
@@ -205,6 +205,8 @@ class MetadataApp(MayanAppConfig):
 
         # Columns
 
+        # Document
+
         SourceColumn(
             source=Document, label=_(message='Metadata'),
             widget=DocumentMetadataWidget
@@ -229,6 +231,8 @@ class MetadataApp(MayanAppConfig):
             widget=DocumentMetadataWidget
         )
 
+        # Document Metadata
+
         SourceColumn(
             attribute='metadata_type', is_identifier=True,
             is_sortable=True, source=DocumentMetadata
@@ -237,11 +241,23 @@ class MetadataApp(MayanAppConfig):
             attribute='value', include_label=True, is_sortable=True,
             source=DocumentMetadata
         )
-
         SourceColumn(
             attribute='is_required', include_label=True,
-            source=DocumentMetadata, widget=TwoStateWidget
+            source=DocumentMetadata, widget=column_widgets.TwoStateWidget
         )
+        SourceColumn(
+            label=_(message='Document link'), order=98,
+            source=DocumentMetadataSearchResult,
+            widget=SourceColumnWidgetDocumentLink
+        )
+        SourceColumn(
+            html_extra_classes='text-center document-thumbnail-list',
+            label=_(message='Document thumbnail'), order=99,
+            source=DocumentMetadataSearchResult,
+            widget=SourceColumnWidgetMetadataDocumentThumbnail
+        )
+
+        # Metadata type
 
         SourceColumn(
             attribute='label', is_identifier=True, is_sortable=True,
@@ -296,12 +312,12 @@ class MetadataApp(MayanAppConfig):
         )
         menu_multi_item.bind_links(
             links=(
-                link_metadata_type_multiple_delete,
+                link_metadata_type_delete_multiple,
             ), sources=(MetadataType,)
         )
         menu_object.bind_links(
             links=(
-                link_metadata_type_single_delete, link_metadata_type_edit
+                link_metadata_type_delete_single, link_metadata_type_edit
             ), sources=(MetadataType,)
         )
         menu_related.bind_links(

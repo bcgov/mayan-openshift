@@ -53,7 +53,8 @@ sys.path.append(
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 # extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.intersphinx']
 extensions = [
-    'sphinx_sitemap', 'sphinx.ext.extlinks', 'sphinxcontrib.spelling',
+    'sphinx_sitemap', 'sphinx.ext.extlinks', 'sphinx.ext.graphviz',
+    'sphinxcontrib.spelling'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -142,7 +143,7 @@ html_theme_options = {
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-# html_logo = None
+html_logo = '_static/mayan_logo.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -286,7 +287,7 @@ def setup(app):
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mayan.settings')
     django.setup()
 
-    environment_variables = utils.load_env_file()
+    environment_variables = mayan.apps.platforms.utils.load_env_file(filename='../config.env')
 
     MAYAN_PYTHON_BIN_DIR = os.path.join(
         environment_variables['DEFAULT_DIRECTORY_INSTALLATION'], 'bin'

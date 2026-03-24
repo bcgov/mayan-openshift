@@ -4,22 +4,23 @@
 # 
 # Translators:
 # Translators:
-# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2024
-# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2024
-# Vítor Figueiró <vfigueiro@gmail.com>, 2024
-# Roberto Rosario, 2024
-# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2024
-# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2024
-# Márcia Ferreira, 2024
-# Jadson Ribeiro <jadsonbr@outlook.com.br>, 2024
+# Roberto Rosario, 2026
+# Daniel Flores <dfloresbr@gmail.com>, 2026
+# Bruno Martins <bruno.martins@bewgpt.com.pt>, 2026
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2026
+# Roberto Vasconcelos Novaes <rvnovaes@gmail.com>, 2026
+# Jadson Ribeiro <jadsonbr@outlook.com.br>, 2026
+# José Samuel Facundo da Silva <samuel.facundo@ufca.edu.br>, 2026
+# Vítor Figueiró <vfigueiro@gmail.com>, 2026
+# Márcia Ferreira, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-04 06:20+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Jadson Ribeiro <jadsonbr@outlook.com.br>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Márcia Ferreira, 2026\n"
 "Language-Team: Portuguese (https://app.transifex.com/rosarior/teams/13584/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,15 +28,15 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: apps.py:133 permissions.py:6 settings.py:15
+#: apps.py:25 permissions.py:6 settings.py:13
 msgid "Common"
 msgstr "Comum"
 
-#: dependencies.py:193
+#: dependencies.py:196
 msgid "Command line environment with autocompletion."
 msgstr "Ambiente de linha de comando com auto-completamento."
 
-#: dependencies.py:198
+#: dependencies.py:201
 msgid "Checks proper formatting of the README file."
 msgstr "Verifica a formatação adequada do ficheiro README."
 
@@ -57,7 +58,7 @@ msgstr "Fórum"
 
 #: links.py:52
 msgid "Knowledge base"
-msgstr ""
+msgstr "Base do conhecimento"
 
 #: links.py:55 views.py:55
 msgid "License"
@@ -95,43 +96,43 @@ msgstr "Suporte"
 msgid "Tools"
 msgstr "Ferramentas"
 
-#: literals.py:23
+#: literals.py:19
 msgid ""
 "This feature has been deprecated and will be removed in a future version."
 msgstr ""
 "Esta funcionalidade foi descontinuada e será removida numa versão futura."
 
-#: literals.py:32
+#: literals.py:28
 msgid "Days"
 msgstr "Dias"
 
-#: literals.py:33
+#: literals.py:29
 msgid "Hours"
 msgstr "Horas"
 
-#: literals.py:34
+#: literals.py:30
 msgid "Minutes"
 msgstr "Minutos"
 
-#: menus.py:8
-msgid "System"
-msgstr "Sistema"
-
-#: menus.py:10 menus.py:11
+#: menus.py:7 menus.py:8
 msgid "Facet"
 msgstr "Aspeto"
 
-#: menus.py:14
+#: menus.py:11
 msgid "Actions"
 msgstr "Ações"
 
-#: menus.py:15
+#: menus.py:12
 msgid "Related"
 msgstr "Relacionado"
 
-#: menus.py:16
+#: menus.py:13
 msgid "Secondary"
 msgstr "Secundário"
+
+#: menus.py:16
+msgid "System"
+msgstr "Sistema"
 
 #: menus.py:18
 msgid "Return"
@@ -149,30 +150,18 @@ msgstr "Copiar objeto"
 msgid "URL"
 msgstr "URL"
 
-#: settings.py:23
-msgid ""
-"In list mode, show the \"list facet\" menu options as a dropdown menu "
-"instead of individual buttons."
-msgstr ""
-"Em modo de lista mostrar o menu de opções de \"Aspetos de lista\" como um "
-"menu suspenso em vez de de botões individuais."
-
-#: settings.py:32
-msgid ""
-"In list mode, show the \"object\" menu options as a dropdown menu instead of"
-" individual buttons."
-msgstr ""
-"Em modo de lista mostrar o menu de opções de \"Objeto\" como um menu "
-"suspenso em vez de botões individuais."
-
-#: settings.py:40
+#: settings.py:20
 msgid ""
 "Disables the use of the local `media` folder. When using this setting, all "
 "apps must be also configured via their respective storage backend settings "
 "to use alternate persistence."
 msgstr ""
+"Desabilita o uso da pasta local `media`. Ao utilizar essa definição, todos "
+"os aplicativos também devem ser configurados através das suas respectivas "
+"definições de backend de armazenamento para utilizar uma forma alternativa "
+"de persistência."
 
-#: settings.py:48
+#: settings.py:28
 msgid ""
 "A list of strings designating all applications that are to be removed from "
 "the list normally installed by Mayan EDMS. Each string should be a dotted "
@@ -185,7 +174,7 @@ msgstr ""
 "(preferencialmente|) ou uma pasta que contenha a aplicação. Exemplo:  "
 "['app_1', 'app_2']"
 
-#: settings.py:58
+#: settings.py:38
 msgid ""
 "A list of strings designating all applications that are installed beyond "
 "those normally installed by Mayan EDMS. Each string should be a dotted "
@@ -193,8 +182,14 @@ msgid ""
 " containing an application. These apps will be installed after the default "
 "apps. Example: ['app_1', 'app_2']"
 msgstr ""
+"Uma lista de strings que designa todas as aplicações que foram instaladas "
+"além das que já vêm instaladas por padrão no Mayan EDMS. Cada string deve "
+"ser um caminho do Python separado por pontos até: uma classe de configuração"
+" da aplicação (preferido), ou um pacote contendo a aplicação. Tais "
+"aplicações serão instaladas após as aplicações padrões. Exemplo: ['app_1', "
+"'app_2']"
 
-#: settings.py:70
+#: settings.py:50
 msgid ""
 "A list of strings designating all applications that are installed beyond "
 "those normally installed by Mayan EDMS. Each string should be a dotted "
@@ -209,7 +204,7 @@ msgstr ""
 "aplicação. Estas aplicações serão instaladas antes das aplicações de "
 "fábrica. Exemplo: ['app_1', 'app_2']"
 
-#: settings.py:81
+#: settings.py:61
 msgid ""
 "Name of the view attached to the brand anchor in the main menu. This is also"
 " the view to which users will be redirected after log in."
@@ -218,11 +213,11 @@ msgstr ""
 "também a visualização para qual os utilizadores serão direcionados depois de"
 " entrarem nas suas contas."
 
-#: settings.py:90
+#: settings.py:70
 msgid "Name of the dashboard to display in the home view."
 msgstr "Nome do painel a ser exibido na visualização do início. "
 
-#: settings.py:95
+#: settings.py:75
 msgid "Sets the project's name."
 msgstr "Nomeia o projeto."
 

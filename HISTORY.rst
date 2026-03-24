@@ -1,3 +1,1492 @@
+4.11.1 (2026-03-03)
+===================
+- Merge improvement and changes from version 4.10.4.
+- Update dependencies versions:
+
+  - coverage from 7.12.0 to 7.13.4.
+  - drf-yasg from 1.21.14 to 1.21.15.
+  - greenlet from 3.3.1 to 3.3.2.
+  - pycountry from 24.6.1 to 26.2.16.
+  - pypdf from 6.7.0 to 6.7.3.
+  - whitenoise from 6.11.0 to 6.12.0.
+
+- Remove old style license definition.
+- Add test to ensure all setting namespaces render correctly.
+- Add missing setting `domain_dict` initialization.
+- Fix setting `DOCUMENTS_ZOOM_MAX_LEVEL` help text keyword argument.
+- Use the TLS version of NPM to download JavaScript packages.
+- Support HTTP POST verb navigation links. Fixes the logout link.
+- Update password reset form to navigate to the login URL instead of the
+  logout URL.
+- Harden outbound HTTP requests, add timeouts defaults:
+
+  - Add a timeout of 10 seconds for initial connection and 30 seconds for
+    initial data transfer for dependency downloads.
+  - Add the `oidc_discovery_timeout` keyword argument to
+    `AuthenticationBackendOIDC`. Defaults to 5 seconds for connection and 15
+    seconds for data response.
+
+- GitLab CI updates:
+
+  - Make sure `make` is installed in all jobs.
+  - Remove hardoced `make` installation.
+  - Add explicit Docker DinD variables.
+
+4.11 (2026-02-25)
+=================
+- Support building ARM64 Docker images.
+- Git ignore `__pycache__` folders.
+- Make the Celery app class configurable via the new setting named
+  `MAYAN_CELERY_CLASS`.
+- Disable caching of `get_config_file_content`. This content is used only
+  during boot up and the speed gain is negligible.
+- Settings system refactor:
+
+  - Add setting data type support.
+  - Add setting domains system.
+  - Setting cluster can now use a configurable setting domains stack
+    depending of the final deployment configuration. This allows the settings
+    system to support general purpose, vendor specific, or cloud specific
+    setting backends.
+  - Add setting domains for configuration files, Django,
+    environment variables, and models.
+  - Disable creating the backup config file during tests.
+  - Setting clusters no longer handle serialization. It is now the
+    responsibility of the setting domains to serialize/deserialize settings
+    to their respective native storage formats.
+  - Setting cache invalidation is now handled at the setting cluster in a
+    cascade patterns, first for each namespace and then for each setting in
+    each namespace.
+  - When a setting is removed the corresponding domain entries are now
+    removed too.
+  - Support removing namespaces from clusters.
+  - Settings are now considered to be immutable.
+  - Setting code has been split and reorganized into individual modules.
+  - Add improved configuration file caching.
+  - Replace `do_value_raw_set` with the more appropriate `do_value_override`.
+  - Convert most of the settings system to follow the doers and getters
+    code style.
+  - Settings are now pre-cached when the system boots up to ensure
+    deterministic behavior and access time regardless of the code path
+    triggered by user or task interactions.
+  - Setting pending value detection and revert are now designed from the
+    ground up to be reentrant, parallel, multi-user safe, and thread-safe.
+  - Settings now validated as integers:
+
+    - `APPEARANCE_AJAX_REDIRECTION_CODE`
+    - `APPEARANCE_ELIDED_PAGER_ON_EACH_SIDE`
+    - `APPEARANCE_ELIDED_PAGER_ON_ENDS`
+    - `APPEARANCE_MAXIMUM_TITLE_LENGTH`
+    - `APPEARANCE_MENU_POLLING_INTERVAL`
+    - `APPEARANCE_PAGINATION_DROPDOWN_RANGE`
+    - `APPEARANCE_THROTTLING_MAXIMUM_REQUESTS`
+    - `APPEARANCE_THROTTLING_TIMEOUT`
+    - `CONVERTER_ASSET_CACHE_MAXIMUM_SIZE`
+    - `CONVERTER_IMAGE_CACHE_TIME`
+    - `CONVERTER_IMAGE_GENERATION_MAX_RETRIES`
+    - `CONVERTER_IMAGE_GENERATION_TIMEOUT`
+    - `DOCUMENTS_DISPLAY_HEIGHT`
+    - `DOCUMENTS_DISPLAY_WIDTH`
+    - `DOCUMENTS_FAVORITE_COUNT`
+    - `DOCUMENTS_FILE_PAGE_IMAGE_CACHE_MAXIMUM_SIZE`
+    - `DOCUMENTS_HASH_BLOCK_SIZE`
+    - `DOCUMENTS_LIST_THUMBNAIL_WIDTH`
+    - `DOCUMENTS_PREVIEW_HEIGHT`
+    - `DOCUMENTS_PREVIEW_WIDTH`
+    - `DOCUMENTS_PRINT_HEIGHT`
+    - `DOCUMENTS_PRINT_WIDTH`
+    - `DOCUMENTS_RECENTLY_ACCESSED_COUNT`
+    - `DOCUMENTS_RECENTLY_CREATED_COUNT`
+    - `DOCUMENTS_ROTATION_STEP`
+    - `DOCUMENTS_STUBS_DELETE_TASK_INTERVAL`
+    - `DOCUMENTS_THUMBNAIL_HEIGHT`
+    - `DOCUMENTS_THUMBNAIL_WIDTH`
+    - `DOCUMENTS_TRASHED_DOCUMENT_DELETE_PERIODS_CHECK_TASK_INTERVAL`
+    - `DOCUMENTS_TRASH_PERIOD_CHECK_TASK_INTERVAL`
+    - `DOCUMENTS_VERSION_PAGE_IMAGE_CACHE_MAXIMUM_SIZE`
+    - `DOCUMENTS_ZOOM_MAX_LEVEL`
+    - `DOCUMENTS_ZOOM_MIN_LEVEL`
+    - `DOCUMENTS_ZOOM_PERCENT_STEP`
+    - `DOWNLOAD_FILE_EXPIRATION_INTERVAL`
+    - `LOCK_MANAGER_DEFAULT_LOCK_TIMEOUT`
+    - `SEARCH_INDEXING_CHUNK_SIZE`
+    - `SEARCH_QUERY_RESULTS_LIMIT`
+    - `SEARCH_QUERY_RESULTS_LIMIT_ERROR`
+    - `SEARCH_RESULTS_LIMIT`
+    - `SEARCH_SAVED_RESULTSETS_PER_USER_LIMIT`
+    - `SEARCH_SAVED_RESULTSET_RESULTS_LIMIT`
+    - `SEARCH_SAVED_RESULTSET_TIME_TO_LIVE`
+    - `SEARCH_SAVED_RESULTSET_TIME_TO_LIVE_INCREMENT`
+    - `SHARED_UPLOADED_FILE_EXPIRATION_INTERVAL`
+    - `SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_MAXIMUM_SIZE`
+    - `SOURCES_CACHE_MAXIMUM_SIZE`
+    - `WORKFLOWS_IMAGE_CACHE_MAXIMUM_SIZE`
+    - `WORKFLOWS_WORKFLOW_STATE_ESCALATION_CHECK_INTERVAL`
+
+  - Add tests for all settings validated as integers.
+  - Add tests for all settings app management commands.
+
+- Add `ENVIRONMENT_VARIABLE_PREFIX` and set it to `MAYAN_` to avoid
+  hardcoding the environment variable prefix in code.
+- Translate document download messages at the moment they are used not
+  when they are updated.
+- Add a reusable chunked hashing function optimized for large files.
+- Default chunked hashing block size to 65536 bytes for better alignment with
+  memory allocation, file system buffers, and CPU cache lines.
+- Add the reusable function `get_environment_variable_full_name` to normalize
+  how setting environment variables are constructed.
+- Add the proto settings `MAYAN_ENVIRONMENT_VARIABLE_PREFIX` to change the
+  prefix for the setting environment variables.
+- Support Django 5.2 LTS.
+- Update base Docker image from Debian 12.12-slim to Debian 13.3-slim.
+- Add the management command `dependencies_uninstall` to uninstall JavaScript
+  and Google Font dependencies.
+- Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
+  circular dependencies.
+- CI and makefile refactor:
+
+  - Split the Docker makefile into separate makefiles.
+  - Remove redundant code from makefiles.
+  - Reorganize and improve the makefiles.
+  - Prefix `CONFIG_` to all config file values loaded into makefiles.
+  - Add new GitLab CI jobs to build AMD64 and ARM64 Docker images.
+  - Move GitLab CI code into reusable makefile DevOps targets.
+  - Improve APK caching.
+  - Use buildkit registry caching.
+  - Improve Docker DinD image use.
+  - Improve Dockerfile PIP caching.
+  - Add config variable `DOCKER_USER_USERNAME` which defaults to `mayan`.
+    This variable as well `DOCKER_USER_GID` and `DOCKER_USER_UID` are now
+    used when generating the `DockerFile` and the `entrypoint.sh` files.
+  - Improve `entrypoint.sh` and other Docker component information output.
+  - Reorganize dependencies.
+  - Split GitLab CI template into sub templates.
+  - Remove `pip` commands from GitLab CI file and use makefile targets.
+  - Add more targets to install specific Python environment requirements.
+  - Remove top level `requirements.txt` file as it was ambiguous in purpose.
+  - Make the `packaging` library an essential library.
+  - Remove the default environment for dependencies. All dependencies must
+    now be explicit about their environment.
+  - The `environment` argument of the `Dependency` class has been removed.
+    Dependencies must now specify a list of environments instead of a single
+    one even if they support a single one.
+  - Remove the `gitlab-ci-tests-python-upgrade` and
+    `gitlab-ci-tests-python-all` targets.
+  - Remove GitLab CI file YAML anchors.
+  - Remove all direct Docker CLI usage in the GitLab CI file.
+
+- Add thousand separator to the pager.
+- Update Docker images:
+
+  - Docker DinD from 28.2.2-dind to 29.2.1-dind
+  - Elasticsearch from 9.1.3 to 9.1.10
+  - PostgreSQL from 15.14 to 15.16
+  - Python from 3.13.7-slim to 3.13.12-slim
+  - RabbitMQ from 4.1.4-management to 4.1.8-management
+  - Redis from 7.4.5 to 7.4.7
+  - Traefik from 2.11.29 to 2.11.37
+
+- Update Python dependencies:
+
+  - Markdown from 3.10 to 3.10.2
+  - PIP from 25.3 to 26.0.1
+  - Pillow from 6.5.0 to 6.7.0
+  - Sphinx from 8.2.3 to 9.1.0
+  - celery from 5.5.3 to 5.6.2
+  - dateparser from 1.2.2 to 1.3.0
+  - django-auth-ldap from 5.2.0 to 5.3.0
+  - django-debug-toolbar from 5.0.1 6.2.0
+  - django-extensions from 3.2.3 to 4.1
+  - django-silk from 9.5.0 to 9.10.0
+  - django-solo from 2.4.0 to 2.5.1
+  - django-widget-tweaks from 1.5.0 to 1.5.1
+  - drf-yasg from 1.21.11 to 1.21.14
+  - elasticsearch from 9.1.0 to 9.3.0
+  - google-cloud-storage from 3.3.1 to 3.9.0
+  - greenlet from 3.2.4 to 3.3.1
+  - gunicorn from 23.0.0 to 25.1.0
+  - jsonschema from 4.25.1 to 4.26.0
+  - mozilla-django-oidc from 4.0.1 to 5.0.2
+  - nh3 from 0.3.2 to 0.3.3
+  - packaging from 25.0 to 26.0
+  - psycopg from 3.2.9 to 3.3.2
+  - python_gnupg from 0.5.5 to 0.5.6
+  - redis from 6.4.0 to 7.2.0
+  - sentry-sdk from 2.48.0 to 2.53.0
+  - setuptools from 80.9.0 to 81.0.0
+  - sphinx_rtd_theme from 3.0.2 to 3.1.0
+  - sphinx-sitemap from 2.8.0 to 2.9.0
+  - sphinxcontrib-spelling from 8.0.1 to 8.0.2
+  - wheel from 0.45.1 to 0.46.3 due to CVE-2026-24049
+
+- Update JavaScript dependencies:
+
+  - Fancybox from 3.2.5 to 3.3.5
+
+- Split smart settings app views module.
+- Move and rename the makefile target `requirements-generate` to
+  `python-requirements-generate`.
+- Improve setting view return navigation.
+- Fix repeated setting edit view return link.
+- Update setting `SEARCH_STORE_RESULTS_DEFAULT_VALUE` to be a choice field.
+- Change the default value of `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a
+  boolean.
+- Update setting `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a choice field.
+- Error logging changes:
+
+  - Add more descriptive module error log messages.
+  - Make error log messages translatable.
+  - Error logs are now no longer cleared on success. Users must clear past
+    error logs. This prevents a successful operation from clearing out still
+    valid error logs from a previous operation.
+  - Increase the default error log retention per object from 3 to 15 entries.
+  - Add a subtitle to the object error log view showing the number of entries
+    being retained for the specific object.
+
+- Remove deprecated Oracle database support.
+- Add help text to settings:
+
+  - DOCUMENTS_DISPLAY_HEIGHT
+  - DOCUMENTS_DISPLAY_WIDTH
+  - DOCUMENTS_PREVIEW_HEIGHT
+  - DOCUMENTS_PREVIEW_WIDTH
+  - DOCUMENTS_PRINT_HEIGHT
+  - DOCUMENTS_PRINT_WIDTH
+  - SIGNATURES_BACKEND_ARGUMENTS
+  - STORAGE_DOWNLOAD_FILE_STORAGE_ARGUMENTS
+
+- Fix the math template tag name `math_substract` to `math_subtract`. Update
+  your existing templates if you use this template tag. An alias named
+  `math_substract` was added for backwards compatibility but will be removed
+  in a following minor version.
+
+- Math tag updates:
+
+  - Improve value processing.
+  - Support decimals.
+  - Improve help texts.
+  - Add new filters and tags: `math_ceil`, `math_floor`, `math_integer`,
+    `math_maximum`, `math_minimum`, `math_percent`, and `math_round`.
+
+- Ensure duplicated entries are not created if a user favorites the same
+  document more than once.
+- Reinforce pruning of empty index instance nodes.
+- Rename internal references of `DOCKER_ELASTIC_` to `DOCKER_ELASTICSEARCH_`.
+- Reduce logging output.
+- Add `libfuse2` as a production dependency.
+- Add default makefile target that does nothing and instructs to use the
+  `help` target instead.
+- Improve Docker testing targets:
+
+  - Improve PostgreSQL testing container health check.
+  - Rename target variables for clarity.
+  - Fix some hardcoded values.
+
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendFileCommand` class.
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendPerlFileMIMEInfo` class.
+- Improve the staging targets. The frontend target now uses the Docker
+  `run_frontend.sh` script.
+- Don't change user in the Docker `/usr` commands but at the `entrypoint.sh`
+  file.
+- Add `--chdir` to gunicorn to avoid a permission error.
+- Update Docker Compose file to work with how the entrypoint targets now
+  work. There Docker Compose service arguments are handled in sequence and
+  do not require to be quoted.
+- Update the `worker_custom_queue` service to pass the worker queues via an
+  environment variable and use the regular entrypoint.
+- Normalize environment variable usage in the Docker shell files.
+
+4.10.4 (2026-02-27)
+===================
+- Backport changes and improvements from version 4.11.
+- Add a reusable chunked hashing function optimized for large files.
+- Default chunked hashing block size to 65536 bytes for better alignment with
+  memory allocation, file system buffers, and CPU cache lines.
+- Add the management command `dependencies_uninstall` to uninstall JavaScript
+  and Google Font dependencies.
+- Move `mayan/settings/literals.py` to `mayan/literals.py` to prevent
+  circular dependencies.
+- Add thousand separator to the pager.
+- Move and rename the makefile target `requirements-generate` to
+  `python-requirements-generate`.
+- Add help text to settings:
+
+  - `DOCUMENTS_DISPLAY_HEIGHT`
+  - `DOCUMENTS_DISPLAY_WIDTH`
+  - `DOCUMENTS_PREVIEW_HEIGHT`
+  - `DOCUMENTS_PREVIEW_WIDTH`
+  - `DOCUMENTS_PRINT_HEIGHT`
+  - `DOCUMENTS_PRINT_WIDTH`
+  - `SIGNATURES_BACKEND_ARGUMENTS`
+  - `STORAGE_DOWNLOAD_FILE_STORAGE_ARGUMENTS`
+
+- Fix the math template tag name `math_substract` to `math_subtract`. Update
+  your existing templates if you use this template tag. An alias named
+  `math_substract` was added for backwards compatibility but will be removed
+  in a following minor version.
+- Ensure duplicated entries are not created if a user favorites the same
+  document more than once.
+- Reinforce pruning of empty index instance nodes.
+- Rename internal references of `DOCKER_ELASTIC_` to `DOCKER_ELASTICSEARCH_`.
+- Reduce logging output.
+- Add `libfuse2` as a production dependency.
+- Backport makefile improvements.
+- Backport GitLab CI improvements.
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendFileCommand` class.
+- Replace the use of `sh` with upstream Python `subprocess` for the
+  `MIMETypeBackendPerlFileMIMEInfo` class.
+- Update Docker image tags:
+
+  - Debian from debian:12.12-slim to debian:12.13-slim
+  - Elasticsearch from 9.1.3 to 9.1.10
+  - PostgreSQL from 15.14 to 15.16
+  - RabbitMQ from 4.1.4-management to 4.1.8-management
+  - Redis from 7.4.5 to 7.4.7
+  - Traefik from 2.11.29 to 2.11.37
+
+- Update dependency version:
+
+  - Markdown from 3.10 to 3.10.2
+  - PIP from 25.3 to 26.0.1
+  - Pillow from 12.0.0 to 12.1.1
+  - coverage from 7.12.0 to 7.13.4
+  - dateparser from 1.2.2 to 1.3.0
+  - django from 4.2.27 to 4.2.28
+  - django-auth-ldap from 5.2.0 to 5.3.0
+  - django-solo from 2.4.0 to 2.5.1
+  - django-widget-tweaks from 1.5.0 to 1.5.1
+  - drf-yasg from 1.21.11 to 1.21.15
+  - elasticsearch from 9.1.0 to 9.3.0
+  - google-cloud-storage from 3.3.1 to 3.9.0
+  - greenlet from 3.2.4 to 3.3.2
+  - gunicorn from 23.0.0 to 25.1.0
+  - jsonschema from 4.25.1 to 4.26.0
+  - mozilla-django-oidc from 4.0.1 to 5.0.2
+  - nh3 from 0.3.2 to 0.3.3
+  - psycopg from 3.2.9 to 3.3.3
+  - pycountry from 24.6.1 to 26.2.16
+  - pypdf from 6.5.0 to 6.7.3
+  - python_gnupg from 0.5.5 to 0.5.6
+  - redis from 6.4.0 to 7.2.1
+  - sentry-sdk from 2.48.0 to 2.53.0
+  - wheel from 0.45.1 to 0.46.3 due to CVE-2026-24049
+  - whitenoise from 6.11.0 to 6.12.0
+
+- Update setting `SEARCH_STORE_RESULTS_DEFAULT_VALUE` to be a choice field.
+- Change the default value of `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a
+  boolean.
+- Update setting `SEARCH_MATCH_ALL_DEFAULT_VALUE` to be a choice field.
+- Improve setting view return navigation.
+- Fix repeated setting edit view return link.
+
+4.10.3 (2025-12-24)
+===================
+- Include changes and fixes from versions 4.9.8 and 4.9.7.
+- Skip cabinet and tag wizard step if the user has no access. Update the
+  cabinet and tag upload wizard steps permission logic to match the
+  logic of the metadata wizard steps and skip the step entirely if the user
+  does not have access to any of the objects.
+- Update pypdf from version 6.4.2 to 6.5.0.
+- Update django-formtools from version 2.3 to 2.5.1.
+- Workaround undocumented backward incompatible bug in django-formtools 2.4.0.
+- Modernize `PythonDependency` class version checking. Remove use of
+  deprecated Python library `pkg_resources`.
+
+4.10.2 (2025-12-13)
+===================
+- Enforce same origin and HTTP only redirection when breaking from an AJAX
+  content container and during normal single page app navigation.
+- Update the base Docker image from debian:12.11-slim to debian:12.12-slim.
+- Git ignore `__pycache__` folders.
+- Make the Smart link condition fields `inclusion` and `operator` fully
+  translatable.
+- Make document file search fields translatable.
+- Make tag document list link title translatable.
+- Make the task worker labels translatable.
+- Add missing locales app migration.
+- Fix series support status documentation chapter formatting.
+
+4.10.1 (2025-12-08)
+===================
+- Improvements and changes from version 4.9.6.
+- Disable REST API throttling when running the unit tests.
+- Update dependencies dependencies:
+
+  - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+  - django-auth-ldap from 5.1.0 to 5.2.0.
+  - openai from 1.107.2 to 1.109.1.
+
+- Fix appearance settings variable names.
+- GitLab CI updates:
+
+  - Remove repeated `apt-get update`.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+
+4.10 (2025-10-30)
+=================
+- Remove KeyCloak settings and Docker Compose template.
+- Update PostgreSQL to 15.
+- Update the PostgreSQL Docker image from Alpine to default.
+- Update the PostgreSQL Docker tag from 14.15-alpine3.21 to 15.11.
+- Update Docker image tags
+
+  - GitLab CI runner Docker from 27.4.1-dind-alpine3.21 to 27.5.1-dind-alpine3.21
+  - Debian from debian:12.8-slim to debian:12.9-slim
+  - MySQL from mysql:8.0.36 to mariadb:11.7.2
+  - PostgreSQL from 14.15-alpine3.21 to 15.11.
+  - RabbitMQ from 4.0.5-management-alpine to 4.0.6-management
+  - Redis from 7.4.1-alpine3.20 to 7.4.2
+  - Traefik from 2.11.16 to 2.11.20
+
+- Update dependencies dependencies:
+
+  - Django from 4.2.18 to 4.2.20
+  - Jinja2 from 3.1.4 to 3.1.5
+  - PIP from 24.3.1 to 25.0.1
+  - Pillow from 11.0.0 to 11.1.0
+  - Sphinx from 8.1.3 to 8.2.3
+  - boto3 from 1.35.85 to 1.37.22
+  - coverage from 7.6.9 to 7.7.1
+  - dateparser 1.2.0 to 1.2.1
+  - django-cors-headers from 4.6.0 to 4.7.0
+  - django-debug-toolbar from 4.4.6 to 5.0.1
+  - django-storages from 1.14.4 to 1.14.5
+  - extract-msg from 0.52.0 to 0.54.0
+  - furl from 2.1.3 to 2.1.4
+  - google-cloud-storage from 2.19.0 to 3.1.0
+  - importlib-metadata from 8.5.0 to 8.6.1
+  - ipython from 8.31.0 to 8.32.0
+  - nh3 from 0.2.18 to 0.2.21
+  - ollama from 0.4.4 to 0.4.7
+  - psycopg from 3.2.3 to 3.2.6
+  - psutil from 5.8.0 to 6.1.1
+  - pycryptodome from 3.21.0 to 3.22.0
+  - pypdf from 5.1.0 to 5.4.0
+  - python_gnupg from 0.5.3 to 0.5.4
+  - pytz from 2024.2 to 2025.2
+  - safety from 3.2.12 to 3.3.1
+  - selenium from 3.141.0 to 4.30.0
+  - sentry-sdk from 2.19.2 to 2.24.1
+  - setuptools from 75.6.0 to 78.1.0
+  - sh from 2.1.0 to 2.2.2
+  - twine from 6.0.1 to 6.1.0
+  - whitenoise from 6.8.2 to 6.9.0
+
+- Add support for workflow instance sandboxes.
+- Rename link "Setup parsing" to "Parsing setup".
+- Retrieve the `psutil` version from the `config.env` file.
+- Add help text to the setting `OCR_BACKEND_ARGUMENTS`.
+- Remove Jinja2 from the dependencies. Jinja2 version is now specified by the
+  Sphinx dependencies.
+- Rename `platform` apps to `platforms` for consistency.
+- Rename command `platform_template` to `platforms_template`.
+- Remove support for Django's Admin portal. Removes Django apps
+  `django.contrib.admin` and `django.contrib.sites`.
+- Downgrade coveralls and coverage. Latest versions are not available
+  via PIP.
+- Remove setting `COMMON_COLLAPSE_LIST_MENU_OBJECT`. The behavior is
+  now set as if the value of this setting was `True`.
+- Remove setting `COMMON_COLLAPSE_LIST_MENU_LIST_FACET`. The behavior is
+  now set as if the value of this setting was `True`.
+- Remove support for user themes.
+- Remove `django-mathfilters`.
+- Remove the `{{ |date_parse }}` filter. This is filter is replaced by
+  the more capable `{% date_parse %}` tag.
+- Redirect all password reset views when password reset is disabled.
+- Split authentication and password reset views into separate module.
+- Move the Sentry API client to its own app named `platforms_sentry`.
+- Ensure `get_language_option_list` returns a list of options and not a
+  `dict_keys` object.
+- Rename duplicated documents link and view title for clarity.
+- Remove the deprecated `coveralls` library.
+- Remove the unused `selenium` library and associated code.
+- Update messaging app code to replace `bleach` with `nh3`.
+- Move `nh3` dependency to the common app.
+- Split sources API URLs.
+- Rename the target `copy-config-env` to `config-env-copy`.
+- Don't append the changelog to the PyPI description.
+- Prefix all GitLab CI branch with `ci`.
+- Add `pkg-config` as a build time dependency.
+- Pass `GITLAB_CI_BRANCH_TRY_STAGING` to the GitLab CI template instead of
+  hard coding the branch name.
+- Add `get_databases_sqlite` to generate the SQLite database entry in a
+  consistent manner.
+- Change the default value of `APPEARANCE_MESSAGE_POSITION` from `top-right`
+  to `bottom-right`.
+- Add SPDX license expression to comply with PEP 639.
+- Change the statistic view icon to a facet link.
+- Prefix tag and filters functions with `tag_` and `filter_` respectively.
+- Rename `GIT_REMOTE_NAME` to `GITLAB_CI_REMOTE_NAME`.
+- Sort the output of the `platforms_template` command by template name.
+- Move the icon related template tags to the icons app.
+- Complete the documentation reorganization.
+
+  - Remove all `parts` paths.
+  - All documentation content is stored in chapters.
+  - Include deprecation, backward incompatible changes, removals in the
+    document of the series first release.
+  - Solve various warnings.
+  - Rename scripts and make file target to follow the {object}-{verb} layout.
+
+- Add support for marking template tags and filters as "dangerous". These are
+  tags or filters that if not properly used or controlled with adequate
+  permissions can allow more access than intended. Adds the setting
+  `TEMPLATING_TAGS_DANGEROUS_ALLOW_LIST`, which defaults to allowing the
+  existing tags for backward compatibility.
+- Add support for Elasticsearch 9.
+
+    - Change how the Elasticsearch backend is initialized, all Elasticsearch
+      client specific arguments are passed via the `client_kwargs` argument.
+    - Add support to change the default page size via then new
+      `search_page_size` argument.
+    - Add support to change the default point in time keep alive with the
+      new `point_in_time_keep_alive` argument.
+    - Update Docker Compose file to default to Elasticsearch over HTTPS.
+    - Rename the target `docker-elastic-start` to
+      `docker-elasticsearch-start`.
+    - Rename the target `docker-elastic-stop` to
+      `docker-elasticsearch-stop`.
+    - Rename the Elasticsearch backend from `ElasticSearchBackend` to
+      `ElasticsearchSearchBackend` for consistency.
+
+- Update the workflow template transition trigger widget to a
+  `SourceColumnWidget` subclass.
+- Added support to the workflow HTTP action to bypass SSL certificate
+  verification. This allows the workflow to interface with intranet services
+  that are using a self-signed certificate.
+- Deprecate ORACLE support. Oracle files will be removed in the next minor
+  version.
+- Improve form fieldset mismatch exception error.
+- Add a new template filter named `yaml_dump` that converts the given value
+  into a YAML-formatted string.
+- Add `FormMixinFormMeta` to support specifying custom form options in a well
+  organized `FormMeta` form class member.
+- Add file metadata class method `do_document_file_process` to consolidate
+  subclass execution and avoid having that logic in the task.
+- Update `FormFieldMixinFilteredQueryset` to load content from
+  `source_queryset' and not `queryset`.
+- Add file metadata driver for OpenAI.
+- Add `content` as a model attribute for the document file sandbox.
+- Fix label of the index template return link.
+- Split the variable `DOCKER_LINUX_IMAGE_VERSION` into
+  `DOCKER_LINUX_IMAGE_NAME` and `DOCKER_LINUX_IMAGE_TAG`.
+- Split the variable `DOCKER_MYSQL_IMAGE_VERSION` into
+  `DOCKER_MYSQL_IMAGE_NAME` and `DOCKER_MYSQL_IMAGE_TAG`.
+- Move the Google credentials backend to its own app.
+- Add support for deleting multiple transformations.
+- Split the tag app view tests into separate tag and document tests modules.
+- Optimize document object managers and reduce probability of N+1 queries.
+- Remove the `safety` Python package and its related makefile targets.
+- Remove the `removals.txt` file.
+- Remove unused `ModelFormFieldFilteredModelChoice`.
+- Make `FormMixinFieldsets` a subclass of `FormMixinFormMeta`.
+- Split metadata API view modules into separate modules.
+- Automate copyright year updates.
+- Refactor `generate_setup.py`.
+- Update Docker Compose volume names in documentation.
+- Split the Docker Compose installation chapter into multiple files.
+- Remove `importlib-metadata`.
+- Expose Django's `CACHES` setting as `MAYAN_CACHES`.
+- Add support for API throttling. The default throttling values are:
+
+  - anonymous: 5 requests per second
+  - logged users: 10 requests per second
+
+- Add support for deleting workflow instances via the UI and the API.
+- Support partial app template loading for the about view.
+- Modernize the fundraiser app and avoid hardcoding locations.
+- Add more translation languages and language variants:
+
+  - Bulgarian (Bulgaria)
+  - German
+  - Greek (Greece)
+  - Spanish (Spain)
+  - Japanese
+  - Russian (Russia)
+  - Ukrainian (Ukraine)
+
+4.9.8 (XXXX-XX-XX)
+==================
+- Merge changes and improvements from version 4.8.10.
+- Update dependencies versions:
+
+  - sentry-sdk from 2.46.0 to 2.48.0
+  - pypdf from 6.4.0 to 6.4.2
+
+4.9.7 (2025-12-13)
+==================
+- Backports from version 4.10
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
+  - Make document file search fields translatable.
+  - Make tag document list link title translatable.
+  - Make the task worker labels translatable.
+  - Add missing locales app migration.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Fix appearance settings variable names.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 5.1.0 to 5.2.0.
+
+- Ensure the `Worker` class returns string objects for its label content.
+
+4.9.6 (2025-12-01)
+==================
+- Rename file metadata model mixin class for clarity.
+- Consolidate dynamic filtering field reload code. Add the new
+  `FormMixinFilteredFieldsReload` mixin.
+- Improvements and changes from version 4.8.9.
+- Add a makefile target to clean up all Python libraries.
+- Update dependency versions:
+
+  - coverage from 6.5.0 to 7.12.0.
+  - coverall from 3.3.1 to 4.0.2.
+  - django-test-migrations from 1.4.0 to 1.5.0.
+  - gevent from 24.11.1 to 25.9.1 due to PVE-2025-76839.
+  - greenlet from 3.1.1 to 3.2.4.
+  - pip from version 25.2 to 25.3.
+  - pypdf from 6.3.0 to 6.4.0.
+  - safety from 3.2.13 to 3.7.0.
+  - sentry-sdk from 2.45.0 to 2.46.0.
+
+- Add `appearance/node_modules/bootswatch/docs/*` to the appearance app's
+  `static_media_ignore_patterns`.
+- Split the Docker command lines in the Docker makefile.
+- Update the Docker build file to allow the `wheel` build environment to
+  download its own dependencies.
+- Update the Docker build file to create a home directory to the `mayan` user
+  and store the PIP cache.
+- Update the Python package target to allow the `wheel` build process
+  to download its own dependencies and not be isolated.
+- Update GitLab CI file to call make file targets instead of hard-coding
+  library installations.
+- Remove repeated `apt-get update` call in the GitLab CI file.
+- Add Python makefile targets `dev-setup-python-build` and
+  `dev-setup-python-base`.
+- Install the complete Debian build packages for the CI job
+  `job_python_build`.
+
+4.9.5 (2025-09-28)
+==================
+- Improvements and changes from version 4.8.8.
+- Silence document indexing error during checkout test to avoid confusion.
+- Add `graphviz` to the GitLab CI documentation step.
+
+4.9.4 (2025-09-03)
+==================
+- Merge changes from version 4.8.7.
+- Fix task manager test missing a call to `super().tearDown`.
+- Optimize test mixin `RandomPrimaryKeyModelMonkeyPatchMixin`. Mixin now uses
+  an optimistic approach only resorting to introspecting the database on
+  random primary key collisions. Test case unit speed improvements have
+  ranged from 11 to 20% less time.
+- Improve and simplify series support chapter.
+- Add Sphinx GraphViz extention.
+- Docker Compose update:
+
+  - Improve container dependency. Ensures services start before Mayan EDMS.
+    Also ensures that Mayan EDMS shuts down before services.
+  - Added health checks to Elasticsearch, Mayan EDMS, RabbitMQ, Redis.
+  - Improved the PostgreSQL health check by specifying the database name.
+
+- Change README to use the black and white logo.
+- Remove donation links. The Mayan EDMS project no longer accepts donations.
+- Remove outdated documentation sections.
+
+4.9.3 (2025-08-27)
+==================
+- Merge changes from version 4.8.5 and 4.8.6.
+- Add setting migration to change the removed mime type backend. Avoids
+  GitLab issue #1187 on old installations.
+- Documentation updates:
+
+  - Put badges on index page for important information at a quick glance.
+  - Fix link to features chapter.
+  - Fix loading of the config env file.
+  - Minor layout and structure tweaks.
+
+- Update the translation file detection to ensure all JavaScript files are
+  included.
+- Fix workflow app translation string interpolation.
+- Downgrade coveralls from 4.0.1 to 3.3.1.
+- Deprecate coveralls. Will be removed in the next minor version.
+- Downgrade coverage from version 7.6.9 to 6.5.0 to support coveralls 3.3.1.
+
+4.9.2 (2025-07-23)
+==================
+- Increase the GitLab CI artifact expiration from 4 hours to 24 hours.
+- Update dependency versions:
+
+  - Django from 4.2.18 to 4.2.23
+  - requests from 2.32.3 to 2.32.4
+  - python_gnupg from 0.5.3 to 0.5.4
+  - ollama from 0.4.4 to 0.4.5
+  - furl from 2.1.3 to 2.1.4
+  - psycopg from 3.2.3 to 3.2.9
+
+- Update Docker image tags:
+
+  - Elasticsearch from 7.17.26 to 7.16.28
+  - Debian from 12.8-slim to 12.11-slim
+  - RabbitMQ from 4.0.5-management-alpine to 4.0.9-management-alpine
+  - Redis from 7.4.1-alpine3.20 to 7.4.5-alpine3.21
+  - Traefik from v2.11.16 to v2.11.27
+
+- Reinforce the Ollama document file metadata client to handle undocumented
+  backward incompatible changes made in Ollama.
+- Fix toolbar render issue on recent Chromium based browsers.
+- Update copyright year.
+- Add Ollama integration feature document.
+- Improve documentation navigation.
+- Update translation files.
+
+4.9.1 (2025-01-22)
+==================
+- Fix workflow migration 0037 for the edge case where there are existing
+  workflows without an initial state and without an initial transition.
+  Version 4.9 does not allow workflow instances without an initial state
+  being specified therefore these existing workflow instances are invalid.
+  The migration will now detect and delete these invalid workflow instances.
+  The migration will emit an error log in the console for each invalid
+  instance with the corresponding workflow template label, workflow template
+  ID, and document ID so users can fix and relaunch the invalid workflow
+  templates.
+- Fix migration test case `WorkflowTemplateTransitionTriggerMigrationTestCase`
+  asserting `True` values instead of value equality.
+- Update the target used to build the documentation.
+- Fix documentation file references.
+- Update Django from version 4.2.17 to 4.2.18 due to CVE-2024-56374.
+- Add missing includes to add the removals, deprecations and backward
+  incompatible sections.
+
+4.9 (2025-01-20)
+================
+- Fix management command `settings_show` internal interface usage.
+- Update Python dependency versions:
+
+  - amqp from 5.2.0 to 5.3.1
+  - bleach from 6.1.0 to 6.2.0
+  - boto3 from 1.34.122 to 1.35.85
+  - coverage rom 7.5.4 to 7.6.9
+  - Django from 4.2.16 to 4.2.17
+  - django-auth-ldap from 4.8.0 to 5.1.0
+  - django-celery-beat from 2.6.0 to 2.7.0
+  - django-cors-headers from 4.4.0 to 4.6.0
+  - django-debug-toolbar from 4.4.5 to 4.4.6
+  - django-model-utils from 4.5.1 to 5.0.0
+  - django-silk from 5.2.0 to 5.3.2
+  - django-solo from 2.3.0 to 2.4.0
+  - drf-yasg from 1.21.7 to 1.21.8
+  - extract-msg from 0.48.7 to 0.52.0
+  - gevent 24.2.1 to 24.11.1
+  - google-cloud-storage from 2.17.0 to 2.19.0
+  - greenlet from 3.0.3 to 3.1.1
+  - importlib-metadata from 8.0.0 to 8.5.0
+  - ipython from 8.26.0 to 8.31.0
+  - ollama from 0.2.1 to 0.4.4
+  - packaging from 24.1 to 24.2
+  - Pillow from 10.4.0 to 11.0.0
+  - PIP from 24.2 to 24.3.1
+  - pycryptodome from 3.20.0 to 3.21.0
+  - pypdf from 4.2.0 to 5.1.0
+  - qrcode from 7.4.2 to 8.0
+  - redis from 5.0.7 to 5.2.1
+  - Sphinx from 7.3.7 to 8.1.3.
+  - safety from 3.2.4 to 3.2.13
+  - sentry-sdk from 2.15.0 to 2.19.2
+  - setuptools from 70.3.0 to 75.6.0
+  - sh from 2.0.7 to 2.1.0
+  - sphinx_rtd_theme from 2.0.0 to 3.0.2
+  - sphinxcontrib-spelling from 8.0.0 to 8.0.1
+  - twine from 5.1.1 to 6.0.1
+  - wheel from 0.44.0 to 0.45.1
+  - whitenoise from 6.7.0 to 6.8.2
+
+- Update Docker image tags:
+
+  - Debian from 12.7-slim to 12.8-slim
+  - Docker in Docker from docker:27.0.3-dind-alpine3.20 to
+    docker:27.4.1-dind-alpine3.21
+  - Elasticsearch from 7.17.24 to 7.17.26
+  - PostgreSQL from 14.13-alpine3.20 to 14.15-alpine3.21
+  - RabbitMQ from 3.13.7-management-alpine to 4.0.5-management-alpine
+  - Redis from 7.2.5-alpine3.20 to 7.4.1-alpine3.20
+  - Traefik from v2.5.7 to v2.11.16
+
+- Rebalance the Celery workers maximum tasks per child.
+- Remove the MIME type detection backend based on Python Magic.
+- Support passing a custom consumer timeout value to RabbitMQ via
+  the new environment variable `MAYAN_RABBITMQ_CONSUMER_TIMEOUT`, which
+  defaults to 1800000 milliseconds or 30 minutes.
+- Support passing custom server Erlang arguments to RabbitMQ via the new
+  environment variable `MAYAN_RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS`. which
+  defaults to settings the consumer timeout via
+  `MAYAN_RABBITMQ_CONSUMER_TIMEOUT`.
+- Rename the makefile targets:
+
+  - `generate-setup` to `python-setup-generate`
+  - `increase-version` to `version-increase`
+  - `generate-requirements` to `requirements-generate`
+
+- Split templating app template tag into separate modules.
+- Add the `json_load` templating filter.
+- Add a Docker Compose service to mount a cabinet.
+- Support disabling the search app.
+- Filter the document, document file, and document version pages by the
+  user's corresponding view permissions.
+- Split the cabinet app views module.
+- Adjust document version list permission requirement. The permission grant
+  can now be more granular.
+- Remove the example insecure Traefik dashboard password.
+- Adjust document file list permission requirement. The permission grant
+  can now be more granular.
+- Move the `is_url_query_positive` utility from the search to the views app.
+- Update FAQ document.
+- Formalize the pattern used to get all the request `GET` and `POST` data.
+- Add support for remembering the use choice to ignore confirmation dialogs.
+  Applies to action confirmations, single object deletion, multi object
+  deletion.
+- Split the user management app test and test mixin modules.
+- Rename all instances of the prefix `self.TestModel` to `self._TestModel` to
+  prevent possible collisions with other test scaffolding objects and for
+  uniformity with other test objects being made semi private a similar way.
+- Move the document file parsing event commit outside of the document file
+  parsing cleanup transaction loop.
+- Add a flag to workflow template states to identify them as the final state
+  of the workflow. The final state identified in the state list of the
+  workflow template as well as marked with a darker color in the preview.
+- Split the workflow template state action test module.
+- Change the behavior of the workflow instance creation. It is no longer
+  possible to launch workflows that do not have one state set as initial.
+- Log an error when attempting to launch a workflow without an initial state.
+- Fix context of the workflow launch view when only one document is selected.
+- Remove the logic to calculate the current state of a workflow instance.
+  Instead store the state as part of the workflow instance.
+- Add model property `workflow.< workflow internal name >.state_active`. This
+  deprecated `workflow.< workflow internal name >.get_current_state`.
+- Make the document workflow instance active state column sortable.
+- Make the document workflow instance completion column sortable.
+- Add support to ignore completed workflows. Documents in these workflows
+  will not show up in the workflow main menu. They are also excluded from
+  escalation checking and transition trigger processing.
+- Add the `ignore_completed` column to workflow templates.
+- Add the `auto_launch` column to workflow templates.
+- Move workflow model business logic code to the models mixins module.
+- Move transition trigger code from the handler to the manager module.
+- Optimize the valid transition calculation by converting it into a Django
+  query filter and using the `exists()` method.
+- Events app updates:
+
+  - Ensure event namespaces are unique.
+  - Reuse event namespaces instances.
+  - Preload the stored event type cache.
+  - Explicitly cleanup test only event types.
+  - Support deleting event types and event type namespaces.
+  - Ensure even types are unique per event type namespace.
+  - Support deregistering model event types.
+  - Improve test mixin class inheritance. Reduces imports and test
+    scaffolding.
+  - Tag event tests at the mixin level.
+  - Remove event type refreshes in views.
+- Document indexing app updates:
+
+  - Split test mixins.
+  - Improve test mixin class inheritance. Reduces imports and test
+    scaffolding.
+  - Tag event tests at the mixin level.
+- Reorganize base test case mixins. Ensure ID randomizer has higher priority
+  followed by the event test mixin.
+- Tag workflow tests at the mixin level.
+- Tag metadata tests at the mixin level.
+- Rename links and icons to follow the great to lesser nomenclature.
+- Ensure `random.seed` is called only once per test suit execution.
+- Add support to disable search model fields. This is controlled via the new
+  setting named `SEARCH_MODEL_FIELD_DISABLE`.
+- Add support for ignoring setting formatting errors. This will allow the
+  system to start even when there are settings with badly formatted values.
+  This does no apply to bootstrap settings which are low level do need to be
+  correct in order for the system to start. Add the setting
+  `SETTINGS_IGNORE_ERRORS` which defaults to `True`.
+- Add column to show if a setting had errors during loading and reverted to
+  the default.
+- Update FontAwesome from version 6.5.2 to 6.7.1.
+- Log errors during document page preview generation.
+- Change how the navigation classes detected querysets. This allows
+  the navigation code to work with objects that have a `.model` attribute.
+- Add search model and search field information view to the tools menu.
+- Add the description, search field class label, model field class label
+  to the search field API serializer.
+- Move the `SilenceLoggerTestCaseMixin` mixin to the logging app.
+- Rename mixin `SilenceLoggerTestCaseMixin` to `TestCaseMixinSilenceLogger`.
+- Move the `ClientMethodsTestCaseMixin`, `DownloadTestCaseMixin`,
+  `TestServerTestCaseMixin`, `TestViewTestCaseMixin` mixins to the views app.
+- Move the `ConnectionsCheckTestCaseMixin`, `ModelTestCaseMixin`,
+  `TestModelTestCaseMixin`, `RandomPrimaryKeyModelMonkeyPatchMixin` to the
+  databases app.
+- Move the `DescriptorLeakCheckTestCaseMixin`, `OpenFileCheckTestCaseMixin`,
+  `TempfileCheckTestCasekMixin` to the storage app.
+- Move the `psutil` dependency to the storage app.
+- Add help texts to the document comment model.
+- Improve columns of the user view modes by replacing the app config
+  representation with the app config verbose name.
+- Remove overridden user model meta ordering value.
+- Add help texts to the user first name and last name fields.
+- Ensure the `select2` fields also apply the markup template to the selection
+  as well as the result.
+- Move nested field label and help text extraction from the navigation app
+  to the databases app and make it general purpose. Add
+  `label_for_field_recursive` and `help_text_for_field_recursive` utility
+  functions.
+- Fix workflow model completion model property typo.
+- Make document comment fields available for linking.
+- Improve `.select2-templating` entry template to not assume all entries
+  have descriptions.
+- Smart link updates:
+
+  - Add field sets to the conditions form.
+  - Use `select2-templating` widget class for the foreign document data field.
+  - Use `select` class for the inclusion and operator fields.
+
+- Make source metadata available for linking.
+- Add help texts to the workflow instance fields: workflow, document,
+  state active.
+- Move the GitLab CI platform template into its own app named
+  `platform_gitlab`.
+- Reduce the SSH connections used by the GitLab CI deploy stage.
+- Improve the method to pass custom arguments to Tesseract OCR.
+- Unify the label of empty dropdown options.
+- Add support for event pruning via backends. Four backends are added:
+  `EventLogPruneBackendLatest`, `EventLogPruneBackendLatestPerObject`,
+  `EventLogPruneBackendLatestPerObjectEventType`,
+  `EventLogPruneBackendOlderThanDays`. Adds settings `EVENTS_PRUNE_BACKEND`,
+  `EVENTS_PRUNE_BACKEND_ARGUMENTS` and `EVENTS_PRUNE_TASK_INTERVAL` which
+  defaults to 30 days.
+- Setting updates:
+
+  - Update the `Setting` and `SettingNamespace` classes to be singletons.
+    Calling the creation of a new setting in a namespace or a namespace in a
+    cluster with a duplicated identifier will no longer raise and error,
+    instead the previously created instance will be returned.
+  - Split the setting classes into separate modules.
+
+- Support setting the supervisor `autorestart` flag via the environment.
+  Add the environment variable `MAYAN_SUPERVISOR_AUTORESTART`.
+  Defaults to `true` for the Supervisod template, defaults to
+  `false` for the Docker Supervisord template.
+- Add a PDF file metadata driver using PyPDF.
+- Support opening PDF as archives.
+- Add help text to workflow state actions informing that they will be
+  execute in alphabetical order.
+- Override Django's `makemigrations` command to support ignoring third party
+  apps.
+- Add task type information view.
+- Add math template filters `math_add`, `math_absolute`, `math_divide`,
+  `math_exponentiate`, `math_floor_divide`, `math_modulo`, `math_multiply`,
+  `math_square_root`, `math_substract`. This change deprecates the math
+  filters provided by the `django-mathfilters` libray which will be removed
+  in the next minor version.
+- Update the version check code to use the new version of the PyPI API.
+- Add new documentation app and move the Sphinx dependencies to it.
+- Persist success icon when a file upload finishes.
+- Remove dropzone hard coded icons.
+- Tweak icon spacing.
+- Use font awesome fixed width icons style.
+- Move all icon related code and assets to a new icons app.
+- Remove hardcoded CD/CI and Docker package names.
+- Generalize the document sandbox to work with other models.
+- Enable template sandbox for document files and document versions.
+- Add template sandbox API view.
+- Add model property information tool view.
+- Use the best possible model label when composing the search form fieldset
+  labels.
+- Make the intervals of tasks `task_document_type_document_stubs_delete`,
+  `task_document_type_document_trash_periods_check`,
+  `task_document_type_trashed_document_delete_periods_check` configurable
+  via the new settings `DOCUMENTS_TRASH_PERIOD_CHECK_TASK_INTERVAL`,
+  `DOCUMENTS_STUBS_DELETE_TASK_INTERVAL`,
+  `DOCUMENTS_TRASHED_DOCUMENT_DELETE_PERIODS_CHECK_TASK_INTERVAL`.
+- Increase the document trash, trashed document deletion, and document stub
+  pruning tasks default intervals to 30 minutes.
+- Support height change persistence for the template string, preview and
+  result fields.
+- Add error logging to the file metadata drivers.
+- Support jump to any user specified page. Add setting
+  `APPEARANCE_PAGINATION_INPUT_ENABLE`.
+- Add the `range` template tag.
+- Add a dropdown based page selector. Add settings
+  `APPEARANCE_PAGINATION_DROPDOWN_RANGE` and
+  `APPEARANCE_PAGINATION_DROPDOWN_ENABLE`.
+- Add settings to configure the elided pager. Add settings
+  `APPEARANCE_ELIDED_PAGER_ON_EACH_SIDE` and
+  `APPEARANCE_ELIDED_PAGER_ON_ENDS`.
+- Support separate GitLab CI registry push and deploy credentials.
+- Reduce the demo stage SSH connections.
+- Reduce the demo stage downtime.
+- Fix `flatten_map` not using the `separator` argument.
+- Add the `dictionary_flatten` template filter.
+- Add the `object_flatten` template filter.
+- Add a reset button to height change persistence elements.
+- Add a button to copy template code to the clipboard.
+- Cache the AJAX content element selector.
+- Centralize the AJAX content update logic.
+- Rename the AJAX content events for clarity.
+- Cover the height reset and copy button HTML into a JavaScript template.
+- Trigger the AJAX content `updated` event only when the content is ready
+  for manipulation.
+- Convert `.select2-templating` elements only once per load.
+- Optimize the `MayanApp` JavaScript class.
+- Update `ObjectLinkWidget` to work with objects other than models.
+- Improve the worker, queue, and task type list views to include more
+  information, memory size formatting, view inter-linking.
+- Support searching document by language.
+- Add template filter `dictionary_get`. This deprecates the existing filter
+  `dict_get`. Both operate exactly the same differing only by name.
+- Add sharded directory filesystem storage backend.
+- Rebalance Celery tasks per child values.
+- JavaScript app updates:
+
+  - Replace `$.each` with `for...of`.
+  - Initialize AJAX menus asynchronously.
+  - Rename usage of `self` to `app` for consistency.
+  - Remove unused `formBeforeSerializeCallbacks`.
+
+- Remove hardcoded `id_list` from views and JavaScript.
+- Compose the URL query string using the `URI` API.
+- Replace string concatenation with template literals.
+- Rename `ViewMixinOwnerPlusFilteredQueryset.optional_object_permission` to
+  `object_optional_permission` for consistency.
+- Build documentation features part dynamically from apps.
+- Fix inter document documentation references.
+- Update `.gitignore` to not include final app documentations builds.
+- Add tag version of `date_parse` to allow passing arguments. This deprecates
+  the filter version and will be removed in a future minor version.
+- Add filter `date_parse_iso` to parse ISO 8601 dates.
+- Prefix the templating app tags and filter functions to avoid name or
+  reserved word clashes.
+- Cap the default concurrency of the Celery workers.
+- Fix context of the workflow launch view when only one document is selected.
+- Quote environment variables prior to loading.
+- Formalize the pattern used to get all the request `GET` and `POST` data.
+- Improve how the select all toolbar checkbox is disabled when there are no
+  results.
+
+4.8.11 (XXXX-XX-XX)
+===================
+- Changes and improvements from version 4.7.9.
+
+4.8.10 (2025-12-13)
+===================
+- Backports from series 4.10 and 4.9.
+
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
+  - Make document file search fields translatable.
+  - Make tag document list link title translatable.
+  - Make the task worker labels translatable.
+  - Add missing locales app migration.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 4.8.0 to 5.2.0.
+
+  - Ensure the `Worker` class returns string objects for its label content.
+
+- Add `appearance/node_modules/bootswatch/docs/*` to the appearance app's
+  `static_media_ignore_patterns`.
+- Add a makefile target to clean up all Python libraries.
+
+4.8.9 (2025-11-22)
+==================
+- Improvements and changes from version 4.7.7.
+- Update dependency versions:
+
+  - Markdown from 3.7 to 3.10
+  - Pillow from 10.4.0 to 12.0.0
+  - dateparser from 1.2.0 to 1.2.2
+  - django-celery-beat from 2.6.0 to 2.8.1
+  - nh3 from 0.2.18 to 0.3.2
+  - ollama from 0.2.1 to 0.6.1
+  - pypdf from 6.2.0 to 6.3.0
+  - sentry-sdk from 2.44.0 to 2.45.0
+
+- Install `setuptools` in the GitLab CI job named `job_docker_build`.
+
+4.8.8 (2025-09-26)
+==================
+- Improvements and changes from version 4.7.6.
+
+4.8.7 (2025-09-03)
+==================
+- Don't add 'forge/Dockerfile' into .gitignore.
+- Merge changes and improvements from version 4.7.5.
+- Change how the ClamAV file metadata test is configured. Enable the ClamAV
+  driver inside the test method and not in the test case to avoid raising an
+  exception while `setUp` is still executing thus making the test skip
+  `tearDown` which skips important test cleanups.
+
+4.8.6 (2025-08-25)
+==================
+- Improvements and changes from version 4.7.3 and 4.7.4.
+- Fix workflow template field test after change in form default empty values.
+
+4.8.5 (2025-08-08)
+==================
+- Merge fixes and improvements from version 4.7.2.
+- Backport makefile major release branch references.
+- Backport documenation file references fixes.
+- Backport fundraisers app.
+- Build documentation features part dynamically from apps.
+- Fix inter document documentation references.
+- Update `.gitignore` to not include final app documentations builds.
+- Remove obsolete documentation chapter
+- Persist success icon when a file upload finishes.
+- Remove dropzone hard coded icons.
+- Update the version check code to use the new version of the PyPI API.
+- Unify the label of empty dropdown options.
+
+4.8.4 (2025-07-27)
+==================
+- Increase the GitLab CI artifact expiration from 4 hours to 24 hours.
+- Add Mayan Forge, a Docker based development environment for Mayan EDMS.
+- Update dependency versions:
+
+  - Django from 4.2.16 to 4.2.23
+  - requests from 2.32.3 to 2.32.4
+  - python_gnupg from 0.5.3 to 0.5.4
+
+4.8.3 (2024-10-04)
+==================
+- Fix multi part email source metadata inheritance. Ensure all parts of a
+  multipart email inherit the source metadata of the previous levels.
+- Update Docker images tags:
+
+  - Debian from debian:12.6-slim to debian:12.7-slim
+  - elasticsearch from 7.17.22 to 7.17.24
+  - PostgreSQL from 14.12-alpine3.20 to 14.13-alpine3.20
+  - KeyCloak PostgreSQL from 13.14-alpine to 13.15-alpine
+  - RabbitMQ from 3.13.4-management-alpine to 3.13.7-management-alpine
+
+- Update Python dependencies:
+
+  - django from 4.2.13 to 4.2.16 due to CVE-2024-41991, CVE-2024-41990,
+    CVE-2024-42005, CVE-2024-39330, CVE-2024-39329, CVE-2024-39614,
+    CVE-2024-38875
+  - django-silk from 5.1.0 to 5.2.0
+  - gunicorn from 22.0.0 to 23.0.0 due to PVE-2024-72809.
+  - elasticsearch from 7.17.9 to 7.17.12
+  - jsonschema from 4.22.0 to 4.23.0
+  - sentry-sdk from 2.8.0 to 2.15.0
+  - PyYAML from 6.0.1 to 6.0.2
+  - pip from 24.1.2 to 24.2
+  - python_gnupg from 0.5.2 to 0.5.3
+  - pytz from 2024.1 to 2024.2
+  - psycopg from 3.2.1 to 3.2.3
+  - swagger-spec-validator from 3.0.3 to 3.0.4
+  - wheel from 0.43.0 to 0.44.0
+
+4.8.2 (2024-07-14)
+==================
+- Update translation files.
+- Exclude PostgreSQL exception `ProgrammingError` when initializing
+  file metadata drivers during the database migration.
+
+4.8.1 (2024-07-14)
+==================
+- Add the `enabled_default` field to the file metadata driver API serializer.
+- Fix a file metadata issue preventing upgrades from series 4.7 to 4.8.
+
+4.8 (2024-07-12)
+================
+- Update dependency versions:
+
+  - boto3 from 1.33.7 to 1.34.122
+  - celery from 5.3.6 to 5.4.0
+  - coverage from 6.5.0 to 7.5.4
+  - coveralls from 3.3.1 to 4.0.1
+  - django from 4.2.11 to 4.2.14
+  - django-auth-ldap from 4.6.0 to 4.8.0
+  - django-cors-headers from 4.3.1 to 4.4.0
+  - django-debug-toolbar from 4.3.0 to 4.4.5
+  - django-model-utils from 4.4.0 to 4.5.1
+  - django-solo from 2.2.0 to 2.3.0
+  - django-storages from 1.14.2 to 1.14.4
+  - django-test-migrations from 1.3.0 to 1.4.0
+  - djangorestframework from 3.14.0 to 3.15.2
+  - extract-msg from 0.48.5 to 0.48.7
+  - google-cloud-storage from 2.15.0 to 2.17.0
+  - gunicorn from 21.2.0 to 22.0.0
+  - importlib-metadata from 7.0.2 to 8.0.0
+  - ipython from 8.22.2 to 8.26.0
+  - jsonschema from 4.21.1 to 4.22.0
+  - mozilla-django-oidc from 4.0.0 to 4.0.1
+  - packaging from 21.3 to 24.1
+  - Pillow from 10.3.0 to 10.4.0
+  - pip from 24.0 to 24.1.2
+  - psutil from 5.9.8 to 6.0.0
+  - psycopg from 3.1.14 to 3.2.1
+  - pypdf from 4.1.0 to 4.2.0
+  - redis from 5.0.3 to 5.0.7.
+  - safety from 3.1.0 to 3.2.4
+  - sentry-sdk from 1.41.0 to 2.8.0
+  - setuptools from 69.5.1 to 70.3.0
+  - twine from 5.1.0 to 5.1.1
+  - wheel from 0.42.0 to 0.43.0
+  - whitenoise from 6.6.0 to 6.7.0
+
+- Docker image tags:
+
+  - Debian from 12.5-slim to 12.6-slim.
+  - Elasticsearch from 7.17.20 to 7.17.22.
+  - Update GitLab CI Docker in Docker image from 23.0.6-dind to 27.0.3-dind-alpine3.20 due
+    to bugs https://github.com/docker/buildx/issues/593 and
+    https://github.com/moby/buildkit/issues/2343.
+  - PostgreSQL from 14.12-alpine to 14.12-alpine3.20
+  - RabbitMQ from 3.12.14-management-alpine to 3.13.4-management-alpine.
+  - Redis from 7.0.15-alpine to 7.2.5-alpine3.20.
+
+- Rename `menu_about` to `menu_system` to reflect it true purpose.
+- Update the system menu icon.
+- Remove hardcoded dropdown markup in `partials/list/toolbar.html`. Instead
+  use the general purpose template `actions_dropdown.html`.
+- Split menu link resolution into two stages. Add caching to the class
+  results of the navigation object inspection.
+- Remove AJAX navigation exclusion for the `.btn-multi-item-action` class
+  and shift the responsibility of interaction from HTML/CSS to JavaScript.
+- Remove devpi-server and related make file targets.
+- Remove Docker Compose `version` tag.
+  https://github.com/docker/compose/issues/11628
+- Remove vagrant files and make file targets.
+- Update Copyright year from 2011 to 2024.
+- Split URL pattern definitions.
+- Support deleting notifications.
+- Reorganize events app modules.
+- Split form related code and moved it to its own app. All imports from
+  `django.forms` are updated to explicit imports from `mayan.apps.forms`
+  modules. New form modules are: `form_fields`, `formsets`, `form_widgets`,
+  `forms`. Breaking change: the setting `VIEWS_SHOW_DROPZONE_SUBMIT_BUTTON`
+  is now named `FORMS_SHOW_DROPZONE_SUBMIT_BUTTON`.
+- Breaking change for app. Split the `navigation.classes` module into
+  `navigation.links`, `navigation.menus`, `navigation.source_columns`.
+- Fix model proxy menu exclusion.
+- Update the document type file metadata and OCR link labels for clarity.
+- Rename development setup targets. Change the prefix `setup-dev` to
+  `dev-setup`. Update the OS target to include the OS name `ubuntu`.
+- Fix file caching app class name from `FileCachingConfig` to
+  `FileCachingAppConfig`.
+- Add new app named "App manager" that displays the list of the discovered
+  and active Mayan EDMS apps in an installation.
+- Increase the Celery workers maximum memory per child from 400MB to 500MB.
+- Decrease the Celery workers maximum tasks per child from 1000 to 500.
+- Humanize the document file size column.
+- Breaking change: Remove Debian Chinese and Korean font packages from the
+  default Docker image. Removed package names: `fonts-arphic-uming`,
+  `fonts-arphic-ukai`, `fonts-unfonts-core`.
+- Document template helper updates: Fixed the latest file help. Added a
+  helper that returns the active version.
+- Templating updates:
+
+  - Add template preview with syntax highlight.
+  - Change the font family of the template to be monospaced.
+  - Synchronize the scrolling of the template edit and preview fields.
+  - Ensure the overscroll of the edit and preview fields does not affect
+    the parent element.
+  - Restrict the scrolling of the edit, preview, and result fields to
+    vertical only.
+  - Add the setting `TEMPLATING_WIDGET_HIGHLIGHT_THEME` to change the
+    highlight style theme.
+  - Return errors in the result fields instead of a view message.
+
+- Remove KeyCloak from the Docker Compose file.
+- Support enabling or disabling file metadata driver per document type.
+- Pass the value to `SourceColumnWidget` subclasses during initialization
+  instead of during rendering.
+- Split Bootstrap specific markup and style into the `appearance_bootstrap`
+  app.
+- Split document indexing serializers into separate modules.
+- Update the message delete view to use the `MultipleObjectDeleteView`
+  instead of `MultipleObjectConfirmActionView`.
+- Tweak FontAwesome icon spacing and composition styling.
+- Improve the logic to show or hide the filter clear icon.
+- The filter clear icon is now shown if a filter has a value after a refresh
+  or full page load.
+- Added persistent view mode setting. This features stores the user selected
+  view mode for a specific view.
+- Add view to show the detail of each user view modes.
+- Show more information when a source column attribute can't be resolved.
+- Remove the specialized and custom animated list toolbar checkbox and
+  instead use a styled standard HTML checkbox.
+- Remove the icons class `fontawesome-dual-classes`. Replaced the two last
+  uses with `fontawesome-dual`.
+- Move inline styles.
+- Rename icon class `fontawesomecss` to `fontawesome-css`.
+- Remove icons class `fontawesome-stack`.
+- Add file metadata Ollama app. This app is able to interface with Ollama
+  models and share via messages any type of document information.
+- Rename the internal name of the file metadata events for correctness.
+  Renamed from `document_version_submit` to `document_file_submitted`,
+  `document_version_finish` to `document_file_finished`. Renamed using
+  migration 0018. There is no user impact.
+- Add support for file metadata driver migrations.
+- Split the file metadata EXIF driver to its own app named
+  `mayan.apps.file_metadata_exif.apps.FileMetadataEXIFApp`.
+- Split the file metadata extract MSG driver to its own app named
+  `mayan.apps.file_metadata_msg.apps.FileMetadataMSGApp`.
+- Split the Docker templates into their own call named
+  `mayan.apps.platform_docker`.
+- Add `to_base64` template filter. Also accepts an optional `altchars`
+  argument.
+- Support configurable Docker Compose RabbitMQ port, Redis host, Redis port.
+- Remove document count column of document types. This information is already
+  available via the chart "Total documents per document type" and does not
+  impact the database as much as the removed column.
+- Remove templating field help text link to upstream Django template
+  documentation. Closes GitLab issue #1172. Thanks to
+  Daniel Stolpe (@d.stolpe) for the report.
+- Add select2 support and a custom select2 HTML template to the templating
+  field's model attributes and filter/tags dropdowns.
+- Add file metadata API views. Add API view to display registered file
+  metadata drivers, document type configuration, document file driver list,
+  document file metadata entries, submit document files for processing.
+- Support link hover title.
+- Support menus without text.
+- Remove text from the user and system menus.
+- Add hover title for the reload button, system menu, user menu, and messages
+  link.
+- Improve `SourceColumn` resolution of `kwargs`. Keyword arguments can now
+  access the template context reducing the need for lambdas.
+- Add per file metadata option to enable the driver for new document types.
+- Breaking change. Update the permission required to view the list of
+  detected file metadata drivers from "view file metadata" to "view settings".
+  This change is required as the driver list view now may contain low
+  level credentials.
+- Make file metadata view columns sortable.
+- Add a column to the document file metadata list showing the full path to
+  an entry including the driver's internal name.
+- Pass the workflow instance log entry to the workflow instance states. This
+  is to allow states to have access to the log entry that triggered the
+  workflow transition regardless of the current state or transition.
+  The workflow state action context is now composed of the keys:
+  `workflow_instance`, `workflow_instance_context`, `action`, and `log_entry`.
+
+4.7.9 (XXXX-XX-XX)
+==================
+- Merge and improvements from version 4.6.12.
+
+4.7.8 (2025-12-13)
+==================
+- Backports from series 4.10, 4.9, 4.8.
+
+  - Sort storage dependencies.
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
+  - Make document file search fields translatable.
+  - Make tag document list link title translatable.
+  - Make the task worker labels translatable.
+  - Add missing locales app migration.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 4.8.0 to 5.2.0.
+
+  - Add a makefile target to clean up all Python libraries.
+  - Ensure the `Worker` class returns string objects for its label content.
+
+- Update django-celery-beat from version 2.6.0 to 2.8.1.
+
+4.7.7 (2025-11-14)
+==================
+- Improvements and changes from version 4.6.11.
+- Update dependency versions:
+
+  - django-model-utils from 4.5.1 to 5.0.0
+  - pypdf from 6.1.3 to 6.2.0
+  - requests from 2.32.4 to 2.32.5
+  - sentry-sdk from 2.43.0 to 2.44.0
+
+4.7.6 (2025-09-26)
+==================
+- Improvements and changes from version 4.6.10 and 4.6.11dev.
+- Update `gunicorn` from version 22.0.0 to 23.0.0 due to CVE-2024-6827.
+- Update `pypdf` from version 4.2.0 to 6.0.0 due to CVE-2025-55197.
+- Backport timezone updates from version 4.9 and 4.10. Update `pytz` from
+  version 2024.1 to 2025.2. Backport timezone migrations.
+- Add forum link to Python setup.
+
+4.7.5 (2025-09-01)
+==================
+- Improvements and changes from version 4.6.9.
+- Update `safety` from version 3.2.1 to 3.2.3 to fix dependency bug conflict
+  with `dparse` and `psutil`.
+
+4.7.4 (2025-08-25)
+==================
+- Improve sources app migration 0032 to deal with the phantom
+  'source_id' field of the source document file metadata model.
+- Include the version string as part of the Forge virtualenv.
+
+4.7.3 (2025-08-24)
+==================
+- Improvements and changes from version 4.6.8.
+
+4.7.2 (2025-08-07)
+==================
+- Docker image tags:
+
+  - Base Debian from 12.5-slim to 12.11-slim.
+  - Elasticsearch from 7.17.20 to 7.17.28
+  - Forge base from 24.04 to noble-20250714
+  - PostgreSQL from 14.12-alpine to 14.18-alpine
+  - Python from 3.11.9-slim to 3.11.13-slim.
+  - RabbitMQ from 3.12.14-management-alpine to 3.13.7-management-alpine
+
+- Update dependency versions:
+
+  - Django from 4.2.13 to 4.2.23.
+  - PyYAML from 6.0.1 to 6.0.2.
+  - bleach from 6.1.0 to 6.2.0.
+  - django-auth-ldap from 4.6.0 to 4.8.0
+  - django-solo from 2.2.0 to 2.3.0
+  - django-storages from 1.14.2 to 1.14.6.
+  - extract-msg from 0.48.5 to 0.48.7.
+  - furl from 2.1.3 to 2.1.4.
+  - pip from 24.0 to 24.3.
+  - psycopg from 3.1.14 to 3.1.20.
+  - pycryptodome from 3.20.0 to 3.21.0
+  - pytz from 2024.1 to 2024.2.
+  - redis from 5.0.3 to 5.0.8.
+  - requests from 2.32.3 to 2.32.4
+  - sentry-sdk from 1.45.0 to 1.45.1
+  - twine from 5.1.0 to 5.1.1.
+  - whitenoise from 6.6.0 to 6.7.0
+  - pip from 24.3 to 24.3.1
+
+- Fix `flatten_map` not using the `separator` argument.
+- Remove localize fonts from testing Dockerfile.
+- Fix Whoosh search result limit.
+- Backport search app testing improvements.
+- Fix make file target for testing dependencies generation. Each requirement
+  entry generation now specified the settings file to use.
+- Remove the specialized and custom animated list toolbar checkbox and
+  instead use a styled standard HTML checkbox.
+- Backport multi item bulk action dropdown template improvements.
+- Added `CITATION.cff` file for citations.
+- Update README files.
+
 4.7.1 (2024-06-04)
 ==================
 - Merge changes and fixes from version 4.6.5.
@@ -204,16 +1693,16 @@
   users by group and by roles.
 - HTTP request workflow action now supports storing the response in the
   workflow context.
-- Update ElasticSearch Docker image tag from 7.17.17 to 7.17.19.
+- Update Elasticsearch Docker image tag from 7.17.17 to 7.17.19.
 - Search updates:
 
-  - Update the ElasticSearch backend search method.
+  - Update the Elasticsearch backend search method.
   - Use generators to yield the ID list of scope results.
   - Stop yielding results after the count exceeds the search limit setting.
   - Increase scope result limit to 100000.
   - Add support to store search results into resultsets.
   - Convert the search backends into folder modules.
-  - Support ignoring SSL certificates for ElasticSearch.
+  - Support ignoring SSL certificates for Elasticsearch.
 
 - Fix document type model verbose name.
 - Fix detached signature link object reference.
@@ -221,6 +1710,242 @@
 - Add the ID field of primary models as search fields.
 - Expose the document index instance depth and node count values via the API.
 - Add a document type API view to return all documents of that type.
+
+4.6.12 (2025-12-14)
+===================
+- Backports from series 4.10, 4.9, 4.8, 4.7.
+
+  - Sort storage dependencies.
+  - Enforce same origin and HTTP only redirection when breaking from an AJAX
+    content container and during normal single page app navigation.
+  - Git ignore `__pycache__` folders.
+  - Make the Smart link condition fields `inclusion` and `operator` fully
+    translatable.
+  - Make document file search fields translatable.
+  - Make tag document list link title translatable.
+  - Make the task worker labels translatable.
+  - Ensure only Mayan EDMS packages are uploaded to PyPI.
+  - Update dependencies dependencies:
+
+    - Django from 4.2.26 to 4.2.27 due to CVE-2025-13372 and CVE-2025-64460.
+    - django-auth-ldap from 4.8.0 to 5.2.0.
+
+  - Move Python related makefile targets to their own makefile.
+  - Add a makefile target to clean up all Python libraries.
+  - Ensure the `Worker` class returns string objects for its label content.
+
+- Update django-celery-beat from version 2.5.0 to 2.8.1.
+- Update pytz from version 2024.1 to 2025.2.
+- Synchronize locale app migrations 0009, 0010, 0011, 0012 with version 4.7.
+- Update pip from version 25.2 to 25.3.
+
+4.6.11 (2025-11-08)
+===================
+- Add new languages, and language variants.
+
+  - Armenian (Armenia)
+  - Bulgarian (Bulgaria)
+  - French (France)
+  - German
+  - Greek (Greece)
+  - Hungarian (Slovakia)
+  - Hungarian (Hungary)
+  - Japanese
+  - Persian (Iran)
+  - Russian (Russia)
+  - Spanish (Ecuador)
+  - Spanish (Spain)
+  - Tibetan
+  - Ukrainian (Ukraine)
+
+- Dependency version updates:
+
+  - CairoSVG from 2.7.1 to 2.8.2
+  - Pillow from 10.3.0 to 10.4.0
+  - PyYAML from 6.0.2 to 6.0.3
+  - bleach from 6.2.0 to 6.3.0
+  - django from 4.2.24 to 4.2.26
+  - django-auth-ldap from 4.6.0 to 4.8.0
+  - django-cors-headers from 4.3.1 to 4.9.0
+  - django-debug-toolbar from 4.2.0 to 4.4.6
+  - django-model-utils from 4.3.1 to 4.5.1
+  - django-mptt from 0.16.0 to 0.18.0
+  - django-silk from 5.1.0 to 5.3.2
+  - django-solo from 2.2.0 to 2.4.0
+  - drf-yasg from 1.21.7 to 1.21.11
+  - elasticsearch from 7.17.9 to 7.17.12
+  - extract-msg from 0.48.7 to 0.55.0
+  - graphviz from 0.20.3 to 0.21
+  - importlib-metadata from 7.0.2 to 7.2.1
+  - jsonschema from 4.21.1 to 4.25.1
+  - mozilla-django-oidc from 3.0.0 to 4.0.1
+  - psutil from 5.8.0 to 5.9.8
+  - pycryptodome from 3.20.0 to 3.23.0
+  - pypdf from 3.17.4 to 6.1.3
+  - python_gnupg from 0.4.9 to 0.5.5
+  - qrcode from 7.4.2 to 8.2
+  - sentry-sdk from 2.38.0 to 2.43.0
+  - sh from 2.0.7 to 2.2.2
+  - swagger-spec-validator from 3.0.3 to 3.0.4
+  - whitenoise from 6.6.0 to 6.11.0
+
+- Silence document indexing error during checkout test to avoid confusion.
+- Split the file metadata app views tests and test mixins modules.
+- Retrieve the `psutil` version from the `config.env` file.
+
+4.6.10 (2025-09-24)
+===================
+- Fix base search class `_search` interface.
+- Add `SEARCH_QUERY_RESULTS_LIMIT_ERROR`. Controls whether or not to raise
+  an error when the number of search results exceed the value of
+  `SEARCH_QUERY_RESULTS_LIMIT`. Default to `True` for backwards compatibility.
+- Don't append the changelog to the PyPI description.
+- Add SPDX license expression to comply with PEP 639.
+- Fix label of the index template return link.
+- Improve form fieldset mismatch exception error message.
+- Change the statistic view icon to a facet link.
+- Pass `GITLAB_CI_BRANCH_TRY_STAGING` to the GitLab CI template instead of
+  hard coding the branch name.
+- Update dependency version:
+
+  - devpi-server from 6.5.0 to 6.17.0
+  - django from 4.2.23 to 4.2.24 (CVE-2025-57833)
+  - ipython from 8.21.0 to 9.5.0
+  - packaging from 21.3 to 25.0
+  - pip from 24.3 to 25.2
+  - sentry-sdk from 2.35.0 to 2.38.0
+  - setuptools from 69.5.1 to 80.9.0
+  - twine from 5.1.1 to 6.2.0
+  - wheel from 0.42.0 to 0.45.1
+
+- Update Docker image tags:
+
+  - Debian from 12.11-slim to 12.12-slim
+  - Elasticsearch from 7.17.28 to 7.17.29
+  - PostgreSQL from 13.21-alpine to 13.22-alpine
+  - Forge Ubuntu from 24.04 to noble-20250910
+
+- Invoke `twine upload` by passing `TWINE_PASSWORD` instead of `PYPIRC`.
+- Resolve a myriad of bugs and dependency conflict bugs between
+  `devpi-server`, `packaging`, `setuptools`, `twine`, `wheel`.
+
+4.6.9 (2025-08-31)
+==================
+- Add Docker DIND service to all docker push jobs.
+- Backports from version series 4.9:
+
+  - Update the translation file detection to ensure all JavaScript files are
+    included.
+  - Fix task manager test missing a call to `super().tearDown`.
+  - Add documentation step to update forge files.
+  - Include the version string as part of the Forge virtualenv.
+  - Optimize test mixin `RandomPrimaryKeyModelMonkeyPatchMixin`. Mixin now uses
+    an optimistic approach only resorting to introspecting the database on
+    random primary key collisions. Test case unit speed improvements have
+    ranged from 11 to 20% less time.
+
+- Backports version series 4.8:
+
+  - Persist success icon when a file upload finishes.
+
+- Forge updates
+
+  - Consolidate `ENV` statements.
+  - Add global `DEBIAN_FRONTEND=noninteractive` and remove it from each
+    `apt` invocation.
+  - Add `PIP_PREFER_BINARY=1`.
+  - Update Forge Docker Compose with optional volumen mount to support
+    Docker Out of Docker (DOoD).
+
+- Docker updates
+
+  - Consolidate `ENV` statements.
+  - Add global `DEBIAN_FRONTEND=noninteractive` and remove it from each
+    `apt` invocation.
+  - Add `PIP_PREFER_BINARY=1`.
+
+- Update `EnvironmentFileLoader` to not process empty config lines.
+- Revised log messages levels. Reduce the severity of some messages that were
+  confusing users in diagnosing issues. Increase the severity of base
+  configuration problems like the Celery components and lock manager.
+- Add new GitOps branch and target to build and try Docker images in staging.
+- Make `setuptools` a build and virtualenv dependency.
+- Remove `wheel` installation from the Docker build job.
+- Add `setuptools` to the DockerFile build image to ensure compliance with
+  PEP 625.
+
+4.6.8 (2025-08-24)
+==================
+- Forge updates:
+
+  - Add the Transifex CLI utility to the Forge container.
+  - Keep the seeded APT list files.
+  - Create the virtualenv in the Docker image.
+  - Preinstall platform Python packages to exact versions (setuptools, fancycompleter).
+  - Preinstall `gettext` to handle translations.
+
+- Reinforce `load_env_file` to support equal signs in the value portion.
+- Don't load the unprocessed `config.env` file.
+- Don't load the DIND image as a service.
+- Optimize file metadata migration 0011.
+- Use the CLI version of the Docker image when the full daemon is not required.
+- Upgrade sentry-sdk from version 1.40.6 to 2.35.0.
+- Add trademark policy document.
+- Added `CITATION.cff` file for citations.
+
+4.6.7 (2025-08-11)
+==================
+- Forge updates:
+
+  - Fix `forge-shell` target.
+  - Add `squid-deb-proxy-client` to the container image.
+  - Support optional `.env-local` file.
+  - Add `.env-local` to .gitignore.
+  - Support PIP indexes.
+  - Support host PIP caches.
+  - New target to update all Forge's files.
+  - Set `PIP_PREFER_BINARY=1`.
+
+- Don't error out if `backend.model_mixins.get_backend_class_label` can't
+  find old modules path.
+- Support Docker Compose configurable `env_file` file via
+  `MAYAN_DOCKER_ENV_FILE`. Defaults to `.env`. This affects only the
+  environment variables passed to the Mayan EDMS stack does not affect the
+  values passed to the Docker Compose file.
+- Support an optional `.env-local` file for the Mayan EDMS Docker Compose
+  file.
+- Remove the Docker Compose version key.
+- Fix management command `settings_show` internal interface usage.
+
+4.6.6 (2025-08-06)
+==================
+- Increase the GitLab CI artifact expiration from 4 hours to 24 hours.
+- Add Mayan Forge, a Docker based development environment for Mayan EDMS.
+- Update dependency versions:
+
+  - Django from 4.2.13 to 4.2.23.
+  - PyYAML from 6.0.1 to 6.0.2.
+  - bleach from 6.1.0 to 6.2.0.
+  - django-storages from 1.14.2 to 1.14.6.
+  - extract-msg from 0.48.5 to 0.48.7.
+  - furl from 2.1.3 to 2.1.4.
+  - pip from 24.0 to 24.3.
+  - psycopg from 3.1.14 to 3.1.20.
+  - redis from 5.0.3 to 5.0.8.
+  - twine from 5.1.0 to 5.1.1.
+
+- Update Docker image tags:
+
+  - Base Debian from 12.5-slim to 12.11-slim.
+  - PostgreSQL from 13.15-alpine to 13.21-alpine.
+  - Python from 3.11.9-slim to 3.11.13-slim.
+  - Elasticsearch from 7.17.20 to 7.17.28
+
+- Quote environment variables prior to loading.
+- Fix context of the workflow launch view when only one document is selected.
+- Improve documentation navigation.
+- Update translation helper script to use the new `MayanAppConfig` accessors.
+- Backport `MayanAppConfig` improvements needed by the translation helper.
 
 4.6.5 (2024-06-03)
 ==================
@@ -992,7 +2717,7 @@
 - Fix detached signature link object reference.
 - Update dependencies:
 
-  - ElasticSearch Docker image from 7.17.9 to 7.17.20.
+  - Elasticsearch Docker image from 7.17.9 to 7.17.20.
   - KeyCloak Docker image from 20.0.1 to 20.0.5.
   - MySQL Docker image from 8.0.32 to 8.0.36.
   - PostgreSQL Docker image from 13.10-alpine to 13.14-alpine.
@@ -1003,7 +2728,7 @@
   - Update psycopg2 from 2.9.3 to 2.9.9.
 
 - Improve unconfigured task error message.
-- Support ignoring SSL certificates for ElasticSearch.
+- Support ignoring SSL certificates for Elasticsearch.
 
 4.4.14 (2024-03-27)
 ===================
@@ -1027,7 +2752,7 @@
 - Encapsulate MPTT exceptions as validation errors when users attempt
   to perform invalid index template node tree manipulations.
 - Update ``DEFAULT_SEARCH_QUERY_RESULTS_LIMIT`` from 100000 to 10000 to
-  workaround conflicting with ElasticSearch non scroll search limit.
+  workaround conflicting with Elasticsearch non scroll search limit.
 - Minor code style fixes.
 - Add an extra line to ``COMMON_EXTRA_APPS`` help text to clarify the apps
   inclusion order.
@@ -2816,7 +4541,7 @@
   - Add Linux ``file`` command backend.
   - Rename ``mimetype`` app to ``mime_types``.
 
-- Add a search backend for Elastic Search.
+- Add a search backend for Elasticsearch.
 - Search app updates:
 
   - Support initializing the search backends.

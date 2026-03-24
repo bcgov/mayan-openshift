@@ -50,21 +50,31 @@ class MayanApp {
         });
     }
 
-    static async setupMultiItemActions () {
+    async setupMultiItemActions () {
+        const app = this;
+
         $('body').on('change', '.check-all-slave', function () {
             MayanApp.countChecked();
         });
 
-        $('body').on('click', '.btn-multi-item-action', function (event) {
-            let id_list = [];
+        $('body').on('click', '#multi-item-actions .navigation-btn-dropdown', function (event) {
+            const $this = $(this);
+            const href = $this.attr('href');
+            let idList = [];
+
             $('.check-all-slave:checked').each(function (index, value) {
                 // Split the name (ie:"pk_200") and extract only the ID.
-                id_list.push(value.name.split('_')[1]);
+                idList.push(
+                    value.name.split('_')[1]
+                );
             });
-            event.preventDefault();
-            partialNavigation.setLocation(
-                $(this).attr('href') + '?id_list=' + id_list.join(',')
-            );
+
+            const urlSearchParameters = new URLSearchParams({[
+                app.options.multiItemActionsPrimaryKey]:idList
+            });
+            const newURL = `${href}?${urlSearchParameters}`;
+
+            $this.attr('href', newURL);
         });
     }
 
@@ -146,7 +156,7 @@ class MayanApp {
             'closeButton': true,
             'debug': false,
             'newestOnTop': true,
-            'positionClass': 'toast-' + this.options.messagePosition,
+            'positionClass': `toast-${this.options.messagePosition}`,
             'preventDuplicates': false,
             'onclick': null,
             'showDuration': '300',
@@ -159,58 +169,104 @@ class MayanApp {
             'hideMethod': 'fadeOut'
         }
 
-        $.each(context.djangoMessages, function (index, value) {
+        for (const message of context.djangoMessages) {
             let options = {};
 
-            if (value.tags === 'error') {
+            if (message.tags === 'error') {
                 // Error messages persist.
                 options['timeOut'] = 0;
             }
-            if (value.tags === 'warning') {
-                // Error messages persist.
+            if (message.tags === 'warning') {
+                // Warning messages stays 10 seconds.
                 options['timeOut'] = 10000;
             }
 
-            toastr[value.tags](value.message, '', options);
-        });
+            toastr[message.tags](message.message, '', options);
+        }
     }
 
     async initialize () {
-        const self = this;
+        this.partialNavigationApp = partialNavigation;
 
+        this.setupAJAXMenus();
         this.setupAJAXSpinner();
         MayanApp.setupDropdownDirectionChange();
+        this.setupFormElementContentCopy();
         this.setupFormHotkeys();
         this.setupFullHeightResizing();
         this.setupItemsSelector();
-        MayanApp.setupMultiItemActions();
+        this.setupMultiItemActions();
         this.setupNavbarCollapse();
         MayanApp.setupNavBarState();
         this.setupNewWindowAnchor();
-        $.each(this.ajaxMenusOptions, function(index, value) {
-            value.app = self;
-            app.doRefreshAJAXMenu(value);
-        });
         this.setupPanelSelection();
+        this.setupResizePersist();
+
         partialNavigation.initialize();
     }
 
-    setupAJAXSpinner () {
-        const self = this;
+    async setupAJAXMenus() {
+        const app = this;
+
+        for (const menuOptions of this.ajaxMenusOptions) {
+            menuOptions.app = app;
+            app.doRefreshAJAXMenu(menuOptions);
+        }
+    }
+
+    async setupAJAXSpinner () {
+        const app = this;
 
         $(document).ajaxStart(function() {
-            self.ajaxExecuting = true;
+            app.ajaxExecuting = true;
             setTimeout(
                 function () {
-                    self.callbackAJAXSpinnerUpdate();
+                    app.callbackAJAXSpinnerUpdate();
                 }, 450
             );
         });
 
         $(document).ready(function() {
             $(document).ajaxStop(function() {
-                $(self.ajaxSpinnerSeletor).fadeOut();
-                self.ajaxExecuting = false;
+                $(app.ajaxSpinnerSeletor).fadeOut();
+                app.ajaxExecuting = false;
+            });
+        });
+    }
+
+    async setupFormElementContentCopy () {
+        const app = this;
+        const cssClassSelector = 'appearance-form-control-copy';
+        const cssClassSelectorAttached = `${cssClassSelector}-attached`;
+
+        const updateTooltip = function ($this, text) {
+            $this.attr('title', text);
+            $this.tooltip('fixTitle');
+            $this.tooltip('show');
+            $this.attr('title', $this.data('original-title'));
+            $this.tooltip('fixTitle');
+        }
+
+        app.partialNavigationApp.$ajaxContent.on('updated', function (event) {
+            const $selector = $(`.${cssClassSelector}`).not(`.${cssClassSelectorAttached}`);
+
+            if ($selector.length) {
+                const html = $('#template-appearance-form-element-content-copy').html();
+
+                $selector.siblings('label').after(html);
+
+                $selector.addClass(cssClassSelectorAttached);
+            }
+        });
+
+        app.partialNavigationApp.$ajaxContent.on('click', '.appearance-btn-copy', function (event) {
+            const $this = $(this);
+            const $source = $this.parent().parent().children(`.${cssClassSelectorAttached}`)
+
+            navigator.clipboard.writeText($source.val()).then(function () {
+                updateTooltip($this, gettext('Copied!'));
+            }, function () {
+                updateTooltip($this, gettext('Failed. Check clipboard permissions.'));
             });
         });
     }
@@ -229,12 +285,12 @@ class MayanApp {
     }
 
     async setupFullHeightResizing () {
-        const self = this;
+        const app = this;
 
         this.resizeFullHeight();
 
         this.window.resize(function() {
-            self.resizeFullHeight();
+            app.resizeFullHeight();
         });
     }
 
@@ -251,12 +307,6 @@ class MayanApp {
                 checked = $this.data('checked');
                 checked = !checked;
                 $this.data('checked', checked);
-
-                if (checked) {
-                    $this.find('[data-fa-i2svg]').addClass($this.data('icon-checked')).removeClass($this.data('icon-unchecked'));
-                } else {
-                    $this.find('[data-fa-i2svg]').addClass($this.data('icon-unchecked')).removeClass($this.data('icon-checked'));
-                }
             }
 
             $checkBoxes.prop('checked', checked);
@@ -432,6 +482,92 @@ class MayanApp {
                     window.getSelection().removeAllRanges();
                 }
             }
+        });
+    }
+
+    async setupResizePersist () {
+        const app = this;
+        const cssClassResizePersist = 'appearance-resize-persist';
+        const selectorClass = `.${cssClassResizePersist}`;
+        const keySelector = `${cssClassResizePersist}-`;
+        const keySelectorLength = keySelector.length;
+        const cssClassResizePersistAttached = `${cssClassResizePersist}-attached`;
+
+        const resizeObserver = new ResizeObserver(function (entries) {
+            for (const entry of entries) {
+                const $this = $(entry.target);
+                const storageKey = `${keySelector}${entry.target.id}`;
+                const height = $this.height();
+
+                if (height > 0) {
+                    localStorage.setItem(storageKey, height);
+                }
+            }
+        });
+
+        const resizePersistReset = function ($selector) {
+            const heightOriginal = $selector.data('height-original');
+
+            if (heightOriginal) {
+                $selector.css('height', heightOriginal);
+            } else {
+                $selector.css('height', '');
+            };
+        }
+
+        app.partialNavigationApp.$ajaxContent.on('preupdate', function (event) {
+            const $selector = $(selectorClass);
+
+            for (const element of $selector) {
+                resizeObserver.unobserve(element);
+            }
+        });
+
+        app.partialNavigationApp.$ajaxContent.on('updated', function (event) {
+            const $selector = $(selectorClass).not(`.${cssClassResizePersistAttached}`);
+
+            if ($selector.length) {
+                const html = $('#template-appearance-form-element-height-reset').html();
+
+                $selector.siblings('label').after(html);
+                $selector.addClass(cssClassResizePersistAttached);
+
+                for (const key in localStorage) {
+                    if (key.startsWith(keySelector)) {
+                        const elementId = key.substring(keySelectorLength);
+                        const height = localStorage.getItem(key);
+                        const $this = $(`#${elementId}`);
+
+                        if ($this.length) {
+                            $this.height(height);
+                        }
+                    }
+                }
+
+                for (const element of $selector) {
+                    resizeObserver.observe(element);
+                }
+            }
+        });
+
+        app.partialNavigationApp.$ajaxContent.on('click', '.appearance-btn-resize-reset', function (event) {
+            const $this = $(this);
+            const $source = $this.parent().siblings('.appearance-resize-persist').first();
+
+            resizePersistReset($source)
+
+            const data_linked_id = $source.data('linked-id');
+
+            if (data_linked_id) {
+                const $linked = $(`#${data_linked_id}`);
+                resizePersistReset($linked);
+            }
+
+            $this.attr('title', gettext('Done!'));
+            $this.tooltip('fixTitle');
+            $this.tooltip('show');
+            $this.attr('title', $this.data('original-title'));
+            $this.tooltip('fixTitle');
         });
     }
 

@@ -1,6 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.dependencies.classes import BinaryDependency
+from mayan.apps.dependencies.environments import environment_production
 
 from .backends.tesseract import Tesseract
 
@@ -8,6 +9,7 @@ tesseract = Tesseract(auto_initialize=False)
 tesseract.read_settings()
 
 BinaryDependency(
+    environments=(environment_production,),
     legal_text='''
         The code in this repository is licensed under the Apache License,
         Version 2.0 (the "License");

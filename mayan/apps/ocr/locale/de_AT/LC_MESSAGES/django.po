@@ -4,19 +4,19 @@
 # 
 # Translators:
 # Translators:
-# Berny <berny@bernhard-marx.de>, 2024
-# Roberto Rosario, 2024
-# Thomas Lauterbach <lauterbachthomas@googlemail.com>, 2024
-# Mathias Behrle <mathiasb@m9s.biz>, 2024
-# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2024
+# Roberto Rosario, 2026
+# Thomas Lauterbach <lauterbachthomas@googlemail.com>, 2026
+# Berny <berny@bernhard-marx.de>, 2026
+# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2026
+# Mathias Behrle <mathiasb@m9s.biz>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2026\n"
 "Language-Team: German (Austria) (https://app.transifex.com/rosarior/teams/13584/de_AT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,29 +24,29 @@ msgstr ""
 "Language: de_AT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:56 apps.py:91 events.py:6 links.py:54 links.py:80 permissions.py:6
+#: apps.py:56 apps.py:91 events.py:6 links.py:53 links.py:79 permissions.py:6
 #: queues.py:6 search.py:18 settings.py:11 workflow_actions.py:53
 msgid "OCR"
 msgstr "OCR-Schrifterkennung"
 
-#: apps.py:121
+#: apps.py:122
 msgid "The OCR content."
 msgstr "Der OCR-Inhalt."
 
-#: apps.py:126
+#: apps.py:127 apps.py:134
 msgid "A generator returning the document's version pages OCR content."
 msgstr ""
 "Ein Generator, der den OCR-Inhalt von Dokumentenversionsseiten zurückgibt."
 
-#: apps.py:128
+#: apps.py:129 apps.py:136
 msgid "OCR content"
 msgstr "OCR Inhalt"
 
-#: backends/tesseract.py:82
+#: backends/tesseract.py:89
 msgid "Tesseract OCR not found."
 msgstr "Tesseract OCR nicht gefunden."
 
-#: dependencies.py:24
+#: dependencies.py:26
 msgid "Free Open Source OCR Engine"
 msgstr "Freies OpenSource OCR-Programm"
 
@@ -67,38 +67,43 @@ msgid "Document version OCR finished"
 msgstr ""
 "Dokumentenversion, für die die OCR-Schrifterkennung durchgeführt wurde"
 
-#: forms.py:13 forms.py:44 forms.py:64
+#: forms.py:12 forms.py:43 forms.py:63
 msgid "Contents"
 msgstr "Inhalte"
 
-#: forms.py:99
+#: forms.py:98
 #, python-format
 msgid "Page %(page_number)d"
 msgstr "Seite %(page_number)d"
 
 #: links.py:27
-msgid "Setup OCR"
-msgstr "OCR Einrichtung"
+msgid "OCR setup"
+msgstr "OCR Einstellungen"
 
-#: links.py:33
+#: links.py:32
 msgid "OCR documents per type"
 msgstr "Texterkennung pro Dokumententyp durchführen"
 
-#: links.py:40 links.py:47
+#: links.py:39 links.py:46
 msgid "Delete OCR content"
 msgstr "OCR-Inhalt löschen"
 
-#: links.py:60
+#: links.py:59
 msgid "Download OCR text"
 msgstr "OCR-Text herunterladen"
 
-#: links.py:65 links.py:70
+#: links.py:64 links.py:69
 msgid "Submit for OCR"
 msgstr "In die OCR-Verarbeitung einstellen"
 
-#: links.py:86
+#: links.py:85
 msgid "Edit OCR"
 msgstr "OCR-Inhalt bearbeiten"
+
+#: managers.py:75
+#, python-format
+msgid "Error calling OCR backend for page: %(page_number)d; %(exception)s"
+msgstr ""
 
 #: models.py:24
 msgid "Document type"
@@ -179,6 +184,10 @@ msgid "Full path to the backend to be used to do OCR."
 msgstr ""
 "Vollständiger Pfad zum Backend, das für die OCR-Schrifterkennung verwendet "
 "werden soll."
+
+#: settings.py:29
+msgid "Arguments to pass to `OCR_BACKEND`."
+msgstr "Argumente für das `OCR_BACKEND`."
 
 #: views.py:64
 #, python-format

@@ -60,7 +60,12 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
 
+# Disable API throttling.
+REST_FRAMEWORK.pop('DEFAULT_THROTTLE_CLASSES')
+
 SEARCH_BACKEND = 'mayan.apps.dynamic_search.tests.backends.TestSearchBackendProxy'
+
+SETTINGS_BACKUP_ENABLED = False
 
 STORAGES['staticfiles'] = {
     'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'

@@ -11,12 +11,15 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from mayan.apps.acls.models import AccessControlList
+from mayan.apps.documents.models.document_models import Document
+from mayan.apps.documents.permissions import permission_document_view
 from mayan.apps.file_caching.models import CachePartitionFile
 
 from ..events import event_workflow_template_edited
 from ..literals import (
-    GRAPHVIZ_RANKDIR, GRAPHVIZ_RANKSEP, GRAPHVIZ_SPLINES,
-    STORAGE_NAME_WORKFLOW_CACHE
+    ERROR_LOG_DOMAIN_NAME, GRAPHVIZ_RANKDIR, GRAPHVIZ_RANKSEP,
+    GRAPHVIZ_SPLINES, STORAGE_NAME_WORKFLOW_CACHE
 )
 
 logger = logging.getLogger(name=__name__)
@@ -135,47 +138,111 @@ class WorkflowBusinessLogicMixin:
 
         return result.hexdigest()
 
-    def get_initial_state(self):
+    def get_state_final(self):
+        try:
+            return self.states.get(final=True)
+        except self.states.model.DoesNotExist:
+            return None
+    get_state_final.short_description = _(message='Final state')
+
+    def get_state_initial(self):
         try:
             return self.states.get(initial=True)
         except self.states.model.DoesNotExist:
             return None
-    get_initial_state.short_description = _(message='Initial state')
+    get_state_initial.short_description = _(message='Initial state')
 
     def launch_for(self, document, user=None):
-        queryset = self.document_types.all()
-        if queryset.filter(pk=document.document_type.pk).exists():
-            try:
-                logger.info(
-                    'Launching workflow %s for document %s', self, document
-                )
-                WorkflowInstance = apps.get_model(
-                    app_label='document_states',
-                    model_name='WorkflowInstance'
-                )
-                workflow_instance = WorkflowInstance(
-                    document=document, workflow=self
-                )
-                workflow_instance._event_actor = user
-                workflow_instance.save()
+        WorkflowInstance = apps.get_model(
+            app_label='document_states',
+            model_name='WorkflowInstance'
+        )
 
-                initial_state = self.get_initial_state()
-                if initial_state:
+        initial_state = self.get_state_initial()
+
+        if initial_state:
+            queryset = self.document_types.all()
+            if queryset.filter(pk=document.document_type.pk).exists():
+                try:
+                    logger.debug(
+                        'Launching workflow %s for document %s', self, document
+                    )
+                    workflow_instance = WorkflowInstance(
+                        document=document, workflow=self
+                    )
+                    workflow_instance._event_actor = user
+                    workflow_instance.save()
+
                     initial_state.do_active_set(
                         workflow_instance=workflow_instance
                     )
-            except IntegrityError:
-                logger.info(
-                    'Workflow %s already launched for document %s',
-                    self, document
-                )
+                    # TODO: Update once initial entry log patch is merged.
+                    # Break pattern by passing `workflow_instance`
+                    # until initial entry logs patch is merged.
+                except IntegrityError:
+                    logger.debug(
+                        'Workflow %s already launched for document %s',
+                        self, document
+                    )
+                else:
+                    logger.debug(
+                        'Workflow %s launched for document %s', self, document
+                    )
+                    return workflow_instance
             else:
-                logger.info(
-                    'Workflow %s launched for document %s', self, document
+                logger.error(
+                    'This workflow is not valid for the document type of the '
+                    'document.'
                 )
-                return workflow_instance
         else:
-            logger.error(
-                'This workflow is not valid for the document type of the '
-                'document.'
+            error_log_text = _(
+                message='Cannot create a workflow instance. The workflow '
+                'template "%(workflow_template)s" does not have an initial '
+                'state.'
+            ) % {'workflow_template': self}
+
+            document.error_log.create(
+                domain_name=ERROR_LOG_DOMAIN_NAME, text=error_log_text
             )
+
+
+class WorkflowRuntimeProxyBusinessLogicMixin:
+    def get_documents(self, permission=None, user=None):
+        """
+        Provide a queryset of the documents. The queryset is optionally
+        filtered by access.
+        """
+        queryset = Document.valid.filter(workflows__workflow=self)
+
+        if self.ignore_completed:
+            queryset = queryset.exclude(workflows__state_active__final=True)
+
+        if permission and user:
+            queryset = AccessControlList.objects.restrict_queryset(
+                permission=permission, queryset=queryset,
+                user=user
+            )
+
+        return queryset
+
+    def get_document_count(self, user):
+        """
+        Return the numeric count of documents executing this workflow.
+        The count is filtered by access.
+        """
+        return self.get_documents(
+            permission=permission_document_view, user=user
+        ).count()
+
+    def get_states(self):
+        WorkflowStateRuntimeProxy = apps.get_model(
+            app_label='document_states',
+            model_name='WorkflowStateRuntimeProxy'
+        )
+
+        queryset = WorkflowStateRuntimeProxy.objects.filter(workflow=self)
+
+        if self.ignore_completed:
+            queryset = queryset.exclude(final=True)
+
+        return queryset

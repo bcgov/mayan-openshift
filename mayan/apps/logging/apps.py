@@ -1,10 +1,10 @@
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import menu_object, menu_secondary, menu_tools
-from mayan.apps.navigation.classes import SourceColumn
-from mayan.apps.views.column_widgets import ObjectLinkWidget
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .classes import ErrorLogDomain
 from .links import (
@@ -53,7 +53,7 @@ class LoggingApp(LoggingAppConfigMixin, MayanAppConfig):
         )
         SourceColumn(
             attribute='get_object', source=GlobalErrorLogPartitionEntry,
-            widget=ObjectLinkWidget
+            widget=column_widgets.ObjectLinkWidget
         )
 
         SourceColumn(

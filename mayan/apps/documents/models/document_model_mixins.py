@@ -102,7 +102,7 @@ class DocumentBusinessLogicMixin:
         self, file_object, action_name=None, comment=None, filename=None,
         expand=False, user=None
     ):
-        logger.info('Creating new document file for document: %s', self)
+        logger.debug('Creating new document file for document: %s', self)
 
         if not action_name:
             action_name = DEFAULT_DOCUMENT_FILE_ACTION_NAME
@@ -156,7 +156,7 @@ class DocumentBusinessLogicMixin:
             )
             raise
         else:
-            logger.info('New document file queued for document: %s', self)
+            logger.debug('New document file queued for document: %s', self)
 
             document_file.versions_new(
                 action_name=action_name, comment=comment, user=user
@@ -177,6 +177,15 @@ class DocumentBusinessLogicMixin:
         ) % self.pk
 
     get_label.short_description = _(message='Label')
+
+    def get_page_count(self, user):
+        version_active = self.version_active
+        if version_active:
+            page_count = version_active.get_page_count(user=user)
+            return page_count
+        else:
+            return 0
+    get_page_count.short_description = _(message='Pages')
 
     @property
     def is_in_trash(self):

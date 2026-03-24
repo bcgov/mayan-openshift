@@ -4,39 +4,30 @@
 # 
 # Translators:
 # Translators:
-# Björn E <b1pum@web.de>, 2024
-# Siegfried Albrecht, 2024
-# Marvin Haschker <marvin@haschker.me>, 2024
-# Berny <berny@bernhard-marx.de>, 2024
-# Robin Schubert <robin.schubert@gmx.de>, 2024
-# Roberto Rosario, 2024
-# Ingo Buchholz <ingo.buchholz@takwa.de>, 2024
-# Jesaja Everling <jeverling@gmail.com>, 2024
-# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2024
-# Mathias Behrle <mathiasb@m9s.biz>, 2024
+# Jesaja Everling <jeverling@gmail.com>, 2026
+# Björn E <b1pum@web.de>, 2026
+# Dennis M. Pöpperl <free-software@dm-poepperl.de>, 2026
+# Robin Schubert <robin.schubert@gmx.de>, 2026
+# Ingo Buchholz <ingo.buchholz@takwa.de>, 2026
+# Siegfried Albrecht, 2026
+# Marvin Haschker <marvin@haschker.me>, 2026
+# Roberto Rosario, 2026
+# Mathias Behrle <mathiasb@m9s.biz>, 2026
+# Berny <berny@bernhard-marx.de>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Berny <berny@bernhard-marx.de>, 2026\n"
 "Language-Team: German (Germany) (https://app.transifex.com/rosarior/teams/13584/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: admin.py:24
-msgid "None"
-msgstr "Keine"
-
-#: admin.py:26 links.py:88 models/index_template_models.py:50
-#: serializers.py:315
-msgid "Document types"
-msgstr "Dokumententypen"
 
 #: apps.py:60 events.py:6
 msgid "Document indexing"
@@ -46,7 +37,8 @@ msgstr "Dokumentenindizierung"
 msgid "Level"
 msgstr "Ebene"
 
-#: apps.py:163 apps.py:194 serializers.py:20 serializers.py:60
+#: apps.py:163 apps.py:194 serializers/index_instance_serializers.py:12
+#: serializers/index_instance_serializers.py:52
 msgid "Depth"
 msgstr "Tiefe"
 
@@ -78,29 +70,29 @@ msgstr "Indexvorlage erstellt"
 msgid "Index template edited"
 msgstr "Indexvorlage bearbeitet"
 
-#: forms.py:19 forms.py:24
+#: forms.py:17 forms.py:22
 msgid "Namespace"
 msgstr "Namensraum"
 
-#: forms.py:29 models/index_template_models.py:35
+#: forms.py:27 models/index_template_models.py:35
 msgid "Label"
 msgstr "Bezeichner"
 
-#: forms.py:34 models/index_template_models.py:46
+#: forms.py:32 models/index_template_models.py:46
 #: models/index_template_models.py:166
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: forms.py:48
+#: forms.py:46
 msgid "Index templates to be queued for rebuilding."
 msgstr "In die Warteschlange für den Wiederaufbau eingestellte Indexvorlagen."
 
-#: forms.py:49 links.py:37 models/index_template_models.py:58
+#: forms.py:47 links.py:37 links.py:101 models/index_template_models.py:58
 #: views/index_template_views.py:95
 msgid "Index templates"
 msgstr "Indexvorlagen"
 
-#: forms.py:64
+#: forms.py:62
 msgid "Template"
 msgstr "Vorlage"
 
@@ -108,8 +100,7 @@ msgstr "Vorlage"
 msgid "Creation date"
 msgstr "Erstellungsdatum"
 
-#: links.py:31 links.py:47 links.py:101 links.py:109
-#: views/index_instance_views.py:42
+#: links.py:31 links.py:47 links.py:109 views/index_instance_views.py:42
 msgid "Indexes"
 msgstr "Indices"
 
@@ -125,7 +116,7 @@ msgstr "Löscht und erstellt alle Dokumentenindices neu."
 msgid "Rebuild indexes"
 msgstr "Indices wiederaufbauen"
 
-#: links.py:69 views/index_template_views.py:452
+#: links.py:69 views/index_template_views.py:448
 msgid "Reset indexes"
 msgstr "Indizes zurücksetzen"
 
@@ -136,6 +127,11 @@ msgstr "Index erstellen"
 #: links.py:83 links.py:127
 msgid "Delete"
 msgstr "Löschen"
+
+#: links.py:88 models/index_template_models.py:50
+#: serializers/index_template_serializers.py:196
+msgid "Document types"
+msgstr "Dokumententypen"
 
 #: links.py:92 links.py:131
 msgid "Edit"
@@ -161,7 +157,7 @@ msgstr "Nein"
 msgid "Yes"
 msgstr "Ja"
 
-#: models/index_instance_model_mixins.py:34
+#: models/index_instance_model_mixins.py:36
 #, python-format
 msgid ""
 "Error indexing document: %(document)s; expression: %(expression)s; "
@@ -170,25 +166,25 @@ msgstr ""
 "Fehler bei der Indexierung von Dokument %(document)s; Ausdruck: "
 "%(expression)s; %(exception)s"
 
-#: models/index_instance_model_mixins.py:155
+#: models/index_instance_model_mixins.py:174
 msgid "Total number of nodes with unique values this item contains."
 msgstr ""
 "Gesamtzahl der Knotenpunkte mit einmaligen Werten, die dieses Element "
 "beinhaltet."
 
-#: models/index_instance_model_mixins.py:164
+#: models/index_instance_model_mixins.py:183
 msgid "Total number of unique documents this item contains."
 msgstr "Gesamtzahl einmaliger Dokumente, die dieses Element beinhaltet."
 
-#: models/index_instance_model_mixins.py:174
+#: models/index_instance_model_mixins.py:193
 msgid "Total number of node levels this item contains."
 msgstr "Gesamtzahl der Knotenpunktebenen, die dieses Element beinhaltet."
 
-#: models/index_instance_model_mixins.py:243
+#: models/index_instance_model_mixins.py:262
 msgid "The path to the index including all ancestors."
 msgstr "Der Pfad zum Index, einschließlich aller übergeordneten Elemente."
 
-#: models/index_instance_model_mixins.py:245
+#: models/index_instance_model_mixins.py:264
 msgid "Full path"
 msgstr "Vollständiger Pfad"
 
@@ -332,7 +328,7 @@ msgstr "Indexvorlagen löschen"
 msgid "View index templates"
 msgstr "Indexvorlagen anzeigen"
 
-#: permissions.py:25 views/index_template_views.py:416
+#: permissions.py:25 views/index_template_views.py:412
 msgid "Rebuild index templates"
 msgstr "Indexvorlagen wiederaufbauen"
 
@@ -372,44 +368,54 @@ msgstr "Dokumenten-UUID"
 msgid "Document checksum"
 msgstr "Dokumentenprüfsumme"
 
-#: serializers.py:23 serializers.py:69
+#: serializers/index_instance_serializers.py:15
+#: serializers/index_instance_serializers.py:61
 msgid "Node count"
-msgstr ""
+msgstr "Knotenanzahl"
 
-#: serializers.py:27 serializers.py:298
+#: serializers/index_instance_serializers.py:19
+#: serializers/index_template_serializers.py:179
 msgid "Nodes URL"
 msgstr "Knotenpunkte URL"
 
-#: serializers.py:30 serializers.py:76 serializers.py:146 serializers.py:209
-#: serializers.py:309
+#: serializers/index_instance_serializers.py:22
+#: serializers/index_instance_serializers.py:68
+#: serializers/index_template_serializers.py:27
+#: serializers/index_template_serializers.py:90
+#: serializers/index_template_serializers.py:190
 msgid "URL"
 msgstr "URL"
 
-#: serializers.py:57
+#: serializers/index_instance_serializers.py:49
 msgid "Children URL"
 msgstr "Untergeordnete URLs"
 
-#: serializers.py:63
+#: serializers/index_instance_serializers.py:55
 msgid "Documents URL"
-msgstr "Dokument-URL"
+msgstr "Dokumenten-URL"
 
-#: serializers.py:66 serializers.py:140 serializers.py:200
+#: serializers/index_instance_serializers.py:58
+#: serializers/index_template_serializers.py:21
+#: serializers/index_template_serializers.py:81
 msgid "Index URL"
 msgstr "Index URL"
 
-#: serializers.py:73 serializers.py:143 serializers.py:206
+#: serializers/index_instance_serializers.py:65
+#: serializers/index_template_serializers.py:24
+#: serializers/index_template_serializers.py:87
 msgid "Parent URL"
 msgstr "Übergeordnete URL"
 
-#: serializers.py:137 serializers.py:197
+#: serializers/index_template_serializers.py:18
+#: serializers/index_template_serializers.py:78
 msgid "Children"
 msgstr "Untergeordnete Aktenschränke"
 
-#: serializers.py:203
+#: serializers/index_template_serializers.py:84
 msgid "Parent"
 msgstr "Übergeordneter Aktenschrank"
 
-#: serializers.py:271
+#: serializers/index_template_serializers.py:152
 msgid ""
 "URL of the API endpoint showing the list document types associated with this"
 " index template."
@@ -417,54 +423,55 @@ msgstr ""
 "URL des API-Endpunktes, der die Liste der mit dieser Indexvorlage "
 "verknüpften Dokumententypen zeigt."
 
-#: serializers.py:273
+#: serializers/index_template_serializers.py:154
 msgid "Document types URL"
 msgstr "Dokumententypen URL"
 
-#: serializers.py:279
+#: serializers/index_template_serializers.py:160
 msgid "URL of the API endpoint to add document types to this index template."
 msgstr ""
 "URL des API Endpunktes, um Dokumententypen zu dieser Indexvorlage "
 "hinzuzufügen."
 
-#: serializers.py:281
+#: serializers/index_template_serializers.py:162
 msgid "Document types add URL"
 msgstr "Dokumententypen hinzufügen URL"
 
-#: serializers.py:287
+#: serializers/index_template_serializers.py:168
 msgid ""
 "URL of the API endpoint to remove document types from this index template."
 msgstr ""
 "URL des API Endpunktes, um Dokumententypen von dieser Indexvorlage zu "
 "entfernen."
 
-#: serializers.py:289
+#: serializers/index_template_serializers.py:170
 msgid "Document types remove URL"
 msgstr "Dokumententypen entfernen URL"
 
-#: serializers.py:294
+#: serializers/index_template_serializers.py:175
 msgid "Index template root node ID"
 msgstr "Indexvorlage Wurzelknotenpunkt ID"
 
-#: serializers.py:301
+#: serializers/index_template_serializers.py:182
 msgid "Rebuild URL"
 msgstr "Wiederaufbau URL"
 
-#: serializers.py:305
+#: serializers/index_template_serializers.py:186
 msgid "Reset URL"
 msgstr "Rücksetzungs URL"
 
-#: serializers.py:353
+#: serializers/index_template_serializers.py:234
 msgid "Primary key of the document type to add to the index template."
 msgstr ""
 "Primärschlüssel des Dokumententyps, der zu dieser Indexvorlage hinzugefügt "
 "wird."
 
-#: serializers.py:355 serializers.py:365
+#: serializers/index_template_serializers.py:236
+#: serializers/index_template_serializers.py:246
 msgid "Document type ID"
 msgstr "Dokumenttyp-ID"
 
-#: serializers.py:363
+#: serializers/index_template_serializers.py:244
 msgid "Primary key of the document type to remove from the index template."
 msgstr ""
 "Primärschlüssel des Dokumententyps, der von dieser Indexvorlage entfernt "
@@ -580,16 +587,16 @@ msgstr "Mit Index %s verknüpfte Dokumententypen"
 msgid "Edit index: %s"
 msgstr "Index %s bearbeiten"
 
-#: views/index_template_views.py:219
+#: views/index_template_views.py:215
 #, python-format
 msgid "Error updating index template event trigger; %s"
 msgstr "Fehler bei der Aktualisierung des Indexvorlagen-Ereignistriggers; %s"
 
-#: views/index_template_views.py:228
+#: views/index_template_views.py:224
 msgid "Index template event triggers updated successfully."
 msgstr "Indexvorlagen-Ereignistrigger erfolgreich aktualisiert."
 
-#: views/index_template_views.py:238
+#: views/index_template_views.py:234
 msgid ""
 "Triggers are document events that cause instances of this index template to "
 "be updated."
@@ -597,41 +604,41 @@ msgstr ""
 "Trigger sind Ereignisse für Dokumente, die Instanzen dieser Indexvorlage zur"
 " Aktualisierung veranlassen."
 
-#: views/index_template_views.py:243
+#: views/index_template_views.py:239
 #, python-format
 msgid "Index template event triggers for: %s"
 msgstr "Indexvorlagen-Ereignistrigger für: %s"
 
-#: views/index_template_views.py:288
+#: views/index_template_views.py:284
 #, python-format
 msgid "Tree template nodes for index: %s"
 msgstr "Baumvorlagen für Index %s"
 
-#: views/index_template_views.py:315
+#: views/index_template_views.py:311
 #, python-format
 msgid "Create child node of: %s"
 msgstr "Unterknotenpunkt von %s erstellen"
 
-#: views/index_template_views.py:341
+#: views/index_template_views.py:337
 #, python-format
 msgid "Delete the index template node: %s?"
 msgstr "Indexvorlagen-Knotenpunkt %s löschen?"
 
-#: views/index_template_views.py:365
+#: views/index_template_views.py:361
 #, python-format
 msgid "Edit the index template node: %s"
 msgstr "Den Indexvorlagenknotenpunkt %s bearbeiten"
 
-#: views/index_template_views.py:386
+#: views/index_template_views.py:382
 #, python-format
 msgid "Rebuild index template: %s"
 msgstr "Indexvorlage neu erstellen: %s"
 
-#: views/index_template_views.py:409
+#: views/index_template_views.py:405
 msgid "Index template queued for rebuild."
 msgstr "Indexvorlage zur Neuerstellung in die Warteschlange eingereiht."
 
-#: views/index_template_views.py:433
+#: views/index_template_views.py:429
 #, python-format
 msgid "%(count)d index template queued for rebuild."
 msgid_plural "%(count)d index templates queued for rebuild."
@@ -639,13 +646,13 @@ msgstr[0] "%(count)d Indexvorlage für Neuerstellung in Warteschlange."
 msgstr[1] ""
 "%(count)d Indexvorlagen zur Neuerstellung in die Warteschlange eingereiht."
 
-#: views/index_template_views.py:465
+#: views/index_template_views.py:461
 #, python-format
 msgid "%(count)d index reset."
 msgid_plural "%(count)d indexes reset."
 msgstr[0] "%(count)d Index zurückgesetzt."
 msgstr[1] "%(count)d Indices zurückgesetzt."
 
-#: views/index_template_views.py:478
+#: views/index_template_views.py:474
 msgid "Index templates for which their instances will be deleted."
 msgstr "Indexvorlagen, deren Instanzen gelöscht werden."

@@ -4,20 +4,20 @@
 # 
 # Translators:
 # Translators:
-# Emine Öztürk <oemine075@gmail.com>, 2024
-# emreunal <bywant@gmail.com>, 2024
-# Caner Başaran <basaran.caner@gmail.com>, 2024
-# serhatcan77 <serhat_can@yahoo.com>, 2024
-# abc Def <hdogan1974@gmail.com>, 2024
-# Bedreddin Şahbaz, 2024
+# Caner Başaran <basaran.caner@gmail.com>, 2026
+# abc Def <hdogan1974@gmail.com>, 2026
+# Bedreddin Şahbaz, 2026
+# Emine Öztürk <oemine075@gmail.com>, 2026
+# serhatcan77 <serhat_can@yahoo.com>, 2026
+# emreunal <bywant@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Bedreddin Şahbaz, 2024\n"
+"POT-Creation-Date: 2026-03-04 00:04+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: emreunal <bywant@gmail.com>, 2026\n"
 "Language-Team: Turkish (Turkey) (https://app.transifex.com/rosarior/teams/13584/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,23 +45,23 @@ msgstr "Giriş yapmış kullanıcı"
 msgid "User logged out"
 msgstr "Çıkış yapmış kullanıcı"
 
-#: forms.py:34
+#: forms.py:33
 msgid "Remember me"
 msgstr "Beni hatırla"
 
-#: forms.py:81
+#: forms.py:80
 msgid "Permanent"
 msgstr "Kalıcı"
 
-#: forms.py:82
+#: forms.py:81
 msgid "If selected, disables ending impersonation."
 msgstr "Seçilirse, kimliğe bürünmeyi sonlandırmayı devre dışı bırakır."
 
-#: forms.py:93
+#: forms.py:92
 msgid "User"
 msgstr "Kullanıcı"
 
-#: links.py:37
+#: links.py:38
 msgid "Logout"
 msgstr "Çıkış"
 
@@ -164,43 +164,43 @@ msgstr "Giriş sayfası"
 msgid "Password reset email sent!"
 msgstr "Şifre sıfırlama e-postası gönderildi!"
 
-#: views/authentication_views.py:162
+#: views/authentication_views.py:158
 msgid "Next"
 msgstr "İleri"
 
-#: views/authentication_views.py:168
+#: views/authentication_views.py:164
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "%(total_steps)d'ın %(step)d adımı: %(step_label)s"
 
-#: views/authentication_views.py:192
+#: views/authentication_views.py:188
 msgid "Sign in"
 msgstr "Kayıt ol"
 
-#: views/authentication_views.py:242
+#: views/authentication_views.py:238
 msgid "Your password has been successfully changed."
 msgstr "Parolanız başarıyla değiştirildi."
 
-#: views/authentication_views.py:253
+#: views/authentication_views.py:249
 msgid "Current user password change"
 msgstr "Mevcut kullanıcı şifresi değişikliği"
 
-#: views/authentication_views.py:265
+#: views/authentication_views.py:261
 msgid "Changing the password is not allowed for this account."
 msgstr "Bu hesap için şifrenin değiştirilmesine izin verilmiyor."
 
-#: views/authentication_views.py:366
+#: views/authentication_views.py:278
 #, python-format
 msgid "Password change request performed on %(count)d user"
 msgstr "%(count)d kullanıcısının parola değiştirme isteği gerçekleştirildi"
 
-#: views/authentication_views.py:369
+#: views/authentication_views.py:281
 #, python-format
 msgid "Password change request performed on %(count)d users"
 msgstr ""
 "%(count)d kullanıcılarının parola değiştirme istekleri gerçekleştirildi"
 
-#: views/authentication_views.py:386
+#: views/authentication_views.py:298
 msgid ""
 "Changing the password of staff or super user accounts via the user interface"
 " is not allowed. Use administration tools to perform this operation."
@@ -209,23 +209,23 @@ msgstr ""
 "üzerinden değiştirilmesine izin verilmez. Bu işlemi gerçekleştirmek için "
 "yönetim araçlarını kullanın."
 
-#: views/authentication_views.py:400
+#: views/authentication_views.py:312
 msgid "Change user password"
 msgid_plural "Change users passwords"
 msgstr[0] "Kullanıcı şifresini değiştir"
 msgstr[1] "Kullanıcı şifrelerini değiştir"
 
-#: views/authentication_views.py:411
+#: views/authentication_views.py:323
 #, python-format
 msgid "Change password for user: %s"
 msgstr "Kullanıcı için şifreyi değiştir: %s"
 
-#: views/authentication_views.py:435
+#: views/authentication_views.py:347
 #, python-format
 msgid "Successful password reset for user: %s."
 msgstr "Kullanıcı için başarılı parola sıfırlama: %s."
 
-#: views/authentication_views.py:441
+#: views/authentication_views.py:353
 #, python-format
 msgid "Error resetting password for user \"%(user)s\": %(error)s"
 msgstr ""

@@ -4,16 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Yaman Sanobar <yman.snober@gmail.com>, 2024
-# Marwan Rahhal <Marwanr@sssit.net>, 2024
+# Yaman Sanobar <yman.snober@gmail.com>, 2026
+# Mohamad Ashmar, 2026
+# Marwan Rahhal <Marwanr@sssit.net>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2024\n"
+"POT-Creation-Date: 2025-10-30 19:39+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Marwan Rahhal <Marwanr@sssit.net>, 2026\n"
 "Language-Team: Arabic (Egypt) (https://app.transifex.com/rosarior/teams/13584/ar_EG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,13 +22,13 @@ msgstr ""
 "Language: ar_EG\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: apps.py:28 apps.py:54 links.py:14 queues.py:7
+#: apps.py:28 apps.py:54 links.py:14 links.py:18 queues.py:7
 msgid "Duplicates"
 msgstr "النسخ المكررة"
 
 #: apps.py:60
 msgid "Duplicate backend"
-msgstr ""
+msgstr "نسخة مكررة من الخلفية"
 
 #: classes.py:89
 msgid "Null backend"
@@ -35,15 +36,11 @@ msgstr "خلفية فارغة"
 
 #: duplicate_backends.py:9
 msgid "Exact document file checksum"
-msgstr ""
+msgstr "مجموع التحقق الدقيق لملف المستند"
 
 #: duplicate_backends.py:32
 msgid "Exact document label"
-msgstr ""
-
-#: links.py:18 models.py:39 views.py:79
-msgid "Duplicated documents"
-msgstr "الوثائق المكررة"
+msgstr "تسمية الوثيقة بالضبط"
 
 #: links.py:24 queues.py:24
 msgid "Duplicated document scan"
@@ -51,27 +48,31 @@ msgstr "مسح ضوئي للوثيقة المكررة"
 
 #: models.py:19 models.py:31
 msgid "Stored duplicate backend"
-msgstr ""
+msgstr "نسخة مكررة مخزنة في الخلفية"
 
 #: models.py:20
 msgid "Stored duplicate backends"
-msgstr ""
+msgstr "النسخ الخلفية المكررة المخزنة"
 
 #: models.py:35
 msgid "Document"
 msgstr "الوثيقة"
 
+#: models.py:39
+msgid "Duplicated documents"
+msgstr "الوثائق المكررة"
+
 #: models.py:47
 msgid "Duplicated backend entry"
-msgstr ""
+msgstr "إدخال مكرر في الواجهة الخلفية"
 
 #: models.py:48
 msgid "Duplicated backend entries"
-msgstr ""
+msgstr "إدخالات خلفية مكررة"
 
 #: queues.py:10
 msgid "Duplicates slow"
-msgstr ""
+msgstr "تكرارات بطيئة"
 
 #: queues.py:15
 msgid "Clean empty duplicate lists"
@@ -105,8 +106,12 @@ msgstr ""
 "حفظها باستخدام تنسيق ملف مختلف على أنها مكررة."
 
 #: views.py:77
-msgid "There are no duplicated documents"
-msgstr "لا توجد وثائق مكررة"
+msgid "There are no documents with duplicates"
+msgstr ""
+
+#: views.py:79
+msgid "Documents with duplicates"
+msgstr ""
 
 #: views.py:87
 msgid "Scan for duplicated documents?"

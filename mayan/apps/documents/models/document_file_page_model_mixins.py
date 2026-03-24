@@ -14,7 +14,9 @@ from mayan.apps.converter.transformations import BaseTransformation
 from mayan.apps.file_caching.models import CachePartitionFile
 from mayan.apps.lock_manager.backends.base import LockingBackend
 
-from ..literals import IMAGE_ERROR_DOCUMENT_FILE_PAGE_TRANSFORMATION_ERROR
+from ..literals import (
+    ERROR_LOG_DOMAIN_NAME, IMAGE_ERROR_DOCUMENT_FILE_PAGE_TRANSFORMATION_ERROR
+)
 
 logger = logging.getLogger(name=__name__)
 
@@ -65,7 +67,8 @@ class DocumentFilePageBusinessLogicMixin:
                     )
                 except CachePartitionFile.DoesNotExist:
                     logger.debug(
-                        'transformations cache file "%s" not found', combined_cache_filename
+                        'transformations cache file "%s" not found',
+                        combined_cache_filename
                     )
                     image = self.get_image(
                         transformation_instance_list=combined_transformation_list
@@ -210,6 +213,15 @@ class DocumentFilePageBusinessLogicMixin:
                     'document file intermediate file. Expected file named '
                     '"%s" failed to be created; %s', cache_filename,
                     exception, exc_info=True
+                )
+                error_log_text = _(
+                    message='Error generating image for page '
+                    '%(page_number)d; %(exception)s') % {
+                    'exception': exception, 'page_number': self.page_number
+                }
+
+                self.document_file.error_log.create(
+                    domain_name=ERROR_LOG_DOMAIN_NAME, text=error_log_text
                 )
                 raise
         else:

@@ -4,19 +4,20 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
-    menu_list_facet, menu_object, menu_return, menu_secondary, menu_tools,
-    menu_topbar
+    menu_list_facet, menu_multi_item, menu_object, menu_return,
+    menu_secondary, menu_tools, menu_topbar
 )
-from mayan.apps.navigation.classes import SourceColumn
-from mayan.apps.views.column_widgets import ObjectLinkWidget, TwoStateWidget
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .classes import EventTypeNamespace
 from .html_widgets import widget_event_actor_link, widget_event_type_link
 from .links import (
     link_event_list, link_event_list_clear, link_event_list_export,
-    link_event_type_subscription_list, link_notification_list,
+    link_event_type_subscription_list, link_notification_delete_multiple,
+    link_notification_delete_single, link_notification_list,
     link_notification_mark_read, link_notification_mark_read_all,
     link_object_event_list_clear, link_object_event_list_export,
     link_user_object_subscription_list
@@ -96,11 +97,11 @@ class EventsApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='target', label=_(message='Target'), include_label=True,
-            name='target', source=Action, widget=ObjectLinkWidget
+            name='target', source=Action, widget=column_widgets.ObjectLinkWidget
         )
         SourceColumn(
             attribute='action_object', label=_(message='Action object'),
-            include_label=True, source=Action, widget=ObjectLinkWidget
+            include_label=True, source=Action, widget=column_widgets.ObjectLinkWidget
         )
 
         # Stored event type
@@ -121,26 +122,29 @@ class EventsApp(MayanAppConfig):
             is_sortable=True, label=_(message='Date and time'), source=Notification
         )
         SourceColumn(
-            func=widget_event_actor_link, label=_(message='Actor'),
-            include_label=True, kwargs={'attribute': 'action'},
+            func=widget_event_actor_link, include_label=True,
+            label=_(message='Actor'), kwargs={'attribute': '"action"'},
             source=Notification
         )
         SourceColumn(
-            func=widget_event_type_link, label=_(message='Event'),
-            include_label=True, kwargs={'attribute': 'action'},
+            func=widget_event_type_link, include_label=True,
+            label=_(message='Event'), kwargs={'attribute': '"action"'},
             source=Notification
         )
         SourceColumn(
-            attribute='action.target', label=_(message='Target'), include_label=True,
-            source=Notification, widget=ObjectLinkWidget
+            attribute='action.target', include_label=True,
+            label=_(message='Target'), source=Notification,
+            widget=column_widgets.ObjectLinkWidget
         )
         SourceColumn(
-            attribute='action.action_object', label=_(message='Action object'),
-            include_label=True, source=Notification, widget=ObjectLinkWidget
+            attribute='action.action_object', include_label=True,
+            label=_(message='Action object'), source=Notification,
+            widget=column_widgets.ObjectLinkWidget
         )
         SourceColumn(
             attribute='read', include_label=True, is_sortable=True,
-            label=_(message='Seen'), source=Notification, widget=TwoStateWidget
+            label=_(message='Seen'), source=Notification,
+            widget=column_widgets.TwoStateWidget
         )
 
         # Object event subscription
@@ -148,7 +152,7 @@ class EventsApp(MayanAppConfig):
         SourceColumn(
             attribute='content_object', include_label=True,
             label=_(message='Object'), source=ObjectEventSubscription,
-            widget=ObjectLinkWidget
+            widget=column_widgets.ObjectLinkWidget
         )
         SourceColumn(
             attribute='stored_event_type', include_label=True,
@@ -190,7 +194,14 @@ class EventsApp(MayanAppConfig):
         # Notification
 
         menu_object.bind_links(
-            links=(link_notification_mark_read,), sources=(Notification,)
+            links=(
+                link_notification_delete_single, link_notification_mark_read,
+            ), sources=(Notification,)
+        )
+        menu_multi_item.bind_links(
+            links=(
+                link_notification_delete_multiple,
+            ), sources=('events:user_notifications_list',)
         )
         menu_secondary.bind_links(
             links=(link_notification_mark_read_all,),

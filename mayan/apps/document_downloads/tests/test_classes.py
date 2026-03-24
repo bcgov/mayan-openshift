@@ -17,9 +17,9 @@ class DocumentFileCompressorClassTestCase(GenericDocumentTestCase):
         download_file_count = DownloadFile.objects.count()
         message_count = Message.objects.count()
 
-        self._clear_events()
-
         self._test_user.locale_profile.language = 'es'
+
+        self._clear_events()
 
         document_file_compressor = DocumentFileCompressor(
             queryset=DocumentFile.valid.all()

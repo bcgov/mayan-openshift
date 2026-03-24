@@ -23,7 +23,8 @@ class SearchModelAPIViewTestCase(
             response.data['app_label'], self._test_search_model.app_label
         )
         self.assertEqual(
-            response.data['model_name'], self._test_search_model.model_name
+            response.data['model_name'],
+            self._test_search_model.model_name
         )
         self.assertEqual(
             response.data['pk'], self._test_search_model.pk
@@ -56,7 +57,10 @@ class SearchModelAPIViewTestCase(
             for search_field in search_model.search_fields:
                 search_model_expected_value['search_fields'].append(
                     {
+                        'field_class_label': search_field.field_class_label,
+                        'get_help_text': search_field.get_help_text(),
                         'field_name': search_field.field_name,
+                        'get_search_field_class_label': search_field.get_search_field_class_label(),
                         'label': search_field.label
                     }
                 )

@@ -6,20 +6,21 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_multi_item, menu_object, menu_secondary, menu_topbar
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
-from mayan.apps.views.column_widgets import TwoStateWidget
+from mayan.apps.forms import column_widgets
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .events import event_message_edited
 from .links import (
-    link_message_all_mark_read, link_message_create, link_message_list,
-    link_message_multiple_delete, link_message_multiple_mark_read,
-    link_message_multiple_mark_unread, link_message_single_delete,
-    link_message_single_mark_read, link_message_single_mark_unread
+    link_message_create, link_message_delete_multiple,
+    link_message_delete_single, link_message_list,
+    link_message_mark_read_all, link_message_mark_read_multiple,
+    link_message_mark_read_single, link_message_mark_unread_multiple,
+    link_message_mark_unread_single
 )
 from .permissions import (
     permission_message_delete, permission_message_edit,
@@ -71,25 +72,25 @@ class MessagingApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='read', include_label=True, is_sortable=True,
-            source=Message, widget=TwoStateWidget
+            source=Message, widget=column_widgets.TwoStateWidget
         )
 
         menu_multi_item.bind_links(
             links=(
-                link_message_multiple_delete,
-                link_message_multiple_mark_read,
-                link_message_multiple_mark_unread
+                link_message_delete_multiple,
+                link_message_mark_read_multiple,
+                link_message_mark_unread_multiple
             ), sources=(Message,)
         )
         menu_object.bind_links(
             links=(
-                link_message_single_delete, link_message_single_mark_read,
-                link_message_single_mark_unread
+                link_message_delete_single, link_message_mark_read_single,
+                link_message_mark_unread_single
             ), sources=(Message,)
         )
 
         menu_secondary.bind_links(
-            links=(link_message_create, link_message_all_mark_read),
+            links=(link_message_create, link_message_mark_read_all),
             sources=(
                 Message, 'messaging:message_list', 'messaging:message_create'
             )

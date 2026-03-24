@@ -2,13 +2,16 @@ from django.urls import path, re_path
 
 from .views.authentication_views import (
     MayanLoginView, MayanLogoutView, MayanPasswordChangeDoneView,
-    MayanPasswordChangeView, MayanPasswordResetCompleteView,
-    MayanPasswordResetConfirmView, MayanPasswordResetDoneView,
-    MayanPasswordResetView, MultiFactorAuthenticationView, UserSetPasswordView
+    MayanPasswordChangeView, MultiFactorAuthenticationView,
+    UserSetPasswordView
 )
 from .views.impersonation_views import (
     UserImpersonateEndView, UserImpersonateFormStartView,
     UserImpersonateStartView
+)
+from .views.password_reset_views import (
+    MayanPasswordResetCompleteView, MayanPasswordResetConfirmView,
+    MayanPasswordResetDoneView, MayanPasswordResetView
 )
 
 urlpatterns_authenticattion = [
@@ -27,15 +30,7 @@ urlpatterns_authenticattion = [
     )
 ]
 
-urlpatterns_password = [
-    re_path(
-        route=r'^password/change/done/$', name='password_change_done',
-        view=MayanPasswordChangeDoneView.as_view()
-    ),
-    re_path(
-        route=r'^password/change/$', name='password_change_view',
-        view=MayanPasswordChangeView.as_view()
-    ),
+urlpatterns_password_reset = [
     re_path(
         route=r'^password/reset/complete/$',
         name='password_reset_complete_view',
@@ -54,6 +49,17 @@ urlpatterns_password = [
     re_path(
         route=r'^password/reset/$', name='password_reset_view',
         view=MayanPasswordResetView.as_view()
+    )
+]
+
+urlpatterns_password_set = [
+    re_path(
+        route=r'^password/change/done/$', name='password_change_done',
+        view=MayanPasswordChangeDoneView.as_view()
+    ),
+    re_path(
+        route=r'^password/change/$', name='password_change_view',
+        view=MayanPasswordChangeView.as_view()
     ),
     re_path(
         route=r'^users/(?P<user_id>\d+)/set_password/$',
@@ -84,5 +90,6 @@ urlpatterns_user_impersonation = [
 
 urlpatterns = []
 urlpatterns.extend(urlpatterns_authenticattion)
-urlpatterns.extend(urlpatterns_password)
+urlpatterns.extend(urlpatterns_password_reset)
+urlpatterns.extend(urlpatterns_password_set)
 urlpatterns.extend(urlpatterns_user_impersonation)

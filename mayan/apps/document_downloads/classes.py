@@ -8,7 +8,7 @@ from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.locales.utils import to_language
-from mayan.apps.templating.classes import Template
+from mayan.apps.templating.template_backends import Template
 
 
 class DocumentFileCompressor:
@@ -89,20 +89,28 @@ class DocumentFileCompressor:
                         'to the template.'
                     )
 
+                body_message = _(
+                    message=setting_message_body_template.value
+                )
+
                 message_body_template = Template(
                     template_string=to_language(
                         language=user.locale_profile.language,
-                        promise=setting_message_body_template.value
+                        promise=body_message
                     )
                 )
                 message_body_content = message_body_template.render(
                     context=context_dictionary
                 )
 
+                subject_message = _(
+                    message=setting_message_subject_template.value
+                )
+
                 message_subject_template = Template(
                     template_string=to_language(
                         language=user.locale_profile.language,
-                        promise=setting_message_subject_template.value
+                        promise=subject_message
                     )
                 )
                 message_subject_text = strip_tags(

@@ -69,6 +69,28 @@ class WorkflowInstanceModelTestCase(
         self.assertEqual(events[1].target, self._test_document)
         self.assertEqual(events[1].verb, event_document_type_changed.id)
 
+    def test_workflow_instance_method_delete(self):
+        self._clear_events()
+
+        self._create_test_document_stub()
+
+        self.assertEqual(
+            self._test_workflow_instance.get_queryset_valid_transitions().count(),
+            1
+        )
+
+        self._test_workflow_instance.delete()
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 1)
+
+        self.assertEqual(
+            events[0].action_object, self._test_document.document_type
+        )
+        self.assertEqual(events[0].actor, self._test_document)
+        self.assertEqual(events[0].target, self._test_document)
+        self.assertEqual(events[0].verb, event_document_created.id)
+
     def test_workflow_instance_method_get_absolute_url(self):
         self._create_test_document_stub()
 
@@ -128,13 +150,26 @@ class WorkflowInstanceModelTestCase(
         self.assertEqual(events[0].target, self._test_document)
         self.assertEqual(events[0].verb, event_document_created.id)
 
+
+class WorkflowInstanceTransitionModelTestCase(
+    WorkflowInstanceTestMixin, GenericDocumentTestCase
+):
+    auto_upload_test_document = False
+
+    def setUp(self):
+        super().setUp()
+        self._create_test_workflow_template(add_test_document_type=True)
+        self._create_test_workflow_template_state()
+        self._create_test_workflow_template_state()
+        self._create_test_workflow_template_transition()
+
     def test_workflow_template_transition_no_condition(self):
         self._clear_events()
 
         self._create_test_document_stub()
 
         self.assertEqual(
-            self._test_workflow_instance.get_transition_choices().count(), 1
+            self._test_workflow_instance.get_queryset_valid_transitions().count(), 1
         )
 
         events = self._get_test_events()
@@ -165,7 +200,7 @@ class WorkflowInstanceModelTestCase(
         self._test_workflow_template_transition.save()
 
         self.assertEqual(
-            self._test_workflow_instance.get_transition_choices().count(), 0
+            self._test_workflow_instance.get_queryset_valid_transitions().count(), 0
         )
 
         events = self._get_test_events()
@@ -207,7 +242,7 @@ class WorkflowInstanceModelTestCase(
         self._test_workflow_template_transition.save()
 
         self.assertEqual(
-            self._test_workflow_instance.get_transition_choices().count(), 1
+            self._test_workflow_instance.get_queryset_valid_transitions().count(), 1
         )
 
         events = self._get_test_events()

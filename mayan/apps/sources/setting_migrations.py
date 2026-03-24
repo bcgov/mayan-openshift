@@ -1,4 +1,6 @@
-from mayan.apps.smart_settings.classes import SettingNamespaceMigration
+from mayan.apps.smart_settings.namespace_migrations import (
+    SettingNamespaceMigration
+)
 from mayan.apps.smart_settings.settings import setting_cluster
 from mayan.apps.smart_settings.utils import smart_yaml_load
 
@@ -23,10 +25,14 @@ class SourcesSettingMigration(SettingNamespaceMigration):
             global_name='SOURCES_CACHE_STORAGE_BACKEND'
         )
         # Load the value from the setting's old global name.
-        setting.do_value_cache(
-            global_name='SOURCES_STAGING_FILE_CACHE_STORAGE_BACKEND'
-        )
-        return setting.value
+        try:
+            value, domain_dict = setting_cluster.get_domains_value(
+                key='SOURCES_STAGING_FILE_CACHE_STORAGE_BACKEND'
+            )
+        except KeyError:
+            return setting.default
+        else:
+            return value
 
     def sources_cache_storage_backend_arguments_0002(self, value):
         # Get the setting by its new global name.
@@ -34,7 +40,11 @@ class SourcesSettingMigration(SettingNamespaceMigration):
             global_name='SOURCES_CACHE_STORAGE_BACKEND_ARGUMENTS'
         )
         # Load the value from the setting's old global name.
-        setting.do_value_cache(
-            global_name='SOURCES_STAGING_FILE_CACHE_STORAGE_BACKEND_ARGUMENTS'
-        )
-        return setting.value
+        try:
+            value, domain_dict = setting_cluster.get_domains_value(
+                key='SOURCES_STAGING_FILE_CACHE_STORAGE_BACKEND_ARGUMENTS'
+            )
+        except KeyError:
+            return setting.default
+        else:
+            return value

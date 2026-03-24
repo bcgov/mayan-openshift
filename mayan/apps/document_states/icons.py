@@ -1,5 +1,5 @@
-from mayan.apps.appearance.classes import Icon
 from mayan.apps.documents.icons import icon_document, icon_document_type
+from mayan.apps.icons.icons import Icon
 
 icon_workflow = Icon(driver_name='fontawesome', symbol='sitemap')
 
@@ -9,7 +9,8 @@ icon_tool_launch_workflows = Icon(
     driver_name='fontawesome-dual', primary_symbol='sitemap',
     secondary_symbol='play'
 )
-icon_document_workflow_templates_launch = icon_tool_launch_workflows
+icon_document_workflow_templates_launch_multiple = icon_tool_launch_workflows
+icon_document_workflow_templates_launch_single = icon_document_workflow_templates_launch_multiple
 
 # Workflow template
 
@@ -38,6 +39,9 @@ icon_document_type_workflow_template_list = icon_workflow
 
 # Workflow instance
 
+icon_workflow_instance_delete = Icon(
+    driver_name='fontawesome', symbol='times'
+)
 icon_workflow_instance_detail = icon_workflow
 icon_workflow_instance_list = icon_workflow
 icon_workflow_instance_transition = Icon(

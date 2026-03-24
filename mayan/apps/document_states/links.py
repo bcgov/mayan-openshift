@@ -1,14 +1,16 @@
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.documents.permissions import permission_document_type_edit
-from mayan.apps.navigation.classes import Link
+from mayan.apps.navigation.links import Link
 from mayan.apps.navigation.utils import factory_condition_queryset_access
 
 from .icons import (
     icon_document_type_workflow_template_list,
-    icon_document_workflow_templates_launch, icon_tool_launch_workflows,
-    icon_workflow_instance_detail, icon_workflow_instance_list,
-    icon_workflow_instance_transition,
+    icon_document_workflow_templates_launch_multiple,
+    icon_document_workflow_templates_launch_single,
+    icon_tool_launch_workflows,
+    icon_workflow_instance_delete, icon_workflow_instance_detail,
+    icon_workflow_instance_list, icon_workflow_instance_transition,
     icon_workflow_runtime_proxy_document_list,
     icon_workflow_runtime_proxy_list,
     icon_workflow_runtime_proxy_state_document_list,
@@ -234,14 +236,14 @@ link_workflow_template_transition_list = Link(
 
 # Workflow transition field
 
-link_document_multiple_workflow_templates_launch = Link(
-    icon=icon_document_workflow_templates_launch,
+link_document_workflow_templates_launch_multiple = Link(
+    icon=icon_document_workflow_templates_launch_multiple,
     text=_(message='Launch workflows'),
     view='document_states:document_multiple_workflow_templates_launch'
 )
-link_document_single_workflow_templates_launch = Link(
+link_document_workflow_templates_launch_single = Link(
     args='resolved_object.pk',
-    icon=icon_document_workflow_templates_launch,
+    icon=icon_document_workflow_templates_launch_single,
     permission=permission_workflow_tools, text=_(message='Launch workflows'),
     view='document_states:document_single_workflow_templates_launch'
 )
@@ -275,6 +277,11 @@ link_workflow_template_transition_field_list = Link(
 
 # Document workflow instance
 
+link_workflow_instance_delete_single = Link(
+    args='resolved_object.pk', icon=icon_workflow_instance_delete,
+    tags='dangerous', text=_(message='Delete'),
+    view='document_states:workflow_instance_delete_single'
+)
 link_workflow_instance_detail = Link(
     args='resolved_object.pk',
     icon=icon_workflow_instance_detail,

@@ -3,7 +3,8 @@ from django.db import models
 from mayan.apps.testing.tests.base import BaseTestCase
 
 from ..utils import (
-    ResolverPipelineModelAttribute, flatten_list, group_iterator, parse_range
+    ResolverPipelineModelAttribute, flatten_list, flatten_map, flatten_object,
+    group_iterator, parse_range
 )
 
 
@@ -58,6 +59,96 @@ class FlattenListTestCase(BaseTestCase):
                 )
             ), ['test string1', 1]
         )
+
+
+class FlattenMapTestCase(BaseTestCase):
+    def test_default(self):
+        test_dictionary_source = {'a': 1, 'b': 2, 'c': {'d': 3}}
+        test_dictionary_result = {'a': 1, 'b': 2, 'c_d': 3}
+
+        result = {}
+
+        flatten_map(dictionary=test_dictionary_source, result=result)
+
+        self.assertEqual(result, test_dictionary_result)
+
+    def test_separator(self):
+        test_dictionary_source = {'a': 1, 'b': 2, 'c': {'d': 3}}
+        test_dictionary_result = {'a': 1, 'b': 2, 'c__d': 3}
+
+        result = {}
+
+        flatten_map(
+            dictionary=test_dictionary_source, result=result, separator='__'
+        )
+
+        self.assertEqual(result, test_dictionary_result)
+
+
+class FlattenObjectTestCase(BaseTestCase):
+    def test_root_dictionary(self):
+        test_obj = {
+            'a': {
+                'b': [1, 2, {'c': 3}],
+                'd': 4
+            },
+            'e': 5,
+            'f': [
+                {'g': 6},
+                {'h': {'i': 7}}
+            ],
+            'j': {'k': {'l': 8, 'm': 9}}
+        }
+        test_result = {
+            'a_b_0': 1,
+            'a_b_1': 2,
+            'a_b_2_c': 3,
+            'a_d': 4,
+            'e': 5,
+            'f_0_g': 6,
+            'f_1_h_i': 7,
+            'j_k_l': 8,
+            'j_k_m': 9
+        }
+
+        result = dict(
+            flatten_object(obj=test_obj)
+        )
+
+        self.assertEqual(result, test_result)
+
+    def test_root_list(self):
+        test_obj = [
+            {
+                'a': {
+                    'b': [1, 2, {'c': 3}],
+                    'd': 4
+                },
+                'e': 5,
+                'f': [
+                    {'g': 6},
+                    {'h': {'i': 7}}
+                ],
+                'j': {'k': {'l': 8, 'm': 9}}
+            }
+        ]
+        test_result = {
+            '0_a_b_0': 1,
+            '0_a_b_1': 2,
+            '0_a_b_2_c': 3,
+            '0_a_d': 4,
+            '0_e': 5,
+            '0_f_0_g': 6,
+            '0_f_1_h_i': 7,
+            '0_j_k_l': 8,
+            '0_j_k_m': 9
+        }
+
+        result = dict(
+            flatten_object(obj=test_obj)
+        )
+
+        self.assertEqual(result, test_result)
 
 
 class GroupIteratorTestCase(BaseTestCase):
@@ -151,17 +242,15 @@ class ResolverRelatedManagerTestCase(BaseTestCase):
     def setUp(self):
         super().setUp()
 
-        self.TestModelAttribute = self._create_test_model(
+        self._create_test_model(
             fields={
                 'label': models.CharField(
                     max_length=64
                 )
             }, model_name='TestModelAttribute'
         )
-        self.TestModelGrandParent = self._create_test_model(
-            model_name='TestModelGrandParent'
-        )
-        self.TestModelParent = self._create_test_model(
+        self._create_test_model(model_name='TestModelGrandParent')
+        self._create_test_model(
             fields={
                 'parent': models.ForeignKey(
                     on_delete=models.CASCADE, related_name='children',
@@ -169,7 +258,7 @@ class ResolverRelatedManagerTestCase(BaseTestCase):
                 )
             }, model_name='TestModelParent'
         )
-        self.TestModelGrandChild = self._create_test_model(
+        self._create_test_model(
             fields={
                 'parent': models.ForeignKey(
                     on_delete=models.CASCADE, related_name='children',
@@ -181,17 +270,19 @@ class ResolverRelatedManagerTestCase(BaseTestCase):
             }, model_name='TestModelGrandChild'
         )
 
-        self._test_object_grandparent = self.TestModelGrandParent.objects.create()
-        self._test_object_parent = self.TestModelParent.objects.create(
+        self._test_object_grandparent = self._test_model_dict['TestModelGrandParent'].objects.create()
+        self._test_object_parent = self._test_model_dict['TestModelParent'].objects.create(
             parent=self._test_object_grandparent
         )
-        self._test_object_grandchild = self.TestModelGrandChild.objects.create(
+        self._test_object_grandchild = self._test_model_dict['TestModelGrandChild'].objects.create(
             parent=self._test_object_parent
         )
-        self._test_object_attribute = self.TestModelAttribute.objects.create(
+        self._test_object_attribute = self._test_model_dict['TestModelAttribute'].objects.create(
             label='test attribute object'
         )
-        self._test_object_grandchild.attributes.add(self._test_object_attribute)
+        self._test_object_grandchild.attributes.add(
+            self._test_object_attribute
+        )
 
     def test_many_to_many(self):
         result = ResolverPipelineModelAttribute.resolve(
@@ -223,7 +314,7 @@ class ResolverRelatedManagerTestCase(BaseTestCase):
                 'exclude': {
                     'id': '{}'.format(self._test_object_attribute.pk)
                 },
-                'model': self.TestModelAttribute
+                'model': self._test_model_dict['TestModelAttribute']
             }
         )
 
@@ -304,7 +395,7 @@ class ResolverRelatedManagerTestCase(BaseTestCase):
                 'exclude': {
                     'id': '{}'.format(self._test_object_attribute.pk)
                 },
-                'model': self.TestModelAttribute
+                'model': self._test_model_dict['TestModelAttribute']
             }
         )
 

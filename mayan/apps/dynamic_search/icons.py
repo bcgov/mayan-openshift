@@ -1,4 +1,4 @@
-from mayan.apps.appearance.classes import Icon
+from mayan.apps.icons.icons import Icon
 
 icon_result_list = Icon(driver_name='fontawesome', symbol='search')
 
@@ -29,5 +29,11 @@ icon_search_backend_reindex = Icon(
 )
 icon_search_form_clear = Icon(
     driver_name='fontawesome', symbol='times-circle'
+)
+icon_search_model_detail = Icon(
+    driver_name='fontawesome', symbol='square-binary'
+)
+icon_search_model_list = Icon(
+    driver_name='fontawesome', symbol='file-invoice'
 )
 icon_search_submit = Icon(driver_name='fontawesome', symbol='search')

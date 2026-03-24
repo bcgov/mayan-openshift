@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         dateutil - Extensions to the standard Python datetime module.
 

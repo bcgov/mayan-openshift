@@ -2,12 +2,13 @@ from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.dependencies.classes import PythonDependency
 from mayan.apps.dependencies.environments import (
-    environment_build, environment_development, environment_documentation,
-    environment_documentation_override
+    environment_build, environment_development, environment_production,
+    environment_publish
 )
-from mayan.settings.literals import PYTHON_WHEEL_VERSION
+from mayan.literals import PYTHON_SETUPTOOLS_VERSION, PYTHON_WHEEL_VERSION
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) Django Software Foundation and individual contributors.
         All rights reserved.
@@ -36,9 +37,10 @@ PythonDependency(
         ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django', version_string='==4.2.13'
+    ''', module=__name__, name='django', version_string='==5.2.11'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2006 Kirill Simonov
 
@@ -59,9 +61,10 @@ PythonDependency(
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
-    ''', module=__name__, name='PyYAML', version_string='==6.0.1'
+    ''', module=__name__, name='PyYAML', version_string='==6.0.3'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2009-2015, Carl Meyer and contributors
         All rights reserved.
@@ -91,9 +94,10 @@ PythonDependency(
         THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
         OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    ''', module=__name__, name='django-model-utils', version_string='==4.4.0'
+    ''', module=__name__, name='django-model-utils', version_string='==5.0.0'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Django MPTT
         -----------
@@ -116,24 +120,25 @@ PythonDependency(
         COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
         IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
         CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    ''', module=__name__, name='django-mptt', version_string='==0.16.0'
+    ''', module=__name__, name='django-mptt', version_string='==0.18.0'
 )
 PythonDependency(
-    module=__name__, name='importlib-metadata', version_string='==7.1.0'
-)
-PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Author: Christian Theune
         License: LGPL 2.1
-    ''', module=__name__, name='pycountry', version_string='==24.6.1'
+    ''', module=__name__, name='pycountry', version_string='==26.2.16'
 )
 PythonDependency(
-    module=__name__, name='requests', version_string='==2.32.3'
+    environments=(environment_production,), module=__name__, name='nh3',
+    version_string='==0.3.3'
 )
 PythonDependency(
-    module=__name__, name='setuptools', version_string='==69.5.1'
+    environments=(environment_production,), module=__name__, name='requests',
+    version_string='==2.32.5'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (C) 2011-2012 by Andrew Moffat
 
@@ -154,74 +159,45 @@ PythonDependency(
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
         THE SOFTWARE.
-    ''', module=__name__, name='sh', version_string='==2.0.7'
+    ''', module=__name__, name='sh', version_string='==2.2.2'
 )
 
 # Build
 
 PythonDependency(
-    environment=environment_build, module=__name__, name='twine',
-    version_string='==5.1.0'
+    environments=(environment_build,), module=__name__, name='setuptools',
+    version_string='=={}'.format(PYTHON_SETUPTOOLS_VERSION)
 )
 PythonDependency(
-    environments=(environment_build, environment_documentation),
-    module=__name__, name='wheel', version_string='=={}'.format(
-        PYTHON_WHEEL_VERSION
-    )
+    environments=(environment_publish,), module=__name__, name='twine',
+    version_string='==6.2.0'
+)
+PythonDependency(
+    environments=(environment_build,), module=__name__, name='wheel',
+    version_string='=={}'.format(PYTHON_WHEEL_VERSION)
 )
 
 # Development
 
 PythonDependency(
-    module=__name__, environment=environment_development,
-    name='devpi-server', version_string='==6.10.0'
+    environments=(environment_development,), module=__name__,
+    name='django-debug-toolbar', version_string='==6.2.0'
 )
 PythonDependency(
-    environment=environment_development, module=__name__,
-    name='django-debug-toolbar', version_string='==4.3.0'
+    environments=(environment_development,), module=__name__,
+    name='django-extensions', version_string='==4.1'
 )
 PythonDependency(
-    environment=environment_development, module=__name__,
-    name='django-extensions', version_string='==3.2.3'
+    environments=(environment_development,), module=__name__,
+    name='django-silk', version_string='==5.4.3'
 )
 PythonDependency(
-    environment=environment_development, module=__name__,
-    name='django-silk', version_string='==5.1.0'
+    environments=(environment_development,), help_text=_(
+        message='Command line environment with autocompletion.'
+    ), module=__name__, name='ipython', version_string='==9.10.0'
 )
 PythonDependency(
-    environment=environment_development, help_text=_(
-        'Command line environment with autocompletion.'
-    ), module=__name__, name='ipython', version_string='==8.22.2'
-)
-PythonDependency(
-    environment=environment_development, help_text=_(
-        'Checks proper formatting of the README file.'
+    environments=(environment_development,), help_text=_(
+        message='Checks proper formatting of the README file.'
     ), module=__name__, name='readme', version_string='==0.7.1'
-)
-PythonDependency(
-    environment=environment_development,
-    module=__name__, name='safety', version_string='==3.2.0'
-)
-
-# Documentation
-
-PythonDependency(
-    environment=environment_documentation, module=__name__,
-    name='Sphinx', version_string='==7.3.7'
-)
-PythonDependency(
-    environment=environment_documentation, module=__name__,
-    name='sphinx-sitemap', version_string='==2.6.0'
-)
-PythonDependency(
-    environment=environment_documentation, module=__name__,
-    name='sphinx_rtd_theme', version_string='==2.0.0'
-)
-PythonDependency(
-    environment=environment_documentation, module=__name__,
-    name='sphinxcontrib-spelling', version_string='==8.0.0'
-)
-PythonDependency(
-    environment=environment_documentation_override, module=__name__,
-    name='jinja2', version_string='==3.1.4'
 )

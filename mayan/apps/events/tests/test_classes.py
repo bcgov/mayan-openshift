@@ -1,10 +1,10 @@
 from mayan.apps.testing.tests.base import BaseTestCase
 
-from ..classes import EventModelRegistry, EventType, ModelEventType
+from ..classes import EventModelRegistry, ModelEventType
 from ..decorators import method_event
 from ..event_managers import EventManagerMethodAfter
 
-from .mixins import EventTypeTestMixin
+from .mixins.event_type_mixins import EventTypeTestMixin
 
 
 class EventManagerTestCase(EventTypeTestMixin, BaseTestCase):
@@ -14,13 +14,11 @@ class EventManagerTestCase(EventTypeTestMixin, BaseTestCase):
         self._create_test_user()
         self._create_test_object()
 
-        EventModelRegistry.register(model=self.TestModel)
+        EventModelRegistry.register(model=self._TestModel)
 
         ModelEventType.register(
-            event_types=(self._test_event_type,), model=self.TestModel
+            event_types=(self._test_event_type,), model=self._TestModel
         )
-
-        EventType.refresh()
 
     def test_event_ignore(self):
         def method_1(self):
@@ -35,8 +33,8 @@ class EventManagerTestCase(EventTypeTestMixin, BaseTestCase):
         def method_2(self):
             """Nothing"""
 
-        self.TestModel.method_1 = method_1
-        self.TestModel.method_2 = method_2
+        self._TestModel.method_1 = method_1
+        self._TestModel.method_2 = method_2
 
         self._clear_events()
 

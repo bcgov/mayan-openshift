@@ -1,7 +1,5 @@
-devpi-server==6.10.0
-django-debug-toolbar==4.3.0
-django-extensions==3.2.3
-django-silk==5.1.0
-ipython==8.22.2
+django-debug-toolbar==6.2.0
+django-extensions==4.1
+django-silk==5.4.3
+ipython==9.10.0
 readme==0.7.1
-safety==3.2.0

@@ -9,8 +9,8 @@ from mayan.apps.documents.events import (
     event_document_created, event_document_edited
 )
 from mayan.apps.testing.tests.base import BaseTestCase, GenericViewTestCase
-from mayan.apps.testing.tests.mixins import TestServerTestCaseMixin
 from mayan.apps.testing.tests.mocks import request_method_factory
+from mayan.apps.views.tests.mixins import TestServerTestCaseMixin
 
 from ..events import (
     event_workflow_instance_created, event_workflow_instance_transitioned,
@@ -34,7 +34,8 @@ from .literals import (
     TEST_HEADERS_JSON, TEST_HEADERS_JSON_TEMPLATE,
     TEST_HEADERS_JSON_TEMPLATE_KEY, TEST_HEADERS_KEY, TEST_HEADERS_VALUE,
     TEST_PAYLOAD_JSON, TEST_PAYLOAD_TEMPLATE_DOCUMENT_LABEL,
-    TEST_SERVER_PASSWORD, TEST_SERVER_USERNAME
+    TEST_SERVER_PASSWORD, TEST_SERVER_USERNAME,
+    TEST_WORKFLOW_TEMPLATE_STATE_ACTION_GENERIC_DOTTED_PATH
 )
 from .mixins.workflow_template_state_action_mixins import (
     WorkflowTemplateStateActionLaunchViewTestMixin,
@@ -321,6 +322,48 @@ class HTTPWorkflowActionTestCase(
 
         events = self._get_test_events()
         self.assertEqual(events.count(), 0)
+
+    @mock.patch('requests.request')
+    def test_http_post_action_verify_certificates_false(self, mock_object):
+
+        self._clear_events()
+
+        self._execute_workflow_template_state_action(
+            klass=HTTPAction, kwargs={
+                'method': 'POST', 'payload': TEST_PAYLOAD_JSON,
+                'url': self.testserver_url, 'verify_certificate': False
+            }
+        )
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 0)
+
+        payload = json.loads(s=TEST_PAYLOAD_JSON)
+        mock_object.assert_called_once_with(
+            auth=None, headers={}, json=payload, method='POST',
+            timeout=None, url=self.testserver_url, verify=False
+        )
+
+    @mock.patch('requests.request')
+    def test_http_post_action_verify_certificates_true(self, mock_object):
+
+        self._clear_events()
+
+        self._execute_workflow_template_state_action(
+            klass=HTTPAction, kwargs={
+                'method': 'POST', 'payload': TEST_PAYLOAD_JSON,
+                'url': self.testserver_url, 'verify_certificate': True
+            }
+        )
+
+        events = self._get_test_events()
+        self.assertEqual(events.count(), 0)
+
+        payload = json.loads(s=TEST_PAYLOAD_JSON)
+        mock_object.assert_called_once_with(
+            auth=None, headers={}, json=payload, method='POST',
+            timeout=None, url=self.testserver_url, verify=True
+        )
 
 
 class HTTPCredentialTemplateWorkflowActionTestCase(
@@ -670,10 +713,18 @@ class DocumentWorkflowLaunchActionViewTestCase(
             add_test_document_type=True, auto_launch=False
         )
 
+        self._test_workflow_template_state_initial = True
+
+        self._create_test_workflow_template_state()
+
         self._create_test_workflow_template(
             add_test_document_type=True, auto_launch=True
         )
+
+        self._test_workflow_template_state_initial = True
+
         self._create_test_workflow_template_state()
+
         self.grant_access(
             obj=self._test_workflow_template,
             permission=permission_workflow_template_edit
@@ -733,3 +784,29 @@ class DocumentWorkflowLaunchActionViewTestCase(
         self.assertEqual(events[2].actor, self._test_workflow_instance)
         self.assertEqual(events[2].target, self._test_workflow_instance)
         self.assertEqual(events[2].verb, event_workflow_instance_created.id)
+
+
+class WorkflowActionTestCase(
+    WorkflowTemplateStateActionTestMixin,
+    WorkflowTemplateTransitionTestMixin, BaseTestCase
+):
+    _test_workflow_template_state_action_path = TEST_WORKFLOW_TEMPLATE_STATE_ACTION_GENERIC_DOTTED_PATH
+    auto_create_test_workflow_template_state_action = False
+
+    def test_context(self):
+        self._create_test_workflow_template_state()
+        self._create_test_workflow_template_transition()
+        self._create_test_workflow_template_state_action(workflow_state_index=1)
+
+        self._clear_events()
+
+        self._test_workflow_instance.do_transition(
+            transition=self._test_workflow_template_transition
+        )
+
+        context = self._test_workflow_instance._test_workflow_state_action_context
+
+        self.assertTrue('workflow_instance' in context)
+        self.assertTrue('workflow_instance_context' in context)
+        self.assertTrue('action' in context)
+        self.assertTrue('log_entry' in context)

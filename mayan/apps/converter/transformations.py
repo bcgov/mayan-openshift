@@ -4,14 +4,12 @@ import logging
 from PIL import Image, ImageColor, ImageFilter
 import qrcode
 
-from django import forms
 from django.utils.encoding import force_bytes
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.views.forms import Form
+from mayan.apps.forms import form_fields, form_widgets, forms
 from mayan.apps.views.http import URL
-from mayan.apps.views.widgets import ColorWidget
 
 from .layers import layer_decorations, layer_saved_transformations
 from .transformation_mixins import (
@@ -43,11 +41,11 @@ class BaseTransformation(metaclass=BaseTransformationType):
 
     @staticmethod
     def combine(transformations):
-        result = hashlib.sha256()
+        hash_object = hashlib.sha256()
 
         for transformation in transformations or ():
             try:
-                result.update(
+                hash_object.update(
                     transformation.cache_hash()
                 )
             except Exception as exception:
@@ -56,7 +54,7 @@ class BaseTransformation(metaclass=BaseTransformationType):
                     transformation, exception
                 )
 
-        return result.hexdigest()
+        return hash_object.hexdigest()
 
     @staticmethod
     def list_as_query_string(transformation_instance_list):
@@ -178,25 +176,24 @@ class BaseTransformation(metaclass=BaseTransformationType):
             self.kwargs[argument_name] = kwargs.get(argument_name)
 
     def _update_hash(self):
-        result = hashlib.sha256(
-            string=force_bytes(s=self.name)
-        )
+        string = force_bytes(s=self.name)
+        hash_object = hashlib.sha256(string=string)
 
         # Sort arguments for guaranteed repeatability.
         for key, value in sorted(self.kwargs.items()):
-            result.update(
+            hash_object.update(
                 force_bytes(s=key)
             )
-            result.update(
+            hash_object.update(
                 force_bytes(s=value)
             )
 
-        return result
+        return hash_object
 
     def cache_hash(self):
-        return force_bytes(
-            s=self._update_hash().hexdigest()
-        )
+        hash_object = self._update_hash()
+        string = hash_object.hexdigest()
+        return force_bytes(s=string)
 
     def execute_on(self, image):
         self.image = image
@@ -232,21 +229,21 @@ class TransformationCrop(BaseTransformation):
     label = _(message='Crop')
     name = 'crop'
 
-    class Form(Form):
-        left = forms.IntegerField(
+    class Form(forms.Form):
+        left = form_fields.IntegerField(
             help_text=_(message='Number of pixels to remove from the left.'),
             label=_(message='Left'), required=False
         )
-        top = forms.IntegerField(
+        top = form_fields.IntegerField(
             help_text=_(message='Number of pixels to remove from the top.'),
             label=_(message='Top'), required=False
         )
-        right = forms.IntegerField(
+        right = form_fields.IntegerField(
             help_text=_(
                 message='Number of pixels to remove from the right.'
             ), label=_(message='Right'), required=False
         )
-        bottom = forms.IntegerField(
+        bottom = form_fields.IntegerField(
             help_text=_(
                 message='Number of pixels to remove from the bottom.'
             ), label=_(message='Bottom'), required=False
@@ -335,19 +332,19 @@ class TransformationDrawRectangle(
     name = 'draw_rectangle'
 
     class Form(TransformationDrawRectangleMixin.Form):
-        left = forms.IntegerField(
+        left = form_fields.IntegerField(
             help_text=_(message='Left side location in pixels.'),
             label=_(message='Left'), required=False
         )
-        top = forms.IntegerField(
+        top = form_fields.IntegerField(
             help_text=_(message='Top side location in pixels.'),
             label=_(message='Top'), required=False
         )
-        right = forms.IntegerField(
+        right = form_fields.IntegerField(
             help_text=_(message='Right side location in pixels.'),
             label=_(message='Right'), required=False
         )
-        bottom = forms.IntegerField(
+        bottom = form_fields.IntegerField(
             help_text=_(message='Bottom side location in pixels.'),
             label=_(message='Bottom'), required=False
         )
@@ -433,19 +430,19 @@ class TransformationDrawRectanglePercent(
     name = 'draw_rectangle_percent'
 
     class Form(TransformationDrawRectangleMixin.Form):
-        left = forms.FloatField(
+        left = form_fields.FloatField(
             help_text=_(message='Left side location in percent.'),
             label=_(message='Left'), required=False
         )
-        top = forms.FloatField(
+        top = form_fields.FloatField(
             help_text=_(message='Top side location in percent.'),
             label=_(message='Top'), required=False
         )
-        right = forms.FloatField(
+        right = form_fields.FloatField(
             help_text=_(message='Right side location in percent.'),
             label=_(message='Right'), required=False
         )
-        bottom = forms.FloatField(
+        bottom = form_fields.FloatField(
             help_text=_(message='Bottom side location in percent.'),
             label=_(message='Bottom'), required=False
         )
@@ -543,8 +540,8 @@ class TransformationGaussianBlur(BaseTransformation):
     label = _(message='Gaussian blur')
     name = 'gaussianblur'
 
-    class Form(Form):
-        radius = forms.IntegerField(
+    class Form(forms.Form):
+        radius = form_fields.IntegerField(
             initial=2, label=_(message='Radius'), required=True
         )
 
@@ -593,7 +590,7 @@ class TransformationQRCodePercent(
         return arguments
 
     class Form(ImagePasteCoordinatesPercentTransformationMixin.Form):
-        code_value = forms.CharField(
+        code_value = form_fields.CharField(
             help_text=_(message='Value to encode in the QRCode.'),
             label=_(message='Code value'), required=True
         )
@@ -623,13 +620,13 @@ class TransformationResize(BaseTransformation):
     label = _(message='Resize')
     name = 'resize'
 
-    class Form(Form):
-        width = forms.IntegerField(
+    class Form(forms.Form):
+        width = form_fields.IntegerField(
             help_text=_(
                 message='New width in pixels.'
             ), label=_(message='Width'), required=True
         )
-        height = forms.IntegerField(
+        height = form_fields.IntegerField(
             help_text=_(
                 message='New height in pixels.'
             ), label=_(message='Height'), required=False
@@ -667,18 +664,18 @@ class TransformationRotate(BaseTransformation):
     label = _(message='Rotate')
     name = 'rotate'
 
-    class Form(Form):
-        degrees = forms.IntegerField(
+    class Form(forms.Form):
+        degrees = form_fields.IntegerField(
             help_text=_(
                 message='Number of degrees to rotate the image counter clockwise '
                 'around its center.'
             ), label=_(message='Degrees'), required=True
         )
-        fillcolor = forms.CharField(
+        fillcolor = form_fields.CharField(
             help_text=_(
                 message='Color to be used for area outside of the rotated image.'
             ), label=_(message='Fill color'), required=False,
-            widget=ColorWidget()
+            widget=form_widgets.ColorWidget()
         )
 
     def execute_on(self, *args, **kwargs):
@@ -743,16 +740,16 @@ class TransformationUnsharpMask(BaseTransformation):
     label = _(message='Unsharp masking')
     name = 'unsharpmask'
 
-    class Form(Form):
-        radius = forms.IntegerField(
+    class Form(forms.Form):
+        radius = form_fields.IntegerField(
             initial=2, help_text=_(message='The blur radius in pixels.'),
             label=_(message='Radius'), required=True
         )
-        percent = forms.FloatField(
+        percent = form_fields.FloatField(
             initial=150, help_text=_(message='Unsharp strength in percent.'),
             label=_(message='Percent'), required=True
         )
-        threshold = forms.IntegerField(
+        threshold = form_fields.IntegerField(
             initial=3, help_text=_(
                 message='Minimum brightness change that will be sharpened.'
             ), label=_(message='Tthreshold'), required=True
@@ -774,8 +771,8 @@ class TransformationZoom(BaseTransformation):
     label = _(message='Zoom')
     name = 'zoom'
 
-    class Form(Form):
-        percent = forms.FloatField(
+    class Form(forms.Form):
+        percent = form_fields.FloatField(
             help_text=_(message='Zoom level in percent.'),
             label=_(message='Percent'), required=True
         )

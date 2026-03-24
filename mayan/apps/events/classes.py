@@ -5,6 +5,7 @@ from furl import furl
 
 from django.apps import apps
 from django.contrib.auth import get_user_model
+from django.db.utils import OperationalError, ProgrammingError
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -14,12 +15,14 @@ from mayan.apps.common.class_mixins import AppsModuleLoaderMixin
 from mayan.apps.common.menus import menu_list_facet
 from mayan.apps.organizations.utils import get_organization_installation_url
 
+from .exceptions import EventError
 from .links import (
     link_object_event_list, link_object_event_type_user_subscription_list
 )
 from .literals import (
     DEFAULT_EVENT_LIST_EXPORT_FILENAME, EVENT_EVENTS_CLEARED_NAME,
-    EVENT_EVENTS_EXPORTED_NAME, EVENT_TYPE_NAMESPACE_NAME
+    EVENT_EVENTS_EXPORTED_NAME, EVENT_TYPE_NAMESPACE_NAME,
+    TEXT_UNKNOWN_EVENT_ID
 )
 from .permissions import (
     permission_events_clear, permission_events_export, permission_events_view
@@ -60,7 +63,7 @@ class ActionExporter:
             )
         )
 
-        for entry in self.queryset.iterator():
+        for entry in self.queryset.iterator(chunk_size=2000):
             row = [
                 str(
                     getattr(entry, field_name)
@@ -198,9 +201,8 @@ class EventModelRegistry:
                 )
 
 
-class EventTypeNamespace(AppsModuleLoaderMixin):
+class EventTypeNamespaceMetaclass(type):
     _registry = {}
-    _loader_module_name = 'events'
 
     @classmethod
     def all(cls):
@@ -212,10 +214,34 @@ class EventTypeNamespace(AppsModuleLoaderMixin):
     def get(cls, name):
         return cls._registry[name]
 
+    def __call__(cls, name, label, **kwargs):
+        if name in cls._registry:
+            return cls._registry[name]
+        else:
+            instance = super().__call__(name=name, label=label, **kwargs)
+            cls._registry[name] = instance
+            return instance
+
+
+class EventTypeNamespace(
+    AppsModuleLoaderMixin, metaclass=EventTypeNamespaceMetaclass
+):
+    _loader_module_name = 'events'
+
+    @classmethod
+    def post_load_modules(cls):
+        try:
+            # Pre cache all stored event types.
+            EventType.refresh()
+        except (OperationalError, ProgrammingError):
+            """
+            Non fatal. Non initialized installation. Ignore exception.
+            """
+
     def __init__(self, name, label):
         self.name = name
         self.label = label
-        self.event_types = []
+        self.event_type_list = []
         self.__class__._registry[name] = self
 
     def __lt__(self, other):
@@ -226,8 +252,16 @@ class EventTypeNamespace(AppsModuleLoaderMixin):
 
     def add_event_type(self, name, label):
         event_type = EventType(namespace=self, name=name, label=label)
-        self.event_types.append(event_type)
+        self.event_type_list.append(event_type)
         return event_type
+
+    def do_delete(self):
+        self.__class__._registry.pop(self.name)
+
+        del self
+
+    def event_type_remove(self, event_type):
+        event_type.do_delete()
 
     def get_event(self, name):
         return EventType.get(
@@ -235,7 +269,7 @@ class EventTypeNamespace(AppsModuleLoaderMixin):
         )
 
     def get_event_types(self):
-        return EventType.sort(event_type_list=self.event_types)
+        return EventType.sort(event_type_list=self.event_type_list)
 
 
 class EventType:
@@ -261,6 +295,17 @@ class EventType:
         return cls._registry[id]
 
     @classmethod
+    def get_label(cls, id):
+        try:
+            event_type = cls.get(id=id)
+        except KeyError:
+            event_type_label = TEXT_UNKNOWN_EVENT_ID % id
+        else:
+            event_type_label = event_type.label
+
+        return event_type_label
+
+    @classmethod
     def refresh(cls):
         for event_type in cls.all():
             # Invalidate cache and recreate store events while repopulating
@@ -273,6 +318,13 @@ class EventType:
         self.name = name
         self.label = label
         self.stored_event_type = None
+
+        if self in self.namespace.event_type_list:
+            raise EventError(
+                '`EventType` "%s" already exists in parent event type '
+                'namespace.', name
+            )
+
         self.__class__._registry[self.id] = self
 
     def __str__(self):
@@ -293,7 +345,7 @@ class EventType:
         if actor is None and target is None:
             # If the actor and the target are None there is no way to
             # create a new event.
-            logger.warning(
+            logger.error(
                 'Attempting to commit event "%s" without an actor or a '
                 'target. This is not supported.', self
             )
@@ -389,8 +441,14 @@ class EventType:
 
             task_event_commit.apply_async(kwargs=task_kwargs)
 
+    def do_delete(self):
+        self.__class__._registry.pop(self.id)
+        self.namespace.event_type_list.remove(self)
+
+        del self
+
     def get_stored_event_type(self):
-        if not self.stored_event_type:
+        if self.stored_event_type is None:
             StoredEventType = apps.get_model(
                 app_label='events', model_name='StoredEventType'
             )
@@ -412,6 +470,13 @@ class ModelEventType:
     """
     _inheritances = {}
     _registry = {}
+
+    @classmethod
+    def deregister_event_type(cls, event_type):
+        for model, model_event_types in cls._registry.items():
+            for model_event_type in model_event_types:
+                if model_event_type == event_type:
+                    model_event_types.remove(event_type)
 
     @classmethod
     def get_for_class(cls, klass):

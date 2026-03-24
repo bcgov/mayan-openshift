@@ -4,19 +4,19 @@
 # 
 # Translators:
 # Translators:
-# Emine Öztürk <oemine075@gmail.com>, 2024
-# abc Def <hdogan1974@gmail.com>, 2024
-# Caner Başaran <basaran.caner@gmail.com>, 2024
-# serhatcan77 <serhat_can@yahoo.com>, 2024
-# Bedreddin Şahbaz, 2024
+# Emine Öztürk <oemine075@gmail.com>, 2026
+# abc Def <hdogan1974@gmail.com>, 2026
+# Caner Başaran <basaran.caner@gmail.com>, 2026
+# Bedreddin Şahbaz, 2026
+# serhatcan77 <serhat_can@yahoo.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Bedreddin Şahbaz, 2024\n"
+"POT-Creation-Date: 2024-07-11 10:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: serhatcan77 <serhat_can@yahoo.com>, 2026\n"
 "Language-Team: Turkish (Turkey) (https://app.transifex.com/rosarior/teams/13584/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,31 +56,31 @@ msgstr "Belge teslim alınmadı."
 msgid "Document already checked out."
 msgstr "Belge zaten teslim alınmış."
 
-#: forms.py:26
+#: forms.py:25
 msgid "Document status"
 msgstr "Belge durumu"
 
-#: forms.py:37 model_mixins.py:9 models.py:47 serializers.py:22
+#: forms.py:36 model_mixins.py:9 models.py:47 serializers.py:22
 msgid "User"
 msgstr "Kullanıcı"
 
-#: forms.py:41
+#: forms.py:40
 msgid "Check out time"
 msgstr "Teslim alma zamanı"
 
-#: forms.py:46
+#: forms.py:45
 msgid "Check out expiration"
 msgstr "Teslim alma son kullanma tarihi"
 
-#: forms.py:51
+#: forms.py:50
 msgid "New files allowed?"
 msgstr "Yeni dosyalara izin verilsin mi?"
 
-#: forms.py:52
+#: forms.py:51
 msgid "Yes"
 msgstr "Evet"
 
-#: forms.py:52
+#: forms.py:51
 msgid "No"
 msgstr "Hayır"
 
@@ -279,6 +279,6 @@ msgstr ""
 msgid "No documents have been checked out"
 msgstr "Hiçbir belge teslim alınmamış"
 
-#: widgets.py:20
+#: widgets.py:19
 msgid "Amount"
 msgstr "Tutar"

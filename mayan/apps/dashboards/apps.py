@@ -1,8 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import menu_object, menu_return, menu_tools
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .classes import Dashboard
 from .links import link_dashboard_detail, link_dashboard_list
@@ -21,9 +21,8 @@ class DashboardsApp(MayanAppConfig):
         super().ready()
 
         SourceColumn(
-            func=lambda context: len(context['object'].widgets),
-            label=_(message='Widgets'), include_label=True,
-            source=Dashboard
+            attribute='get_widget_count', label=_(message='Widgets'),
+            include_label=True, source=Dashboard
         )
         SourceColumn(
             attribute='label', label=_(message='Label'), is_identifier=True,

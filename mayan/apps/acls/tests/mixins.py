@@ -4,7 +4,9 @@ from django.db.models import Q
 from mayan.apps.permissions.tests.mixins import (
     RoleTestCaseMixin, RoleTestMixin
 )
-from mayan.apps.user_management.tests.mixins import UserTestCaseMixin
+from mayan.apps.user_management.tests.mixins.user_mixins import (
+    UserTestCaseMixin
+)
 
 from ..classes import ModelPermission
 from ..models import AccessControlList
@@ -145,21 +147,21 @@ class ACLTestMixin(RoleTestMixin):
         self, model_name=None, create_test_permission=True,
         register_acl_permissions=True, register_test_permission=True
     ):
-        self.TestModel = self._create_test_model()
+        self._create_test_model()
 
         if create_test_permission:
             self._create_test_permission()
 
         if register_acl_permissions or 1:
             ModelPermission.register(
-                model=self.TestModel, permissions=(
+                model=self._test_model_dict['_TestModel_0'], permissions=(
                     permission_acl_edit, permission_acl_view
                 )
             )
 
         if register_test_permission or 1:
             ModelPermission.register(
-                model=self.TestModel, permissions=(
+                model=self._test_model_dict['_TestModel_0'], permissions=(
                     self._test_permission,
                 )
             )
@@ -172,13 +174,11 @@ class ACLTestMixin(RoleTestMixin):
         )
 
     def _create_acl_test_object_proxy(self):
-        self.TestModelProxy = self._create_test_model(
-            base_class=self.TestModel, model_name='TestModelProxy',
-            options={
-                'proxy': True
-            }
+        self._create_test_model(
+            base_class=self._test_model_dict['_TestModel_0'],
+            model_name='TestModelProxy', options={'proxy': True}
         )
-        self._test_object_proxy = self.TestModelProxy.objects.create()
+        self._test_object_proxy = self._test_model_dict['TestModelProxy'].objects.create()
 
 
 class AccessControlListViewTestMixin:

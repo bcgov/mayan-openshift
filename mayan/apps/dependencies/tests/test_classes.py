@@ -1,17 +1,21 @@
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
 import shutil
+from unittest import mock
 
 from mayan.apps.storage.utils import TemporaryDirectory, mkdtemp
 from mayan.apps.testing.tests.base import BaseTestCase
 from mayan.apps.testing.tests.utils import mute_stdout
 
 from ..classes import JavaScriptDependency
+from ..environments import environment_production
 from ..exceptions import DependenciesException
 
 from .literals import (
     TEST_TAR_CVE_2007_4559_FILENAME, TEST_TAR_CVE_2007_4559_PATH
 )
 from .mocks import TestDependency
+from .mixins import PythonDependencyTestMixin
 
 
 class DependencyClassTestCase(BaseTestCase):
@@ -29,7 +33,8 @@ class DependencyClassTestCase(BaseTestCase):
                 '@import url("https://fonts.googleapis.com/css?family=Lato:400,700,400italic");'
             )
         self._test_dependency = TestDependency(
-            name='test_dependency', module=__name__
+            environments=(environment_production,), name='test_dependency',
+            module=__name__
         )
 
     def tearDown(self):
@@ -74,6 +79,7 @@ class DependencyClassCVE_2007_4559TestCase(BaseTestCase):
                     shutil.copyfileobj(fsrc=test_source_file_object, fdst=test_destination_file_object)
 
             test_dependency = JavaScriptDependency(
+                environments=(environment_production,),
                 label='Label', module=__name__,
                 name='test_repository', version_string='=1.0'
             )
@@ -84,3 +90,63 @@ class DependencyClassCVE_2007_4559TestCase(BaseTestCase):
 
             with self.assertRaises(expected_exception=DependenciesException):
                 test_dependency.extract()
+
+
+class PythonDependencyTestCase(PythonDependencyTestMixin, BaseTestCase):
+    def test_requirement_string_is_invalid(self):
+        test_dependency = self._get_test_dependency(version_string='>=1.0')
+
+        with self.assertRaises(expected_exception=DependenciesException):
+            with mock.patch(
+                target=self.mock_path_list['Requirement'],
+                side_effect=Exception('invalid requirement')
+            ):
+                with mock.patch(
+                    target=self.mock_path_list['version']
+                ):
+                    test_dependency._check()
+
+    def test_distribution_is_not_installed(self):
+        test_dependency = self._get_test_dependency(version_string='>=1.0')
+        with mock.patch(
+            target=self.mock_path_list['Requirement'],
+            side_effect=PackageNotFoundError('test_dependency')
+        ):
+            with mock.patch(
+                target=self.mock_path_list['version']
+            ):
+                result = test_dependency._check()
+
+        self.assertFalse(result)
+
+    def test_installed_and_satisfies_specifier(self):
+        test_dependency = self._get_test_dependency(
+            version_string='>=1.0,<2.0'
+        )
+
+        with mock.patch(
+            target=self.mock_path_list['version'], return_value='1.2.3'
+        ):
+            result = test_dependency._check()
+
+        self.assertTrue(result)
+
+    def test_installed_but_does_not_satisfy_specifier(self):
+        test_dependency = self._get_test_dependency(version_string='<2.0.0')
+
+        with mock.patch(
+            target=self.mock_path_list['version'], return_value='2.0.0'
+        ):
+            result = test_dependency._check()
+
+        self.assertFalse(result)
+
+    def test_installed_and_no_specifier_is_provided(self):
+        test_dependency = self._get_test_dependency(version_string='')
+
+        with mock.patch(
+            target=self.mock_path_list['version'], return_value='0.0.1'
+        ):
+            result = test_dependency._check()
+
+        self.assertTrue(result)

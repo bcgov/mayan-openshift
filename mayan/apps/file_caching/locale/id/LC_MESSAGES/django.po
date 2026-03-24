@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Sehat <sehat75@yahoo.com>, 2024
-# Dzikri Hakim <dzikers@gmail.com>, 2024
-# Adek Lanin, 2024
+# Sehat <sehat75@yahoo.com>, 2026
+# Dzikri Hakim <dzikers@gmail.com>, 2026
+# Adek Lanin, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Adek Lanin, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Adek Lanin, 2026\n"
 "Language-Team: Indonesian (https://app.transifex.com/rosarior/teams/13584/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -66,11 +66,11 @@ msgstr ""
 msgid "Objects"
 msgstr ""
 
-#: links.py:27 links.py:50
+#: links.py:28 links.py:51
 msgid "File caches"
 msgstr ""
 
-#: links.py:33 links.py:39 links.py:43
+#: links.py:34 links.py:38 links.py:44
 msgid "Purge cache"
 msgstr ""
 
@@ -102,19 +102,19 @@ msgstr ""
 msgid "Total cached files."
 msgstr ""
 
-#: model_mixins.py:113 model_mixins.py:326
+#: model_mixins.py:111 model_mixins.py:323
 msgid "Current size"
 msgstr ""
 
-#: model_mixins.py:115
+#: model_mixins.py:113
 msgid "Current size of the cache."
 msgstr ""
 
-#: model_mixins.py:123
+#: model_mixins.py:121
 msgid "Label"
 msgstr "Label"
 
-#: model_mixins.py:328
+#: model_mixins.py:325
 msgid "Current size of the cache partition."
 msgstr ""
 

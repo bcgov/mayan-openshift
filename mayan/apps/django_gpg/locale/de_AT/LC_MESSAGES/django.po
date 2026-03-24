@@ -4,21 +4,21 @@
 # 
 # Translators:
 # Translators:
-# Berny <berny@bernhard-marx.de>, 2024
-# Thomas Lauterbach <lauterbachthomas@googlemail.com>, 2024
-# Marvin Haschker <marvin@haschker.me>, 2024
-# Bjoern Kowarsch <bjoern.kowarsch@gmail.com>, 2024
-# Tobias Paepke <tobias.paepke@paepke.net>, 2024
-# Roberto Rosario, 2024
-# Mathias Behrle <mathiasb@m9s.biz>, 2024
+# Berny <berny@bernhard-marx.de>, 2026
+# Bjoern Kowarsch <bjoern.kowarsch@gmail.com>, 2026
+# Marvin Haschker <marvin@haschker.me>, 2026
+# Thomas Lauterbach <lauterbachthomas@googlemail.com>, 2026
+# Roberto Rosario, 2026
+# Mathias Behrle <mathiasb@m9s.biz>, 2026
+# Tobias Paepke <tobias.paepke@paepke.net>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:28+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Mathias Behrle <mathiasb@m9s.biz>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:32+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Tobias Paepke <tobias.paepke@paepke.net>, 2026\n"
 "Language-Team: German (Austria) (https://app.transifex.com/rosarior/teams/13584/de_AT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,15 +30,15 @@ msgstr ""
 msgid "Django GPG"
 msgstr "Django GPG"
 
-#: apps.py:55 apps.py:61 forms.py:16
+#: apps.py:55 apps.py:61 forms.py:15
 msgid "Key ID"
 msgstr "Schlüssel-ID"
 
-#: apps.py:65 forms.py:42 models.py:49
+#: apps.py:65 forms.py:41 models.py:49
 msgid "Type"
 msgstr "Typ"
 
-#: apps.py:69 forms.py:23 models.py:28
+#: apps.py:69 forms.py:22 models.py:28
 msgid "Creation date"
 msgstr "Erstellungsdatum"
 
@@ -46,19 +46,19 @@ msgstr "Erstellungsdatum"
 msgid "No expiration"
 msgstr "Ohne Ablaufdatum"
 
-#: apps.py:75 forms.py:28 models.py:32
+#: apps.py:75 forms.py:27 models.py:32
 msgid "Expiration date"
 msgstr "Ablaufdatum"
 
-#: apps.py:79 forms.py:35 models.py:39
+#: apps.py:79 forms.py:34 models.py:39
 msgid "Length"
 msgstr "Länge"
 
-#: apps.py:84 forms.py:20 models.py:45
+#: apps.py:84 forms.py:19 models.py:45
 msgid "User ID"
 msgstr "Benutzer-ID"
 
-#: dependencies.py:9
+#: dependencies.py:11
 msgid "GNU privacy guard - a PGP implementation."
 msgstr "GNU Privacy Guard - eine PGP-Implementierung."
 
@@ -74,19 +74,19 @@ msgstr "Schlüssel erstellt"
 msgid "Key downloaded"
 msgstr "Schlüssel heruntergeladen"
 
-#: forms.py:27
+#: forms.py:26
 msgid "None"
 msgstr "Keine"
 
-#: forms.py:32 models.py:36
+#: forms.py:31 models.py:36
 msgid "Fingerprint"
 msgstr "Fingerabdruck"
 
-#: forms.py:38 models.py:42
+#: forms.py:37 models.py:42
 msgid "Algorithm"
 msgstr "Verfahren"
 
-#: forms.py:56
+#: forms.py:55
 msgid "Term"
 msgstr "Begriff"
 
@@ -236,7 +236,11 @@ msgstr ""
 "Vollständiger Pfad zum Backend, welcher für die Behandlung von Schlüsseln "
 "und Signaturen verwendet werden soll."
 
-#: settings.py:27
+#: settings.py:25
+msgid "Keyword arguments to pass to the `SIGNATURES_BACKEND`."
+msgstr ""
+
+#: settings.py:30
 msgid "Keyserver used to query for keys."
 msgstr "Server, der nach unbekannten Schlüsseln durchsucht wird."
 

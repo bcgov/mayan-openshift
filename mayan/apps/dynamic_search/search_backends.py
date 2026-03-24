@@ -121,14 +121,20 @@ class SearchBackend:
                     ), sender=related_model, weak=False
                 )
 
-        for through_model, data in SearchModel.get_through_models().items():
+        through_models = SearchModel.get_through_models()
+
+        for through_model, data in through_models.items():
+            class_full_name = get_class_full_name(klass=through_model)
+            dispatch_uid = 'search_handler_index_related_instance_m2m_{}'.format(
+                class_full_name
+            )
+            receiver = handler_factory_index_related_instance_m2m(
+                data=data
+            )
+
             m2m_changed.connect(
-                dispatch_uid='search_handler_index_related_instance_m2m_{}'.format(
-                    get_class_full_name(klass=through_model)
-                ),
-                receiver=handler_factory_index_related_instance_m2m(
-                    data=data
-                ), sender=through_model, weak=False
+                dispatch_uid=dispatch_uid, receiver=receiver,
+                sender=through_model, weak=False
             )
 
     @staticmethod
@@ -141,7 +147,8 @@ class SearchBackend:
         if extra_kwargs:
             kwargs.update(extra_kwargs)
 
-        return SearchBackend.get_class()(**kwargs)
+        klass = SearchBackend.get_class()
+        return klass(**kwargs)
 
     @staticmethod
     def limit_queryset(queryset):
@@ -233,7 +240,10 @@ class SearchBackend:
     def __init__(self, _test_mode=False):
         self._test_mode = _test_mode
 
-    def _search(self, limit, query, search_model, user):
+    def _search(
+        self, search_field, query_type, value, is_quoted_value=False,
+        is_raw_value=False
+    ):
         raise NotImplementedError
 
     def deindex_instance(self, instance):

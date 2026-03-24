@@ -6,14 +6,14 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_main, menu_multi_item, menu_object, menu_secondary
 )
 from mayan.apps.databases.classes import ModelFieldRelated, ModelQueryFields
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
 
 from .column_widgets import DocumentTagWidget
@@ -23,8 +23,8 @@ from .links import (
     link_document_multiple_tag_multiple_attach,
     link_document_multiple_tag_multiple_remove, link_document_tag_list,
     link_document_tag_multiple_attach, link_document_tag_multiple_remove,
-    link_tag_create, link_tag_document_list, link_tag_edit, link_tag_list,
-    link_tag_multiple_delete, link_tag_single_delete
+    link_tag_create, link_tag_delete_multiple, link_tag_delete_single,
+    link_tag_document_list, link_tag_edit, link_tag_list
 )
 from .menus import menu_tags
 from .methods import method_document_get_tags
@@ -164,9 +164,8 @@ class TagsApp(MayanAppConfig):
             attribute='get_preview_widget', include_label=True, source=Tag
         )
         source_column_tag_document_count = SourceColumn(
-            func=lambda context: context['object'].get_document_count(
-                user=context['request'].user
-            ), include_label=True, label=_(message='Documents'), source=Tag
+            attribute='get_document_count', kwargs={'user': 'request.user'},
+            include_label=True, label=_(message='Documents'), source=Tag
         )
         source_column_tag_document_count.add_exclude(source=DocumentTag)
 
@@ -202,13 +201,13 @@ class TagsApp(MayanAppConfig):
 
         menu_multi_item.bind_links(
             exclude=(DocumentTag,),
-            links=(link_tag_multiple_delete,), sources=(Tag,)
+            links=(link_tag_delete_multiple,), sources=(Tag,)
         )
 
         menu_object.bind_links(
             exclude=(DocumentTag,),
             links=(
-                link_tag_edit, link_tag_single_delete
+                link_tag_edit, link_tag_delete_single
             ),
             sources=(Tag,)
         )

@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2024
-# edasmax <edasmax@gmail.com>, 2024
-# Tomasz Szymanowicz <alakdae@gmail.com>, 2024
+# edasmax <edasmax@gmail.com>, 2026
+# Tomasz Szymanowicz <alakdae@gmail.com>, 2026
+# Wojciech Warczakowski <w.warczakowski@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-02 14:05+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Tomasz Szymanowicz <alakdae@gmail.com>, 2024\n"
+"POT-Creation-Date: 2025-08-11 08:30+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Wojciech Warczakowski <w.warczakowski@gmail.com>, 2026\n"
 "Language-Team: Polish (https://app.transifex.com/rosarior/teams/13584/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,10 +42,15 @@ msgstr "Dane zakodowane w formacie JSON dla klasy backendowej."
 msgid "Backend data"
 msgstr "Dane backend"
 
-#: model_mixins.py:73
+#: model_mixins.py:72
+#, python-format
+msgid "Error: `%s`"
+msgstr ""
+
+#: model_mixins.py:76
 msgid "Backend"
 msgstr "Backend"
 
-#: model_mixins.py:75
+#: model_mixins.py:78
 msgid "The backend class for this entry."
 msgstr "Klasa backend dla tego wpisu."

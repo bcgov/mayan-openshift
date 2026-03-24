@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Pavlin Koldamov <pkoldamov@gmail.com>, 2024
-# Roberto Rosario, 2024
-# Lyudmil Antonov <lantonov.here@gmail.com>, 2024
+# Pavlin Koldamov <pkoldamov@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Lyudmil Antonov <lantonov.here@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Lyudmil Antonov <lantonov.here@gmail.com>, 2026\n"
 "Language-Team: Bulgarian (https://app.transifex.com/rosarior/teams/13584/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,21 +41,21 @@ msgstr ""
 "към Mayan EDMS, създайте поне източник на уеб формуляр, за да можете да "
 "качвате документи от браузър."
 
-#: apps.py:135
+#: apps.py:140
 msgid ""
 "Return the value of a specific source metadata for the document's latest "
 "file."
 msgstr ""
 
-#: apps.py:137 apps.py:144
+#: apps.py:142 apps.py:149
 msgid "Source metadata value of"
 msgstr ""
 
-#: apps.py:143
+#: apps.py:148
 msgid "Return the value of a specific source metadata."
 msgstr ""
 
-#: apps.py:167
+#: apps.py:172
 msgid "Type"
 msgstr "Тип"
 
@@ -67,34 +67,34 @@ msgstr "Източникът е създаден"
 msgid "Source edited"
 msgstr "Източникът е редактиран"
 
-#: forms.py:25
+#: forms.py:24
 msgid "An optional comment to explain the upload."
 msgstr "Незадължителен коментар за обяснение на каченото."
 
-#: forms.py:26
+#: forms.py:25
 msgid "Comment"
 msgstr "Коментар"
 
-#: forms.py:32
+#: forms.py:31
 msgid "Action"
 msgstr "Действие"
 
-#: forms.py:33
+#: forms.py:32
 msgid ""
 "The action to take in regards to the pages of the new file being uploaded."
 msgstr ""
 "Действието, което трябва да се предприеме по отношение на страниците на "
 "новия файл, който се качва."
 
-#: forms.py:54
+#: forms.py:53
 msgid "The backend used to create the new source."
 msgstr "Бекендът, използван за създаване на новия източник."
 
-#: forms.py:55
+#: forms.py:54
 msgid "Backend"
 msgstr "Бекенд"
 
-#: forms.py:71
+#: forms.py:70
 msgid "File"
 msgstr "Файл"
 
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Source metadata value"
 msgstr ""
 
-#: serializers.py:22 serializers.py:107
+#: serializers.py:22 serializers.py:108
 msgid "URL"
 msgstr "URL"
 
@@ -234,7 +234,7 @@ msgstr "Име"
 msgid "Required"
 msgstr "Задължително"
 
-#: serializers.py:70 serializers.py:85
+#: serializers.py:70 serializers.py:86
 msgid "Arguments"
 msgstr "Аргументи"
 
@@ -247,31 +247,31 @@ msgid "Optional arguments for the action. Must be JSON formatted."
 msgstr ""
 "Незадължителни аргументи за действието. Трябва да е форматиран в JSON."
 
-#: serializers.py:89
+#: serializers.py:90
 msgid "Confirmation"
 msgstr ""
 
-#: serializers.py:92
+#: serializers.py:93
 msgid "Execute URL"
 msgstr ""
 
-#: serializers.py:95
+#: serializers.py:96
 msgid "Interfaces"
 msgstr ""
 
-#: serializers.py:99
+#: serializers.py:100
 msgid "name"
 msgstr "име"
 
-#: serializers.py:102
+#: serializers.py:103
 msgid "Permission"
 msgstr "Разрешение"
 
-#: serializers.py:118
+#: serializers.py:119
 msgid "Binary content for the new file."
 msgstr "Двоично съдържание за новия файл."
 
-#: serializers.py:154
+#: serializers.py:155
 msgid "Actions URL"
 msgstr ""
 
@@ -521,7 +521,7 @@ msgstr ""
 msgid "Select document type"
 msgstr "Изберете типа документ"
 
-#: wizards.py:68
+#: wizards.py:66
 msgid ""
 "No interactive document sources have been defined or none have been enabled,"
 " create one before proceeding."
@@ -529,23 +529,23 @@ msgstr ""
 "Не са дефинирани интерактивни източници на документи или никой не е "
 "активиран, създайте такъв преди да продължите."
 
-#: wizards.py:85
+#: wizards.py:83
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "Стъпка %(step)d от %(total_steps)d: %(step_label)s"
 
-#: wizards.py:91
+#: wizards.py:89
 msgid "Document upload wizard"
 msgstr "Съветник за качване на документи"
 
-#: wizards.py:100
+#: wizards.py:98
 msgid "First"
 msgstr "Първо"
 
-#: wizards.py:106
+#: wizards.py:104
 msgid "Previous"
 msgstr "Предна"
 
-#: wizards.py:113
+#: wizards.py:111
 msgid "Next"
 msgstr "Следваща"

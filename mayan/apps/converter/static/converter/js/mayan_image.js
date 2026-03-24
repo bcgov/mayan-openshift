@@ -1,12 +1,8 @@
 'use strict';
 
 class MayanImage {
-    constructor (options) {
-        this.element = options.element;
-    }
-
-    static async setup (options) {
-        this.options = options || {};
+    static async setup (mayanApp) {
+        const self = this;
 
         $().fancybox({
             afterShow: function (instance, current) {
@@ -22,12 +18,10 @@ class MayanImage {
             ],
             idleTime: false,
             infobar: true,
-            selector: 'a.fancybox',
+            selector: 'a.fancybox'
         });
-    }
 
-    static async initialize () {
-        const eventHandlerImageError = function (event) {
+        this.eventHandlerImageError = function (event) {
             const $this = $(this);
 
             $this.siblings('.lazyload-spinner-container').remove();
@@ -37,7 +31,7 @@ class MayanImage {
                 async: true,
                 dataType: 'json',
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $this.off('error', eventHandlerImageError);
+                    $this.off('error', self.eventHandlerImageError);
 
                     if (jqXHR.hasOwnProperty('responseJSON')) {
                         if (jqXHR.responseJSON.hasOwnProperty('app_image_error_image_template')) {
@@ -50,42 +44,43 @@ class MayanImage {
                 // Need to set mimeType only when run from local file.
                 mimeType: 'text/html; charset=utf-8',
                 type: 'GET',
-                url: $this.attr('src'),
+                url: $this.attr('src')
             });
         }
 
-        const observer = new IntersectionObserver(function(items) {
-            items.forEach((item) => {
+        this.observerIntersection = new IntersectionObserver(function(items) {
+            for (const item of items) {
                 if (item.isIntersecting) {
                     const $this = $(item.target);
                     const dataSrc = $this.attr('data-src');
 
                     $this.attr('src', dataSrc);
-                    $this.on('error', eventHandlerImageError);
-                    observer.unobserve(item.target);
+                    $this.on('error', self.eventHandlerImageError);
+                    self.observerIntersection.unobserve(item.target);
                 }
+            };
+        });
+
+        mayanApp.partialNavigationApp.$ajaxContent.on('updated', function (event) {
+            $('img.lazy-load,img.lazy-load-carousel').each(async function(index, element) {
+                self.observerIntersection.observe(element);
             });
-        });
 
-        $('img.lazy-load,img.lazy-load-carousel').each(async function(index) {
-            const $this = $(this);
-            observer.observe(this);
-        });
+            $('.lazy-load').on('load', async function() {
+                const $this = $(this);
 
-        $('.lazy-load').on('load', async function() {
-            const $this = $(this);
+                $this.siblings('.lazyload-spinner-container').remove();
+                $this.removeClass('lazy-load pull-left');
+                clearTimeout(MayanImage.timer);
+                MayanImage.timer = setTimeout(MayanImage.timerFunction, 50);
+            });
 
-            $this.siblings('.lazyload-spinner-container').remove();
-            $this.removeClass('lazy-load pull-left');
-            clearTimeout(MayanImage.timer);
-            MayanImage.timer = setTimeout(MayanImage.timerFunction, 50);
-        });
+            $('.lazy-load-carousel').on('load', async function() {
+                const $this = $(this);
 
-        $('.lazy-load-carousel').on('load', async function() {
-            const $this = $(this);
-
-            $this.siblings('.lazyload-spinner-container').remove();
-            $this.removeClass('lazy-load-carousel pull-left');
+                $this.siblings('.lazyload-spinner-container').remove();
+                $this.removeClass('lazy-load-carousel pull-left');
+            });
         });
     }
 

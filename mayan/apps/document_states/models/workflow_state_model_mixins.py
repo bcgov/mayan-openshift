@@ -1,38 +1,51 @@
 import hashlib
 
-from django.apps import apps
 from django.conf import settings
 from django.core import serializers
-from django.db.models import F, Max, Q
 from django.utils.translation import gettext_lazy as _
 
+from mayan.apps.acls.models import AccessControlList
 from mayan.apps.documents.models.document_models import Document
+from mayan.apps.documents.permissions import permission_document_view
 
 from ..literals import (
-    ERROR_LOG_DOMAIN_NAME, GRAPHVIZ_COLOR_STATE_FILL, GRAPHVIZ_ID_STATE,
-    GRAPHVIZ_SHAPE_CIRCLE, GRAPHVIZ_SHAPE_DOUBLECIRCLE, GRAPHVIZ_STYLE_FILLED,
-    WORKFLOW_ACTION_ON_ENTRY, WORKFLOW_ACTION_ON_EXIT
+    ERROR_LOG_DOMAIN_NAME, GRAPHVIZ_COLOR_STATE_FILL_FINAL,
+    GRAPHVIZ_COLOR_STATE_FILL_INITIAL, GRAPHVIZ_COLOR_STATE_FONT_COLOR_FINAL,
+    GRAPHVIZ_ID_STATE, GRAPHVIZ_SHAPE_CIRCLE, GRAPHVIZ_SHAPE_DOUBLECIRCLE,
+    GRAPHVIZ_STYLE_FILLED, WORKFLOW_ACTION_ON_ENTRY, WORKFLOW_ACTION_ON_EXIT
 )
 
 
 class WorkflowStateBusinessLogicMixin:
-    def do_active_set(self, workflow_instance):
+    def do_active_set(self, log_entry=None, workflow_instance=None):
+        # TODO: Update one initial entry log patch is merged.
+        # Break pattern by allowing `workflow_instance` and log_entry=None
+        # until initial entry log patch is merged.
         queryset = self.entry_actions.filter(enabled=True)
         self.do_queryset_actions_execute(
-            queryset=queryset, workflow_instance=workflow_instance
+            log_entry=log_entry, queryset=queryset,
+            workflow_instance=workflow_instance
         )
 
-    def do_active_unset(self, workflow_instance):
+    def do_active_unset(self, log_entry):
         queryset = self.exit_actions.filter(enabled=True)
         self.do_queryset_actions_execute(
-            queryset=queryset, workflow_instance=workflow_instance
+            log_entry=log_entry, queryset=queryset
         )
 
-    def do_queryset_actions_execute(self, queryset, workflow_instance):
+    def do_queryset_actions_execute(
+        self, queryset, log_entry=None, workflow_instance=None
+    ):
+        # TODO: Update one initial entry log patch is merged.
+        # Break pattern by allowing `workflow_instance` and log_entry=None
+        # until initial entry log patch is merged.
+        if log_entry:
+            workflow_instance = log_entry.workflow_instance
+
         for action in queryset:
             context = workflow_instance.get_context()
             context.update(
-                {'action': action}
+                {'action': action, 'log_entry': log_entry}
             )
 
             try:
@@ -40,25 +53,25 @@ class WorkflowStateBusinessLogicMixin:
                     context=context, workflow_instance=workflow_instance
                 )
             except Exception as exception:
-                queryset_error_logs = workflow_instance.document.error_log
-                queryset_error_logs.create(
-                    domain_name=ERROR_LOG_DOMAIN_NAME,
-                    text='{}; {}'.format(
-                        exception.__class__.__name__, exception
-                    )
+                error_log_text = _(
+                    message='Error executing workflow action "%(action)s"; '
+                    '%(exception)s'
+                ) % {'action': action, 'exception': exception}
+
+                workflow_instance.document.create(
+                    domain_name=ERROR_LOG_DOMAIN_NAME, text=error_log_text
                 )
 
                 if settings.DEBUG or settings.TESTING:
                     raise
 
                 break
-            else:
-                queryset_error_logs = workflow_instance.document.error_log.filter(
-                    domain_name=ERROR_LOG_DOMAIN_NAME
-                )
-                queryset_error_logs.delete()
 
     def do_diagram_generate(self, diagram):
+        fill_color = ''
+        font_color = ''
+        style = ''
+
         is_edge_state = self.initial or not self.destination_transitions.exists() or not self.origin_transitions.exists()
 
         if is_edge_state:
@@ -66,13 +79,17 @@ class WorkflowStateBusinessLogicMixin:
         else:
             shape = GRAPHVIZ_SHAPE_CIRCLE
 
-        if self.initial:
+        if self.final:
+            fill_color = GRAPHVIZ_COLOR_STATE_FILL_FINAL
+            font_color = GRAPHVIZ_COLOR_STATE_FONT_COLOR_FINAL
             style = GRAPHVIZ_STYLE_FILLED
-        else:
-            style = ''
+        elif self.initial:
+            fill_color = GRAPHVIZ_COLOR_STATE_FILL_INITIAL
+            style = GRAPHVIZ_STYLE_FILLED
 
         node_kwargs = {
-            'fillcolor': GRAPHVIZ_COLOR_STATE_FILL,
+            'fillcolor': fill_color,
+            'fontcolor': font_color,
             'label': self.label,
             'name': self.get_graph_id(),
             'shape': shape,
@@ -103,36 +120,6 @@ class WorkflowStateBusinessLogicMixin:
         return ', '.join(field_list)
 
     get_actions_display.short_description = _(message='Actions')
-
-    def get_documents(self):
-        WorkflowInstanceLogEntry = apps.get_model(
-            app_label='document_states',
-            model_name='WorkflowInstanceLogEntry'
-        )
-
-        latest_entries = WorkflowInstanceLogEntry.objects.annotate(
-            max_datetime=Max(
-                'workflow_instance__log_entries__datetime'
-            )
-        ).filter(
-            datetime=F('max_datetime')
-        )
-
-        state_latest_entries = latest_entries.filter(
-            transition__destination_state=self
-        )
-
-        return Document.valid.filter(
-            Q(
-                workflows__pk__in=state_latest_entries.values_list(
-                    'workflow_instance', flat=True
-                )
-            ) | Q(
-                workflows__log_entries__isnull=True,
-                workflows__workflow__states=self,
-                workflows__workflow__states__initial=True
-            )
-        ).distinct()
 
     def get_escalations_display(self):
         field_list = [
@@ -165,3 +152,32 @@ class WorkflowStateBusinessLogicMixin:
             )
 
         return result.hexdigest()
+
+
+class WorkflowStateRuntimeProxyBusinessLogicMixin:
+    def get_documents(self, permission=None, user=None):
+        """
+        Provide a queryset of the documents. The queryset is optionally
+        filtered by access.
+        """
+        if self.workflow.ignore_completed:
+            queryset = Document.valid.none()
+        else:
+            queryset = Document.valid.filter(workflows__state_active=self)
+
+        if permission and user:
+            queryset = AccessControlList.objects.restrict_queryset(
+                permission=permission, queryset=queryset,
+                user=user
+            )
+
+        return queryset
+
+    def get_document_count(self, user):
+        """
+        Return the numeric count of documents at this workflow state.
+        The count is filtered by access.
+        """
+        return self.get_documents(
+            permission=permission_document_view, user=user
+        ).count()

@@ -7,7 +7,7 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import ModelCopy
 from mayan.apps.common.menus import (
     menu_list_facet, menu_multi_item, menu_object, menu_related, menu_return,
@@ -15,11 +15,11 @@ from mayan.apps.common.menus import (
 )
 from mayan.apps.dashboards.dashboards import dashboard_administrator
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
+from mayan.apps.forms import column_widgets
 from mayan.apps.logging.classes import ErrorLog
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
-from mayan.apps.templating.classes import TemplateContextEntry
-from mayan.apps.views.column_widgets import TwoStateWidget
+from mayan.apps.templating.template_backends import TemplateContextEntry
 
 from .dashboard_widgets import (
     DashboardWidgetGroupTotal, DashboardWidgetUserTotal
@@ -30,12 +30,12 @@ from .events import (
 )
 from .handlers import handler_initialize_new_user_options
 from .links import (
-    link_current_user_details, link_group_create, link_group_edit,
-    link_group_list, link_group_multiple_delete, link_group_setup,
-    link_group_single_delete, link_group_user_list, link_user_create,
-    link_user_edit, link_user_group_list, link_user_list,
-    link_user_multiple_delete, link_user_set_options, link_user_setup,
-    link_user_single_delete, separator_user_label, text_user_label
+    link_current_user_details, link_group_create, link_group_delete_multiple,
+    link_group_delete_single, link_group_edit, link_group_list,
+    link_group_setup, link_group_user_list, link_user_create,
+    link_user_delete_multiple, link_user_delete_single, link_user_edit,
+    link_user_group_list, link_user_list, link_user_set_options,
+    link_user_setup, separator_user_label, text_user_label
 )
 from .methods import (
     get_method_group_init, get_method_group_save, get_method_user_init,
@@ -71,12 +71,12 @@ class UserManagementApp(MayanAppConfig):
             serializer_class='mayan.apps.user_management.serializers.UserSerializer'
         )
 
-        Group._meta.ordering = ('name',)
-        Group._meta.verbose_name = _(message='Group')
-        Group._meta.verbose_name_plural = _(message='Groups')
         Group._meta.get_field(field_name='name').verbose_name = _(
             message='Name'
         )
+        Group._meta.ordering = ('name',)
+        Group._meta.verbose_name = _(message='Group')
+        Group._meta.verbose_name_plural = _(message='Groups')
 
         Group.add_to_class(
             name='__init__', value=get_method_group_init()
@@ -100,10 +100,9 @@ class UserManagementApp(MayanAppConfig):
             name='save', value=get_method_group_save()
         )
 
-        User._meta.ordering = ('pk',)
+        User._meta.ordering = ('last_name', 'first_name')
         User._meta.verbose_name = _(message='User')
         User._meta.verbose_name_plural = _(message='Users')
-        User._meta.ordering = ('last_name', 'first_name')
 
         User._meta.get_field(field_name='email').verbose_name = _(
             message='Email'
@@ -111,9 +110,21 @@ class UserManagementApp(MayanAppConfig):
         User._meta.get_field(
             field_name='first_name'
         ).verbose_name = _(message='First name')
+        User._meta.get_field(
+            field_name='first_name'
+        ).help_text = _(message='The given name of the user.')
         User._meta.get_field(field_name='groups').verbose_name = _(
             message='Groups'
         )
+        User._meta.get_field(
+            field_name='last_login'
+        ).verbose_name = _(message='Last login')
+        User._meta.get_field(
+            field_name='last_name'
+        ).help_text = _(message='The family name of the user.')
+        User._meta.get_field(
+            field_name='last_name'
+        ).verbose_name = _(message='Last name')
         User._meta.get_field(
             field_name='is_active'
         ).verbose_name = _(message='Is active?')
@@ -121,17 +132,11 @@ class UserManagementApp(MayanAppConfig):
             field_name='is_superuser'
         ).verbose_name = _(message='Is super user?')
         User._meta.get_field(
-            field_name='last_name'
-        ).verbose_name = _(message='Last name')
-        User._meta.get_field(
             field_name='password'
         ).verbose_name = _(message='Password')
         User._meta.get_field(
             field_name='username'
         ).verbose_name = _(message='Username')
-        User._meta.get_field(
-            field_name='last_login'
-        ).verbose_name = _(message='Last login')
 
         User.add_to_class(
             name='__init__', value=get_method_user_init()
@@ -260,15 +265,15 @@ class UserManagementApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='is_active', include_label=True, is_sortable=True,
-            source=User, widget=TwoStateWidget
+            source=User, widget=column_widgets.TwoStateWidget
         )
         SourceColumn(
             attribute='is_superuser', include_label=True, is_sortable=True,
-            source=User, widget=TwoStateWidget
+            source=User, widget=column_widgets.TwoStateWidget
         )
         SourceColumn(
             attribute='has_usable_password', include_label=True, source=User,
-            widget=TwoStateWidget
+            widget=column_widgets.TwoStateWidget
         )
 
         dashboard_administrator.add_widget(
@@ -289,7 +294,7 @@ class UserManagementApp(MayanAppConfig):
             ), sources=(Group,)
         )
         menu_multi_item.bind_links(
-            links=(link_group_multiple_delete,),
+            links=(link_group_delete_multiple,),
             sources=('user_management:group_list',)
         )
         menu_object.bind_links(
@@ -297,7 +302,7 @@ class UserManagementApp(MayanAppConfig):
             sources=(Group,)
         )
         menu_object.bind_links(
-            links=(link_group_single_delete,), position=99,
+            links=(link_group_delete_single,), position=99,
             sources=(Group,)
         )
         menu_related.bind_links(
@@ -329,12 +334,12 @@ class UserManagementApp(MayanAppConfig):
             ), sources=(User,)
         )
         menu_multi_item.bind_links(
-            links=(link_user_multiple_delete,),
+            links=(link_user_delete_multiple,),
             sources=('user_management:user_list',)
         )
         menu_object.bind_links(
             links=(
-                link_user_single_delete, link_user_edit
+                link_user_delete_single, link_user_edit
             ), sources=(User,)
         )
         menu_related.bind_links(

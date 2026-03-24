@@ -2,12 +2,20 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.common.utils import convert_to_internal_name
+from mayan.apps.common.validators import YAMLValidator
 from mayan.apps.documents.models.document_file_models import DocumentFile
 from mayan.apps.documents.models.document_type_models import DocumentType
 
-from .managers import DocumentTypeSettingsManager, FileMetadataEntryManager
+from .managers import (
+    FileMetadataEntryManager,
+    ModelManagerDocumentTypeDriverConfigurationValid,
+    ModelManagerStoredDriverValid
+)
 from .model_mixins import (
-    DocumentFileDriverEntryBusinessLogicMixin, StoredDriverBusinessLogicMixin
+    DocumentFileDriverEntryBusinessLogicMixin,
+    DocumentTypeDriverConfigurationBusinessLogicMixin,
+    FileMetadataEntryBusinessLogicMixin,
+    StoredDriverBusinessLogicMixin
 )
 
 
@@ -33,33 +41,52 @@ class DocumentFileDriverEntry(
         return str(self.driver)
 
 
-class DocumentTypeSettings(models.Model):
-    """
-    Model to store the file metadata settings for a document type.
-    """
-    document_type = models.OneToOneField(
-        on_delete=models.CASCADE, related_name='file_metadata_settings',
-        to=DocumentType, unique=True, verbose_name=_(message='Document type')
+class DocumentTypeDriverConfiguration(
+    DocumentTypeDriverConfigurationBusinessLogicMixin, models.Model
+):
+    _ordering_fields = ('enabled',)
+
+    arguments = models.TextField(
+        blank=True, help_text=_(
+            message='Enter the arguments for the drive for the specific '
+            'document type as a YAML dictionary. ie: {"degrees": 180}'
+        ), validators=[
+            YAMLValidator()
+        ], verbose_name=_(message='Arguments')
     )
-    auto_process = models.BooleanField(
+    document_type = models.ForeignKey(
+        on_delete=models.CASCADE,
+        related_name='file_metadata_driver_configurations',
+        to=DocumentType, verbose_name=_(message='Document type')
+    )
+    stored_driver = models.ForeignKey(
+        on_delete=models.CASCADE,
+        related_name='document_type_configurations',
+        to='StoredDriver', verbose_name=_(message='Driver')
+    )
+    enabled = models.BooleanField(
         default=True, help_text=_(
-            message='Automatically queue newly created documents for '
-            'processing.'
-        ), verbose_name=_(message='Auto process')
+            'Enable this driver to process document files of the selected '
+            'document type.'
+        ), verbose_name=_(message='Enabled')
     )
 
-    objects = DocumentTypeSettingsManager()
+    objects = models.Manager()
+    valid = ModelManagerDocumentTypeDriverConfigurationValid()
+
+    def __str__(self):
+        return str(self.stored_driver)
 
     class Meta:
-        verbose_name = _(message='Document type settings')
-        verbose_name_plural = _(message='Document types settings')
-
-    def natural_key(self):
-        return self.document_type.natural_key()
-    natural_key.dependencies = ['documents.DocumentType']
+        ordering = ('stored_driver',)
+        unique_together = ('document_type', 'stored_driver')
+        verbose_name = _(message='Document type driver settings')
+        verbose_name_plural = _(message='Document type driver settings')
 
 
-class FileMetadataEntry(models.Model):
+class FileMetadataEntry(FileMetadataEntryBusinessLogicMixin, models.Model):
+    _ordering_fields = ('internal_name', 'key', 'value')
+
     document_file_driver_entry = models.ForeignKey(
         on_delete=models.CASCADE, related_name='entries',
         to=DocumentFileDriverEntry,
@@ -116,6 +143,8 @@ class FileMetadataEntry(models.Model):
 
 
 class StoredDriver(StoredDriverBusinessLogicMixin, models.Model):
+    _ordering_fields = ('internal_name',)
+
     driver_path = models.CharField(
         max_length=255, unique=True, verbose_name=_(message='Driver path')
     )
@@ -123,6 +152,14 @@ class StoredDriver(StoredDriverBusinessLogicMixin, models.Model):
         db_index=True, max_length=128, unique=True,
         verbose_name=_(message='Internal name')
     )
+    exists = models.BooleanField(
+        default=True, help_text=_(
+            'The class defined by this instance is valid and active.'
+        ), verbose_name=_(message='Valid')
+    )
+
+    objects = models.Manager()
+    valid = ModelManagerStoredDriverValid()
 
     class Meta:
         ordering = ('internal_name',)

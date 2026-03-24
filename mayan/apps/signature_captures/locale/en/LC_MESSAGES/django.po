@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,11 +34,11 @@ msgstr ""
 msgid "Signature capture edited"
 msgstr ""
 
-#: forms.py:27
+#: forms.py:26
 msgid "Asset preview image"
 msgstr ""
 
-#: forms.py:27
+#: forms.py:26
 msgid "Preview"
 msgstr ""
 
@@ -177,20 +177,20 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: settings.py:21
+#: settings.py:22
 msgid ""
 "The threshold at which the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND will start "
 "deleting the oldest signature capture cache files. Specify the size in bytes."
 msgstr ""
 
-#: settings.py:30
+#: settings.py:31
 msgid ""
 "Path to the Storage subclass to use when storing the cached signature "
 "capture files."
 msgstr ""
 
-#: settings.py:38
+#: settings.py:39
 msgid ""
 "Arguments to pass to the "
 "SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_STORAGE_BACKEND."

@@ -5,9 +5,11 @@ from .api_views import (
     APICabinetDocumentRemoveView, APICabinetListView, APICabinetView,
     APIDocumentCabinetListView
 )
-from .views import (
+from .views.cabinet_views import (
     CabinetChildAddView, CabinetCreateView, CabinetDeleteView,
-    CabinetDetailView, CabinetEditView, CabinetListView,
+    CabinetDetailView, CabinetEditView, CabinetListView
+)
+from .views.document_views import (
     DocumentCabinetAddView, DocumentCabinetListView,
     DocumentCabinetRemoveView
 )
@@ -89,7 +91,8 @@ api_urls = [
     ),
     re_path(
         route=r'^cabinets/(?P<cabinet_id>[0-9]+)/documents/remove/$',
-        name='cabinet-document-remove', view=APICabinetDocumentRemoveView.as_view()
+        name='cabinet-document-remove',
+        view=APICabinetDocumentRemoveView.as_view()
     ),
     re_path(
         route=r'^documents/(?P<document_id>[0-9]+)/cabinets/$',

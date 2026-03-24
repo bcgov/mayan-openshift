@@ -15,6 +15,7 @@ setting_namespace = setting_cluster.do_namespace_add(
 
 
 setting_signature_capture_cache_maximum_size = setting_namespace.do_setting_add(
+    data_type=int,
     default=DEFAULT_SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_MAXIMUM_SIZE,
     global_name='SIGNATURE_CAPTURES_SIGNATURE_CAPTURE_CACHE_MAXIMUM_SIZE',
     help_text=_(

@@ -1,6 +1,8 @@
 from mayan.apps.dependencies.classes import PythonDependency
+from mayan.apps.dependencies.environments import environment_production
 
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2015 Ask Solem & contributors.  All rights reserved.
         Copyright (c) 2012-2014 GoPivotal, Inc.  All rights reserved.
@@ -56,9 +58,10 @@ PythonDependency(
         Celery under the GPL license.  The BSD license, unlike the GPL,
         let you distribute a modified version without making your
         changes open source.
-    ''', module=__name__, name='celery', version_string='==5.3.6'
+    ''', module=__name__, name='celery', version_string='==5.6.2'
 )
 PythonDependency(
+    environments=(environment_production,),
     legal_text='''
         Copyright (c) 2012-2013 GoPivotal, Inc.  All Rights Reserved.
         Copyright (c) 2009-2012 Ask Solem.  All Rights Reserved.
@@ -106,5 +109,5 @@ PythonDependency(
             django-celery-beat under the GPL license.  The BSD license, unlike the GPL,
             let you distribute a modified version without making your
             changes open source.
-    ''', module=__name__, name='django-celery-beat', version_string='==2.6.0'
+    ''', module=__name__, name='django-celery-beat', version_string='==2.8.1'
 )

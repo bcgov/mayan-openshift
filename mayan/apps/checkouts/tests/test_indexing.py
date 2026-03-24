@@ -1,7 +1,9 @@
 from mayan.apps.document_indexing.models.index_instance_models import (
     IndexInstanceNode
 )
-from mayan.apps.document_indexing.tests.mixins import IndexTemplateTestMixin
+from mayan.apps.document_indexing.tests.mixins.index_template_mixins import (
+    IndexTemplateTestMixin
+)
 from mayan.apps.documents.tests.base import GenericDocumentTestCase
 
 from .literals import TEST_CHECKOUT_INDEX_NODE_TEMPLATE
@@ -26,6 +28,9 @@ class CheckoutIndexingTestCase(
     def test_indexing_document_check_in(self):
         self._check_out_test_document()
 
+        self._silence_logger(
+            name='mayan.apps.document_indexing.models.index_instance_model_mixins'
+        )
         self._check_in_test_document()
 
         self.assertFalse(

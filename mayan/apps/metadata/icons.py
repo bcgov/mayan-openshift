@@ -1,5 +1,5 @@
-from mayan.apps.appearance.classes import Icon
 from mayan.apps.documents.icons import icon_document_type
+from mayan.apps.icons.icons import Icon
 
 icon_metadata = Icon(driver_name='fontawesome', symbol='database')
 
@@ -45,10 +45,10 @@ icon_metadata_type_create = Icon(
     driver_name='fontawesome-dual', primary_symbol='database',
     secondary_symbol='plus'
 )
-icon_metadata_type_single_delete = Icon(
+icon_metadata_type_delete_single = Icon(
     driver_name='fontawesome', symbol='times'
 )
-icon_metadata_type_multiple_delete = Icon(
+icon_metadata_type_delete_multiple = Icon(
     driver_name='fontawesome', symbol='times'
 )
 icon_metadata_type_edit = Icon(driver_name='fontawesome', symbol='pencil-alt')

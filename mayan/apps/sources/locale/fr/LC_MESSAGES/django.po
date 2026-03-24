@@ -4,24 +4,24 @@
 # 
 # Translators:
 # Translators:
-# Guillaume Trottier <gui.trottier@gmail.com>, 2024
-# Baptiste GAILLET <baptiste.gaillet@cstb.fr>, 2024
-# SadE54 <yannsuisini@gmail.com>, 2024
-# Thierry Schott <DarkDare@users.noreply.github.com>, 2024
-# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2024
-# Roberto Rosario, 2024
-# Yves Dubois <ydubois@gmail.com>, 2024
-# Frédéric Sheedy <sheedf@gmail.com>, 2024
-# Olivier W, 2024
-# Luc Didry, 2024
+# Baptiste GAILLET <baptiste.gaillet@cstb.fr>, 2026
+# SadE54 <yannsuisini@gmail.com>, 2026
+# Luc Didry, 2026
+# Thierry Schott <DarkDare@users.noreply.github.com>, 2026
+# Olivier W, 2026
+# Guillaume Trottier <gui.trottier@gmail.com>, 2026
+# Christophe CHAUVET <christophe.chauvet@gmail.com>, 2026
+# Yves Dubois <ydubois@gmail.com>, 2026
+# Roberto Rosario, 2026
+# Frédéric Sheedy <sheedf@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 07:29+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Luc Didry, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Frédéric Sheedy <sheedf@gmail.com>, 2026\n"
 "Language-Team: French (https://app.transifex.com/rosarior/teams/13584/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,21 +48,21 @@ msgstr ""
 "documents seront intégrés dans Mayan EDMS ; créez au moins un formulaire web"
 " pour pouvoir télécharger des documents depuis le navigateur."
 
-#: apps.py:135
+#: apps.py:140
 msgid ""
 "Return the value of a specific source metadata for the document's latest "
 "file."
 msgstr ""
 
-#: apps.py:137 apps.py:144
+#: apps.py:142 apps.py:149
 msgid "Source metadata value of"
 msgstr ""
 
-#: apps.py:143
+#: apps.py:148
 msgid "Return the value of a specific source metadata."
 msgstr ""
 
-#: apps.py:167
+#: apps.py:172
 msgid "Type"
 msgstr "Type"
 
@@ -74,34 +74,34 @@ msgstr "Source créée"
 msgid "Source edited"
 msgstr "Source modifiée"
 
-#: forms.py:25
+#: forms.py:24
 msgid "An optional comment to explain the upload."
 msgstr "Un commentaire facultatif pour expliquer le téléchargement."
 
-#: forms.py:26
+#: forms.py:25
 msgid "Comment"
 msgstr "Commentaire"
 
-#: forms.py:32
+#: forms.py:31
 msgid "Action"
 msgstr "Action"
 
-#: forms.py:33
+#: forms.py:32
 msgid ""
 "The action to take in regards to the pages of the new file being uploaded."
 msgstr ""
 "L'action à exécutée en ce qui concerne les pages du nouveau fichier en cours"
 " de téléversement."
 
-#: forms.py:54
+#: forms.py:53
 msgid "The backend used to create the new source."
 msgstr "Le moteur utilisé pour créer la nouvelle source."
 
-#: forms.py:55
+#: forms.py:54
 msgid "Backend"
 msgstr "Backend"
 
-#: forms.py:71
+#: forms.py:70
 msgid "File"
 msgstr "Fichier"
 
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Source metadata value"
 msgstr ""
 
-#: serializers.py:22 serializers.py:107
+#: serializers.py:22 serializers.py:108
 msgid "URL"
 msgstr "URL"
 
@@ -241,7 +241,7 @@ msgstr "Nom"
 msgid "Required"
 msgstr "Obligatoire"
 
-#: serializers.py:70 serializers.py:85
+#: serializers.py:70 serializers.py:86
 msgid "Arguments"
 msgstr "Arguments"
 
@@ -253,31 +253,31 @@ msgstr ""
 msgid "Optional arguments for the action. Must be JSON formatted."
 msgstr ""
 
-#: serializers.py:89
+#: serializers.py:90
 msgid "Confirmation"
 msgstr "Confirmation"
 
-#: serializers.py:92
+#: serializers.py:93
 msgid "Execute URL"
 msgstr ""
 
-#: serializers.py:95
+#: serializers.py:96
 msgid "Interfaces"
 msgstr ""
 
-#: serializers.py:99
+#: serializers.py:100
 msgid "name"
 msgstr "nom"
 
-#: serializers.py:102
+#: serializers.py:103
 msgid "Permission"
 msgstr "Autorisation"
 
-#: serializers.py:118
+#: serializers.py:119
 msgid "Binary content for the new file."
 msgstr "Contenu binaire du nouveau fichier."
 
-#: serializers.py:154
+#: serializers.py:155
 msgid "Actions URL"
 msgstr "URL des actions"
 
@@ -530,7 +530,7 @@ msgstr ""
 msgid "Select document type"
 msgstr "Sélectionner le type du document"
 
-#: wizards.py:68
+#: wizards.py:66
 msgid ""
 "No interactive document sources have been defined or none have been enabled,"
 " create one before proceeding."
@@ -538,23 +538,23 @@ msgstr ""
 "Aucune source interactive d'import de documents n'a été définie ou activée, "
 "créez-en une avant de continuer."
 
-#: wizards.py:85
+#: wizards.py:83
 #, python-format
 msgid "Step %(step)d of %(total_steps)d: %(step_label)s"
 msgstr "Étape %(step)d de %(total_steps)d : %(step_label)s"
 
-#: wizards.py:91
+#: wizards.py:89
 msgid "Document upload wizard"
 msgstr "Assistant de téléversement de document"
 
-#: wizards.py:100
+#: wizards.py:98
 msgid "First"
 msgstr "Premier"
 
-#: wizards.py:106
+#: wizards.py:104
 msgid "Previous"
 msgstr "Précédent"
 
-#: wizards.py:113
+#: wizards.py:111
 msgid "Next"
 msgstr "Suivant"

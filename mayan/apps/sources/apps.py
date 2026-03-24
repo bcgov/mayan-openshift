@@ -6,23 +6,23 @@ from mayan.apps.acls.classes import ModelPermission
 from mayan.apps.acls.permissions import (
     permission_acl_edit, permission_acl_view
 )
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.classes import MissingItem
 from mayan.apps.common.menus import (
     menu_list_facet, menu_object, menu_return, menu_secondary, menu_setup
 )
 from mayan.apps.common.signals import signal_post_upgrade
 from mayan.apps.converter.links import link_transformation_list
-from mayan.apps.databases.classes import ModelProperty
+from mayan.apps.databases.classes import ModelFieldRelated, ModelProperty
 from mayan.apps.documents.menus import menu_documents
 from mayan.apps.documents.permissions import (
     permission_document_create, permission_document_file_new
 )
 from mayan.apps.events.classes import EventModelRegistry, ModelEventType
+from mayan.apps.forms import column_widgets
 from mayan.apps.logging.classes import ErrorLog, ErrorLogDomain
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 from mayan.apps.rest_api.fields import DynamicSerializerField
-from mayan.apps.views.column_widgets import TwoStateWidget
 
 from .classes import DocumentCreateWizardStep
 from .events import event_source_edited
@@ -116,6 +116,11 @@ class SourcesApp(MayanAppConfig):
             view='sources:source_list'
         )
 
+        ModelFieldRelated(model=Document, name='files__source_metadata__key')
+        ModelFieldRelated(
+            model=Document, name='files__source_metadata__value'
+        )
+
         ModelPermission.register(
             model=DocumentFile, permissions=(
                 permission_document_file_sources_metadata_view,
@@ -168,7 +173,7 @@ class SourcesApp(MayanAppConfig):
         )
         SourceColumn(
             attribute='enabled', include_label=True, is_sortable=True,
-            source=Source, widget=TwoStateWidget
+            source=Source, widget=column_widgets.TwoStateWidget
         )
 
         menu_documents.bind_links(

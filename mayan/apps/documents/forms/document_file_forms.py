@@ -1,8 +1,7 @@
-from django import forms
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext_lazy as _
 
-from mayan.apps.views.forms import DetailForm
+from mayan.apps.forms import form_widgets, forms
 
 from ..fields import DocumentFileField
 from ..models.document_file_models import DocumentFile
@@ -23,15 +22,13 @@ class DocumentFilePreviewForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['document_file'].initial = document_file
         self.fields['document_file'].widget.attrs.update(
-            {
-                'transformation_instance_list': transformation_instance_list
-            }
+            {'transformation_instance_list': transformation_instance_list}
         )
 
     document_file = DocumentFileField()
 
 
-class DocumentFilePropertiesForm(DetailForm):
+class DocumentFilePropertiesForm(forms.DetailForm):
     """
     Detail class form to display a document file properties
     """
@@ -60,7 +57,7 @@ class DocumentFilePropertiesForm(DetailForm):
             {
                 'label': _(message='Date added'),
                 'field': 'timestamp',
-                'widget': forms.widgets.DateTimeInput
+                'widget': form_widgets.DateTimeInput
             },
             {
                 'label': _(message='MIME type'),

@@ -2,14 +2,14 @@ from django.apps import apps
 from django.utils.translation import gettext_lazy as _
 
 from mayan.apps.acls.classes import ModelPermission
-from mayan.apps.common.apps import MayanAppConfig
+from mayan.apps.app_manager.apps import MayanAppConfig
 from mayan.apps.common.menus import (
     menu_list_facet, menu_main, menu_multi_item, menu_secondary
 )
 from mayan.apps.dashboards.dashboards import dashboard_administrator
 from mayan.apps.databases.classes import ModelQueryFields
 from mayan.apps.events.classes import ModelEventType
-from mayan.apps.navigation.classes import SourceColumn
+from mayan.apps.navigation.source_columns import SourceColumn
 
 from .dashboard_widgets import DashboardWidgetTotalCheckouts
 from .events import (

@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Translators:
-# Roberto Rosario, 2024
-# Stefaniu Criste <gupi@hangar.ro>, 2024
-# Harald Ersch, 2024
+# Stefaniu Criste <gupi@hangar.ro>, 2026
+# Roberto Rosario, 2026
+# Harald Ersch, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Mayan EDMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-04 06:21+0000\n"
-"PO-Revision-Date: 2024-05-07 07:30+0000\n"
-"Last-Translator: Harald Ersch, 2024\n"
+"POT-Creation-Date: 2026-02-25 20:33+0000\n"
+"PO-Revision-Date: 2026-02-25 20:34+0000\n"
+"Last-Translator: Harald Ersch, 2026\n"
 "Language-Team: Romanian (Romania) (https://app.transifex.com/rosarior/teams/13584/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,58 +22,74 @@ msgstr ""
 "Language: ro_RO\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
-#: apps.py:27 permissions.py:6
+#: apps.py:29 permissions.py:6
 msgid "Smart settings"
 msgstr "Setări inteligente"
 
-#: apps.py:37
+#: apps.py:39
 msgid "Setting count"
 msgstr "Numărul setării"
 
-#: apps.py:43
+#: apps.py:45
 msgid "Name"
 msgstr "Nume"
 
-#: apps.py:47 forms.py:30
+#: apps.py:49 forms.py:30 models.py:12
 msgid "Value"
 msgstr "Valoare"
 
-#: classes.py:318
-msgid "Settings namespace"
-msgstr "Setări spațiu de nume"
+#: classes.py:143
+#, python-format
+msgid ""
+"Error validating value `%(value)s` for setting `%(global_name)s`; "
+"%(exception)s"
+msgstr ""
 
-#: classes.py:496
-msgid "Choices"
-msgstr "Alegeri"
+#: classes.py:180
+msgid "Has errors"
+msgstr "Are erori"
 
-#: classes.py:498
-msgid "Possible values allowed for this setting."
-msgstr "Valori posibile permise pentru această setare."
+#: classes.py:182
+msgid ""
+"Indicates that this setting was not loaded correctly. Settings with errors "
+"revert to their default value."
+msgstr ""
+"Indică faptul că această setare nu a fost încărcată corect. Setările cu "
+"erori revin la valoarea implicită."
 
-#: classes.py:519
-msgid "Cannot revert setting. Setting value has not been updated."
-msgstr "Nu se poate reveni la setare. Valoarea setării nu a fost actualizată."
-
-#: classes.py:556
-msgid "Default"
-msgstr "Implicit"
-
-#: classes.py:569
+#: classes.py:190
 msgid "Modified"
 msgstr "Modificat"
 
-#: classes.py:571
-msgid "The value of this setting being modified since the last restart."
-msgstr "Valoarea acestei setări a fost modificată de la ultima repornire."
+#: classes.py:192
+msgid "The value of this setting has been modified since the last restart."
+msgstr ""
 
-#: classes.py:577
+#: classes.py:208
 msgid "Overridden"
 msgstr "Suprascris"
 
-#: classes.py:579
+#: classes.py:210
 msgid ""
-"The value of the setting is being overridden by an environment variable."
-msgstr "Valoarea setării este suprascrisă de o variabilă de mediu."
+"The value of the setting is being overridden from its default. If the source"
+" of the change is an environment variable, changing its value via the user "
+"interface will not have any effect."
+msgstr ""
+
+#: classes.py:219
+msgid "Choices"
+msgstr "Alegeri"
+
+#: classes.py:221
+msgid "Possible values allowed for this setting."
+msgstr "Valori posibile permise pentru această setare."
+
+#: clusters.py:154
+#, python-format
+msgid ""
+"Error loading value for key `%(key)s` from domain `%(domain_name)s`; "
+"%(exception)s"
+msgstr ""
 
 #: forms.py:32
 msgid "Enter the new setting value."
@@ -88,7 +104,7 @@ msgstr "\"%s\" nu este o intrare validă."
 msgid "Save"
 msgstr "Salvează"
 
-#: links.py:39 links.py:56
+#: links.py:39 links.py:57
 msgid "Settings"
 msgstr "Setări"
 
@@ -100,11 +116,11 @@ msgstr "Editați"
 msgid "Revert"
 msgstr "Revenire"
 
-#: links.py:63
+#: links.py:64
 msgid "Namespaces"
 msgstr "Spații de nume"
 
-#: literals.py:47
+#: literals.py:48
 msgid ""
 "Local storage is currently disabled, changes to settings will not be saved. "
 "Instead, use environment variables to modify settings."
@@ -114,28 +130,24 @@ msgstr ""
 " setările."
 
 #: models.py:8
-msgid "A short text used as the tag name."
-msgstr "Un text scurt folosit ca nume de etichetă."
+msgid "A unique identifier."
+msgstr ""
 
 #: models.py:9
-msgid "Global name"
-msgstr "Nume global"
+msgid "Key"
+msgstr "Cheie"
 
-#: models.py:12
-msgid "New value"
-msgstr "Valoare nouă"
+#: models.py:16
+msgid "Updated stored setting"
+msgstr ""
 
-#: models.py:15
-msgid "Old value"
-msgstr "Valoare veche"
+#: models.py:17
+msgid "Updated stored settings"
+msgstr ""
 
-#: models.py:19
-msgid "Updated setting"
-msgstr "Setare actualizată"
-
-#: models.py:20
-msgid "Updated settings"
-msgstr "Setări actualizate"
+#: namespaces.py:128
+msgid "Settings namespace"
+msgstr "Setări spațiu de nume"
 
 #: permissions.py:10
 msgid "Edit settings"
@@ -145,11 +157,16 @@ msgstr "Editează setările"
 msgid "View settings"
 msgstr "Vedeți setările"
 
-#: settings.py:28
+#: setting_domains/environment_variables.py:35
+#, python-format
+msgid "Error interpreting environment variable: %s with value: %s; %s"
+msgstr ""
+
+#: settings.py:23
 msgid "Django"
 msgstr "Django"
 
-#: settings.py:33
+#: settings.py:28
 msgid ""
 "A list of strings representing the host/domain names that this site can "
 "serve. This is a security measure to prevent HTTP Host header attacks, which"
@@ -177,7 +194,7 @@ msgstr ""
 "middleware, dacă acest lucru trebuie să fie menționat mai întâi în "
 "MIDDLEWARE)."
 
-#: settings.py:50
+#: settings.py:45
 msgid ""
 "When set to True, if the request URL does not match any of the patterns in "
 "the URLconf and it doesn't end in a slash, an HTTP redirect is issued to the"
@@ -193,7 +210,7 @@ msgstr ""
 "POST. Setarea APPEND_SLASH este utilizată numai dacă este instalat "
 "CommonMiddleware (consultați Middleware). Consultați și PREPEND_WWW."
 
-#: settings.py:62
+#: settings.py:57
 msgid ""
 "The list of validators that are used to check the strength of user's "
 "passwords."
@@ -201,7 +218,7 @@ msgstr ""
 "Lista de validatori folosită pentru a verifica puterea parolelor "
 "utilizatorului."
 
-#: settings.py:69
+#: settings.py:64
 msgid ""
 "A list of authentication backend classes (as strings) to use when attempting"
 " to authenticate a user."
@@ -209,7 +226,14 @@ msgstr ""
 "O listă de clase de backend de autentificare (ca șiruri) de utilizat atunci "
 "când se încearcă autentificarea unui utilizator."
 
-#: settings.py:76
+#: settings.py:71
+msgid ""
+"A dictionary containing the settings for all caches to be used with Django. "
+"It is a nested dictionary whose contents maps cache aliases to a dictionary "
+"containing the options for an individual cache."
+msgstr ""
+
+#: settings.py:80
 msgid ""
 "Whether to use a secure cookie for the CSRF cookie. If this is set to True, "
 "the cookie will be marked as \"secure\", which means browsers may ensure "
@@ -223,7 +247,7 @@ msgstr ""
 "HTTPS. https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-"
 "CSRF_COOKIE_SECURE"
 
-#: settings.py:86
+#: settings.py:90
 msgid ""
 "A list of trusted origins for unsafe requests (e.g. POST). "
 "https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-"
@@ -233,7 +257,7 @@ msgstr ""
 "https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-"
 "CSRF_TRUSTED_ORIGINS"
 
-#: settings.py:93
+#: settings.py:97
 msgid ""
 "Whether to store the CSRF token in the user's session instead of in a "
 "cookie. https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-"
@@ -243,7 +267,7 @@ msgstr ""
 "un cookie. https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-"
 "CSRF_USE_SESSIONS"
 
-#: settings.py:100
+#: settings.py:104
 msgid ""
 "A dictionary containing the settings for all databases to be used with "
 "Django. It is a nested dictionary whose contents map a database alias to a "
@@ -258,7 +282,7 @@ msgstr ""
 "configureze o bază de date implicită; poate fi specificat orice număr de "
 "baze de date adiționale."
 
-#: settings.py:111
+#: settings.py:115
 msgid ""
 "Default: 2621440 (i.e. 2.5 MB). The maximum size in bytes that a request "
 "body may be before a SuspiciousOperation (RequestDataTooBig) is raised. The "
@@ -287,7 +311,7 @@ msgstr ""
 " posibil să efectuați o verificare similară la acel nivel. Consultați și "
 "FILE_UPLOAD_MAX_MEMORY_SIZE."
 
-#: settings.py:130
+#: settings.py:134
 msgid ""
 "Default: 'webmaster@localhost' Default email address to use for various "
 "automated correspondence from the site manager(s). This doesn't include "
@@ -298,7 +322,7 @@ msgstr ""
 "ului. Aceasta nu include mesajele de eroare trimise ADMINS și MANAGERS; "
 "pentru asta, vezi SERVER_EMAIL."
 
-#: settings.py:139
+#: settings.py:143
 msgid ""
 "Default: [] (Empty list). List of compiled regular expression objects "
 "representing User-Agent strings that are not allowed to visit any page, "
@@ -311,7 +335,7 @@ msgstr ""
 "lucru pentru roboți / crawlere rele. Acest lucru este folosit numai dacă "
 "este instalat CommonMiddleware (consultați Middleware)."
 
-#: settings.py:148
+#: settings.py:152
 msgid ""
 "Default: 'django.core.mail.backends.smtp.EmailBackend'. The backend to use "
 "for sending emails."
@@ -319,12 +343,12 @@ msgstr ""
 "Implicit: 'django.core.mail.backends.smtp.EmailBackend'. Backend-ul de "
 "utilizat pentru trimiterea de e-mailuri."
 
-#: settings.py:154
+#: settings.py:158
 msgid "Default: 'localhost'. The host to use for sending email."
 msgstr ""
 "Implicit: \"localhost\". Gazda de utilizat pentru trimiterea de e-mailuri."
 
-#: settings.py:160
+#: settings.py:164
 msgid ""
 "Default: '' (Empty string). Password to use for the SMTP server defined in "
 "EMAIL_HOST. This setting is used in conjunction with EMAIL_HOST_USER when "
@@ -336,7 +360,7 @@ msgstr ""
 " când se autentifică la serverul SMTP. Dacă oricare dintre aceste setări "
 "este goală, Django nu va încerca autentificarea."
 
-#: settings.py:170
+#: settings.py:174
 msgid ""
 "Default: '' (Empty string). Username to use for the SMTP server defined in "
 "EMAIL_HOST. If empty, Django won't attempt authentication."
@@ -344,12 +368,12 @@ msgstr ""
 "Implicit: '' (Șir gol). Utilizator de utilizat pentru serverul SMTP definit "
 "în EMAIL_HOST. Dacă este gol, Django nu va încerca autentificarea."
 
-#: settings.py:177
+#: settings.py:181
 msgid "Default: 25. Port to use for the SMTP server defined in EMAIL_HOST."
 msgstr ""
 "Implicit: 25. Portul de utilizat pentru serverul SMTP definit în EMAIL_HOST."
 
-#: settings.py:182
+#: settings.py:186
 msgid ""
 "Default: None. Specifies a timeout in seconds for blocking operations like "
 "the connection attempt."
@@ -357,7 +381,7 @@ msgstr ""
 "Implicit: Niciuna. Specifică un interval de timp în secunde pentru blocarea "
 "operațiilor, cum ar fi încercarea de conectare."
 
-#: settings.py:188
+#: settings.py:192
 msgid ""
 "Default: False. Whether to use an implicit TLS (secure) connection when "
 "talking to the SMTP server. In most email documentation this type of TLS "
@@ -373,7 +397,7 @@ msgstr ""
 "EMAIL_USE_TLS. Rețineți că EMAIL_USE_TLS / EMAIL_USE_SSL se exclud reciproc,"
 " deci setați numai una dintre aceste setări la True."
 
-#: settings.py:198
+#: settings.py:202
 msgid ""
 "Default: False. Whether to use a TLS (secure) connection when talking to the"
 " SMTP server. This is used for explicit TLS connections, generally on port "
@@ -385,7 +409,7 @@ msgstr ""
 "explicite, în general pe portul 587. Dacă întâmpinați conexiuni suspendate, "
 "consultați setarea implicită TLS EMAIL_USE_SSL."
 
-#: settings.py:207
+#: settings.py:211
 msgid ""
 "Default: 2621440 (i.e. 2.5 MB). The maximum size (in bytes) that an upload "
 "will be before it gets streamed to the file system. See Managing files for "
@@ -396,7 +420,7 @@ msgstr ""
 "Consultați Gestionarea fișierelor pentru detalii. Consultați și "
 "DATA_UPLOAD_MAX_MEMORY_SIZE."
 
-#: settings.py:215
+#: settings.py:219
 msgid ""
 "Default: '/accounts/login/' The URL where requests are redirected for login,"
 " especially when using the login_required() decorator. This setting also "
@@ -411,7 +435,7 @@ msgstr ""
 "deoarece nu trebuie să definiți adresa URL în două locuri (setări și "
 "URLconf)."
 
-#: settings.py:226
+#: settings.py:230
 msgid ""
 "Default: '/accounts/profile/' The URL where requests are redirected after "
 "login when the contrib.auth.login view gets no next parameter. This is used "
@@ -427,7 +451,7 @@ msgstr ""
 "configurației, deoarece nu trebuie să definiți adresa URL în două locuri "
 "(setări și URLconf)."
 
-#: settings.py:237
+#: settings.py:241
 msgid ""
 "Default: None. The URL where requests are redirected after a user logs out "
 "using LogoutView (if the view doesn't get a next_page argument). If None, no"
@@ -444,7 +468,7 @@ msgstr ""
 "duplicarea configurației, deoarece nu trebuie să definiți adresa URL în două"
 " locuri (setări și URLconf)."
 
-#: settings.py:248
+#: settings.py:252
 msgid ""
 "A list of IP addresses, as strings, that: Allow the debug() context "
 "processor to add some variables to the template context. Can use the "
@@ -457,7 +481,7 @@ msgstr ""
 " Sunt marcate ca \"interne\" (spre deosebire de \"EXTERNAL\") în e-mailurile"
 " AdminEmailHandler."
 
-#: settings.py:257
+#: settings.py:261
 msgid ""
 "A list of all available languages. The list is a list of two-tuples in the "
 "format (language code, language name) for example, ('ja', 'Japanese'). This "
@@ -472,7 +496,7 @@ msgstr ""
 "dacă doriți să restricționați selectarea limbii pe un subset de limbi "
 "furnizate de Django."
 
-#: settings.py:268
+#: settings.py:272
 msgid ""
 "A string representing the language code for this installation. This should "
 "be in standard language ID format. For example, U.S. English is \"en-us\". "
@@ -493,7 +517,7 @@ msgstr ""
 "traducerea de rezervă atunci când o traducere pentru un cuvânt dat nu există"
 " pentru limba preferată a utilizatorului."
 
-#: settings.py:282
+#: settings.py:286
 msgid ""
 "Default: 'sessionid'. The name of the cookie to use for sessions.This can be"
 " whatever you want (as long as it's different from the other cookie names in"
@@ -503,7 +527,7 @@ msgstr ""
 "sesiuni. Acesta poate fi orice doriți (atât timp cât este diferit de "
 "celelalte nume cookie din aplicația dvs.)."
 
-#: settings.py:290
+#: settings.py:294
 msgid ""
 "Default: 'django.contrib.sessions.backends.db'. Controls where Django stores"
 " session data."
@@ -511,7 +535,7 @@ msgstr ""
 "Implicit: „django.contrib.sessions.backends.db”. Controlează locul în care "
 "Django stochează datele sesiunii."
 
-#: settings.py:297
+#: settings.py:301
 msgid ""
 "A tuple representing a HTTP header/value combination that signifies a "
 "request is secure. This controls the behavior of the request object’s "
@@ -524,7 +548,7 @@ msgstr ""
 "compromite securitatea site-ului. Asigurați-vă că înțelegeți complet "
 "configurarea dvs. înainte de a o schimba."
 
-#: settings.py:306
+#: settings.py:310
 msgid ""
 "URL to use when referring to static files located in STATIC_ROOT. Example: "
 "\"/static/\" or \"http://static.example.com/\" If not None, this will be "
@@ -538,7 +562,7 @@ msgstr ""
 "staticfiles. Trebuie să se încheie într-o bară, dacă este setată la o "
 "valoare care nu este goală."
 
-#: settings.py:316
+#: settings.py:320
 msgid ""
 "A dictionary containing the settings for all storages to be used with "
 "Django. It is a nested dictionary whose contents map a storage alias to a "
@@ -549,7 +573,7 @@ msgstr ""
 " alias de stocare la un dicționar care conține opțiuni pentru o stocare "
 "individuală."
 
-#: settings.py:324
+#: settings.py:328
 msgid ""
 "A string representing the time zone for this installation. Note that this "
 "isn't necessarily the time zone of the server. For example, one server may "
@@ -560,7 +584,7 @@ msgstr ""
 " servi mai multe site-uri cu putere Django, fiecare având o setare de fus "
 "orar separată."
 
-#: settings.py:333
+#: settings.py:337
 msgid ""
 "A boolean that specifies whether to use the X-Forwarded-Host header in "
 "preference to the Host header. This should only be enabled if a proxy which "
@@ -570,7 +594,7 @@ msgstr ""
 "preferință pentru antetul gazdă. Acest lucru ar trebui să fie activat numai "
 "dacă este utilizat un proxy care stabilește acest antet."
 
-#: settings.py:341
+#: settings.py:345
 msgid ""
 "A boolean that specifies whether to use the X-Forwarded-Port header in "
 "preference to the SERVER_PORT META variable. This should only be enabled if "
@@ -583,7 +607,7 @@ msgstr ""
 "stabilește acest antet. USE_X_FORWARDED_HOST are prioritate față de această "
 "setare."
 
-#: settings.py:350
+#: settings.py:354
 msgid ""
 "The full Python path of the WSGI application object that Django's built-in "
 "servers (e.g. runserver) will use. The django-admin startproject management "
@@ -607,78 +631,23 @@ msgstr ""
 "Setările aduse la zi. Salvați și reporniți instalarea pentru ca modificările"
 " să intre în vigoare."
 
-#: tests/test_classes.py:190
+#: tests/test_clusters.py:84
 msgid "English"
 msgstr "Engleză"
 
-#: views.py:41
+#: views/cluster_views.py:32
 msgid "This will overwrite the content of the configuration file."
 msgstr "Aceasta va suprascrie conținutul fișierului de configurare."
 
-#: views.py:44
+#: views/cluster_views.py:35
 msgid "Save settings to the configuration file?"
 msgstr "Salvați setările în fișierul de configurare?"
 
-#: views.py:52
+#: views/cluster_views.py:43
 msgid "Settings saved to configuration file successfully."
 msgstr "Setările au fost salvate în fișierul de configurare."
 
-#: views.py:60
-msgid "Setting namespaces"
-msgstr "Setarea spațiilor de nume"
-
-#: views.py:89
-msgid "Setting updated successfully."
-msgstr "Setarea a fost actualizată cu succes."
-
-#: views.py:98
-msgid ""
-"This setting is overridden by an environment variable, changing its value "
-"will have no effect."
-msgstr ""
-"Această setare este suprascrisă de o variabilă de mediu, modificarea valorii"
-" acesteia nu va avea niciun efect."
-
-#: views.py:108
-#, python-format
-msgid "Edit setting: %s"
-msgstr "Editați setarea: %s"
-
-#: views.py:129
-#, python-format
-msgid "%(count)d settings value reverted."
-msgstr "Valoarea setărilor %(count)d a fost inversată."
-
-#: views.py:132
-#, python-format
-msgid "Value of setting \"%(object)s\" reverted."
-msgstr "Valoarea setarii  \" %(object)s \" a fost inversată."
-
-#: views.py:134
-#, python-format
-msgid "%(count)d setting value reverted."
-msgstr "Valoarea setării %(count)d a fost adusă la valoarea inițială."
-
-#: views.py:136
-#, python-format
-msgid "Revert the value of the %(count)d selected settings."
-msgstr ""
-
-#: views.py:138
-#, python-format
-msgid "Revert the value of setting: %(object)s"
-msgstr ""
-
-#: views.py:140
-#, python-format
-msgid "Revert the value of %(count)d selected setting."
-msgstr ""
-
-#: views.py:150
-msgid "Unsaved changes will be lost."
-msgstr "Modificările nesalvate se vor pierde."
-
-#: views.py:187
+#: views/namespace_views.py:24
 msgid ""
 "Settings inherited from an environment variable take precedence and cannot "
 "be changed in this view. "
@@ -686,12 +655,59 @@ msgstr ""
 "Setările moștenite de la o variabilă de mediu au prioritate și nu pot fi "
 "modificate în această vizualizare."
 
-#: views.py:190
+#: views/namespace_views.py:27
 #, python-format
 msgid "Settings in namespace: %s"
 msgstr "Setările din spațiul de nume: %s"
 
-#: views.py:200
+#: views/namespace_views.py:37
 #, python-format
 msgid "Namespace: %s, not found"
 msgstr "Spațiul de nume: %s, nu a fost găsit"
+
+#: views/namespace_views.py:50
+msgid "Setting namespaces"
+msgstr "Setarea spațiilor de nume"
+
+#: views/setting_views.py:39
+msgid "Setting updated successfully."
+msgstr "Setarea a fost actualizată cu succes."
+
+#: views/setting_views.py:50
+#, python-format
+msgid "Edit setting: %s"
+msgstr "Editați setarea: %s"
+
+#: views/setting_views.py:71
+#, python-format
+msgid "%(count)d settings value reverted."
+msgstr "Valoarea setărilor %(count)d a fost inversată."
+
+#: views/setting_views.py:74
+#, python-format
+msgid "Value of setting \"%(object)s\" reverted."
+msgstr "Valoarea setarii  \" %(object)s \" a fost inversată."
+
+#: views/setting_views.py:76
+#, python-format
+msgid "%(count)d setting value reverted."
+msgstr "Valoarea setării %(count)d a fost adusă la valoarea inițială."
+
+#: views/setting_views.py:78
+#, python-format
+msgid "Revert the value of the %(count)d selected settings."
+msgstr "Reveniți la valoarea setărilor selectate pentru %(count)d ."
+
+#: views/setting_views.py:80
+#, python-format
+msgid "Revert the value of setting: %(object)s"
+msgstr "Reveniți la valoarea setării: %(object)s"
+
+#: views/setting_views.py:82
+#, python-format
+msgid "Revert the value of %(count)d selected setting."
+msgstr "Reveniți la valoarea setării selectate %(count)d ."
+
+#: views/setting_views.py:92
+msgid "Unsaved changes will be lost."
+msgstr "Modificările nesalvate se vor pierde."
