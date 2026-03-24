@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:docker/Dockerfile.openshift
 # vim:set ft=dockerfile:
 
 ####
@@ -246,3 +247,5 @@ ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 
 EXPOSE 8000
 CMD ["run_all"]
+========
+>>>>>>>> origin/dev:docker/Dockerfile
