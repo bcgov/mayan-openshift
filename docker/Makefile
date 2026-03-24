@@ -44,6 +44,10 @@ docker-dockerfile-update: ## Update the Dockerfile file from the platform templa
 docker-dockerfile-update: copy-config-env
 	./manage.py platform_template docker_dockerfile > docker/Dockerfile
 
+docker-dockerfile-openshift-update: ## Update the OpenShift Dockerfile file from the platform template.
+docker-dockerfile-openshift-update: copy-config-env
+	./manage.py platform_template docker_dockerfile_openshift > docker/Dockerfile.openshift
+
 docker-docker-compose-update: ## Update the Docker Compose file from the platform template.
 docker-docker-compose-update: copy-config-env
 	./manage.py platform_template docker_docker_compose > docker/docker-compose.yml
@@ -88,6 +92,15 @@ docker-runtest-all: ## Executed the test suite in a test container.
 
 docker-compose-build:
 	docker-compose --file docker/docker-compose.yml --project-name mayan-edms build
+
+docker-build-openshift: ## Build a new OpenShift-compatible image locally.
+docker-build-openshift: docker-dockerfile-openshift-update docker-buildkitd-config-create
+	docker buildx rm mirrored || true
+	docker context rm tls-context || true
+	docker context create tls-context
+	docker buildx create --bootstrap --config /tmp/buildkitd.toml --driver docker-container --name mirrored --use tls-context
+	DOCKER_BUILDKIT=1 docker build --build-arg APT_PROXY=$(APT_PROXY) --build-arg PIP_INDEX_URL=$(PIP_INDEX_URL) --build-arg PIP_TRUSTED_HOST=$(PIP_TRUSTED_HOST) --build-arg HTTP_PROXY=$(HTTP_PROXY) --build-arg HTTPS_PROXY=$(HTTPS_PROXY) --builder mirrored --file docker/Dockerfile.openshift $(DOCKER_IMAGE_LABELS) --load --tag $(DOCKER_IMAGE_MAYAN_NAME):$(IMAGE_VERSION)-openshift .
+	docker buildx stop mirrored
 
 docker-compose-build-with-proxy: devpi-start
 	docker-compose --file docker/docker-compose.yml --project-name mayan-edms build --build-arg APT_PROXY=$(APT_PROXY) --build-arg PIP_INDEX_URL=$(PIP_INDEX_URL) --build-arg PIP_TRUSTED_HOST=$(PIP_TRUSTED_HOST) --build-arg HTTP_PROXY=$(HTTP_PROXY) --build-arg HTTPS_PROXY=$(HTTPS_PROXY)

@@ -448,6 +448,21 @@ class PlatformTemplateDockerfile(PlatformTemplate):
         )
 
 
+class PlatformTemplateDockerfileOpenShift(PlatformTemplate):
+    label = _(message='Template that generates an OpenShift Dockerfile file.')
+    name = 'docker_dockerfile_openshift'
+    template_name = 'platform/docker/dockerfile-openshift.tmpl'
+
+    def __init__(self):
+        self.variables = (
+            Variable(
+                name='DOCKER_LINUX_IMAGE_VERSION',
+                default=DOCKER_LINUX_IMAGE_VERSION,
+                environment_name='MAYAN_DOCKER_LINUX_IMAGE_VERSION'
+            ),
+        )
+
+
 class PlatformTemplateGitLabCI(PlatformTemplate):
     label = _(message='Template that generates a GitLab CI config file.')
     name = 'gitlab-ci'
@@ -702,6 +717,7 @@ PlatformTemplate.register(klass=PlatformTemplateDockerEntrypoint)
 PlatformTemplate.register(klass=PlatformTemplateDockerComposefile)
 PlatformTemplate.register(klass=PlatformTemplateDockerSupervisord)
 PlatformTemplate.register(klass=PlatformTemplateDockerfile)
+PlatformTemplate.register(klass=PlatformTemplateDockerfileOpenShift)
 PlatformTemplate.register(klass=PlatformTemplateGitLabCI)
 PlatformTemplate.register(klass=PlatformTemplateSupervisord)
 PlatformTemplate.register(klass=PlatformTemplateWorkerQueues)

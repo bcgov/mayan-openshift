@@ -42,3 +42,30 @@ class PlatformTemplateManagementCommandTestCase(
 
         stdout, stderr = self._call_test_management_command(*args)
         self.assertEqual(stdout, TEST_TEMPLATE_STRING_RENDER_ALT)
+
+    def test_platform_template_openshift_dockerfile_exists(self):
+        stdout, _ = self._call_test_management_command(
+            '--list'
+        )
+
+        self.assertIn(
+            member='docker_dockerfile_openshift', container=stdout
+        )
+
+    def test_platform_template_openshift_dockerfile_content(self):
+        stdout, _ = self._call_test_management_command(
+            'docker_dockerfile_openshift'
+        )
+
+        self.assertIn(
+            member='&& fix_permissions /opt/mayan-edms/bin',
+            container=stdout
+        )
+        self.assertIn(
+            member='&& chmod 777 /usr/local/bin/entrypoint.sh',
+            container=stdout
+        )
+        self.assertIn(
+            member='ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]',
+            container=stdout
+        )
